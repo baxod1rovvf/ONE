@@ -2,9 +2,10 @@
 // Pages load from the network first (so updates show up), falling back to the
 // cached copy; libraries, fonts and icons come from the cache first.
 // Sync requests to Supabase are never cached.
-const CACHE = "one-v3";
+const CACHE = "one-v4";
 const SHELL = [
-  "./One.html",
+  "./",
+  "./index.html",
   "./manifest.webmanifest",
   "./icons/icon-192.png",
   "./icons/icon-512.png",
@@ -43,7 +44,7 @@ self.addEventListener("fetch", (event) => {
           caches.open(CACHE).then((cache) => cache.put(req, copy));
           return res;
         })
-        .catch(() => caches.match(req, { ignoreSearch: true }).then((hit) => hit || caches.match("./One.html")))
+        .catch(() => caches.match(req, { ignoreSearch: true }).then((hit) => hit || caches.match("./index.html")))
     );
     return;
   }
