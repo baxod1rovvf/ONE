@@ -2830,6 +2830,457 @@ a.launch-tile__inner:active {
   }
 }
 
+/* ---------- Task progress (my own %) ---------- */
+.tprog {
+  position: relative;
+  flex: none;
+  align-self: center;
+}
+.tprog__btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  height: 28px;
+  padding: 0 8px;
+  border-radius: var(--r-sm);
+  color: var(--text-2);
+  font-size: var(--fs-xs);
+  transition: background var(--t-fast), color var(--t-fast);
+}
+.tprog__btn:hover,
+.tprog.is-open .tprog__btn {
+  background: var(--surface-3);
+  color: var(--text);
+}
+.tprog__bar {
+  width: 56px;
+  height: 6px;
+  border-radius: 99px;
+  background: var(--surface-3);
+  overflow: hidden;
+}
+.task:hover .tprog__bar {
+  background: var(--border-strong);
+}
+.tprog__fill {
+  display: block;
+  height: 100%;
+  border-radius: inherit;
+  background: var(--accent);
+  transition: width var(--t-med) var(--ease);
+}
+.tprog__btn.is-full .tprog__fill {
+  background: var(--success);
+}
+.tprog__pct {
+  min-width: 32px;
+  text-align: right;
+  font-weight: 500;
+}
+.tprog__pop {
+  position: absolute;
+  right: 0;
+  top: calc(100% + 6px);
+  z-index: 40;
+  width: 248px;
+  display: grid;
+  gap: 12px;
+  padding: 14px;
+  border-radius: var(--r-lg);
+  border: 1px solid var(--border);
+  background: var(--surface);
+  box-shadow: var(--shadow-lg);
+  animation: page-in var(--t-fast) var(--ease);
+}
+.tprog__pop-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: var(--fs-sm);
+  font-weight: 500;
+}
+.tprog__num-wrap {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  color: var(--text-2);
+}
+.input.tprog__num {
+  width: 64px;
+  height: 30px;
+  padding: 0 8px;
+  text-align: right;
+}
+.tprog__quick {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+.tprog__quick .chip {
+  flex: 1;
+  justify-content: center;
+  padding: 0 4px;
+}
+@media (max-width: 640px) {
+  .tprog__bar {
+    width: 32px;
+  }
+}
+
+/* ---------- Websites ---------- */
+.site-cats {
+  display: grid;
+  gap: 32px;
+}
+.site-cat__head {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 12px;
+}
+.site-cat__title {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 8px;
+  font-size: var(--fs-xl);
+  letter-spacing: -0.01em;
+}
+.site-cat__count {
+  font-size: var(--fs-sm);
+  font-weight: 500;
+  color: var(--text-3);
+}
+
+/* ---------- Category color swatches ---------- */
+.swatches {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+.swatch {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  background: radial-gradient(circle at 40% 35%, #fff 0%, #fff 30%, var(--sw) 100%);
+  border: 2px solid var(--sw);
+  transition: transform var(--t-fast), box-shadow var(--t-fast);
+}
+.swatch:hover {
+  transform: scale(1.08);
+}
+.swatch[aria-checked='true'] {
+  box-shadow: 0 0 0 3px var(--surface), 0 0 0 5px var(--sw);
+}
+.cat-dot {
+  flex: none;
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: radial-gradient(circle at 40% 35%, #fff 0%, var(--c) 90%);
+  box-shadow: 0 0 0 1.5px var(--c);
+}
+
+/* ---------- Ideas ---------- */
+.ideas {
+  display: grid;
+  grid-template-columns: 272px minmax(0, 1fr);
+  gap: 16px;
+  align-items: start;
+}
+.ideas-side {
+  display: grid;
+  gap: 12px;
+  padding: 16px;
+  position: sticky;
+  top: 76px;
+  max-height: clamp(440px, 70vh, 740px);
+  overflow: auto;
+}
+.ideas-side__back {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  justify-self: start;
+  padding: 4px 6px;
+  margin: -4px -6px 0;
+  border-radius: var(--r-sm);
+  color: var(--text-2);
+  font-size: var(--fs-sm);
+  font-weight: 500;
+}
+.ideas-side__back:hover {
+  color: var(--text);
+  background: var(--surface-2);
+}
+.ideas-side__card {
+  display: grid;
+  gap: 10px;
+  padding-bottom: 14px;
+  border-bottom: 1px solid var(--border);
+}
+.ideas-side__card:last-child {
+  border-bottom: 0;
+  padding-bottom: 0;
+}
+.ideas-side__card > .btn {
+  justify-self: start;
+}
+.ideas-side__title-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.ideas-side__title {
+  flex: 1;
+  min-width: 0;
+  font-size: var(--fs-xl);
+  line-height: 1.3;
+  overflow-wrap: anywhere;
+}
+.ideas-side__icon {
+  flex: none;
+  color: var(--warn);
+}
+.ideas-side__cat {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  justify-self: start;
+  padding: 3px 10px 3px 8px;
+  border-radius: 99px;
+  background: var(--surface-2);
+  font-size: var(--fs-sm);
+  font-weight: 500;
+}
+.ideas-side__cat:hover {
+  background: var(--surface-3);
+}
+.ideas-side__body {
+  font-size: var(--fs-md);
+  line-height: 1.55;
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+}
+.ideas-side__meta {
+  font-size: var(--fs-xs);
+  color: var(--text-2);
+}
+.ideas-side__actions {
+  display: flex;
+  gap: 8px;
+}
+.ideas-side__head {
+  display: grid;
+  gap: 2px;
+}
+.ideas-side__heading {
+  font-size: var(--fs-lg);
+}
+.ideas-side__list {
+  list-style: none;
+  margin: 0 -8px;
+  padding: 0;
+  display: grid;
+  gap: 2px;
+}
+.ideas-side__item {
+  width: 100%;
+  display: grid;
+  gap: 2px;
+  padding: 8px;
+  border-radius: var(--r-md);
+  text-align: left;
+  transition: background var(--t-fast);
+}
+.ideas-side__item:hover {
+  background: var(--surface-2);
+}
+.ideas-side__item--cat {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.ideas-side__item-title {
+  flex: 1;
+  min-width: 0;
+  font-size: var(--fs-md);
+  font-weight: 500;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.ideas-side__item-sub {
+  font-size: var(--fs-xs);
+  color: var(--text-2);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.ideas-side__count {
+  font-size: var(--fs-sm);
+  color: var(--text-2);
+}
+.ideas-side__empty {
+  font-size: var(--fs-sm);
+  color: var(--text-2);
+}
+.ideas-side__new {
+  justify-self: start;
+}
+
+.igraph {
+  position: relative;
+  height: clamp(440px, 70vh, 740px);
+  border-radius: var(--r-lg);
+  border: 1px solid var(--border);
+  background: radial-gradient(ellipse at 50% 20%, var(--surface) 0%, var(--surface-2) 100%);
+  overflow: hidden;
+}
+.igraph__svg {
+  display: block;
+  width: 100%;
+  height: 100%;
+  cursor: grab;
+  touch-action: none;
+  user-select: none;
+  -webkit-user-select: none;
+}
+.igraph__svg:active {
+  cursor: grabbing;
+}
+.igraph__edge {
+  stroke: var(--text-3);
+  stroke-opacity: 0.55;
+  stroke-width: 1.1;
+  animation: ig-fade 0.6s var(--ease) 0.2s both;
+  transition: stroke-opacity var(--t-fast);
+}
+.igraph__edge.is-dim {
+  stroke-opacity: 0.15;
+}
+.igraph__edge.is-active {
+  stroke: var(--text-2);
+  stroke-opacity: 1;
+  stroke-width: 1.6;
+}
+.igraph__arrow {
+  fill: var(--text-3);
+}
+.igraph__node {
+  cursor: pointer;
+  outline: none;
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: ig-pop 0.5s var(--ease) both;
+}
+.igraph__pos {
+  transition: opacity var(--t-med);
+}
+.igraph__pos.is-dim {
+  opacity: 0.3;
+}
+.igraph__dot {
+  stroke: var(--c);
+  stroke-width: 1.6;
+  transition: stroke-width var(--t-fast), filter var(--t-fast);
+}
+.igraph__node:hover .igraph__dot {
+  stroke-width: 3;
+  filter: brightness(1.06);
+}
+.igraph__node--hub .igraph__dot {
+  stroke-width: 3;
+}
+.igraph__node:focus-visible .igraph__dot {
+  stroke: var(--accent);
+  stroke-width: 3.5;
+}
+.igraph__halo {
+  fill: none;
+  stroke: var(--c);
+  stroke-width: 2;
+  stroke-opacity: 0.5;
+}
+.igraph__node.is-selected .igraph__dot {
+  stroke-width: 3.5;
+}
+.igraph__label {
+  font-family: var(--font);
+  font-size: 11px;
+  font-weight: 500;
+  fill: var(--text);
+  stroke: var(--surface-2);
+  stroke-width: 3.5px;
+  stroke-linejoin: round;
+  paint-order: stroke;
+  pointer-events: none;
+}
+.igraph__label--hub {
+  font-size: 13.5px;
+  font-weight: 650;
+}
+.igraph__hub-count {
+  font-family: var(--font);
+  font-size: 13px;
+  font-weight: 650;
+  fill: #26282c;
+  pointer-events: none;
+}
+.igraph__controls {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  display: grid;
+  gap: 6px;
+}
+.igraph__controls .icon-btn {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  box-shadow: var(--shadow-sm);
+}
+.igraph__hint {
+  position: absolute;
+  left: 14px;
+  bottom: 10px;
+  font-size: var(--fs-xs);
+  color: var(--text-3);
+  pointer-events: none;
+}
+@keyframes ig-pop {
+  from {
+    opacity: 0;
+    transform: scale(0.3);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+@keyframes ig-fade {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+@media (max-width: 900px) {
+  .ideas {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .ideas-side {
+    position: static;
+    max-height: none;
+  }
+  .igraph {
+    height: clamp(360px, 60vh, 560px);
+    grid-row: 1;
+  }
+  .igraph__hint {
+    display: none;
+  }
+}
+
   </style>
 </head>
 <body>
@@ -3495,6 +3946,27 @@ a.launch-tile__inner:active {
     ["path", { d: "M18 6 6 18", key: "1bl5f8" }],
     ["path", { d: "m6 6 12 12", key: "d8bk6v" }]
   ]);
+  const Globe = createLucideIcon("Globe", [
+    ["circle", { cx: "12", cy: "12", r: "10", key: "1mglay" }],
+    ["path", { d: "M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20", key: "13o1zl" }],
+    ["path", { d: "M2 12h20", key: "9i4pu4" }]
+  ]);
+  const Lightbulb = createLucideIcon("Lightbulb", [
+    ["path", { d: "M15 14c.2-1 .7-1.7 1.5-2.5 1-.9 1.5-2.2 1.5-3.5A6 6 0 0 0 6 8c0 1 .2 2.2 1.5 3.5.7.7 1.3 1.5 1.5 2.5", key: "1gvzjb" }],
+    ["path", { d: "M9 18h6", key: "x1upvd" }],
+    ["path", { d: "M10 22h4", key: "ceow96" }]
+  ]);
+  const FolderPlus = createLucideIcon("FolderPlus", [
+    ["path", { d: "M12 10v6", key: "1bos4e" }],
+    ["path", { d: "M9 13h6", key: "1uhe8q" }],
+    ["path", { d: "M20 20a2 2 0 0 0 2-2V8a2 2 0 0 0-2-2h-7.9a2 2 0 0 1-1.69-.9L9.6 3.9A2 2 0 0 0 7.93 3H4a2 2 0 0 0-2 2v13a2 2 0 0 0 2 2Z", key: "1kt360" }]
+  ]);
+  const Maximize = createLucideIcon("Maximize", [
+    ["path", { d: "M8 3H5a2 2 0 0 0-2 2v3", key: "1dcmit" }],
+    ["path", { d: "M21 8V5a2 2 0 0 0-2-2h-3", key: "1e4gt3" }],
+    ["path", { d: "M3 16v3a2 2 0 0 0 2 2h3", key: "wsl5sc" }],
+    ["path", { d: "M16 21h3a2 2 0 0 0 2-2v-3", key: "18trek" }]
+  ]);
   const KEY = "one.workspace.v1";
   function createBrowserStorage() {
     try {
@@ -3541,6 +4013,15 @@ a.launch-tile__inner:active {
     if (!x || typeof x !== "object") return false;
     const d = x;
     return d.version === 1 && ["tasks", "goals", "notes", "saved", "shortcuts", "recent"].every((k) => Array.isArray(d[k])) && typeof d.settings === "object" && d.settings !== null;
+  }
+  const IDEA_COLORS = ["#8fd16a", "#ef7b6f", "#62a6f0", "#b48cf0", "#efb94f", "#4cc7b5"];
+  const EXTRA_COLLECTIONS = ["websiteCategories", "ideaCategories", "ideas"];
+  function withDefaults(d) {
+    const out = { ...d };
+    EXTRA_COLLECTIONS.forEach((k) => {
+      if (!Array.isArray(out[k])) out[k] = [];
+    });
+    return out;
   }
   const pad = (n2) => String(n2).padStart(2, "0");
   function toISODate(d) {
@@ -3656,14 +4137,39 @@ a.launch-tile__inner:active {
       { id: sid(), title: "Typography in 10 minutes", url: "https://practicaltypography.com/typography-in-ten-minutes.html", category: "Design", createdAt: ago(60 * 24 * 2), sample: true },
       { id: sid(), title: "MDN: CSS Grid layout", url: "https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_grid_layout", category: "Reference", createdAt: ago(60 * 24 * 9), sample: true }
     ];
-    const shortcuts = [
-      { id: sid(), name: "Gmail", url: "https://mail.google.com", inSpaces: false, createdAt: ago(60 * 24 * 10), sample: true },
-      { id: sid(), name: "Calendar", url: "https://calendar.google.com", inSpaces: false, createdAt: ago(60 * 24 * 10), sample: true },
-      { id: sid(), name: "GitHub", url: "https://github.com", inSpaces: true, createdAt: ago(60 * 24 * 10), sample: true },
-      { id: sid(), name: "Figma", url: "https://www.figma.com", inSpaces: true, createdAt: ago(60 * 24 * 10), sample: true },
-      { id: sid(), name: "Portfolio", url: "https://example.com", inSpaces: true, createdAt: ago(60 * 24 * 10), sample: true },
-      { id: sid(), name: "YouTube", url: "https://www.youtube.com", inSpaces: false, createdAt: ago(60 * 24 * 10), sample: true }
+    const websiteCategories = [
+      { id: sid(), name: "Every day", createdAt: ago(60 * 24 * 10), sample: true },
+      { id: sid(), name: "Work", createdAt: ago(60 * 24 * 10), sample: true }
     ];
+    const [daily, work] = websiteCategories.map((c) => c.id);
+    const shortcuts = [
+      { id: sid(), name: "Gmail", url: "https://mail.google.com", inSpaces: false, categoryId: daily, createdAt: ago(60 * 24 * 10), sample: true },
+      { id: sid(), name: "Calendar", url: "https://calendar.google.com", inSpaces: false, categoryId: daily, createdAt: ago(60 * 24 * 10), sample: true },
+      { id: sid(), name: "GitHub", url: "https://github.com", inSpaces: true, categoryId: work, createdAt: ago(60 * 24 * 10), sample: true },
+      { id: sid(), name: "Figma", url: "https://www.figma.com", inSpaces: true, categoryId: work, createdAt: ago(60 * 24 * 10), sample: true },
+      { id: sid(), name: "Portfolio", url: "https://example.com", inSpaces: true, categoryId: work, createdAt: ago(60 * 24 * 10), sample: true },
+      { id: sid(), name: "YouTube", url: "https://www.youtube.com", inSpaces: false, categoryId: daily, createdAt: ago(60 * 24 * 10), sample: true }
+    ];
+    const ideaCategories = [
+      { id: sid(), name: "Business", color: IDEA_COLORS[0], createdAt: ago(60 * 24 * 30), sample: true },
+      { id: sid(), name: "Content", color: IDEA_COLORS[2], createdAt: ago(60 * 24 * 30), sample: true },
+      { id: sid(), name: "Life", color: IDEA_COLORS[3], createdAt: ago(60 * 24 * 30), sample: true }
+    ];
+    const ideaSeed = [
+      [0, "Weekend coffee cart", "Rent a small cart for the Saturday market. Test demand for 4 weekends before buying anything."],
+      [0, "Freelance design packages", "Three fixed-price packages instead of hourly rates."],
+      [0, "Local delivery app", ""],
+      [0, "Sell notion templates", "Start with the planner I already use."],
+      [0, "Tutoring online", "Math for high-school students, two evenings a week."],
+      [1, "Weekly study vlog", "Short, honest, 5 minutes max."],
+      [1, "Thread: what I learned this year", ""],
+      [1, "Podcast with friends", "One topic per episode, record on Sundays."],
+      [1, "Photo series: city at night", "Use the good camera. 20 photos, one walk."],
+      [2, "Learn to cook 10 dishes", "One new dish every weekend."],
+      [2, "Morning routine", "Wake 6:30, water, 20 min walk, plan the day."],
+      [2, "Trip to the mountains in spring", ""]
+    ];
+    const ideas = ideaSeed.map(([c, title, body], i) => ({ id: sid(), categoryId: ideaCategories[c].id, title, body, createdAt: ago(60 * (i * 9 + 30)), sample: true }));
     const goals = [
       {
         id: sid(),
@@ -3712,6 +4218,9 @@ a.launch-tile__inner:active {
       notes,
       saved,
       shortcuts,
+      websiteCategories,
+      ideaCategories,
+      ideas,
       recent: [
         { kind: "note", id: notes[0].id, at: ago(40) },
         { kind: "saved", id: saved[0].id, at: ago(180) },
@@ -3729,6 +4238,9 @@ a.launch-tile__inner:active {
       notes: [],
       saved: [],
       shortcuts: [],
+      websiteCategories: [],
+      ideaCategories: [],
+      ideas: [],
       recent: [],
       settings: settings ?? { name: "", theme: "system", sidebarCollapsed: false, sampleBannerDismissed: true }
     };
@@ -3772,10 +4284,24 @@ a.launch-tile__inner:active {
         const rest = state.recent.filter((r) => !(r.id === action.id && r.kind === action.kind));
         return { ...state, recent: [{ kind: action.kind, id: action.id, at: (/* @__PURE__ */ new Date()).toISOString() }, ...rest].slice(0, 12) };
       }
+      case "removeGroup": {
+        const gone = new Set(state[action.itemCollection].filter((it) => it.categoryId === action.id).map((it) => it.id));
+        return {
+          ...state,
+          [action.catCollection]: state[action.catCollection].filter((c) => c.id !== action.id),
+          [action.itemCollection]: state[action.itemCollection].filter((it) => !gone.has(it.id)),
+          recent: state.recent.filter((r) => !gone.has(r.id))
+        };
+      }
+      case "restoreGroup": {
+        const cats = [...state[action.catCollection]];
+        cats.splice(Math.min(action.index, cats.length), 0, action.cat);
+        return { ...state, [action.catCollection]: cats, [action.itemCollection]: [...state[action.itemCollection], ...action.items] };
+      }
       case "settings":
         return { ...state, settings: { ...state.settings, ...action.patch } };
       case "replace":
-        return action.data;
+        return withDefaults(action.data);
       case "removeSamples": {
         const keep = (xs) => xs.filter((x) => !x.sample);
         const next = {
@@ -3785,8 +4311,12 @@ a.launch-tile__inner:active {
           notes: keep(state.notes),
           saved: keep(state.saved),
           shortcuts: keep(state.shortcuts),
+          ideas: keep(state.ideas),
           settings: { ...state.settings, sampleBannerDismissed: true }
         };
+        const keepCats = (cats, items) => cats.filter((c) => !c.sample || items.some((it) => it.categoryId === c.id));
+        next.ideaCategories = keepCats(state.ideaCategories, next.ideas);
+        next.websiteCategories = keepCats(state.websiteCategories, next.shortcuts);
         const ids = new Set([...next.notes, ...next.saved, ...next.shortcuts, ...next.goals].map((x) => x.id));
         next.recent = state.recent.filter((r) => ids.has(r.id));
         return next;
@@ -3795,7 +4325,8 @@ a.launch-tile__inner:active {
   }
   const StoreContext = React2.createContext(null);
   function initialData(adapter) {
-    return adapter.load() ?? createSampleData();
+    const loaded = adapter.load();
+    return loaded ? withDefaults(loaded) : createSampleData();
   }
   function StoreProvider({ children }) {
     const adapterRef = React2.useRef(createBrowserStorage() ?? createMemoryStorage());
@@ -3831,6 +4362,16 @@ a.launch-tile__inner:active {
         if (item) dispatch({ type: "restore", collection, item, index });
       };
     }, []);
+    const removeGroup = React2.useCallback((catCollection, itemCollection, id) => {
+      const cats = dataRef.current[catCollection];
+      const index = cats.findIndex((c) => c.id === id);
+      const cat = cats[index];
+      const items = dataRef.current[itemCollection].filter((it) => it.categoryId === id);
+      dispatch({ type: "removeGroup", catCollection, itemCollection, id });
+      return () => {
+        if (cat) dispatch({ type: "restoreGroup", catCollection, itemCollection, cat, index, items });
+      };
+    }, []);
     const move = React2.useCallback((collection, id, toIndex) => dispatch({ type: "move", collection, id, toIndex }), []);
     const touch = React2.useCallback((kind, id) => dispatch({ type: "touch", kind, id }), []);
     const setSettings = React2.useCallback((patch) => dispatch({ type: "settings", patch }), []);
@@ -3841,7 +4382,7 @@ a.launch-tile__inner:active {
       []
     );
     const hasSamples = React2.useMemo(
-      () => [data.tasks, data.goals, data.notes, data.saved, data.shortcuts].some((xs) => xs.some((x) => x.sample)),
+      () => [data.tasks, data.goals, data.notes, data.saved, data.shortcuts, data.ideas, data.ideaCategories, data.websiteCategories].some((xs) => xs.some((x) => x.sample)),
       [data]
     );
     const api = React2.useMemo(
@@ -3852,6 +4393,7 @@ a.launch-tile__inner:active {
         add,
         update,
         remove,
+        removeGroup,
         move,
         touch,
         setSettings,
@@ -3860,7 +4402,7 @@ a.launch-tile__inner:active {
         resetToEmpty,
         hasSamples
       }),
-      [data, saveFailed, add, update, remove, move, touch, setSettings, replaceAll, removeSamples, resetToEmpty, hasSamples]
+      [data, saveFailed, add, update, remove, removeGroup, move, touch, setSettings, replaceAll, removeSamples, resetToEmpty, hasSamples]
     );
     return /* @__PURE__ */ React2.createElement(StoreContext.Provider, { value: api }, children);
   }
@@ -4225,19 +4767,27 @@ a.launch-tile__inner:active {
   }
   const ROUTES = [
     { id: "home", label: "Home", icon: House, description: "Your day at a glance" },
-    { id: "tasks", label: "My Tasks", icon: SquareCheckBig, description: "Everything you need to do" },
-    { id: "goals", label: "Goals", icon: Target, description: "Longer-term things you are working toward" },
-    { id: "knowledge", label: "Knowledge", icon: BookOpen, description: "Notes and ideas" },
-    { id: "saved", label: "Saved", icon: Bookmark, description: "Links, articles and videos to come back to" },
-    { id: "launchpad", label: "Launchpad", icon: Rocket, description: "Your websites and tools, one click away" }
+    { id: "tasks", label: "Tasks", icon: SquareCheckBig, description: "Everything you need to do, and how far along you are" },
+    { id: "websites", label: "Websites", icon: Globe, description: "Your favourite websites, sorted into categories" },
+    { id: "ideas", label: "Ideas", icon: Lightbulb, description: "Ideas grouped by category, shown as a map" },
+    { id: "saved", label: "Saved", icon: Bookmark, description: "Links, articles and videos to come back to" }
   ];
+  // Not in the sidebar any more, but Home still links to them and their data is kept.
+  const HIDDEN_ROUTES = [
+    { id: "goals", label: "Goals", icon: Target, description: "Longer-term things you are working toward" },
+    { id: "knowledge", label: "Notes", icon: BookOpen, description: "Notes and things worth remembering" }
+  ];
+  const ROUTE_ALIASES = { launchpad: "websites" };
+  function resolveRoute(r) {
+    return ROUTE_ALIASES[r] ?? r;
+  }
   const PREFERENCES_ROUTE = {
     id: "preferences",
     label: "Settings",
     icon: Settings,
     description: "Profile, appearance and your data"
   };
-  const ALL_ROUTES = [...ROUTES, PREFERENCES_ROUTE];
+  const ALL_ROUTES = [...ROUTES, ...HIDDEN_ROUTES, PREFERENCES_ROUTE];
   function isRouteId(x) {
     return ALL_ROUTES.some((r) => r.id === x);
   }
@@ -4250,10 +4800,12 @@ a.launch-tile__inner:active {
     const [dueTime, setDueTime] = React2.useState("");
     const [priority, setPriority] = React2.useState("none");
     const [label, setLabel] = React2.useState("");
+    const [percent, setPercent] = React2.useState(0);
     const [error, setError] = React2.useState(null);
     React2.useEffect(() => {
       if (!open) return;
       const src = task ?? defaults ?? {};
+      setPercent(src.percent ?? 0);
       setTitle(src.title ?? "");
       setDueDate(src.dueDate ?? "");
       setDueTime(src.dueTime ?? "");
@@ -4274,7 +4826,8 @@ a.launch-tile__inner:active {
         dueDate: dueDate || null,
         dueTime: dueDate && dueTime ? dueTime : null,
         priority,
-        label: label.trim()
+        label: label.trim(),
+        percent
       };
       if (task) {
         update("tasks", task.id, fields);
@@ -4323,7 +4876,7 @@ a.launch-tile__inner:active {
         { l: "Tomorrow", v: addDays(today, 1) },
         { l: "Next week", v: addDays(today, 7) },
         { l: "No date", v: "" }
-      ].map((o) => /* @__PURE__ */ React2.createElement("button", { key: o.l, type: "button", className: "chip", "aria-pressed": dueDate === o.v, onClick: () => setDueDate(o.v) }, o.l)))), /* @__PURE__ */ React2.createElement("div", { className: "form-row" }, /* @__PURE__ */ React2.createElement(Field, { label: "Date" }, (p) => /* @__PURE__ */ React2.createElement("input", { ...p, type: "date", className: "input", value: dueDate, onChange: (e) => setDueDate(e.target.value) })), /* @__PURE__ */ React2.createElement(Field, { label: "Time", hint: dueDate ? "Optional" : "Pick a date first" }, (p) => /* @__PURE__ */ React2.createElement("input", { ...p, type: "time", className: "input", value: dueTime, disabled: !dueDate, onChange: (e) => setDueTime(e.target.value) }))), /* @__PURE__ */ React2.createElement("div", { className: "form-row" }, /* @__PURE__ */ React2.createElement(Field, { label: "Priority" }, (p) => /* @__PURE__ */ React2.createElement("select", { ...p, className: "select", value: priority, onChange: (e) => setPriority(e.target.value) }, /* @__PURE__ */ React2.createElement("option", { value: "none" }, "None"), /* @__PURE__ */ React2.createElement("option", { value: "low" }, "Low"), /* @__PURE__ */ React2.createElement("option", { value: "medium" }, "Medium"), /* @__PURE__ */ React2.createElement("option", { value: "high" }, "High"))), /* @__PURE__ */ React2.createElement(Field, { label: "Label", hint: "Optional, e.g. Work" }, (p) => /* @__PURE__ */ React2.createElement(React2.Fragment, null, /* @__PURE__ */ React2.createElement("input", { ...p, className: "input", list: "task-labels", value: label, maxLength: 24, onChange: (e) => setLabel(e.target.value) }), /* @__PURE__ */ React2.createElement("datalist", { id: "task-labels" }, labels.map((l) => /* @__PURE__ */ React2.createElement("option", { key: l, value: l })))))))
+      ].map((o) => /* @__PURE__ */ React2.createElement("button", { key: o.l, type: "button", className: "chip", "aria-pressed": dueDate === o.v, onClick: () => setDueDate(o.v) }, o.l)))), /* @__PURE__ */ React2.createElement("div", { className: "form-row" }, /* @__PURE__ */ React2.createElement(Field, { label: "Date" }, (p) => /* @__PURE__ */ React2.createElement("input", { ...p, type: "date", className: "input", value: dueDate, onChange: (e) => setDueDate(e.target.value) })), /* @__PURE__ */ React2.createElement(Field, { label: "Time", hint: dueDate ? "Optional" : "Pick a date first" }, (p) => /* @__PURE__ */ React2.createElement("input", { ...p, type: "time", className: "input", value: dueTime, disabled: !dueDate, onChange: (e) => setDueTime(e.target.value) }))), /* @__PURE__ */ React2.createElement("div", { className: "form-row" }, /* @__PURE__ */ React2.createElement(Field, { label: "Priority" }, (p) => /* @__PURE__ */ React2.createElement("select", { ...p, className: "select", value: priority, onChange: (e) => setPriority(e.target.value) }, /* @__PURE__ */ React2.createElement("option", { value: "none" }, "None"), /* @__PURE__ */ React2.createElement("option", { value: "low" }, "Low"), /* @__PURE__ */ React2.createElement("option", { value: "medium" }, "Medium"), /* @__PURE__ */ React2.createElement("option", { value: "high" }, "High"))), /* @__PURE__ */ React2.createElement(Field, { label: "Label", hint: "Optional, e.g. Work" }, (p) => /* @__PURE__ */ React2.createElement(React2.Fragment, null, /* @__PURE__ */ React2.createElement("input", { ...p, className: "input", list: "task-labels", value: label, maxLength: 24, onChange: (e) => setLabel(e.target.value) }), /* @__PURE__ */ React2.createElement("datalist", { id: "task-labels" }, labels.map((l) => /* @__PURE__ */ React2.createElement("option", { key: l, value: l })))))), React2.createElement(Field, { label: `My progress: ${percent}%`, hint: "How much of this task you’ve done, in your own estimate." }, (p) => React2.createElement("input", { ...p, type: "range", className: "range", min: 0, max: 100, step: 5, value: percent, style: { ["--val"]: `${percent}%` }, onChange: (e) => setPercent(Number(e.target.value)) })))
     );
   }
   function useDeleteTask() {
@@ -4508,23 +5061,23 @@ a.launch-tile__inner:active {
   function ShortcutEditor({
     open,
     item,
-    defaultInSpaces,
+    defaultCategoryId,
     onClose
   }) {
-    const { add, update } = useStore();
+    const { add, update, data } = useStore();
     const toast = useToast();
     const del = useDeleteShortcut();
     const [name, setName] = React2.useState("");
     const [url, setUrl] = React2.useState("");
-    const [inSpaces, setInSpaces] = React2.useState(false);
+    const [categoryId, setCategoryId] = React2.useState("");
     const [urlError, setUrlError] = React2.useState(null);
     React2.useEffect(() => {
       if (!open) return;
       setName((item == null ? void 0 : item.name) ?? "");
       setUrl((item == null ? void 0 : item.url) ?? "");
-      setInSpaces((item == null ? void 0 : item.inSpaces) ?? !!defaultInSpaces);
+      setCategoryId((item ? item.categoryId : defaultCategoryId) ?? "");
       setUrlError(null);
-    }, [open, item, defaultInSpaces]);
+    }, [open, item, defaultCategoryId]);
     const submit = (e) => {
       e.preventDefault();
       const norm = normalizeUrl(url);
@@ -4532,13 +5085,13 @@ a.launch-tile__inner:active {
         setUrlError(url.trim() ? "That doesn’t look like a web address. Try something like github.com." : "Enter the website address.");
         return;
       }
-      const fields = { url: norm, name: name.trim() || titleFromUrl(norm), inSpaces };
+      const fields = { url: norm, name: name.trim() || titleFromUrl(norm), categoryId: categoryId || null };
       if (item) {
         update("shortcuts", item.id, fields);
-        toast({ message: "Shortcut updated", tone: "success" });
+        toast({ message: "Website updated", tone: "success" });
       } else {
-        add("shortcuts", { id: newId(), createdAt: (/* @__PURE__ */ new Date()).toISOString(), ...fields });
-        toast({ message: inSpaces ? "Shortcut added to Your Spaces" : "Shortcut added", tone: "success" });
+        add("shortcuts", { id: newId(), inSpaces: false, createdAt: (/* @__PURE__ */ new Date()).toISOString(), ...fields });
+        toast({ message: "Website added", tone: "success" });
       }
       onClose();
     };
@@ -4547,7 +5100,7 @@ a.launch-tile__inner:active {
       {
         open,
         onClose,
-        title: item ? "Edit shortcut" : "Add shortcut",
+        title: item ? "Edit website" : "Add website",
         footer: /* @__PURE__ */ React2.createElement(React2.Fragment, null, item && /* @__PURE__ */ React2.createElement(
           Button,
           {
@@ -4558,7 +5111,7 @@ a.launch-tile__inner:active {
             }
           },
           "Delete"
-        ), /* @__PURE__ */ React2.createElement("span", { className: "spacer" }), /* @__PURE__ */ React2.createElement(Button, { variant: "secondary", onClick: onClose }, "Cancel"), /* @__PURE__ */ React2.createElement(Button, { variant: "primary", type: "submit", form: "shortcut-form" }, item ? "Save" : "Add shortcut"))
+        ), /* @__PURE__ */ React2.createElement("span", { className: "spacer" }), /* @__PURE__ */ React2.createElement(Button, { variant: "secondary", onClick: onClose }, "Cancel"), /* @__PURE__ */ React2.createElement(Button, { variant: "primary", type: "submit", form: "shortcut-form" }, item ? "Save" : "Add website"))
       },
       /* @__PURE__ */ React2.createElement("form", { id: "shortcut-form", className: "form", onSubmit: submit, noValidate: true }, /* @__PURE__ */ React2.createElement(Field, { label: "Website", error: urlError }, (p) => /* @__PURE__ */ React2.createElement(
         "input",
@@ -4577,7 +5130,7 @@ a.launch-tile__inner:active {
             setUrlError(null);
           }
         }
-      )), /* @__PURE__ */ React2.createElement(Field, { label: "Name", hint: "Optional. Keep it short." }, (p) => /* @__PURE__ */ React2.createElement("input", { ...p, className: "input", value: name, maxLength: 28, onChange: (e) => setName(e.target.value) })), /* @__PURE__ */ React2.createElement("label", { className: "check-row" }, /* @__PURE__ */ React2.createElement("input", { type: "checkbox", checked: inSpaces, onChange: (e) => setInSpaces(e.target.checked) }), "Show in Your Spaces in the sidebar"))
+      )), /* @__PURE__ */ React2.createElement(Field, { label: "Name", hint: "Optional. Keep it short." }, (p) => /* @__PURE__ */ React2.createElement("input", { ...p, className: "input", value: name, maxLength: 28, onChange: (e) => setName(e.target.value) })), React2.createElement(Field, { label: "Category", hint: data.websiteCategories.length ? void 0 : "Create categories on the Websites page." }, (p) => React2.createElement("select", { ...p, className: "select", value: categoryId, onChange: (e) => setCategoryId(e.target.value) }, React2.createElement("option", { value: "" }, "No category"), data.websiteCategories.map((c) => React2.createElement("option", { key: c.id, value: c.id }, c.name)))))
     );
   }
   function useDeleteShortcut() {
@@ -4585,16 +5138,16 @@ a.launch-tile__inner:active {
     const confirm = useConfirm();
     const toast = useToast();
     return async (item) => {
-      const ok = await confirm({ title: "Remove this shortcut?", body: `"${item.name}" will be removed from Launchpad.`, confirmLabel: "Remove" });
+      const ok = await confirm({ title: "Remove this website?", body: `"${item.name}" will be removed from Websites.`, confirmLabel: "Remove" });
       if (!ok) return false;
       const undo = remove("shortcuts", item.id);
-      toast({ message: "Shortcut removed", tone: "neutral", action: { label: "Undo", onClick: undo } });
+      toast({ message: "Website removed", tone: "neutral", action: { label: "Undo", onClick: undo } });
       return true;
     };
   }
   const UIContext = React2.createContext(null);
   function readHash() {
-    const h = window.location.hash.replace(/^#/, "");
+    const h = resolveRoute(window.location.hash.replace(/^#/, ""));
     return isRouteId(h) ? h : "home";
   }
   function UIProvider({ children }) {
@@ -4604,12 +5157,14 @@ a.launch-tile__inner:active {
     const [searchOpen, setSearchOpen] = React2.useState(false);
     const [editor, setEditor] = React2.useState(null);
     const [noteToOpen, setNoteToOpen] = React2.useState(null);
+    const [ideaToOpen, setIdeaToOpen] = React2.useState(null);
     React2.useEffect(() => {
       const on = () => setRoute(readHash());
       window.addEventListener("hashchange", on);
       return () => window.removeEventListener("hashchange", on);
     }, []);
-    const navigate = React2.useCallback((r) => {
+    const navigate = React2.useCallback((to) => {
+      const r = resolveRoute(to);
       if (window.location.hash.replace(/^#/, "") !== r) {
         try {
           window.location.hash = r;
@@ -4636,15 +5191,23 @@ a.launch-tile__inner:active {
         editTask: (item, defaults) => setEditor({ type: "task", item, defaults }),
         editGoal: (item) => setEditor({ type: "goal", item }),
         editSaved: (item) => setEditor({ type: "saved", item }),
-        editShortcut: (item, inSpaces) => setEditor({ type: "shortcut", item, inSpaces }),
+        editShortcut: (item, categoryId) => setEditor({ type: "shortcut", item, categoryId }),
+        editCategory: (kind, item) => setEditor({ type: "category", kind, item }),
+        editIdea: (item, categoryId) => setEditor({ type: "idea", item, categoryId }),
         noteToOpen,
         openNote: (id) => {
           setNoteToOpen(id);
           navigate("knowledge");
         },
-        clearNoteToOpen: () => setNoteToOpen(null)
+        clearNoteToOpen: () => setNoteToOpen(null),
+        ideaToOpen,
+        openIdea: (id) => {
+          setIdeaToOpen(id);
+          navigate("ideas");
+        },
+        clearIdeaToOpen: () => setIdeaToOpen(null)
       }),
-      [route, navigate, captureOpen, captureKind, searchOpen, noteToOpen]
+      [route, navigate, captureOpen, captureKind, searchOpen, noteToOpen, ideaToOpen]
     );
     const close = () => setEditor(null);
     return /* @__PURE__ */ React2.createElement(UIContext.Provider, { value: api }, children, /* @__PURE__ */ React2.createElement(TaskEditor, { open: (editor == null ? void 0 : editor.type) === "task", task: (editor == null ? void 0 : editor.type) === "task" ? editor.item : null, defaults: (editor == null ? void 0 : editor.type) === "task" ? editor.defaults : void 0, onClose: close }), /* @__PURE__ */ React2.createElement(GoalEditor, { open: (editor == null ? void 0 : editor.type) === "goal", goal: (editor == null ? void 0 : editor.type) === "goal" ? editor.item : null, onClose: close }), /* @__PURE__ */ React2.createElement(SavedEditor, { open: (editor == null ? void 0 : editor.type) === "saved", item: (editor == null ? void 0 : editor.type) === "saved" ? editor.item : null, onClose: close }), /* @__PURE__ */ React2.createElement(
@@ -4652,10 +5215,20 @@ a.launch-tile__inner:active {
       {
         open: (editor == null ? void 0 : editor.type) === "shortcut",
         item: (editor == null ? void 0 : editor.type) === "shortcut" ? editor.item : null,
-        defaultInSpaces: (editor == null ? void 0 : editor.type) === "shortcut" ? editor.inSpaces : false,
+        defaultCategoryId: (editor == null ? void 0 : editor.type) === "shortcut" ? editor.categoryId : null,
         onClose: close
       }
-    ));
+    ), React2.createElement(CategoryEditor, {
+      open: (editor == null ? void 0 : editor.type) === "category",
+      kind: (editor == null ? void 0 : editor.type) === "category" ? editor.kind : "ideas",
+      item: (editor == null ? void 0 : editor.type) === "category" ? editor.item : null,
+      onClose: close
+    }), React2.createElement(IdeaEditor, {
+      open: (editor == null ? void 0 : editor.type) === "idea",
+      item: (editor == null ? void 0 : editor.type) === "idea" ? editor.item : null,
+      defaultCategoryId: (editor == null ? void 0 : editor.type) === "idea" ? editor.categoryId : null,
+      onClose: close
+    }));
   }
   function useUI() {
     const ctx = React2.useContext(UIContext);
@@ -4725,42 +5298,6 @@ a.launch-tile__inner:active {
     const today = todayISO();
     return data.tasks.filter((t) => !t.done && t.dueDate && t.dueDate <= today).length;
   }
-  function SpacesList({ onNavigate }) {
-    const { data, touch } = useStore();
-    const ui = useUI();
-    const spaces = data.shortcuts.filter((s) => s.inSpaces);
-    return /* @__PURE__ */ React2.createElement("div", { className: "spaces" }, spaces.map((s) => /* @__PURE__ */ React2.createElement(
-      "a",
-      {
-        key: s.id,
-        className: "spaces__item",
-        href: s.url,
-        target: "_blank",
-        rel: "noopener noreferrer",
-        title: `Open ${s.name}`,
-        onClick: () => {
-          touch("shortcut", s.id);
-          onNavigate == null ? void 0 : onNavigate();
-        }
-      },
-      /* @__PURE__ */ React2.createElement(Monogram, { name: s.name, size: "sm" }),
-      /* @__PURE__ */ React2.createElement("span", { className: "spaces__name nav__label" }, s.name),
-      /* @__PURE__ */ React2.createElement(ArrowUpRight, { size: 13, className: "ext", "aria-hidden": true })
-    )), /* @__PURE__ */ React2.createElement(
-      "button",
-      {
-        type: "button",
-        className: "spaces__item spaces__add",
-        title: "Add shortcut",
-        onClick: () => {
-          onNavigate == null ? void 0 : onNavigate();
-          ui.editShortcut(null, true);
-        }
-      },
-      /* @__PURE__ */ React2.createElement("span", { className: "plus", "aria-hidden": true }, /* @__PURE__ */ React2.createElement(Plus, { size: 12 })),
-      /* @__PURE__ */ React2.createElement("span", { className: "spaces__name nav__label" }, "Add shortcut")
-    ));
-  }
   function Sidebar({ collapsed, onToggleCollapse, theme, onToggleTheme }) {
     const ui = useUI();
     const { data } = useStore();
@@ -4779,7 +5316,7 @@ a.launch-tile__inner:active {
       },
       /* @__PURE__ */ React2.createElement(BrandMark, null),
       /* @__PURE__ */ React2.createElement("span", { className: "brand__word" }, "ONE")
-    ), /* @__PURE__ */ React2.createElement(IconButton, { label: collapsed ? "Expand sidebar" : "Collapse sidebar", size: "sm", onClick: onToggleCollapse, "aria-expanded": !collapsed }, collapsed ? /* @__PURE__ */ React2.createElement(PanelLeftOpen, { size: 16 }) : /* @__PURE__ */ React2.createElement(PanelLeftClose, { size: 16 }))), /* @__PURE__ */ React2.createElement("nav", { className: "nav", "aria-label": "Pages" }, ROUTES.map((r) => /* @__PURE__ */ React2.createElement(NavItem, { key: r.id, r, count: r.id === "tasks" ? todayCount : void 0 }))), /* @__PURE__ */ React2.createElement("div", { className: "sidebar__section" }, /* @__PURE__ */ React2.createElement("div", { className: "sidebar__heading" }, /* @__PURE__ */ React2.createElement("span", null, "Your Spaces")), /* @__PURE__ */ React2.createElement(SpacesList, null)), /* @__PURE__ */ React2.createElement("div", { className: "sidebar__bottom" }, /* @__PURE__ */ React2.createElement(NavItem, { r: PREFERENCES_ROUTE }), /* @__PURE__ */ React2.createElement("div", { className: "profile" }, /* @__PURE__ */ React2.createElement("button", { type: "button", className: "profile__btn", onClick: () => ui.navigate("preferences"), title: "Profile and settings" }, /* @__PURE__ */ React2.createElement("span", { className: "avatar", "aria-hidden": true }, (name[0] ?? "Y").toUpperCase()), /* @__PURE__ */ React2.createElement("span", { className: "profile__text" }, /* @__PURE__ */ React2.createElement("span", { className: "profile__name" }, name || "You"), /* @__PURE__ */ React2.createElement("span", { className: "profile__meta" }, "Saved on this device"))), /* @__PURE__ */ React2.createElement("span", { className: "theme-toggle-wrap" }, /* @__PURE__ */ React2.createElement(IconButton, { label: theme === "dark" ? "Switch to light theme" : "Switch to dark theme", size: "sm", onClick: onToggleTheme }, theme === "dark" ? /* @__PURE__ */ React2.createElement(Sun, { size: 16 }) : /* @__PURE__ */ React2.createElement(Moon, { size: 16 }))))));
+    ), /* @__PURE__ */ React2.createElement(IconButton, { label: collapsed ? "Expand sidebar" : "Collapse sidebar", size: "sm", onClick: onToggleCollapse, "aria-expanded": !collapsed }, collapsed ? /* @__PURE__ */ React2.createElement(PanelLeftOpen, { size: 16 }) : /* @__PURE__ */ React2.createElement(PanelLeftClose, { size: 16 }))), /* @__PURE__ */ React2.createElement("nav", { className: "nav", "aria-label": "Pages" }, ROUTES.map((r) => /* @__PURE__ */ React2.createElement(NavItem, { key: r.id, r, count: r.id === "tasks" ? todayCount : void 0 }))), /* @__PURE__ */ React2.createElement("div", { className: "sidebar__bottom" }, /* @__PURE__ */ React2.createElement(NavItem, { r: PREFERENCES_ROUTE }), /* @__PURE__ */ React2.createElement("div", { className: "profile" }, /* @__PURE__ */ React2.createElement("button", { type: "button", className: "profile__btn", onClick: () => ui.navigate("preferences"), title: "Profile and settings" }, /* @__PURE__ */ React2.createElement("span", { className: "avatar", "aria-hidden": true }, (name[0] ?? "Y").toUpperCase()), /* @__PURE__ */ React2.createElement("span", { className: "profile__text" }, /* @__PURE__ */ React2.createElement("span", { className: "profile__name" }, name || "You"), /* @__PURE__ */ React2.createElement("span", { className: "profile__meta" }, "Saved on this device"))), /* @__PURE__ */ React2.createElement("span", { className: "theme-toggle-wrap" }, /* @__PURE__ */ React2.createElement(IconButton, { label: theme === "dark" ? "Switch to light theme" : "Switch to dark theme", size: "sm", onClick: onToggleTheme }, theme === "dark" ? /* @__PURE__ */ React2.createElement(Sun, { size: 16 }) : /* @__PURE__ */ React2.createElement(Moon, { size: 16 }))))));
   }
   function Topbar() {
     const ui = useUI();
@@ -4809,12 +5346,12 @@ a.launch-tile__inner:active {
     { id: "home", label: "Home", icon: House },
     { id: "tasks", label: "Tasks", icon: SquareCheckBig }
   ];
-  const TABS_RIGHT = [{ id: "knowledge", label: "Knowledge", icon: BookOpen }];
+  const TABS_RIGHT = [{ id: "ideas", label: "Ideas", icon: Lightbulb }];
   function MobileNav({ theme, onToggleTheme }) {
     const ui = useUI();
     const [moreOpen, setMoreOpen] = React2.useState(false);
     React2.useEffect(() => setMoreOpen(false), [ui.route]);
-    const inMore = !["home", "tasks", "knowledge"].includes(ui.route);
+    const inMore = !["home", "tasks", "ideas"].includes(ui.route);
     const tab = (t) => /* @__PURE__ */ React2.createElement(
       "a",
       {
@@ -4830,7 +5367,7 @@ a.launch-tile__inner:active {
       /* @__PURE__ */ React2.createElement(t.icon, { size: 21, strokeWidth: ui.route === t.id ? 2.2 : 1.8, "aria-hidden": true }),
       t.label
     );
-    return /* @__PURE__ */ React2.createElement(React2.Fragment, null, /* @__PURE__ */ React2.createElement("nav", { className: "tabbar", "aria-label": "Pages" }, TABS.map(tab), /* @__PURE__ */ React2.createElement("button", { type: "button", className: "tabbar__capture", "aria-label": "Quick capture", onClick: () => ui.openCapture() }, /* @__PURE__ */ React2.createElement(Plus, { size: 24, strokeWidth: 2.4 })), TABS_RIGHT.map(tab), /* @__PURE__ */ React2.createElement("button", { type: "button", className: "tabbar__item", "aria-current": inMore ? "page" : void 0, "aria-haspopup": "dialog", onClick: () => setMoreOpen(true) }, /* @__PURE__ */ React2.createElement(Menu$1, { size: 21, strokeWidth: inMore ? 2.2 : 1.8, "aria-hidden": true }), "More")), /* @__PURE__ */ React2.createElement(Modal, { open: moreOpen, onClose: () => setMoreOpen(false), title: "Go to" }, /* @__PURE__ */ React2.createElement("div", { className: "more-list" }, ROUTES.map((r) => /* @__PURE__ */ React2.createElement(NavItem, { key: r.id, r, onNavigate: () => setMoreOpen(false) })), /* @__PURE__ */ React2.createElement(NavItem, { r: PREFERENCES_ROUTE, onNavigate: () => setMoreOpen(false) }), /* @__PURE__ */ React2.createElement("button", { type: "button", className: "nav__item", onClick: onToggleTheme }, theme === "dark" ? /* @__PURE__ */ React2.createElement(Sun, { size: 17, "aria-hidden": true }) : /* @__PURE__ */ React2.createElement(Moon, { size: 17, "aria-hidden": true }), /* @__PURE__ */ React2.createElement("span", { className: "nav__label" }, theme === "dark" ? "Light theme" : "Dark theme")), /* @__PURE__ */ React2.createElement("p", { className: "more-list__heading" }, "Your Spaces"), /* @__PURE__ */ React2.createElement(SpacesList, { onNavigate: () => setMoreOpen(false) }))));
+    return /* @__PURE__ */ React2.createElement(React2.Fragment, null, /* @__PURE__ */ React2.createElement("nav", { className: "tabbar", "aria-label": "Pages" }, TABS.map(tab), /* @__PURE__ */ React2.createElement("button", { type: "button", className: "tabbar__capture", "aria-label": "Quick capture", onClick: () => ui.openCapture() }, /* @__PURE__ */ React2.createElement(Plus, { size: 24, strokeWidth: 2.4 })), TABS_RIGHT.map(tab), /* @__PURE__ */ React2.createElement("button", { type: "button", className: "tabbar__item", "aria-current": inMore ? "page" : void 0, "aria-haspopup": "dialog", onClick: () => setMoreOpen(true) }, /* @__PURE__ */ React2.createElement(Menu$1, { size: 21, strokeWidth: inMore ? 2.2 : 1.8, "aria-hidden": true }), "More")), /* @__PURE__ */ React2.createElement(Modal, { open: moreOpen, onClose: () => setMoreOpen(false), title: "Go to" }, /* @__PURE__ */ React2.createElement("div", { className: "more-list" }, ROUTES.map((r) => /* @__PURE__ */ React2.createElement(NavItem, { key: r.id, r, onNavigate: () => setMoreOpen(false) })), /* @__PURE__ */ React2.createElement(NavItem, { r: PREFERENCES_ROUTE, onNavigate: () => setMoreOpen(false) }), /* @__PURE__ */ React2.createElement("button", { type: "button", className: "nav__item", onClick: onToggleTheme }, theme === "dark" ? /* @__PURE__ */ React2.createElement(Sun, { size: 17, "aria-hidden": true }) : /* @__PURE__ */ React2.createElement(Moon, { size: 17, "aria-hidden": true }), /* @__PURE__ */ React2.createElement("span", { className: "nav__label" }, theme === "dark" ? "Light theme" : "Dark theme")))));
   }
   const KINDS = [
     { value: "task", label: "Task", icon: SquareCheckBig, placeholder: "Call the dentist on Friday…" },
@@ -4986,7 +5523,8 @@ a.launch-tile__inner:active {
         { key: "a-note", group: "Create", title: "New note", icon: /* @__PURE__ */ React2.createElement(StickyNote, { size: 16 }), run: () => (close(), ui.openCapture("note")) },
         { key: "a-link", group: "Create", title: "Save a link", icon: /* @__PURE__ */ React2.createElement(Bookmark, { size: 16 }), run: () => (close(), ui.editSaved(null)) },
         { key: "a-goal", group: "Create", title: "New goal", icon: /* @__PURE__ */ React2.createElement(Target, { size: 16 }), run: () => (close(), ui.editGoal(null)) },
-        { key: "a-short", group: "Create", title: "Add shortcut", icon: /* @__PURE__ */ React2.createElement(Link2, { size: 16 }), run: () => (close(), ui.editShortcut(null)) }
+        { key: "a-short", group: "Create", title: "Add website", icon: /* @__PURE__ */ React2.createElement(Globe, { size: 16 }), run: () => (close(), ui.editShortcut(null)) },
+        { key: "a-idea", group: "Create", title: "New idea", icon: /* @__PURE__ */ React2.createElement(Lightbulb, { size: 16 }), run: () => (close(), ui.editIdea(null)) }
       ];
       if (!query) return [...pages, ...actions];
       const out = [];
@@ -5023,7 +5561,7 @@ a.launch-tile__inner:active {
       );
       data.shortcuts.forEach(
         (s) => push(
-          { key: `l-${s.id}`, group: "Launchpad", title: s.name, meta: hostOf(s.url), icon: /* @__PURE__ */ React2.createElement(Monogram, { name: s.name, size: "sm" }), href: s.url, run: () => (touch("shortcut", s.id), close()) },
+          { key: `l-${s.id}`, group: "Websites", title: s.name, meta: hostOf(s.url), icon: /* @__PURE__ */ React2.createElement(Monogram, { name: s.name, size: "sm" }), href: s.url, run: () => (touch("shortcut", s.id), close()) },
           score(query, s.name, s.url)
         )
       );
@@ -5033,7 +5571,14 @@ a.launch-tile__inner:active {
           score(query, g.title, g.description)
         )
       );
-      const order = ["Pages", "Create", "Tasks", "Notes", "Saved", "Launchpad", "Goals"];
+      data.ideas.forEach((idea) => {
+        const cat = data.ideaCategories.find((c) => c.id === idea.categoryId);
+        push(
+          { key: `i-${idea.id}`, group: "Ideas", title: idea.title, meta: cat == null ? void 0 : cat.name, icon: React2.createElement(Lightbulb, { size: 16 }), run: () => (close(), ui.openIdea(idea.id)) },
+          Math.max(score(query, idea.title), score(query, idea.body) ? 0.5 : 0)
+        );
+      });
+      const order = ["Pages", "Create", "Tasks", "Ideas", "Notes", "Saved", "Websites", "Goals"];
       return order.flatMap(
         (g) => out.filter((r) => r.group === g).sort((a, b) => b.s - a.s).slice(0, 6)
       );
@@ -5144,7 +5689,58 @@ a.launch-tile__inner:active {
       update("tasks", t.id, t.done ? { done: false, completedAt: null } : { done: true, completedAt: (/* @__PURE__ */ new Date()).toISOString() });
     };
   }
-  function TaskRow({ task, onToggle, hideToday, settling }) {
+  function TaskProgress({ task }) {
+    const { update } = useStore();
+    const [open, setOpen] = React2.useState(false);
+    const ref = React2.useRef(null);
+    const value = task.percent ?? 0;
+    React2.useEffect(() => {
+      if (!open) return;
+      const onDown = (e) => {
+        if (ref.current && !ref.current.contains(e.target)) setOpen(false);
+      };
+      const onKey = (e) => {
+        if (e.key === "Escape") setOpen(false);
+      };
+      document.addEventListener("pointerdown", onDown);
+      document.addEventListener("keydown", onKey);
+      return () => {
+        document.removeEventListener("pointerdown", onDown);
+        document.removeEventListener("keydown", onKey);
+      };
+    }, [open]);
+    const set = (v) => update("tasks", task.id, { percent: Math.max(0, Math.min(100, Math.round(Number(v) || 0))) });
+    return React2.createElement(
+      "div",
+      { className: `tprog${open ? " is-open" : ""}`, ref },
+      React2.createElement(
+        "button",
+        {
+          type: "button",
+          className: `tprog__btn${value >= 100 ? " is-full" : ""}`,
+          "aria-expanded": open,
+          "aria-label": `My progress on "${task.title}": ${value}%. Change`,
+          title: "Change my progress",
+          onClick: () => setOpen((v) => !v)
+        },
+        React2.createElement("span", { className: "tprog__bar", "aria-hidden": true }, React2.createElement("span", { className: "tprog__fill", style: { width: `${value}%` } })),
+        React2.createElement("span", { className: "tprog__pct num" }, value, "%")
+      ),
+      open && React2.createElement(
+        "div",
+        { className: "tprog__pop", role: "group", "aria-label": `My progress on "${task.title}"` },
+        React2.createElement(
+          "div",
+          { className: "tprog__pop-head" },
+          React2.createElement("span", null, "My progress"),
+          React2.createElement("span", { className: "tprog__num-wrap" }, React2.createElement("input", { type: "number", className: "input tprog__num num", min: 0, max: 100, value, "aria-label": "Percent done", onChange: (e) => set(e.target.value), autoFocus: true }), "%")
+        ),
+        React2.createElement("input", { type: "range", className: "range", min: 0, max: 100, step: 5, value, style: { ["--val"]: `${value}%` }, "aria-label": "Percent done", onChange: (e) => set(e.target.value) }),
+        React2.createElement("div", { className: "tprog__quick" }, [0, 25, 50, 75, 100].map((v) => React2.createElement("button", { key: v, type: "button", className: "chip", "aria-pressed": value === v, onClick: () => set(v) }, v, "%")))
+      )
+    );
+  }
+  function TaskRow({ task, onToggle, hideToday, settling, showProgress }) {
     const ui = useUI();
     const { update } = useStore();
     const del = useDeleteTask();
@@ -5152,7 +5748,7 @@ a.launch-tile__inner:active {
     const overdue = !task.done && task.dueDate && task.dueDate < today;
     const showDate = task.dueDate && !(hideToday && task.dueDate === today);
     const visuallyDone = task.done;
-    return /* @__PURE__ */ React2.createElement("li", { className: `task${visuallyDone ? " task--done" : ""}${settling ? " task--settling" : ""}` }, /* @__PURE__ */ React2.createElement(TaskCheck, { checked: task.done, onToggle: () => onToggle(task), label: task.title, priority: task.priority }), /* @__PURE__ */ React2.createElement("button", { type: "button", className: "task__main", onClick: () => ui.editTask(task), "aria-label": `Edit "${task.title}"` }, /* @__PURE__ */ React2.createElement("span", { className: "task__title" }, task.title), /* @__PURE__ */ React2.createElement("span", { className: "task__meta" }, task.dueTime && /* @__PURE__ */ React2.createElement("span", { className: "task__meta-item" }, /* @__PURE__ */ React2.createElement(Clock, { size: 12, "aria-hidden": true }), " ", formatTime(task.dueTime)), showDate && /* @__PURE__ */ React2.createElement("span", { className: `task__meta-item${overdue ? " is-overdue" : ""}` }, /* @__PURE__ */ React2.createElement(Calendar, { size: 12, "aria-hidden": true }), " ", overdue ? `Overdue · ${relativeDay(task.dueDate)}` : relativeDay(task.dueDate)), task.priority !== "none" && !task.done && /* @__PURE__ */ React2.createElement("span", { className: `task__meta-item prio prio--${task.priority}` }, /* @__PURE__ */ React2.createElement(Flag, { size: 12, "aria-hidden": true }), " ", task.priority[0].toUpperCase() + task.priority.slice(1)), task.label && /* @__PURE__ */ React2.createElement("span", { className: "task__label" }, task.label), task.sample && /* @__PURE__ */ React2.createElement(SampleBadge, null))), /* @__PURE__ */ React2.createElement(
+    return /* @__PURE__ */ React2.createElement("li", { className: `task${visuallyDone ? " task--done" : ""}${settling ? " task--settling" : ""}` }, /* @__PURE__ */ React2.createElement(TaskCheck, { checked: task.done, onToggle: () => onToggle(task), label: task.title, priority: task.priority }), /* @__PURE__ */ React2.createElement("button", { type: "button", className: "task__main", onClick: () => ui.editTask(task), "aria-label": `Edit "${task.title}"` }, /* @__PURE__ */ React2.createElement("span", { className: "task__title" }, task.title), /* @__PURE__ */ React2.createElement("span", { className: "task__meta" }, task.dueTime && /* @__PURE__ */ React2.createElement("span", { className: "task__meta-item" }, /* @__PURE__ */ React2.createElement(Clock, { size: 12, "aria-hidden": true }), " ", formatTime(task.dueTime)), showDate && /* @__PURE__ */ React2.createElement("span", { className: `task__meta-item${overdue ? " is-overdue" : ""}` }, /* @__PURE__ */ React2.createElement(Calendar, { size: 12, "aria-hidden": true }), " ", overdue ? `Overdue · ${relativeDay(task.dueDate)}` : relativeDay(task.dueDate)), task.priority !== "none" && !task.done && /* @__PURE__ */ React2.createElement("span", { className: `task__meta-item prio prio--${task.priority}` }, /* @__PURE__ */ React2.createElement(Flag, { size: 12, "aria-hidden": true }), " ", task.priority[0].toUpperCase() + task.priority.slice(1)), task.label && /* @__PURE__ */ React2.createElement("span", { className: "task__label" }, task.label), task.sample && /* @__PURE__ */ React2.createElement(SampleBadge, null))), showProgress && React2.createElement(TaskProgress, { task }), /* @__PURE__ */ React2.createElement(
       Menu,
       {
         label: `Actions for "${task.title}"`,
@@ -5322,7 +5918,7 @@ a.launch-tile__inner:active {
       const undos = groups.done.map((t) => remove("tasks", t.id));
       toast({ message: `Deleted ${n2} completed ${n2 === 1 ? "task" : "tasks"}`, tone: "neutral", action: { label: "Undo", onClick: () => undos.reverse().forEach((u) => u()) } });
     };
-    return /* @__PURE__ */ React2.createElement(React2.Fragment, null, /* @__PURE__ */ React2.createElement("div", { className: "page-head" }, /* @__PURE__ */ React2.createElement("div", { className: "page-head__text" }, /* @__PURE__ */ React2.createElement("h1", { className: "page-title" }, "My Tasks"), /* @__PURE__ */ React2.createElement("p", { className: "page-desc" }, "Plan the day, and keep everything else out of the way until it’s time.")), /* @__PURE__ */ React2.createElement(Button, { variant: "primary", icon: /* @__PURE__ */ React2.createElement(Plus, { size: 16, strokeWidth: 2.4 }), onClick: () => ui.editTask(null, newTaskDefaults) }, "New task")), /* @__PURE__ */ React2.createElement("div", { className: "toolbar" }, /* @__PURE__ */ React2.createElement(
+    return /* @__PURE__ */ React2.createElement(React2.Fragment, null, /* @__PURE__ */ React2.createElement("div", { className: "page-head" }, /* @__PURE__ */ React2.createElement("div", { className: "page-head__text" }, /* @__PURE__ */ React2.createElement("h1", { className: "page-title" }, "Tasks"), /* @__PURE__ */ React2.createElement("p", { className: "page-desc" }, "Plan the day, and track how far along you are on each task.")), /* @__PURE__ */ React2.createElement(Button, { variant: "primary", icon: /* @__PURE__ */ React2.createElement(Plus, { size: 16, strokeWidth: 2.4 }), onClick: () => ui.editTask(null, newTaskDefaults) }, "New task")), /* @__PURE__ */ React2.createElement("div", { className: "toolbar" }, /* @__PURE__ */ React2.createElement(
       Segmented,
       {
         label: "Task view",
@@ -5335,14 +5931,14 @@ a.launch-tile__inner:active {
           { value: "done", label: "Done", icon: /* @__PURE__ */ React2.createElement(CircleCheck, { size: 14, "aria-hidden": true }), count: counts.done }
         ]
       }
-    ), view === "done" && groups.done.length > 0 && /* @__PURE__ */ React2.createElement(Button, { size: "sm", variant: "ghost", icon: /* @__PURE__ */ React2.createElement(Trash2, { size: 14 }), onClick: clearDone }, "Clear completed")), /* @__PURE__ */ React2.createElement("section", { className: "panel panel--flush", "aria-label": `${view} tasks` }, view === "today" && /* @__PURE__ */ React2.createElement(TodayView, { list: groups.todayList, today, toggle, settling }), view === "upcoming" && /* @__PURE__ */ React2.createElement(UpcomingView, { list: groups.upcoming, today, toggle, settling }), view === "anytime" && /* @__PURE__ */ React2.createElement(React2.Fragment, null, /* @__PURE__ */ React2.createElement(InlineAddTask, { dueDate: null, placeholder: "Add a task with no date" }), groups.anytime.length === 0 ? /* @__PURE__ */ React2.createElement(EmptyState, { icon: /* @__PURE__ */ React2.createElement(Inbox, { size: 20 }), title: "No undated tasks", body: "Things you want to do someday, without a deadline, live here." }) : /* @__PURE__ */ React2.createElement("ul", { className: "task-list" }, [...groups.anytime].sort(compareTasks).map((t) => /* @__PURE__ */ React2.createElement(TaskRow, { key: t.id, task: t, onToggle: toggle, settling: settling.has(t.id) })))), view === "done" && (groups.done.length === 0 ? /* @__PURE__ */ React2.createElement(EmptyState, { icon: /* @__PURE__ */ React2.createElement(CircleCheck, { size: 20 }), title: "Nothing completed yet", body: "Tasks you check off will collect here, so you can see what you’ve finished." }) : /* @__PURE__ */ React2.createElement("ul", { className: "task-list" }, groups.done.map((t) => /* @__PURE__ */ React2.createElement(TaskRow, { key: t.id, task: t, onToggle: toggle, settling: settling.has(t.id) }))))));
+    ), view === "done" && groups.done.length > 0 && /* @__PURE__ */ React2.createElement(Button, { size: "sm", variant: "ghost", icon: /* @__PURE__ */ React2.createElement(Trash2, { size: 14 }), onClick: clearDone }, "Clear completed")), /* @__PURE__ */ React2.createElement("section", { className: "panel panel--flush", "aria-label": `${view} tasks` }, view === "today" && /* @__PURE__ */ React2.createElement(TodayView, { list: groups.todayList, today, toggle, settling }), view === "upcoming" && /* @__PURE__ */ React2.createElement(UpcomingView, { list: groups.upcoming, today, toggle, settling }), view === "anytime" && /* @__PURE__ */ React2.createElement(React2.Fragment, null, /* @__PURE__ */ React2.createElement(InlineAddTask, { dueDate: null, placeholder: "Add a task with no date" }), groups.anytime.length === 0 ? /* @__PURE__ */ React2.createElement(EmptyState, { icon: /* @__PURE__ */ React2.createElement(Inbox, { size: 20 }), title: "No undated tasks", body: "Things you want to do someday, without a deadline, live here." }) : /* @__PURE__ */ React2.createElement("ul", { className: "task-list" }, [...groups.anytime].sort(compareTasks).map((t) => /* @__PURE__ */ React2.createElement(TaskRow, { key: t.id, task: t, showProgress: true, onToggle: toggle, settling: settling.has(t.id) })))), view === "done" && (groups.done.length === 0 ? /* @__PURE__ */ React2.createElement(EmptyState, { icon: /* @__PURE__ */ React2.createElement(CircleCheck, { size: 20 }), title: "Nothing completed yet", body: "Tasks you check off will collect here, so you can see what you’ve finished." }) : /* @__PURE__ */ React2.createElement("ul", { className: "task-list" }, groups.done.map((t) => /* @__PURE__ */ React2.createElement(TaskRow, { key: t.id, task: t, showProgress: true, onToggle: toggle, settling: settling.has(t.id) }))))));
   }
   function TodayView({ list, today, toggle, settling }) {
     const isDone = (t) => t.done && !settling.has(t.id);
     const overdue = list.filter((t) => !isDone(t) && t.dueDate < today).sort(compareTasks);
     const todays = list.filter((t) => !isDone(t) && t.dueDate === today).sort(compareTasks);
     const done = list.filter(isDone);
-    return /* @__PURE__ */ React2.createElement(React2.Fragment, null, /* @__PURE__ */ React2.createElement(InlineAddTask, { dueDate: today, placeholder: "Add a task for today" }), list.length === 0 && /* @__PURE__ */ React2.createElement(EmptyState, { icon: /* @__PURE__ */ React2.createElement(Sun, { size: 20 }), title: "Today is open", body: "Add the few things that matter most today. Everything else can wait in Upcoming or Anytime." }), overdue.length > 0 && /* @__PURE__ */ React2.createElement(TaskGroup, { title: "Overdue", tone: "danger" }, overdue.map((t) => /* @__PURE__ */ React2.createElement(TaskRow, { key: t.id, task: t, onToggle: toggle, settling: settling.has(t.id) }))), todays.length > 0 && /* @__PURE__ */ React2.createElement(TaskGroup, { title: overdue.length ? "Today" : null }, todays.map((t) => /* @__PURE__ */ React2.createElement(TaskRow, { key: t.id, task: t, onToggle: toggle, hideToday: true, settling: settling.has(t.id) }))), done.length > 0 && /* @__PURE__ */ React2.createElement(TaskGroup, { title: `Done today · ${done.length}` }, done.map((t) => /* @__PURE__ */ React2.createElement(TaskRow, { key: t.id, task: t, onToggle: toggle, hideToday: true, settling: settling.has(t.id) }))));
+    return /* @__PURE__ */ React2.createElement(React2.Fragment, null, /* @__PURE__ */ React2.createElement(InlineAddTask, { dueDate: today, placeholder: "Add a task for today" }), list.length === 0 && /* @__PURE__ */ React2.createElement(EmptyState, { icon: /* @__PURE__ */ React2.createElement(Sun, { size: 20 }), title: "Today is open", body: "Add the few things that matter most today. Everything else can wait in Upcoming or Anytime." }), overdue.length > 0 && /* @__PURE__ */ React2.createElement(TaskGroup, { title: "Overdue", tone: "danger" }, overdue.map((t) => /* @__PURE__ */ React2.createElement(TaskRow, { key: t.id, task: t, showProgress: true, onToggle: toggle, settling: settling.has(t.id) }))), todays.length > 0 && /* @__PURE__ */ React2.createElement(TaskGroup, { title: overdue.length ? "Today" : null }, todays.map((t) => /* @__PURE__ */ React2.createElement(TaskRow, { key: t.id, task: t, showProgress: true, onToggle: toggle, hideToday: true, settling: settling.has(t.id) }))), done.length > 0 && /* @__PURE__ */ React2.createElement(TaskGroup, { title: `Done today · ${done.length}` }, done.map((t) => /* @__PURE__ */ React2.createElement(TaskRow, { key: t.id, task: t, showProgress: true, onToggle: toggle, hideToday: true, settling: settling.has(t.id) }))));
   }
   function UpcomingView({ list, today, toggle, settling }) {
     const byDay = /* @__PURE__ */ new Map();
@@ -5350,7 +5946,7 @@ a.launch-tile__inner:active {
       const k = t.dueDate;
       byDay.set(k, [...byDay.get(k) ?? [], t]);
     });
-    return /* @__PURE__ */ React2.createElement(React2.Fragment, null, /* @__PURE__ */ React2.createElement(InlineAddTask, { dueDate: addDays(today, 1), placeholder: "Add a task for tomorrow" }), list.length === 0 ? /* @__PURE__ */ React2.createElement(EmptyState, { icon: /* @__PURE__ */ React2.createElement(CalendarClock, { size: 20 }), title: "Nothing scheduled ahead", body: "Give a task a future date and it will wait here until the day comes." }) : Array.from(byDay.entries()).map(([day, tasks]) => /* @__PURE__ */ React2.createElement(TaskGroup, { key: day, title: relativeDay(day) }, tasks.map((t) => /* @__PURE__ */ React2.createElement(TaskRow, { key: t.id, task: t, onToggle: toggle, settling: settling.has(t.id) })))));
+    return /* @__PURE__ */ React2.createElement(React2.Fragment, null, /* @__PURE__ */ React2.createElement(InlineAddTask, { dueDate: addDays(today, 1), placeholder: "Add a task for tomorrow" }), list.length === 0 ? /* @__PURE__ */ React2.createElement(EmptyState, { icon: /* @__PURE__ */ React2.createElement(CalendarClock, { size: 20 }), title: "Nothing scheduled ahead", body: "Give a task a future date and it will wait here until the day comes." }) : Array.from(byDay.entries()).map(([day, tasks]) => /* @__PURE__ */ React2.createElement(TaskGroup, { key: day, title: relativeDay(day) }, tasks.map((t) => /* @__PURE__ */ React2.createElement(TaskRow, { key: t.id, task: t, showProgress: true, onToggle: toggle, settling: settling.has(t.id) })))));
   }
   function TaskGroup({ title, tone, children }) {
     return /* @__PURE__ */ React2.createElement("div", { className: "task-group" }, title && /* @__PURE__ */ React2.createElement("h3", { className: `task-group__title${tone ? ` is-${tone}` : ""}` }, title), /* @__PURE__ */ React2.createElement("ul", { className: "task-list" }, children));
@@ -5572,73 +6168,734 @@ a.launch-tile__inner:active {
       }
     )))))));
   }
-  function LaunchpadPage() {
-    const { data, move } = useStore();
-    const ui = useUI();
-    const [arranging, setArranging] = React2.useState(false);
-    const [dragId, setDragId] = React2.useState(null);
-    const [overId, setOverId] = React2.useState(null);
-    const list = data.shortcuts;
-    const moveBy = (id, delta) => {
-      const i = list.findIndex((s) => s.id === id);
-      move("shortcuts", id, i + delta);
+  function useDeleteCategory() {
+    const { data, removeGroup } = useStore();
+    const confirm = useConfirm();
+    const toast = useToast();
+    return async (kind, cat) => {
+      const ideas = kind === "ideas";
+      const itemCollection = ideas ? "ideas" : "shortcuts";
+      const count = data[itemCollection].filter((it) => it.categoryId === cat.id).length;
+      const noun = ideas ? count === 1 ? "idea" : "ideas" : count === 1 ? "website" : "websites";
+      const ok = await confirm({
+        title: `Delete “${cat.name}”?`,
+        body: count ? `The category and the ${count} ${noun} in it will be removed.` : "This empty category will be removed.",
+        confirmLabel: "Delete category"
+      });
+      if (!ok) return false;
+      const undo = removeGroup(ideas ? "ideaCategories" : "websiteCategories", itemCollection, cat.id);
+      toast({ message: "Category deleted", tone: "neutral", action: { label: "Undo", onClick: undo } });
+      return true;
     };
-    return /* @__PURE__ */ React2.createElement(React2.Fragment, null, /* @__PURE__ */ React2.createElement("div", { className: "page-head" }, /* @__PURE__ */ React2.createElement("div", { className: "page-head__text" }, /* @__PURE__ */ React2.createElement("h1", { className: "page-title" }, "Launchpad"), /* @__PURE__ */ React2.createElement("p", { className: "page-desc" }, "The websites and tools you open every day, one click away.")), /* @__PURE__ */ React2.createElement("div", { className: "page-head__actions" }, list.length > 1 && /* @__PURE__ */ React2.createElement(Button, { variant: arranging ? "primary" : "secondary", icon: arranging ? /* @__PURE__ */ React2.createElement(Check, { size: 16 }) : /* @__PURE__ */ React2.createElement(Move, { size: 15 }), onClick: () => setArranging((v) => !v), "aria-pressed": arranging }, arranging ? "Done" : "Arrange"), !arranging && /* @__PURE__ */ React2.createElement(Button, { variant: "primary", className: "keep-mobile", icon: /* @__PURE__ */ React2.createElement(Plus, { size: 16, strokeWidth: 2.4 }), onClick: () => ui.editShortcut(null) }, "Add shortcut"))), arranging && /* @__PURE__ */ React2.createElement("p", { className: "inline-note" }, "Drag tiles to reorder them, or use the arrow buttons. Your order is used on Home too."), list.length === 0 ? /* @__PURE__ */ React2.createElement("section", { className: "panel" }, /* @__PURE__ */ React2.createElement(
-      EmptyState,
-      {
-        icon: /* @__PURE__ */ React2.createElement(Rocket, { size: 20 }),
-        title: "No shortcuts yet",
-        body: "Add the sites you visit most, like your email, calendar or a project you’re working on.",
-        action: /* @__PURE__ */ React2.createElement(Button, { variant: "primary", icon: /* @__PURE__ */ React2.createElement(Plus, { size: 16 }), onClick: () => ui.editShortcut(null) }, "Add your first shortcut")
+  }
+  function CategoryEditor({ open, kind, item, onClose }) {
+    const { add, update, data } = useStore();
+    const toast = useToast();
+    const del = useDeleteCategory();
+    const ideas = kind === "ideas";
+    const collection = ideas ? "ideaCategories" : "websiteCategories";
+    const [name, setName] = React2.useState("");
+    const [color, setColor] = React2.useState(IDEA_COLORS[0]);
+    const [error, setError] = React2.useState(null);
+    React2.useEffect(() => {
+      if (!open) return;
+      setName((item == null ? void 0 : item.name) ?? "");
+      setColor((item == null ? void 0 : item.color) ?? IDEA_COLORS[data.ideaCategories.length % IDEA_COLORS.length]);
+      setError(null);
+    }, [open, item]);
+    const submit = (e) => {
+      e.preventDefault();
+      const n2 = name.trim();
+      if (!n2) {
+        setError("Give the category a name.");
+        return;
       }
-    )) : /* @__PURE__ */ React2.createElement("ul", { className: `launch-grid${arranging ? " is-arranging" : ""}`, "aria-label": "Shortcuts" }, list.map((s, i) => /* @__PURE__ */ React2.createElement(
-      "li",
+      const fields = ideas ? { name: n2, color } : { name: n2 };
+      if (item) {
+        update(collection, item.id, fields);
+        toast({ message: "Category updated", tone: "success" });
+      } else {
+        add(collection, { id: newId(), createdAt: (/* @__PURE__ */ new Date()).toISOString(), ...fields });
+        toast({ message: "Category created", tone: "success" });
+      }
+      onClose();
+    };
+    return React2.createElement(
+      Modal,
       {
-        key: s.id,
-        className: `launch-tile${dragId === s.id ? " is-dragging" : ""}${overId === s.id && dragId !== s.id ? " is-over" : ""}`,
-        draggable: arranging,
-        onDragStart: (e) => {
-          setDragId(s.id);
-          e.dataTransfer.effectAllowed = "move";
-          e.dataTransfer.setData("text/plain", s.id);
-        },
-        onDragOver: (e) => {
-          if (!dragId) return;
-          e.preventDefault();
-          if (overId !== s.id) setOverId(s.id);
-        },
-        onDrop: (e) => {
-          e.preventDefault();
-          if (dragId && dragId !== s.id) move("shortcuts", dragId, i);
-          setDragId(null);
-          setOverId(null);
-        },
-        onDragEnd: () => {
-          setDragId(null);
-          setOverId(null);
-        }
+        open,
+        onClose,
+        title: item ? "Edit category" : ideas ? "New idea category" : "New website category",
+        footer: React2.createElement(React2.Fragment, null, item && React2.createElement(
+          Button,
+          {
+            variant: "danger-ghost",
+            icon: React2.createElement(Trash2, { size: 15 }),
+            onClick: async () => {
+              if (await del(kind, item)) onClose();
+            }
+          },
+          "Delete"
+        ), React2.createElement("span", { className: "spacer" }), React2.createElement(Button, { variant: "secondary", onClick: onClose }, "Cancel"), React2.createElement(Button, { variant: "primary", type: "submit", form: "category-form" }, item ? "Save" : "Create category"))
       },
-      arranging ? /* @__PURE__ */ React2.createElement(ArrangeTile, { s, index: i, total: list.length, onMove: moveBy }) : /* @__PURE__ */ React2.createElement(Tile, { s })
-    )), !arranging && /* @__PURE__ */ React2.createElement("li", { className: "launch-tile" }, /* @__PURE__ */ React2.createElement("button", { type: "button", className: "launch-tile__inner launch-tile__inner--add", onClick: () => ui.editShortcut(null) }, /* @__PURE__ */ React2.createElement("span", { className: "mono mono--lg mono--add", "aria-hidden": true }, /* @__PURE__ */ React2.createElement(Plus, { size: 20 })), /* @__PURE__ */ React2.createElement("span", { className: "launch-tile__name" }, "Add shortcut")))));
+      React2.createElement(
+        "form",
+        { id: "category-form", className: "form", onSubmit: submit, noValidate: true },
+        React2.createElement(Field, { label: "Name", error }, (p) => React2.createElement("input", {
+          ...p,
+          "data-autofocus": true,
+          className: "input",
+          value: name,
+          maxLength: 40,
+          placeholder: ideas ? "e.g. Business" : "e.g. Study",
+          onChange: (e) => {
+            setName(e.target.value);
+            setError(null);
+          }
+        })),
+        ideas && React2.createElement(
+          "div",
+          { className: "field" },
+          React2.createElement("span", { className: "field__label", id: "cat-color-label" }, "Color"),
+          React2.createElement("div", { className: "swatches", role: "radiogroup", "aria-labelledby": "cat-color-label" }, IDEA_COLORS.map((c, i) => React2.createElement("button", {
+            key: c,
+            type: "button",
+            role: "radio",
+            "aria-checked": color === c,
+            "aria-label": `Color ${i + 1}`,
+            className: "swatch",
+            style: { ["--sw"]: c },
+            onClick: () => setColor(c)
+          })))
+        )
+      )
+    );
+  }
+  const NEW_CATEGORY = "__new__";
+  function IdeaEditor({ open, item, defaultCategoryId, onClose }) {
+    const { add, update, data } = useStore();
+    const toast = useToast();
+    const del = useDeleteIdea();
+    const [title, setTitle] = React2.useState("");
+    const [body, setBody] = React2.useState("");
+    const [categoryId, setCategoryId] = React2.useState("");
+    const [newCat, setNewCat] = React2.useState("");
+    const [error, setError] = React2.useState(null);
+    const [catError, setCatError] = React2.useState(null);
+    const cats = data.ideaCategories;
+    React2.useEffect(() => {
+      if (!open) return;
+      var _a;
+      setTitle((item == null ? void 0 : item.title) ?? "");
+      setBody((item == null ? void 0 : item.body) ?? "");
+      const wanted = (item == null ? void 0 : item.categoryId) ?? defaultCategoryId;
+      setCategoryId(cats.some((c) => c.id === wanted) ? wanted : ((_a = cats[0]) == null ? void 0 : _a.id) ?? NEW_CATEGORY);
+      setNewCat("");
+      setError(null);
+      setCatError(null);
+    }, [open, item, defaultCategoryId]);
+    const submit = (e) => {
+      e.preventDefault();
+      const t = title.trim();
+      if (!t) {
+        setError("Give the idea a short name.");
+        return;
+      }
+      let catId = categoryId;
+      if (catId === NEW_CATEGORY) {
+        const n2 = newCat.trim();
+        if (!n2) {
+          setCatError("Name the new category.");
+          return;
+        }
+        catId = newId();
+        add("ideaCategories", { id: catId, name: n2, color: IDEA_COLORS[cats.length % IDEA_COLORS.length], createdAt: (/* @__PURE__ */ new Date()).toISOString() });
+      }
+      const fields = { title: t, body: body.trim(), categoryId: catId };
+      if (item) {
+        update("ideas", item.id, fields);
+        toast({ message: "Idea updated", tone: "success" });
+      } else {
+        add("ideas", { id: newId(), createdAt: (/* @__PURE__ */ new Date()).toISOString(), ...fields });
+        toast({ message: "Idea added", tone: "success" });
+      }
+      onClose();
+    };
+    return React2.createElement(
+      Modal,
+      {
+        open,
+        onClose,
+        title: item ? "Edit idea" : "New idea",
+        footer: React2.createElement(React2.Fragment, null, item && React2.createElement(
+          Button,
+          {
+            variant: "danger-ghost",
+            icon: React2.createElement(Trash2, { size: 15 }),
+            onClick: async () => {
+              if (await del(item)) onClose();
+            }
+          },
+          "Delete"
+        ), React2.createElement("span", { className: "spacer" }), React2.createElement(Button, { variant: "secondary", onClick: onClose }, "Cancel"), React2.createElement(Button, { variant: "primary", type: "submit", form: "idea-form" }, item ? "Save" : "Add idea"))
+      },
+      React2.createElement(
+        "form",
+        { id: "idea-form", className: "form", onSubmit: submit, noValidate: true },
+        React2.createElement(Field, { label: "Idea", error }, (p) => React2.createElement("input", {
+          ...p,
+          "data-autofocus": true,
+          className: "input",
+          value: title,
+          maxLength: 120,
+          placeholder: "A short name for the idea",
+          onChange: (e) => {
+            setTitle(e.target.value);
+            setError(null);
+          }
+        })),
+        React2.createElement(Field, { label: "Details", hint: "Optional" }, (p) => React2.createElement("textarea", { ...p, className: "textarea", rows: 4, value: body, maxLength: 2e3, placeholder: "Why it’s interesting, first steps, anything…", onChange: (e) => setBody(e.target.value) })),
+        React2.createElement(Field, { label: "Category" }, (p) => React2.createElement(
+          "select",
+          {
+            ...p,
+            className: "select",
+            value: categoryId,
+            onChange: (e) => {
+              setCategoryId(e.target.value);
+              setCatError(null);
+            }
+          },
+          cats.map((c) => React2.createElement("option", { key: c.id, value: c.id }, c.name)),
+          React2.createElement("option", { value: NEW_CATEGORY }, "+ New category…")
+        )),
+        categoryId === NEW_CATEGORY && React2.createElement(Field, { label: "New category name", error: catError }, (p) => React2.createElement("input", {
+          ...p,
+          className: "input",
+          value: newCat,
+          maxLength: 40,
+          placeholder: "e.g. Business",
+          onChange: (e) => {
+            setNewCat(e.target.value);
+            setCatError(null);
+          }
+        }))
+      )
+    );
+  }
+  function useDeleteIdea() {
+    const { remove } = useStore();
+    const confirm = useConfirm();
+    const toast = useToast();
+    return async (idea) => {
+      const ok = await confirm({ title: "Delete this idea?", body: `"${idea.title}" will be removed.`, confirmLabel: "Delete idea" });
+      if (!ok) return false;
+      const undo = remove("ideas", idea.id);
+      toast({ message: "Idea deleted", tone: "neutral", action: { label: "Undo", onClick: undo } });
+      return true;
+    };
+  }
+  function WebsitesPage() {
+    const { data } = useStore();
+    const ui = useUI();
+    const cats = data.websiteCategories;
+    const known = new Set(cats.map((c) => c.id));
+    const loose = data.shortcuts.filter((s) => !s.categoryId || !known.has(s.categoryId));
+    const empty = cats.length === 0 && data.shortcuts.length === 0;
+    return React2.createElement(
+      React2.Fragment,
+      null,
+      React2.createElement(
+        "div",
+        { className: "page-head" },
+        React2.createElement("div", { className: "page-head__text" }, React2.createElement("h1", { className: "page-title" }, "Websites"), React2.createElement("p", { className: "page-desc" }, "Your favourite websites, sorted into your own categories. One click to open.")),
+        React2.createElement(
+          "div",
+          { className: "page-head__actions" },
+          React2.createElement(Button, { variant: "secondary", className: "keep-mobile", icon: React2.createElement(FolderPlus, { size: 15 }), onClick: () => ui.editCategory("websites", null) }, "New category"),
+          React2.createElement(Button, { variant: "primary", className: "keep-mobile", icon: React2.createElement(Plus, { size: 16, strokeWidth: 2.4 }), onClick: () => ui.editShortcut(null, null) }, "Add website")
+        )
+      ),
+      empty ? React2.createElement("section", { className: "panel" }, React2.createElement(EmptyState, {
+        icon: React2.createElement(Globe, { size: 20 }),
+        title: "No websites yet",
+        body: "Make a category, like Study or Work, then add the websites you open most.",
+        action: React2.createElement(Button, { variant: "primary", icon: React2.createElement(FolderPlus, { size: 16 }), onClick: () => ui.editCategory("websites", null) }, "Create your first category")
+      })) : React2.createElement(
+        "div",
+        { className: "site-cats" },
+        cats.map((c) => React2.createElement(WebsiteCategory, { key: c.id, cat: c, items: data.shortcuts.filter((s) => s.categoryId === c.id) })),
+        loose.length > 0 && React2.createElement(WebsiteCategory, { cat: null, items: loose })
+      )
+    );
+  }
+  function WebsiteCategory({ cat, items }) {
+    const ui = useUI();
+    const del = useDeleteCategory();
+    const title = cat ? cat.name : "No category";
+    return React2.createElement(
+      "section",
+      { className: "site-cat", "aria-label": title },
+      React2.createElement(
+        "div",
+        { className: "site-cat__head" },
+        React2.createElement("h2", { className: "site-cat__title" }, title, React2.createElement("span", { className: "site-cat__count num" }, items.length)),
+        cat && cat.sample && React2.createElement(SampleBadge, null),
+        cat && React2.createElement(Menu, {
+          label: `Actions for ${title}`,
+          items: [
+            { label: "Add website here", icon: React2.createElement(Plus, { size: 15 }), onSelect: () => ui.editShortcut(null, cat.id) },
+            { label: "Rename", icon: React2.createElement(Pencil, { size: 15 }), onSelect: () => ui.editCategory("websites", cat) },
+            { label: "Delete category", icon: React2.createElement(Trash2, { size: 15 }), danger: true, separatorBefore: true, onSelect: () => void del("websites", cat) }
+          ]
+        })
+      ),
+      React2.createElement(
+        "ul",
+        { className: "launch-grid", "aria-label": `${title} websites` },
+        items.map((s) => React2.createElement("li", { key: s.id, className: "launch-tile" }, React2.createElement(Tile, { s }))),
+        React2.createElement("li", { className: "launch-tile" }, React2.createElement(
+          "button",
+          { type: "button", className: "launch-tile__inner launch-tile__inner--add", onClick: () => ui.editShortcut(null, cat ? cat.id : null) },
+          React2.createElement("span", { className: "mono mono--lg mono--add", "aria-hidden": true }, React2.createElement(Plus, { size: 20 })),
+          React2.createElement("span", { className: "launch-tile__name" }, "Add website")
+        ))
+      )
+    );
   }
   function Tile({ s }) {
-    const { touch, update } = useStore();
+    const { touch } = useStore();
     const ui = useUI();
     const del = useDeleteShortcut();
-    return /* @__PURE__ */ React2.createElement(React2.Fragment, null, /* @__PURE__ */ React2.createElement("a", { className: "launch-tile__inner", href: s.url, target: "_blank", rel: "noopener noreferrer", onClick: () => touch("shortcut", s.id) }, /* @__PURE__ */ React2.createElement(Monogram, { name: s.name, size: "lg" }), /* @__PURE__ */ React2.createElement("span", { className: "launch-tile__name" }, s.name), /* @__PURE__ */ React2.createElement("span", { className: "launch-tile__host" }, hostOf(s.url)), (s.sample || s.inSpaces) && /* @__PURE__ */ React2.createElement("span", { className: "launch-tile__tags" }, s.inSpaces && /* @__PURE__ */ React2.createElement("span", { className: "badge badge--accent", title: "Shown in Your Spaces" }, /* @__PURE__ */ React2.createElement(Pin, { size: 10, "aria-hidden": true }), " Spaces"), s.sample && /* @__PURE__ */ React2.createElement(SampleBadge, null))), /* @__PURE__ */ React2.createElement("span", { className: "launch-tile__menu" }, /* @__PURE__ */ React2.createElement(
+    return /* @__PURE__ */ React2.createElement(React2.Fragment, null, /* @__PURE__ */ React2.createElement("a", { className: "launch-tile__inner", href: s.url, target: "_blank", rel: "noopener noreferrer", onClick: () => touch("shortcut", s.id) }, /* @__PURE__ */ React2.createElement(Monogram, { name: s.name, size: "lg" }), /* @__PURE__ */ React2.createElement("span", { className: "launch-tile__name" }, s.name), /* @__PURE__ */ React2.createElement("span", { className: "launch-tile__host" }, hostOf(s.url)), s.sample && /* @__PURE__ */ React2.createElement("span", { className: "launch-tile__tags" }, /* @__PURE__ */ React2.createElement(SampleBadge, null))), /* @__PURE__ */ React2.createElement("span", { className: "launch-tile__menu" }, /* @__PURE__ */ React2.createElement(
       Menu,
       {
         label: `Actions for ${s.name}`,
         items: [
           { label: "Edit", icon: /* @__PURE__ */ React2.createElement(Pencil, { size: 15 }), onSelect: () => ui.editShortcut(s) },
-          s.inSpaces ? { label: "Remove from Your Spaces", icon: /* @__PURE__ */ React2.createElement(PinOff, { size: 15 }), onSelect: () => update("shortcuts", s.id, { inSpaces: false }) } : { label: "Show in Your Spaces", icon: /* @__PURE__ */ React2.createElement(Pin, { size: 15 }), onSelect: () => update("shortcuts", s.id, { inSpaces: true }) },
           { label: "Remove", icon: /* @__PURE__ */ React2.createElement(Trash2, { size: 15 }), danger: true, separatorBefore: true, onSelect: () => void del(s) }
         ]
       }
     )));
   }
-  function ArrangeTile({ s, index, total, onMove }) {
-    return /* @__PURE__ */ React2.createElement("div", { className: "launch-tile__inner launch-tile__inner--arrange" }, /* @__PURE__ */ React2.createElement(GripVertical, { size: 16, className: "launch-tile__grip", "aria-hidden": true }), /* @__PURE__ */ React2.createElement(Monogram, { name: s.name, size: "lg" }), /* @__PURE__ */ React2.createElement("span", { className: "launch-tile__name" }, s.name), /* @__PURE__ */ React2.createElement("span", { className: "launch-tile__arrows" }, /* @__PURE__ */ React2.createElement(IconButton, { label: `Move ${s.name} earlier`, size: "sm", disabled: index === 0, onClick: () => onMove(s.id, -1) }, /* @__PURE__ */ React2.createElement(ArrowLeft, { size: 15 })), /* @__PURE__ */ React2.createElement("span", { className: "launch-tile__pos num", "aria-hidden": true }, index + 1), /* @__PURE__ */ React2.createElement(IconButton, { label: `Move ${s.name} later`, size: "sm", disabled: index === total - 1, onClick: () => onMove(s.id, 1) }, /* @__PURE__ */ React2.createElement(ArrowRight, { size: 15 }))));
+  /* ---------- Ideas: categories as hubs, ideas as connected bubbles ---------- */
+  const GOLDEN_ANGLE = Math.PI * (3 - Math.sqrt(5));
+  const HUB_R = 26;
+  function ideaRadius(idea) {
+    return 10 + Math.min(9, Math.sqrt((idea.body || "").length) * 0.8);
+  }
+  function layoutIdeas(cats, ideas, focusId) {
+    const byCat = new Map(cats.map((c) => [c.id, []]));
+    ideas.forEach((i) => {
+      var _a;
+      return (_a = byCat.get(i.categoryId)) == null ? void 0 : _a.push(i);
+    });
+    const nodes = [];
+    const edges = [];
+    const link = (hub, node) => edges.push({ id: `${hub.id}-${node.id}`, cat: hub.cat, from: hub, to: node });
+    const focus = focusId && cats.find((c) => c.id === focusId);
+    if (focus) {
+      // Focused: hub on top, its ideas fanned out below it.
+      const list = byCat.get(focus.id);
+      const spacing = 60;
+      const disc = spacing * Math.sqrt(list.length + 0.5);
+      const cy = HUB_R + 50 + disc;
+      const hub = { id: focus.id, kind: "hub", cat: focus, x: 0, y: 0, r: HUB_R + 4, count: list.length };
+      nodes.push(hub);
+      list.forEach((idea, i) => {
+        const rr = spacing * Math.sqrt(i + 0.5);
+        const a = i * GOLDEN_ANGLE;
+        const node = { id: idea.id, kind: "idea", idea, cat: focus, x: rr * Math.cos(a), y: cy + rr * Math.sin(a), r: ideaRadius(idea), i };
+        nodes.push(node);
+        link(hub, node);
+      });
+      return { nodes, edges };
+    }
+    // Overview: one cluster per category, clusters placed on a ring.
+    // Ideas sit evenly on rings around their hub, so neighbours never overlap.
+    const RING_GAP = 50;
+    const ringSlots = (list) => {
+      const slots = [];
+      let ring = 0;
+      while (slots.length < list.length) {
+        const r = HUB_R + 44 + ring * RING_GAP;
+        const cap = Math.max(5, Math.floor(2 * Math.PI * r / 84));
+        const take = Math.min(cap, list.length - slots.length);
+        for (let k = 0; k < take; k++) slots.push({ r, a: k / take * Math.PI * 2 + ring * 0.6 });
+        ring++;
+      }
+      return slots;
+    };
+    const clusters = cats.map((cat) => {
+      const list = byCat.get(cat.id);
+      const slots = ringSlots(list);
+      const outer = slots.length ? slots[slots.length - 1].r : HUB_R;
+      return { cat, list, slots, R: outer + 34 };
+    });
+    const maxR = Math.max(...clusters.map((c) => c.R), 60);
+    const n2 = clusters.length;
+    const ring = n2 === 1 ? 0 : maxR * 1.08 / Math.sin(Math.PI / n2);
+    clusters.forEach((cl, ci) => {
+      const a = -Math.PI / 2 + ci / n2 * Math.PI * 2;
+      const cx = ring * Math.cos(a);
+      const cy = ring * Math.sin(a);
+      const hub = { id: cl.cat.id, kind: "hub", cat: cl.cat, x: cx, y: cy, r: HUB_R, count: cl.list.length };
+      nodes.push(hub);
+      cl.list.forEach((idea, i) => {
+        const { r: rr, a: t0 } = cl.slots[i];
+        const t = t0 + a + Math.PI / 2;
+        const node = { id: idea.id, kind: "idea", idea, cat: cl.cat, x: cx + rr * Math.cos(t), y: cy + rr * Math.sin(t), r: ideaRadius(idea), i };
+        nodes.push(node);
+        link(hub, node);
+      });
+    });
+    return { nodes, edges };
+  }
+  function graphBox(nodes) {
+    if (!nodes.length) return { x: -200, y: -150, w: 400, h: 300 };
+    let x0 = Infinity, y0 = Infinity, x1 = -Infinity, y1 = -Infinity;
+    nodes.forEach((n2) => {
+      x0 = Math.min(x0, n2.x - n2.r);
+      y0 = Math.min(y0, n2.y - n2.r);
+      x1 = Math.max(x1, n2.x + n2.r);
+      y1 = Math.max(y1, n2.y + n2.r + 18);
+    });
+    const pad2 = 56;
+    let w = x1 - x0 + pad2 * 2, h = y1 - y0 + pad2 * 2;
+    const cx = (x0 + x1) / 2, cy = (y0 + y1) / 2;
+    w = Math.max(w, 640);
+    h = Math.max(h, 480);
+    return { x: cx - w / 2, y: cy - h / 2, w, h };
+  }
+  const shorten = (text, max) => text.length > max ? text.slice(0, max - 1).trimEnd() + "…" : text;
+  const svgId = (id) => String(id).replace(/[^a-zA-Z0-9_-]/g, "");
+  function IdeaGraph({ cats, ideas, focusId, selectedId, onSelectIdea, onFocusCat, onClear }) {
+    const svgRef = React2.useRef(null);
+    const drag = React2.useRef(null);
+    const suppressClick = React2.useRef(false);
+    const [view, setView] = React2.useState({ x: 0, y: 0, k: 1 });
+    const [hoverId, setHoverId] = React2.useState(null);
+    const { nodes, edges } = React2.useMemo(() => layoutIdeas(cats, ideas, focusId), [cats, ideas, focusId]);
+    const box = React2.useMemo(() => graphBox(nodes), [nodes]);
+    React2.useEffect(() => setView({ x: 0, y: 0, k: 1 }), [focusId]);
+    const selected = ideas.find((i) => i.id === selectedId) ?? null;
+    const ideaCount = nodes.filter((n2) => n2.kind === "idea").length;
+    const allLabels = ideaCount <= (focusId ? 30 : 14) || view.k >= 1.7;
+    const zoom = (f) => setView((v) => ({ ...v, k: Math.max(0.4, Math.min(4, v.k * f)) }));
+    // Pixel -> SVG unit ratio for panning (viewBox is fitted with "meet").
+    const unitsPerPx = () => {
+      const el = svgRef.current;
+      if (!el) return 1;
+      const r = el.getBoundingClientRect();
+      return Math.max(box.w / Math.max(r.width, 1), box.h / Math.max(r.height, 1));
+    };
+    React2.useEffect(() => {
+      const el = svgRef.current;
+      if (!el) return;
+      const onWheel = (e) => {
+        if (!e.ctrlKey && !e.metaKey) return;
+        e.preventDefault();
+        zoom(e.deltaY < 0 ? 1.12 : 1 / 1.12);
+      };
+      el.addEventListener("wheel", onWheel, { passive: false });
+      return () => el.removeEventListener("wheel", onWheel);
+    }, []);
+    const onPointerDown = (e) => {
+      if (e.button !== 0) return;
+      const start = { sx: e.clientX, sy: e.clientY, x: view.x, y: view.y, u: unitsPerPx(), moved: false };
+      drag.current = start;
+      const move = (ev) => {
+        const dx = ev.clientX - start.sx, dy = ev.clientY - start.sy;
+        if (!start.moved && Math.hypot(dx, dy) < 4) return;
+        start.moved = true;
+        setView((v) => ({ ...v, x: start.x + dx * start.u, y: start.y + dy * start.u }));
+      };
+      const up = () => {
+        window.removeEventListener("pointermove", move);
+        window.removeEventListener("pointerup", up);
+        window.removeEventListener("pointercancel", up);
+        suppressClick.current = start.moved;
+        drag.current = null;
+      };
+      window.addEventListener("pointermove", move);
+      window.addEventListener("pointerup", up);
+      window.addEventListener("pointercancel", up);
+    };
+    const guard = (fn) => (e) => {
+      e.stopPropagation();
+      if (suppressClick.current) {
+        suppressClick.current = false;
+        return;
+      }
+      fn();
+    };
+    const keyActivate = (fn) => (e) => {
+      if (e.key === "Enter" || e.key === " ") {
+        e.preventDefault();
+        fn();
+      }
+    };
+    const cx = box.x + box.w / 2, cy = box.y + box.h / 2;
+    const transform = `translate(${cx + view.x} ${cy + view.y}) scale(${view.k}) translate(${-cx} ${-cy})`;
+    const dimmed = (n2) => selected && n2.cat.id !== selected.categoryId;
+    return React2.createElement(
+      "div",
+      { className: "igraph" },
+      React2.createElement(
+        "svg",
+        {
+          ref: svgRef,
+          className: "igraph__svg",
+          viewBox: `${box.x} ${box.y} ${box.w} ${box.h}`,
+          preserveAspectRatio: "xMidYMid meet",
+          role: "group",
+          "aria-label": focusId ? "Ideas in this category" : "All idea categories",
+          onPointerDown,
+          onClick: () => {
+            if (suppressClick.current) {
+              suppressClick.current = false;
+              return;
+            }
+            onClear();
+          }
+        },
+        React2.createElement(
+          "defs",
+          null,
+          React2.createElement("marker", { id: "ig-arrow", viewBox: "0 0 10 10", refX: 9, refY: 5, markerWidth: 5, markerHeight: 5, orient: "auto-start-reverse" }, React2.createElement("path", { d: "M0 0L10 5L0 10z", className: "igraph__arrow" })),
+          cats.map((c) => React2.createElement(
+            "radialGradient",
+            { key: c.id, id: `ig-g-${svgId(c.id)}`, cx: "42%", cy: "38%", r: "62%" },
+            React2.createElement("stop", { offset: "0%", stopColor: "#ffffff", stopOpacity: 1 }),
+            React2.createElement("stop", { offset: "55%", stopColor: "#ffffff", stopOpacity: 0.72 }),
+            React2.createElement("stop", { offset: "100%", stopColor: c.color || IDEA_COLORS[0], stopOpacity: 0.85 })
+          ))
+        ),
+        React2.createElement(
+          "g",
+          { transform, key: focusId || "all", className: "igraph__scene" },
+          React2.createElement("g", { className: "igraph__edges" }, edges.map((e) => {
+            const dx = e.to.x - e.from.x, dy = e.to.y - e.from.y;
+            const d = Math.hypot(dx, dy) || 1;
+            const ux = dx / d, uy = dy / d;
+            return React2.createElement("line", {
+              key: e.id,
+              className: `igraph__edge${dimmed(e.to) ? " is-dim" : ""}${selectedId === e.to.id ? " is-active" : ""}`,
+              x1: e.from.x + ux * e.from.r,
+              y1: e.from.y + uy * e.from.r,
+              x2: e.to.x - ux * (e.to.r + 3),
+              y2: e.to.y - uy * (e.to.r + 3),
+              markerEnd: focusId ? "url(#ig-arrow)" : void 0
+            });
+          })),
+          nodes.map((n2) => {
+            const color = n2.cat.color || IDEA_COLORS[0];
+            const hub = n2.kind === "hub";
+            const isSel = !hub && n2.id === selectedId;
+            const showLabel = hub || isSel || hoverId === n2.id || allLabels;
+            const act = hub ? () => onFocusCat(n2.cat.id) : () => onSelectIdea(n2.idea.id);
+            const label = hub ? `${n2.cat.name}, ${n2.count} ${n2.count === 1 ? "idea" : "ideas"}` : n2.idea.title;
+            return React2.createElement(
+              "g",
+              { key: n2.id, transform: `translate(${n2.x} ${n2.y})`, className: `igraph__pos${dimmed(n2) ? " is-dim" : ""}` },
+              React2.createElement(
+                "g",
+                {
+                  className: `igraph__node${hub ? " igraph__node--hub" : ""}${isSel ? " is-selected" : ""}`,
+                  style: { ["--c"]: color, animationDelay: `${hub ? 0 : Math.min(0.6, 0.05 + n2.i * 0.025)}s` },
+                  tabIndex: 0,
+                  role: "button",
+                  "aria-label": hub ? `${label}. Open category` : `Idea: ${label}`,
+                  "aria-pressed": hub ? void 0 : isSel,
+                  onClick: guard(act),
+                  onKeyDown: keyActivate(act),
+                  onPointerEnter: () => setHoverId(n2.id),
+                  onPointerLeave: () => setHoverId((h) => h === n2.id ? null : h)
+                },
+                React2.createElement("title", null, label),
+                (isSel || hub && focusId) && React2.createElement("circle", { className: "igraph__halo", r: n2.r + 7 }),
+                React2.createElement("circle", { className: "igraph__dot", r: n2.r, fill: `url(#ig-g-${svgId(n2.cat.id)})` }),
+                hub && React2.createElement("text", { className: "igraph__hub-count num", y: 4.5, textAnchor: "middle" }, n2.count),
+                showLabel && React2.createElement("text", { className: `igraph__label${hub ? " igraph__label--hub" : ""}`, y: hub && focusId ? -n2.r - 12 : n2.r + 14, textAnchor: "middle" }, shorten(hub ? n2.cat.name : n2.idea.title, hub ? 26 : 22))
+              )
+            );
+          })
+        )
+      ),
+      React2.createElement(
+        "div",
+        { className: "igraph__controls" },
+        React2.createElement(IconButton, { label: "Zoom in", size: "sm", onClick: () => zoom(1.25) }, React2.createElement(Plus, { size: 15 })),
+        React2.createElement(IconButton, { label: "Zoom out", size: "sm", onClick: () => zoom(0.8) }, React2.createElement(Minus, { size: 15 })),
+        React2.createElement(IconButton, { label: "Fit to screen", size: "sm", onClick: () => setView({ x: 0, y: 0, k: 1 }) }, React2.createElement(Maximize, { size: 14 }))
+      ),
+      React2.createElement("p", { className: "igraph__hint", "aria-hidden": true }, "Drag to move · ", isMac ? "⌘" : "Ctrl", " + scroll to zoom")
+    );
+  }
+  function IdeasPage() {
+    const { data } = useStore();
+    const ui = useUI();
+    const [focusId, setFocusId] = React2.useState(null);
+    const [selectedId, setSelectedId] = React2.useState(null);
+    const cats = data.ideaCategories;
+    React2.useEffect(() => {
+      if (!ui.ideaToOpen) return;
+      const idea = data.ideas.find((i) => i.id === ui.ideaToOpen);
+      if (idea) {
+        setFocusId(idea.categoryId);
+        setSelectedId(idea.id);
+      }
+      ui.clearIdeaToOpen();
+    }, [ui.ideaToOpen, ui]);
+    const focus = cats.find((c) => c.id === focusId) ?? null;
+    const selected = data.ideas.find((i) => i.id === selectedId) ?? null;
+    const known = React2.useMemo(() => new Set(cats.map((c) => c.id)), [cats]);
+    const ideas = React2.useMemo(() => data.ideas.filter((i) => known.has(i.categoryId)), [data.ideas, known]);
+    const addIdea = () => {
+      var _a;
+      return ui.editIdea(null, (focus == null ? void 0 : focus.id) ?? ((_a = cats[0]) == null ? void 0 : _a.id));
+    };
+    return React2.createElement(
+      React2.Fragment,
+      null,
+      React2.createElement(
+        "div",
+        { className: "page-head" },
+        React2.createElement("div", { className: "page-head__text" }, React2.createElement("h1", { className: "page-title" }, "Ideas"), React2.createElement("p", { className: "page-desc" }, "Every category is a hub, every idea is a bubble around it. Click a hub to open it.")),
+        React2.createElement(
+          "div",
+          { className: "page-head__actions" },
+          React2.createElement(Button, { variant: "secondary", className: "keep-mobile", icon: React2.createElement(FolderPlus, { size: 15 }), onClick: () => ui.editCategory("ideas", null) }, "New category"),
+          cats.length > 0 && React2.createElement(Button, { variant: "primary", className: "keep-mobile", icon: React2.createElement(Plus, { size: 16, strokeWidth: 2.4 }), onClick: addIdea }, "Add idea")
+        )
+      ),
+      cats.length === 0 ? React2.createElement("section", { className: "panel" }, React2.createElement(EmptyState, {
+        icon: React2.createElement(Lightbulb, { size: 20 }),
+        title: "No idea categories yet",
+        body: "Start with a category, like Business or Content, then drop your ideas into it.",
+        action: React2.createElement(Button, { variant: "primary", icon: React2.createElement(FolderPlus, { size: 16 }), onClick: () => ui.editCategory("ideas", null) }, "Create your first category")
+      })) : React2.createElement(
+        "div",
+        { className: "ideas" },
+        React2.createElement(IdeasSide, {
+          cats,
+          ideas,
+          focus,
+          selected,
+          onFocus: (id) => {
+            setFocusId(id);
+            setSelectedId(null);
+          },
+          onSelect: setSelectedId,
+          onAddIdea: addIdea
+        }),
+        React2.createElement(IdeaGraph, {
+          cats,
+          ideas,
+          focusId: focus ? focus.id : null,
+          selectedId,
+          onSelectIdea: setSelectedId,
+          onFocusCat: (id) => {
+            setFocusId(id);
+            setSelectedId(null);
+          },
+          onClear: () => setSelectedId(null)
+        })
+      )
+    );
+  }
+  function CatDot({ color }) {
+    return React2.createElement("span", { className: "cat-dot", style: { ["--c"]: color || IDEA_COLORS[0] }, "aria-hidden": true });
+  }
+  function IdeasSide({ cats, ideas, focus, selected, onFocus, onSelect, onAddIdea }) {
+    const ui = useUI();
+    const delCat = useDeleteCategory();
+    const delIdea = useDeleteIdea();
+    const back = (label, fn) => React2.createElement("button", { type: "button", className: "ideas-side__back", onClick: fn }, React2.createElement(ArrowLeft, { size: 15, "aria-hidden": true }), label);
+    let body;
+    if (selected) {
+      const cat = cats.find((c) => c.id === selected.categoryId);
+      body = React2.createElement(
+        React2.Fragment,
+        null,
+        back(focus ? focus.name : "All ideas", () => onSelect(null)),
+        React2.createElement(
+          "div",
+          { className: "ideas-side__card" },
+          React2.createElement("div", { className: "ideas-side__title-row" }, React2.createElement(Lightbulb, { size: 17, className: "ideas-side__icon", "aria-hidden": true }), React2.createElement("h2", { className: "ideas-side__title" }, selected.title)),
+          cat && React2.createElement("button", { type: "button", className: "ideas-side__cat", onClick: () => onFocus(cat.id) }, React2.createElement(CatDot, { color: cat.color }), cat.name),
+          selected.body ? React2.createElement("p", { className: "ideas-side__body" }, selected.body) : React2.createElement("p", { className: "ideas-side__body muted" }, "No details yet."),
+          React2.createElement("p", { className: "ideas-side__meta" }, selected.sample && React2.createElement(SampleBadge, null), " Added ", timeAgo(selected.createdAt)),
+          React2.createElement(
+            "div",
+            { className: "ideas-side__actions" },
+            React2.createElement(Button, { size: "sm", icon: React2.createElement(Pencil, { size: 14 }), onClick: () => ui.editIdea(selected) }, "Edit"),
+            React2.createElement(Button, {
+              size: "sm",
+              variant: "danger-ghost",
+              icon: React2.createElement(Trash2, { size: 14 }),
+              onClick: async () => {
+                if (await delIdea(selected)) onSelect(null);
+              }
+            }, "Delete")
+          )
+        )
+      );
+    } else if (focus) {
+      const list = ideas.filter((i) => i.categoryId === focus.id);
+      body = React2.createElement(
+        React2.Fragment,
+        null,
+        back("All ideas", () => onFocus(null)),
+        React2.createElement(
+          "div",
+          { className: "ideas-side__card" },
+          React2.createElement(
+            "div",
+            { className: "ideas-side__title-row" },
+            React2.createElement(CatDot, { color: focus.color }),
+            React2.createElement("h2", { className: "ideas-side__title" }, focus.name),
+            React2.createElement(Menu, {
+              label: `Actions for ${focus.name}`,
+              items: [
+                { label: "Edit category", icon: React2.createElement(Pencil, { size: 15 }), onSelect: () => ui.editCategory("ideas", focus) },
+                {
+                  label: "Delete category",
+                  icon: React2.createElement(Trash2, { size: 15 }),
+                  danger: true,
+                  separatorBefore: true,
+                  onSelect: async () => {
+                    if (await delCat("ideas", focus)) onFocus(null);
+                  }
+                }
+              ]
+            })
+          ),
+          React2.createElement("p", { className: "ideas-side__meta num" }, list.length, " ", list.length === 1 ? "idea" : "ideas"),
+          React2.createElement(Button, { size: "sm", variant: "primary", icon: React2.createElement(Plus, { size: 14 }), onClick: onAddIdea }, "Add idea")
+        ),
+        list.length === 0 ? React2.createElement("p", { className: "ideas-side__empty" }, "No ideas here yet. Add the first one.") : React2.createElement("ul", { className: "ideas-side__list" }, list.map((i) => React2.createElement("li", { key: i.id }, React2.createElement("button", { type: "button", className: "ideas-side__item", onClick: () => onSelect(i.id) }, React2.createElement("span", { className: "ideas-side__item-title" }, i.title), i.body && React2.createElement("span", { className: "ideas-side__item-sub" }, i.body.split("\n")[0])))))
+      );
+    } else {
+      body = React2.createElement(
+        React2.Fragment,
+        null,
+        React2.createElement("div", { className: "ideas-side__head" }, React2.createElement("h2", { className: "ideas-side__heading" }, "All ideas"), React2.createElement("span", { className: "ideas-side__meta num" }, ideas.length, " in ", cats.length, " ", cats.length === 1 ? "category" : "categories")),
+        React2.createElement("ul", { className: "ideas-side__list" }, cats.map((c) => {
+          const count = ideas.filter((i) => i.categoryId === c.id).length;
+          return React2.createElement("li", { key: c.id }, React2.createElement(
+            "button",
+            { type: "button", className: "ideas-side__item ideas-side__item--cat", onClick: () => onFocus(c.id) },
+            React2.createElement(CatDot, { color: c.color }),
+            React2.createElement("span", { className: "ideas-side__item-title" }, c.name),
+            React2.createElement("span", { className: "ideas-side__count num" }, count),
+            React2.createElement(ArrowRight, { size: 14, className: "muted", "aria-hidden": true })
+          ));
+        })),
+        React2.createElement("button", { type: "button", className: "text-link ideas-side__new", onClick: () => ui.editCategory("ideas", null) }, React2.createElement(FolderPlus, { size: 14, "aria-hidden": true }), " New category")
+      );
+    }
+    return React2.createElement("aside", { className: "ideas-side panel", "aria-label": "Idea details" }, body);
   }
   function PreferencesPage() {
     const store = useStore();
@@ -5648,7 +6905,7 @@ a.launch-tile__inner:active {
     const [backupText, setBackupText] = React2.useState(null);
     const [restoreOpen, setRestoreOpen] = React2.useState(false);
     const backupRef = React2.useRef(null);
-    const counts = `${data.tasks.length} tasks, ${data.notes.length} notes, ${data.saved.length} saved links, ${data.shortcuts.length} shortcuts and ${data.goals.length} goals`;
+    const counts = `${data.tasks.length} tasks, ${data.ideas.length} ideas, ${data.shortcuts.length} websites, ${data.saved.length} saved links, ${data.notes.length} notes and ${data.goals.length} goals`;
     const copyBackup = async () => {
       const json = JSON.stringify(data, null, 2);
       try {
@@ -5671,7 +6928,10 @@ a.launch-tile__inner:active {
         goals: [...data.goals, ...s.goals],
         notes: [...data.notes, ...s.notes],
         saved: [...data.saved, ...s.saved],
-        shortcuts: [...data.shortcuts, ...s.shortcuts]
+        shortcuts: [...data.shortcuts, ...s.shortcuts],
+        websiteCategories: [...data.websiteCategories, ...s.websiteCategories],
+        ideaCategories: [...data.ideaCategories, ...s.ideaCategories],
+        ideas: [...data.ideas, ...s.ideas]
       });
       toast({ message: "Sample content added", tone: "success" });
     };
@@ -5777,7 +7037,8 @@ a.launch-tile__inner:active {
     goals: GoalsPage,
     knowledge: KnowledgePage,
     saved: SavedPage,
-    launchpad: LaunchpadPage,
+    websites: WebsitesPage,
+    ideas: IdeasPage,
     preferences: PreferencesPage
   };
   function useGlobalShortcuts() {
