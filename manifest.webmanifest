@@ -2,7 +2,7 @@
   "name": "ONE",
   "short_name": "ONE",
   "description": "Tasks, websites, ideas and saved links in one place.",
-  "start_url": "./One.html#home",
+  "start_url": "./#home",
   "scope": "./",
   "display": "standalone",
   "background_color": "#151517",
@@ -13,8 +13,8 @@
     { "src": "icons/icon-maskable-512.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable" }
   ],
   "shortcuts": [
-    { "name": "Tasks", "url": "./One.html#tasks", "icons": [{ "src": "icons/icon-192.png", "sizes": "192x192" }] },
-    { "name": "Ideas", "url": "./One.html#ideas", "icons": [{ "src": "icons/icon-192.png", "sizes": "192x192" }] },
-    { "name": "Websites", "url": "./One.html#websites", "icons": [{ "src": "icons/icon-192.png", "sizes": "192x192" }] }
+    { "name": "Tasks", "url": "./#tasks", "icons": [{ "src": "icons/icon-192.png", "sizes": "192x192" }] },
+    { "name": "Ideas", "url": "./#ideas", "icons": [{ "src": "icons/icon-192.png", "sizes": "192x192" }] },
+    { "name": "Websites", "url": "./#websites", "icons": [{ "src": "icons/icon-192.png", "sizes": "192x192" }] }
   ]
 }
