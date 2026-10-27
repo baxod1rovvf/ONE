@@ -2,7 +2,7 @@
 // Pages load from the network first (so updates show up), falling back to the
 // cached copy; libraries, fonts and icons come from the cache first.
 // Sync requests to Supabase are never cached.
-const CACHE = "one-v1";
+const CACHE = "one-v2";
 const SHELL = [
   "./",
   "./index.html",
@@ -34,15 +34,17 @@ self.addEventListener("fetch", (event) => {
   const sameOrigin = url.origin === self.location.origin;
   if (!sameOrigin && !CACHEABLE_HOSTS.includes(url.hostname)) return;
 
-  if (req.mode === "navigate") {
+  // The page and the install manifest always come from the network when online,
+  // so Chrome never installs ONE from an outdated manifest.
+  if (req.mode === "navigate" || (sameOrigin && url.pathname.endsWith(".webmanifest"))) {
     event.respondWith(
       fetch(req)
         .then((res) => {
           const copy = res.clone();
-          caches.open(CACHE).then((cache) => cache.put("./index.html", copy));
+          caches.open(CACHE).then((cache) => cache.put(req.mode === "navigate" ? "./index.html" : req, copy));
           return res;
         })
-        .catch(() => caches.match("./index.html"))
+        .catch(() => caches.match(req.mode === "navigate" ? "./index.html" : req))
     );
     return;
   }
