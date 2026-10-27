@@ -4,7 +4,15 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
   <title>ONE — Everything in one place</title>
-  <meta name="description" content="ONE: a personal workspace for tasks, goals, notes, saved links and shortcuts.">
+  <link rel="manifest" href="manifest.webmanifest">
+  <meta name="theme-color" content="#f7f7f4" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#151517" media="(prefers-color-scheme: dark)">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="default">
+  <meta name="apple-mobile-web-app-title" content="ONE">
+  <link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
+  <meta name="description" content="ONE: a personal workspace for tasks, websites, ideas and saved links.">
   <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Crect width='24' height='24' rx='7' fill='%236258E8'/%3E%3Ccircle cx='12' cy='12.5' r='5.6' fill='none' stroke='white' stroke-width='2.2'/%3E%3Ccircle cx='12' cy='6.9' r='2.1' fill='white'/%3E%3C/svg%3E">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -3281,6 +3289,186 @@ a.launch-tile__inner:active {
   }
 }
 
+/* ---------- Sync ---------- */
+.sync-line {
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+}
+.sync-line.is-error {
+  color: var(--danger);
+}
+.sync-dot {
+  flex: none;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--success);
+  transform: translateY(-1px);
+}
+.sync-dot--syncing {
+  background: var(--accent);
+  animation: sync-pulse 1s ease-in-out infinite alternate;
+}
+.sync-dot--error {
+  background: var(--danger);
+}
+@keyframes sync-pulse {
+  to {
+    opacity: 0.3;
+  }
+}
+.sync-actions {
+  justify-content: flex-start;
+  margin-top: 14px;
+}
+.pair-code {
+  display: grid;
+  justify-items: center;
+  gap: 8px;
+  padding: 18px 0 6px;
+  text-align: center;
+}
+.pair-code__digits {
+  font-family: var(--mono);
+  font-size: 44px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  line-height: 1.1;
+  color: var(--text);
+  user-select: all;
+}
+.pair-code__digits.is-expired {
+  color: var(--text-3);
+  text-decoration: line-through;
+}
+.pair-code__timer,
+.pair-code__wait {
+  font-size: var(--fs-sm);
+  color: var(--text-2);
+}
+.pair-code__error {
+  font-size: var(--fs-sm);
+  color: var(--danger);
+}
+.input.code-input {
+  height: 52px;
+  font-family: var(--mono);
+  font-size: 26px;
+  letter-spacing: 0.3em;
+  text-align: center;
+}
+
+/* ---------- Lock screen ---------- */
+.lock {
+  position: fixed;
+  inset: 0;
+  z-index: 45;
+  display: grid;
+  place-items: center;
+  padding: 24px 16px max(24px, env(safe-area-inset-bottom, 0px));
+  background: var(--bg);
+  animation: fade-in var(--t-med) var(--ease);
+}
+.lock__box {
+  display: grid;
+  justify-items: center;
+  gap: 8px;
+  width: 100%;
+  max-width: 300px;
+}
+.lock__title {
+  margin-top: 10px;
+  font-size: var(--fs-2xl);
+  letter-spacing: -0.02em;
+}
+.lock__sub {
+  color: var(--text-2);
+  font-size: var(--fs-md);
+}
+.lock__dots {
+  display: flex;
+  gap: 14px;
+  margin: 18px 0 4px;
+}
+.lock__dots.is-wrong {
+  animation: lock-shake 0.4s var(--ease);
+}
+.lock__dot {
+  width: 13px;
+  height: 13px;
+  border-radius: 50%;
+  border: 1.5px solid var(--text-3);
+  transition: background var(--t-fast), border-color var(--t-fast), transform var(--t-fast);
+}
+.lock__dot.is-filled {
+  background: var(--accent);
+  border-color: var(--accent);
+  transform: scale(1.1);
+}
+.lock__error {
+  min-height: 20px;
+  font-size: var(--fs-sm);
+  color: var(--danger);
+  text-align: center;
+}
+.lock__pad {
+  display: grid;
+  grid-template-columns: repeat(3, 72px);
+  gap: 14px 22px;
+  margin-top: 6px;
+}
+.lock__key {
+  width: 72px;
+  height: 72px;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  background: var(--surface-2);
+  font-size: 26px;
+  font-weight: 500;
+  color: var(--text);
+  transition: background var(--t-fast), transform 80ms;
+}
+.lock__key:hover:not(:disabled) {
+  background: var(--surface-3);
+}
+.lock__key:active:not(:disabled) {
+  transform: scale(0.94);
+  background: var(--border-strong);
+}
+.lock__key:disabled {
+  opacity: 0.45;
+}
+.lock__key--ghost {
+  background: transparent;
+  color: var(--text-2);
+}
+.lock__forgot {
+  margin-top: 14px;
+}
+@keyframes lock-shake {
+  20%,
+  60% {
+    transform: translateX(-8px);
+  }
+  40%,
+  80% {
+    transform: translateX(8px);
+  }
+}
+@media (max-height: 640px) {
+  .lock__pad {
+    grid-template-columns: repeat(3, 60px);
+    gap: 10px 18px;
+  }
+  .lock__key {
+    width: 60px;
+    height: 60px;
+    font-size: 22px;
+  }
+}
+
   </style>
 </head>
 <body>
@@ -3967,6 +4155,34 @@ a.launch-tile__inner:active {
     ["path", { d: "M3 16v3a2 2 0 0 0 2 2h3", key: "wsl5sc" }],
     ["path", { d: "M16 21h3a2 2 0 0 0 2-2v-3", key: "18trek" }]
   ]);
+  const Lock = createLucideIcon("Lock", [
+    ["rect", { width: "18", height: "11", x: "3", y: "11", rx: "2", ry: "2", key: "1w4ew1" }],
+    ["path", { d: "M7 11V7a5 5 0 0 1 10 0v4", key: "fwvmzm" }]
+  ]);
+  const RefreshCw = createLucideIcon("RefreshCw", [
+    ["path", { d: "M3 12a9 9 0 0 1 9-9 9.75 9.75 0 0 1 6.74 2.74L21 8", key: "v9h5vc" }],
+    ["path", { d: "M21 3v5h-5", key: "1q7to0" }],
+    ["path", { d: "M21 12a9 9 0 0 1-9 9 9.75 9.75 0 0 1-6.74-2.74L3 16", key: "3uifl3" }],
+    ["path", { d: "M8 16H3v5", key: "1cv678" }]
+  ]);
+  const Smartphone = createLucideIcon("Smartphone", [
+    ["rect", { width: "14", height: "20", x: "5", y: "2", rx: "2", ry: "2", key: "1yt0o3" }],
+    ["path", { d: "M12 18h.01", key: "mhygvu" }]
+  ]);
+  const KeyRound = createLucideIcon("KeyRound", [
+    ["path", { d: "M2.586 17.414A2 2 0 0 0 2 18.828V21a1 1 0 0 0 1 1h3a1 1 0 0 0 1-1v-1a1 1 0 0 1 1-1h1a1 1 0 0 0 1-1v-1a1 1 0 0 1 1-1h.172a2 2 0 0 0 1.414-.586l.814-.814a6.5 6.5 0 1 0-4-4z", key: "1s6t7t" }],
+    ["circle", { cx: "16.5", cy: "7.5", r: ".5", fill: "currentColor", key: "w0ekpg" }]
+  ]);
+  const Download = createLucideIcon("Download", [
+    ["path", { d: "M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4", key: "ih7n3h" }],
+    ["polyline", { points: "7 10 12 15 17 10", key: "2ggqvy" }],
+    ["line", { x1: "12", x2: "12", y1: "15", y2: "3", key: "1vk2je" }]
+  ]);
+  const Delete = createLucideIcon("Delete", [
+    ["path", { d: "M10 5a2 2 0 0 0-1.344.519l-6.328 5.74a1 1 0 0 0 0 1.481l6.328 5.741A2 2 0 0 0 10 19h10a2 2 0 0 0 2-2V7a2 2 0 0 0-2-2z", key: "1yo7s0" }],
+    ["path", { d: "m12 9 6 6", key: "anjzzh" }],
+    ["path", { d: "m18 9-6 6", key: "1fp51s" }]
+  ]);
   const KEY = "one.workspace.v1";
   function createBrowserStorage() {
     try {
@@ -4021,6 +4237,39 @@ a.launch-tile__inner:active {
     EXTRA_COLLECTIONS.forEach((k) => {
       if (!Array.isArray(out[k])) out[k] = [];
     });
+    if (!out.deleted || typeof out.deleted !== "object" || Array.isArray(out.deleted)) out.deleted = {};
+    return out;
+  }
+  const SYNCED_COLLECTIONS = ["tasks", "goals", "notes", "saved", "shortcuts", "websiteCategories", "ideaCategories", "ideas"];
+  // Marks what an action changed so devices can merge: edited items get a _m
+  // timestamp, removed ids are remembered in `deleted` with the time they went.
+  function stampChanges(prev, next) {
+    if (prev === next) return next;
+    const now = Date.now();
+    const out = { ...next };
+    let deleted = next.deleted || {};
+    const tomb = (id, value) => {
+      if (deleted === (next.deleted || {})) deleted = { ...deleted };
+      if (value) deleted[id] = value;
+      else delete deleted[id];
+    };
+    SYNCED_COLLECTIONS.forEach((k) => {
+      const before = prev[k] || [];
+      const after = next[k] || [];
+      if (before === after) return;
+      const old = new Map(before.map((x) => [x.id, x]));
+      out[k] = after.map((x) => {
+        if (old.get(x.id) === x) return x;
+        if (deleted[x.id]) tomb(x.id, null);
+        return { ...x, _m: now };
+      });
+      const kept = new Set(after.map((x) => x.id));
+      before.forEach((x) => {
+        if (!kept.has(x.id)) tomb(x.id, now);
+      });
+    });
+    out.deleted = deleted;
+    if (prev.settings !== next.settings) out.settings = { ...next.settings, _m: now };
     return out;
   }
   const pad = (n2) => String(n2).padStart(2, "0");
@@ -4246,6 +4495,11 @@ a.launch-tile__inner:active {
     };
   }
   function reducer(state, action) {
+    const next = baseReducer(state, action);
+    if (action.type === "mergeRemote" || action.type === "replace" && action.synced) return next;
+    return stampChanges(state, next);
+  }
+  function baseReducer(state, action) {
     switch (action.type) {
       case "add": {
         const list = state[action.collection];
@@ -4302,6 +4556,8 @@ a.launch-tile__inner:active {
         return { ...state, settings: { ...state.settings, ...action.patch } };
       case "replace":
         return withDefaults(action.data);
+      case "mergeRemote":
+        return mergeData(state, action.remote);
       case "removeSamples": {
         const keep = (xs) => xs.filter((x) => !x.sample);
         const next = {
@@ -4342,7 +4598,7 @@ a.launch-tile__inner:active {
       const onStorage = (e) => {
         if (e.key !== "one.workspace.v1" || !e.newValue) return;
         const loaded = adapterRef.current.load();
-        if (loaded) dispatch({ type: "replace", data: loaded });
+        if (loaded) dispatch({ type: "replace", data: loaded, synced: true });
       };
       window.addEventListener("storage", onStorage);
       return () => window.removeEventListener("storage", onStorage);
@@ -4377,6 +4633,8 @@ a.launch-tile__inner:active {
     const setSettings = React2.useCallback((patch) => dispatch({ type: "settings", patch }), []);
     const replaceAll = React2.useCallback((d) => dispatch({ type: "replace", data: d }), []);
     const removeSamples = React2.useCallback(() => dispatch({ type: "removeSamples" }), []);
+    const applySynced = React2.useCallback((d) => dispatch({ type: "replace", data: d, synced: true }), []);
+    const mergeRemote = React2.useCallback((remote) => dispatch({ type: "mergeRemote", remote }), []);
     const resetToEmpty = React2.useCallback(
       () => dispatch({ type: "replace", data: createEmptyData({ ...dataRef.current.settings, sampleBannerDismissed: true }) }),
       []
@@ -4400,9 +4658,11 @@ a.launch-tile__inner:active {
         replaceAll,
         removeSamples,
         resetToEmpty,
-        hasSamples
+        hasSamples,
+        applySynced,
+        mergeRemote
       }),
-      [data, saveFailed, add, update, remove, removeGroup, move, touch, setSettings, replaceAll, removeSamples, resetToEmpty, hasSamples]
+      [data, saveFailed, add, update, remove, removeGroup, move, touch, setSettings, replaceAll, removeSamples, resetToEmpty, hasSamples, applySynced, mergeRemote]
     );
     return /* @__PURE__ */ React2.createElement(StoreContext.Provider, { value: api }, children);
   }
@@ -5302,6 +5562,7 @@ a.launch-tile__inner:active {
     const ui = useUI();
     const { data } = useStore();
     const todayCount = useOpenTodayCount();
+    const lock = useLock();
     const name = data.settings.name.trim();
     return /* @__PURE__ */ React2.createElement("aside", { className: "sidebar", "aria-label": "Main" }, /* @__PURE__ */ React2.createElement("div", { className: "sidebar__top" }, /* @__PURE__ */ React2.createElement(
       "a",
@@ -5316,7 +5577,7 @@ a.launch-tile__inner:active {
       },
       /* @__PURE__ */ React2.createElement(BrandMark, null),
       /* @__PURE__ */ React2.createElement("span", { className: "brand__word" }, "ONE")
-    ), /* @__PURE__ */ React2.createElement(IconButton, { label: collapsed ? "Expand sidebar" : "Collapse sidebar", size: "sm", onClick: onToggleCollapse, "aria-expanded": !collapsed }, collapsed ? /* @__PURE__ */ React2.createElement(PanelLeftOpen, { size: 16 }) : /* @__PURE__ */ React2.createElement(PanelLeftClose, { size: 16 }))), /* @__PURE__ */ React2.createElement("nav", { className: "nav", "aria-label": "Pages" }, ROUTES.map((r) => /* @__PURE__ */ React2.createElement(NavItem, { key: r.id, r, count: r.id === "tasks" ? todayCount : void 0 }))), /* @__PURE__ */ React2.createElement("div", { className: "sidebar__bottom" }, /* @__PURE__ */ React2.createElement(NavItem, { r: PREFERENCES_ROUTE }), /* @__PURE__ */ React2.createElement("div", { className: "profile" }, /* @__PURE__ */ React2.createElement("button", { type: "button", className: "profile__btn", onClick: () => ui.navigate("preferences"), title: "Profile and settings" }, /* @__PURE__ */ React2.createElement("span", { className: "avatar", "aria-hidden": true }, (name[0] ?? "Y").toUpperCase()), /* @__PURE__ */ React2.createElement("span", { className: "profile__text" }, /* @__PURE__ */ React2.createElement("span", { className: "profile__name" }, name || "You"), /* @__PURE__ */ React2.createElement("span", { className: "profile__meta" }, "Saved on this device"))), /* @__PURE__ */ React2.createElement("span", { className: "theme-toggle-wrap" }, /* @__PURE__ */ React2.createElement(IconButton, { label: theme === "dark" ? "Switch to light theme" : "Switch to dark theme", size: "sm", onClick: onToggleTheme }, theme === "dark" ? /* @__PURE__ */ React2.createElement(Sun, { size: 16 }) : /* @__PURE__ */ React2.createElement(Moon, { size: 16 }))))));
+    ), /* @__PURE__ */ React2.createElement(IconButton, { label: collapsed ? "Expand sidebar" : "Collapse sidebar", size: "sm", onClick: onToggleCollapse, "aria-expanded": !collapsed }, collapsed ? /* @__PURE__ */ React2.createElement(PanelLeftOpen, { size: 16 }) : /* @__PURE__ */ React2.createElement(PanelLeftClose, { size: 16 }))), /* @__PURE__ */ React2.createElement("nav", { className: "nav", "aria-label": "Pages" }, ROUTES.map((r) => /* @__PURE__ */ React2.createElement(NavItem, { key: r.id, r, count: r.id === "tasks" ? todayCount : void 0 }))), /* @__PURE__ */ React2.createElement("div", { className: "sidebar__bottom" }, /* @__PURE__ */ React2.createElement(NavItem, { r: PREFERENCES_ROUTE }), /* @__PURE__ */ React2.createElement("div", { className: "profile" }, /* @__PURE__ */ React2.createElement("button", { type: "button", className: "profile__btn", onClick: () => ui.navigate("preferences"), title: "Profile and settings" }, /* @__PURE__ */ React2.createElement("span", { className: "avatar", "aria-hidden": true }, (name[0] ?? "Y").toUpperCase()), /* @__PURE__ */ React2.createElement("span", { className: "profile__text" }, /* @__PURE__ */ React2.createElement("span", { className: "profile__name" }, name || "You"), /* @__PURE__ */ React2.createElement("span", { className: "profile__meta" }, React2.createElement(SyncMeta, null)))), /* @__PURE__ */ React2.createElement("span", { className: "theme-toggle-wrap" }, lock.enabled && React2.createElement(IconButton, { label: "Lock ONE now", size: "sm", onClick: lock.lock }, React2.createElement(Lock, { size: 15 })), /* @__PURE__ */ React2.createElement(IconButton, { label: theme === "dark" ? "Switch to light theme" : "Switch to dark theme", size: "sm", onClick: onToggleTheme }, theme === "dark" ? /* @__PURE__ */ React2.createElement(Sun, { size: 16 }) : /* @__PURE__ */ React2.createElement(Moon, { size: 16 }))))));
   }
   function Topbar() {
     const ui = useUI();
@@ -5349,6 +5610,7 @@ a.launch-tile__inner:active {
   const TABS_RIGHT = [{ id: "ideas", label: "Ideas", icon: Lightbulb }];
   function MobileNav({ theme, onToggleTheme }) {
     const ui = useUI();
+    const lock = useLock();
     const [moreOpen, setMoreOpen] = React2.useState(false);
     React2.useEffect(() => setMoreOpen(false), [ui.route]);
     const inMore = !["home", "tasks", "ideas"].includes(ui.route);
@@ -5367,7 +5629,7 @@ a.launch-tile__inner:active {
       /* @__PURE__ */ React2.createElement(t.icon, { size: 21, strokeWidth: ui.route === t.id ? 2.2 : 1.8, "aria-hidden": true }),
       t.label
     );
-    return /* @__PURE__ */ React2.createElement(React2.Fragment, null, /* @__PURE__ */ React2.createElement("nav", { className: "tabbar", "aria-label": "Pages" }, TABS.map(tab), /* @__PURE__ */ React2.createElement("button", { type: "button", className: "tabbar__capture", "aria-label": "Quick capture", onClick: () => ui.openCapture() }, /* @__PURE__ */ React2.createElement(Plus, { size: 24, strokeWidth: 2.4 })), TABS_RIGHT.map(tab), /* @__PURE__ */ React2.createElement("button", { type: "button", className: "tabbar__item", "aria-current": inMore ? "page" : void 0, "aria-haspopup": "dialog", onClick: () => setMoreOpen(true) }, /* @__PURE__ */ React2.createElement(Menu$1, { size: 21, strokeWidth: inMore ? 2.2 : 1.8, "aria-hidden": true }), "More")), /* @__PURE__ */ React2.createElement(Modal, { open: moreOpen, onClose: () => setMoreOpen(false), title: "Go to" }, /* @__PURE__ */ React2.createElement("div", { className: "more-list" }, ROUTES.map((r) => /* @__PURE__ */ React2.createElement(NavItem, { key: r.id, r, onNavigate: () => setMoreOpen(false) })), /* @__PURE__ */ React2.createElement(NavItem, { r: PREFERENCES_ROUTE, onNavigate: () => setMoreOpen(false) }), /* @__PURE__ */ React2.createElement("button", { type: "button", className: "nav__item", onClick: onToggleTheme }, theme === "dark" ? /* @__PURE__ */ React2.createElement(Sun, { size: 17, "aria-hidden": true }) : /* @__PURE__ */ React2.createElement(Moon, { size: 17, "aria-hidden": true }), /* @__PURE__ */ React2.createElement("span", { className: "nav__label" }, theme === "dark" ? "Light theme" : "Dark theme")))));
+    return /* @__PURE__ */ React2.createElement(React2.Fragment, null, /* @__PURE__ */ React2.createElement("nav", { className: "tabbar", "aria-label": "Pages" }, TABS.map(tab), /* @__PURE__ */ React2.createElement("button", { type: "button", className: "tabbar__capture", "aria-label": "Quick capture", onClick: () => ui.openCapture() }, /* @__PURE__ */ React2.createElement(Plus, { size: 24, strokeWidth: 2.4 })), TABS_RIGHT.map(tab), /* @__PURE__ */ React2.createElement("button", { type: "button", className: "tabbar__item", "aria-current": inMore ? "page" : void 0, "aria-haspopup": "dialog", onClick: () => setMoreOpen(true) }, /* @__PURE__ */ React2.createElement(Menu$1, { size: 21, strokeWidth: inMore ? 2.2 : 1.8, "aria-hidden": true }), "More")), /* @__PURE__ */ React2.createElement(Modal, { open: moreOpen, onClose: () => setMoreOpen(false), title: "Go to" }, /* @__PURE__ */ React2.createElement("div", { className: "more-list" }, ROUTES.map((r) => /* @__PURE__ */ React2.createElement(NavItem, { key: r.id, r, onNavigate: () => setMoreOpen(false) })), /* @__PURE__ */ React2.createElement(NavItem, { r: PREFERENCES_ROUTE, onNavigate: () => setMoreOpen(false) }), /* @__PURE__ */ React2.createElement("button", { type: "button", className: "nav__item", onClick: onToggleTheme }, theme === "dark" ? /* @__PURE__ */ React2.createElement(Sun, { size: 17, "aria-hidden": true }) : /* @__PURE__ */ React2.createElement(Moon, { size: 17, "aria-hidden": true }), /* @__PURE__ */ React2.createElement("span", { className: "nav__label" }, theme === "dark" ? "Light theme" : "Dark theme")), lock.enabled && React2.createElement("button", { type: "button", className: "nav__item", onClick: lock.lock }, React2.createElement(Lock, { size: 17, "aria-hidden": true }), React2.createElement("span", { className: "nav__label" }, "Lock now")))));
   }
   const KINDS = [
     { value: "task", label: "Task", icon: SquareCheckBig, placeholder: "Call the dentist on Friday…" },
@@ -6905,6 +7167,7 @@ a.launch-tile__inner:active {
     const [backupText, setBackupText] = React2.useState(null);
     const [restoreOpen, setRestoreOpen] = React2.useState(false);
     const backupRef = React2.useRef(null);
+    const sync = useSync();
     const counts = `${data.tasks.length} tasks, ${data.ideas.length} ideas, ${data.shortcuts.length} websites, ${data.saved.length} saved links, ${data.notes.length} notes and ${data.goals.length} goals`;
     const copyBackup = async () => {
       const json = JSON.stringify(data, null, 2);
@@ -6935,7 +7198,7 @@ a.launch-tile__inner:active {
       });
       toast({ message: "Sample content added", tone: "success" });
     };
-    return /* @__PURE__ */ React2.createElement(React2.Fragment, null, /* @__PURE__ */ React2.createElement("div", { className: "page-head" }, /* @__PURE__ */ React2.createElement("div", { className: "page-head__text" }, /* @__PURE__ */ React2.createElement("h1", { className: "page-title" }, "Settings"), /* @__PURE__ */ React2.createElement("p", { className: "page-desc" }, "Your profile, how ONE looks, and your data."))), /* @__PURE__ */ React2.createElement("div", { className: "settings" }, /* @__PURE__ */ React2.createElement("section", { className: "panel settings__section", "aria-labelledby": "set-profile" }, /* @__PURE__ */ React2.createElement("h2", { id: "set-profile", className: "settings__title" }, "Profile"), /* @__PURE__ */ React2.createElement("div", { className: "settings__row" }, /* @__PURE__ */ React2.createElement("div", { className: "settings__label" }, /* @__PURE__ */ React2.createElement("p", null, "Your name"), /* @__PURE__ */ React2.createElement("span", null, "Used in the greeting on Home.")), /* @__PURE__ */ React2.createElement("div", { className: "settings__control" }, /* @__PURE__ */ React2.createElement(Field, { label: "Your name", hideLabel: true }, (p) => /* @__PURE__ */ React2.createElement("input", { ...p, className: "input", placeholder: "e.g. Alex", value: data.settings.name, maxLength: 40, onChange: (e) => setSettings({ name: e.target.value }) }))))), /* @__PURE__ */ React2.createElement("section", { className: "panel settings__section", "aria-labelledby": "set-look" }, /* @__PURE__ */ React2.createElement("h2", { id: "set-look", className: "settings__title" }, "Appearance"), /* @__PURE__ */ React2.createElement("div", { className: "settings__row" }, /* @__PURE__ */ React2.createElement("div", { className: "settings__label" }, /* @__PURE__ */ React2.createElement("p", null, "Theme"), /* @__PURE__ */ React2.createElement("span", null, "System follows your device setting.")), /* @__PURE__ */ React2.createElement("div", { className: "settings__control" }, /* @__PURE__ */ React2.createElement(
+    return /* @__PURE__ */ React2.createElement(React2.Fragment, null, /* @__PURE__ */ React2.createElement("div", { className: "page-head" }, /* @__PURE__ */ React2.createElement("div", { className: "page-head__text" }, /* @__PURE__ */ React2.createElement("h1", { className: "page-title" }, "Settings"), /* @__PURE__ */ React2.createElement("p", { className: "page-desc" }, "Your profile, how ONE looks, and your data."))), /* @__PURE__ */ React2.createElement("div", { className: "settings" }, /* @__PURE__ */ React2.createElement("section", { className: "panel settings__section", "aria-labelledby": "set-profile" }, /* @__PURE__ */ React2.createElement("h2", { id: "set-profile", className: "settings__title" }, "Profile"), /* @__PURE__ */ React2.createElement("div", { className: "settings__row" }, /* @__PURE__ */ React2.createElement("div", { className: "settings__label" }, /* @__PURE__ */ React2.createElement("p", null, "Your name"), /* @__PURE__ */ React2.createElement("span", null, "Used in the greeting on Home.")), /* @__PURE__ */ React2.createElement("div", { className: "settings__control" }, /* @__PURE__ */ React2.createElement(Field, { label: "Your name", hideLabel: true }, (p) => /* @__PURE__ */ React2.createElement("input", { ...p, className: "input", placeholder: "e.g. Alex", value: data.settings.name, maxLength: 40, onChange: (e) => setSettings({ name: e.target.value }) }))))), /* @__PURE__ */ React2.createElement(SyncSettings, null), React2.createElement(LockSettings, null), React2.createElement(InstallSettings, null), /* @__PURE__ */ React2.createElement("section", { className: "panel settings__section", "aria-labelledby": "set-look" }, /* @__PURE__ */ React2.createElement("h2", { id: "set-look", className: "settings__title" }, "Appearance"), /* @__PURE__ */ React2.createElement("div", { className: "settings__row" }, /* @__PURE__ */ React2.createElement("div", { className: "settings__label" }, /* @__PURE__ */ React2.createElement("p", null, "Theme"), /* @__PURE__ */ React2.createElement("span", null, "System follows your device setting.")), /* @__PURE__ */ React2.createElement("div", { className: "settings__control" }, /* @__PURE__ */ React2.createElement(
       Segmented,
       {
         label: "Theme",
@@ -6947,7 +7210,7 @@ a.launch-tile__inner:active {
           { value: "dark", label: "Dark", icon: /* @__PURE__ */ React2.createElement(Moon, { size: 14, "aria-hidden": true }) }
         ]
       }
-    )))), /* @__PURE__ */ React2.createElement("section", { className: "panel settings__section", "aria-labelledby": "set-data" }, /* @__PURE__ */ React2.createElement("h2", { id: "set-data", className: "settings__title" }, "Your data"), /* @__PURE__ */ React2.createElement("p", { className: "settings__note" }, persistence === "browser" ? "Everything you add is saved in this browser on this device. It isn’t synced to other devices or backed up online, so copy a backup now and then." : "This browser is blocking storage, so nothing will be kept after you close the page. Copy a backup before you leave."), /* @__PURE__ */ React2.createElement("p", { className: "settings__note muted num" }, "Right now: ", counts, "."), /* @__PURE__ */ React2.createElement("div", { className: "settings__row" }, /* @__PURE__ */ React2.createElement("div", { className: "settings__label" }, /* @__PURE__ */ React2.createElement("p", null, "Sample content"), /* @__PURE__ */ React2.createElement("span", null, hasSamples ? "Examples are mixed in with your own items. They’re marked “Sample”." : "No sample content is showing.")), /* @__PURE__ */ React2.createElement("div", { className: "settings__control" }, hasSamples ? /* @__PURE__ */ React2.createElement(
+    )))), /* @__PURE__ */ React2.createElement("section", { className: "panel settings__section", "aria-labelledby": "set-data" }, /* @__PURE__ */ React2.createElement("h2", { id: "set-data", className: "settings__title" }, "Your data"), /* @__PURE__ */ React2.createElement("p", { className: "settings__note" }, persistence === "browser" ? sync.connected ? "Everything is saved in this browser and synced, encrypted, to your connected devices." : "Everything you add is saved in this browser on this device. Connect a device above to sync it, or copy a backup now and then." : "This browser is blocking storage, so nothing will be kept after you close the page. Copy a backup before you leave."), /* @__PURE__ */ React2.createElement("p", { className: "settings__note muted num" }, "Right now: ", counts, "."), /* @__PURE__ */ React2.createElement("div", { className: "settings__row" }, /* @__PURE__ */ React2.createElement("div", { className: "settings__label" }, /* @__PURE__ */ React2.createElement("p", null, "Sample content"), /* @__PURE__ */ React2.createElement("span", null, hasSamples ? "Examples are mixed in with your own items. They’re marked “Sample”." : "No sample content is showing.")), /* @__PURE__ */ React2.createElement("div", { className: "settings__control" }, hasSamples ? /* @__PURE__ */ React2.createElement(
       Button,
       {
         icon: /* @__PURE__ */ React2.createElement(Trash2, { size: 15 }),
@@ -6960,7 +7223,7 @@ a.launch-tile__inner:active {
         }
       },
       "Remove samples"
-    ) : /* @__PURE__ */ React2.createElement(Button, { icon: /* @__PURE__ */ React2.createElement(Sparkles, { size: 15 }), onClick: addSamples }, "Add sample content"))), /* @__PURE__ */ React2.createElement("div", { className: "settings__row" }, /* @__PURE__ */ React2.createElement("div", { className: "settings__label" }, /* @__PURE__ */ React2.createElement("p", null, "Backup"), /* @__PURE__ */ React2.createElement("span", null, "Copies all your data as text you can keep somewhere safe and restore later.")), /* @__PURE__ */ React2.createElement("div", { className: "settings__control settings__control--buttons" }, /* @__PURE__ */ React2.createElement(Button, { icon: /* @__PURE__ */ React2.createElement(Copy, { size: 15 }), onClick: copyBackup }, "Copy backup"), /* @__PURE__ */ React2.createElement(Button, { icon: /* @__PURE__ */ React2.createElement(Upload, { size: 15 }), onClick: () => setRestoreOpen(true) }, "Restore"))), backupText && /* @__PURE__ */ React2.createElement("div", { className: "settings__backup" }, /* @__PURE__ */ React2.createElement(Field, { label: "Your backup", hint: "Copying was blocked here, so the text is selected below. Copy it with your keyboard or the context menu." }, (p) => /* @__PURE__ */ React2.createElement("textarea", { ...p, ref: backupRef, className: "textarea mono-text", rows: 6, readOnly: true, value: backupText, onFocus: (e) => e.currentTarget.select() }))), /* @__PURE__ */ React2.createElement("div", { className: "settings__row settings__row--danger" }, /* @__PURE__ */ React2.createElement("div", { className: "settings__label" }, /* @__PURE__ */ React2.createElement("p", null, "Delete everything"), /* @__PURE__ */ React2.createElement("span", null, "Removes all tasks, notes, links, shortcuts and goals from this browser.")), /* @__PURE__ */ React2.createElement("div", { className: "settings__control" }, /* @__PURE__ */ React2.createElement(
+    ) : /* @__PURE__ */ React2.createElement(Button, { icon: /* @__PURE__ */ React2.createElement(Sparkles, { size: 15 }), onClick: addSamples }, "Add sample content"))), /* @__PURE__ */ React2.createElement("div", { className: "settings__row" }, /* @__PURE__ */ React2.createElement("div", { className: "settings__label" }, /* @__PURE__ */ React2.createElement("p", null, "Backup"), /* @__PURE__ */ React2.createElement("span", null, "Copies all your data as text you can keep somewhere safe and restore later.")), /* @__PURE__ */ React2.createElement("div", { className: "settings__control settings__control--buttons" }, /* @__PURE__ */ React2.createElement(Button, { icon: /* @__PURE__ */ React2.createElement(Copy, { size: 15 }), onClick: copyBackup }, "Copy backup"), /* @__PURE__ */ React2.createElement(Button, { icon: /* @__PURE__ */ React2.createElement(Upload, { size: 15 }), onClick: () => setRestoreOpen(true) }, "Restore"))), backupText && /* @__PURE__ */ React2.createElement("div", { className: "settings__backup" }, /* @__PURE__ */ React2.createElement(Field, { label: "Your backup", hint: "Copying was blocked here, so the text is selected below. Copy it with your keyboard or the context menu." }, (p) => /* @__PURE__ */ React2.createElement("textarea", { ...p, ref: backupRef, className: "textarea mono-text", rows: 6, readOnly: true, value: backupText, onFocus: (e) => e.currentTarget.select() }))), /* @__PURE__ */ React2.createElement("div", { className: "settings__row settings__row--danger" }, /* @__PURE__ */ React2.createElement("div", { className: "settings__label" }, /* @__PURE__ */ React2.createElement("p", null, "Delete everything"), /* @__PURE__ */ React2.createElement("span", null, "Removes all tasks, ideas, websites, links, notes and goals from this browser.")), /* @__PURE__ */ React2.createElement("div", { className: "settings__control" }, /* @__PURE__ */ React2.createElement(
       Button,
       {
         variant: "danger-ghost",
@@ -6968,7 +7231,7 @@ a.launch-tile__inner:active {
         onClick: async () => {
           const ok = await confirm({
             title: "Delete everything?",
-            body: "All of your tasks, notes, saved links, shortcuts and goals will be removed from this browser. This can’t be undone. Copy a backup first if you might want them back.",
+            body: `All of your tasks, ideas, websites, saved links, notes and goals will be removed from this browser${sync.connected ? " and from your connected devices" : ""}. This can’t be undone. Copy a backup first if you might want them back.`,
             confirmLabel: "Delete everything"
           });
           if (ok) {
@@ -7041,6 +7304,779 @@ a.launch-tile__inner:active {
     ideas: IdeasPage,
     preferences: PreferencesPage
   };
+  /* ---------- Sync: Supabase, encrypted on this device before upload ---------- */
+  // From Supabase → Project Settings → API. The anon key is public by design: the
+  // database only lets it call the one_* functions from supabase/one_sync.sql.
+  const SYNC_CONFIG = {
+    url: "https://mnrsxnhlytifjxmpzrjb.supabase.co",
+    anonKey: "sb_publishable_awI359q55LXo4S-sdfAnzw_pEr6KDhu"
+  };
+  const SYNC_KEY = "one.sync.v1";
+  const LOCK_KEY = "one.lock.v1";
+  const syncConfigured = () => !!(SYNC_CONFIG.url && SYNC_CONFIG.anonKey);
+  function readJSON(key) {
+    try {
+      const raw = window.localStorage.getItem(key);
+      return raw ? JSON.parse(raw) : null;
+    } catch {
+      return null;
+    }
+  }
+  function writeJSON(key, value) {
+    try {
+      if (value == null) window.localStorage.removeItem(key);
+      else window.localStorage.setItem(key, JSON.stringify(value));
+    } catch {
+    }
+  }
+  const utf8 = new TextEncoder();
+  const fromUtf8 = new TextDecoder();
+  function toB64(bytes) {
+    const b = new Uint8Array(bytes);
+    let s = "";
+    for (let i = 0; i < b.length; i += 32768) s += String.fromCharCode.apply(null, b.subarray(i, i + 32768));
+    return btoa(s);
+  }
+  function fromB64(str) {
+    const s = atob(str);
+    const b = new Uint8Array(s.length);
+    for (let i = 0; i < s.length; i++) b[i] = s.charCodeAt(i);
+    return b;
+  }
+  async function sha256(text) {
+    return new Uint8Array(await crypto.subtle.digest("SHA-256", utf8.encode(text)));
+  }
+  async function sha256Hex(text) {
+    return Array.from(await sha256(text), (x) => x.toString(16).padStart(2, "0")).join("");
+  }
+  async function aesKey(material) {
+    return crypto.subtle.importKey("raw", await sha256(material), "AES-GCM", false, ["encrypt", "decrypt"]);
+  }
+  async function sealJSON(material, value) {
+    const iv = crypto.getRandomValues(new Uint8Array(12));
+    const ct = await crypto.subtle.encrypt({ name: "AES-GCM", iv }, await aesKey(material), utf8.encode(JSON.stringify(value)));
+    return `v1.${toB64(iv)}.${toB64(ct)}`;
+  }
+  async function openJSON(material, sealed) {
+    const [v, iv, ct] = String(sealed).split(".");
+    if (v !== "v1") throw new Error("Unknown format");
+    const plain = await crypto.subtle.decrypt({ name: "AES-GCM", iv: fromB64(iv) }, await aesKey(material), fromB64(ct));
+    return JSON.parse(fromUtf8.decode(plain));
+  }
+  function randomKey() {
+    return toB64(crypto.getRandomValues(new Uint8Array(32))).replace(/\+/g, "-").replace(/\//g, "_").replace(/=+$/, "");
+  }
+  function randomCode() {
+    const a = new Uint32Array(1);
+    do crypto.getRandomValues(a); while (a[0] >= 4294e6);
+    return String(a[0] % 1e6).padStart(6, "0");
+  }
+  async function deriveVault(key) {
+    return { key, vault: await sha256Hex(`one-vault:${key}`), auth: await sha256Hex(`one-auth:${key}`), version: 0 };
+  }
+  const encMaterial = (key) => `one-enc:${key}`;
+  const pairHash = (code) => sha256Hex(`one-pair:${code}`);
+  const pairMaterial = (code) => `one-pairkey:${code}`;
+  class SyncError extends Error {
+    constructor(kind, message) {
+      super(message);
+      this.kind = kind;
+    }
+  }
+  async function rpc(fn, args) {
+    let res;
+    try {
+      res = await fetch(`${SYNC_CONFIG.url.replace(/\/+$/, "").replace(/\/rest\/v1$/, "")}/rest/v1/rpc/${fn}`, {
+        method: "POST",
+        // New "sb_publishable_" keys go only in the apikey header; older JWT anon keys also go in Authorization.
+        headers: { "Content-Type": "application/json", apikey: SYNC_CONFIG.anonKey, ...SYNC_CONFIG.anonKey.startsWith("eyJ") ? { Authorization: `Bearer ${SYNC_CONFIG.anonKey}` } : {} },
+        body: JSON.stringify(args)
+      });
+    } catch {
+      throw new SyncError("offline", "Can’t reach the sync server. Check your internet connection.");
+    }
+    if (res.status === 403) throw new SyncError("denied", "The sync server didn’t accept this device. Disconnect it and connect again with a new code.");
+    if (res.status === 401) throw new SyncError("setup", "The Supabase key in ONE isn’t valid.");
+    if (res.status === 404) throw new SyncError("setup", "The sync tables are missing. Run supabase/one_sync.sql in Supabase.");
+    if (!res.ok) throw new SyncError("server", `The sync server had a problem (${res.status}). ONE will try again.`);
+    return res.json();
+  }
+  function newer(a, b) {
+    if (!a) return b;
+    if (!b) return a;
+    return (b._m || 0) > (a._m || 0) ? b : a;
+  }
+  const TOMBSTONE_TTL = 90 * 864e5;
+  // Item-by-item merge: the newest edit of each item wins, and deletions win
+  // over anything older than them.
+  function mergeData(local, remote) {
+    const now = Date.now();
+    const deleted = {};
+    [local.deleted || {}, remote.deleted || {}].forEach((d) => Object.entries(d).forEach(([id, t]) => {
+      if (now - t < TOMBSTONE_TTL && !(deleted[id] >= t)) deleted[id] = t;
+    }));
+    const out = withDefaults({ ...remote, ...local, deleted });
+    SYNCED_COLLECTIONS.forEach((k) => {
+      const L = local[k] || [];
+      const R = remote[k] || [];
+      const lm = new Map(L.map((x) => [x.id, x]));
+      const rm = new Map(R.map((x) => [x.id, x]));
+      // The server's order is shared by every device; items only this device has
+      // keep their place relative to their local neighbours.
+      const ids = R.map((x) => x.id);
+      L.forEach((x, i) => {
+        if (rm.has(x.id)) return;
+        let at = ids.length;
+        for (let j = i + 1; j < L.length; j++) {
+          const pos = rm.has(L[j].id) ? ids.indexOf(L[j].id) : -1;
+          if (pos >= 0) {
+            at = pos;
+            break;
+          }
+        }
+        ids.splice(at, 0, x.id);
+      });
+      out[k] = ids.map((id) => newer(lm.get(id), rm.get(id))).filter((x) => !(deleted[x.id] >= (x._m || 0)));
+    });
+    const settings = newer(local.settings, remote.settings) || local.settings;
+    out.settings = settings === local.settings ? settings : { ...settings, sidebarCollapsed: local.settings.sidebarCollapsed };
+    const live = new Set(SYNCED_COLLECTIONS.flatMap((k) => out[k].map((x) => x.id)));
+    const recent = /* @__PURE__ */ new Map();
+    [...local.recent || [], ...remote.recent || []].forEach((r) => {
+      const key = `${r.kind}:${r.id}`;
+      const prev = recent.get(key);
+      if (live.has(r.id) && (!prev || r.at > prev.at)) recent.set(key, r);
+    });
+    out.recent = [...recent.values()].sort((a, b) => b.at.localeCompare(a.at)).slice(0, 12);
+    out.version = 1;
+    return out;
+  }
+  const SIG_FIELDS = [...SYNCED_COLLECTIONS, "deleted", "settings", "recent"];
+  // Compared to decide whether there is anything to upload. The sidebar state is per device.
+  const dataSig = (d) => JSON.stringify(SIG_FIELDS.map((k) => k === "settings" && d.settings ? { ...d.settings, sidebarCollapsed: void 0 } : d[k]));
+  const SyncContext = React2.createContext(null);
+  function SyncProvider({ children }) {
+    const { data, applySynced, mergeRemote } = useStore();
+    const [cfg, setCfgState] = React2.useState(() => syncConfigured() ? readJSON(SYNC_KEY) : null);
+    const cfgRef = React2.useRef(cfg);
+    const [status, setStatus] = React2.useState({ state: "idle", at: (cfg == null ? void 0 : cfg.syncedAt) ?? null, error: null });
+    const dataRef = React2.useRef(data);
+    dataRef.current = data;
+    // Signature of what the server holds, as far as this device knows. null = unknown.
+    const remoteSig = React2.useRef(null);
+    const running = React2.useRef(false);
+    const again = React2.useRef(false);
+    const timer = React2.useRef(0);
+    const setCfg = React2.useCallback((c) => {
+      cfgRef.current = c;
+      writeJSON(SYNC_KEY, c);
+      setCfgState(c);
+    }, []);
+    const round = React2.useCallback(async () => {
+      const c = cfgRef.current;
+      if (!c) return;
+      if (running.current) {
+        again.current = true;
+        return;
+      }
+      running.current = true;
+      setStatus((s) => ({ ...s, state: "syncing" }));
+      try {
+        let version = c.version;
+        for (let attempt = 0; attempt < 4; attempt++) {
+          const pulled = await rpc("one_pull", { p_vault: c.vault, p_auth: c.auth, p_known_version: remoteSig.current ? version : 0 });
+          let local = dataRef.current;
+          if (pulled.status === "ok") {
+            const remote = await openJSON(encMaterial(c.key), pulled.data);
+            remoteSig.current = dataSig(remote);
+            version = pulled.version;
+            const merged = mergeData(local, remote);
+            if (dataSig(merged) !== dataSig(local)) mergeRemote(remote);
+            local = merged;
+          } else if (pulled.status === "missing") {
+            remoteSig.current = null;
+            version = 0;
+          } else {
+            version = pulled.version;
+          }
+          const sig = dataSig(local);
+          if (sig === remoteSig.current) break;
+          const pushed = await rpc("one_push", { p_vault: c.vault, p_auth: c.auth, p_data: await sealJSON(encMaterial(c.key), local), p_base_version: version });
+          if (pushed.status === "ok") {
+            remoteSig.current = sig;
+            version = pushed.version;
+            break;
+          }
+          remoteSig.current = null;
+        }
+        if (cfgRef.current && cfgRef.current.vault === c.vault) {
+          const at = (/* @__PURE__ */ new Date()).toISOString();
+          setCfg({ ...cfgRef.current, version, syncedAt: at });
+          setStatus({ state: "idle", at, error: null });
+        }
+      } catch (e) {
+        setStatus((s) => ({ ...s, state: "error", error: e.message || "Sync failed.", kind: e.kind }));
+      } finally {
+        running.current = false;
+        if (again.current) {
+          again.current = false;
+          window.clearTimeout(timer.current);
+          timer.current = window.setTimeout(round, 300);
+        }
+      }
+    }, [mergeRemote, setCfg]);
+    const connected = !!cfg;
+    // Push local edits shortly after they happen.
+    React2.useEffect(() => {
+      if (!connected || dataSig(data) === remoteSig.current) return;
+      window.clearTimeout(timer.current);
+      timer.current = window.setTimeout(round, 1200);
+    }, [data, connected, round]);
+    // Pick up changes from other devices.
+    React2.useEffect(() => {
+      if (!connected) return;
+      round();
+      const poke = () => document.visibilityState === "visible" && round();
+      const id = window.setInterval(poke, 2e4);
+      document.addEventListener("visibilitychange", poke);
+      window.addEventListener("focus", poke);
+      window.addEventListener("online", poke);
+      return () => {
+        window.clearInterval(id);
+        document.removeEventListener("visibilitychange", poke);
+        window.removeEventListener("focus", poke);
+        window.removeEventListener("online", poke);
+      };
+    }, [connected, round]);
+    const ensureVault = React2.useCallback(async () => {
+      if (cfgRef.current) return cfgRef.current;
+      const c = await deriveVault(randomKey());
+      const snapshot = dataRef.current;
+      const pushed = await rpc("one_push", { p_vault: c.vault, p_auth: c.auth, p_data: await sealJSON(encMaterial(c.key), snapshot), p_base_version: 0 });
+      if (pushed.status !== "ok") throw new SyncError("server", "Couldn’t set up sync. Try again.");
+      remoteSig.current = dataSig(snapshot);
+      const at = (/* @__PURE__ */ new Date()).toISOString();
+      const next = { ...c, version: pushed.version, syncedAt: at };
+      setCfg(next);
+      setStatus({ state: "idle", at, error: null });
+      return next;
+    }, [setCfg]);
+    const createCode = React2.useCallback(async () => {
+      const c = await ensureVault();
+      for (let i = 0; i < 5; i++) {
+        const code = randomCode();
+        const res = await rpc("one_pair_create", { p_code_hash: await pairHash(code), p_payload: await sealJSON(pairMaterial(code), { key: c.key }) });
+        if (res.status === "ok") return { code, expiresAt: Date.now() + res.expires_in * 1e3 };
+      }
+      throw new SyncError("server", "Couldn’t make a code. Try again.");
+    }, [ensureVault]);
+    const joinWithCode = React2.useCallback(async (code) => {
+      const res = await rpc("one_pair_claim", { p_code_hash: await pairHash(code) });
+      if (res.status === "locked") throw new SyncError("locked", "Too many wrong codes were tried. Wait 15 minutes, then make a new code.");
+      if (res.status !== "ok") throw new SyncError("invalid", "That code didn’t work. Each code works once and expires after 10 minutes, so make a new one on your other device.");
+      const { key } = await openJSON(pairMaterial(code), res.payload);
+      const c = await deriveVault(key);
+      const pulled = await rpc("one_pull", { p_vault: c.vault, p_auth: c.auth, p_known_version: 0 });
+      if (pulled.status !== "ok") throw new SyncError("server", "Your other device’s data couldn’t be found. Make a new code and try again.");
+      const remote = withDefaults(await openJSON(encMaterial(key), pulled.data));
+      const local = dataRef.current;
+      remoteSig.current = dataSig(remote);
+      // A device with nothing of its own yet simply takes the synced data.
+      const hasOwn = SYNCED_COLLECTIONS.some((k) => (local[k] || []).some((x) => !x.sample));
+      if (hasOwn) mergeRemote(remote);
+      else applySynced({ ...remote, settings: { ...remote.settings, sidebarCollapsed: local.settings.sidebarCollapsed } });
+      const at = (/* @__PURE__ */ new Date()).toISOString();
+      setCfg({ ...c, version: pulled.version, syncedAt: at });
+      setStatus({ state: "idle", at, error: null });
+      return { merged: hasOwn };
+    }, [applySynced, mergeRemote, setCfg]);
+    const disconnect = React2.useCallback(() => {
+      setCfg(null);
+      remoteSig.current = null;
+      setStatus({ state: "idle", at: null, error: null });
+    }, [setCfg]);
+    const api = React2.useMemo(
+      () => ({ configured: syncConfigured(), connected, status, createCode, joinWithCode, disconnect, syncNow: round }),
+      [connected, status, createCode, joinWithCode, disconnect, round]
+    );
+    return React2.createElement(SyncContext.Provider, { value: api }, children);
+  }
+  function useSync() {
+    const ctx = React2.useContext(SyncContext);
+    if (!ctx) throw new Error("useSync must be used inside SyncProvider");
+    return ctx;
+  }
+  function SyncMeta() {
+    const sync = useSync();
+    const [, tick] = React2.useState(0);
+    React2.useEffect(() => {
+      const id = window.setInterval(() => tick((n2) => n2 + 1), 3e4);
+      return () => window.clearInterval(id);
+    }, []);
+    if (!sync.connected) return "Saved on this device";
+    if (sync.status.state === "syncing") return "Syncing…";
+    if (sync.status.state === "error") return sync.status.kind === "offline" ? "Offline · will sync later" : "Sync problem · see Settings";
+    return sync.status.at ? `Synced ${timeAgo(sync.status.at)}` : "Sync on";
+  }
+  const formatCode = (code) => `${code.slice(0, 3)} ${code.slice(3)}`;
+  function ConnectDeviceDialog({ open, onClose }) {
+    const sync = useSync();
+    const [state, setState] = React2.useState({ phase: "idle" });
+    const [now, setNow] = React2.useState(Date.now());
+    const make = React2.useCallback(async () => {
+      setState({ phase: "loading" });
+      try {
+        const made = await sync.createCode();
+        setNow(Date.now());
+        setState({ phase: "ready", ...made });
+      } catch (e) {
+        setState({ phase: "error", error: e.message });
+      }
+    }, [sync.createCode]);
+    React2.useEffect(() => {
+      if (open) make();
+      else setState({ phase: "idle" });
+    }, [open]);
+    React2.useEffect(() => {
+      if (state.phase !== "ready") return;
+      const id = window.setInterval(() => setNow(Date.now()), 1e3);
+      return () => window.clearInterval(id);
+    }, [state.phase]);
+    const left = state.phase === "ready" ? Math.max(0, Math.round((state.expiresAt - now) / 1e3)) : 0;
+    const expired = state.phase === "ready" && left === 0;
+    return React2.createElement(
+      Modal,
+      {
+        open,
+        onClose,
+        title: "Connect a device",
+        description: "Enter this code in ONE on your other device: Settings → I have a code.",
+        footer: React2.createElement(React2.Fragment, null, React2.createElement("span", { className: "spacer" }), (expired || state.phase === "error") && React2.createElement(Button, { onClick: make, icon: React2.createElement(RefreshCw, { size: 15 }) }, "New code"), React2.createElement(Button, { variant: "primary", onClick: onClose }, "Done"))
+      },
+      React2.createElement(
+        "div",
+        { className: "pair-code", "aria-live": "polite" },
+        state.phase === "loading" && React2.createElement("p", { className: "pair-code__wait" }, "Making a code…"),
+        state.phase === "error" && React2.createElement("p", { className: "pair-code__error", role: "alert" }, state.error),
+        state.phase === "ready" && React2.createElement(
+          React2.Fragment,
+          null,
+          React2.createElement("p", { className: `pair-code__digits num${expired ? " is-expired" : ""}`, "aria-label": `Code ${state.code.split("").join(" ")}` }, formatCode(state.code)),
+          React2.createElement("p", { className: "pair-code__timer num" }, expired ? "This code expired. Make a new one." : `Works once · expires in ${Math.floor(left / 60)}:${String(left % 60).padStart(2, "0")}`)
+        )
+      )
+    );
+  }
+  function JoinDialog({ open, onClose }) {
+    const sync = useSync();
+    const toast = useToast();
+    const [code, setCode] = React2.useState("");
+    const [error, setError] = React2.useState(null);
+    const [busy, setBusy] = React2.useState(false);
+    React2.useEffect(() => {
+      if (open) {
+        setCode("");
+        setError(null);
+        setBusy(false);
+      }
+    }, [open]);
+    const submit = async (e) => {
+      e.preventDefault();
+      if (!/^\d{6}$/.test(code)) {
+        setError("Enter all 6 digits.");
+        return;
+      }
+      setBusy(true);
+      try {
+        const { merged } = await sync.joinWithCode(code);
+        toast({ message: merged ? "Connected. Your data is merged and synced." : "Connected. Your data is now on this device.", tone: "success", duration: 5e3 });
+        onClose();
+      } catch (err) {
+        setError(err.message || "Couldn’t connect. Try again.");
+      } finally {
+        setBusy(false);
+      }
+    };
+    return React2.createElement(
+      Modal,
+      {
+        open,
+        onClose,
+        title: "I have a code",
+        description: sync.connected ? "This device will switch to the other device’s data. Anything here is merged in." : "On your other device open Settings → Connect a device, then enter the 6-digit code here.",
+        footer: React2.createElement(React2.Fragment, null, React2.createElement("span", { className: "spacer" }), React2.createElement(Button, { variant: "secondary", onClick: onClose }, "Cancel"), React2.createElement(Button, { variant: "primary", type: "submit", form: "join-form", disabled: busy }, busy ? "Connecting…" : "Connect"))
+      },
+      React2.createElement(
+        "form",
+        { id: "join-form", className: "form", onSubmit: submit, noValidate: true },
+        React2.createElement(Field, { label: "6-digit code", error, hideLabel: true }, (p) => React2.createElement("input", {
+          ...p,
+          "data-autofocus": true,
+          className: "input code-input num",
+          inputMode: "numeric",
+          autoComplete: "one-time-code",
+          placeholder: "000000",
+          maxLength: 7,
+          value: code,
+          onChange: (e) => {
+            setCode(e.target.value.replace(/\D/g, "").slice(0, 6));
+            setError(null);
+          }
+        }))
+      )
+    );
+  }
+  function SyncSettings() {
+    const sync = useSync();
+    const confirm = useConfirm();
+    const toast = useToast();
+    const [dialog, setDialog] = React2.useState(null);
+    const { status } = sync;
+    let line;
+    if (!sync.configured) line = "Sync needs a one-time setup: add your Supabase address and key to ONE (see SUPABASE_SETUP.md).";
+    else if (!sync.connected) line = "Use ONE on your phone and computer with the same data. Everything is encrypted on your device before it’s uploaded.";
+    else if (status.state === "error") line = status.error;
+    else if (status.state === "syncing") line = "Syncing…";
+    else line = status.at ? `Synced ${timeAgo(status.at)}. Changes sync automatically.` : "Sync is on.";
+    return React2.createElement(
+      "section",
+      { className: "panel settings__section", "aria-labelledby": "set-sync" },
+      React2.createElement("h2", { id: "set-sync", className: "settings__title" }, "Sync across devices"),
+      React2.createElement(
+        "p",
+        { className: `settings__note sync-line${status.state === "error" ? " is-error" : ""}`, "aria-live": "polite" },
+        sync.connected && React2.createElement("span", { className: `sync-dot sync-dot--${status.state}`, "aria-hidden": true }),
+        line
+      ),
+      sync.configured && React2.createElement(
+        "div",
+        { className: "settings__control settings__control--buttons sync-actions" },
+        React2.createElement(Button, { variant: "primary", icon: React2.createElement(Smartphone, { size: 15 }), onClick: () => setDialog("connect") }, sync.connected ? "Connect another device" : "Connect a device"),
+        React2.createElement(Button, { icon: React2.createElement(KeyRound, { size: 15 }), onClick: () => setDialog("join") }, "I have a code"),
+        sync.connected && React2.createElement(Button, { variant: "ghost", icon: React2.createElement(RefreshCw, { size: 15 }), onClick: sync.syncNow, disabled: status.state === "syncing" }, "Sync now"),
+        sync.connected && React2.createElement(Button, {
+          variant: "danger-ghost",
+          onClick: async () => {
+            const ok = await confirm({ title: "Disconnect this device?", body: "This device stops syncing. Your data stays here and on your other devices.", confirmLabel: "Disconnect", tone: "default" });
+            if (ok) {
+              sync.disconnect();
+              toast({ message: "This device is no longer syncing", tone: "neutral" });
+            }
+          }
+        }, "Disconnect")
+      ),
+      React2.createElement(ConnectDeviceDialog, { open: dialog === "connect", onClose: () => setDialog(null) }),
+      React2.createElement(JoinDialog, { open: dialog === "join", onClose: () => setDialog(null) })
+    );
+  }
+  /* ---------- App lock (PIN) ---------- */
+  const PIN_ITERATIONS = 2e5;
+  async function hashPin(pin, salt, iterations) {
+    const base = await crypto.subtle.importKey("raw", utf8.encode(pin), "PBKDF2", false, ["deriveBits"]);
+    const bits = await crypto.subtle.deriveBits({ name: "PBKDF2", hash: "SHA-256", salt: fromB64(salt), iterations }, base, 256);
+    return toB64(bits);
+  }
+  const AUTO_LOCK_OPTIONS = [
+    { value: 0, label: "Right away" },
+    { value: 1, label: "After 1 minute" },
+    { value: 5, label: "After 5 minutes" },
+    { value: 15, label: "After 15 minutes" }
+  ];
+  const LockContext = React2.createContext(null);
+  function LockProvider({ children }) {
+    const [rec, setRecState] = React2.useState(() => readJSON(LOCK_KEY));
+    const [locked, setLocked] = React2.useState(() => !!readJSON(LOCK_KEY));
+    const setRec = React2.useCallback((r) => {
+      writeJSON(LOCK_KEY, r);
+      setRecState(r);
+    }, []);
+    React2.useEffect(() => {
+      if (!rec) return;
+      let hiddenAt = null;
+      const on = () => {
+        if (document.visibilityState === "hidden") hiddenAt = Date.now();
+        else if (hiddenAt != null && Date.now() - hiddenAt >= rec.autoLock * 6e4) setLocked(true);
+      };
+      document.addEventListener("visibilitychange", on);
+      return () => document.removeEventListener("visibilitychange", on);
+    }, [rec]);
+    const api = React2.useMemo(() => ({
+      enabled: !!rec,
+      rec,
+      locked: locked && !!rec,
+      lock: () => rec && setLocked(true),
+      unlock: () => setLocked(false),
+      verify: async (pin) => !rec || await hashPin(pin, rec.salt, rec.iterations) === rec.hash,
+      setPin: async (pin) => {
+        const salt = toB64(crypto.getRandomValues(new Uint8Array(16)));
+        setRec({ salt, iterations: PIN_ITERATIONS, hash: await hashPin(pin, salt, PIN_ITERATIONS), len: pin.length, autoLock: (rec == null ? void 0 : rec.autoLock) ?? 1, fails: 0, until: 0 });
+      },
+      setAutoLock: (m) => rec && setRec({ ...rec, autoLock: m }),
+      setFails: (fails, until) => rec && setRec({ ...rec, fails, until }),
+      disable: () => {
+        setRec(null);
+        setLocked(false);
+      }
+    }), [rec, locked, setRec]);
+    return React2.createElement(LockContext.Provider, { value: api }, api.locked ? React2.createElement(LockScreen, null) : children);
+  }
+  function useLock() {
+    const ctx = React2.useContext(LockContext);
+    if (!ctx) throw new Error("useLock must be used inside LockProvider");
+    return ctx;
+  }
+  function LockScreen() {
+    const lock = useLock();
+    const sync = useSync();
+    const confirm = useConfirm();
+    const { rec } = lock;
+    const [pin, setPin] = React2.useState("");
+    const [error, setError] = React2.useState(null);
+    const [busy, setBusy] = React2.useState(false);
+    const [shake, setShake] = React2.useState(0);
+    const [now, setNow] = React2.useState(Date.now());
+    const wait = Math.max(0, Math.ceil(((rec.until || 0) - now) / 1e3));
+    React2.useEffect(() => {
+      if (!wait) return;
+      const id = window.setInterval(() => setNow(Date.now()), 1e3);
+      return () => window.clearInterval(id);
+    }, [wait > 0]);
+    React2.useEffect(() => {
+      if (pin.length !== rec.len) return;
+      let cancelled = false;
+      setBusy(true);
+      lock.verify(pin).then((ok) => {
+        if (cancelled) return;
+        setBusy(false);
+        if (ok) {
+          lock.setFails(0, 0);
+          lock.unlock();
+          return;
+        }
+        const fails = (rec.fails || 0) + 1;
+        const until = fails >= 5 ? Date.now() + Math.min(9e5, 3e4 * 2 ** (fails - 5)) : 0;
+        lock.setFails(fails, until);
+        setNow(Date.now());
+        setPin("");
+        setShake((n2) => n2 + 1);
+        setError(fails >= 5 ? "Too many wrong tries." : `Wrong PIN. ${5 - fails} ${5 - fails === 1 ? "try" : "tries"} left before a short wait.`);
+      });
+      return () => {
+        cancelled = true;
+      };
+    }, [pin]);
+    const blocked = busy || wait > 0;
+    const press = (d) => {
+      if (blocked) return;
+      setError(null);
+      setPin((p) => p.length < rec.len ? p + d : p);
+    };
+    const back = () => !blocked && setPin((p) => p.slice(0, -1));
+    React2.useEffect(() => {
+      const onKey = (e) => {
+        if (document.querySelector(".overlay")) return;
+        if (/^\d$/.test(e.key)) press(e.key);
+        else if (e.key === "Backspace") back();
+      };
+      window.addEventListener("keydown", onKey);
+      return () => window.removeEventListener("keydown", onKey);
+    });
+    const forgot = async () => {
+      const ok = await confirm({
+        title: "Forgot your PIN?",
+        body: sync.connected ? "ONE will erase everything on this device and remove the lock. Your data stays on your other connected devices: connect this one again with a code to get it back." : "ONE will erase everything on this device and remove the lock. This can’t be undone.",
+        confirmLabel: "Erase this device"
+      });
+      if (!ok) return;
+      [KEY, LOCK_KEY, SYNC_KEY].forEach((k) => writeJSON(k, null));
+      window.location.reload();
+    };
+    const keys = ["1", "2", "3", "4", "5", "6", "7", "8", "9"];
+    return React2.createElement(
+      "div",
+      { className: "lock", role: "dialog", "aria-modal": "true", "aria-labelledby": "lock-title" },
+      React2.createElement(
+        "div",
+        { className: "lock__box" },
+        React2.createElement(BrandMark, { size: 44 }),
+        React2.createElement("h1", { id: "lock-title", className: "lock__title" }, "ONE is locked"),
+        React2.createElement("p", { className: "lock__sub" }, "Enter your PIN"),
+        React2.createElement("div", { key: shake, className: `lock__dots${shake ? " is-wrong" : ""}`, "aria-label": `${pin.length} of ${rec.len} digits entered`, role: "status" }, Array.from({ length: rec.len }, (_, i) => React2.createElement("span", { key: i, className: `lock__dot${i < pin.length ? " is-filled" : ""}` }))),
+        React2.createElement("p", { className: "lock__error", role: "alert" }, wait ? `Too many wrong tries. Try again in ${wait}s.` : error || " "),
+        React2.createElement(
+          "div",
+          { className: "lock__pad" },
+          keys.map((k) => React2.createElement("button", { key: k, type: "button", className: "lock__key num", onClick: () => press(k), disabled: blocked }, k)),
+          React2.createElement("span", null),
+          React2.createElement("button", { type: "button", className: "lock__key num", onClick: () => press("0"), disabled: blocked }, "0"),
+          React2.createElement("button", { type: "button", className: "lock__key lock__key--ghost", onClick: back, disabled: blocked || !pin, "aria-label": "Delete last digit" }, React2.createElement(Delete, { size: 22 }))
+        ),
+        React2.createElement("button", { type: "button", className: "text-link lock__forgot", onClick: forgot }, "Forgot PIN?")
+      )
+    );
+  }
+  function PinDialog({ mode, onClose }) {
+    const lock = useLock();
+    const toast = useToast();
+    const steps = mode === "set" ? ["new", "confirm"] : mode === "change" ? ["current", "new", "confirm"] : ["current"];
+    const [step, setStep] = React2.useState(0);
+    const [first, setFirst] = React2.useState("");
+    const [value, setValue] = React2.useState("");
+    const [error, setError] = React2.useState(null);
+    const [busy, setBusy] = React2.useState(false);
+    React2.useEffect(() => {
+      setStep(0);
+      setFirst("");
+      setValue("");
+      setError(null);
+    }, [mode]);
+    const kind = mode ? steps[step] : null;
+    const last = step === steps.length - 1;
+    const submit = async (e) => {
+      e.preventDefault();
+      if (busy) return;
+      if (kind === "current") {
+        setBusy(true);
+        const ok = await lock.verify(value);
+        setBusy(false);
+        if (!ok) {
+          setError("That’s not your current PIN.");
+          setValue("");
+          return;
+        }
+        if (mode === "off") {
+          lock.disable();
+          toast({ message: "App lock is off", tone: "neutral" });
+          onClose();
+          return;
+        }
+      } else if (kind === "new") {
+        if (!/^\d{4,6}$/.test(value)) {
+          setError("Use 4 to 6 digits.");
+          return;
+        }
+        setFirst(value);
+      } else if (kind === "confirm") {
+        if (value !== first) {
+          setError("The PINs didn’t match. Enter a new PIN again.");
+          setValue("");
+          setStep(steps.indexOf("new"));
+          return;
+        }
+        setBusy(true);
+        await lock.setPin(value);
+        setBusy(false);
+        toast({ message: mode === "set" ? "App lock is on" : "PIN changed", tone: "success" });
+        onClose();
+        return;
+      }
+      setValue("");
+      setError(null);
+      setStep((s) => s + 1);
+    };
+    const label = kind === "current" ? "Current PIN" : kind === "new" ? "New PIN" : "Enter the new PIN again";
+    return React2.createElement(
+      Modal,
+      {
+        open: !!mode,
+        onClose,
+        title: mode === "set" ? "Set a PIN" : mode === "change" ? "Change PIN" : "Turn off app lock",
+        description: kind === "new" ? "4 to 6 digits. ONE asks for it when it opens." : void 0,
+        footer: React2.createElement(React2.Fragment, null, React2.createElement("span", { className: "spacer" }), React2.createElement(Button, { variant: "secondary", onClick: onClose }, "Cancel"), React2.createElement(Button, { variant: mode === "off" ? "danger" : "primary", type: "submit", form: "pin-form", disabled: busy }, mode === "off" ? "Turn off" : last ? "Save PIN" : "Continue"))
+      },
+      kind && React2.createElement(
+        "form",
+        { id: "pin-form", className: "form", onSubmit: submit, noValidate: true },
+        React2.createElement(Field, { label, error }, (p) => React2.createElement("input", {
+          ...p,
+          key: kind,
+          "data-autofocus": true,
+          autoFocus: true,
+          type: "password",
+          className: "input code-input num",
+          inputMode: "numeric",
+          autoComplete: kind === "current" ? "current-password" : "new-password",
+          maxLength: 6,
+          value,
+          onChange: (e) => {
+            setValue(e.target.value.replace(/\D/g, "").slice(0, 6));
+            setError(null);
+          }
+        }))
+      )
+    );
+  }
+  function LockSettings() {
+    const lock = useLock();
+    const [mode, setMode] = React2.useState(null);
+    return React2.createElement(
+      "section",
+      { className: "panel settings__section", "aria-labelledby": "set-lock" },
+      React2.createElement("h2", { id: "set-lock", className: "settings__title" }, "App lock"),
+      React2.createElement(
+        "div",
+        { className: "settings__row" },
+        React2.createElement("div", { className: "settings__label" }, React2.createElement("p", null, "PIN lock"), React2.createElement("span", null, lock.enabled ? "ONE asks for your PIN on this device." : "Ask for a PIN when ONE opens on this device.")),
+        React2.createElement(
+          "div",
+          { className: "settings__control settings__control--buttons" },
+          lock.enabled ? React2.createElement(React2.Fragment, null, React2.createElement(Button, { icon: React2.createElement(Lock, { size: 15 }), onClick: lock.lock }, "Lock now"), React2.createElement(Button, { onClick: () => setMode("change") }, "Change PIN"), React2.createElement(Button, { variant: "danger-ghost", onClick: () => setMode("off") }, "Turn off")) : React2.createElement(Button, { variant: "primary", icon: React2.createElement(Lock, { size: 15 }), onClick: () => setMode("set") }, "Set a PIN")
+        )
+      ),
+      lock.enabled && React2.createElement(
+        "div",
+        { className: "settings__row" },
+        React2.createElement("div", { className: "settings__label" }, React2.createElement("p", null, "Lock again"), React2.createElement("span", null, "When ONE has been in the background this long.")),
+        React2.createElement("div", { className: "settings__control" }, React2.createElement(Field, { label: "Lock again", hideLabel: true }, (p) => React2.createElement("select", { ...p, className: "select", value: lock.rec.autoLock, onChange: (e) => lock.setAutoLock(Number(e.target.value)) }, AUTO_LOCK_OPTIONS.map((o) => React2.createElement("option", { key: o.value, value: o.value }, o.label)))))
+      ),
+      React2.createElement(PinDialog, { mode, onClose: () => setMode(null) })
+    );
+  }
+  /* ---------- Install as an app ---------- */
+  let deferredInstall = null;
+  window.addEventListener("beforeinstallprompt", (e) => {
+    e.preventDefault();
+    deferredInstall = e;
+    window.dispatchEvent(new Event("one-install-ready"));
+  });
+  function InstallSettings() {
+    const standalone = useMediaQuery("(display-mode: standalone)") || navigator.standalone === true;
+    const [canPrompt, setCanPrompt] = React2.useState(!!deferredInstall);
+    React2.useEffect(() => {
+      const on = () => setCanPrompt(!!deferredInstall);
+      window.addEventListener("one-install-ready", on);
+      window.addEventListener("appinstalled", on);
+      return () => {
+        window.removeEventListener("one-install-ready", on);
+        window.removeEventListener("appinstalled", on);
+      };
+    }, []);
+    const isIOS = /iPhone|iPad|iPod/.test(navigator.userAgent) || navigator.platform === "MacIntel" && navigator.maxTouchPoints > 1;
+    const install = async () => {
+      const e = deferredInstall;
+      if (!e) return;
+      deferredInstall = null;
+      setCanPrompt(false);
+      e.prompt();
+      await e.userChoice;
+    };
+    let text;
+    if (standalone) text = "ONE is installed. You’re using it as an app right now.";
+    else if (canPrompt) text = "Add ONE to your home screen or dock. It opens in its own window and works offline.";
+    else if (isIOS) text = "In Safari, tap the Share button, then “Add to Home Screen”.";
+    else text = "Open your browser’s menu and choose “Install app” or “Add to Home screen”.";
+    return React2.createElement(
+      "section",
+      { className: "panel settings__section", "aria-labelledby": "set-install" },
+      React2.createElement("h2", { id: "set-install", className: "settings__title" }, "Install app"),
+      React2.createElement(
+        "div",
+        { className: "settings__row" },
+        React2.createElement("div", { className: "settings__label" }, React2.createElement("p", null, standalone ? "Installed" : "Use ONE like an app"), React2.createElement("span", null, text)),
+        canPrompt && !standalone && React2.createElement("div", { className: "settings__control" }, React2.createElement(Button, { variant: "primary", icon: React2.createElement(Download, { size: 15 }), onClick: install }, "Install ONE"))
+      )
+    );
+  }
   function useGlobalShortcuts() {
     const ui = useUI();
     React2.useEffect(() => {
@@ -7079,9 +8115,13 @@ a.launch-tile__inner:active {
     return /* @__PURE__ */ React2.createElement("div", { className: "app", "data-collapsed": collapsed }, /* @__PURE__ */ React2.createElement(Sidebar, { collapsed, onToggleCollapse: toggleCollapse, theme, onToggleTheme: toggleTheme }), /* @__PURE__ */ React2.createElement("div", { className: "main" }, /* @__PURE__ */ React2.createElement(Topbar, null), /* @__PURE__ */ React2.createElement("main", { className: "page", key: ui.route, id: "main" }, (persistence === "memory" || saveFailed) && /* @__PURE__ */ React2.createElement("div", { className: "storage-alert", role: "alert" }, /* @__PURE__ */ React2.createElement(TriangleAlert, { size: 16, "aria-hidden": true }), persistence === "memory" ? "This browser is blocking storage, so changes will be lost when you close the page." : "Your latest change couldn’t be saved. Storage may be full. Copy a backup from Settings."), /* @__PURE__ */ React2.createElement(Page, null))), /* @__PURE__ */ React2.createElement(MobileNav, { theme, onToggleTheme: toggleTheme }), /* @__PURE__ */ React2.createElement(QuickCapture, null), /* @__PURE__ */ React2.createElement(SearchPalette, null));
   }
   function App() {
-    return /* @__PURE__ */ React2.createElement(StoreProvider, null, /* @__PURE__ */ React2.createElement(ToastProvider, null, /* @__PURE__ */ React2.createElement(ConfirmProvider, null, /* @__PURE__ */ React2.createElement(UIProvider, null, /* @__PURE__ */ React2.createElement(Shell, null)))));
+    return /* @__PURE__ */ React2.createElement(StoreProvider, null, /* @__PURE__ */ React2.createElement(ToastProvider, null, /* @__PURE__ */ React2.createElement(ConfirmProvider, null, React2.createElement(SyncProvider, null, React2.createElement(LockProvider, null, /* @__PURE__ */ React2.createElement(UIProvider, null, /* @__PURE__ */ React2.createElement(Shell, null)))))));
   }
   client.createRoot(document.getElementById("root")).render(/* @__PURE__ */ React2.createElement(App, null));
+  if ("serviceWorker" in navigator && (location.protocol === "https:" || location.hostname === "localhost")) {
+    window.addEventListener("load", () => navigator.serviceWorker.register("sw.js").catch(() => {
+    }));
+  }
 })(React, ReactDOM, ReactDOM);
 
   </script>
