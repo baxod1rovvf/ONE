@@ -17,7 +17,7 @@ anything else in the project.
 2. Copy the **Project URL** (looks like `https://abcd1234.supabase.co`).
 3. Copy the **publishable** key (starts with `sb_publishable_`; older projects show an **anon / public** key starting with `eyJ`).
    Never use the `service_role` / secret key.
-4. In `index.html`, find `SYNC_CONFIG` and fill both in:
+4. In `One.html`, find `SYNC_CONFIG` and fill both in:
 
    ```js
    const SYNC_CONFIG = {
