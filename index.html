@@ -7308,7 +7308,7 @@ a.launch-tile__inner:active {
   // From Supabase → Project Settings → API. The anon key is public by design: the
   // database only lets it call the one_* functions from supabase/one_sync.sql.
   const SYNC_CONFIG = {
-    url: "",
+    url: "https://mnrsxnhlytifjxmpzrjb.supabase.co",
     anonKey: "sb_publishable_awI359q55LXo4S-sdfAnzw_pEr6KDhu"
   };
   const SYNC_KEY = "one.sync.v1";
@@ -7386,7 +7386,7 @@ a.launch-tile__inner:active {
   async function rpc(fn, args) {
     let res;
     try {
-      res = await fetch(`${SYNC_CONFIG.url.replace(/\/+$/, "")}/rest/v1/rpc/${fn}`, {
+      res = await fetch(`${SYNC_CONFIG.url.replace(/\/+$/, "").replace(/\/rest\/v1$/, "")}/rest/v1/rpc/${fn}`, {
         method: "POST",
         // New "sb_publishable_" keys go only in the apikey header; older JWT anon keys also go in Authorization.
         headers: { "Content-Type": "application/json", apikey: SYNC_CONFIG.anonKey, ...SYNC_CONFIG.anonKey.startsWith("eyJ") ? { Authorization: `Bearer ${SYNC_CONFIG.anonKey}` } : {} },
