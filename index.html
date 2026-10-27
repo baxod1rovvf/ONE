@@ -7309,7 +7309,7 @@ a.launch-tile__inner:active {
   // database only lets it call the one_* functions from supabase/one_sync.sql.
   const SYNC_CONFIG = {
     url: "",
-    anonKey: ""
+    anonKey: "sb_publishable_awI359q55LXo4S-sdfAnzw_pEr6KDhu"
   };
   const SYNC_KEY = "one.sync.v1";
   const LOCK_KEY = "one.lock.v1";
@@ -7388,7 +7388,8 @@ a.launch-tile__inner:active {
     try {
       res = await fetch(`${SYNC_CONFIG.url.replace(/\/+$/, "")}/rest/v1/rpc/${fn}`, {
         method: "POST",
-        headers: { "Content-Type": "application/json", apikey: SYNC_CONFIG.anonKey, Authorization: `Bearer ${SYNC_CONFIG.anonKey}` },
+        // New "sb_publishable_" keys go only in the apikey header; older JWT anon keys also go in Authorization.
+        headers: { "Content-Type": "application/json", apikey: SYNC_CONFIG.anonKey, ...SYNC_CONFIG.anonKey.startsWith("eyJ") ? { Authorization: `Bearer ${SYNC_CONFIG.anonKey}` } : {} },
         body: JSON.stringify(args)
       });
     } catch {
