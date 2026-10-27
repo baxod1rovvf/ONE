@@ -1301,7 +1301,8 @@ button {
 .topbar__spacer {
   flex: 1;
 }
-.topbar__icon-search {
+.topbar__icon-search,
+.topbar__mobile-only {
   display: none;
 }
 
@@ -1379,8 +1380,12 @@ button {
   .topbar__capture {
     display: none;
   }
-  .topbar__icon-search {
+  .topbar__icon-search,
+  .topbar__mobile-only {
     display: inline-grid;
+  }
+  .topbar__mobile-only[aria-current='page'] {
+    color: var(--accent-text);
   }
   .page {
     padding-block: 8px calc(96px + env(safe-area-inset-bottom, 0px));
@@ -1430,7 +1435,7 @@ button {
   .tabbar__item[aria-current='page'] {
     color: var(--accent-text);
   }
-  .tabbar__capture {
+  .tabbar__home {
     justify-self: center;
     width: 48px;
     height: 48px;
@@ -1442,7 +1447,10 @@ button {
     box-shadow: 0 6px 16px color-mix(in srgb, var(--accent) 35%, transparent);
     transition: transform var(--t-fast) var(--ease);
   }
-  .tabbar__capture:active {
+  .tabbar__home[aria-current='page'] {
+    box-shadow: 0 0 0 3px color-mix(in srgb, var(--accent) 30%, transparent), 0 6px 16px color-mix(in srgb, var(--accent) 35%, transparent);
+  }
+  .tabbar__home:active {
     transform: scale(0.93);
   }
 }
@@ -5579,8 +5587,9 @@ a.launch-tile__inner:active {
       /* @__PURE__ */ React2.createElement("span", { className: "brand__word" }, "ONE")
     ), /* @__PURE__ */ React2.createElement(IconButton, { label: collapsed ? "Expand sidebar" : "Collapse sidebar", size: "sm", onClick: onToggleCollapse, "aria-expanded": !collapsed }, collapsed ? /* @__PURE__ */ React2.createElement(PanelLeftOpen, { size: 16 }) : /* @__PURE__ */ React2.createElement(PanelLeftClose, { size: 16 }))), /* @__PURE__ */ React2.createElement("nav", { className: "nav", "aria-label": "Pages" }, ROUTES.map((r) => /* @__PURE__ */ React2.createElement(NavItem, { key: r.id, r, count: r.id === "tasks" ? todayCount : void 0 }))), /* @__PURE__ */ React2.createElement("div", { className: "sidebar__bottom" }, /* @__PURE__ */ React2.createElement(NavItem, { r: PREFERENCES_ROUTE }), /* @__PURE__ */ React2.createElement("div", { className: "profile" }, /* @__PURE__ */ React2.createElement("button", { type: "button", className: "profile__btn", onClick: () => ui.navigate("preferences"), title: "Profile and settings" }, /* @__PURE__ */ React2.createElement("span", { className: "avatar", "aria-hidden": true }, (name[0] ?? "Y").toUpperCase()), /* @__PURE__ */ React2.createElement("span", { className: "profile__text" }, /* @__PURE__ */ React2.createElement("span", { className: "profile__name" }, name || "You"), /* @__PURE__ */ React2.createElement("span", { className: "profile__meta" }, React2.createElement(SyncMeta, null)))), /* @__PURE__ */ React2.createElement("span", { className: "theme-toggle-wrap" }, lock.enabled && React2.createElement(IconButton, { label: "Lock ONE now", size: "sm", onClick: lock.lock }, React2.createElement(Lock, { size: 15 })), /* @__PURE__ */ React2.createElement(IconButton, { label: theme === "dark" ? "Switch to light theme" : "Switch to dark theme", size: "sm", onClick: onToggleTheme }, theme === "dark" ? /* @__PURE__ */ React2.createElement(Sun, { size: 16 }) : /* @__PURE__ */ React2.createElement(Moon, { size: 16 }))))));
   }
-  function Topbar() {
+  function Topbar({ theme, onToggleTheme }) {
     const ui = useUI();
+    const lock = useLock();
     const [scrolled, setScrolled] = React2.useState(false);
     React2.useEffect(() => {
       const on = () => setScrolled(window.scrollY > 4);
@@ -5601,19 +5610,18 @@ a.launch-tile__inner:active {
       },
       /* @__PURE__ */ React2.createElement(BrandMark, { size: 26 }),
       /* @__PURE__ */ React2.createElement("span", { className: "brand__word" }, "ONE")
-    ), /* @__PURE__ */ React2.createElement("button", { type: "button", className: "search-trigger", onClick: ui.openSearch, "aria-label": `Search (${modKey}+K)` }, /* @__PURE__ */ React2.createElement(Search, { size: 15, "aria-hidden": true }), /* @__PURE__ */ React2.createElement("span", { className: "search-trigger__text" }, "Search everything…"), /* @__PURE__ */ React2.createElement(Kbd, null, modKey), /* @__PURE__ */ React2.createElement(Kbd, null, "K")), /* @__PURE__ */ React2.createElement("span", { className: "topbar__spacer" }), /* @__PURE__ */ React2.createElement(IconButton, { label: "Search", className: "topbar__icon-search", onClick: ui.openSearch }, /* @__PURE__ */ React2.createElement(Search, { size: 19 })), /* @__PURE__ */ React2.createElement(Button, { variant: "primary", className: "topbar__capture", icon: /* @__PURE__ */ React2.createElement(Plus, { size: 16, strokeWidth: 2.4 }), onClick: () => ui.openCapture(), title: "Quick capture (C)" }, "Capture"));
+    ), /* @__PURE__ */ React2.createElement("button", { type: "button", className: "search-trigger", onClick: ui.openSearch, "aria-label": `Search (${modKey}+K)` }, /* @__PURE__ */ React2.createElement(Search, { size: 15, "aria-hidden": true }), /* @__PURE__ */ React2.createElement("span", { className: "search-trigger__text" }, "Search everything…"), /* @__PURE__ */ React2.createElement(Kbd, null, modKey), /* @__PURE__ */ React2.createElement(Kbd, null, "K")), /* @__PURE__ */ React2.createElement("span", { className: "topbar__spacer" }), /* @__PURE__ */ React2.createElement(IconButton, { label: "Search", className: "topbar__icon-search", onClick: ui.openSearch }, /* @__PURE__ */ React2.createElement(Search, { size: 19 })), React2.createElement(IconButton, { label: "Quick capture", className: "topbar__mobile-only", onClick: () => ui.openCapture() }, React2.createElement(Plus, { size: 20, strokeWidth: 2.2 })), lock.enabled && React2.createElement(IconButton, { label: "Lock ONE now", className: "topbar__mobile-only", onClick: lock.lock }, React2.createElement(Lock, { size: 18 })), React2.createElement(IconButton, { label: theme === "dark" ? "Switch to light theme" : "Switch to dark theme", className: "topbar__mobile-only", onClick: onToggleTheme }, theme === "dark" ? React2.createElement(Sun, { size: 19 }) : React2.createElement(Moon, { size: 19 })), React2.createElement(IconButton, { label: "Settings", className: "topbar__mobile-only", "aria-current": ui.route === "preferences" ? "page" : void 0, onClick: () => ui.navigate("preferences") }, React2.createElement(Settings, { size: 19 })), /* @__PURE__ */ React2.createElement(Button, { variant: "primary", className: "topbar__capture", icon: /* @__PURE__ */ React2.createElement(Plus, { size: 16, strokeWidth: 2.4 }), onClick: () => ui.openCapture(), title: "Quick capture (C)" }, "Capture"));
   }
   const TABS = [
-    { id: "home", label: "Home", icon: House },
+    { id: "saved", label: "Saved", icon: Bookmark },
     { id: "tasks", label: "Tasks", icon: SquareCheckBig }
   ];
-  const TABS_RIGHT = [{ id: "ideas", label: "Ideas", icon: Lightbulb }];
-  function MobileNav({ theme, onToggleTheme }) {
+  const TABS_RIGHT = [
+    { id: "ideas", label: "Ideas", icon: Lightbulb },
+    { id: "websites", label: "Websites", icon: Globe }
+  ];
+  function MobileNav() {
     const ui = useUI();
-    const lock = useLock();
-    const [moreOpen, setMoreOpen] = React2.useState(false);
-    React2.useEffect(() => setMoreOpen(false), [ui.route]);
-    const inMore = !["home", "tasks", "ideas"].includes(ui.route);
     const tab = (t) => /* @__PURE__ */ React2.createElement(
       "a",
       {
@@ -5629,7 +5637,20 @@ a.launch-tile__inner:active {
       /* @__PURE__ */ React2.createElement(t.icon, { size: 21, strokeWidth: ui.route === t.id ? 2.2 : 1.8, "aria-hidden": true }),
       t.label
     );
-    return /* @__PURE__ */ React2.createElement(React2.Fragment, null, /* @__PURE__ */ React2.createElement("nav", { className: "tabbar", "aria-label": "Pages" }, TABS.map(tab), /* @__PURE__ */ React2.createElement("button", { type: "button", className: "tabbar__capture", "aria-label": "Quick capture", onClick: () => ui.openCapture() }, /* @__PURE__ */ React2.createElement(Plus, { size: 24, strokeWidth: 2.4 })), TABS_RIGHT.map(tab), /* @__PURE__ */ React2.createElement("button", { type: "button", className: "tabbar__item", "aria-current": inMore ? "page" : void 0, "aria-haspopup": "dialog", onClick: () => setMoreOpen(true) }, /* @__PURE__ */ React2.createElement(Menu$1, { size: 21, strokeWidth: inMore ? 2.2 : 1.8, "aria-hidden": true }), "More")), /* @__PURE__ */ React2.createElement(Modal, { open: moreOpen, onClose: () => setMoreOpen(false), title: "Go to" }, /* @__PURE__ */ React2.createElement("div", { className: "more-list" }, ROUTES.map((r) => /* @__PURE__ */ React2.createElement(NavItem, { key: r.id, r, onNavigate: () => setMoreOpen(false) })), /* @__PURE__ */ React2.createElement(NavItem, { r: PREFERENCES_ROUTE, onNavigate: () => setMoreOpen(false) }), /* @__PURE__ */ React2.createElement("button", { type: "button", className: "nav__item", onClick: onToggleTheme }, theme === "dark" ? /* @__PURE__ */ React2.createElement(Sun, { size: 17, "aria-hidden": true }) : /* @__PURE__ */ React2.createElement(Moon, { size: 17, "aria-hidden": true }), /* @__PURE__ */ React2.createElement("span", { className: "nav__label" }, theme === "dark" ? "Light theme" : "Dark theme")), lock.enabled && React2.createElement("button", { type: "button", className: "nav__item", onClick: lock.lock }, React2.createElement(Lock, { size: 17, "aria-hidden": true }), React2.createElement("span", { className: "nav__label" }, "Lock now")))));
+    return /* @__PURE__ */ React2.createElement("nav", { className: "tabbar", "aria-label": "Pages" }, TABS.map(tab), /* @__PURE__ */ React2.createElement(
+      "a",
+      {
+        href: "#home",
+        className: "tabbar__home",
+        "aria-label": "Home",
+        "aria-current": ui.route === "home" ? "page" : void 0,
+        onClick: (e) => {
+          e.preventDefault();
+          ui.navigate("home");
+        }
+      },
+      /* @__PURE__ */ React2.createElement(House, { size: 23, strokeWidth: 2.2, "aria-hidden": true })
+    ), TABS_RIGHT.map(tab));
   }
   const KINDS = [
     { value: "task", label: "Task", icon: SquareCheckBig, placeholder: "Call the dentist on Friday…" },
@@ -7198,7 +7219,7 @@ a.launch-tile__inner:active {
       });
       toast({ message: "Sample content added", tone: "success" });
     };
-    return /* @__PURE__ */ React2.createElement(React2.Fragment, null, /* @__PURE__ */ React2.createElement("div", { className: "page-head" }, /* @__PURE__ */ React2.createElement("div", { className: "page-head__text" }, /* @__PURE__ */ React2.createElement("h1", { className: "page-title" }, "Settings"), /* @__PURE__ */ React2.createElement("p", { className: "page-desc" }, "Your profile, how ONE looks, and your data."))), /* @__PURE__ */ React2.createElement("div", { className: "settings" }, /* @__PURE__ */ React2.createElement("section", { className: "panel settings__section", "aria-labelledby": "set-profile" }, /* @__PURE__ */ React2.createElement("h2", { id: "set-profile", className: "settings__title" }, "Profile"), /* @__PURE__ */ React2.createElement("div", { className: "settings__row" }, /* @__PURE__ */ React2.createElement("div", { className: "settings__label" }, /* @__PURE__ */ React2.createElement("p", null, "Your name"), /* @__PURE__ */ React2.createElement("span", null, "Used in the greeting on Home.")), /* @__PURE__ */ React2.createElement("div", { className: "settings__control" }, /* @__PURE__ */ React2.createElement(Field, { label: "Your name", hideLabel: true }, (p) => /* @__PURE__ */ React2.createElement("input", { ...p, className: "input", placeholder: "e.g. Alex", value: data.settings.name, maxLength: 40, onChange: (e) => setSettings({ name: e.target.value }) }))))), /* @__PURE__ */ React2.createElement(SyncSettings, null), React2.createElement(LockSettings, null), React2.createElement(InstallSettings, null), /* @__PURE__ */ React2.createElement("section", { className: "panel settings__section", "aria-labelledby": "set-look" }, /* @__PURE__ */ React2.createElement("h2", { id: "set-look", className: "settings__title" }, "Appearance"), /* @__PURE__ */ React2.createElement("div", { className: "settings__row" }, /* @__PURE__ */ React2.createElement("div", { className: "settings__label" }, /* @__PURE__ */ React2.createElement("p", null, "Theme"), /* @__PURE__ */ React2.createElement("span", null, "System follows your device setting.")), /* @__PURE__ */ React2.createElement("div", { className: "settings__control" }, /* @__PURE__ */ React2.createElement(
+    return /* @__PURE__ */ React2.createElement(React2.Fragment, null, /* @__PURE__ */ React2.createElement("div", { className: "page-head" }, /* @__PURE__ */ React2.createElement("div", { className: "page-head__text" }, /* @__PURE__ */ React2.createElement("h1", { className: "page-title" }, "Settings"), /* @__PURE__ */ React2.createElement("p", { className: "page-desc" }, "Your profile, how ONE looks, and your data."))), /* @__PURE__ */ React2.createElement("div", { className: "settings" }, React2.createElement(InstallSettings, null), /* @__PURE__ */ React2.createElement("section", { className: "panel settings__section", "aria-labelledby": "set-profile" }, /* @__PURE__ */ React2.createElement("h2", { id: "set-profile", className: "settings__title" }, "Profile"), /* @__PURE__ */ React2.createElement("div", { className: "settings__row" }, /* @__PURE__ */ React2.createElement("div", { className: "settings__label" }, /* @__PURE__ */ React2.createElement("p", null, "Your name"), /* @__PURE__ */ React2.createElement("span", null, "Used in the greeting on Home.")), /* @__PURE__ */ React2.createElement("div", { className: "settings__control" }, /* @__PURE__ */ React2.createElement(Field, { label: "Your name", hideLabel: true }, (p) => /* @__PURE__ */ React2.createElement("input", { ...p, className: "input", placeholder: "e.g. Alex", value: data.settings.name, maxLength: 40, onChange: (e) => setSettings({ name: e.target.value }) }))))), /* @__PURE__ */ React2.createElement(SyncSettings, null), React2.createElement(LockSettings, null), /* @__PURE__ */ React2.createElement("section", { className: "panel settings__section", "aria-labelledby": "set-look" }, /* @__PURE__ */ React2.createElement("h2", { id: "set-look", className: "settings__title" }, "Appearance"), /* @__PURE__ */ React2.createElement("div", { className: "settings__row" }, /* @__PURE__ */ React2.createElement("div", { className: "settings__label" }, /* @__PURE__ */ React2.createElement("p", null, "Theme"), /* @__PURE__ */ React2.createElement("span", null, "System follows your device setting.")), /* @__PURE__ */ React2.createElement("div", { className: "settings__control" }, /* @__PURE__ */ React2.createElement(
       Segmented,
       {
         label: "Theme",
@@ -8040,6 +8061,7 @@ a.launch-tile__inner:active {
     window.dispatchEvent(new Event("one-install-ready"));
   });
   function InstallSettings() {
+    const toast = useToast();
     const standalone = useMediaQuery("(display-mode: standalone)") || navigator.standalone === true;
     const [canPrompt, setCanPrompt] = React2.useState(!!deferredInstall);
     React2.useEffect(() => {
@@ -8054,17 +8076,20 @@ a.launch-tile__inner:active {
     const isIOS = /iPhone|iPad|iPod/.test(navigator.userAgent) || navigator.platform === "MacIntel" && navigator.maxTouchPoints > 1;
     const install = async () => {
       const e = deferredInstall;
-      if (!e) return;
+      if (!e) {
+        toast({ message: howTo, tone: "neutral" });
+        return;
+      }
       deferredInstall = null;
       setCanPrompt(false);
       e.prompt();
       await e.userChoice;
     };
+    const howTo = isIOS ? "In Safari, tap the Share button, then “Add to Home Screen”." : "Open your browser’s menu and choose “Install app” or “Add to Home screen”.";
     let text;
     if (standalone) text = "ONE is installed. You’re using it as an app right now.";
     else if (canPrompt) text = "Add ONE to your home screen or dock. It opens in its own window and works offline.";
-    else if (isIOS) text = "In Safari, tap the Share button, then “Add to Home Screen”.";
-    else text = "Open your browser’s menu and choose “Install app” or “Add to Home screen”.";
+    else text = howTo;
     return React2.createElement(
       "section",
       { className: "panel settings__section", "aria-labelledby": "set-install" },
@@ -8073,7 +8098,7 @@ a.launch-tile__inner:active {
         "div",
         { className: "settings__row" },
         React2.createElement("div", { className: "settings__label" }, React2.createElement("p", null, standalone ? "Installed" : "Use ONE like an app"), React2.createElement("span", null, text)),
-        canPrompt && !standalone && React2.createElement("div", { className: "settings__control" }, React2.createElement(Button, { variant: "primary", icon: React2.createElement(Download, { size: 15 }), onClick: install }, "Install ONE"))
+        !standalone && React2.createElement("div", { className: "settings__control" }, React2.createElement(Button, { variant: "primary", icon: React2.createElement(Download, { size: 15 }), onClick: install }, "Install"))
       )
     );
   }
@@ -8112,7 +8137,7 @@ a.launch-tile__inner:active {
     const toggleCollapse = () => isTablet ? setTabletExpanded((v) => !v) : setSettings({ sidebarCollapsed: !data.settings.sidebarCollapsed });
     const toggleTheme = () => setSettings({ theme: theme === "dark" ? "light" : "dark" });
     const Page = PAGES[ui.route];
-    return /* @__PURE__ */ React2.createElement("div", { className: "app", "data-collapsed": collapsed }, /* @__PURE__ */ React2.createElement(Sidebar, { collapsed, onToggleCollapse: toggleCollapse, theme, onToggleTheme: toggleTheme }), /* @__PURE__ */ React2.createElement("div", { className: "main" }, /* @__PURE__ */ React2.createElement(Topbar, null), /* @__PURE__ */ React2.createElement("main", { className: "page", key: ui.route, id: "main" }, (persistence === "memory" || saveFailed) && /* @__PURE__ */ React2.createElement("div", { className: "storage-alert", role: "alert" }, /* @__PURE__ */ React2.createElement(TriangleAlert, { size: 16, "aria-hidden": true }), persistence === "memory" ? "This browser is blocking storage, so changes will be lost when you close the page." : "Your latest change couldn’t be saved. Storage may be full. Copy a backup from Settings."), /* @__PURE__ */ React2.createElement(Page, null))), /* @__PURE__ */ React2.createElement(MobileNav, { theme, onToggleTheme: toggleTheme }), /* @__PURE__ */ React2.createElement(QuickCapture, null), /* @__PURE__ */ React2.createElement(SearchPalette, null));
+    return /* @__PURE__ */ React2.createElement("div", { className: "app", "data-collapsed": collapsed }, /* @__PURE__ */ React2.createElement(Sidebar, { collapsed, onToggleCollapse: toggleCollapse, theme, onToggleTheme: toggleTheme }), /* @__PURE__ */ React2.createElement("div", { className: "main" }, /* @__PURE__ */ React2.createElement(Topbar, { theme, onToggleTheme: toggleTheme }), /* @__PURE__ */ React2.createElement("main", { className: "page", key: ui.route, id: "main" }, (persistence === "memory" || saveFailed) && /* @__PURE__ */ React2.createElement("div", { className: "storage-alert", role: "alert" }, /* @__PURE__ */ React2.createElement(TriangleAlert, { size: 16, "aria-hidden": true }), persistence === "memory" ? "This browser is blocking storage, so changes will be lost when you close the page." : "Your latest change couldn’t be saved. Storage may be full. Copy a backup from Settings."), /* @__PURE__ */ React2.createElement(Page, null))), /* @__PURE__ */ React2.createElement(MobileNav, null), /* @__PURE__ */ React2.createElement(QuickCapture, null), /* @__PURE__ */ React2.createElement(SearchPalette, null));
   }
   function App() {
     return /* @__PURE__ */ React2.createElement(StoreProvider, null, /* @__PURE__ */ React2.createElement(ToastProvider, null, /* @__PURE__ */ React2.createElement(ConfirmProvider, null, React2.createElement(SyncProvider, null, React2.createElement(LockProvider, null, /* @__PURE__ */ React2.createElement(UIProvider, null, /* @__PURE__ */ React2.createElement(Shell, null)))))));
