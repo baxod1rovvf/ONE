@@ -3,6 +3,8 @@
 // cached copy; libraries, fonts and icons come from the cache first.
 // Sync requests to Supabase are never cached.
 const CACHE = "one-v6";
+// Surahs saved with "Keep offline"; never cleared by version updates.
+const QURAN_OFFLINE = "one-quran-offline";
 const SHELL = [
   "./",
   "./index.html",
@@ -33,7 +35,7 @@ self.addEventListener("install", (event) => {
 self.addEventListener("activate", (event) => {
   event.waitUntil(
     caches.keys()
-      .then((keys) => Promise.all(keys.filter((k) => k !== CACHE).map((k) => caches.delete(k))))
+      .then((keys) => Promise.all(keys.filter((k) => k !== CACHE && k !== QURAN_OFFLINE).map((k) => caches.delete(k))))
       .then(() => self.clients.claim())
   );
 });
@@ -43,7 +45,16 @@ self.addEventListener("fetch", (event) => {
   if (req.method !== "GET") return;
   const url = new URL(req.url);
   const sameOrigin = url.origin === self.location.origin;
-  if (!sameOrigin && !CACHEABLE_HOSTS.includes(url.hostname)) return;
+  if (!sameOrigin && !CACHEABLE_HOSTS.includes(url.hostname)) {
+    // A recitation kept offline is answered from its own cache.
+    event.respondWith(
+      caches
+        .open(QURAN_OFFLINE)
+        .then((cache) => cache.match(req.url))
+        .then((hit) => hit || fetch(req))
+    );
+    return;
+  }
 
   // The page and the install manifest always come from the network when online,
   // so Chrome never installs ONE from an outdated manifest.

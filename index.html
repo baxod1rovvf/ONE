@@ -4230,6 +4230,86 @@ main[data-section='saved'] .panel::after {
   flex: 1;
   min-width: 0;
 }
+.quran-tools {
+  display: grid;
+  gap: 8px;
+  margin-bottom: 8px;
+}
+.quran-tools .select,
+.quran-tools .input {
+  width: 100%;
+  height: 36px;
+}
+.quran-tools__switches {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 16px;
+  font-size: var(--fs-xs);
+  font-weight: 600;
+  color: var(--text-2);
+}
+.quran-tools__switches label {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.quran-tools__resume {
+  justify-self: start;
+}
+.sound-alert {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  margin-bottom: 10px;
+  padding: 10px 12px;
+  border-radius: 12px;
+  background: var(--warn-soft);
+  color: var(--text);
+  font-size: var(--fs-sm);
+}
+.surah-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+.surah-row {
+  display: flex;
+  align-items: center;
+  gap: 2px;
+}
+.surah-row__play {
+  flex: 1;
+  min-width: 0;
+  display: grid;
+  grid-template-columns: 30px minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 8px;
+  text-align: left;
+  padding: 7px 8px;
+  border-radius: 12px;
+}
+.surah-row__play:hover,
+.surah-row[data-active='true'] .surah-row__play {
+  background: color-mix(in srgb, var(--c-tasks) 10%, transparent);
+}
+.surah-row__num {
+  font-size: var(--fs-xs);
+  font-weight: 700;
+  color: var(--text-3);
+  text-align: center;
+}
+.surah-row__text {
+  display: grid;
+  min-width: 0;
+}
+.surah-row__arabic {
+  font-size: 18px;
+  color: var(--text);
+}
+.surah-row__fav[aria-pressed='true'] {
+  color: var(--c-ideas);
+}
 .sound-bars rect {
   fill: currentColor;
   transform-origin: 50% 100%;
@@ -8323,6 +8403,114 @@ main[data-section='saved'] .panel::after {
   const fmtBytes = (n) => (n >= 1e9 ? `${(n / 1e9).toFixed(1)} GB` : n >= 1e6 ? `${(n / 1e6).toFixed(1)} MB` : `${Math.max(1, Math.round(n / 1e3))} KB`);
   // A saved track as the player sees it.
   const localTrack = (t) => ({ id: `local:${t.id}`, title: t.title, artist: t.artist, album: t.album, kind: t.kind, source: "local", mediaId: t.id });
+  /* ---------- Sound: Quran ---------- */
+  // [number, Arabic name, English name, meaning, ayahs]
+  const SURAHS = [
+    [1, "الفاتحة", "Al-Fatihah", "The Opening", 7], [2, "البقرة", "Al-Baqarah", "The Cow", 286], [3, "آل عمران", "Aal-Imran", "The Family of Imran", 200],
+    [4, "النساء", "An-Nisa", "The Women", 176], [5, "المائدة", "Al-Ma'idah", "The Table Spread", 120], [6, "الأنعام", "Al-An'am", "The Cattle", 165],
+    [7, "الأعراف", "Al-A'raf", "The Heights", 206], [8, "الأنفال", "Al-Anfal", "The Spoils of War", 75], [9, "التوبة", "At-Tawbah", "The Repentance", 129],
+    [10, "يونس", "Yunus", "Jonah", 109], [11, "هود", "Hud", "Hud", 123], [12, "يوسف", "Yusuf", "Joseph", 111],
+    [13, "الرعد", "Ar-Ra'd", "The Thunder", 43], [14, "إبراهيم", "Ibrahim", "Abraham", 52], [15, "الحجر", "Al-Hijr", "The Rocky Tract", 99],
+    [16, "النحل", "An-Nahl", "The Bee", 128], [17, "الإسراء", "Al-Isra", "The Night Journey", 111], [18, "الكهف", "Al-Kahf", "The Cave", 110],
+    [19, "مريم", "Maryam", "Mary", 98], [20, "طه", "Taha", "Ta-Ha", 135], [21, "الأنبياء", "Al-Anbiya", "The Prophets", 112],
+    [22, "الحج", "Al-Hajj", "The Pilgrimage", 78], [23, "المؤمنون", "Al-Mu'minun", "The Believers", 118], [24, "النور", "An-Nur", "The Light", 64],
+    [25, "الفرقان", "Al-Furqan", "The Criterion", 77], [26, "الشعراء", "Ash-Shu'ara", "The Poets", 227], [27, "النمل", "An-Naml", "The Ant", 93],
+    [28, "القصص", "Al-Qasas", "The Stories", 88], [29, "العنكبوت", "Al-Ankabut", "The Spider", 69], [30, "الروم", "Ar-Rum", "The Romans", 60],
+    [31, "لقمان", "Luqman", "Luqman", 34], [32, "السجدة", "As-Sajdah", "The Prostration", 30], [33, "الأحزاب", "Al-Ahzab", "The Combined Forces", 73],
+    [34, "سبإ", "Saba", "Sheba", 54], [35, "فاطر", "Fatir", "The Originator", 45], [36, "يس", "Ya-Sin", "Ya Sin", 83],
+    [37, "الصافات", "As-Saffat", "Those Who Set the Ranks", 182], [38, "ص", "Sad", "The Letter Sad", 88], [39, "الزمر", "Az-Zumar", "The Troops", 75],
+    [40, "غافر", "Ghafir", "The Forgiver", 85], [41, "فصلت", "Fussilat", "Explained in Detail", 54], [42, "الشورى", "Ash-Shura", "The Consultation", 53],
+    [43, "الزخرف", "Az-Zukhruf", "The Ornaments of Gold", 89], [44, "الدخان", "Ad-Dukhan", "The Smoke", 59], [45, "الجاثية", "Al-Jathiyah", "The Crouching", 37],
+    [46, "الأحقاف", "Al-Ahqaf", "The Wind-Curved Sandhills", 35], [47, "محمد", "Muhammad", "Muhammad", 38], [48, "الفتح", "Al-Fath", "The Victory", 29],
+    [49, "الحجرات", "Al-Hujurat", "The Rooms", 18], [50, "ق", "Qaf", "The Letter Qaf", 45], [51, "الذاريات", "Adh-Dhariyat", "The Winnowing Winds", 60],
+    [52, "الطور", "At-Tur", "The Mount", 49], [53, "النجم", "An-Najm", "The Star", 62], [54, "القمر", "Al-Qamar", "The Moon", 55],
+    [55, "الرحمن", "Ar-Rahman", "The Most Merciful", 78], [56, "الواقعة", "Al-Waqi'ah", "The Inevitable", 96], [57, "الحديد", "Al-Hadid", "The Iron", 29],
+    [58, "المجادلة", "Al-Mujadilah", "The Pleading Woman", 22], [59, "الحشر", "Al-Hashr", "The Exile", 24], [60, "الممتحنة", "Al-Mumtahanah", "She That Is to Be Examined", 13],
+    [61, "الصف", "As-Saff", "The Ranks", 14], [62, "الجمعة", "Al-Jumu'ah", "Friday", 11], [63, "المنافقون", "Al-Munafiqun", "The Hypocrites", 11],
+    [64, "التغابن", "At-Taghabun", "Mutual Disillusion", 18], [65, "الطلاق", "At-Talaq", "The Divorce", 12], [66, "التحريم", "At-Tahrim", "The Prohibition", 12],
+    [67, "الملك", "Al-Mulk", "The Sovereignty", 30], [68, "القلم", "Al-Qalam", "The Pen", 52], [69, "الحاقة", "Al-Haqqah", "The Reality", 52],
+    [70, "المعارج", "Al-Ma'arij", "The Ascending Stairways", 44], [71, "نوح", "Nuh", "Noah", 28], [72, "الجن", "Al-Jinn", "The Jinn", 28],
+    [73, "المزمل", "Al-Muzzammil", "The Enshrouded One", 20], [74, "المدثر", "Al-Muddaththir", "The Cloaked One", 56], [75, "القيامة", "Al-Qiyamah", "The Resurrection", 40],
+    [76, "الإنسان", "Al-Insan", "Man", 31], [77, "المرسلات", "Al-Mursalat", "Those Sent Forth", 50], [78, "النبإ", "An-Naba", "The Tidings", 40],
+    [79, "النازعات", "An-Nazi'at", "Those Who Drag Forth", 46], [80, "عبس", "Abasa", "He Frowned", 42], [81, "التكوير", "At-Takwir", "The Overthrowing", 29],
+    [82, "الانفطار", "Al-Infitar", "The Cleaving", 19], [83, "المطففين", "Al-Mutaffifin", "The Defrauding", 36], [84, "الانشقاق", "Al-Inshiqaq", "The Splitting Open", 25],
+    [85, "البروج", "Al-Buruj", "The Mansions of the Stars", 22], [86, "الطارق", "At-Tariq", "The Nightcomer", 17], [87, "الأعلى", "Al-A'la", "The Most High", 19],
+    [88, "الغاشية", "Al-Ghashiyah", "The Overwhelming", 26], [89, "الفجر", "Al-Fajr", "The Dawn", 30], [90, "البلد", "Al-Balad", "The City", 20],
+    [91, "الشمس", "Ash-Shams", "The Sun", 15], [92, "الليل", "Al-Layl", "The Night", 21], [93, "الضحى", "Ad-Duha", "The Morning Hours", 11],
+    [94, "الشرح", "Ash-Sharh", "The Relief", 8], [95, "التين", "At-Tin", "The Fig", 8], [96, "العلق", "Al-Alaq", "The Clot", 19],
+    [97, "القدر", "Al-Qadr", "The Power", 5], [98, "البينة", "Al-Bayyinah", "The Clear Proof", 8], [99, "الزلزلة", "Az-Zalzalah", "The Earthquake", 8],
+    [100, "العاديات", "Al-Adiyat", "The Courser", 11], [101, "القارعة", "Al-Qari'ah", "The Calamity", 11], [102, "التكاثر", "At-Takathur", "The Rivalry in World Increase", 8],
+    [103, "العصر", "Al-Asr", "The Declining Day", 3], [104, "الهمزة", "Al-Humazah", "The Traducer", 9], [105, "الفيل", "Al-Fil", "The Elephant", 5],
+    [106, "قريش", "Quraysh", "Quraysh", 4], [107, "الماعون", "Al-Ma'un", "The Small Kindnesses", 7], [108, "الكوثر", "Al-Kawthar", "The Abundance", 3],
+    [109, "الكافرون", "Al-Kafirun", "The Disbelievers", 6], [110, "النصر", "An-Nasr", "The Divine Support", 3], [111, "المسد", "Al-Masad", "The Palm Fiber", 5],
+    [112, "الإخلاص", "Al-Ikhlas", "The Sincerity", 4], [113, "الفلق", "Al-Falaq", "The Daybreak", 5], [114, "الناس", "An-Nas", "Mankind", 6]
+  ];
+  const surahTitle = (n) => `${n}. ${SURAHS[n - 1][2]}`;
+  // Letters and digits only, lower case: "Ya-Sin" and "Yasin" both become "yasin".
+  const searchKey = (s) => s.toLowerCase().replace(/[^\p{L}\p{N}]+/gu, "");
+  const QURAN_API = "https://api.quran.com/api/v4";
+  const QURAN_OFFLINE = "one-quran-offline";
+  const QURAN_ERROR = "Couldn't reach the recitation. Check your connection or try another reciter.";
+  // Shown first, in this order, when the service has them.
+  const PREFERRED_RECITERS = [/afasy/i, /abdul\s?basit|abdulbaset/i, /sudais/i, /husary/i, /shuraim/i, /minshawi/i];
+  // Recitations from the Quran.com API: reciter list and one audio file per surah.
+  const QuranSource = {
+    reciterList: null,
+    urls: new Map(),
+    async reciters() {
+      if (this.reciterList) return this.reciterList;
+      const res = await fetch(`${QURAN_API}/resources/chapter_reciters?language=en`);
+      if (!res.ok) throw new Error(QURAN_ERROR);
+      const json = await res.json();
+      const list = (json.reciters || []).map((r) => ({ id: r.id, name: r.reciter_name || r.name || `Reciter ${r.id}`, style: r.style && r.style.name ? r.style.name : r.style || "" }));
+      const rank = (r) => {
+        const i = PREFERRED_RECITERS.findIndex((re) => re.test(r.name));
+        return i === -1 ? PREFERRED_RECITERS.length : i;
+      };
+      list.sort((a, b) => rank(a) - rank(b) || a.name.localeCompare(b.name));
+      this.reciterList = list;
+      return list;
+    },
+    async surahUrl(reciterId, n) {
+      const key = `${reciterId}/${n}`;
+      if (this.urls.has(key)) return this.urls.get(key);
+      let json;
+      try {
+        const res = await fetch(`${QURAN_API}/chapter_recitations/${reciterId}/${n}`);
+        if (!res.ok) throw new Error();
+        json = await res.json();
+      } catch {
+        throw new Error(QURAN_ERROR);
+      }
+      const url = json && json.audio_file && json.audio_file.audio_url;
+      if (!url) throw new Error(QURAN_ERROR);
+      this.urls.set(key, url);
+      return url;
+    },
+    async keepOffline(reciterId, n) {
+      const url = await this.surahUrl(reciterId, n);
+      const cache = await caches.open(QURAN_OFFLINE);
+      let res;
+      try {
+        res = await fetch(url, { mode: "cors" });
+      } catch {
+        res = await fetch(url, { mode: "no-cors" });
+      }
+      if (!res.ok && res.type !== "opaque") throw new Error(QURAN_ERROR);
+      await cache.put(url, res);
+    },
+    async isOffline(reciterId, n) {
+      const url = this.urls.get(`${reciterId}/${n}`);
+      if (!url || !("caches" in window)) return false;
+      const cache = await caches.open(QURAN_OFFLINE);
+      return !!(await cache.match(url));
+    },
+    async removeOffline(reciterId, n) {
+      const url = await this.surahUrl(reciterId, n);
+      const cache = await caches.open(QURAN_OFFLINE);
+      await cache.delete(url);
+    }
+  };
   /* ---------- Sound: engine ---------- */
   // One engine for the whole app: it outlives page changes, so sound keeps
   // playing on every page. Settings are kept per device.
@@ -8330,7 +8518,7 @@ main[data-section='saved'] .panel::after {
   function defaultSoundSettings() {
     const nature = {};
     for (const s of NATURE_SOUNDS) nature[s.id] = { on: false, volume: 0.4, real: false };
-    return { nature, master: 0.8, followMeadow: true, tab: "nature", nasheedsOnly: false, repeat: "off", shuffle: false, track: null };
+    return { nature, master: 0.8, followMeadow: true, tab: "nature", nasheedsOnly: false, repeat: "off", shuffle: false, track: null, quran: { reciterId: null, reciterName: "", favourites: [], last: null, continue: false, repeat: false, offline: [] } };
   }
   function loadSoundSettings() {
     const base = defaultSoundSettings();
@@ -8339,7 +8527,7 @@ main[data-section='saved'] .panel::after {
       if (!saved) return base;
       const nature = { ...base.nature };
       for (const id of Object.keys(nature)) nature[id] = { ...nature[id], ...(saved.nature && saved.nature[id]) };
-      return { ...base, ...saved, nature };
+      return { ...base, ...saved, nature, quran: { ...base.quran, ...saved.quran } };
     } catch {
       return base;
     }
@@ -8363,7 +8551,8 @@ main[data-section='saved'] .panel::after {
       this.trackError = null;
       this.lastSave = 0;
       this.restoreAt = 0;
-      this.resolvers = { local: (item) => MediaLibrary.url(item.mediaId) }; // saved source → (item) => Promise<url>
+      // saved source → (item) => Promise<url>
+      this.resolvers = { local: (item) => MediaLibrary.url(item.mediaId), quran: (item) => QuranSource.surahUrl(item.reciterId, item.surah) };
       const saved = this.settings.track;
       if (saved && saved.item) {
         this.queue = [saved.item];
@@ -8516,7 +8705,7 @@ main[data-section='saved'] .panel::after {
       a.addEventListener("error", () => {
         if (!a.getAttribute("src")) return;
         this.trackPlaying = false;
-        this.trackError = "Couldn't play this.";
+        this.trackError = this.current && this.current.kind === "quran" ? QURAN_ERROR : "Couldn't play this.";
         this.emit();
       });
       window.addEventListener("pagehide", () => this.saveTrack(true));
@@ -8537,6 +8726,21 @@ main[data-section='saved'] .panel::after {
         this.order = Array.from({ length: n }, (_, i) => i);
         this.pos = start;
       }
+    }
+    playSurah(reciterId, n, startAt = 0, reciterName = "") {
+      this.queue = [{ id: `quran:${reciterId}:${n}`, title: surahTitle(n), artist: reciterName, kind: "quran", source: "quran", reciterId, reciterName, surah: n }];
+      this.order = [0];
+      this.pos = 0;
+      return this.load(true, startAt);
+    }
+    setQuran(changes) {
+      this.settings.quran = { ...this.settings.quran, ...changes };
+      this.save();
+      this.emit();
+    }
+    retry() {
+      const t = this.trackStats();
+      return this.load(true, t ? t.position : 0);
     }
     playQueue(tracks, index) {
       this.queue = tracks.slice();
@@ -8631,6 +8835,20 @@ main[data-section='saved'] .panel::after {
     }
     onEnded() {
       const a = this.audio;
+      const item = this.current;
+      if (item && item.kind === "quran") {
+        const q = this.settings.quran;
+        if (q.repeat) {
+          this.plays += 1;
+          a.currentTime = 0;
+          a.play().catch(() => {});
+        } else if (q.continue && item.surah < 114) this.playSurah(item.reciterId, item.surah + 1, 0, item.reciterName);
+        else {
+          this.trackPlaying = false;
+          this.emit();
+        }
+        return;
+      }
       if (this.settings.repeat === "one") {
         this.plays += 1;
         a.currentTime = 0;
@@ -8684,7 +8902,9 @@ main[data-section='saved'] .panel::after {
       if (!item) return;
       const { src, ...rest } = item;
       const keep = typeof src === "string" ? { ...rest, src } : rest;
-      this.settings.track = { item: keep, position: this.audio ? this.audio.currentTime : this.restoreAt };
+      const position = this.audio && this.audio.getAttribute("src") ? this.audio.currentTime : this.restoreAt;
+      this.settings.track = { item: keep, position };
+      if (item.kind === "quran") this.settings.quran = { ...this.settings.quran, last: { n: item.surah, reciterId: item.reciterId, reciterName: item.reciterName, position } };
       this.save();
     }
     updateMediaSession() {
@@ -8889,7 +9109,7 @@ main[data-section='saved'] .panel::after {
       window.addEventListener("keydown", onKey);
       return () => window.removeEventListener("keydown", onKey);
     }, [s]);
-    const tabBody = s.tab === "nature" ? React2.createElement(NatureTab, null) : s.tab === "music" ? React2.createElement(MusicTab, null) : React2.createElement("p", { className: "sounds-soon" }, "Coming soon.");
+    const tabBody = s.tab === "nature" ? React2.createElement(NatureTab, null) : s.tab === "music" ? React2.createElement(MusicTab, null) : React2.createElement(QuranTab, null);
     return React2.createElement(
       "div",
       { className: "sounds-panel glass", role: "dialog", "aria-label": "Sounds" },
@@ -9281,6 +9501,142 @@ main[data-section='saved'] .panel::after {
             React2.createElement(Button, { size: "sm", variant: "primary", icon: React2.createElement(Plus, { size: 14 }), onClick: () => nasheedInput.current && nasheedInput.current.click() }, "Add your own nasheeds")
           )
       )
+    );
+  }
+  function QuranTab() {
+    const { engine } = useSound();
+    const q = engine.settings.quran;
+    const [reciters, setReciters] = React2.useState(null);
+    const [failed, setFailed] = React2.useState(false);
+    const [query, setQuery] = React2.useState("");
+    const [saving, setSaving] = React2.useState(null);
+    const loadReciters = React2.useCallback(() => {
+      setFailed(false);
+      QuranSource.reciterList = null;
+      QuranSource.reciters().then(
+        (list) => {
+          setReciters(list);
+          if (list.length && !list.some((r) => r.id === engine.settings.quran.reciterId)) engine.setQuran({ reciterId: list[0].id, reciterName: list[0].name });
+        },
+        () => setFailed(true)
+      );
+    }, [engine]);
+    React2.useEffect(() => {
+      loadReciters();
+    }, [loadReciters]);
+    const cur = engine.current;
+    const t = engine.trackStats();
+    const trackFailed = t && t.kind === "quran" && t.error;
+    const play = (n, startAt = 0) => engine.playSurah(q.reciterId, n, startAt, q.reciterName);
+    const toggleFav = (n) => engine.setQuran({ favourites: q.favourites.includes(n) ? q.favourites.filter((x) => x !== n) : [...q.favourites, n] });
+    const offlineKey = (n) => `${q.reciterId}/${n}`;
+    const toggleOffline = async (n) => {
+      const key = offlineKey(n);
+      setSaving(n);
+      try {
+        if (q.offline.includes(key)) {
+          await QuranSource.removeOffline(q.reciterId, n);
+          engine.setQuran({ offline: engine.settings.quran.offline.filter((k) => k !== key) });
+        } else {
+          await QuranSource.keepOffline(q.reciterId, n);
+          engine.setQuran({ offline: [...engine.settings.quran.offline, key] });
+        }
+      } catch {
+        setFailed(true);
+      }
+      setSaving(null);
+    };
+    const row = ([n, arabic, english, meaning, ayahs]) => {
+      const fav = q.favourites.includes(n);
+      const off = q.offline.includes(offlineKey(n));
+      return React2.createElement(
+        "li",
+        { key: n, className: "surah-row", "data-ayahs": ayahs, "data-active": cur && cur.kind === "quran" && cur.surah === n ? "true" : void 0 },
+        React2.createElement(
+          "button",
+          { type: "button", className: "surah-row__play", "aria-label": `Play ${n}. ${english}`, onClick: () => play(n) },
+          React2.createElement("span", { className: "surah-row__num num" }, n),
+          React2.createElement(
+            "span",
+            { className: "surah-row__text" },
+            React2.createElement("span", { className: "track-row__title" }, english),
+            React2.createElement("span", { className: "track-row__artist" }, `${meaning} · ${ayahs} ayahs`)
+          ),
+          React2.createElement("span", { className: "surah-row__arabic", lang: "ar", dir: "rtl" }, arabic)
+        ),
+        React2.createElement("button", { type: "button", className: "np__btn surah-row__fav", "aria-label": `Favourite ${english}`, "aria-pressed": fav ? "true" : "false", onClick: () => toggleFav(n) }, fav ? "★" : "☆"),
+        React2.createElement(
+          "button",
+          { type: "button", className: "np__btn", "aria-label": off ? `Remove ${english} from offline` : `Keep ${english} offline`, title: off ? "Saved for offline · remove" : "Keep offline", disabled: saving === n || !q.reciterId, onClick: () => toggleOffline(n) },
+          saving === n ? "…" : off ? "✓" : "⤓"
+        )
+      );
+    };
+    const needle = query.trim();
+    const key = searchKey(needle);
+    const list = needle ? SURAHS.filter(([n, arabic, english, meaning]) => String(n) === needle || arabic.includes(needle) || (key && (searchKey(english).includes(key) || searchKey(meaning).includes(key)))) : SURAHS;
+    const favs = q.favourites.map((n) => SURAHS[n - 1]).filter(Boolean);
+    return React2.createElement(
+      React2.Fragment,
+      null,
+      (failed || trackFailed) &&
+        React2.createElement(
+          "div",
+          { className: "sound-alert", role: "alert" },
+          React2.createElement("p", null, QURAN_ERROR),
+          React2.createElement(Button, { size: "sm", variant: "secondary", onClick: () => (trackFailed ? engine.retry() : loadReciters()) }, "Retry")
+        ),
+      React2.createElement(
+        "div",
+        { className: "quran-tools" },
+        React2.createElement(
+          "label",
+          { className: "quran-tools__reciter" },
+          React2.createElement("span", { className: "sr-only" }, "Reciter"),
+          React2.createElement(
+            "select",
+            {
+              className: "select",
+              "aria-label": "Reciter",
+              value: q.reciterId == null ? "" : String(q.reciterId),
+              onChange: (e) => {
+                const r = (reciters || []).find((x) => String(x.id) === e.target.value);
+                if (r) engine.setQuran({ reciterId: r.id, reciterName: r.name });
+              }
+            },
+            (reciters || []).map((r) => React2.createElement("option", { key: r.id, value: String(r.id) }, r.style ? `${r.name} (${r.style})` : r.name))
+          )
+        ),
+        React2.createElement(
+          "div",
+          { className: "quran-tools__switches" },
+          React2.createElement("label", null, React2.createElement(SoundSwitch, { label: "Continue to next surah", checked: q.continue, onChange: (v) => engine.setQuran({ continue: v }) }), React2.createElement("span", { "aria-hidden": true }, "Continue to next surah")),
+          React2.createElement("label", null, React2.createElement(SoundSwitch, { label: "Repeat surah", checked: q.repeat, onChange: (v) => engine.setQuran({ repeat: v }) }), React2.createElement("span", { "aria-hidden": true }, "Repeat surah"))
+        ),
+        q.last &&
+          React2.createElement(
+            Button,
+            { size: "sm", variant: "secondary", className: "quran-tools__resume", onClick: () => engine.playSurah(q.last.reciterId, q.last.n, q.last.position || 0, q.last.reciterName) },
+            `Resume ${surahTitle(q.last.n)}`
+          ),
+        React2.createElement("input", { type: "search", className: "input", placeholder: "Search surahs", "aria-label": "Search surahs", value: query, onChange: (e) => setQuery(e.target.value) })
+      ),
+      !needle &&
+        favs.length > 0 &&
+        React2.createElement(
+          "section",
+          { className: "music-section", "aria-label": "Favourites" },
+          React2.createElement("h3", { className: "music-section__title" }, "Favourites"),
+          React2.createElement("ul", { className: "surah-list surah-list--fav" }, favs.map(row))
+        ),
+      React2.createElement(
+        "section",
+        { className: "music-section", "aria-label": "All surahs" },
+        !needle && React2.createElement("h3", { className: "music-section__title" }, "All surahs"),
+        React2.createElement("ul", { className: "surah-list surah-list--all" }, list.map(row)),
+        needle && !list.length && React2.createElement("p", { className: "music-section__note" }, "No surah matches that.")
+      ),
+      React2.createElement("p", { className: "music-section__note" }, "Recitations stream from Quran.com.")
     );
   }
   // A slim strip above the dock while something is loaded and the panel is closed.
