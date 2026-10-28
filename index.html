@@ -1474,6 +1474,14 @@ main[data-section] {
   padding-right: max(28px, env(safe-area-inset-right, 0px));
   animation: page-in var(--t-med) var(--ease);
 }
+.app[data-route='home'] .storage-alert {
+  position: fixed;
+  z-index: 31;
+  top: calc(68px + env(safe-area-inset-top, 0px));
+  left: 50%;
+  transform: translateX(-50%);
+  width: min(560px, calc(100vw - 32px));
+}
 .app[data-route='home'] .page {
   max-width: none;
   min-height: 100dvh;
@@ -5313,7 +5321,7 @@ main[data-section='saved'] .panel::after {
     return /* @__PURE__ */ React2.createElement("svg", { className: "brand__mark", width: size, height: size, viewBox: "0 0 24 24", "aria-hidden": true }, /* @__PURE__ */ React2.createElement("rect", { width: "24", height: "24", rx: "7", fill: "var(--accent)" }), /* @__PURE__ */ React2.createElement("circle", { cx: "12", cy: "12.5", r: "5.6", fill: "none", stroke: "var(--on-accent)", strokeWidth: "2.2" }), /* @__PURE__ */ React2.createElement("circle", { cx: "12", cy: "6.9", r: "2.1", fill: "var(--on-accent)" }));
   }
   const ROUTES = [
-    { id: "home", label: "Home", icon: House, description: "Your day at a glance" },
+    { id: "home", label: "Home", icon: House, description: "Touch grass and take a one-minute break" },
     { id: "tasks", label: "Tasks", icon: SquareCheckBig, description: "Everything you need to do, and how far along you are" },
     { id: "websites", label: "Websites", icon: Globe, description: "Your favourite websites, sorted into categories" },
     { id: "ideas", label: "Ideas", icon: Lightbulb, description: "Ideas grouped by category, shown as a map" },
@@ -5830,7 +5838,7 @@ main[data-section='saved'] .panel::after {
     const here = ALL_ROUTES.find((r) => r.id === ui.route);
     return React2.createElement(
       "div",
-      { className: "pagebar", "data-hidden": hidden ? "true" : void 0 },
+      { className: "pagebar", "data-hidden": hidden ? "true" : void 0, inert: hidden ? "" : void 0 },
       React2.createElement(
         "a",
         {
@@ -5951,7 +5959,7 @@ main[data-section='saved'] .panel::after {
       const now = (/* @__PURE__ */ new Date()).toISOString();
       if (kind === "task") {
         add("tasks", { id: newId(), title: value.replace(/\s+/g, " "), done: false, completedAt: null, dueDate: forToday ? todayISO() : null, dueTime: null, priority: "none", label: "", createdAt: now }, true);
-        toast({ message: forToday ? "Added to Today" : "Task added", tone: "success", action: { label: "View", onClick: () => ui.navigate(forToday ? "home" : "tasks") } });
+        toast({ message: forToday ? "Added to Today" : "Task added", tone: "success", action: { label: "View", onClick: () => ui.navigate("tasks") } });
       } else if (kind === "note") {
         const [first, ...rest] = value.split("\n");
         const id = newId();
@@ -7557,7 +7565,11 @@ main[data-section='saved'] .panel::after {
         if (soundRef.current) soundRef.current.chime();
         setWelcome(true);
       }
-      window.requestAnimationFrame(() => breakButtonRef.current && breakButtonRef.current.focus());
+      window.requestAnimationFrame(() => {
+        const active = document.activeElement;
+        const idle = !active || active === document.body || (rootRef.current && rootRef.current.contains(active));
+        if (idle && breakButtonRef.current) breakButtonRef.current.focus();
+      });
     });
     React2.useEffect(() => {
       if (!welcome) return;
@@ -7655,6 +7667,7 @@ main[data-section='saved'] .panel::after {
       const chooseTime = (t) => chooseTimeRef.current(t);
       const onKey = (e) => {
         if (!pause.isActive() || e.metaKey || e.ctrlKey || e.altKey) return;
+        if (isTypingTarget(e.target) || document.querySelector(".overlay")) return;
         if (e.key === "Escape") {
           e.preventDefault();
           pause.end("user");
@@ -7691,9 +7704,11 @@ main[data-section='saved'] .panel::after {
       }
     };
     React2.useEffect(() => {
-      // Coming back to Home in the same session: the page has had a tap
-      // already, so the browser lets the sound resume.
-      if (readSoundPref()) startSound();
+      // Coming back to Home in the same session: resume only if the page has
+      // had a tap since it loaded (browsers block sound until then, e.g. after
+      // a reload), so the button never claims to play while silent.
+      const tapped = navigator.userActivation && navigator.userActivation.hasBeenActive;
+      if (readSoundPref() && tapped) startSound();
       return () => {
         const sound = soundRef.current;
         if (sound) {
@@ -9678,10 +9693,12 @@ main[data-section='saved'] .panel::after {
       )
     );
   }
-  function useGlobalShortcuts() {
+  // paused: during a break, keys that open dialogs do nothing.
+  function useGlobalShortcuts(paused = false) {
     const ui = useUI();
     React2.useEffect(() => {
       const onKey = (e) => {
+        if (paused) return;
         const mod = e.metaKey || e.ctrlKey;
         if (mod && e.key.toLowerCase() === "k") {
           e.preventDefault();
@@ -9700,7 +9717,7 @@ main[data-section='saved'] .panel::after {
       };
       window.addEventListener("keydown", onKey);
       return () => window.removeEventListener("keydown", onKey);
-    }, [ui]);
+    }, [ui, paused]);
   }
   const CLOUD_PATH = "M25 60a20 20 0 0 1 4-39.6A28 28 0 0 1 82 14a24 24 0 0 1 41 12 17 17 0 0 1 2 34z";
   // Fixed positions so the night sky looks the same on every visit.
@@ -9729,7 +9746,7 @@ main[data-section='saved'] .panel::after {
     const { data, persistence, saveFailed } = useStore();
     const theme = useTheme(data.settings.theme);
     const [breakActive, setBreakActive] = React2.useState(false);
-    useGlobalShortcuts();
+    useGlobalShortcuts(breakActive);
     const Page = PAGES[ui.route];
     const isHome = ui.route === "home";
     return React2.createElement(
