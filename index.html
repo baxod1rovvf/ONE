@@ -3919,6 +3919,60 @@ main[data-section='saved'] .panel::after {
 .sound-switch[aria-checked='true'] .sound-switch__knob {
   transform: translateX(16px);
 }
+.nature-row__real {
+  grid-column: 2 / -1;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: var(--fs-xs);
+  font-weight: 600;
+  color: var(--text-2);
+}
+.nature-row__real .sound-switch {
+  width: 32px;
+  height: 20px;
+}
+.nature-row__real .sound-switch__knob {
+  width: 14px;
+  height: 14px;
+}
+.nature-row__real .sound-switch[aria-checked='true'] .sound-switch__knob {
+  transform: translateX(12px);
+}
+.nature-row__real[aria-busy='true']::after {
+  content: '';
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  border: 2px solid var(--border-strong);
+  border-top-color: var(--c-tasks);
+  animation: spin 800ms linear infinite;
+}
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+.nature-row__note {
+  font-weight: 500;
+  color: var(--warn);
+}
+.sound-sources {
+  margin-top: 12px;
+  font-size: var(--fs-xs);
+  color: var(--text-2);
+}
+.sound-sources summary {
+  cursor: pointer;
+  font-weight: 600;
+}
+.sound-sources ul {
+  margin: 6px 0;
+  padding-left: 18px;
+}
+.sound-sources a {
+  text-decoration: underline;
+}
 .sound-bars rect {
   fill: currentColor;
   transform-origin: 50% 100%;
@@ -7433,10 +7487,10 @@ main[data-section='saved'] .panel::after {
   const NATURE_SOUNDS = [
     { id: "wind", label: "Wind", icon: "🌬️" },
     { id: "birds", label: "Birds", icon: "🐦" },
-    { id: "crickets", label: "Crickets", icon: "🦗" },
+    { id: "crickets", label: "Crickets", icon: "🦗", recording: { file: "Crickets choir.ogg", licence: "CC BY-SA 4.0" } },
     { id: "river", label: "River", icon: "🏞️" },
     { id: "waterfall", label: "Waterfall", icon: "💧" },
-    { id: "rain", label: "Rain", icon: "🌧️" },
+    { id: "rain", label: "Rain", icon: "🌧️", recording: { file: "Sound of rain.ogg", licence: "CC BY-SA 3.0" } },
     { id: "ocean", label: "Ocean", icon: "🌊" }
   ];
   const NATURE_PRESETS = [
@@ -7447,6 +7501,9 @@ main[data-section='saved'] .panel::after {
     { name: "Deep focus", sounds: ["waterfall", "rain"] }
   ];
   const FADE = 1;
+  // Free recordings on Wikimedia Commons, by file name.
+  const commonsFile = (file) => `https://commons.wikimedia.org/wiki/Special:FilePath/${encodeURIComponent(file)}`;
+  const commonsPage = (file) => `https://commons.wikimedia.org/wiki/File:${encodeURIComponent(file.replace(/ /g, "_"))}`;
   // Noise buffers shared by every voice of one AudioContext.
   const noiseCache = new WeakMap();
   function noiseBuffers(ctx) {
@@ -7484,9 +7541,13 @@ main[data-section='saved'] .panel::after {
     return b;
   }
   class NatureVoice {
-    constructor(ctx, destination, id) {
+    constructor(ctx, destination, id, onState = () => {}) {
       this.ctx = ctx;
       this.id = id;
+      this.onState = onState;
+      this.recordingUrl = null;
+      this.recordingFailed = false;
+      this.loading = false;
       this.volume = 0.4;
       this.out = ctx.createGain();
       this.out.gain.value = 0;
@@ -7494,7 +7555,6 @@ main[data-section='saved'] .panel::after {
       this.graph = null; // { nodes, timers } while the sound exists (playing or fading out)
       this.isRunning = false;
       this.teardown = 0;
-      this.recordingSource = null;
     }
     get running() {
       return this.isRunning;
@@ -7503,7 +7563,54 @@ main[data-section='saved'] .panel::after {
       return !!this.graph;
     }
     get source() {
-      return this.recordingSource ? "recording" : "generated";
+      return this.graph && this.graph.audio && !this.loading ? "recording" : "generated";
+    }
+    // Plays a recording instead of the generated sound (null switches back).
+    // If it can't load, the generated sound carries on.
+    useRecording(url) {
+      this.recordingUrl = url;
+      this.recordingFailed = false;
+      if (this.graph) {
+        this.free();
+        if (this.isRunning) {
+          this.graph = this.build();
+          this.ramp(this.volume);
+        }
+      }
+      this.onState();
+    }
+    buildRecording() {
+      const audio = new Audio();
+      audio.crossOrigin = "anonymous";
+      audio.loop = true;
+      audio.preload = "auto";
+      const node = this.ctx.createMediaElementSource(audio);
+      node.connect(this.out);
+      this.loading = true;
+      const graph = { nodes: [node], timers: [], audio };
+      const fail = () => {
+        if (this.graph !== graph) return;
+        this.recordingFailed = true;
+        this.loading = false;
+        this.free();
+        if (this.isRunning) {
+          this.graph = this.build();
+          this.ramp(this.volume);
+        }
+        this.onState();
+      };
+      audio.addEventListener("error", fail);
+      audio.addEventListener("playing", () => {
+        if (this.graph !== graph) return;
+        this.loading = false;
+        this.onState();
+      });
+      audio.src = this.recordingUrl;
+      audio.play().catch(() => {
+        // Autoplay refusals resolve once the context is resumed; real load
+        // errors arrive as "error" above.
+      });
+      return graph;
     }
     ramp(to) {
       const g = this.out.gain;
@@ -7533,6 +7640,12 @@ main[data-section='saved'] .panel::after {
       const g = this.graph;
       if (!g) return;
       this.graph = null;
+      this.loading = false;
+      if (g.audio) {
+        g.audio.pause();
+        g.audio.removeAttribute("src");
+        g.audio.load();
+      }
       g.timers.forEach((t) => window.clearTimeout(t.id));
       g.nodes.forEach((n) => {
         try {
@@ -7544,6 +7657,7 @@ main[data-section='saved'] .panel::after {
     }
     // Builds this sound's nodes into this.out; returns what free() must undo.
     build() {
+      if (this.recordingUrl && !this.recordingFailed) return this.buildRecording();
       const ctx = this.ctx;
       const nb = noiseBuffers(ctx);
       const nodes = [];
@@ -7728,8 +7842,9 @@ main[data-section='saved'] .panel::after {
       this.natureBus = this.ctx.createGain();
       this.natureBus.connect(this.master);
       for (const s of NATURE_SOUNDS) {
-        const v = new NatureVoice(this.ctx, this.natureBus, s.id);
+        const v = new NatureVoice(this.ctx, this.natureBus, s.id, () => this.emit());
         v.volume = this.settings.nature[s.id].volume;
+        if (s.recording && this.settings.nature[s.id].real) v.recordingUrl = commonsFile(s.recording.file);
         this.voices[s.id] = v;
       }
       this.ctx.addEventListener("statechange", () => this.emit());
@@ -7757,6 +7872,15 @@ main[data-section='saved'] .panel::after {
       this.save();
       this.paused = false;
       this.resume();
+    }
+    setReal(id, on) {
+      const s = NATURE_SOUNDS.find((n) => n.id === id);
+      if (!s || !s.recording) return;
+      this.settings.nature[id].real = on;
+      this.save();
+      this.ensureContext();
+      this.voices[id].useRecording(on ? commonsFile(s.recording.file) : null);
+      this.emit();
     }
     setNatureVolume(id, v) {
       this.settings.nature[id].volume = v;
@@ -7826,7 +7950,7 @@ main[data-section='saved'] .panel::after {
       for (const s of NATURE_SOUNDS) {
         const v = this.voices[s.id];
         const set = this.settings.nature[s.id];
-        voices[s.id] = { on: set.on, volume: set.volume, running: !!v && v.running, source: v ? v.source : "generated" };
+        voices[s.id] = { on: set.on, volume: set.volume, real: set.real, running: !!v && v.running, source: v ? v.source : "generated", loading: !!v && v.loading, failed: !!v && v.recordingFailed };
       }
       return {
         context: this.ctx ? this.ctx.state : "none",
@@ -8026,7 +8150,7 @@ main[data-section='saved'] .panel::after {
       ),
       React2.createElement(
         "ul",
-        { className: "nature-list" },
+        { className: "nature-list", "aria-label": "Nature sounds" },
         NATURE_SOUNDS.map((n) => {
           const cfg = set.nature[n.id];
           const voice = engine.voices[n.id];
@@ -8044,9 +8168,30 @@ main[data-section='saved'] .panel::after {
               "aria-label": `${n.label} volume`,
               onChange: (e) => engine.setNatureVolume(n.id, Number(e.target.value) / 100)
             }),
-            React2.createElement(SoundSwitch, { label: n.label, checked: cfg.on, "data-sound": n.id, onChange: (v) => engine.setNature(n.id, v) })
+            React2.createElement(SoundSwitch, { label: n.label, checked: cfg.on, "data-sound": n.id, onChange: (v) => engine.setNature(n.id, v) }),
+            n.recording &&
+              React2.createElement(
+                "div",
+                { className: "nature-row__real", "aria-busy": voice && voice.loading ? "true" : void 0 },
+                React2.createElement(SoundSwitch, { label: `Real recording for ${n.label}`, checked: cfg.real, onChange: (v) => engine.setReal(n.id, v) }),
+                React2.createElement("span", { "aria-hidden": true }, "Real"),
+                voice && voice.recordingFailed && React2.createElement("small", { className: "nature-row__note" }, "using generated sound")
+              )
           );
         })
+      ),
+      React2.createElement(
+        "details",
+        { className: "sound-sources" },
+        React2.createElement("summary", null, "ⓘ Sources"),
+        React2.createElement(
+          "ul",
+          null,
+          NATURE_SOUNDS.filter((n) => n.recording).map((n) =>
+            React2.createElement("li", { key: n.id }, React2.createElement("a", { href: commonsPage(n.recording.file), target: "_blank", rel: "noopener noreferrer" }, `${n.recording.file} — ${n.recording.licence}`))
+          )
+        ),
+        React2.createElement("p", null, "Other sounds are made in your browser.")
       )
     );
   }
