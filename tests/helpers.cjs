@@ -124,6 +124,9 @@ async function newContext(browser, { viewport, hasTouch }) {
     // the software renderer used in CI free for the tests that need it.
     if ((opts.blockThree || !opts.threeD) && /three@/.test(url)) return route.abort();
     if (AUDIO_HOSTS.test(url)) return opts.blockAudio ? route.abort() : audioRoute(route, url);
+    if (/open\.spotify\.com\/embed\/iframe-api\/v1/.test(url)) {
+      return route.fulfill({ path: path.join(FIXTURES, "spotify-iframe-api.js"), contentType: "text/javascript", headers: CORS });
+    }
     for (const [re, file] of CDN_FILES) {
       if (re.test(url)) {
         return route.fulfill({
@@ -143,7 +146,7 @@ function watchErrors(page) {
   page.on("console", (msg) => {
     if (msg.type() !== "error") return;
     const where = msg.location() && msg.location().url;
-    if (where && (BLOCKED.test(where) || /three@/.test(where) || AUDIO_HOSTS.test(where))) return;
+    if (where && (BLOCKED.test(where) || /three@/.test(where) || AUDIO_HOSTS.test(where) || /spotify\.com/.test(where))) return;
     if (/Failed to load resource/.test(msg.text()) && (!where || BLOCKED.test(where) || /three@/.test(where))) return;
     errors.push(msg.text());
   });

@@ -4310,6 +4310,39 @@ main[data-section='saved'] .panel::after {
 .surah-row__fav[aria-pressed='true'] {
   color: var(--c-ideas);
 }
+.spotify-add {
+  display: flex;
+  gap: 6px;
+  margin: 4px 0 6px;
+}
+.spotify-add .input {
+  flex: 1;
+  min-width: 0;
+  height: 34px;
+}
+.music-section__error {
+  margin: 0 6px 6px;
+  font-size: var(--fs-xs);
+  color: var(--danger);
+}
+.spotify-slot {
+  height: 152px;
+  margin: 6px 0;
+  border-radius: 12px;
+}
+.spotify-host {
+  position: fixed;
+  z-index: 46;
+  overflow: hidden;
+  border-radius: 12px;
+}
+.spotify-host[data-visible='false'] {
+  pointer-events: none;
+}
+.spotify-host iframe {
+  border: 0;
+  display: block;
+}
 .sound-bars rect {
   fill: currentColor;
   transform-origin: 50% 100%;
@@ -8511,6 +8544,172 @@ main[data-section='saved'] .panel::after {
       await cache.delete(url);
     }
   };
+  /* ---------- Sound: Spotify ---------- */
+  // Spotify plays only through Spotify's own embed player (its iFrame API);
+  // ONE never downloads or copies Spotify audio. The player is created once
+  // and kept in the page, so it keeps playing on every page.
+  const SPOTIFY_API = "https://open.spotify.com/embed/iframe-api/v1";
+  function parseSpotifyLink(text) {
+    const t = (text || "").trim();
+    const m = /^spotify:(playlist|album|track):([A-Za-z0-9]+)$/.exec(t) || /open\.spotify\.com\/(?:intl-[a-z-]+\/)?(?:embed\/)?(playlist|album|track)\/([A-Za-z0-9]+)/i.exec(t);
+    return m ? { type: m[1].toLowerCase(), id: m[2] } : null;
+  }
+  const SpotifyDock = {
+    host: null,
+    controller: null,
+    ready: null,
+    current: null,
+    playing: false,
+    listeners: new Set(),
+    onChange(fn) {
+      this.listeners.add(fn);
+      return () => this.listeners.delete(fn);
+    },
+    emit() {
+      for (const fn of this.listeners) fn();
+    },
+    ensureHost() {
+      if (!this.host) {
+        this.host = document.createElement("div");
+        this.host.className = "spotify-host";
+        this.host.setAttribute("aria-label", "Spotify player");
+        document.body.appendChild(this.host);
+        this.place(null);
+      }
+      return this.host;
+    },
+    load(uri) {
+      this.current = uri;
+      this.ensureHost();
+      this.emit();
+      if (this.controller) {
+        this.controller.loadUri(uri);
+        this.controller.play();
+        return Promise.resolve();
+      }
+      if (this.ready) {
+        return this.ready.then((c) => {
+          c.loadUri(this.current);
+          c.play();
+        });
+      }
+      this.ready = new Promise((resolve) => {
+        window.onSpotifyIframeApiReady = (IFrameAPI) => {
+          const el = document.createElement("div");
+          this.host.appendChild(el);
+          IFrameAPI.createController(el, { uri, width: "100%", height: 152 }, (c) => {
+            this.controller = c;
+            c.addListener("playback_update", (e) => {
+              const playing = !(e && e.data && e.data.isPaused);
+              if (playing !== this.playing) {
+                this.playing = playing;
+                this.emit();
+              }
+            });
+            resolve(c);
+          });
+        };
+        const script = document.createElement("script");
+        script.src = SPOTIFY_API;
+        script.async = true;
+        document.head.appendChild(script);
+      });
+      return this.ready.then((c) => c.play());
+    },
+    pause() {
+      if (this.controller) this.controller.pause();
+    },
+    // Shown over its slot in the panel; otherwise parked off-screen (never
+    // removed or hidden with display:none, so playback carries on).
+    place(rect) {
+      const h = this.host;
+      if (!h) return;
+      if (rect && rect.width) {
+        Object.assign(h.style, { left: `${rect.left}px`, top: `${rect.top}px`, width: `${rect.width}px`, height: `${rect.height}px` });
+        h.dataset.visible = "true";
+      } else {
+        Object.assign(h.style, { left: "-10000px", top: "0px", width: "320px", height: "152px" });
+        h.dataset.visible = "false";
+      }
+    }
+  };
+  function SpotifySlot() {
+    const ref = React2.useRef(null);
+    React2.useEffect(() => {
+      let raf = 0;
+      const follow = () => {
+        if (ref.current) SpotifyDock.place(ref.current.getBoundingClientRect());
+        raf = requestAnimationFrame(follow);
+      };
+      follow();
+      return () => {
+        cancelAnimationFrame(raf);
+        SpotifyDock.place(null);
+      };
+    }, []);
+    return React2.createElement("div", { ref, className: "spotify-slot", "aria-hidden": true });
+  }
+  function SpotifySection({ nasheedsOnly }) {
+    const { engine, guard } = useSound();
+    const [link, setLink] = React2.useState("");
+    const [error, setError] = React2.useState(null);
+    const items = engine.settings.spotify || [];
+    const shown = items.filter((it) => !nasheedsOnly || it.kind === "nasheed");
+    const add = (e) => {
+      e.preventDefault();
+      const parsed = parseSpotifyLink(link);
+      if (!parsed) {
+        setError("That isn't a Spotify playlist, album or track link.");
+        return;
+      }
+      setError(null);
+      const uri = `spotify:${parsed.type}:${parsed.id}`;
+      if (!items.some((it) => it.uri === uri)) engine.setSetting("spotify", [...items, { uri, title: `Spotify ${parsed.type} …${parsed.id.slice(-4)}`, kind: "music" }]);
+      setLink("");
+    };
+    const update = (uri, changes) => engine.setSetting("spotify", items.map((it) => (it.uri === uri ? { ...it, ...changes } : it)));
+    return React2.createElement(
+      "section",
+      { className: "music-section", "aria-label": "Spotify" },
+      React2.createElement("h3", { className: "music-section__title" }, "Spotify"),
+      React2.createElement(
+        "form",
+        { className: "spotify-add", onSubmit: add },
+        React2.createElement("input", { className: "input", type: "text", placeholder: "Paste a playlist, album or song link", "aria-label": "Spotify link", value: link, onChange: (e) => setLink(e.target.value) }),
+        React2.createElement(Button, { size: "sm", variant: "secondary", type: "submit" }, "Add")
+      ),
+      error && React2.createElement("p", { className: "music-section__error" }, error),
+      SpotifyDock.current && React2.createElement(SpotifySlot, null),
+      React2.createElement(
+        "ul",
+        { className: "track-list" },
+        shown.map((it) =>
+          React2.createElement(
+            "li",
+            { key: it.uri, className: "track-row track-row--actions spotify-item", "data-active": SpotifyDock.current === it.uri ? "true" : void 0 },
+            React2.createElement(
+              "button",
+              {
+                type: "button",
+                className: "track-row__play",
+                "aria-label": `Play ${it.title}`,
+                onClick: () =>
+                  guard(() => {
+                    engine.pauseTrack();
+                    SpotifyDock.load(it.uri);
+                  })
+              },
+              React2.createElement("span", { className: "track-row__title" }, it.title),
+              React2.createElement("span", { className: "track-row__artist" }, it.kind === "nasheed" ? "Nasheed" : "Music")
+            ),
+            React2.createElement(SoundSwitch, { label: `Nasheed: ${it.title}`, checked: it.kind === "nasheed", onChange: (v) => update(it.uri, { kind: v ? "nasheed" : "music" }) }),
+            React2.createElement(IconButton, { label: `Remove ${it.title}`, size: "sm", onClick: () => engine.setSetting("spotify", items.filter((x) => x.uri !== it.uri)) }, React2.createElement(X, { size: 14 }))
+          )
+        )
+      ),
+      React2.createElement("p", { className: "music-section__note" }, "Plays through Spotify's own player. Log in to Spotify in this browser; Premium plays full songs.")
+    );
+  }
   /* ---------- Sound: engine ---------- */
   // One engine for the whole app: it outlives page changes, so sound keeps
   // playing on every page. Settings are kept per device.
@@ -8518,7 +8717,7 @@ main[data-section='saved'] .panel::after {
   function defaultSoundSettings() {
     const nature = {};
     for (const s of NATURE_SOUNDS) nature[s.id] = { on: false, volume: 0.4, real: false };
-    return { nature, master: 0.8, followMeadow: true, tab: "nature", nasheedsOnly: false, repeat: "off", shuffle: false, track: null, quran: { reciterId: null, reciterName: "", favourites: [], last: null, continue: false, repeat: false, offline: [] } };
+    return { nature, master: 0.8, followMeadow: true, tab: "nature", nasheedsOnly: false, repeat: "off", shuffle: false, track: null, quran: { reciterId: null, reciterName: "", favourites: [], last: null, continue: false, repeat: false, offline: [] }, spotify: [] };
   }
   function loadSoundSettings() {
     const base = defaultSoundSettings();
@@ -8556,6 +8755,7 @@ main[data-section='saved'] .panel::after {
       this.ducked = false;
       this.snapshot = null;
       this.duckListeners = new Set(); // external players (Spotify) to pause
+      this.externalPlaying = false;
       this.resolvers = { local: (item) => MediaLibrary.url(item.mediaId), quran: (item) => QuranSource.surahUrl(item.reciterId, item.surah) };
       const saved = this.settings.track;
       if (saved && saved.item) {
@@ -8677,7 +8877,7 @@ main[data-section='saved'] .panel::after {
       return NATURE_SOUNDS.some((s) => this.settings.nature[s.id].on);
     }
     get playing() {
-      if (this.trackPlaying) return true;
+      if (this.trackPlaying || this.externalPlaying) return true;
       return !!this.ctx && this.ctx.state === "running" && Object.values(this.voices).some((v) => v.running);
     }
     /* Track player */
@@ -8809,7 +9009,14 @@ main[data-section='saved'] .panel::after {
       const t = this.trackStats();
       return this.load(true, t ? t.position : 0);
     }
+    setExternalPlaying(on) {
+      if (this.externalPlaying === on) return;
+      this.externalPlaying = on;
+      this.emit();
+    }
     playQueue(tracks, index) {
+      // One music at a time: ONE's player pauses outside players too.
+      for (const fn of this.duckListeners) fn();
       this.queue = tracks.slice();
       this.buildOrder(index);
       return this.load(true);
@@ -9071,6 +9278,14 @@ main[data-section='saved'] .panel::after {
     // What the app around us is doing (set by SoundLockGuard): unlocked? on a break?
     const [chrome, setChrome] = React2.useState({ mounted: false, breakActive: false, route: "home" });
     React2.useEffect(() => engine.restoreTrack(), [engine]);
+    React2.useEffect(() => {
+      const offDuck = engine.onDuck(() => SpotifyDock.pause());
+      const offSpotify = SpotifyDock.onChange(() => engine.setExternalPlaying(SpotifyDock.playing));
+      return () => {
+        offDuck();
+        offSpotify();
+      };
+    }, [engine]);
     // Browsers keep sound off until the page is touched: the first tap or key
     // lets a saved mix play again.
     React2.useEffect(() => {
@@ -9561,6 +9776,7 @@ main[data-section='saved'] .panel::after {
           musicAlbums.length ? tiles(musicAlbums) : React2.createElement("p", { className: "music-section__note" }, "Add music you own. It stays private on this device."),
           React2.createElement("p", { className: "music-usage" }, lib.length ? `${lib.length} track${lib.length === 1 ? "" : "s"} · ${fmtBytes(usageBytes)} on this device` : "No music added yet")
         ),
+      React2.createElement(SpotifySection, { nasheedsOnly }),
       React2.createElement(
         "section",
         { className: "music-section", "aria-label": "Nasheeds" },
