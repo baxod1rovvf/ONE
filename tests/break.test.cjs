@@ -43,7 +43,7 @@ test("end button and Esc stop the break early", async () => {
   assert.equal(await page.getByRole("timer").count(), 1);
   await page.keyboard.press("Escape");
   await page.getByRole("timer").waitFor({ state: "detached" });
-  assert.equal(await dock(page).getAttribute("data-hidden"), null);
+  await page.waitForSelector(".dock:not([data-hidden])"); // updates a tick after the timer goes
   await page.close();
 });
 
