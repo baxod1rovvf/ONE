@@ -17,7 +17,8 @@
         },
         play() {
           fake.calls.push(["play"]);
-          emit("playback_update", { isPaused: false, position: 0, duration: 1000 });
+          // Browsers may block play() from outside the iframe; tests can say so.
+          if (!window.__fakeSpotifyBlockPlay) emit("playback_update", { isPaused: false, position: 0, duration: 1000 });
         },
         resume() {
           this.play();
@@ -35,6 +36,11 @@
         destroy() {
           fake.destroyed = true;
         }
+      };
+      // The person pressing play inside Spotify's own player.
+      fake.userPlay = () => {
+        fake.calls.push(["userPlay"]);
+        emit("playback_update", { isPaused: false, position: 0, duration: 1000 });
       };
       fake.calls.push(["create", options && options.uri]);
       setTimeout(() => {

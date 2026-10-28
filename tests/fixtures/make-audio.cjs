@@ -76,5 +76,8 @@ fs.writeFileSync(path.join(OUT, "album/01.mp3"), Buffer.concat([id3({ title: "Fi
 fs.writeFileSync(path.join(OUT, "album/02.mp3"), Buffer.concat([id3({ title: "Second Song", artist: "Test Artist", album: "Test Album", track: 2 }), mp3(tone(3, 392))]));
 fs.writeFileSync(path.join(OUT, "untagged.mp3"), mp3(tone(2, 523)));
 fs.writeFileSync(path.join(OUT, "not-audio.txt"), "just some notes\n");
+// A tag frame whose size reads as -10 when treated as a signed number.
+const badFrame = Buffer.concat([Buffer.from("TIT2"), Buffer.from([0xff, 0xff, 0xff, 0xf6, 0, 0]), Buffer.from([0, 0x41])]);
+fs.writeFileSync(path.join(OUT, "bad-id3.mp3"), Buffer.concat([Buffer.from("ID3"), Buffer.from([3, 0, 0]), syncsafe(badFrame.length), badFrame, mp3(tone(1, 440))]));
 fs.writeFileSync(path.join(OUT, "broken.mp3"), Buffer.from(Array.from({ length: 4096 }, (_, i) => (i * 7919) % 251)));
 console.log("audio fixtures written to", OUT);
