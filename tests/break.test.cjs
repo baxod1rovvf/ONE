@@ -42,7 +42,7 @@ test("end button and Esc stop the break early", async () => {
   await breakButton(page).click();
   assert.equal(await page.getByRole("timer").count(), 1);
   await page.keyboard.press("Escape");
-  assert.equal(await page.getByRole("timer").count(), 0);
+  await page.getByRole("timer").waitFor({ state: "detached" });
   assert.equal(await dock(page).getAttribute("data-hidden"), null);
   await page.close();
 });
