@@ -26,6 +26,14 @@ const EMPTY_DATA = {
   settings: { name: "", theme: "light", sidebarCollapsed: false, sampleBannerDismissed: true }
 };
 
+// Editors reset their fields when they open; wait until focus has landed
+// inside the dialog (after that reset) before typing.
+async function openedDialog(page) {
+  const dialog = page.getByRole("dialog");
+  await dialog.waitFor();
+  await page.waitForFunction(() => document.activeElement && document.activeElement.closest("[role=dialog]"));
+  return dialog;
+}
 async function confirmDelete(page) {
   const dialog = page.getByRole("alertdialog");
   await dialog.waitFor();
@@ -36,7 +44,7 @@ async function confirmDelete(page) {
 test("tasks: add, complete (sprout pops), delete, and it survives reload", async () => {
   const { page, errors } = await openApp(browser, server.url, { route: "tasks" });
   await page.getByRole("button", { name: "New task" }).click();
-  await page.getByRole("dialog").getByLabel("Task", { exact: true }).fill("Water the plants");
+  await (await openedDialog(page)).getByLabel("Task", { exact: true }).fill("Water the plants");
   await page.getByRole("dialog").getByRole("button", { name: "Add task" }).click();
   const row = () => page.locator(".task", { hasText: "Water the plants" });
   await row().first().waitFor();
@@ -64,7 +72,7 @@ const stored = (page) => page.evaluate(() => JSON.parse(localStorage.getItem("on
 test("websites: add one, it survives reload, remove it", async () => {
   const { page, errors } = await openApp(browser, server.url, { route: "websites" });
   await page.locator("main .btn", { hasText: "Add website" }).click();
-  const dialog = page.getByRole("dialog");
+  const dialog = await openedDialog(page);
   await dialog.getByLabel("Name").fill("Meadow Club");
   await dialog.getByLabel("Website").fill("https://meadow.example");
   await dialog.getByRole("button", { name: "Add website" }).click();
@@ -81,7 +89,7 @@ test("websites: add one, it survives reload, remove it", async () => {
 test("ideas: add one, it survives reload, delete it", async () => {
   const { page, errors } = await openApp(browser, server.url, { route: "ideas" });
   await page.locator("main .btn", { hasText: "Add idea" }).click();
-  const dialog = page.getByRole("dialog");
+  const dialog = await openedDialog(page);
   await dialog.getByLabel("Idea").fill("Picnic under the tree");
   await dialog.getByRole("button", { name: /Add idea|Save/ }).click();
   await dialog.waitFor({ state: "detached" });
@@ -99,7 +107,7 @@ test("ideas: add one, it survives reload, delete it", async () => {
 test("saved: add a link, it survives reload, remove it", async () => {
   const { page, errors } = await openApp(browser, server.url, { route: "saved" });
   await page.locator("main .btn", { hasText: "Save a link" }).click();
-  const dialog = page.getByRole("dialog");
+  const dialog = await openedDialog(page);
   await dialog.getByLabel("URL").fill("https://grass.example/article");
   await dialog.getByLabel("Title").fill("Why grass is green");
   await dialog.getByRole("button", { name: "Save link" }).click();
