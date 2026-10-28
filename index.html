@@ -8552,6 +8552,10 @@ main[data-section='saved'] .panel::after {
       this.lastSave = 0;
       this.restoreAt = 0;
       // saved source → (item) => Promise<url>
+      // Quran plays alone: what was playing before a recitation, to restore after.
+      this.ducked = false;
+      this.snapshot = null;
+      this.duckListeners = new Set(); // external players (Spotify) to pause
       this.resolvers = { local: (item) => MediaLibrary.url(item.mediaId), quran: (item) => QuranSource.surahUrl(item.reciterId, item.surah) };
       const saved = this.settings.track;
       if (saved && saved.item) {
@@ -8728,10 +8732,73 @@ main[data-section='saved'] .panel::after {
       }
     }
     playSurah(reciterId, n, startAt = 0, reciterName = "") {
+      if (!this.ducked) this.duck();
       this.queue = [{ id: `quran:${reciterId}:${n}`, title: surahTitle(n), artist: reciterName, kind: "quran", source: "quran", reciterId, reciterName, surah: n }];
       this.order = [0];
       this.pos = 0;
       return this.load(true, startAt);
+    }
+    fadeNature(to) {
+      if (!this.natureBus) return;
+      const g = this.natureBus.gain;
+      const now = this.ctx.currentTime;
+      g.cancelScheduledValues(now);
+      g.setValueAtTime(g.value, now);
+      g.linearRampToValueAtTime(to, now + FADE);
+    }
+    // Before a recitation: remember the music (and where it was), pause it,
+    // silence nature (its settings stay), and pause outside players.
+    duck() {
+      const cur = this.current;
+      const music = cur && cur.kind !== "quran";
+      this.snapshot = music
+        ? { queue: this.queue, order: this.order, pos: this.pos, position: this.audio ? this.audio.currentTime : this.restoreAt, wasPlaying: this.trackPlaying }
+        : null;
+      this.ducked = true;
+      this.pauseTrack();
+      this.fadeNature(0);
+      for (const fn of this.duckListeners) fn();
+      this.emit();
+    }
+    // After a recitation: bring back exactly what was playing.
+    restore() {
+      if (!this.ducked) return;
+      this.ducked = false;
+      this.fadeNature(1);
+      const snap = this.snapshot;
+      this.snapshot = null;
+      if (snap) {
+        this.queue = snap.queue;
+        this.order = snap.order;
+        this.pos = snap.pos;
+        this.load(snap.wasPlaying, snap.position);
+      } else {
+        this.trackPlaying = false;
+        this.emit();
+      }
+    }
+    // The person chose something else during a recitation: stop it, keep
+    // nature's settings, and forget the old music.
+    endRecitation() {
+      if (!this.ducked) return;
+      this.ducked = false;
+      this.snapshot = null;
+      this.req += 1;
+      if (this.audio) {
+        this.audio.pause();
+        this.audio.removeAttribute("src");
+        this.audio.load();
+      }
+      this.queue = [];
+      this.order = [];
+      this.pos = -1;
+      this.trackPlaying = false;
+      this.fadeNature(1);
+      this.emit();
+    }
+    onDuck(fn) {
+      this.duckListeners.add(fn);
+      return () => this.duckListeners.delete(fn);
     }
     setQuran(changes) {
       this.settings.quran = { ...this.settings.quran, ...changes };
@@ -8843,10 +8910,7 @@ main[data-section='saved'] .panel::after {
           a.currentTime = 0;
           a.play().catch(() => {});
         } else if (q.continue && item.surah < 114) this.playSurah(item.reciterId, item.surah + 1, 0, item.reciterName);
-        else {
-          this.trackPlaying = false;
-          this.emit();
-        }
+        else this.restore();
         return;
       }
       if (this.settings.repeat === "one") {
@@ -8880,6 +8944,12 @@ main[data-section='saved'] .panel::after {
       if (this.audio && !this.audio.paused) this.audio.pause();
     }
     stopTrack() {
+      if (this.ducked && this.current && this.current.kind === "quran") {
+        this.req += 1;
+        this.saveTrack(true);
+        if (this.audio) this.audio.pause();
+        return this.restore();
+      }
       this.req += 1;
       if (this.audio) {
         this.audio.pause();
@@ -8951,7 +9021,8 @@ main[data-section='saved'] .panel::after {
         master: this.settings.master,
         voices,
         nodes: Object.values(this.voices).filter((v) => v.alive).length,
-        ducked: false,
+        ducked: this.ducked,
+        natureGain: this.natureBus ? this.natureBus.gain.value : 1,
         track: this.trackStats()
       };
     }
@@ -8996,6 +9067,7 @@ main[data-section='saved'] .panel::after {
     const [, setVersion] = React2.useState(0);
     React2.useEffect(() => engine.onChange(() => setVersion((n) => n + 1)), [engine]);
     const [panel, setPanel] = React2.useState({ open: false, tab: engine.settings.tab || "nature" });
+    const confirm = useConfirm();
     // What the app around us is doing (set by SoundLockGuard): unlocked? on a break?
     const [chrome, setChrome] = React2.useState({ mounted: false, breakActive: false, route: "home" });
     React2.useEffect(() => engine.restoreTrack(), [engine]);
@@ -9036,6 +9108,14 @@ main[data-section='saved'] .panel::after {
           engine.setSetting("tab", tab);
           setPanel((p) => ({ ...p, tab }));
         },
+        // During a recitation, starting other sound asks first.
+        guard: async (action) => {
+          if (!engine.ducked) return action();
+          const ok = await confirm({ title: "Pause the recitation?", body: "The Quran plays on its own. Pause it to play this instead.", confirmLabel: "Pause" });
+          if (!ok) return;
+          engine.endRecitation();
+          return action();
+        },
         applyPreset: (name) => {
           const preset = NATURE_PRESETS.find((p) => p.name === name);
           if (!preset) return;
@@ -9044,7 +9124,7 @@ main[data-section='saved'] .panel::after {
           engine.setMix(mix);
         }
       }),
-      [engine, panel, chrome]
+      [engine, panel, chrome, confirm]
     );
     return React2.createElement(
       SoundContext.Provider,
@@ -9243,7 +9323,7 @@ main[data-section='saved'] .panel::after {
     return [...map.values()];
   }
   function AlbumView({ group, onBack, onChanged }) {
-    const { engine } = useSound();
+    const { engine, guard } = useSound();
     const confirm = useConfirm();
     const [cover, setCover] = React2.useState(null);
     const [renaming, setRenaming] = React2.useState(null);
@@ -9345,7 +9425,7 @@ main[data-section='saved'] .panel::after {
                 { key: t.id, className: "track-row track-row--actions", "data-active": cur && cur.mediaId === t.id ? "true" : void 0 },
                 React2.createElement(
                   "button",
-                  { type: "button", className: "track-row__play", "aria-label": `Play ${t.title}`, onClick: () => engine.playQueue(queue, i) },
+                  { type: "button", className: "track-row__play", "aria-label": `Play ${t.title}`, onClick: () => guard(() => engine.playQueue(queue, i)) },
                   React2.createElement("span", { className: "track-row__title" }, t.title),
                   React2.createElement("span", { className: "track-row__artist" }, t.artist)
                 ),
@@ -9357,7 +9437,7 @@ main[data-section='saved'] .panel::after {
     );
   }
   function MusicTab() {
-    const { engine } = useSound();
+    const { engine, guard } = useSound();
     const [lib, setLib] = React2.useState([]);
     const [albumKey, setAlbumKey] = React2.useState(null);
     const [query, setQuery] = React2.useState("");
@@ -9439,7 +9519,7 @@ main[data-section='saved'] .panel::after {
           "section",
           { className: "music-section search-results", "aria-label": "Search results" },
           all.length
-            ? React2.createElement("ul", { className: "track-list" }, all.map((t, i) => React2.createElement(TrackRow, { key: t.id, track: t, active: cur && cur.id === t.id, onPlay: () => engine.playQueue(all, i) })))
+            ? React2.createElement("ul", { className: "track-list" }, all.map((t, i) => React2.createElement(TrackRow, { key: t.id, track: t, active: cur && cur.id === t.id, onPlay: () => guard(() => engine.playQueue(all, i)) })))
             : React2.createElement("p", { className: "music-section__note" }, "Nothing matches that.")
         )
       );
@@ -9459,7 +9539,7 @@ main[data-section='saved'] .panel::after {
           React2.createElement(
             "ul",
             { className: "track-list" },
-            calm.map((t, i) => React2.createElement(TrackRow, { key: t.id, track: t, active: cur && cur.id === t.id, onPlay: () => engine.playQueue(calm, i) }))
+            calm.map((t, i) => React2.createElement(TrackRow, { key: t.id, track: t, active: cur && cur.id === t.id, onPlay: () => guard(() => engine.playQueue(calm, i)) }))
           ),
           React2.createElement("p", { className: "music-section__note" }, "Public-domain recordings from Musopen, via Wikimedia Commons.")
         ),
@@ -9489,7 +9569,7 @@ main[data-section='saved'] .panel::after {
           React2.createElement(
             "ul",
             { className: "track-list" },
-            builtInNasheeds.map((t, i) => React2.createElement(TrackRow, { key: t.id, track: t, active: cur && cur.id === t.id, onPlay: () => engine.playQueue(builtInNasheeds, i) }))
+            builtInNasheeds.map((t, i) => React2.createElement(TrackRow, { key: t.id, track: t, active: cur && cur.id === t.id, onPlay: () => guard(() => engine.playQueue(builtInNasheeds, i)) }))
           ),
         nasheedAlbums.length > 0 && tiles(nasheedAlbums),
         !builtInNasheeds.length &&
@@ -9674,7 +9754,7 @@ main[data-section='saved'] .panel::after {
       React2.createElement(
         "div",
         { className: "sound-presets", role: "group", "aria-label": "Presets" },
-        NATURE_PRESETS.map((p) => React2.createElement("button", { key: p.name, type: "button", className: "chip", onClick: () => s.applyPreset(p.name) }, p.name))
+        NATURE_PRESETS.map((p) => React2.createElement("button", { key: p.name, type: "button", className: "chip", onClick: () => s.guard(() => s.applyPreset(p.name)) }, p.name))
       ),
       React2.createElement(
         "div",
@@ -9702,7 +9782,7 @@ main[data-section='saved'] .panel::after {
               "aria-label": `${n.label} volume`,
               onChange: (e) => engine.setNatureVolume(n.id, Number(e.target.value) / 100)
             }),
-            React2.createElement(SoundSwitch, { label: n.label, checked: cfg.on, "data-sound": n.id, onChange: (v) => engine.setNature(n.id, v) }),
+            React2.createElement(SoundSwitch, { label: n.label, checked: cfg.on, "data-sound": n.id, onChange: (v) => (v ? s.guard(() => engine.setNature(n.id, true)) : engine.setNature(n.id, false)) }),
             n.recording &&
               React2.createElement(
                 "div",
