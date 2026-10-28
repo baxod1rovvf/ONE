@@ -18,7 +18,7 @@ after(async () => {
 });
 
 test("fixture files exist and the album tracks carry ID3 tags", () => {
-  for (const f of ["tone.wav", "loop.wav", "album/01.mp3", "album/02.mp3", "untagged.mp3", "not-audio.txt", "broken.mp3"]) {
+  for (const f of ["tone.wav", "loop.wav", "music.wav", "album/01.mp3", "album/02.mp3", "untagged.mp3", "not-audio.txt", "broken.mp3"]) {
     assert.ok(fs.existsSync(path.join(AUDIO, f)), f);
   }
   assert.equal(fs.readFileSync(path.join(AUDIO, "album/01.mp3")).subarray(0, 3).toString(), "ID3");

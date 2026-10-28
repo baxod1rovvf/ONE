@@ -8,14 +8,14 @@ const vm = require("node:vm");
 const OUT = path.join(__dirname, "audio");
 const RATE = 44100;
 
-function tone(seconds, freq) {
-  const n = Math.round(seconds * RATE);
+function tone(seconds, freq, rate = RATE) {
+  const n = Math.round(seconds * rate);
   const s = new Int16Array(n);
-  for (let i = 0; i < n; i++) s[i] = Math.round(Math.sin((2 * Math.PI * freq * i) / RATE) * 0.3 * 32767);
+  for (let i = 0; i < n; i++) s[i] = Math.round(Math.sin((2 * Math.PI * freq * i) / rate) * 0.3 * 32767);
   return s;
 }
 
-function wav(samples) {
+function wav(samples, rate = RATE) {
   const data = Buffer.from(samples.buffer, samples.byteOffset, samples.byteLength);
   const h = Buffer.alloc(44);
   h.write("RIFF", 0);
@@ -24,8 +24,8 @@ function wav(samples) {
   h.writeUInt32LE(16, 16);
   h.writeUInt16LE(1, 20);
   h.writeUInt16LE(1, 22);
-  h.writeUInt32LE(RATE, 24);
-  h.writeUInt32LE(RATE * 2, 28);
+  h.writeUInt32LE(rate, 24);
+  h.writeUInt32LE(rate * 2, 28);
   h.writeUInt16LE(2, 32);
   h.writeUInt16LE(16, 34);
   h.write("data", 36);
@@ -71,6 +71,7 @@ function id3({ title, artist, album, track }) {
 fs.mkdirSync(path.join(OUT, "album"), { recursive: true });
 fs.writeFileSync(path.join(OUT, "tone.wav"), wav(tone(2, 440)));
 fs.writeFileSync(path.join(OUT, "loop.wav"), wav(tone(4, 220)));
+fs.writeFileSync(path.join(OUT, "music.wav"), wav(tone(30, 262, 8000), 8000));
 fs.writeFileSync(path.join(OUT, "album/01.mp3"), Buffer.concat([id3({ title: "First Song", artist: "Test Artist", album: "Test Album", track: 1 }), mp3(tone(3, 330))]));
 fs.writeFileSync(path.join(OUT, "album/02.mp3"), Buffer.concat([id3({ title: "Second Song", artist: "Test Artist", album: "Test Album", track: 2 }), mp3(tone(3, 392))]));
 fs.writeFileSync(path.join(OUT, "untagged.mp3"), mp3(tone(2, 523)));

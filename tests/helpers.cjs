@@ -70,8 +70,25 @@ function audioRoute(route, url) {
     }
     return route.fulfill({ status: 404, body: "{}", headers: CORS });
   }
-  const loop = /rain|cricket/i.test(decodeURIComponent(u.pathname));
-  return route.fulfill({ path: path.join(FIXTURES, "audio", loop ? "loop.wav" : "tone.wav"), contentType: "audio/wav", headers: CORS });
+  const name = decodeURIComponent(u.pathname);
+  const file = /rain|cricket/i.test(name) ? "loop.wav" : /gymnop|sonata/i.test(name) ? "music.wav" : "tone.wav";
+  return fulfillFile(route, path.join(FIXTURES, "audio", file), "audio/wav");
+}
+
+// Answers byte-range requests like a real media server, so audio can seek.
+function fulfillFile(route, file, contentType) {
+  const body = fs.readFileSync(file);
+  const range = /bytes=(\d*)-(\d*)/.exec(route.request().headers().range || "");
+  const headers = { ...CORS, "accept-ranges": "bytes" };
+  if (!range) return route.fulfill({ status: 200, body, contentType, headers });
+  const start = range[1] ? Number(range[1]) : 0;
+  const end = range[2] ? Math.min(Number(range[2]), body.length - 1) : body.length - 1;
+  return route.fulfill({
+    status: 206,
+    body: body.subarray(start, end + 1),
+    contentType,
+    headers: { ...headers, "content-range": `bytes ${start}-${end}/${body.length}` }
+  });
 }
 
 async function launch(opts = {}) {
