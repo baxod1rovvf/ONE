@@ -123,3 +123,22 @@ test("blade count steps down (not below 9000) when frames are slow", async () =>
   assert.equal((await stats(page)).blades, 9000);
   await page.close();
 });
+
+test("rendering pauses while the tab is hidden and resumes after", async () => {
+  const { page } = await openApp(browser, server.url, { route: "home" });
+  await ready(page);
+  await lite(page);
+  const setHidden = (hidden) =>
+    page.evaluate((h) => {
+      Object.defineProperty(document, "hidden", { value: h, configurable: true });
+      document.dispatchEvent(new Event("visibilitychange"));
+    }, hidden);
+  await setHidden(true);
+  await page.waitForTimeout(500); // let an in-flight frame land
+  const before = (await stats(page)).frames;
+  await page.waitForTimeout(1500);
+  assert.equal((await stats(page)).frames, before, "no frames while hidden");
+  await setHidden(false);
+  await page.waitForFunction((n) => window.__oneMeadow.stats().frames > n, before);
+  await page.close();
+});
