@@ -35,7 +35,7 @@ test("a calm track plays and the mini player follows you to every page", async (
     assert.equal((await track(page)).playing, true, `still playing on ${name}`);
   }
   await mini(page).getByRole("button", { name: "Pause" }).click();
-  assert.equal((await track(page)).playing, false);
+  await page.waitForFunction(() => !window.__oneSound.stats().track.playing); // "pause" arrives a moment later
   await page.close();
 });
 
