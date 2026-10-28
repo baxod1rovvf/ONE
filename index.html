@@ -16,27 +16,28 @@
   <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Crect width='24' height='24' rx='7' fill='%236258E8'/%3E%3Ccircle cx='12' cy='12.5' r='5.6' fill='none' stroke='white' stroke-width='2.2'/%3E%3Ccircle cx='12' cy='6.9' r='2.1' fill='white'/%3E%3C/svg%3E">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700&family=Geist+Mono:wght@400;500&display=swap">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600;700&family=Geist:wght@400;500;600;700&family=Geist+Mono:wght@400;500&display=swap">
   <style>
 /* ONE design tokens.
-   Layout concept: a quiet left rail, one centered working column, neutral
-   surfaces everywhere, indigo kept for the primary action and "you are here". */
+   Concept: "touch grass". Light is Morning (blue sky, fresh grass), dark is Night
+   (moonlit navy). Every page sits on a sky backdrop; each section has its own
+   colour (--c-<route>), exposed inside <main> as --section. */
 
 :root {
   /* Color — light (default) */
-  --bg: #f7f7f4;
+  --bg: #dcefff;
   --surface: #ffffff;
-  --surface-2: #f0f0eb;
-  --surface-3: #e9e9e3;
-  --text: #202124;
-  --text-2: #6e727a; /* #777B83 nudged darker to reach 4.5:1 on --bg */
-  --text-3: #9a9da3;
-  --border: #e8e8e3;
-  --border-strong: #d9d9d2;
-  --accent: #6258e8;
-  --accent-hover: #5248dc;
-  --accent-soft: #ece9ff;
-  --accent-text: #4b41cf;
+  --surface-2: #eef6f1;
+  --surface-3: #e2efe6;
+  --text: #1b2a22;
+  --text-2: #4b5d53; /* 6:1 on white cards */
+  --text-3: #7d8f85;
+  --border: #d9e6de;
+  --border-strong: #c3d5ca;
+  --accent: #2f9e4f;
+  --accent-hover: #26873f;
+  --accent-soft: #dcf3e1;
+  --accent-text: #1f6e34;
   --on-accent: #ffffff;
   --success: #1f8a4c;
   --success-soft: #ddf5e4;
@@ -44,16 +45,55 @@
   --warn-soft: #fbefdc;
   --danger: #c23b3b;
   --danger-soft: #fbe8e8;
-  --overlay: rgba(32, 33, 36, 0.28);
-  --shadow-sm: 0 1px 2px rgba(32, 33, 36, 0.05);
-  --shadow-md: 0 1px 2px rgba(32, 33, 36, 0.04), 0 4px 14px rgba(32, 33, 36, 0.06);
-  --shadow-lg: 0 2px 6px rgba(32, 33, 36, 0.06), 0 18px 48px rgba(32, 33, 36, 0.16);
+  --overlay: rgba(18, 38, 64, 0.32);
+  --shadow-sm: 0 1px 2px rgba(23, 61, 98, 0.08);
+  --shadow-md: 0 1px 2px rgba(23, 61, 98, 0.06), 0 6px 18px rgba(23, 61, 98, 0.10);
+  --shadow-lg: 0 2px 6px rgba(23, 61, 98, 0.08), 0 22px 54px rgba(23, 61, 98, 0.22);
   --tile-l: 92%;
   --tile-text-l: 34%;
+  --c-tasks: #2f9e4f;
+  --c-tasks-soft: #dcf3e1;
+  --c-tasks-text: #1f6e34;
+  --c-tasks-on: #ffffff;
+  --c-websites: #2b8ad6;
+  --c-websites-soft: #dcecfb;
+  --c-websites-text: #1a5d9a;
+  --c-websites-on: #ffffff;
+  --c-ideas: #f2b705;
+  --c-ideas-soft: #fff3c4;
+  --c-ideas-text: #835c00;
+  --c-ideas-on: #3a2a00;
+  --c-saved: #e4508c;
+  --c-saved-soft: #fde0ec;
+  --c-saved-text: #a3265a;
+  --c-saved-on: #ffffff;
+  --c-preferences: #8a6ee0;
+  --c-preferences-soft: #ece6fb;
+  --c-preferences-text: #5a42ae;
+  --c-preferences-on: #ffffff;
+  --c-goals: #1d9f90;
+  --c-goals-soft: #d7f3ef;
+  --c-goals-text: #106a60;
+  --c-goals-on: #ffffff;
+  --c-knowledge: #ef8645;
+  --c-knowledge-soft: #fde6d6;
+  --c-knowledge-text: #9c4c15;
+  --c-knowledge-on: #ffffff;
+  --sky-top: #4fa3ee;
+  --sky-mid: #93cbf6;
+  --sky-bottom: #fff3dc;
+  --grass-1: #7cc94f;
+  --grass-2: #4fa83a;
+  --card-bg: rgba(255, 255, 255, 0.82);
+  --glass-bg: rgba(255, 255, 255, 0.38);
+  --glass-border: rgba(255, 255, 255, 0.7);
+  --glass-shadow: 0 10px 30px rgba(23, 61, 98, 0.18), inset 0 1px 0 rgba(255, 255, 255, 0.8);
+  --cloud: rgba(255, 255, 255, 0.85);
 
   /* Type */
   --font: 'Geist', ui-sans-serif, system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
   --mono: 'Geist Mono', ui-monospace, 'SF Mono', Menlo, Consolas, monospace;
+  --font-display: 'Fredoka', 'Geist', ui-rounded, system-ui, sans-serif;
   --fs-xs: 12px;
   --fs-sm: 13px;
   --fs-md: 14px;
@@ -66,6 +106,7 @@
   --r-sm: 6px;
   --r-md: 9px;
   --r-lg: 13px;
+  --r-card: 20px;
   --sidebar-w: 248px;
   --sidebar-w-collapsed: 64px;
   --content-max: 1060px;
@@ -76,82 +117,158 @@
 
 @media (prefers-color-scheme: dark) {
   :root:not([data-theme='light']) {
-    --bg: #151517;
-    --surface: #1c1c1f;
-    --surface-2: #232327;
-    --surface-3: #2b2b30;
-    --text: #ececee;
-    --text-2: #a0a3aa;
-    --text-3: #6f727a;
-    --border: #2a2a2f;
-    --border-strong: #37373d;
-    --accent: #7c73f2;
-    --accent-hover: #8d85f6;
-    --accent-soft: #29264a;
-    --accent-text: #b9b3ff;
-    --on-accent: #ffffff;
+    --bg: #0b1434;
+    --surface: #17214a;
+    --surface-2: #1e2955;
+    --surface-3: #273363;
+    --text: #eef1ff;
+    --text-2: #aab3d6;
+    --text-3: #7682ad;
+    --border: #2a3566;
+    --border-strong: #3a4678;
+    --accent: #6fd08a;
+    --accent-hover: #86dc9e;
+    --accent-soft: #1c3a35;
+    --accent-text: #8fe3a6;
+    --on-accent: #08210f;
     --success: #5cc98a;
     --success-soft: #1d3526;
     --warn: #e0a24a;
     --warn-soft: #3a2c17;
     --danger: #f07a7a;
     --danger-soft: #3d2020;
-    --overlay: rgba(0, 0, 0, 0.5);
-    --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.3);
-    --shadow-md: 0 1px 2px rgba(0, 0, 0, 0.3), 0 4px 14px rgba(0, 0, 0, 0.25);
-    --shadow-lg: 0 2px 6px rgba(0, 0, 0, 0.3), 0 18px 48px rgba(0, 0, 0, 0.5);
+    --overlay: rgba(2, 6, 20, 0.6);
+    --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.35);
+    --shadow-md: 0 1px 2px rgba(0, 0, 0, 0.3), 0 6px 18px rgba(0, 0, 0, 0.3);
+    --shadow-lg: 0 2px 6px rgba(0, 0, 0, 0.35), 0 22px 54px rgba(0, 0, 0, 0.55);
     --tile-l: 22%;
     --tile-text-l: 78%;
+    --c-tasks: #6fd08a;
+    --c-tasks-soft: #1c3a35;
+    --c-tasks-text: #8fe3a6;
+    --c-tasks-on: #08210f;
+    --c-websites: #6cb8ff;
+    --c-websites-soft: #1a3060;
+    --c-websites-text: #9ccfff;
+    --c-websites-on: #04203d;
+    --c-ideas: #ffd23f;
+    --c-ideas-soft: #3d3418;
+    --c-ideas-text: #ffe07a;
+    --c-ideas-on: #2a2000;
+    --c-saved: #ff7fb2;
+    --c-saved-soft: #42203a;
+    --c-saved-text: #ffa6c9;
+    --c-saved-on: #3a0a1e;
+    --c-preferences: #b39dff;
+    --c-preferences-soft: #2e2756;
+    --c-preferences-text: #cbbcff;
+    --c-preferences-on: #1a1040;
+    --c-goals: #4fd6c4;
+    --c-goals-soft: #163d44;
+    --c-goals-text: #7fe5d7;
+    --c-goals-on: #032a25;
+    --c-knowledge: #ffaa73;
+    --c-knowledge-soft: #43291f;
+    --c-knowledge-text: #ffc39c;
+    --c-knowledge-on: #3a1a05;
+    --sky-top: #0a1233;
+    --sky-mid: #1a2464;
+    --sky-bottom: #2b2f78;
+    --grass-1: #123a3a;
+    --grass-2: #0b2a2c;
+    --card-bg: rgba(16, 24, 58, 0.66);
+    --glass-bg: rgba(20, 30, 70, 0.42);
+    --glass-border: rgba(255, 255, 255, 0.16);
+    --glass-shadow: 0 10px 30px rgba(0, 0, 0, 0.45), inset 0 1px 0 rgba(255, 255, 255, 0.12);
+    --cloud: rgba(120, 135, 200, 0.22);
     color-scheme: dark;
   }
 }
 
 :root[data-theme='dark'],
 :root[data-one-theme='dark'] {
-  --bg: #151517;
-  --surface: #1c1c1f;
-  --surface-2: #232327;
-  --surface-3: #2b2b30;
-  --text: #ececee;
-  --text-2: #a0a3aa;
-  --text-3: #6f727a;
-  --border: #2a2a2f;
-  --border-strong: #37373d;
-  --accent: #7c73f2;
-  --accent-hover: #8d85f6;
-  --accent-soft: #29264a;
-  --accent-text: #b9b3ff;
-  --on-accent: #ffffff;
+  --bg: #0b1434;
+  --surface: #17214a;
+  --surface-2: #1e2955;
+  --surface-3: #273363;
+  --text: #eef1ff;
+  --text-2: #aab3d6;
+  --text-3: #7682ad;
+  --border: #2a3566;
+  --border-strong: #3a4678;
+  --accent: #6fd08a;
+  --accent-hover: #86dc9e;
+  --accent-soft: #1c3a35;
+  --accent-text: #8fe3a6;
+  --on-accent: #08210f;
   --success: #5cc98a;
   --success-soft: #1d3526;
   --warn: #e0a24a;
   --warn-soft: #3a2c17;
   --danger: #f07a7a;
   --danger-soft: #3d2020;
-  --overlay: rgba(0, 0, 0, 0.5);
-  --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.3);
-  --shadow-md: 0 1px 2px rgba(0, 0, 0, 0.3), 0 4px 14px rgba(0, 0, 0, 0.25);
-  --shadow-lg: 0 2px 6px rgba(0, 0, 0, 0.3), 0 18px 48px rgba(0, 0, 0, 0.5);
+  --overlay: rgba(2, 6, 20, 0.6);
+  --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.35);
+  --shadow-md: 0 1px 2px rgba(0, 0, 0, 0.3), 0 6px 18px rgba(0, 0, 0, 0.3);
+  --shadow-lg: 0 2px 6px rgba(0, 0, 0, 0.35), 0 22px 54px rgba(0, 0, 0, 0.55);
   --tile-l: 22%;
   --tile-text-l: 78%;
+  --c-tasks: #6fd08a;
+  --c-tasks-soft: #1c3a35;
+  --c-tasks-text: #8fe3a6;
+  --c-tasks-on: #08210f;
+  --c-websites: #6cb8ff;
+  --c-websites-soft: #1a3060;
+  --c-websites-text: #9ccfff;
+  --c-websites-on: #04203d;
+  --c-ideas: #ffd23f;
+  --c-ideas-soft: #3d3418;
+  --c-ideas-text: #ffe07a;
+  --c-ideas-on: #2a2000;
+  --c-saved: #ff7fb2;
+  --c-saved-soft: #42203a;
+  --c-saved-text: #ffa6c9;
+  --c-saved-on: #3a0a1e;
+  --c-preferences: #b39dff;
+  --c-preferences-soft: #2e2756;
+  --c-preferences-text: #cbbcff;
+  --c-preferences-on: #1a1040;
+  --c-goals: #4fd6c4;
+  --c-goals-soft: #163d44;
+  --c-goals-text: #7fe5d7;
+  --c-goals-on: #032a25;
+  --c-knowledge: #ffaa73;
+  --c-knowledge-soft: #43291f;
+  --c-knowledge-text: #ffc39c;
+  --c-knowledge-on: #3a1a05;
+  --sky-top: #0a1233;
+  --sky-mid: #1a2464;
+  --sky-bottom: #2b2f78;
+  --grass-1: #123a3a;
+  --grass-2: #0b2a2c;
+  --card-bg: rgba(16, 24, 58, 0.66);
+  --glass-bg: rgba(20, 30, 70, 0.42);
+  --glass-border: rgba(255, 255, 255, 0.16);
+  --glass-shadow: 0 10px 30px rgba(0, 0, 0, 0.45), inset 0 1px 0 rgba(255, 255, 255, 0.12);
+  --cloud: rgba(120, 135, 200, 0.22);
   color-scheme: dark;
 }
 
 /* The person's own choice inside ONE wins over the host theme. */
 :root[data-one-theme='light'] {
-  --bg: #f7f7f4;
+  --bg: #dcefff;
   --surface: #ffffff;
-  --surface-2: #f0f0eb;
-  --surface-3: #e9e9e3;
-  --text: #202124;
-  --text-2: #6e727a;
-  --text-3: #9a9da3;
-  --border: #e8e8e3;
-  --border-strong: #d9d9d2;
-  --accent: #6258e8;
-  --accent-hover: #5248dc;
-  --accent-soft: #ece9ff;
-  --accent-text: #4b41cf;
+  --surface-2: #eef6f1;
+  --surface-3: #e2efe6;
+  --text: #1b2a22;
+  --text-2: #4b5d53;
+  --text-3: #7d8f85;
+  --border: #d9e6de;
+  --border-strong: #c3d5ca;
+  --accent: #2f9e4f;
+  --accent-hover: #26873f;
+  --accent-soft: #dcf3e1;
+  --accent-text: #1f6e34;
   --on-accent: #ffffff;
   --success: #1f8a4c;
   --success-soft: #ddf5e4;
@@ -159,12 +276,50 @@
   --warn-soft: #fbefdc;
   --danger: #c23b3b;
   --danger-soft: #fbe8e8;
-  --overlay: rgba(32, 33, 36, 0.28);
-  --shadow-sm: 0 1px 2px rgba(32, 33, 36, 0.05);
-  --shadow-md: 0 1px 2px rgba(32, 33, 36, 0.04), 0 4px 14px rgba(32, 33, 36, 0.06);
-  --shadow-lg: 0 2px 6px rgba(32, 33, 36, 0.06), 0 18px 48px rgba(32, 33, 36, 0.16);
+  --overlay: rgba(18, 38, 64, 0.32);
+  --shadow-sm: 0 1px 2px rgba(23, 61, 98, 0.08);
+  --shadow-md: 0 1px 2px rgba(23, 61, 98, 0.06), 0 6px 18px rgba(23, 61, 98, 0.10);
+  --shadow-lg: 0 2px 6px rgba(23, 61, 98, 0.08), 0 22px 54px rgba(23, 61, 98, 0.22);
   --tile-l: 92%;
   --tile-text-l: 34%;
+  --c-tasks: #2f9e4f;
+  --c-tasks-soft: #dcf3e1;
+  --c-tasks-text: #1f6e34;
+  --c-tasks-on: #ffffff;
+  --c-websites: #2b8ad6;
+  --c-websites-soft: #dcecfb;
+  --c-websites-text: #1a5d9a;
+  --c-websites-on: #ffffff;
+  --c-ideas: #f2b705;
+  --c-ideas-soft: #fff3c4;
+  --c-ideas-text: #835c00;
+  --c-ideas-on: #3a2a00;
+  --c-saved: #e4508c;
+  --c-saved-soft: #fde0ec;
+  --c-saved-text: #a3265a;
+  --c-saved-on: #ffffff;
+  --c-preferences: #8a6ee0;
+  --c-preferences-soft: #ece6fb;
+  --c-preferences-text: #5a42ae;
+  --c-preferences-on: #ffffff;
+  --c-goals: #1d9f90;
+  --c-goals-soft: #d7f3ef;
+  --c-goals-text: #106a60;
+  --c-goals-on: #ffffff;
+  --c-knowledge: #ef8645;
+  --c-knowledge-soft: #fde6d6;
+  --c-knowledge-text: #9c4c15;
+  --c-knowledge-on: #ffffff;
+  --sky-top: #4fa3ee;
+  --sky-mid: #93cbf6;
+  --sky-bottom: #fff3dc;
+  --grass-1: #7cc94f;
+  --grass-2: #4fa83a;
+  --card-bg: rgba(255, 255, 255, 0.82);
+  --glass-bg: rgba(255, 255, 255, 0.38);
+  --glass-border: rgba(255, 255, 255, 0.7);
+  --glass-shadow: 0 10px 30px rgba(23, 61, 98, 0.18), inset 0 1px 0 rgba(255, 255, 255, 0.8);
+  --cloud: rgba(255, 255, 255, 0.85);
   color-scheme: light;
 }
 *,
@@ -266,6 +421,125 @@ button {
     transition-duration: 1ms !important;
     scroll-behavior: auto !important;
   }
+}
+/* ---------- Section colours ---------- */
+/* Each page paints its buttons, checkboxes, progress and focus rings in its
+   own colour: --accent* inside <main> point at the page's --section*. */
+main[data-section='home'] {
+  --section: var(--c-tasks);
+  --section-soft: var(--c-tasks-soft);
+  --section-text: var(--c-tasks-text);
+  --on-section: var(--c-tasks-on);
+}
+main[data-section='tasks'] {
+  --section: var(--c-tasks);
+  --section-soft: var(--c-tasks-soft);
+  --section-text: var(--c-tasks-text);
+  --on-section: var(--c-tasks-on);
+}
+main[data-section='websites'] {
+  --section: var(--c-websites);
+  --section-soft: var(--c-websites-soft);
+  --section-text: var(--c-websites-text);
+  --on-section: var(--c-websites-on);
+}
+main[data-section='ideas'] {
+  --section: var(--c-ideas);
+  --section-soft: var(--c-ideas-soft);
+  --section-text: var(--c-ideas-text);
+  --on-section: var(--c-ideas-on);
+}
+main[data-section='saved'] {
+  --section: var(--c-saved);
+  --section-soft: var(--c-saved-soft);
+  --section-text: var(--c-saved-text);
+  --on-section: var(--c-saved-on);
+}
+main[data-section='preferences'] {
+  --section: var(--c-preferences);
+  --section-soft: var(--c-preferences-soft);
+  --section-text: var(--c-preferences-text);
+  --on-section: var(--c-preferences-on);
+}
+main[data-section='goals'] {
+  --section: var(--c-goals);
+  --section-soft: var(--c-goals-soft);
+  --section-text: var(--c-goals-text);
+  --on-section: var(--c-goals-on);
+}
+main[data-section='knowledge'] {
+  --section: var(--c-knowledge);
+  --section-soft: var(--c-knowledge-soft);
+  --section-text: var(--c-knowledge-text);
+  --on-section: var(--c-knowledge-on);
+}
+main[data-section] {
+  --accent: var(--section);
+  --accent-hover: color-mix(in srgb, var(--section) 86%, #000);
+  --accent-soft: var(--section-soft);
+  --accent-text: var(--section-text);
+  --on-accent: var(--on-section);
+}
+
+/* ---------- Backdrop ---------- */
+/* Every page except Home sits on a still sky with clouds and a strip of
+   meadow along the bottom. Home has the live meadow instead. */
+.backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  overflow: hidden;
+  pointer-events: none;
+  background: linear-gradient(180deg, var(--sky-top) 0%, var(--sky-mid) 55%, var(--sky-bottom) 100%);
+}
+.backdrop__cloud {
+  position: absolute;
+  color: var(--cloud);
+  filter: blur(1px);
+}
+.backdrop__cloud--1 { top: 9%; left: -4%; width: 300px; }
+.backdrop__cloud--2 { top: 22%; right: -6%; width: 380px; }
+.backdrop__cloud--3 { top: 48%; left: 38%; width: 220px; opacity: 0.7; }
+.backdrop__stars {
+  position: absolute;
+  inset: 0 0 30% 0;
+}
+.backdrop__star {
+  position: absolute;
+  width: 2px;
+  height: 2px;
+  border-radius: 50%;
+  background: #fff;
+  box-shadow: 0 0 6px 1px rgba(255, 255, 255, 0.6);
+  animation: twinkle 3.2s ease-in-out infinite;
+}
+@keyframes twinkle {
+  0%, 100% { opacity: 0.25; }
+  50% { opacity: 1; }
+}
+.backdrop__grass {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  width: 100%;
+  height: 120px;
+}
+.backdrop__grass path:first-child { fill: var(--grass-1); }
+.backdrop__grass path:last-child { fill: var(--grass-2); }
+.app {
+  position: relative;
+  z-index: 1;
+}
+
+/* Rounded display type for headings, like the "touch grass" title. */
+.page-title,
+.panel__title,
+.settings__title,
+.modal__title {
+  font-family: var(--font-display);
+  font-weight: 600;
+  letter-spacing: 0;
 }
 /* ---------- Buttons ---------- */
 .btn {
@@ -7226,9 +7500,9 @@ a.launch-tile__inner:active {
         value: data.settings.theme,
         onChange: (theme) => setSettings({ theme }),
         options: [
-          { value: "system", label: "System", icon: /* @__PURE__ */ React2.createElement(Laptop, { size: 14, "aria-hidden": true }) },
-          { value: "light", label: "Light", icon: /* @__PURE__ */ React2.createElement(Sun, { size: 14, "aria-hidden": true }) },
-          { value: "dark", label: "Dark", icon: /* @__PURE__ */ React2.createElement(Moon, { size: 14, "aria-hidden": true }) }
+          { value: "system", label: "Follow device", icon: /* @__PURE__ */ React2.createElement(Laptop, { size: 14, "aria-hidden": true }) },
+          { value: "light", label: "Morning", icon: /* @__PURE__ */ React2.createElement(Sun, { size: 14, "aria-hidden": true }) },
+          { value: "dark", label: "Night", icon: /* @__PURE__ */ React2.createElement(Moon, { size: 14, "aria-hidden": true }) }
         ]
       }
     )))), /* @__PURE__ */ React2.createElement("section", { className: "panel settings__section", "aria-labelledby": "set-data" }, /* @__PURE__ */ React2.createElement("h2", { id: "set-data", className: "settings__title" }, "Your data"), /* @__PURE__ */ React2.createElement("p", { className: "settings__note" }, persistence === "browser" ? sync.connected ? "Everything is saved in this browser and synced, encrypted, to your connected devices." : "Everything you add is saved in this browser on this device. Connect a device above to sync it, or copy a backup now and then." : "This browser is blocking storage, so nothing will be kept after you close the page. Copy a backup before you leave."), /* @__PURE__ */ React2.createElement("p", { className: "settings__note muted num" }, "Right now: ", counts, "."), /* @__PURE__ */ React2.createElement("div", { className: "settings__row" }, /* @__PURE__ */ React2.createElement("div", { className: "settings__label" }, /* @__PURE__ */ React2.createElement("p", null, "Sample content"), /* @__PURE__ */ React2.createElement("span", null, hasSamples ? "Examples are mixed in with your own items. They’re marked “Sample”." : "No sample content is showing.")), /* @__PURE__ */ React2.createElement("div", { className: "settings__control" }, hasSamples ? /* @__PURE__ */ React2.createElement(
@@ -8126,6 +8400,28 @@ a.launch-tile__inner:active {
       return () => window.removeEventListener("keydown", onKey);
     }, [ui]);
   }
+  const CLOUD_PATH = "M25 60a20 20 0 0 1 4-39.6A28 28 0 0 1 82 14a24 24 0 0 1 41 12 17 17 0 0 1 2 34z";
+  // Fixed positions so the night sky looks the same on every visit.
+  const STARS = Array.from({ length: 46 }, (_, i) => ({
+    left: `${(i * 37.7 + 11) % 100}%`,
+    top: `${(i * 53.3 + 7) % 100}%`,
+    delay: `${(i * 0.37) % 3.2}s`
+  }));
+  function Backdrop({ night }) {
+    const cloud = (n) => React2.createElement("svg", { key: n, className: `backdrop__cloud backdrop__cloud--${n}`, viewBox: "0 0 130 64" }, React2.createElement("path", { d: CLOUD_PATH, fill: "currentColor" }));
+    return React2.createElement(
+      "div",
+      { className: "backdrop", "aria-hidden": true },
+      night && React2.createElement("div", { className: "backdrop__stars" }, STARS.map((st, i) => React2.createElement("span", { key: i, className: "backdrop__star", style: { left: st.left, top: st.top, animationDelay: st.delay } }))),
+      [1, 2, 3].map(cloud),
+      React2.createElement(
+        "svg",
+        { className: "backdrop__grass", viewBox: "0 0 1440 120", preserveAspectRatio: "none" },
+        React2.createElement("path", { d: "M0 58C240 22 480 18 720 40s480 30 720-6v86H0z" }),
+        React2.createElement("path", { d: "M0 88c260-26 520-30 760-12s460 18 680-8v52H0z" })
+      )
+    );
+  }
   function Shell() {
     const ui = useUI();
     const { data, setSettings, persistence, saveFailed } = useStore();
@@ -8137,7 +8433,7 @@ a.launch-tile__inner:active {
     const toggleCollapse = () => isTablet ? setTabletExpanded((v) => !v) : setSettings({ sidebarCollapsed: !data.settings.sidebarCollapsed });
     const toggleTheme = () => setSettings({ theme: theme === "dark" ? "light" : "dark" });
     const Page = PAGES[ui.route];
-    return /* @__PURE__ */ React2.createElement("div", { className: "app", "data-collapsed": collapsed }, /* @__PURE__ */ React2.createElement(Sidebar, { collapsed, onToggleCollapse: toggleCollapse, theme, onToggleTheme: toggleTheme }), /* @__PURE__ */ React2.createElement("div", { className: "main" }, /* @__PURE__ */ React2.createElement(Topbar, { theme, onToggleTheme: toggleTheme }), /* @__PURE__ */ React2.createElement("main", { className: "page", key: ui.route, id: "main" }, (persistence === "memory" || saveFailed) && /* @__PURE__ */ React2.createElement("div", { className: "storage-alert", role: "alert" }, /* @__PURE__ */ React2.createElement(TriangleAlert, { size: 16, "aria-hidden": true }), persistence === "memory" ? "This browser is blocking storage, so changes will be lost when you close the page." : "Your latest change couldn’t be saved. Storage may be full. Copy a backup from Settings."), /* @__PURE__ */ React2.createElement(Page, null))), /* @__PURE__ */ React2.createElement(MobileNav, null), /* @__PURE__ */ React2.createElement(QuickCapture, null), /* @__PURE__ */ React2.createElement(SearchPalette, null));
+    return /* @__PURE__ */ React2.createElement(React2.Fragment, null, ui.route !== "home" && React2.createElement(Backdrop, { night: theme === "dark" }), React2.createElement("div", { className: "app", "data-collapsed": collapsed }, /* @__PURE__ */ React2.createElement(Sidebar, { collapsed, onToggleCollapse: toggleCollapse, theme, onToggleTheme: toggleTheme }), /* @__PURE__ */ React2.createElement("div", { className: "main" }, /* @__PURE__ */ React2.createElement(Topbar, { theme, onToggleTheme: toggleTheme }), /* @__PURE__ */ React2.createElement("main", { className: "page", key: ui.route, id: "main", "data-section": ui.route }, (persistence === "memory" || saveFailed) && /* @__PURE__ */ React2.createElement("div", { className: "storage-alert", role: "alert" }, /* @__PURE__ */ React2.createElement(TriangleAlert, { size: 16, "aria-hidden": true }), persistence === "memory" ? "This browser is blocking storage, so changes will be lost when you close the page." : "Your latest change couldn’t be saved. Storage may be full. Copy a backup from Settings."), /* @__PURE__ */ React2.createElement(Page, null))), /* @__PURE__ */ React2.createElement(MobileNav, null), /* @__PURE__ */ React2.createElement(QuickCapture, null), /* @__PURE__ */ React2.createElement(SearchPalette, null)));
   }
   function App() {
     return /* @__PURE__ */ React2.createElement(StoreProvider, null, /* @__PURE__ */ React2.createElement(ToastProvider, null, /* @__PURE__ */ React2.createElement(ConfirmProvider, null, React2.createElement(SyncProvider, null, React2.createElement(LockProvider, null, /* @__PURE__ */ React2.createElement(UIProvider, null, /* @__PURE__ */ React2.createElement(Shell, null)))))));
