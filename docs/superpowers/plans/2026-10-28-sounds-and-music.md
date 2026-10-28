@@ -2,7 +2,7 @@
 
 > **For agentic workers:** REQUIRED SUB-SKILL: Use superpowers:subagent-driven-development (recommended) or superpowers:executing-plans to implement this plan task-by-task. Steps use checkbox (`- [ ]`) syntax for tracking.
 
-**Goal:** Give ONE an app-wide sound space: a seven-sound nature mixer with a volume for each sound, a music player (a free library plus your own albums kept privately in the browser), nasheeds, and Quran recitation that plays alone. Everything keeps playing across pages.
+**Goal:** Give ONE an app-wide sound space: a seven-sound nature mixer with a volume for each sound, a music player (a free library, your own albums kept privately in the browser, and your Spotify playlists through Spotify's official player), nasheeds, and Quran recitation that plays alone. Everything keeps playing across pages.
 
 **Architecture:**
 - An `AudioEngine` class owns one `AudioContext`, the nature voices and one `<audio>` element. It is created by a `SoundProvider` that wraps the app above `Shell`, so changing routes never touches it.
@@ -19,7 +19,7 @@
 ## Global Constraints
 
 - One static `index.html` on GitHub Pages, no build step, CDN libraries pinned to exact versions. Nothing copyrighted goes into the repo.
-- Own albums never leave the browser and are never synced. Sound settings are per device in `localStorage["one.sound.v2"]`.
+- Own albums never leave the browser and are never synced. Spotify audio is only ever played through Spotify's official embed; it is never downloaded. Sound settings are per device in `localStorage["one.sound.v2"]`.
 - Sound never starts without a user gesture. After a reload, playback resumes on the first tap anywhere.
 - Every nature sound has a volume from 0 to 100% (default 40%), plus a master volume. Changes ramp over about 1 s.
 - Wind must be soft: a low-pass around 350 Hz with slow swells every 6–12 s.
@@ -324,6 +324,34 @@ test("the old Home sound button opens the Sounds panel", ...)
 - [ ] **Step 3:** Implement.
 - [ ] **Step 4:** Run `npm test`. Expected: PASS.
 - [ ] **Step 5:** Commit: `feat: Quran plays alone and restores what was playing`.
+
+---
+
+### Task 7b: Spotify section
+
+**Files:**
+- Modify: `index.html` (`SpotifyDock`, the Spotify section in the Music tab, saved `spotify: Array<{ uri, title, kind: "music"|"nasheed" }>` in `one.sound.v2`, Quran-alone hook), `tests/helpers.cjs` (route `open.spotify.com/embed/iframe-api/v1` to `tests/fixtures/spotify-iframe-api.js`, a fake that implements `window.onSpotifyIframeApiReady(IFrameAPI)` with `createController(el, { uri }, cb)` → a controller with `loadUri`, `play`, `pause`, `togglePlay`, `addListener("playback_update", fn)`, and records calls on `window.__fakeSpotify`)
+- Test: `tests/sound-spotify.test.cjs`
+
+**Interfaces:**
+- Consumes: the engine snapshot and duck from Task 7; `stopTrack`/`toggle` from Task 4.
+- Produces:
+  - `parseSpotifyLink(text): { type: "playlist"|"album"|"track", id } | null`, which accepts `https://open.spotify.com/{type}/{id}?si=…`, `open.spotify.com/intl-xx/{type}/{id}` and `spotify:{type}:{id}`.
+  - `SpotifyDock`: `load(uri)`, `pause()`, `get playing()`.
+  - The engine treats Spotify as an external source: starting it pauses ONE's track player, and a surah calls `SpotifyDock.pause()`.
+  - DOM: an "Add from Spotify" text field (label "Spotify link") with an "Add" button. Each item is a row with title, a Music/Nasheed toggle and "Remove". Invalid input shows "That isn't a Spotify playlist, album or track link."
+
+- [ ] **Step 1: Write failing tests:**
+  - `parseSpotifyLink` handles the three link shapes and rejects `https://example.com/x`;
+  - adding a playlist link lists it, and it is kept after a reload;
+  - pressing it calls `loadUri("spotify:playlist:<id>")` and `play`, and pauses a playing ONE track;
+  - after starting Spotify and moving to Tasks, `window.__fakeSpotify.destroyed === false` (still mounted);
+  - starting a surah calls the fake's `pause`;
+  - "Nasheeds only" hides items marked Music.
+- [ ] **Step 2:** Run. Expected: FAIL.
+- [ ] **Step 3:** Implement.
+- [ ] **Step 4:** Run `npm test`. Expected: PASS.
+- [ ] **Step 5:** Commit: `feat: Spotify section with the official embed player`.
 
 ---
 

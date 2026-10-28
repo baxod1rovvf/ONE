@@ -19,7 +19,7 @@ ONE is used by one person, but the repo and the GitHub Pages site are public. So
 
 | Question | Decision |
 |---|---|
-| Famous artists' albums | Not bundled. "My albums": the owner adds their own files, stored privately in the browser on that device. |
+| Famous artists' albums | Not bundled. "My albums": the owner adds their own files, stored privately in the browser on that device. Spotify music plays through Spotify's official embed player (Spotify section); nothing is downloaded from Spotify. |
 | Built-in library | Free-licensed calm music, free-licensed nasheeds, and Quran recitation streamed from a free Quran audio service. |
 | "Current sound" | Both: keep the meadow wind and add a river stream. |
 | Quran with other audio | Quran plays alone: starting a surah pauses music/nasheeds and fades nature sounds out; they come back when the recitation stops. |
@@ -108,6 +108,19 @@ Seven sounds, each a row with an on/off toggle, an icon, a volume slider (0–10
   - the queue is the list you started from.
 - **Media Session:** title, artist and cover on phone lock screens and headphone buttons, with play/pause/next/previous wired up.
 
+## 3b. Spotify (inside the Music tab)
+
+- A **Spotify** section lists saved Spotify playlists and albums. "Add from Spotify" accepts a pasted `open.spotify.com/playlist/…` or `/album/…` link (or a `spotify:` URI). Each item can be removed.
+- Playback uses Spotify's official embed player through its iFrame API (`https://open.spotify.com/embed/iframe-api/v1`, `IFrameAPI.createController`). The player stays mounted at the app level, so it keeps playing on every page.
+  - With the panel closed, it sits off-screen. It is never `display: none`, so playback isn't interrupted.
+- You must be logged in to Spotify in the same browser. Premium plays full tracks; on a free account Spotify decides (previews or ads). A note in the section says so.
+- ONE never downloads or copies Spotify audio.
+- **Rules with the rest of the sound:**
+  - Starting a Spotify item pauses ONE's own track player; nature sounds keep playing.
+  - Starting a surah pauses Spotify through the controller (`controller.pause()`) as part of the Quran-alone rule. It does not auto-resume Spotify afterwards: the user presses play.
+- "Nasheeds only" hides Spotify items marked as music. Each item has a Music/Nasheed label (default Music).
+- The Spotify playlists themselves can be created in the owner's Spotify account through Claude's Spotify connector. That happens outside the app.
+
 ## 4. Quran tab
 
 - **Source:** the Quran.com API v4.
@@ -140,6 +153,7 @@ Seven sounds, each a row with an on/off toggle, an icon, a volume slider (0–10
 | `MediaLibrary` | IndexedDB wrapper for own albums: `add(files)`, `list()`, `remove(id)`, `url(id)`, `usage()`. |
 | `readTags(file)` | Minimal ID3v2 / MP4 tag reader (title, artist, album, track, cover). |
 | `QuranSource` | Reciter list and surah URL resolution (Quran.com API), plus the `SURAHS` table. |
+| `SpotifyDock` | Loads the Spotify iFrame API once, owns one embed controller mounted at app level, exposes `load(uri)`, `pause()`, `onState(cb)`. |
 | `SoundsButton`, `SoundsPanel`, `NatureTab`, `MusicTab`, `QuranTab`, `MiniPlayer` | UI. |
 
 `sw.js`:
