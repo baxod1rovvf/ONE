@@ -86,20 +86,3 @@ test("the storage warning is visible on Home", async () => {
   assert.ok(onTop, "storage warning is painted above the meadow");
   await page.close();
 });
-
-test("after a reload, the sound button doesn't claim to play before a tap", async () => {
-  const { page } = await openApp(browser, server.url, { route: "home" });
-  const sound = page.getByRole("button", { name: "Ambient sound" });
-  await sound.click();
-  assert.equal(await sound.getAttribute("aria-pressed"), "true");
-  await page.reload();
-  await sound.waitFor();
-  assert.equal(await sound.getAttribute("aria-pressed"), "false", "no sound can play until the page is tapped again");
-  // Moving within the app (the page has been tapped) brings it back on.
-  await page.getByRole("navigation", { name: "Pages" }).getByRole("link", { name: "Tasks" }).click();
-  await page.getByRole("navigation", { name: "Pages" }).getByRole("link", { name: "Home" }).click();
-  await sound.waitFor();
-  assert.equal(await sound.getAttribute("aria-pressed"), "true");
-  assert.ok(STORE_KEY);
-  await page.close();
-});

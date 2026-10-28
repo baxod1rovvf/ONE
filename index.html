@@ -3767,6 +3767,615 @@ main[data-section='saved'] .panel::after {
     transform: none;
   }
 }
+
+/* ---------- Sounds panel ---------- */
+.sounds-panel {
+  position: fixed;
+  z-index: 45;
+  top: calc(68px + env(safe-area-inset-top, 0px));
+  right: max(16px, env(safe-area-inset-right, 0px));
+  width: min(400px, calc(100vw - 32px));
+  max-height: calc(100dvh - 68px - 110px);
+  display: flex;
+  flex-direction: column;
+  border-radius: 24px;
+  background: color-mix(in srgb, var(--surface) 86%, transparent);
+  animation: pill-in 220ms var(--ease);
+}
+.sounds-panel__head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 14px 14px 6px 20px;
+}
+.sounds-panel__title {
+  font-family: var(--font-display);
+  font-size: var(--fs-xl);
+  font-weight: 600;
+}
+.sounds-tabs {
+  display: flex;
+  gap: 4px;
+  margin: 0 14px;
+  padding: 3px;
+  border-radius: 999px;
+  background: color-mix(in srgb, var(--surface-2) 80%, transparent);
+}
+.sounds-tabs__tab {
+  flex: 1;
+  height: 34px;
+  border-radius: 999px;
+  font-weight: 600;
+  font-size: var(--fs-sm);
+  color: var(--text-2);
+}
+.sounds-tabs__tab[aria-selected='true'] {
+  background: var(--surface);
+  color: var(--text);
+  box-shadow: var(--shadow-sm);
+}
+.sounds-panel__body {
+  flex: 1;
+  min-height: 0;
+  overflow-y: auto;
+  padding: 12px 14px;
+}
+.sounds-panel__foot {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 10px 14px 14px 20px;
+  border-top: 1px solid var(--border);
+}
+.sounds-master {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: var(--fs-sm);
+  font-weight: 600;
+  color: var(--text-2);
+}
+.sounds-master input,
+.nature-row__volume {
+  flex: 1;
+  min-width: 0;
+  accent-color: var(--c-tasks);
+}
+.sounds-soon {
+  padding: 24px 6px;
+  color: var(--text-2);
+  text-align: center;
+}
+.sound-presets {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-bottom: 10px;
+}
+.nature-follow {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 8px 6px 10px;
+  font-weight: 600;
+  font-size: var(--fs-sm);
+}
+.nature-follow small {
+  display: block;
+  font-weight: 400;
+  color: var(--text-2);
+}
+.nature-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 4px;
+}
+.nature-row {
+  display: grid;
+  grid-template-columns: 28px 76px minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 10px;
+  padding: 8px 6px;
+  border-radius: 14px;
+}
+.nature-row[data-on='true'] {
+  background: color-mix(in srgb, var(--c-tasks) 10%, transparent);
+}
+.nature-row__icon {
+  font-size: 20px;
+  text-align: center;
+}
+.nature-row__label {
+  font-weight: 600;
+  font-size: var(--fs-sm);
+}
+.sound-switch {
+  position: relative;
+  width: 40px;
+  height: 24px;
+  border-radius: 999px;
+  background: var(--border-strong);
+  transition: background var(--t-fast) var(--ease);
+  flex: none;
+}
+.sound-switch__knob {
+  position: absolute;
+  top: 3px;
+  left: 3px;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background: #fff;
+  box-shadow: var(--shadow-sm);
+  transition: transform var(--t-fast) var(--ease);
+}
+.sound-switch[aria-checked='true'] {
+  background: var(--c-tasks);
+}
+.sound-switch[aria-checked='true'] .sound-switch__knob {
+  transform: translateX(16px);
+}
+.nature-row__real {
+  grid-column: 2 / -1;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: var(--fs-xs);
+  font-weight: 600;
+  color: var(--text-2);
+}
+.nature-row__real .sound-switch {
+  width: 32px;
+  height: 20px;
+}
+.nature-row__real .sound-switch__knob {
+  width: 14px;
+  height: 14px;
+}
+.nature-row__real .sound-switch[aria-checked='true'] .sound-switch__knob {
+  transform: translateX(12px);
+}
+.nature-row__real[aria-busy='true']::after {
+  content: '';
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  border: 2px solid var(--border-strong);
+  border-top-color: var(--c-tasks);
+  animation: spin 800ms linear infinite;
+}
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+.nature-row__note {
+  font-weight: 500;
+  color: var(--warn);
+}
+.sound-sources {
+  margin-top: 12px;
+  font-size: var(--fs-xs);
+  color: var(--text-2);
+}
+.sound-sources summary {
+  cursor: pointer;
+  font-weight: 600;
+}
+.sound-sources ul {
+  margin: 6px 0;
+  padding-left: 18px;
+}
+.sound-sources a {
+  text-decoration: underline;
+}
+.np {
+  margin: 10px 14px 0;
+  padding: 10px 12px;
+  border-radius: 16px;
+  background: color-mix(in srgb, var(--c-tasks) 9%, var(--surface));
+  display: grid;
+  gap: 6px;
+}
+.np__title {
+  font-weight: 700;
+  font-size: var(--fs-md);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.np__artist {
+  font-size: var(--fs-xs);
+  color: var(--text-2);
+}
+.np__seek {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: var(--fs-xs);
+  color: var(--text-2);
+}
+.np__seek input {
+  flex: 1;
+  min-width: 0;
+  accent-color: var(--c-tasks);
+}
+.np__controls {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 4px;
+}
+.np__btn {
+  display: grid;
+  place-items: center;
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  font-size: 16px;
+  color: var(--text);
+}
+.np__btn:hover {
+  background: color-mix(in srgb, var(--surface-3) 70%, transparent);
+}
+.np__repeat[data-mode='off'] {
+  opacity: 0.45;
+}
+.music-section + .music-section {
+  margin-top: 14px;
+}
+.music-section__title {
+  font-family: var(--font-display);
+  font-size: var(--fs-lg);
+  font-weight: 600;
+  margin: 2px 6px 6px;
+}
+.music-section__note {
+  margin: 6px;
+  font-size: var(--fs-xs);
+  color: var(--text-3);
+}
+.track-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+.track-row__play {
+  width: 100%;
+  display: grid;
+  text-align: left;
+  padding: 8px 10px;
+  border-radius: 12px;
+}
+.track-row__play:hover,
+.track-row[data-active='true'] .track-row__play {
+  background: color-mix(in srgb, var(--c-tasks) 10%, transparent);
+}
+.track-row__title {
+  font-weight: 600;
+  font-size: var(--fs-sm);
+}
+.track-row__artist {
+  font-size: var(--fs-xs);
+  color: var(--text-2);
+}
+.mini-player {
+  position: fixed;
+  z-index: 29;
+  left: 50%;
+  bottom: calc(96px + env(safe-area-inset-bottom, 0px));
+  transform: translateX(-50%);
+  width: min(420px, calc(100vw - 24px));
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 6px 4px 16px;
+  border-radius: 999px;
+  transition: opacity 400ms var(--ease), transform 400ms var(--ease);
+}
+.mini-player[data-route='home'] {
+  bottom: calc(150px + env(safe-area-inset-bottom, 0px));
+}
+.mini-player[data-hidden='true'] {
+  opacity: 0;
+  transform: translate(-50%, 16px);
+  pointer-events: none;
+}
+.mini-player__open {
+  flex: 1;
+  min-width: 0;
+  display: grid;
+  text-align: left;
+  padding: 4px 0;
+}
+.mini-player__title {
+  font-weight: 700;
+  font-size: var(--fs-sm);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.mini-player__artist {
+  font-size: var(--fs-xs);
+  color: var(--text-2);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.music-tools {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 10px;
+}
+.music-tools .input {
+  flex: 1;
+  min-width: 0;
+  height: 36px;
+}
+.music-tools__nasheeds {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: var(--fs-xs);
+  font-weight: 600;
+  color: var(--text-2);
+  white-space: nowrap;
+}
+.import-result {
+  margin: 0 4px 10px;
+  padding: 8px 12px;
+  border-radius: 12px;
+  background: var(--surface-2);
+  font-size: var(--fs-xs);
+}
+.music-section__row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+}
+.music-section__add {
+  display: flex;
+  gap: 4px;
+}
+.music-usage {
+  margin: 8px 6px 0;
+  font-size: var(--fs-xs);
+  color: var(--text-3);
+}
+.music-empty {
+  display: grid;
+  justify-items: start;
+  gap: 8px;
+  padding: 8px 6px;
+  font-size: var(--fs-sm);
+  color: var(--text-2);
+}
+.album-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(104px, 1fr));
+  gap: 10px;
+  margin: 6px 0;
+}
+.album-tile {
+  display: grid;
+  gap: 2px;
+  text-align: left;
+  padding: 6px;
+  border-radius: 14px;
+}
+.album-tile:hover {
+  background: color-mix(in srgb, var(--c-tasks) 8%, transparent);
+}
+.album-tile__cover,
+.album-cover {
+  width: 100%;
+  aspect-ratio: 1;
+  border-radius: 12px;
+  object-fit: cover;
+  background: var(--surface-2);
+}
+.album-tile__cover--blank,
+.album-cover--blank {
+  display: grid;
+  place-items: center;
+  font-size: 28px;
+  color: var(--text-3);
+}
+.album-tile__title {
+  font-weight: 600;
+  font-size: var(--fs-sm);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.album-tile__artist {
+  font-size: var(--fs-xs);
+  color: var(--text-2);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.album-view__head {
+  display: grid;
+  grid-template-columns: 84px minmax(0, 1fr);
+  align-items: center;
+  gap: 12px;
+  margin: 8px 4px;
+}
+.album-view__actions {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin: 0 4px 8px;
+}
+.album-view__kind {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: var(--fs-sm);
+  font-weight: 600;
+}
+.track-row--actions {
+  display: flex;
+  align-items: center;
+  gap: 2px;
+}
+.track-row--actions .track-row__play {
+  flex: 1;
+  min-width: 0;
+}
+.quran-tools {
+  display: grid;
+  gap: 8px;
+  margin-bottom: 8px;
+}
+.quran-tools .select,
+.quran-tools .input {
+  width: 100%;
+  height: 36px;
+}
+.quran-tools__switches {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 16px;
+  font-size: var(--fs-xs);
+  font-weight: 600;
+  color: var(--text-2);
+}
+.quran-tools__switches label {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.quran-tools__resume {
+  justify-self: start;
+}
+.sound-alert {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  margin-bottom: 10px;
+  padding: 10px 12px;
+  border-radius: 12px;
+  background: var(--warn-soft);
+  color: var(--text);
+  font-size: var(--fs-sm);
+}
+.surah-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+.surah-row {
+  display: flex;
+  align-items: center;
+  gap: 2px;
+}
+.surah-row__play {
+  flex: 1;
+  min-width: 0;
+  display: grid;
+  grid-template-columns: 30px minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 8px;
+  text-align: left;
+  padding: 7px 8px;
+  border-radius: 12px;
+}
+.surah-row__play:hover,
+.surah-row[data-active='true'] .surah-row__play {
+  background: color-mix(in srgb, var(--c-tasks) 10%, transparent);
+}
+.surah-row__num {
+  font-size: var(--fs-xs);
+  font-weight: 700;
+  color: var(--text-3);
+  text-align: center;
+}
+.surah-row__text {
+  display: grid;
+  min-width: 0;
+}
+.surah-row__arabic {
+  font-size: 18px;
+  color: var(--text);
+}
+.surah-row__fav[aria-pressed='true'] {
+  color: var(--c-ideas);
+}
+.spotify-add {
+  display: flex;
+  gap: 6px;
+  margin: 4px 0 6px;
+}
+.spotify-add .input {
+  flex: 1;
+  min-width: 0;
+  height: 34px;
+}
+.music-section__error {
+  margin: 0 6px 6px;
+  font-size: var(--fs-xs);
+  color: var(--danger);
+}
+.spotify-slot {
+  height: 152px;
+  margin: 6px 0;
+  border-radius: 12px;
+}
+.spotify-host {
+  position: fixed;
+  z-index: 46;
+  overflow: hidden;
+  border-radius: 12px;
+}
+.spotify-host[data-visible='false'] {
+  pointer-events: none;
+}
+.spotify-host iframe {
+  border: 0;
+  display: block;
+}
+.sound-bars rect {
+  fill: currentColor;
+  transform-origin: 50% 100%;
+  transform-box: fill-box;
+  transform: scaleY(0.45);
+}
+[data-playing='true'] .sound-bars rect {
+  animation: sound-bar 900ms ease-in-out infinite alternate;
+}
+@keyframes sound-bar {
+  from {
+    transform: scaleY(0.3);
+  }
+  to {
+    transform: scaleY(1);
+  }
+}
+@media (max-width: 760px) {
+  .sounds-panel {
+    top: auto;
+    left: 8px;
+    right: 8px;
+    bottom: calc(88px + env(safe-area-inset-bottom, 0px));
+    width: auto;
+    max-height: calc(100dvh - 160px);
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  [data-playing='true'] .sound-bars rect,
+  .sounds-panel {
+    animation: none !important;
+  }
+}
   </style>
 </head>
 <body>
@@ -4430,17 +5039,6 @@ main[data-section='saved'] .panel::after {
     ["path", { d: "M21 8V5a2 2 0 0 0-2-2h-3", key: "1e4gt3" }],
     ["path", { d: "M3 16v3a2 2 0 0 0 2 2h3", key: "wsl5sc" }],
     ["path", { d: "M16 21h3a2 2 0 0 0 2-2v-3", key: "18trek" }]
-  ]);
-  const SPEAKER = ["path", { d: "M11 4.702a.705.705 0 0 0-1.203-.498L6.413 7.587A1.4 1.4 0 0 1 5.416 8H3a1 1 0 0 0-1 1v6a1 1 0 0 0 1 1h2.416a1.4 1.4 0 0 1 .997.413l3.383 3.384A.705.705 0 0 0 11 19.298z", key: "uqj9uw" }];
-  const Volume2 = createLucideIcon("Volume2", [
-    SPEAKER,
-    ["path", { d: "M16 9a5 5 0 0 1 0 6", key: "1q6k2b" }],
-    ["path", { d: "M19.364 18.364a9 9 0 0 0 0-12.728", key: "ijwkga" }]
-  ]);
-  const VolumeX = createLucideIcon("VolumeX", [
-    SPEAKER,
-    ["line", { x1: "22", x2: "16", y1: "9", y2: "15", key: "1ewh16" }],
-    ["line", { x1: "16", x2: "22", y1: "9", y2: "15", key: "5ykzw1" }]
   ]);
   const Lock = createLucideIcon("Lock", [
     ["rect", { width: "18", height: "11", x: "3", y: "11", rx: "2", ry: "2", key: "1w4ew1" }],
@@ -5865,6 +6463,7 @@ main[data-section='saved'] .panel::after {
       { className: "cluster glass", role: "toolbar", "aria-label": "Quick actions" },
       React2.createElement(IconButton, { label: "Search", title: `Search (${modKey}+K)`, onClick: ui.openSearch }, React2.createElement(Search, { size: 18 })),
       React2.createElement(IconButton, { label: "Quick capture", title: "Quick capture (C)", onClick: () => ui.openCapture() }, React2.createElement(Plus, { size: 19, strokeWidth: 2.2 })),
+      React2.createElement(SoundsButton, null),
       lock.enabled && React2.createElement(IconButton, { label: "Lock ONE now", onClick: lock.lock }, React2.createElement(Lock, { size: 17 })),
       React2.createElement(IconButton, { label: "Settings", "aria-current": ui.route === "preferences" ? "page" : void 0, onClick: () => ui.navigate("preferences") }, React2.createElement(Settings, { size: 18 }))
     );
@@ -7252,7 +7851,2285 @@ main[data-section='saved'] .panel::after {
       this.renderer.forceContextLoss();
     }
   }
-  /* ---------- Break mode and ambient sound ---------- */
+  /* ---------- Sound: nature voices ---------- */
+  // Seven nature sounds, each made in the browser from shaped noise and tones
+  // (no files). A sound's "recording" (Task 3) can replace the generated one.
+  const NATURE_SOUNDS = [
+    { id: "wind", label: "Wind", icon: "🌬️" },
+    { id: "birds", label: "Birds", icon: "🐦" },
+    { id: "crickets", label: "Crickets", icon: "🦗", recording: { file: "Crickets choir.ogg", licence: "CC BY-SA 4.0" } },
+    { id: "river", label: "River", icon: "🏞️" },
+    { id: "waterfall", label: "Waterfall", icon: "💧" },
+    { id: "rain", label: "Rain", icon: "🌧️", recording: { file: "Sound of rain.ogg", licence: "CC BY-SA 3.0" } },
+    { id: "ocean", label: "Ocean", icon: "🌊" }
+  ];
+  const NATURE_PRESETS = [
+    { name: "Rainy day", sounds: ["rain", "wind"] },
+    { name: "Forest stream", sounds: ["river", "birds"] },
+    { name: "Seaside", sounds: ["ocean", "wind"] },
+    { name: "Night meadow", sounds: ["crickets", "wind"] },
+    { name: "Deep focus", sounds: ["waterfall", "rain"] }
+  ];
+  // Free calm music: public-domain recordings on Wikimedia Commons (Musopen).
+  const MUSIC_LIBRARY = [
+    { id: "satie-gymnopedie-1", title: "Gymnopédie No. 1", artist: "Erik Satie · Robin Alciatore", album: "Calm music", kind: "music", file: "Erik Satie - gymnopedies - la 1 ere. lent et douloureux.ogg", licence: "Public domain (Musopen)" },
+    { id: "beethoven-moonlight-1", title: "Moonlight Sonata, I. Adagio sostenuto", artist: "Ludwig van Beethoven · Musopen", album: "Calm music", kind: "music", file: "Ludwig van Beethoven - sonata no. 14 in c sharp minor 'moonlight', op. 27 no. 2 - i. adagio sostenuto.ogg", licence: "Public domain (Musopen)" },
+    { id: "beethoven-moonlight-3", title: "Moonlight Sonata, III. Presto agitato", artist: "Ludwig van Beethoven · Paul Pitman", album: "Calm music", kind: "music", file: "Moonlight Sonata Presto.ogg", licence: "Public domain (Musopen)" }
+  ];
+  const FADE = 1;
+  // Free recordings on Wikimedia Commons, by file name.
+  const commonsFile = (file) => `https://commons.wikimedia.org/wiki/Special:FilePath/${encodeURIComponent(file)}`;
+  const commonsPage = (file) => `https://commons.wikimedia.org/wiki/File:${encodeURIComponent(file.replace(/ /g, "_"))}`;
+  // Noise buffers shared by every voice of one AudioContext.
+  const noiseCache = new WeakMap();
+  function noiseBuffers(ctx) {
+    let b = noiseCache.get(ctx);
+    if (b) return b;
+    const len = ctx.sampleRate * 4;
+    const make = (fill) => {
+      const buf = ctx.createBuffer(1, len, ctx.sampleRate);
+      fill(buf.getChannelData(0));
+      return buf;
+    };
+    b = {
+      white: make((d) => {
+        for (let i = 0; i < d.length; i++) d[i] = Math.random() * 2 - 1;
+      }),
+      brown: make((d) => {
+        let last = 0;
+        for (let i = 0; i < d.length; i++) {
+          last = (last + 0.02 * (Math.random() * 2 - 1)) / 1.02;
+          d[i] = last * 3.5;
+        }
+      }),
+      pink: make((d) => {
+        let b0 = 0, b1 = 0, b2 = 0;
+        for (let i = 0; i < d.length; i++) {
+          const w = Math.random() * 2 - 1;
+          b0 = 0.99765 * b0 + w * 0.099046;
+          b1 = 0.963 * b1 + w * 0.2965164;
+          b2 = 0.57 * b2 + w * 1.0526913;
+          d[i] = (b0 + b1 + b2 + w * 0.1848) * 0.22;
+        }
+      })
+    };
+    noiseCache.set(ctx, b);
+    return b;
+  }
+  class NatureVoice {
+    constructor(ctx, destination, id, onState = () => {}) {
+      this.ctx = ctx;
+      this.id = id;
+      this.onState = onState;
+      this.recordingUrl = null;
+      this.recordingFailed = false;
+      this.loading = false;
+      this.volume = 0.4;
+      this.out = ctx.createGain();
+      this.out.gain.value = 0;
+      this.out.connect(destination);
+      this.graph = null; // { nodes, timers } while the sound exists (playing or fading out)
+      this.isRunning = false;
+      this.teardown = 0;
+    }
+    get running() {
+      return this.isRunning;
+    }
+    get alive() {
+      return !!this.graph;
+    }
+    get source() {
+      return this.graph && this.graph.audio && !this.loading ? "recording" : "generated";
+    }
+    // Plays a recording instead of the generated sound (null switches back).
+    // If it can't load, the generated sound carries on.
+    useRecording(url) {
+      this.recordingUrl = url;
+      this.recordingFailed = false;
+      if (this.graph) {
+        this.free();
+        if (this.isRunning) {
+          this.graph = this.build();
+          this.ramp(this.volume);
+        }
+      }
+      this.onState();
+    }
+    buildRecording() {
+      const audio = new Audio();
+      audio.crossOrigin = "anonymous";
+      audio.loop = true;
+      audio.preload = "auto";
+      const node = this.ctx.createMediaElementSource(audio);
+      node.connect(this.out);
+      this.loading = true;
+      const graph = { nodes: [node], timers: [], audio };
+      const fail = () => {
+        if (this.graph !== graph) return;
+        this.recordingFailed = true;
+        this.loading = false;
+        this.free();
+        if (this.isRunning) {
+          this.graph = this.build();
+          this.ramp(this.volume);
+        }
+        this.onState();
+      };
+      audio.addEventListener("error", fail);
+      audio.addEventListener("playing", () => {
+        if (this.graph !== graph) return;
+        this.loading = false;
+        this.onState();
+      });
+      audio.src = this.recordingUrl;
+      audio.play().catch(() => {
+        // Autoplay refusals resolve once the context is resumed; real load
+        // errors arrive as "error" above.
+      });
+      return graph;
+    }
+    ramp(to) {
+      const g = this.out.gain;
+      const now = this.ctx.currentTime;
+      g.cancelScheduledValues(now);
+      g.setValueAtTime(g.value, now);
+      g.linearRampToValueAtTime(to, now + FADE);
+    }
+    start() {
+      window.clearTimeout(this.teardown);
+      if (!this.graph) this.graph = this.build();
+      this.isRunning = true;
+      this.ramp(this.volume);
+    }
+    stop() {
+      if (!this.isRunning) return;
+      this.isRunning = false;
+      this.ramp(0);
+      window.clearTimeout(this.teardown);
+      this.teardown = window.setTimeout(() => this.free(), FADE * 1000 + 100);
+    }
+    setVolume(v) {
+      this.volume = v;
+      if (this.isRunning) this.ramp(v);
+    }
+    free() {
+      const g = this.graph;
+      if (!g) return;
+      this.graph = null;
+      this.loading = false;
+      if (g.audio) {
+        g.audio.pause();
+        g.audio.removeAttribute("src");
+        g.audio.load();
+      }
+      g.timers.forEach((t) => window.clearTimeout(t.id));
+      g.nodes.forEach((n) => {
+        try {
+          if (n.stop) n.stop();
+        } catch {
+        }
+        n.disconnect();
+      });
+    }
+    // Builds this sound's nodes into this.out; returns what free() must undo.
+    build() {
+      if (this.recordingUrl && !this.recordingFailed) return this.buildRecording();
+      const ctx = this.ctx;
+      const nb = noiseBuffers(ctx);
+      const nodes = [];
+      const timers = [];
+      const add = (n) => (nodes.push(n), n);
+      const loop = (buffer) => {
+        const s = add(ctx.createBufferSource());
+        s.buffer = buffer;
+        s.loop = true;
+        s.start(0, Math.random() * buffer.duration);
+        return s;
+      };
+      const filter = (type, freq, q = 0.7) => {
+        const f = add(ctx.createBiquadFilter());
+        f.type = type;
+        f.frequency.value = freq;
+        f.Q.value = q;
+        return f;
+      };
+      const gain = (v) => {
+        const g = add(ctx.createGain());
+        g.gain.value = v;
+        return g;
+      };
+      const every = (min, max, fn) => {
+        const t = { id: 0 };
+        const tick = () => {
+          fn(ctx.currentTime);
+          t.id = window.setTimeout(tick, (min + Math.random() * (max - min)) * 1000);
+        };
+        t.id = window.setTimeout(tick, Math.random() * 600);
+        timers.push(t);
+      };
+      // A short tone with an envelope, freed by the browser when it ends.
+      const blip = (dest, freq, at, dur, peak, endFreq, type = "sine") => {
+        const o = ctx.createOscillator();
+        const g = ctx.createGain();
+        o.type = type;
+        o.frequency.setValueAtTime(freq, at);
+        if (endFreq) o.frequency.exponentialRampToValueAtTime(endFreq, at + dur);
+        g.gain.setValueAtTime(0, at);
+        g.gain.linearRampToValueAtTime(peak, at + Math.min(0.015, dur / 3));
+        g.gain.exponentialRampToValueAtTime(0.0001, at + dur);
+        o.connect(g).connect(dest);
+        o.start(at);
+        o.stop(at + dur + 0.05);
+      };
+      const out = this.out;
+      switch (this.id) {
+        case "wind": {
+          // Soft: deep low-pass, slow swells every 6–12 s.
+          const swell = gain(0.5);
+          loop(nb.brown).connect(filter("lowpass", 350)).connect(swell).connect(gain(1.1)).connect(out);
+          every(6, 12, (t) => {
+            const target = 0.3 + Math.random() * 0.7;
+            swell.gain.cancelScheduledValues(t);
+            swell.gain.setValueAtTime(swell.gain.value, t);
+            swell.gain.linearRampToValueAtTime(target, t + 5);
+          });
+          break;
+        }
+        case "birds": {
+          const pan = add(ctx.createStereoPanner());
+          pan.connect(out);
+          every(2, 7, (t) => {
+            pan.pan.setValueAtTime(Math.random() * 1.6 - 0.8, t);
+            const notes = 2 + Math.floor(Math.random() * 4);
+            const base = 2200 + Math.random() * 1800;
+            for (let i = 0; i < notes; i++) {
+              const f = base * (0.9 + Math.random() * 0.3);
+              blip(pan, f, t + i * (0.09 + Math.random() * 0.08), 0.08 + Math.random() * 0.06, 0.09, f * (1.2 + Math.random() * 0.5));
+            }
+          });
+          break;
+        }
+        case "crickets": {
+          const hp = filter("highpass", 3000);
+          hp.connect(gain(0.5)).connect(out);
+          every(0.6, 1.1, (t) => {
+            const pulses = 3 + Math.floor(Math.random() * 2);
+            const f = 4300 + Math.random() * 500;
+            for (let i = 0; i < pulses; i++) blip(hp, f, t + i * 0.034, 0.024, 0.05);
+          });
+          break;
+        }
+        case "river": {
+          const wobble = gain(0.8);
+          const lfo = add(ctx.createOscillator());
+          lfo.frequency.value = 3.5;
+          const depth = gain(0.22);
+          lfo.connect(depth).connect(wobble.gain);
+          lfo.start();
+          const src = loop(nb.white);
+          src.connect(filter("bandpass", 900, 0.8)).connect(wobble).connect(gain(0.9)).connect(out);
+          src.connect(filter("bandpass", 2200, 1.2)).connect(gain(0.25)).connect(out);
+          break;
+        }
+        case "waterfall": {
+          const src = loop(nb.white);
+          src.connect(filter("lowpass", 1100)).connect(gain(0.7)).connect(out);
+          src.connect(filter("highpass", 4000)).connect(gain(0.05)).connect(out);
+          break;
+        }
+        case "rain": {
+          loop(nb.pink).connect(filter("highpass", 400)).connect(filter("lowpass", 6000)).connect(gain(0.6)).connect(out);
+          const drops = filter("bandpass", 2500, 2);
+          drops.connect(gain(0.6)).connect(out);
+          every(0.05, 0.35, (t) => blip(drops, 1800 + Math.random() * 2400, t, 0.03, 0.06, 0, "triangle"));
+          break;
+        }
+        case "ocean": {
+          const lp = filter("lowpass", 400);
+          const wave = gain(0.25);
+          loop(nb.brown).connect(lp).connect(wave).connect(gain(1.3)).connect(out);
+          every(7, 9, (t) => {
+            // A wave builds for ~3 s, then washes back.
+            wave.gain.cancelScheduledValues(t);
+            wave.gain.setValueAtTime(wave.gain.value, t);
+            wave.gain.linearRampToValueAtTime(1, t + 3);
+            wave.gain.linearRampToValueAtTime(0.2, t + 7.5);
+            lp.frequency.cancelScheduledValues(t);
+            lp.frequency.setValueAtTime(lp.frequency.value, t);
+            lp.frequency.linearRampToValueAtTime(1300, t + 3);
+            lp.frequency.linearRampToValueAtTime(350, t + 7.5);
+          });
+          break;
+        }
+      }
+      return { nodes, timers };
+    }
+  }
+  /* ---------- Sound: library ---------- */
+  // Reads the title, artist, album, track number and cover built into a music
+  // file: ID3v2.3/2.4 (MP3) and the iTunes-style atoms of MP4/M4A.
+  async function readTags(file) {
+    const head = new Uint8Array(await file.slice(0, 512 * 1024).arrayBuffer());
+    if (head[0] === 0x49 && head[1] === 0x44 && head[2] === 0x33) return readId3(head);
+    if (String.fromCharCode(...head.subarray(4, 8)) === "ftyp") return readMp4(new Uint8Array(await file.arrayBuffer()));
+    return {};
+  }
+  function decodeText(bytes, encoding) {
+    try {
+      if (encoding === 1 || encoding === 2) {
+        let b = bytes;
+        let label = "utf-16be";
+        if (b[0] === 0xff && b[1] === 0xfe) {
+          label = "utf-16le";
+          b = b.subarray(2);
+        } else if (b[0] === 0xfe && b[1] === 0xff) b = b.subarray(2);
+        return new TextDecoder(label).decode(b).replace(/\0+$/, "");
+      }
+      return new TextDecoder(encoding === 3 ? "utf-8" : "latin1").decode(bytes).replace(/\0+$/, "");
+    } catch {
+      return "";
+    }
+  }
+  function readId3(b) {
+    const version = b[3];
+    const syncsafe = (i) => (b[i] << 21) | (b[i + 1] << 14) | (b[i + 2] << 7) | b[i + 3];
+    const end = Math.min(b.length, 10 + syncsafe(6));
+    const tags = {};
+    let i = 10;
+    while (i + 10 <= end) {
+      const id = String.fromCharCode(b[i], b[i + 1], b[i + 2], b[i + 3]);
+      if (!/^[A-Z0-9]{4}$/.test(id)) break;
+      const size = version === 4 ? syncsafe(i + 4) : (b[i + 4] << 24) | (b[i + 5] << 16) | (b[i + 6] << 8) | b[i + 7];
+      // A corrupt size (zero, negative or past the tag) ends the tag: never loop.
+      if (size <= 0 || i + 10 + size > end) break;
+      const body = b.subarray(i + 10, i + 10 + size);
+      i += 10 + size;
+      const enc = body[0];
+      const text = () => decodeText(body.subarray(1), enc).trim();
+      if (id === "TIT2") tags.title = text();
+      else if (id === "TPE1") tags.artist = text();
+      else if (id === "TALB") tags.album = text();
+      else if (id === "TRCK") tags.track = parseInt(text(), 10) || void 0;
+      else if (id === "APIC") {
+        let j = 1;
+        while (j < body.length && body[j] !== 0) j++;
+        const mime = decodeText(body.subarray(1, j), 0) || "image/jpeg";
+        j += 2; // the 0 after the mime type, then the picture type
+        const wide = enc === 1 || enc === 2;
+        while (j < body.length && !(body[j] === 0 && (!wide || body[j + 1] === 0))) j += wide ? 2 : 1;
+        j += wide ? 2 : 1;
+        tags.cover = new Blob([body.subarray(j)], { type: mime.includes("/") ? mime : `image/${mime.toLowerCase()}` });
+      }
+    }
+    return tags;
+  }
+  function readMp4(b) {
+    const tags = {};
+    const u32 = (i) => ((b[i] << 24) >>> 0) + (b[i + 1] << 16) + (b[i + 2] << 8) + b[i + 3];
+    const name = (i) => String.fromCharCode(b[i], b[i + 1], b[i + 2], b[i + 3]);
+    const walk = (start, end) => {
+      let i = start;
+      while (i + 8 <= end) {
+        const size = u32(i);
+        const type = name(i + 4);
+        if (size < 8) break;
+        const next = i + size;
+        if (["moov", "udta", "ilst"].includes(type)) walk(i + 8, next);
+        else if (type === "meta") walk(i + 12, next);
+        else if (["©nam", "©ART", "©alb", "trkn", "covr"].includes(type) && name(i + 12) === "data") {
+          const data = b.subarray(i + 24, next);
+          if (type === "©nam") tags.title = decodeText(data, 3);
+          else if (type === "©ART") tags.artist = decodeText(data, 3);
+          else if (type === "©alb") tags.album = decodeText(data, 3);
+          else if (type === "trkn") tags.track = (data[2] << 8) | data[3];
+          else tags.cover = new Blob([data], { type: data[0] === 0x89 ? "image/png" : "image/jpeg" });
+        }
+        i = next;
+      }
+    };
+    walk(0, b.length);
+    return tags;
+  }
+  const AUDIO_EXT = /\.(mp3|m4a|mp4|aac|ogg|oga|opus|wav|flac)$/i;
+  // Plays a file for a moment, off-screen, to learn whether this browser can.
+  function canPlayFile(file) {
+    return new Promise((resolve) => {
+      const url = URL.createObjectURL(file);
+      const a = new Audio();
+      const done = (ok) => {
+        clearTimeout(timer);
+        a.removeAttribute("src");
+        URL.revokeObjectURL(url);
+        resolve(ok);
+      };
+      const timer = setTimeout(() => done(false), 3000);
+      a.oncanplay = () => done(true);
+      a.onerror = () => done(false);
+      a.preload = "auto";
+      a.src = url;
+    });
+  }
+  const isQuota = (e) => !!e && (e.name === "QuotaExceededError" || /quota/i.test(e.message || ""));
+  // Your own music, kept in this browser only (IndexedDB "one.media").
+  const MediaLibrary = {
+    db: null,
+    urls: new Map(),
+    open() {
+      if (this.db) return this.db;
+      this.db = new Promise((resolve, reject) => {
+        const req = indexedDB.open("one.media", 1);
+        req.onupgradeneeded = () => {
+          req.result.createObjectStore("tracks", { keyPath: "id" });
+          req.result.createObjectStore("blobs", { keyPath: "id" });
+        };
+        req.onsuccess = () => resolve(req.result);
+        req.onerror = () => reject(req.error);
+      });
+      return this.db;
+    },
+    async run(stores, mode, fn) {
+      const db = await this.open();
+      return new Promise((resolve, reject) => {
+        let result;
+        let tx;
+        try {
+          tx = db.transaction(stores, mode);
+          result = fn(tx);
+        } catch (e) {
+          if (tx) {
+            try {
+              tx.abort();
+            } catch {
+            }
+          }
+          reject(e);
+          return;
+        }
+        tx.oncomplete = () => resolve(result);
+        tx.onabort = tx.onerror = () => reject(tx.error);
+      });
+    },
+    async list() {
+      const rows = await this.run(["tracks"], "readonly", (tx) => {
+        const out = [];
+        tx.objectStore("tracks").openCursor().onsuccess = (e) => {
+          const c = e.target.result;
+          if (c) {
+            out.push(c.value);
+            c.continue();
+          }
+        };
+        return out;
+      });
+      return rows.sort((a, b) => a.albumKey.localeCompare(b.albumKey) || (a.track || 999) - (b.track || 999) || a.title.localeCompare(b.title));
+    },
+    // Saves files one by one; stops cleanly if storage runs out.
+    async add(files, kind = "music") {
+      const saved = [];
+      const skipped = [];
+      let full = false;
+      const existing = await this.list();
+      const kinds = new Map(existing.map((t) => [t.albumKey, t.kind]));
+      for (const file of files) {
+        if (!(file.type.startsWith("audio/") || AUDIO_EXT.test(file.name))) {
+          skipped.push({ name: file.name, reason: "Not an audio file" });
+          continue;
+        }
+        if (!(await canPlayFile(file))) {
+          skipped.push({ name: file.name, reason: "Can't play this file" });
+          continue;
+        }
+        let tags = {};
+        try {
+          tags = await readTags(file);
+        } catch {
+        }
+        const artist = tags.artist || "Unknown artist";
+        const album = tags.album || "Singles";
+        const albumKey = `${artist}\u0000${album}`;
+        const id = `t${Date.now().toString(36)}${Math.random().toString(36).slice(2, 8)}`;
+        const track = {
+          id,
+          title: tags.title || file.name.replace(/\.[^.]+$/, ""),
+          artist,
+          album,
+          albumKey,
+          track: tags.track,
+          kind: kinds.get(albumKey) || kind,
+          size: file.size,
+          type: file.type,
+          hasCover: !!tags.cover,
+          addedAt: Date.now()
+        };
+        try {
+          await this.run(["tracks", "blobs"], "readwrite", (tx) => {
+            tx.objectStore("blobs").put({ id, blob: file });
+            if (tags.cover) tx.objectStore("blobs").put({ id: `cover:${id}`, blob: tags.cover });
+            tx.objectStore("tracks").put(track);
+          });
+          kinds.set(albumKey, track.kind);
+          saved.push(track);
+        } catch (e) {
+          if (isQuota(e)) {
+            full = true;
+            break;
+          }
+          skipped.push({ name: file.name, reason: "Couldn't save this file" });
+        }
+      }
+      return { saved, skipped, full };
+    },
+    async remove(ids) {
+      for (const id of ids) this.forget(id);
+      await this.run(["tracks", "blobs"], "readwrite", (tx) => {
+        for (const id of ids) {
+          tx.objectStore("tracks").delete(id);
+          tx.objectStore("blobs").delete(id);
+          tx.objectStore("blobs").delete(`cover:${id}`);
+        }
+      });
+    },
+    async update(ids, changes) {
+      const rows = (await this.list()).filter((t) => ids.includes(t.id));
+      await this.run(["tracks"], "readwrite", (tx) => {
+        for (const t of rows) tx.objectStore("tracks").put({ ...t, ...changes });
+      });
+    },
+    rename(id, title) {
+      return this.update([id], { title });
+    },
+    async setKind(albumKey, kind) {
+      const ids = (await this.list()).filter((t) => t.albumKey === albumKey).map((t) => t.id);
+      return this.update(ids, { kind });
+    },
+    async blobUrl(key) {
+      if (this.urls.has(key)) return this.urls.get(key);
+      const row = await this.run(["blobs"], "readonly", (tx) => {
+        const holder = {};
+        tx.objectStore("blobs").get(key).onsuccess = (e) => {
+          holder.value = e.target.result;
+        };
+        return holder;
+      });
+      if (!row.value) throw new Error("This track is no longer on this device.");
+      const url = URL.createObjectURL(row.value.blob);
+      this.urls.set(key, url);
+      return url;
+    },
+    url(id) {
+      return this.blobUrl(id);
+    },
+    cover(id) {
+      return this.blobUrl(`cover:${id}`);
+    },
+    forget(id) {
+      for (const key of [id, `cover:${id}`]) {
+        const url = this.urls.get(key);
+        if (url) URL.revokeObjectURL(url);
+        this.urls.delete(key);
+      }
+    },
+    async usage() {
+      const rows = await this.list();
+      return { tracks: rows.length, bytes: rows.reduce((n, t) => n + (t.size || 0), 0) };
+    }
+  };
+  const fmtBytes = (n) => (n >= 1e9 ? `${(n / 1e9).toFixed(1)} GB` : n >= 1e6 ? `${(n / 1e6).toFixed(1)} MB` : `${Math.max(1, Math.round(n / 1e3))} KB`);
+  // A saved track as the player sees it.
+  const localTrack = (t) => ({ id: `local:${t.id}`, title: t.title, artist: t.artist, album: t.album, kind: t.kind, source: "local", mediaId: t.id });
+  /* ---------- Sound: Quran ---------- */
+  // [number, Arabic name, English name, meaning, ayahs]
+  const SURAHS = [
+    [1, "الفاتحة", "Al-Fatihah", "The Opening", 7], [2, "البقرة", "Al-Baqarah", "The Cow", 286], [3, "آل عمران", "Aal-Imran", "The Family of Imran", 200],
+    [4, "النساء", "An-Nisa", "The Women", 176], [5, "المائدة", "Al-Ma'idah", "The Table Spread", 120], [6, "الأنعام", "Al-An'am", "The Cattle", 165],
+    [7, "الأعراف", "Al-A'raf", "The Heights", 206], [8, "الأنفال", "Al-Anfal", "The Spoils of War", 75], [9, "التوبة", "At-Tawbah", "The Repentance", 129],
+    [10, "يونس", "Yunus", "Jonah", 109], [11, "هود", "Hud", "Hud", 123], [12, "يوسف", "Yusuf", "Joseph", 111],
+    [13, "الرعد", "Ar-Ra'd", "The Thunder", 43], [14, "إبراهيم", "Ibrahim", "Abraham", 52], [15, "الحجر", "Al-Hijr", "The Rocky Tract", 99],
+    [16, "النحل", "An-Nahl", "The Bee", 128], [17, "الإسراء", "Al-Isra", "The Night Journey", 111], [18, "الكهف", "Al-Kahf", "The Cave", 110],
+    [19, "مريم", "Maryam", "Mary", 98], [20, "طه", "Taha", "Ta-Ha", 135], [21, "الأنبياء", "Al-Anbiya", "The Prophets", 112],
+    [22, "الحج", "Al-Hajj", "The Pilgrimage", 78], [23, "المؤمنون", "Al-Mu'minun", "The Believers", 118], [24, "النور", "An-Nur", "The Light", 64],
+    [25, "الفرقان", "Al-Furqan", "The Criterion", 77], [26, "الشعراء", "Ash-Shu'ara", "The Poets", 227], [27, "النمل", "An-Naml", "The Ant", 93],
+    [28, "القصص", "Al-Qasas", "The Stories", 88], [29, "العنكبوت", "Al-Ankabut", "The Spider", 69], [30, "الروم", "Ar-Rum", "The Romans", 60],
+    [31, "لقمان", "Luqman", "Luqman", 34], [32, "السجدة", "As-Sajdah", "The Prostration", 30], [33, "الأحزاب", "Al-Ahzab", "The Combined Forces", 73],
+    [34, "سبإ", "Saba", "Sheba", 54], [35, "فاطر", "Fatir", "The Originator", 45], [36, "يس", "Ya-Sin", "Ya Sin", 83],
+    [37, "الصافات", "As-Saffat", "Those Who Set the Ranks", 182], [38, "ص", "Sad", "The Letter Sad", 88], [39, "الزمر", "Az-Zumar", "The Troops", 75],
+    [40, "غافر", "Ghafir", "The Forgiver", 85], [41, "فصلت", "Fussilat", "Explained in Detail", 54], [42, "الشورى", "Ash-Shura", "The Consultation", 53],
+    [43, "الزخرف", "Az-Zukhruf", "The Ornaments of Gold", 89], [44, "الدخان", "Ad-Dukhan", "The Smoke", 59], [45, "الجاثية", "Al-Jathiyah", "The Crouching", 37],
+    [46, "الأحقاف", "Al-Ahqaf", "The Wind-Curved Sandhills", 35], [47, "محمد", "Muhammad", "Muhammad", 38], [48, "الفتح", "Al-Fath", "The Victory", 29],
+    [49, "الحجرات", "Al-Hujurat", "The Rooms", 18], [50, "ق", "Qaf", "The Letter Qaf", 45], [51, "الذاريات", "Adh-Dhariyat", "The Winnowing Winds", 60],
+    [52, "الطور", "At-Tur", "The Mount", 49], [53, "النجم", "An-Najm", "The Star", 62], [54, "القمر", "Al-Qamar", "The Moon", 55],
+    [55, "الرحمن", "Ar-Rahman", "The Most Merciful", 78], [56, "الواقعة", "Al-Waqi'ah", "The Inevitable", 96], [57, "الحديد", "Al-Hadid", "The Iron", 29],
+    [58, "المجادلة", "Al-Mujadilah", "The Pleading Woman", 22], [59, "الحشر", "Al-Hashr", "The Exile", 24], [60, "الممتحنة", "Al-Mumtahanah", "She That Is to Be Examined", 13],
+    [61, "الصف", "As-Saff", "The Ranks", 14], [62, "الجمعة", "Al-Jumu'ah", "Friday", 11], [63, "المنافقون", "Al-Munafiqun", "The Hypocrites", 11],
+    [64, "التغابن", "At-Taghabun", "Mutual Disillusion", 18], [65, "الطلاق", "At-Talaq", "The Divorce", 12], [66, "التحريم", "At-Tahrim", "The Prohibition", 12],
+    [67, "الملك", "Al-Mulk", "The Sovereignty", 30], [68, "القلم", "Al-Qalam", "The Pen", 52], [69, "الحاقة", "Al-Haqqah", "The Reality", 52],
+    [70, "المعارج", "Al-Ma'arij", "The Ascending Stairways", 44], [71, "نوح", "Nuh", "Noah", 28], [72, "الجن", "Al-Jinn", "The Jinn", 28],
+    [73, "المزمل", "Al-Muzzammil", "The Enshrouded One", 20], [74, "المدثر", "Al-Muddaththir", "The Cloaked One", 56], [75, "القيامة", "Al-Qiyamah", "The Resurrection", 40],
+    [76, "الإنسان", "Al-Insan", "Man", 31], [77, "المرسلات", "Al-Mursalat", "Those Sent Forth", 50], [78, "النبإ", "An-Naba", "The Tidings", 40],
+    [79, "النازعات", "An-Nazi'at", "Those Who Drag Forth", 46], [80, "عبس", "Abasa", "He Frowned", 42], [81, "التكوير", "At-Takwir", "The Overthrowing", 29],
+    [82, "الانفطار", "Al-Infitar", "The Cleaving", 19], [83, "المطففين", "Al-Mutaffifin", "The Defrauding", 36], [84, "الانشقاق", "Al-Inshiqaq", "The Splitting Open", 25],
+    [85, "البروج", "Al-Buruj", "The Mansions of the Stars", 22], [86, "الطارق", "At-Tariq", "The Nightcomer", 17], [87, "الأعلى", "Al-A'la", "The Most High", 19],
+    [88, "الغاشية", "Al-Ghashiyah", "The Overwhelming", 26], [89, "الفجر", "Al-Fajr", "The Dawn", 30], [90, "البلد", "Al-Balad", "The City", 20],
+    [91, "الشمس", "Ash-Shams", "The Sun", 15], [92, "الليل", "Al-Layl", "The Night", 21], [93, "الضحى", "Ad-Duha", "The Morning Hours", 11],
+    [94, "الشرح", "Ash-Sharh", "The Relief", 8], [95, "التين", "At-Tin", "The Fig", 8], [96, "العلق", "Al-Alaq", "The Clot", 19],
+    [97, "القدر", "Al-Qadr", "The Power", 5], [98, "البينة", "Al-Bayyinah", "The Clear Proof", 8], [99, "الزلزلة", "Az-Zalzalah", "The Earthquake", 8],
+    [100, "العاديات", "Al-Adiyat", "The Courser", 11], [101, "القارعة", "Al-Qari'ah", "The Calamity", 11], [102, "التكاثر", "At-Takathur", "The Rivalry in World Increase", 8],
+    [103, "العصر", "Al-Asr", "The Declining Day", 3], [104, "الهمزة", "Al-Humazah", "The Traducer", 9], [105, "الفيل", "Al-Fil", "The Elephant", 5],
+    [106, "قريش", "Quraysh", "Quraysh", 4], [107, "الماعون", "Al-Ma'un", "The Small Kindnesses", 7], [108, "الكوثر", "Al-Kawthar", "The Abundance", 3],
+    [109, "الكافرون", "Al-Kafirun", "The Disbelievers", 6], [110, "النصر", "An-Nasr", "The Divine Support", 3], [111, "المسد", "Al-Masad", "The Palm Fiber", 5],
+    [112, "الإخلاص", "Al-Ikhlas", "The Sincerity", 4], [113, "الفلق", "Al-Falaq", "The Daybreak", 5], [114, "الناس", "An-Nas", "Mankind", 6]
+  ];
+  const surahTitle = (n) => `${n}. ${SURAHS[n - 1][2]}`;
+  // Letters and digits only, lower case: "Ya-Sin" and "Yasin" both become "yasin".
+  const searchKey = (s) => s.toLowerCase().replace(/[^\p{L}\p{N}]+/gu, "");
+  const QURAN_API = "https://api.quran.com/api/v4";
+  const QURAN_OFFLINE = "one-quran-offline";
+  const QURAN_ERROR = "Couldn't reach the recitation. Check your connection or try another reciter.";
+  // Shown first, in this order, when the service has them.
+  const PREFERRED_RECITERS = [/afasy/i, /abdul\s?basit|abdulbaset/i, /sudais/i, /husary/i, /shuraim/i, /minshawi/i];
+  // Recitations from the Quran.com API: reciter list and one audio file per surah.
+  const QuranSource = {
+    reciterList: null,
+    urls: new Map(),
+    async reciters() {
+      if (this.reciterList) return this.reciterList;
+      const res = await fetch(`${QURAN_API}/resources/chapter_reciters?language=en`);
+      if (!res.ok) throw new Error(QURAN_ERROR);
+      const json = await res.json();
+      const list = (json.reciters || []).map((r) => ({ id: r.id, name: r.reciter_name || r.name || `Reciter ${r.id}`, style: r.style && r.style.name ? r.style.name : r.style || "" }));
+      const rank = (r) => {
+        const i = PREFERRED_RECITERS.findIndex((re) => re.test(r.name));
+        return i === -1 ? PREFERRED_RECITERS.length : i;
+      };
+      list.sort((a, b) => rank(a) - rank(b) || a.name.localeCompare(b.name));
+      this.reciterList = list;
+      return list;
+    },
+    async surahUrl(reciterId, n) {
+      const key = `${reciterId}/${n}`;
+      if (this.urls.has(key)) return this.urls.get(key);
+      let json;
+      try {
+        const res = await fetch(`${QURAN_API}/chapter_recitations/${reciterId}/${n}`);
+        if (!res.ok) throw new Error();
+        json = await res.json();
+      } catch {
+        throw new Error(QURAN_ERROR);
+      }
+      const url = json && json.audio_file && json.audio_file.audio_url;
+      if (!url) throw new Error(QURAN_ERROR);
+      this.urls.set(key, url);
+      return url;
+    },
+    async keepOffline(reciterId, n) {
+      const url = await this.surahUrl(reciterId, n);
+      const cache = await caches.open(QURAN_OFFLINE);
+      let res;
+      try {
+        res = await fetch(url, { mode: "cors" });
+      } catch {
+        res = await fetch(url, { mode: "no-cors" });
+      }
+      if (!res.ok && res.type !== "opaque") throw new Error(QURAN_ERROR);
+      await cache.put(url, res);
+    },
+    async isOffline(reciterId, n) {
+      const url = this.urls.get(`${reciterId}/${n}`);
+      if (!url || !("caches" in window)) return false;
+      const cache = await caches.open(QURAN_OFFLINE);
+      return !!(await cache.match(url));
+    },
+    async removeOffline(reciterId, n) {
+      const url = await this.surahUrl(reciterId, n);
+      const cache = await caches.open(QURAN_OFFLINE);
+      await cache.delete(url);
+    }
+  };
+  /* ---------- Sound: Spotify ---------- */
+  // Spotify plays only through Spotify's own embed player (its iFrame API);
+  // ONE never downloads or copies Spotify audio. The player is created once
+  // and kept in the page, so it keeps playing on every page.
+  const SPOTIFY_API = "https://open.spotify.com/embed/iframe-api/v1";
+  function parseSpotifyLink(text) {
+    const t = (text || "").trim();
+    const m = /^spotify:(playlist|album|track):([A-Za-z0-9]+)$/.exec(t) || /open\.spotify\.com\/(?:intl-[a-z-]+\/)?(?:embed\/)?(playlist|album|track)\/([A-Za-z0-9]+)/i.exec(t);
+    return m ? { type: m[1].toLowerCase(), id: m[2] } : null;
+  }
+  const SpotifyDock = {
+    host: null,
+    controller: null,
+    ready: null,
+    current: null,
+    playing: false,
+    listeners: new Set(),
+    onChange(fn) {
+      this.listeners.add(fn);
+      return () => this.listeners.delete(fn);
+    },
+    emit() {
+      for (const fn of this.listeners) fn();
+    },
+    ensureHost() {
+      if (!this.host) {
+        this.host = document.createElement("div");
+        this.host.className = "spotify-host";
+        this.host.setAttribute("aria-label", "Spotify player");
+        document.body.appendChild(this.host);
+        this.place(null);
+      }
+      return this.host;
+    },
+    load(uri) {
+      this.current = uri;
+      this.ensureHost();
+      this.emit();
+      if (this.controller) {
+        this.controller.loadUri(uri);
+        this.controller.play();
+        return Promise.resolve();
+      }
+      if (this.ready) {
+        return this.ready.then((c) => {
+          c.loadUri(this.current);
+          c.play();
+        });
+      }
+      this.ready = new Promise((resolve) => {
+        window.onSpotifyIframeApiReady = (IFrameAPI) => {
+          const el = document.createElement("div");
+          this.host.appendChild(el);
+          IFrameAPI.createController(el, { uri, width: "100%", height: 152 }, (c) => {
+            this.controller = c;
+            c.addListener("playback_update", (e) => {
+              const playing = !(e && e.data && e.data.isPaused);
+              if (playing !== this.playing) {
+                this.playing = playing;
+                this.emit();
+              }
+            });
+            resolve(c);
+          });
+        };
+        const script = document.createElement("script");
+        script.src = SPOTIFY_API;
+        script.async = true;
+        document.head.appendChild(script);
+      });
+      return this.ready.then((c) => c.play());
+    },
+    pause() {
+      if (this.controller) this.controller.pause();
+    },
+    // Shown over its slot in the panel; otherwise parked off-screen (never
+    // removed or hidden with display:none, so playback carries on).
+    // view: the visible area of the panel's scrolling body; the player is
+    // clipped to it so it never covers the panel's own controls.
+    place(rect, view) {
+      const h = this.host;
+      if (!h) return;
+      if (rect && rect.width) {
+        const top = view ? Math.max(0, view.top - rect.top) : 0;
+        const bottom = view ? Math.max(0, rect.bottom - view.bottom) : 0;
+        const hidden = top + bottom >= rect.height;
+        Object.assign(h.style, {
+          left: `${rect.left}px`,
+          top: `${rect.top}px`,
+          width: `${rect.width}px`,
+          height: `${rect.height}px`,
+          clipPath: top || bottom ? `inset(${top}px 0 ${bottom}px 0)` : "none"
+        });
+        h.dataset.visible = hidden ? "false" : "true";
+      } else {
+        Object.assign(h.style, { left: "-10000px", top: "0px", width: "320px", height: "152px", clipPath: "none" });
+        h.dataset.visible = "false";
+      }
+    }
+  };
+  function SpotifySlot() {
+    const ref = React2.useRef(null);
+    React2.useEffect(() => {
+      let raf = 0;
+      const follow = () => {
+        if (ref.current) {
+          const body = ref.current.closest(".sounds-panel__body");
+          SpotifyDock.place(ref.current.getBoundingClientRect(), body ? body.getBoundingClientRect() : null);
+        }
+        raf = requestAnimationFrame(follow);
+      };
+      follow();
+      return () => {
+        cancelAnimationFrame(raf);
+        SpotifyDock.place(null);
+      };
+    }, []);
+    return React2.createElement("div", { ref, className: "spotify-slot", "aria-hidden": true });
+  }
+  function SpotifySection({ nasheedsOnly }) {
+    const { engine, guard } = useSound();
+    // Follows the dock, so the player appears as soon as something is loaded.
+    const [, setDockTick] = React2.useState(0);
+    React2.useEffect(() => SpotifyDock.onChange(() => setDockTick((n) => n + 1)), []);
+    const [link, setLink] = React2.useState("");
+    const [error, setError] = React2.useState(null);
+    const items = engine.settings.spotify || [];
+    const shown = items.filter((it) => !nasheedsOnly || it.kind === "nasheed");
+    const add = (e) => {
+      e.preventDefault();
+      const parsed = parseSpotifyLink(link);
+      if (!parsed) {
+        setError("That isn't a Spotify playlist, album or track link.");
+        return;
+      }
+      setError(null);
+      const uri = `spotify:${parsed.type}:${parsed.id}`;
+      if (!items.some((it) => it.uri === uri)) engine.setSetting("spotify", [...items, { uri, title: `Spotify ${parsed.type} …${parsed.id.slice(-4)}`, kind: "music" }]);
+      setLink("");
+    };
+    const update = (uri, changes) => engine.setSetting("spotify", items.map((it) => (it.uri === uri ? { ...it, ...changes } : it)));
+    return React2.createElement(
+      "section",
+      { className: "music-section", "aria-label": "Spotify" },
+      React2.createElement("h3", { className: "music-section__title" }, "Spotify"),
+      React2.createElement(
+        "form",
+        { className: "spotify-add", onSubmit: add },
+        React2.createElement("input", { className: "input", type: "text", placeholder: "Paste a playlist, album or song link", "aria-label": "Spotify link", value: link, onChange: (e) => setLink(e.target.value) }),
+        React2.createElement(Button, { size: "sm", variant: "secondary", type: "submit" }, "Add")
+      ),
+      error && React2.createElement("p", { className: "music-section__error" }, error),
+      SpotifyDock.current && React2.createElement(SpotifySlot, null),
+      React2.createElement(
+        "ul",
+        { className: "track-list" },
+        shown.map((it) =>
+          React2.createElement(
+            "li",
+            { key: it.uri, className: "track-row track-row--actions spotify-item", "data-active": SpotifyDock.current === it.uri ? "true" : void 0 },
+            React2.createElement(
+              "button",
+              {
+                type: "button",
+                className: "track-row__play",
+                "aria-label": `Play ${it.title}`,
+                onClick: () =>
+                  guard(() => {
+                    engine.pauseTrack();
+                    SpotifyDock.load(it.uri);
+                  })
+              },
+              React2.createElement("span", { className: "track-row__title" }, it.title),
+              React2.createElement("span", { className: "track-row__artist" }, it.kind === "nasheed" ? "Nasheed" : "Music")
+            ),
+            React2.createElement(SoundSwitch, { label: `Nasheed: ${it.title}`, checked: it.kind === "nasheed", onChange: (v) => update(it.uri, { kind: v ? "nasheed" : "music" }) }),
+            React2.createElement(IconButton, { label: `Remove ${it.title}`, size: "sm", onClick: () => engine.setSetting("spotify", items.filter((x) => x.uri !== it.uri)) }, React2.createElement(X, { size: 14 }))
+          )
+        )
+      ),
+      React2.createElement("p", { className: "music-section__note" }, "Plays through Spotify's own player. Log in to Spotify in this browser; Premium plays full songs.")
+    );
+  }
+  /* ---------- Sound: engine ---------- */
+  // One engine for the whole app: it outlives page changes, so sound keeps
+  // playing on every page. Settings are kept per device.
+  const SOUND_SETTINGS_KEY = "one.sound.v2";
+  function defaultSoundSettings() {
+    const nature = {};
+    for (const s of NATURE_SOUNDS) nature[s.id] = { on: false, volume: 0.4, real: false };
+    return { nature, master: 0.8, followMeadow: true, tab: "nature", nasheedsOnly: false, repeat: "off", shuffle: false, track: null, quran: { reciterId: null, reciterName: "", favourites: [], last: null, continue: false, repeat: false, offline: [] }, spotify: [] };
+  }
+  function loadSoundSettings() {
+    const base = defaultSoundSettings();
+    try {
+      const saved = JSON.parse(window.localStorage.getItem(SOUND_SETTINGS_KEY) || "null");
+      if (!saved) return base;
+      const nature = { ...base.nature };
+      for (const id of Object.keys(nature)) nature[id] = { ...nature[id], ...(saved.nature && saved.nature[id]) };
+      return { ...base, ...saved, nature, quran: { ...base.quran, ...saved.quran } };
+    } catch {
+      return base;
+    }
+  }
+  class AudioEngine {
+    constructor() {
+      this.settings = loadSoundSettings();
+      this.ctx = null;
+      this.voices = {};
+      this.listeners = new Set();
+      this.unlocked = false; // a tap has let sound play
+      this.paused = false; // paused by the lock until the person starts something
+      // Track player (music, nasheeds, recitations): one <audio> element.
+      this.audio = null;
+      this.queue = [];
+      this.order = [];
+      this.pos = -1;
+      this.req = 0;
+      this.trackPlaying = false;
+      this.plays = 0;
+      this.trackError = null;
+      this.lastSave = 0;
+      this.restoreAt = 0;
+      // saved source → (item) => Promise<url>
+      // Quran plays alone: what was playing before a recitation, to restore after.
+      this.ducked = false;
+      this.snapshot = null;
+      this.duckListeners = new Set(); // external players (Spotify) to pause
+      this.externalPlaying = false;
+      this.resolvers = { local: (item) => MediaLibrary.url(item.mediaId), quran: (item) => QuranSource.surahUrl(item.reciterId, item.surah) };
+      const saved = this.settings.track;
+      if (saved && saved.item) {
+        this.queue = [saved.item];
+        this.order = [0];
+        this.pos = 0;
+        this.restoreAt = saved.position || 0;
+      }
+    }
+    onChange(cb) {
+      this.listeners.add(cb);
+      return () => this.listeners.delete(cb);
+    }
+    // kind "time" is a playback-position tick; anything else is a real change.
+    emit(kind = "state") {
+      for (const cb of this.listeners) cb(kind);
+    }
+    save() {
+      try {
+        window.localStorage.setItem(SOUND_SETTINGS_KEY, JSON.stringify(this.settings));
+      } catch {
+      }
+    }
+    ensureContext() {
+      if (this.ctx) return;
+      const AC = window.AudioContext || window.webkitAudioContext;
+      this.ctx = new AC();
+      this.master = this.ctx.createGain();
+      this.master.gain.value = this.settings.master;
+      this.master.connect(this.ctx.destination);
+      this.natureBus = this.ctx.createGain();
+      this.natureBus.connect(this.master);
+      for (const s of NATURE_SOUNDS) {
+        const v = new NatureVoice(this.ctx, this.natureBus, s.id, () => this.emit());
+        v.volume = this.settings.nature[s.id].volume;
+        if (s.recording && this.settings.nature[s.id].real) v.recordingUrl = commonsFile(s.recording.file);
+        this.voices[s.id] = v;
+      }
+      this.ctx.addEventListener("statechange", () => this.emit());
+    }
+    // Call from a tap or key press: browsers only allow sound after one.
+    resume() {
+      this.ensureContext();
+      this.unlocked = true;
+      const p = this.ctx.resume();
+      if (!this.paused) this.applyMix();
+      this.emit();
+      return p;
+    }
+    applyMix() {
+      if (!this.ctx || !this.unlocked || this.paused) return;
+      for (const s of NATURE_SOUNDS) {
+        const want = this.settings.nature[s.id].on;
+        const v = this.voices[s.id];
+        if (want && !v.running) v.start();
+        else if (!want && v.running) v.stop();
+      }
+    }
+    setNature(id, on) {
+      this.settings.nature[id].on = on;
+      this.save();
+      this.paused = false;
+      this.resume();
+    }
+    setReal(id, on) {
+      const s = NATURE_SOUNDS.find((n) => n.id === id);
+      if (!s || !s.recording) return;
+      this.settings.nature[id].real = on;
+      this.save();
+      this.ensureContext();
+      this.voices[id].useRecording(on ? commonsFile(s.recording.file) : null);
+      this.emit();
+    }
+    setNatureVolume(id, v) {
+      this.settings.nature[id].volume = v;
+      this.save();
+      if (this.voices[id]) this.voices[id].setVolume(v);
+      this.emit();
+    }
+    // Several sounds at once (presets, Follow the meadow).
+    setMix(changes) {
+      for (const [id, on] of Object.entries(changes)) this.settings.nature[id].on = on;
+      this.save();
+      this.paused = false;
+      this.resume();
+    }
+    setMaster(v) {
+      this.settings.master = v;
+      this.save();
+      if (this.audio) this.audio.volume = v;
+      if (this.master) {
+        const now = this.ctx.currentTime;
+        this.master.gain.cancelScheduledValues(now);
+        this.master.gain.setValueAtTime(this.master.gain.value, now);
+        this.master.gain.linearRampToValueAtTime(v, now + 0.2);
+      }
+      this.emit();
+    }
+    setSetting(key, value) {
+      this.settings[key] = value;
+      this.save();
+      this.emit();
+    }
+    stopAll() {
+      for (const s of NATURE_SOUNDS) this.settings.nature[s.id].on = false;
+      this.save();
+      this.applyMix();
+      this.pauseTrack();
+      for (const fn of this.duckListeners) fn();
+      // Silence means silence: a recitation stopped this way restores nothing.
+      if (this.ducked) {
+        this.ducked = false;
+        this.snapshot = null;
+        this.fadeNature(1);
+      }
+      this.emit();
+    }
+    // Locking ONE: everything goes quiet and stays quiet until the person
+    // starts something again.
+    pauseAll() {
+      this.paused = true;
+      for (const v of Object.values(this.voices)) v.stop();
+      this.pauseTrack();
+      for (const fn of this.duckListeners) fn();
+      this.emit();
+    }
+    get anyNatureOn() {
+      return NATURE_SOUNDS.some((s) => this.settings.nature[s.id].on);
+    }
+    get playing() {
+      if (this.trackPlaying || this.externalPlaying) return true;
+      return !!this.ctx && this.ctx.state === "running" && Object.values(this.voices).some((v) => v.running);
+    }
+    /* Track player */
+    get current() {
+      return this.pos >= 0 ? this.queue[this.order[this.pos]] || null : null;
+    }
+    ensureAudio() {
+      if (this.audio) return this.audio;
+      const a = document.createElement("audio");
+      a.className = "sound-player";
+      a.preload = "auto";
+      a.volume = this.settings.master;
+      document.body.appendChild(a);
+      a.addEventListener("playing", () => {
+        this.trackPlaying = true;
+        this.emit();
+      });
+      a.addEventListener("pause", () => {
+        this.trackPlaying = false;
+        this.saveTrack(true);
+        this.emit();
+      });
+      a.addEventListener("timeupdate", () => {
+        this.saveTrack(false);
+        this.emit("time");
+      });
+      a.addEventListener("loadedmetadata", () => this.emit());
+      a.addEventListener("ended", () => this.onEnded());
+      a.addEventListener("error", () => {
+        if (!a.getAttribute("src")) return;
+        this.trackPlaying = false;
+        this.trackError = this.current && this.current.kind === "quran" ? QURAN_ERROR : "Couldn't play this.";
+        this.emit();
+      });
+      window.addEventListener("pagehide", () => this.saveTrack(true));
+      this.audio = a;
+      return a;
+    }
+    buildOrder(start) {
+      const n = this.queue.length;
+      const rest = Array.from({ length: n }, (_, i) => i).filter((i) => i !== start);
+      if (this.settings.shuffle) {
+        for (let i = rest.length - 1; i > 0; i--) {
+          const j = Math.floor(Math.random() * (i + 1));
+          [rest[i], rest[j]] = [rest[j], rest[i]];
+        }
+        this.order = [start, ...rest];
+        this.pos = 0;
+      } else {
+        this.order = Array.from({ length: n }, (_, i) => i);
+        this.pos = start;
+      }
+    }
+    playSurah(reciterId, n, startAt = 0, reciterName = "") {
+      if (!this.ducked) this.duck();
+      this.queue = [{ id: `quran:${reciterId}:${n}`, title: surahTitle(n), artist: reciterName, kind: "quran", source: "quran", reciterId, reciterName, surah: n }];
+      this.order = [0];
+      this.pos = 0;
+      return this.load(true, startAt);
+    }
+    fadeNature(to) {
+      if (!this.natureBus) return;
+      const g = this.natureBus.gain;
+      const now = this.ctx.currentTime;
+      g.cancelScheduledValues(now);
+      g.setValueAtTime(g.value, now);
+      g.linearRampToValueAtTime(to, now + FADE);
+    }
+    // Before a recitation: remember the music (and where it was), pause it,
+    // silence nature (its settings stay), and pause outside players.
+    duck() {
+      const cur = this.current;
+      const music = cur && cur.kind !== "quran";
+      this.snapshot = music
+        ? { queue: this.queue, order: this.order, pos: this.pos, position: this.audio ? this.audio.currentTime : this.restoreAt, wasPlaying: this.trackPlaying }
+        : null;
+      this.ducked = true;
+      this.pauseTrack();
+      this.fadeNature(0);
+      for (const fn of this.duckListeners) fn();
+      this.emit();
+    }
+    // After a recitation: bring back exactly what was playing.
+    restore() {
+      if (!this.ducked) return;
+      this.ducked = false;
+      this.fadeNature(1);
+      const snap = this.snapshot;
+      this.snapshot = null;
+      if (snap) {
+        this.queue = snap.queue;
+        this.order = snap.order;
+        this.pos = snap.pos;
+        this.load(snap.wasPlaying, snap.position);
+      } else {
+        this.trackPlaying = false;
+        this.emit();
+      }
+    }
+    // The person chose something else during a recitation: stop it, keep
+    // nature's settings, and forget the old music.
+    endRecitation() {
+      if (!this.ducked) return;
+      this.ducked = false;
+      this.snapshot = null;
+      this.req += 1;
+      if (this.audio) {
+        this.audio.pause();
+        this.audio.removeAttribute("src");
+        this.audio.load();
+      }
+      this.queue = [];
+      this.order = [];
+      this.pos = -1;
+      this.trackPlaying = false;
+      this.fadeNature(1);
+      this.emit();
+    }
+    onDuck(fn) {
+      this.duckListeners.add(fn);
+      return () => this.duckListeners.delete(fn);
+    }
+    setQuran(changes) {
+      this.settings.quran = { ...this.settings.quran, ...changes };
+      this.save();
+      this.emit();
+    }
+    retry() {
+      const t = this.trackStats();
+      return this.load(true, t ? t.position : 0);
+    }
+    setExternalPlaying(on) {
+      if (this.externalPlaying === on) return;
+      this.externalPlaying = on;
+      this.emit();
+    }
+    playQueue(tracks, index) {
+      // One music at a time: ONE's player pauses outside players too.
+      for (const fn of this.duckListeners) fn();
+      this.queue = tracks.slice();
+      this.buildOrder(index);
+      return this.load(true);
+    }
+    // Every load gets a ticket; a load that finishes after a newer request is dropped.
+    async load(autoplay, startAt = 0) {
+      const ticket = ++this.req;
+      const item = this.current;
+      if (!item) return;
+      const a = this.ensureAudio();
+      // A recitation always plays alone, however it was started.
+      if (autoplay && item.kind === "quran" && !this.ducked) this.duck();
+      this.trackError = null;
+      this.plays = 1;
+      a.pause();
+      // A seek made before the file's details arrive is kept here (see seek()).
+      this.pendingStart = startAt || 0;
+      this.emit();
+      let url;
+      try {
+        url = await this.resolveSrc(item);
+      } catch (e) {
+        if (ticket !== this.req) return;
+        this.trackError = e && e.message ? e.message : "Couldn't play this.";
+        this.emit();
+        return;
+      }
+      if (ticket !== this.req) return;
+      if (autoplay) a.preload = "auto";
+      a.src = url;
+      // Until the file's details arrive the element can't seek, so the
+      // position to go to (restored, or a newer seek) is held here.
+      a.addEventListener(
+        "loadedmetadata",
+        () => {
+          if (ticket !== this.req) return;
+          if (this.pendingStart) a.currentTime = this.pendingStart;
+          this.pendingStart = null;
+          this.emit();
+        },
+        { once: true }
+      );
+      this.updateMediaSession();
+      this.saveTrack(true);
+      if (autoplay) {
+        this.paused = false;
+        a.volume = this.settings.master;
+        try {
+          await a.play();
+        } catch {
+        }
+      }
+      this.emit();
+    }
+    resolveSrc(item) {
+      if (typeof item.src === "function") return item.src();
+      if (item.file) return Promise.resolve(commonsFile(item.file));
+      if (item.source && this.resolvers[item.source]) return this.resolvers[item.source](item);
+      return Promise.resolve(item.src);
+    }
+    restoreTrack() {
+      if (!this.current || (this.audio && this.audio.getAttribute("src"))) return;
+      // Only the details (length) until the person presses play.
+      this.ensureAudio().preload = "metadata";
+      this.load(false, this.restoreAt);
+    }
+    toggle() {
+      const a = this.ensureAudio();
+      if (!this.current) return;
+      if (!a.getAttribute("src")) return this.load(true, this.restoreAt);
+      if (a.paused) {
+        if (this.current.kind === "quran" && !this.ducked) this.duck();
+        this.paused = false;
+        a.play().catch(() => {});
+      } else a.pause();
+    }
+    next() {
+      if (!this.current) return;
+      if (this.pos < this.order.length - 1) this.pos += 1;
+      else if (this.settings.repeat === "all") {
+        if (this.settings.shuffle) this.buildOrder(this.order[Math.floor(Math.random() * this.order.length)]);
+        this.pos = 0;
+      } else return;
+      return this.load(true);
+    }
+    prev() {
+      if (!this.current) return;
+      const a = this.audio;
+      if (a && a.currentTime > 3) {
+        a.currentTime = 0;
+        return;
+      }
+      if (this.pos > 0) this.pos -= 1;
+      return this.load(true);
+    }
+    onEnded() {
+      const a = this.audio;
+      const item = this.current;
+      if (item && item.kind === "quran") {
+        const q = this.settings.quran;
+        if (q.repeat) {
+          this.plays += 1;
+          a.currentTime = 0;
+          a.play().catch(() => {});
+        } else if (q.continue && item.surah < 114) this.playSurah(item.reciterId, item.surah + 1, 0, item.reciterName);
+        else this.restore();
+        return;
+      }
+      if (this.settings.repeat === "one") {
+        this.plays += 1;
+        a.currentTime = 0;
+        a.play().catch(() => {});
+      } else if (this.pos < this.order.length - 1 || this.settings.repeat === "all") this.next();
+      else {
+        this.trackPlaying = false;
+        this.emit();
+      }
+    }
+    seek(seconds) {
+      const a = this.ensureAudio();
+      if (this.pendingStart != null) {
+        this.pendingStart = Math.max(0, seconds);
+        this.emit("time");
+        return;
+      }
+      a.currentTime = Math.max(0, seconds);
+      this.emit();
+    }
+    setRepeat(mode) {
+      this.setSetting("repeat", mode);
+    }
+    setShuffle(on) {
+      this.settings.shuffle = on;
+      this.save();
+      if (this.current) {
+        const cur = this.order[this.pos];
+        this.buildOrder(cur);
+      }
+      this.emit();
+    }
+    pauseTrack() {
+      if (this.audio && !this.audio.paused) this.audio.pause();
+    }
+    stopTrack() {
+      if (this.ducked && this.current && this.current.kind === "quran") {
+        this.req += 1;
+        this.saveTrack(true);
+        if (this.audio) this.audio.pause();
+        return this.restore();
+      }
+      this.req += 1;
+      if (this.audio) {
+        this.audio.pause();
+        this.audio.removeAttribute("src");
+        this.audio.load();
+      }
+      this.queue = [];
+      this.order = [];
+      this.pos = -1;
+      this.trackPlaying = false;
+      this.settings.track = null;
+      this.save();
+      this.emit();
+    }
+    saveTrack(force) {
+      const item = this.current;
+      const now = Date.now();
+      if (!force && now - this.lastSave < 5000) return;
+      this.lastSave = now;
+      if (!item) return;
+      const { src, ...rest } = item;
+      const keep = typeof src === "string" ? { ...rest, src } : rest;
+      const position = this.audio && this.audio.getAttribute("src") ? this.audio.currentTime : this.restoreAt;
+      this.settings.track = { item: keep, position };
+      if (item.kind === "quran") this.settings.quran = { ...this.settings.quran, last: { n: item.surah, reciterId: item.reciterId, reciterName: item.reciterName, position } };
+      this.save();
+    }
+    updateMediaSession() {
+      const item = this.current;
+      if (!item || !("mediaSession" in navigator) || typeof window.MediaMetadata !== "function") return;
+      navigator.mediaSession.metadata = new window.MediaMetadata({ title: item.title, artist: item.artist || "", album: item.album || "", artwork: item.cover ? [{ src: item.cover }] : [] });
+      if (this.mediaHandlers) return;
+      this.mediaHandlers = true;
+      const on = (action, fn) => {
+        try {
+          navigator.mediaSession.setActionHandler(action, fn);
+        } catch {
+        }
+      };
+      on("play", () => this.toggle());
+      on("pause", () => this.pauseTrack());
+      on("nexttrack", () => this.next());
+      on("previoustrack", () => this.prev());
+    }
+    chime() {
+      if (!this.playing || this.ducked) return;
+      this.ensureContext();
+      if (this.ctx.state !== "running") this.ctx.resume();
+      const t = this.ctx.currentTime;
+      for (const [f, at, peak] of [[880, 0, 0.12], [1320, 0.18, 0.08]]) {
+        const o = this.ctx.createOscillator();
+        const g = this.ctx.createGain();
+        o.frequency.value = f;
+        g.gain.setValueAtTime(0, t + at);
+        g.gain.linearRampToValueAtTime(peak, t + at + 0.02);
+        g.gain.exponentialRampToValueAtTime(0.0001, t + at + 1.6);
+        o.connect(g).connect(this.master);
+        o.start(t + at);
+        o.stop(t + at + 1.7);
+      }
+    }
+    stats() {
+      const voices = {};
+      for (const s of NATURE_SOUNDS) {
+        const v = this.voices[s.id];
+        const set = this.settings.nature[s.id];
+        voices[s.id] = { on: set.on, volume: set.volume, real: set.real, running: !!v && v.running, source: v ? v.source : "generated", loading: !!v && v.loading, failed: !!v && v.recordingFailed };
+      }
+      return {
+        context: this.ctx ? this.ctx.state : "none",
+        master: this.settings.master,
+        voices,
+        nodes: Object.values(this.voices).filter((v) => v.alive).length,
+        ducked: this.ducked,
+        natureGain: this.natureBus ? this.natureBus.gain.value : 1,
+        track: this.trackStats()
+      };
+    }
+    trackStats() {
+      const item = this.current;
+      if (!item) return null;
+      const a = this.audio;
+      const hasSrc = !!(a && a.getAttribute("src"));
+      return {
+        id: item.id,
+        title: item.title,
+        artist: item.artist || "",
+        kind: item.kind || "music",
+        index: this.order[this.pos],
+        queueLength: this.queue.length,
+        playing: this.trackPlaying,
+        position: hasSrc ? (this.pendingStart != null ? this.pendingStart : a.currentTime) : this.restoreAt,
+        duration: hasSrc && isFinite(a.duration) ? a.duration : 0,
+        repeat: this.settings.repeat,
+        shuffle: this.settings.shuffle,
+        plays: this.plays,
+        error: this.trackError
+      };
+    }
+  }
+  /* ---------- Sound: UI ---------- */
+  const SoundContext = React2.createContext(null);
+  function useSound() {
+    const ctx = React2.useContext(SoundContext);
+    if (!ctx) throw new Error("useSound must be used inside SoundProvider");
+    return ctx;
+  }
+  // Owns the app-wide AudioEngine. Sits above the lock and the pages, so
+  // moving between pages never interrupts the sound.
+  function SoundProvider({ children }) {
+    const engineRef = React2.useRef(null);
+    if (!engineRef.current) {
+      engineRef.current = new AudioEngine();
+      window.__oneSound = engineRef.current;
+    }
+    const engine = engineRef.current;
+    const [, setVersion] = React2.useState(0);
+    // Position ticks only reach the parts that show the position (useSoundUpdates).
+    React2.useEffect(() => engine.onChange((kind) => kind !== "time" && setVersion((n) => n + 1)), [engine]);
+    const [panel, setPanel] = React2.useState({ open: false, tab: engine.settings.tab || "nature" });
+    const confirm = useConfirm();
+    // What the app around us is doing (set by SoundLockGuard): unlocked? on a break?
+    const [chrome, setChrome] = React2.useState({ mounted: false, breakActive: false, route: "home" });
+    React2.useEffect(() => engine.restoreTrack(), [engine]);
+    React2.useEffect(() => {
+      const offDuck = engine.onDuck(() => SpotifyDock.pause());
+      let asking = false;
+      const offSpotify = SpotifyDock.onChange(async () => {
+        engine.setExternalPlaying(SpotifyDock.playing);
+        if (!SpotifyDock.playing) return;
+        // Spotify started (maybe from its own play button): one music at a
+        // time, and a recitation is asked about first.
+        engine.pauseTrack();
+        if (engine.ducked && !asking) {
+          asking = true;
+          const ok = await confirm({ title: "Pause the recitation?", body: "The Quran plays on its own. Pause it to play Spotify instead.", confirmLabel: "Pause" });
+          asking = false;
+          if (ok) engine.endRecitation();
+          else SpotifyDock.pause();
+        }
+      });
+      return () => {
+        offDuck();
+        offSpotify();
+      };
+    }, [engine, confirm]);
+    // Browsers keep sound off until the page is touched: the first tap or key
+    // lets a saved mix play again.
+    React2.useEffect(() => {
+      const unlock = () => {
+        // Only once ONE itself is open: typing a PIN on the lock screen doesn't count.
+        if (engine.appOpen && !engine.unlocked && !engine.paused && engine.anyNatureOn) engine.resume();
+      };
+      window.addEventListener("pointerdown", unlock, true);
+      window.addEventListener("keydown", unlock, true);
+      return () => {
+        window.removeEventListener("pointerdown", unlock, true);
+        window.removeEventListener("keydown", unlock, true);
+      };
+    }, [engine]);
+    // Follow the meadow: birds in the morning, crickets at night, while a mix is on.
+    const { data } = useStore();
+    const theme = useTheme(data.settings.theme);
+    const lastTheme = React2.useRef(theme);
+    React2.useEffect(() => {
+      if (lastTheme.current === theme) return;
+      lastTheme.current = theme;
+      if (engine.settings.followMeadow && engine.anyNatureOn) {
+        engine.setMix(theme === "dark" ? { crickets: true, birds: false } : { birds: true, crickets: false });
+      }
+    }, [theme, engine]);
+    const api = React2.useMemo(
+      () => ({
+        engine,
+        panelOpen: panel.open,
+        tab: panel.tab,
+        chrome,
+        setChrome,
+        openPanel: (tab) => setPanel((p) => ({ open: true, tab: tab || p.tab })),
+        closePanel: () => setPanel((p) => ({ ...p, open: false })),
+        setTab: (tab) => {
+          engine.setSetting("tab", tab);
+          setPanel((p) => ({ ...p, tab }));
+        },
+        // During a recitation, starting other sound asks first.
+        guard: async (action) => {
+          if (!engine.ducked) return action();
+          const ok = await confirm({ title: "Pause the recitation?", body: "The Quran plays on its own. Pause it to play this instead.", confirmLabel: "Pause" });
+          if (!ok) return;
+          engine.endRecitation();
+          return action();
+        },
+        applyPreset: (name) => {
+          const preset = NATURE_PRESETS.find((p) => p.name === name);
+          if (!preset) return;
+          const mix = {};
+          for (const s of NATURE_SOUNDS) mix[s.id] = preset.sounds.includes(s.id);
+          engine.setMix(mix);
+        }
+      }),
+      [engine, panel, chrome, confirm]
+    );
+    return React2.createElement(
+      SoundContext.Provider,
+      { value: api },
+      children,
+      panel.open && React2.createElement(SoundsPanel, null),
+      chrome.mounted && engine.current && React2.createElement(MiniPlayer, null)
+    );
+  }
+  // Rendered inside the unlocked app: when ONE locks, the app unmounts and
+  // the sound pauses (it doesn't come back by itself after unlocking).
+  function SoundLockGuard({ breakActive, route }) {
+    const { engine, closePanel, setChrome } = useSound();
+    React2.useEffect(() => {
+      engine.appOpen = true;
+      setChrome((c) => ({ ...c, mounted: true }));
+      return () => {
+        engine.appOpen = false;
+        setChrome((c) => ({ ...c, mounted: false }));
+        engine.pauseAll();
+        closePanel();
+      };
+    }, [engine]);
+    React2.useEffect(() => setChrome((c) => (c.breakActive === breakActive && c.route === route ? c : { ...c, breakActive, route })), [breakActive, route]);
+    return null;
+  }
+  function SoundBars() {
+    return React2.createElement(
+      "svg",
+      { className: "sound-bars", viewBox: "0 0 18 18", width: 18, height: 18, "aria-hidden": true },
+      [3, 8, 13].map((x, i) => React2.createElement("rect", { key: x, x, y: 4, width: 2.6, height: 10, rx: 1.3, style: { animationDelay: `${i * 0.18}s` } }))
+    );
+  }
+  // Re-renders the caller whenever the engine changes. Only components that
+  // show live sound state use it, so the pages don't re-render on every tick.
+  function useSoundUpdates() {
+    const { engine } = useSound();
+    const [, setTick] = React2.useState(0);
+    React2.useEffect(() => engine.onChange(() => setTick((n) => n + 1)), [engine]);
+  }
+  function SoundsButton({ className = "" }) {
+    const s = useSound();
+    useSoundUpdates();
+    return React2.createElement(
+      IconButton,
+      {
+        label: "Sounds",
+        className,
+        "data-playing": s.engine.playing ? "true" : void 0,
+        "aria-haspopup": "dialog",
+        "aria-expanded": s.panelOpen ? "true" : "false",
+        onClick: () => (s.panelOpen ? s.closePanel() : s.openPanel())
+      },
+      React2.createElement(SoundBars, null)
+    );
+  }
+  const SOUND_TABS = [
+    { id: "nature", label: "Nature" },
+    { id: "music", label: "Music" },
+    { id: "quran", label: "Quran" }
+  ];
+  function SoundsPanel() {
+    const s = useSound();
+    const { engine } = s;
+    const ref = React2.useRef(null);
+    // Focus moves in on open, stays inside, and returns to the opener on close.
+    React2.useEffect(() => {
+      const opener = document.activeElement;
+      const first = ref.current && ref.current.querySelector("[role=tab][aria-selected='true']");
+      if (first) first.focus();
+      return () => {
+        if (opener && opener.isConnected && typeof opener.focus === "function") opener.focus();
+      };
+    }, []);
+    React2.useEffect(() => {
+      const onDown = (e) => {
+        const t = e.target;
+        if (!(t instanceof Element) || (ref.current && ref.current.contains(t))) return;
+        // Not when tapping a dialog it opened, the Spotify player, the mini player or a Sounds button.
+        if (t.closest(".overlay, .spotify-host, .mini-player, [aria-haspopup='dialog'][aria-label='Sounds']")) return;
+        s.closePanel();
+      };
+      document.addEventListener("pointerdown", onDown, true);
+      return () => document.removeEventListener("pointerdown", onDown, true);
+    }, [s]);
+    const trap = (e) => {
+      if (e.key !== "Tab" || !ref.current) return;
+      const items = [...ref.current.querySelectorAll("button, input, select, textarea, summary, a[href], [tabindex]:not([tabindex='-1'])")].filter(
+        (el) => !el.disabled && el.tabIndex !== -1 && el.getClientRects().length
+      );
+      if (!items.length) return;
+      const firstEl = items[0];
+      const lastEl = items[items.length - 1];
+      if (e.shiftKey && (document.activeElement === firstEl || !ref.current.contains(document.activeElement))) {
+        e.preventDefault();
+        lastEl.focus();
+      } else if (!e.shiftKey && (document.activeElement === lastEl || !ref.current.contains(document.activeElement))) {
+        e.preventDefault();
+        firstEl.focus();
+      }
+    };
+    React2.useEffect(() => {
+      const onKey = (e) => {
+        if (e.key === "Escape" && !document.querySelector(".overlay")) {
+          e.preventDefault();
+          s.closePanel();
+        }
+      };
+      window.addEventListener("keydown", onKey);
+      return () => window.removeEventListener("keydown", onKey);
+    }, [s]);
+    const tabBody = s.tab === "nature" ? React2.createElement(NatureTab, null) : s.tab === "music" ? React2.createElement(MusicTab, null) : React2.createElement(QuranTab, null);
+    return React2.createElement(
+      "div",
+      { ref, className: "sounds-panel glass", role: "dialog", "aria-label": "Sounds", onKeyDown: trap },
+      React2.createElement(
+        "div",
+        { className: "sounds-panel__head" },
+        React2.createElement("h2", { className: "sounds-panel__title" }, "Sounds"),
+        React2.createElement(IconButton, { label: "Close sounds", size: "sm", onClick: s.closePanel }, React2.createElement(X, { size: 16 }))
+      ),
+      React2.createElement(
+        "div",
+        { className: "sounds-tabs", role: "tablist", "aria-label": "Sound type" },
+        SOUND_TABS.map((t) =>
+          React2.createElement(
+            "button",
+            { key: t.id, type: "button", role: "tab", id: `sounds-tab-${t.id}`, "aria-selected": s.tab === t.id ? "true" : "false", "aria-controls": "sounds-tabpanel", className: "sounds-tabs__tab", onClick: () => s.setTab(t.id) },
+            t.label
+          )
+        )
+      ),
+      engine.current && React2.createElement(NowPlaying, null),
+      React2.createElement("div", { className: "sounds-panel__body", role: "tabpanel", id: "sounds-tabpanel", "aria-labelledby": `sounds-tab-${s.tab}` }, tabBody),
+      React2.createElement(
+        "div",
+        { className: "sounds-panel__foot" },
+        React2.createElement(
+          "label",
+          { className: "sounds-master" },
+          React2.createElement("span", null, "Volume"),
+          React2.createElement("input", {
+            type: "range",
+            min: 0,
+            max: 100,
+            value: Math.round(engine.settings.master * 100),
+            "aria-label": "Master volume",
+            onChange: (e) => engine.setMaster(Number(e.target.value) / 100)
+          })
+        ),
+        React2.createElement(Button, { size: "sm", variant: "secondary", onClick: () => engine.stopAll() }, "Stop all")
+      )
+    );
+  }
+  const fmtTime = (sec) => {
+    const t = Math.max(0, Math.floor(sec || 0));
+    return `${Math.floor(t / 60)}:${String(t % 60).padStart(2, "0")}`;
+  };
+  const REPEAT_NEXT = { off: "all", all: "one", one: "off" };
+  const REPEAT_LABEL = { off: "off", all: "all", one: "one track" };
+  // The strip at the top of the panel while a track or recitation is loaded.
+  function NowPlaying() {
+    const { engine } = useSound();
+    useSoundUpdates();
+    const t = engine.trackStats();
+    if (!t) return null;
+    const btn = (label, onClick, glyph) => React2.createElement("button", { type: "button", className: "np__btn", "aria-label": label, title: label, onClick }, glyph);
+    return React2.createElement(
+      "div",
+      { className: "np", role: "group", "aria-label": "Now playing" },
+      React2.createElement(
+        "div",
+        { className: "np__text" },
+        React2.createElement("p", { className: "np__title" }, t.title),
+        React2.createElement("p", { className: "np__artist" }, t.error || t.artist)
+      ),
+      React2.createElement(
+        "div",
+        { className: "np__seek" },
+        React2.createElement("span", { className: "num" }, fmtTime(t.position)),
+        React2.createElement("input", {
+          type: "range",
+          min: 0,
+          max: Math.max(1, Math.round(t.duration)),
+          step: 1,
+          value: Math.min(Math.round(t.position), Math.max(1, Math.round(t.duration))),
+          "aria-label": "Seek",
+          onChange: (e) => engine.seek(Number(e.target.value))
+        }),
+        React2.createElement("span", { className: "num" }, fmtTime(t.duration))
+      ),
+      React2.createElement(
+        "div",
+        { className: "np__controls" },
+        React2.createElement(SoundSwitch, { label: "Shuffle", checked: t.shuffle, onChange: (v) => engine.setShuffle(v) }),
+        btn("Previous", () => engine.prev(), "⏮"),
+        btn(t.playing ? "Pause" : "Play", () => engine.toggle(), t.playing ? "⏸" : "▶"),
+        btn("Next", () => engine.next(), "⏭"),
+        btn("Stop", () => engine.stopTrack(), "⏹"),
+        React2.createElement(
+          "button",
+          { type: "button", className: "np__btn np__repeat", "data-mode": t.repeat, "aria-label": `Repeat: ${REPEAT_LABEL[t.repeat]}`, title: `Repeat: ${REPEAT_LABEL[t.repeat]}`, onClick: () => engine.setRepeat(REPEAT_NEXT[t.repeat]) },
+          t.repeat === "one" ? "🔂" : "🔁"
+        )
+      )
+    );
+  }
+  function TrackRow({ track, onPlay, active }) {
+    return React2.createElement(
+      "li",
+      { className: "track-row", "data-active": active ? "true" : void 0 },
+      React2.createElement(
+        "button",
+        { type: "button", className: "track-row__play", "aria-label": `Play ${track.title}`, onClick: onPlay },
+        React2.createElement("span", { className: "track-row__title" }, track.title),
+        React2.createElement("span", { className: "track-row__artist" }, track.artist)
+      )
+    );
+  }
+  function AlbumTile({ group, onOpen }) {
+    const [cover, setCover] = React2.useState(null);
+    const withCover = group.tracks.find((t) => t.hasCover);
+    React2.useEffect(() => {
+      let live = true;
+      if (withCover) MediaLibrary.cover(withCover.id).then((u) => live && setCover(u), () => {});
+      return () => {
+        live = false;
+      };
+    }, [withCover && withCover.id]);
+    return React2.createElement(
+      "button",
+      { type: "button", className: "album-tile", "aria-label": `Open album ${group.album}, ${group.artist}`, onClick: onOpen },
+      cover ? React2.createElement("img", { className: "album-tile__cover", src: cover, alt: "" }) : React2.createElement("span", { className: "album-tile__cover album-tile__cover--blank", "aria-hidden": true }, "♪"),
+      React2.createElement("span", { className: "album-tile__title" }, group.album),
+      React2.createElement("span", { className: "album-tile__artist" }, group.artist)
+    );
+  }
+  function groupAlbums(tracks) {
+    const map = new Map();
+    for (const t of tracks) {
+      if (!map.has(t.albumKey)) map.set(t.albumKey, { key: t.albumKey, album: t.album, artist: t.artist, kind: t.kind, tracks: [] });
+      map.get(t.albumKey).tracks.push(t);
+    }
+    return [...map.values()];
+  }
+  function AlbumView({ group, onBack, onChanged }) {
+    const { engine, guard } = useSound();
+    const confirm = useConfirm();
+    const [cover, setCover] = React2.useState(null);
+    const [renaming, setRenaming] = React2.useState(null);
+    const withCover = group.tracks.find((t) => t.hasCover);
+    React2.useEffect(() => {
+      let live = true;
+      if (withCover) MediaLibrary.cover(withCover.id).then((u) => live && setCover(u), () => {});
+      return () => {
+        live = false;
+      };
+    }, [withCover && withCover.id]);
+    const queue = group.tracks.map(localTrack);
+    const cur = engine.current;
+    const dropFromPlayer = (ids) => {
+      if (cur && cur.source === "local" && ids.includes(cur.mediaId)) engine.stopTrack();
+    };
+    const deleteAlbum = async () => {
+      const ok = await confirm({ title: `Delete “${group.album}”?`, body: `Its ${group.tracks.length} track${group.tracks.length === 1 ? "" : "s"} will be removed from this device.`, confirmLabel: "Delete album" });
+      if (!ok) return;
+      const ids = group.tracks.map((t) => t.id);
+      dropFromPlayer(ids);
+      await MediaLibrary.remove(ids);
+      onChanged();
+      onBack();
+    };
+    const deleteTrack = async (t) => {
+      const ok = await confirm({ title: `Delete “${t.title}”?`, body: "It will be removed from this device.", confirmLabel: "Delete track" });
+      if (!ok) return;
+      dropFromPlayer([t.id]);
+      await MediaLibrary.remove([t.id]);
+      onChanged();
+    };
+    const saveName = async (t, title) => {
+      setRenaming(null);
+      const clean = title.trim();
+      if (clean && clean !== t.title) {
+        await MediaLibrary.rename(t.id, clean);
+        onChanged();
+      }
+    };
+    return React2.createElement(
+      "div",
+      { className: "album-view" },
+      React2.createElement(Button, { size: "sm", variant: "ghost", icon: React2.createElement(ArrowLeft, { size: 14 }), onClick: onBack }, "All music"),
+      React2.createElement(
+        "div",
+        { className: "album-view__head" },
+        cover ? React2.createElement("img", { className: "album-cover", src: cover, alt: `Cover of ${group.album}` }) : React2.createElement("span", { className: "album-cover album-cover--blank", "aria-hidden": true }, "♪"),
+        React2.createElement(
+          "div",
+          null,
+          React2.createElement("h3", { className: "music-section__title" }, group.album),
+          React2.createElement("p", { className: "track-row__artist" }, group.artist)
+        )
+      ),
+      React2.createElement(
+        "div",
+        { className: "album-view__actions" },
+        React2.createElement(
+          "label",
+          { className: "album-view__kind" },
+          React2.createElement(SoundSwitch, {
+            label: "Nasheed album",
+            checked: group.kind === "nasheed",
+            onChange: async (v) => {
+              await MediaLibrary.setKind(group.key, v ? "nasheed" : "music");
+              onChanged();
+            }
+          }),
+          React2.createElement("span", { "aria-hidden": true }, "Nasheed")
+        ),
+        React2.createElement(Button, { size: "sm", variant: "secondary", onClick: deleteAlbum }, "Delete album")
+      ),
+      React2.createElement(
+        "ul",
+        { className: "track-list" },
+        group.tracks.map((t, i) =>
+          renaming === t.id
+            ? React2.createElement(
+                "li",
+                { key: t.id, className: "track-row" },
+                React2.createElement("input", {
+                  className: "input",
+                  "aria-label": "Track name",
+                  defaultValue: t.title,
+                  autoFocus: true,
+                  onKeyDown: (e) => {
+                    if (e.key === "Enter") saveName(t, e.currentTarget.value);
+                    if (e.key === "Escape") {
+                      e.stopPropagation();
+                      setRenaming(null);
+                    }
+                  },
+                  onBlur: (e) => saveName(t, e.currentTarget.value)
+                })
+              )
+            : React2.createElement(
+                "li",
+                { key: t.id, className: "track-row track-row--actions", "data-active": cur && cur.mediaId === t.id ? "true" : void 0 },
+                React2.createElement(
+                  "button",
+                  { type: "button", className: "track-row__play", "aria-label": `Play ${t.title}`, onClick: () => guard(() => engine.playQueue(queue, i)) },
+                  React2.createElement("span", { className: "track-row__title" }, t.title),
+                  React2.createElement("span", { className: "track-row__artist" }, t.artist)
+                ),
+                React2.createElement(IconButton, { label: `Rename ${t.title}`, size: "sm", onClick: () => setRenaming(t.id) }, React2.createElement(Pencil, { size: 14 })),
+                React2.createElement(IconButton, { label: `Delete ${t.title}`, size: "sm", onClick: () => deleteTrack(t) }, React2.createElement(Trash2, { size: 14 }))
+              )
+        )
+      )
+    );
+  }
+  function MusicTab() {
+    const { engine, guard } = useSound();
+    const [lib, setLib] = React2.useState([]);
+    const [albumKey, setAlbumKey] = React2.useState(null);
+    const [query, setQuery] = React2.useState("");
+    const [result, setResult] = React2.useState(null);
+    const [busy, setBusy] = React2.useState(false);
+    const musicInput = React2.useRef(null);
+    const nasheedInput = React2.useRef(null);
+    const folderInput = React2.useRef(null);
+    const refresh = React2.useCallback(() => MediaLibrary.list().then(setLib, () => setLib([])), []);
+    React2.useEffect(() => {
+      refresh();
+    }, [refresh]);
+    const nasheedsOnly = engine.settings.nasheedsOnly;
+    const cur = engine.current;
+    const calm = MUSIC_LIBRARY.filter((t) => t.kind === "music");
+    const builtInNasheeds = MUSIC_LIBRARY.filter((t) => t.kind === "nasheed");
+    const albums = groupAlbums(lib);
+    const musicAlbums = albums.filter((a) => a.kind !== "nasheed");
+    const nasheedAlbums = albums.filter((a) => a.kind === "nasheed");
+    const importFiles = async (fileList, kind) => {
+      const files = [...(fileList || [])];
+      if (!files.length) return;
+      setBusy(true);
+      const r = await MediaLibrary.add(files, kind);
+      setBusy(false);
+      const parts = [];
+      parts.push(`Added ${r.saved.length} track${r.saved.length === 1 ? "" : "s"}.`);
+      if (r.skipped.length) parts.push(`Skipped: ${r.skipped.map((x) => `${x.name} (${x.reason})`).join(", ")}.`);
+      if (r.full) parts.push(`Storage is full. Saved: ${r.saved.map((t) => t.title).join(", ") || "nothing"}.`);
+      setResult(parts.join(" "));
+      refresh();
+    };
+    const fileInput = (ref, label, kind, extra) =>
+      React2.createElement("input", {
+        ref,
+        type: "file",
+        multiple: true,
+        accept: "audio/*,.mp3,.m4a,.ogg,.wav",
+        className: "sr-only",
+        tabIndex: -1,
+        "aria-label": label,
+        onChange: (e) => {
+          importFiles(e.target.files, kind);
+          e.target.value = "";
+        },
+        ...extra
+      });
+    const supportsFolders = typeof document !== "undefined" && "webkitdirectory" in document.createElement("input");
+    const usageBytes = lib.reduce((n, t) => n + (t.size || 0), 0);
+    const tiles = (list) => React2.createElement("div", { className: "album-grid" }, list.map((g) => React2.createElement(AlbumTile, { key: g.key, group: g, onOpen: () => setAlbumKey(g.key) })));
+    const header = React2.createElement(
+      "div",
+      { className: "music-tools" },
+      React2.createElement("input", { type: "search", className: "input", placeholder: "Search music", "aria-label": "Search music", value: query, onChange: (e) => setQuery(e.target.value) }),
+      React2.createElement(
+        "label",
+        { className: "music-tools__nasheeds" },
+        React2.createElement("span", { "aria-hidden": true }, "Nasheeds only"),
+        React2.createElement(SoundSwitch, { label: "Nasheeds only", checked: nasheedsOnly, onChange: (v) => engine.setSetting("nasheedsOnly", v) })
+      ),
+      fileInput(musicInput, "Add music", "music"),
+      fileInput(nasheedInput, "Add nasheeds", "nasheed"),
+      supportsFolders && fileInput(folderInput, "Add folder", "music", { webkitdirectory: "" })
+    );
+    const status = (busy || result) && React2.createElement("p", { className: "import-result", role: "status" }, busy ? "Adding…" : result);
+    // Searching: one flat list of matching tracks.
+    const q = query.trim().toLowerCase();
+    if (q) {
+      const all = [
+        ...(nasheedsOnly ? builtInNasheeds : [...calm, ...builtInNasheeds]),
+        ...lib.filter((t) => !nasheedsOnly || t.kind === "nasheed").map(localTrack)
+      ].filter((t) => [t.title, t.artist, t.album].some((v) => (v || "").toLowerCase().includes(q)));
+      return React2.createElement(
+        React2.Fragment,
+        null,
+        header,
+        status,
+        React2.createElement(
+          "section",
+          { className: "music-section search-results", "aria-label": "Search results" },
+          all.length
+            ? React2.createElement("ul", { className: "track-list" }, all.map((t, i) => React2.createElement(TrackRow, { key: t.id, track: t, active: cur && cur.id === t.id, onPlay: () => guard(() => engine.playQueue(all, i)) })))
+            : React2.createElement("p", { className: "music-section__note" }, "Nothing matches that.")
+        )
+      );
+    }
+    const open = albums.find((a) => a.key === albumKey);
+    if (open) return React2.createElement(React2.Fragment, null, header, status, React2.createElement(AlbumView, { group: open, onBack: () => setAlbumKey(null), onChanged: refresh }));
+    return React2.createElement(
+      React2.Fragment,
+      null,
+      header,
+      status,
+      !nasheedsOnly &&
+        React2.createElement(
+          "section",
+          { className: "music-section", "aria-label": "Calm music" },
+          React2.createElement("h3", { className: "music-section__title" }, "Calm music"),
+          React2.createElement(
+            "ul",
+            { className: "track-list" },
+            calm.map((t, i) => React2.createElement(TrackRow, { key: t.id, track: t, active: cur && cur.id === t.id, onPlay: () => guard(() => engine.playQueue(calm, i)) }))
+          ),
+          React2.createElement("p", { className: "music-section__note" }, "Public-domain recordings from Musopen, via Wikimedia Commons.")
+        ),
+      !nasheedsOnly &&
+        React2.createElement(
+          "section",
+          { className: "music-section", "aria-label": "My albums" },
+          React2.createElement(
+            "div",
+            { className: "music-section__row" },
+            React2.createElement("h3", { className: "music-section__title" }, "My albums"),
+            React2.createElement(
+              "div",
+              { className: "music-section__add" },
+              React2.createElement(Button, { size: "sm", variant: "secondary", icon: React2.createElement(Plus, { size: 14 }), onClick: () => musicInput.current && musicInput.current.click() }, "Add music"),
+              supportsFolders && React2.createElement(Button, { size: "sm", variant: "ghost", onClick: () => folderInput.current && folderInput.current.click() }, "Add folder")
+            )
+          ),
+          musicAlbums.length ? tiles(musicAlbums) : React2.createElement("p", { className: "music-section__note" }, "Add music you own. It stays private on this device."),
+          React2.createElement("p", { className: "music-usage" }, lib.length ? `${lib.length} track${lib.length === 1 ? "" : "s"} · ${fmtBytes(usageBytes)} on this device` : "No music added yet")
+        ),
+      React2.createElement(SpotifySection, { nasheedsOnly }),
+      React2.createElement(
+        "section",
+        { className: "music-section", "aria-label": "Nasheeds" },
+        React2.createElement("h3", { className: "music-section__title" }, "Nasheeds"),
+        builtInNasheeds.length > 0 &&
+          React2.createElement(
+            "ul",
+            { className: "track-list" },
+            builtInNasheeds.map((t, i) => React2.createElement(TrackRow, { key: t.id, track: t, active: cur && cur.id === t.id, onPlay: () => guard(() => engine.playQueue(builtInNasheeds, i)) }))
+          ),
+        nasheedAlbums.length > 0 && tiles(nasheedAlbums),
+        !builtInNasheeds.length &&
+          !nasheedAlbums.length &&
+          React2.createElement(
+            "div",
+            { className: "music-empty" },
+            React2.createElement("p", null, "No nasheeds yet. Add nasheed files you have, or mark one of your albums as Nasheed."),
+            React2.createElement(Button, { size: "sm", variant: "primary", icon: React2.createElement(Plus, { size: 14 }), onClick: () => nasheedInput.current && nasheedInput.current.click() }, "Add your own nasheeds")
+          )
+      )
+    );
+  }
+  function QuranTab() {
+    const { engine } = useSound();
+    const q = engine.settings.quran;
+    const [reciters, setReciters] = React2.useState(null);
+    const [failed, setFailed] = React2.useState(false);
+    const [query, setQuery] = React2.useState("");
+    const [saving, setSaving] = React2.useState(null);
+    const loadReciters = React2.useCallback(() => {
+      setFailed(false);
+      QuranSource.reciterList = null;
+      QuranSource.reciters().then(
+        (list) => {
+          setReciters(list);
+          if (list.length && !list.some((r) => r.id === engine.settings.quran.reciterId)) engine.setQuran({ reciterId: list[0].id, reciterName: list[0].name });
+        },
+        () => setFailed(true)
+      );
+    }, [engine]);
+    React2.useEffect(() => {
+      loadReciters();
+    }, [loadReciters]);
+    const cur = engine.current;
+    const t = engine.trackStats();
+    const trackFailed = t && t.kind === "quran" && t.error;
+    const play = (n, startAt = 0) => engine.playSurah(q.reciterId, n, startAt, q.reciterName);
+    const toggleFav = (n) => engine.setQuran({ favourites: q.favourites.includes(n) ? q.favourites.filter((x) => x !== n) : [...q.favourites, n] });
+    const offlineKey = (n) => `${q.reciterId}/${n}`;
+    const toggleOffline = async (n) => {
+      const key = offlineKey(n);
+      setSaving(n);
+      try {
+        if (q.offline.includes(key)) {
+          await QuranSource.removeOffline(q.reciterId, n);
+          engine.setQuran({ offline: engine.settings.quran.offline.filter((k) => k !== key) });
+        } else {
+          await QuranSource.keepOffline(q.reciterId, n);
+          engine.setQuran({ offline: [...engine.settings.quran.offline, key] });
+        }
+      } catch {
+        setFailed(true);
+      }
+      setSaving(null);
+    };
+    const row = ([n, arabic, english, meaning, ayahs]) => {
+      const fav = q.favourites.includes(n);
+      const off = q.offline.includes(offlineKey(n));
+      return React2.createElement(
+        "li",
+        { key: n, className: "surah-row", "data-ayahs": ayahs, "data-active": cur && cur.kind === "quran" && cur.surah === n ? "true" : void 0 },
+        React2.createElement(
+          "button",
+          { type: "button", className: "surah-row__play", "aria-label": `Play ${n}. ${english}`, onClick: () => play(n) },
+          React2.createElement("span", { className: "surah-row__num num" }, n),
+          React2.createElement(
+            "span",
+            { className: "surah-row__text" },
+            React2.createElement("span", { className: "track-row__title" }, english),
+            React2.createElement("span", { className: "track-row__artist" }, `${meaning} · ${ayahs} ayahs`)
+          ),
+          React2.createElement("span", { className: "surah-row__arabic", lang: "ar", dir: "rtl" }, arabic)
+        ),
+        React2.createElement("button", { type: "button", className: "np__btn surah-row__fav", "aria-label": `Favourite ${english}`, "aria-pressed": fav ? "true" : "false", onClick: () => toggleFav(n) }, fav ? "★" : "☆"),
+        React2.createElement(
+          "button",
+          { type: "button", className: "np__btn", "aria-label": off ? `Remove ${english} from offline` : `Keep ${english} offline`, title: off ? "Saved for offline · remove" : "Keep offline", disabled: saving === n || !q.reciterId, onClick: () => toggleOffline(n) },
+          saving === n ? "…" : off ? "✓" : "⤓"
+        )
+      );
+    };
+    const needle = query.trim();
+    const key = searchKey(needle);
+    const list = needle ? SURAHS.filter(([n, arabic, english, meaning]) => String(n) === needle || arabic.includes(needle) || (key && (searchKey(english).includes(key) || searchKey(meaning).includes(key)))) : SURAHS;
+    const favs = q.favourites.map((n) => SURAHS[n - 1]).filter(Boolean);
+    return React2.createElement(
+      React2.Fragment,
+      null,
+      (failed || trackFailed) &&
+        React2.createElement(
+          "div",
+          { className: "sound-alert", role: "alert" },
+          React2.createElement("p", null, QURAN_ERROR),
+          React2.createElement(Button, { size: "sm", variant: "secondary", onClick: () => (trackFailed ? engine.retry() : loadReciters()) }, "Retry")
+        ),
+      React2.createElement(
+        "div",
+        { className: "quran-tools" },
+        React2.createElement(
+          "label",
+          { className: "quran-tools__reciter" },
+          React2.createElement("span", { className: "sr-only" }, "Reciter"),
+          React2.createElement(
+            "select",
+            {
+              className: "select",
+              "aria-label": "Reciter",
+              value: q.reciterId == null ? "" : String(q.reciterId),
+              onChange: (e) => {
+                const r = (reciters || []).find((x) => String(x.id) === e.target.value);
+                if (r) engine.setQuran({ reciterId: r.id, reciterName: r.name });
+              }
+            },
+            (reciters || []).map((r) => React2.createElement("option", { key: r.id, value: String(r.id) }, r.style ? `${r.name} (${r.style})` : r.name))
+          )
+        ),
+        React2.createElement(
+          "div",
+          { className: "quran-tools__switches" },
+          React2.createElement("label", null, React2.createElement(SoundSwitch, { label: "Continue to next surah", checked: q.continue, onChange: (v) => engine.setQuran({ continue: v }) }), React2.createElement("span", { "aria-hidden": true }, "Continue to next surah")),
+          React2.createElement("label", null, React2.createElement(SoundSwitch, { label: "Repeat surah", checked: q.repeat, onChange: (v) => engine.setQuran({ repeat: v }) }), React2.createElement("span", { "aria-hidden": true }, "Repeat surah"))
+        ),
+        q.last &&
+          React2.createElement(
+            Button,
+            { size: "sm", variant: "secondary", className: "quran-tools__resume", onClick: () => engine.playSurah(q.last.reciterId, q.last.n, q.last.position || 0, q.last.reciterName) },
+            `Resume ${surahTitle(q.last.n)}`
+          ),
+        React2.createElement("input", { type: "search", className: "input", placeholder: "Search surahs", "aria-label": "Search surahs", value: query, onChange: (e) => setQuery(e.target.value) })
+      ),
+      !needle &&
+        favs.length > 0 &&
+        React2.createElement(
+          "section",
+          { className: "music-section", "aria-label": "Favourites" },
+          React2.createElement("h3", { className: "music-section__title" }, "Favourites"),
+          React2.createElement("ul", { className: "surah-list surah-list--fav" }, favs.map(row))
+        ),
+      React2.createElement(
+        "section",
+        { className: "music-section", "aria-label": "All surahs" },
+        !needle && React2.createElement("h3", { className: "music-section__title" }, "All surahs"),
+        React2.createElement("ul", { className: "surah-list surah-list--all" }, list.map(row)),
+        needle && !list.length && React2.createElement("p", { className: "music-section__note" }, "No surah matches that.")
+      ),
+      React2.createElement("p", { className: "music-section__note" }, "Recitations stream from Quran.com.")
+    );
+  }
+  // A slim strip above the dock while something is loaded and the panel is closed.
+  function MiniPlayer() {
+    const s = useSound();
+    useSoundUpdates();
+    const t = s.engine.trackStats();
+    if (!t) return null;
+    const hidden = s.chrome.breakActive || s.panelOpen;
+    return React2.createElement(
+      "div",
+      { className: "mini-player glass", "data-hidden": hidden ? "true" : void 0, "data-route": s.chrome.route, inert: hidden ? "" : void 0 },
+      React2.createElement(
+        "button",
+        { type: "button", className: "mini-player__open", onClick: () => s.openPanel(t.kind === "quran" ? "quran" : "music"), "aria-label": `Open sounds: ${t.title}` },
+        React2.createElement("span", { className: "mini-player__title" }, t.title),
+        React2.createElement("span", { className: "mini-player__artist" }, t.artist)
+      ),
+      React2.createElement("button", { type: "button", className: "np__btn", "aria-label": t.playing ? "Pause" : "Play", onClick: () => s.engine.toggle() }, t.playing ? "⏸" : "▶")
+    );
+  }
+  function SoundSwitch({ checked, label, onChange, ...rest }) {
+    return React2.createElement(
+      "button",
+      { type: "button", role: "switch", "aria-checked": checked ? "true" : "false", "aria-label": label, className: "sound-switch", onClick: () => onChange(!checked), ...rest },
+      React2.createElement("span", { className: "sound-switch__knob", "aria-hidden": true })
+    );
+  }
+  function NatureTab() {
+    const s = useSound();
+    const { engine } = s;
+    const set = engine.settings;
+    return React2.createElement(
+      React2.Fragment,
+      null,
+      React2.createElement(
+        "div",
+        { className: "sound-presets", role: "group", "aria-label": "Presets" },
+        NATURE_PRESETS.map((p) => React2.createElement("button", { key: p.name, type: "button", className: "chip", onClick: () => s.guard(() => s.applyPreset(p.name)) }, p.name))
+      ),
+      React2.createElement(
+        "div",
+        { className: "nature-follow" },
+        React2.createElement("span", null, "Follow the meadow", React2.createElement("small", null, "Birds in the morning, crickets at night")),
+        React2.createElement(SoundSwitch, { label: "Follow the meadow", checked: set.followMeadow, onChange: (v) => engine.setSetting("followMeadow", v) })
+      ),
+      React2.createElement(
+        "ul",
+        { className: "nature-list", "aria-label": "Nature sounds" },
+        NATURE_SOUNDS.map((n) => {
+          const cfg = set.nature[n.id];
+          const voice = engine.voices[n.id];
+          return React2.createElement(
+            "li",
+            { key: n.id, className: "nature-row", "data-on": cfg.on ? "true" : void 0, "data-source": voice ? voice.source : "generated" },
+            React2.createElement("span", { className: "nature-row__icon", "aria-hidden": true }, n.icon),
+            React2.createElement("span", { className: "nature-row__label" }, n.label),
+            React2.createElement("input", {
+              type: "range",
+              min: 0,
+              max: 100,
+              className: "nature-row__volume",
+              value: Math.round(cfg.volume * 100),
+              "aria-label": `${n.label} volume`,
+              onChange: (e) => engine.setNatureVolume(n.id, Number(e.target.value) / 100)
+            }),
+            React2.createElement(SoundSwitch, { label: n.label, checked: cfg.on, "data-sound": n.id, onChange: (v) => (v ? s.guard(() => engine.setNature(n.id, true)) : engine.setNature(n.id, false)) }),
+            n.recording &&
+              React2.createElement(
+                "div",
+                { className: "nature-row__real", "aria-busy": voice && voice.loading ? "true" : void 0 },
+                React2.createElement(SoundSwitch, { label: `Real recording for ${n.label}`, checked: cfg.real, onChange: (v) => engine.setReal(n.id, v) }),
+                React2.createElement("span", { "aria-hidden": true }, "Real"),
+                voice && voice.recordingFailed && React2.createElement("small", { className: "nature-row__note" }, "using generated sound")
+              )
+          );
+        })
+      ),
+      React2.createElement(
+        "details",
+        { className: "sound-sources" },
+        React2.createElement("summary", null, "ⓘ Sources"),
+        React2.createElement(
+          "ul",
+          null,
+          NATURE_SOUNDS.filter((n) => n.recording).map((n) =>
+            React2.createElement("li", { key: n.id }, React2.createElement("a", { href: commonsPage(n.recording.file), target: "_blank", rel: "noopener noreferrer" }, `${n.recording.file} — ${n.recording.licence}`))
+          )
+        ),
+        React2.createElement("p", null, "Other sounds are made in your browser.")
+      )
+    );
+  }
+  /* ---------- Break mode ---------- */
   function formatCountdown(ms) {
     const secs = Math.max(0, Math.ceil(ms / 1000));
     return `${Math.floor(secs / 60)}:${String(secs % 60).padStart(2, "0")}`;
@@ -7300,140 +10177,6 @@ main[data-section='saved'] .panel::after {
       React2.createElement("button", { ref, type: "button", className: "break-pill__end", onClick: onEnd }, "end")
     );
   });
-  // Meadow sounds made in the browser, no files: wind always, birds in the
-  // morning, crickets at night. Created on the first tap of the sound button.
-  class AmbientSound {
-    constructor() {
-      this.ctx = null;
-      this.mode = "morning";
-      this.isPlaying = false;
-      this.timer = 0;
-    }
-    get playing() {
-      return this.isPlaying;
-    }
-    ensure() {
-      if (this.ctx) return;
-      const AC = window.AudioContext || window.webkitAudioContext;
-      const ctx = new AC();
-      this.ctx = ctx;
-      this.master = ctx.createGain();
-      this.master.gain.value = 0;
-      this.master.connect(ctx.destination);
-      // Wind: looped brown noise through a slowly swaying low-pass filter.
-      const len = ctx.sampleRate * 4;
-      const buf = ctx.createBuffer(1, len, ctx.sampleRate);
-      const d = buf.getChannelData(0);
-      let last = 0;
-      for (let i = 0; i < len; i++) {
-        last = (last + 0.02 * (Math.random() * 2 - 1)) / 1.02;
-        d[i] = last * 3.5;
-      }
-      const src = ctx.createBufferSource();
-      src.buffer = buf;
-      src.loop = true;
-      const lp = ctx.createBiquadFilter();
-      lp.type = "lowpass";
-      lp.frequency.value = 600;
-      const lfo = ctx.createOscillator();
-      lfo.frequency.value = 0.08;
-      const lfoDepth = ctx.createGain();
-      lfoDepth.gain.value = 250;
-      lfo.connect(lfoDepth).connect(lp.frequency);
-      const wind = ctx.createGain();
-      wind.gain.value = 0.6;
-      src.connect(lp).connect(wind).connect(this.master);
-      src.start();
-      lfo.start();
-    }
-    fade(to) {
-      const g = this.master.gain;
-      const now = this.ctx.currentTime;
-      g.cancelScheduledValues(now);
-      g.setValueAtTime(g.value, now);
-      g.linearRampToValueAtTime(to, now + 1);
-    }
-    start(mode) {
-      this.ensure();
-      this.mode = mode;
-      this.isPlaying = true;
-      this.ctx.resume();
-      this.fade(0.35);
-      this.schedule();
-    }
-    setMode(mode) {
-      this.mode = mode;
-    }
-    schedule() {
-      window.clearTimeout(this.timer);
-      const next = () => {
-        if (!this.isPlaying) return;
-        if (this.mode === "night") this.crickets();
-        else this.chirp();
-        this.timer = window.setTimeout(next, this.mode === "night" ? 700 + Math.random() * 300 : 2000 + Math.random() * 5000);
-      };
-      this.timer = window.setTimeout(next, 800);
-    }
-    tone(freq, at, dur, peak, endFreq) {
-      const ctx = this.ctx;
-      const osc = ctx.createOscillator();
-      const g = ctx.createGain();
-      osc.type = "sine";
-      osc.frequency.setValueAtTime(freq, at);
-      if (endFreq) osc.frequency.exponentialRampToValueAtTime(endFreq, at + dur);
-      g.gain.setValueAtTime(0, at);
-      g.gain.linearRampToValueAtTime(peak, at + Math.min(0.02, dur / 3));
-      g.gain.exponentialRampToValueAtTime(0.0001, at + dur);
-      osc.connect(g).connect(this.master);
-      osc.start(at);
-      osc.stop(at + dur + 0.05);
-    }
-    chirp() {
-      const t = this.ctx.currentTime;
-      const notes = 2 + Math.floor(Math.random() * 3);
-      const base = 2000 + Math.random() * 1500;
-      for (let i = 0; i < notes; i++) this.tone(base, t + i * 0.14, 0.11, 0.06, base * (1.6 + Math.random() * 0.6));
-    }
-    crickets() {
-      const t = this.ctx.currentTime;
-      const pulses = 3 + Math.floor(Math.random() * 2);
-      for (let i = 0; i < pulses; i++) this.tone(4500, t + i * 0.033, 0.025, 0.025);
-    }
-    chime() {
-      if (!this.ctx || !this.isPlaying) return;
-      const t = this.ctx.currentTime;
-      this.tone(880, t, 1.6, 0.12);
-      this.tone(1320, t + 0.18, 1.6, 0.08);
-    }
-    stop() {
-      this.isPlaying = false;
-      window.clearTimeout(this.timer);
-      if (!this.ctx) return;
-      this.fade(0);
-      window.setTimeout(() => {
-        if (!this.isPlaying && this.ctx && this.ctx.state === "running") this.ctx.suspend();
-      }, 1100);
-    }
-    close() {
-      this.stop();
-      const ctx = this.ctx;
-      if (ctx) window.setTimeout(() => ctx.close(), 1200);
-    }
-  }
-  const SOUND_KEY = "one.sound";
-  function readSoundPref() {
-    try {
-      return window.sessionStorage.getItem(SOUND_KEY) === "on";
-    } catch {
-      return false;
-    }
-  }
-  function writeSoundPref(on) {
-    try {
-      window.sessionStorage.setItem(SOUND_KEY, on ? "on" : "off");
-    } catch {
-    }
-  }
   /* ---------- Home: touch grass ---------- */
   // Home is a meadow you can touch. The live scene (Meadow, three.js) draws into
   // the canvas; MeadowFallback is a painted version shown until the first
@@ -7555,14 +10298,13 @@ main[data-section='saved'] .panel::after {
     const timeRef = React2.useRef(time);
     timeRef.current = time;
     const [sceneReady, setSceneReady] = React2.useState(false);
-    const soundRef = React2.useRef(null);
-    const [soundOn, setSoundOn] = React2.useState(false);
+    const sound = useSound();
     const [welcome, setWelcome] = React2.useState(false);
     const breakButtonRef = React2.useRef(null);
     const endButtonRef = React2.useRef(null);
     const pause = useBreak(60000, (reason) => {
       if (reason === "done") {
-        if (soundRef.current) soundRef.current.chime();
+        sound.engine.chime();
         setWelcome(true);
       }
       window.requestAnimationFrame(() => {
@@ -7684,42 +10426,6 @@ main[data-section='saved'] .panel::after {
       window.addEventListener("keydown", onKey, true);
       return () => window.removeEventListener("keydown", onKey, true);
     }, [pause.isActive, pause.end]);
-    // Sound: off until tapped, remembered for this session only.
-    const startSound = () => {
-      if (!soundRef.current) {
-        soundRef.current = new AmbientSound();
-        window.__oneSound = soundRef.current;
-      }
-      soundRef.current.start(timeRef.current);
-      setSoundOn(true);
-    };
-    const toggleSound = () => {
-      if (soundOn) {
-        if (soundRef.current) soundRef.current.stop();
-        setSoundOn(false);
-        writeSoundPref(false);
-      } else {
-        startSound();
-        writeSoundPref(true);
-      }
-    };
-    React2.useEffect(() => {
-      // Coming back to Home in the same session: resume only if the page has
-      // had a tap since it loaded (browsers block sound until then, e.g. after
-      // a reload), so the button never claims to play while silent.
-      const tapped = navigator.userActivation && navigator.userActivation.hasBeenActive;
-      if (readSoundPref() && tapped) startSound();
-      return () => {
-        const sound = soundRef.current;
-        if (sound) {
-          sound.close();
-          if (window.__oneSound === sound) delete window.__oneSound;
-        }
-      };
-    }, []);
-    React2.useEffect(() => {
-      if (soundRef.current) soundRef.current.setMode(time);
-    }, [time]);
     const onTimeKey = (e) => {
       if (e.key === "ArrowLeft" || e.key === "ArrowRight") {
         e.preventDefault();
@@ -7759,11 +10465,7 @@ main[data-section='saved'] .panel::after {
         "div",
         { className: "meadow-controls glass", role: "group", "aria-label": "Meadow controls", inert: pause.active ? "" : void 0 },
         React2.createElement("div", { className: "meadow-time", role: "radiogroup", "aria-label": "Time of day" }, timeOption("morning", "Morning", Sun), timeOption("night", "Night", Moon)),
-        React2.createElement(
-          "button",
-          { type: "button", className: "meadow-sound", "aria-label": "Ambient sound", title: "Ambient sound", "aria-pressed": soundOn ? "true" : "false", onClick: toggleSound },
-          soundOn ? React2.createElement(Volume2, { size: 16, "aria-hidden": true }) : React2.createElement(VolumeX, { size: 16, "aria-hidden": true })
-        )
+        React2.createElement(SoundsButton, { className: "meadow-sound" })
       ),
       React2.createElement(HandCursor, { targetRef: rootRef })
     );
@@ -9746,7 +12448,8 @@ main[data-section='saved'] .panel::after {
     const { data, persistence, saveFailed } = useStore();
     const theme = useTheme(data.settings.theme);
     const [breakActive, setBreakActive] = React2.useState(false);
-    useGlobalShortcuts(breakActive);
+    const sound = useSound();
+    useGlobalShortcuts(breakActive || sound.panelOpen);
     const Page = PAGES[ui.route];
     const isHome = ui.route === "home";
     return React2.createElement(
@@ -9765,12 +12468,13 @@ main[data-section='saved'] .panel::after {
         )
       ),
       React2.createElement(GlassDock, { hidden: breakActive }),
+      React2.createElement(SoundLockGuard, { breakActive, route: ui.route }),
       React2.createElement(QuickCapture, null),
       React2.createElement(SearchPalette, null)
     );
   }
   function App() {
-    return /* @__PURE__ */ React2.createElement(StoreProvider, null, /* @__PURE__ */ React2.createElement(ToastProvider, null, /* @__PURE__ */ React2.createElement(ConfirmProvider, null, React2.createElement(SyncProvider, null, React2.createElement(LockProvider, null, /* @__PURE__ */ React2.createElement(UIProvider, null, /* @__PURE__ */ React2.createElement(Shell, null)))))));
+    return /* @__PURE__ */ React2.createElement(StoreProvider, null, /* @__PURE__ */ React2.createElement(ToastProvider, null, /* @__PURE__ */ React2.createElement(ConfirmProvider, null, React2.createElement(SyncProvider, null, React2.createElement(SoundProvider, null, React2.createElement(LockProvider, null, /* @__PURE__ */ React2.createElement(UIProvider, null, /* @__PURE__ */ React2.createElement(Shell, null))))))));
   }
   client.createRoot(document.getElementById("root")).render(/* @__PURE__ */ React2.createElement(App, null));
   if ("serviceWorker" in navigator && (location.protocol === "https:" || location.hostname === "localhost")) {

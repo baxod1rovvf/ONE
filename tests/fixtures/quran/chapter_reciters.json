@@ -1,0 +1,8 @@
+{
+  "reciters": [
+    { "id": 99, "reciter_name": "Zzz Test Reciter", "style": { "name": "Murattal" } },
+    { "id": 3, "reciter_name": "Abdur-Rahman as-Sudais", "style": { "name": "Murattal" } },
+    { "id": 2, "reciter_name": "AbdulBaset AbdulSamad", "style": { "name": "Murattal" } },
+    { "id": 7, "reciter_name": "Mishari Rashid al-`Afasy", "style": { "name": "Murattal" } }
+  ]
+}

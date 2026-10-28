@@ -1,8 +1,12 @@
 {
   "private": true,
   "description": "Browser tests for ONE. Run: npm install && npm test",
-  "scripts": { "test": "node --test --test-concurrency=1 --test-timeout=180000" },
+  "scripts": {
+    "test": "node --test --test-concurrency=1 --test-timeout=180000",
+    "pretest": "node fixtures/make-audio.cjs"
+  },
   "devDependencies": {
+    "lamejs": "1.2.1",
     "react": "18.3.1",
     "react-dom": "18.3.1",
     "three": "0.169.0"

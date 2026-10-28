@@ -51,6 +51,47 @@ const CDN_FILES = [
   [/cdn\.jsdelivr\.net\/npm\/three@0\.169\.0\/build\/three\.module\.js$/, "three/build/three.module.js"]
 ];
 const BLOCKED = /fonts\.googleapis\.com|fonts\.gstatic\.com/;
+const FIXTURES = path.join(__dirname, "fixtures");
+const AUDIO_HOSTS = /commons\.wikimedia\.org|upload\.wikimedia\.org|api\.quran\.com|audio\.test-quran\.example/;
+const CORS = { "access-control-allow-origin": "*" };
+
+// Sound sources (Wikimedia recordings and music, the Quran.com API and its
+// audio) are answered from tests/fixtures.
+function audioRoute(route, url) {
+  const u = new URL(url);
+  if (u.hostname === "api.quran.com") {
+    if (/\/resources\/chapter_reciters/.test(u.pathname)) {
+      return route.fulfill({ path: path.join(FIXTURES, "quran", "chapter_reciters.json"), contentType: "application/json", headers: CORS });
+    }
+    const m = /\/chapter_recitations\/(\d+)\/(\d+)/.exec(u.pathname);
+    if (m) {
+      const body = JSON.stringify({ audio_file: { audio_url: `https://audio.test-quran.example/${m[1]}/${m[2]}.mp3` } });
+      return route.fulfill({ body, contentType: "application/json", headers: CORS });
+    }
+    return route.fulfill({ status: 404, body: "{}", headers: CORS });
+  }
+  const name = decodeURIComponent(u.pathname);
+  // Music and recitations are long enough not to end between test steps.
+  const long = /gymnop|sonata/i.test(name) || u.hostname === "audio.test-quran.example";
+  const file = /rain|cricket/i.test(name) ? "loop.wav" : long ? "music.wav" : "tone.wav";
+  return fulfillFile(route, path.join(FIXTURES, "audio", file), "audio/wav");
+}
+
+// Answers byte-range requests like a real media server, so audio can seek.
+function fulfillFile(route, file, contentType) {
+  const body = fs.readFileSync(file);
+  const range = /bytes=(\d*)-(\d*)/.exec(route.request().headers().range || "");
+  const headers = { ...CORS, "accept-ranges": "bytes" };
+  if (!range) return route.fulfill({ status: 200, body, contentType, headers });
+  const start = range[1] ? Number(range[1]) : 0;
+  const end = range[2] ? Math.min(Number(range[2]), body.length - 1) : body.length - 1;
+  return route.fulfill({
+    status: 206,
+    body: body.subarray(start, end + 1),
+    contentType,
+    headers: { ...headers, "content-range": `bytes ${start}-${end}/${body.length}` }
+  });
+}
 
 async function launch(opts = {}) {
   const browser = await chromium.launch({ args: ["--use-angle=swiftshader", "--enable-unsafe-swiftshader"] });
@@ -82,6 +123,10 @@ async function newContext(browser, { viewport, hasTouch }) {
     // { threeD: true }; elsewhere Home shows its painted fallback, which keeps
     // the software renderer used in CI free for the tests that need it.
     if ((opts.blockThree || !opts.threeD) && /three@/.test(url)) return route.abort();
+    if (AUDIO_HOSTS.test(url)) return opts.blockAudio ? route.abort() : audioRoute(route, url);
+    if (/open\.spotify\.com\/embed\/iframe-api\/v1/.test(url)) {
+      return route.fulfill({ path: path.join(FIXTURES, "spotify-iframe-api.js"), contentType: "text/javascript", headers: CORS });
+    }
     for (const [re, file] of CDN_FILES) {
       if (re.test(url)) {
         return route.fulfill({
@@ -101,7 +146,7 @@ function watchErrors(page) {
   page.on("console", (msg) => {
     if (msg.type() !== "error") return;
     const where = msg.location() && msg.location().url;
-    if (where && (BLOCKED.test(where) || /three@/.test(where))) return;
+    if (where && (BLOCKED.test(where) || /three@/.test(where) || AUDIO_HOSTS.test(where) || /spotify\.com/.test(where))) return;
     if (/Failed to load resource/.test(msg.text()) && (!where || BLOCKED.test(where) || /three@/.test(where))) return;
     errors.push(msg.text());
   });
@@ -116,7 +161,7 @@ async function waitForApp(page) {
   }, null, { timeout: 30000 });
 }
 
-async function openApp(browser, baseUrl, { route = "home", theme = "light", viewport = { width: 1280, height: 800 }, hasTouch = false, data } = {}) {
+async function openApp(browser, baseUrl, { route = "home", theme = "light", viewport = { width: 1280, height: 800 }, hasTouch = false, data, gesture = true } = {}) {
   const context = await newContext(browser, { viewport, hasTouch });
   const page = await context.newPage();
   page.setDefaultTimeout(6000);
@@ -144,6 +189,9 @@ async function openApp(browser, baseUrl, { route = "home", theme = "light", view
   );
   await page.goto(`${baseUrl}/index.html#${route}`);
   await waitForApp(page);
+  // One harmless click in the top-left corner, so the page counts as touched
+  // (browsers keep sound off until then).
+  if (gesture) await page.mouse.click(2, 2);
   return { page, errors };
 }
 

@@ -19,7 +19,7 @@ test("Home is only the meadow: title, subtitle, break button, time control", asy
   assert.ok(await page.getByRole("button", { name: "try a break" }).isVisible());
   assert.ok(await page.getByRole("radio", { name: "Morning" }).isVisible());
   assert.ok(await page.getByRole("radio", { name: "Night" }).isVisible());
-  assert.ok(await page.getByRole("button", { name: "Ambient sound" }).isVisible());
+  assert.ok(await page.locator(".meadow-controls").getByRole("button", { name: "Sounds" }).isVisible());
   assert.equal(await page.locator(".task-list, .home-shortcuts, .capture-bar, .sample-banner").count(), 0);
   await page.close();
 });

@@ -52,6 +52,6 @@ test("reduced motion: no transition on the dock pebble or the break fade", async
 
 test("service worker caches three.js from jsDelivr", () => {
   const sw = fs.readFileSync(path.join(__dirname, "..", "sw.js"), "utf8");
-  assert.match(sw, /const CACHE = "one-v5"/);
+  assert.match(sw, /const CACHE = "one-v\d+"/); // the exact version is pinned by sound-real.test.cjs
   assert.match(sw, /"cdn\.jsdelivr\.net"/);
 });
