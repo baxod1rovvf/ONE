@@ -1259,39 +1259,23 @@ main[data-section] {
     background: transparent;
   }
 }
-.app {
-  display: grid;
-  grid-template-columns: var(--sidebar-w) minmax(0, 1fr);
-  min-height: 100%;
-  transition: grid-template-columns var(--t-med) var(--ease);
+
+/* ---------- Glass ---------- */
+/* Frosted surfaces that float over the sky and the meadow: the dock, the
+   corner cluster, the brand pill, the time-of-day switch, the break pill. */
+.glass {
+  background: var(--glass-bg);
+  border: 1px solid var(--glass-border);
+  box-shadow: var(--glass-shadow);
+  -webkit-backdrop-filter: blur(20px) saturate(160%);
+  backdrop-filter: blur(20px) saturate(160%);
 }
-.app[data-collapsed='true'] {
-  grid-template-columns: var(--sidebar-w-collapsed) minmax(0, 1fr);
+@supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
+  .glass {
+    background: color-mix(in srgb, var(--surface) 92%, transparent);
+  }
 }
 
-/* ---------- Sidebar ---------- */
-.sidebar {
-  position: sticky;
-  top: 0;
-  height: 100vh;
-  height: 100dvh;
-  display: flex;
-  flex-direction: column;
-  gap: 4px;
-  padding: 14px 12px 12px max(12px, env(safe-area-inset-left, 0px));
-  border-right: 1px solid var(--border);
-  background: var(--bg);
-  overflow: hidden;
-}
-.sidebar__top {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 8px;
-  height: 36px;
-  padding: 0 4px 0 6px;
-  margin-bottom: 10px;
-}
 .brand {
   display: inline-flex;
   align-items: center;
@@ -1307,287 +1291,192 @@ main[data-section] {
   font-size: 15px;
   letter-spacing: 0.16em;
 }
-.nav {
-  display: grid;
-  gap: 1px;
-}
-.nav__item {
-  position: relative;
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  height: 34px;
-  padding: 0 10px;
-  border-radius: var(--r-md);
-  color: var(--text-2);
-  font-size: var(--fs-md);
-  font-weight: 500;
-  white-space: nowrap;
-  width: 100%;
-  text-align: left;
-  transition: background var(--t-fast) var(--ease), color var(--t-fast) var(--ease);
-}
-.nav__item svg {
-  flex: none;
-  transition: color var(--t-fast) var(--ease);
-}
-.nav__item:hover {
-  background: var(--surface-2);
-  color: var(--text);
-}
-.nav__item[aria-current='page'] {
-  background: var(--accent-soft);
-  color: var(--text);
-}
-.nav__item[aria-current='page'] svg {
-  color: var(--accent-text);
-}
-.nav__label {
-  overflow: hidden;
-  text-overflow: ellipsis;
-  flex: 1;
-  min-width: 0;
-}
-.nav__count {
-  font-size: var(--fs-xs);
-  color: var(--text-3);
-  font-variant-numeric: tabular-nums;
-}
-.sidebar__section {
-  margin-top: 18px;
-  display: grid;
-  gap: 1px;
-  min-height: 0;
-}
-.sidebar__heading {
+
+/* ---------- Page bar ---------- */
+.pagebar {
+  position: fixed;
+  z-index: 30;
+  top: max(12px, env(safe-area-inset-top, 0px));
+  left: max(16px, env(safe-area-inset-left, 0px));
+  right: max(16px, env(safe-area-inset-right, 0px));
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 0 4px 6px 10px;
-  font-size: 11.5px;
+  gap: 12px;
+  pointer-events: none;
+  transition: opacity 600ms var(--ease), transform 600ms var(--ease);
+}
+.pagebar > * {
+  pointer-events: auto;
+}
+.pagebar[data-hidden='true'] {
+  opacity: 0;
+  transform: translateY(-12px);
+  pointer-events: none;
+}
+.pagebar[data-hidden='true'] > * {
+  pointer-events: none;
+}
+.pagebar__brand {
+  height: 44px;
+  padding: 0 14px 0 11px;
+  border-radius: 999px;
+}
+.pagebar__where {
+  font-family: var(--font-display);
   font-weight: 600;
-  letter-spacing: 0.06em;
-  text-transform: uppercase;
-  color: var(--text-3);
-  white-space: nowrap;
+  font-size: 15px;
+  color: var(--text-2);
+  padding-left: 9px;
+  border-left: 1px solid var(--border-strong);
 }
-.spaces {
-  display: grid;
-  gap: 1px;
-  overflow-y: auto;
-  max-height: 34vh;
-}
-.spaces__item {
-  width: 100%;
-  text-align: left;
+
+/* ---------- Corner cluster ---------- */
+.cluster {
   display: flex;
   align-items: center;
-  gap: 10px;
-  height: 32px;
-  padding: 0 10px 0 8px;
-  border-radius: var(--r-md);
-  color: var(--text-2);
-  font-size: var(--fs-md);
-  white-space: nowrap;
+  gap: 2px;
+  padding: 3px;
+  border-radius: 999px;
 }
-.spaces__item:hover {
-  background: var(--surface-2);
+.cluster .icon-btn {
+  width: 40px;
+  height: 40px;
+  border-radius: 999px;
   color: var(--text);
 }
-.spaces__item .ext {
-  margin-left: auto;
+.cluster .icon-btn:hover {
+  background: color-mix(in srgb, var(--surface) 55%, transparent);
+}
+.cluster .icon-btn[aria-current='page'] {
+  background: var(--surface);
+}
+
+/* ---------- Glass dock ---------- */
+.app {
+  min-height: 100%;
+}
+.dock {
+  --dock-h: 64px;
+  position: fixed;
+  z-index: 30;
+  left: 50%;
+  bottom: calc(16px + env(safe-area-inset-bottom, 0px));
+  transform: translateX(-50%);
+  display: flex;
+  align-items: center;
+  gap: 2px;
+  padding: 6px;
+  border-radius: 999px;
+  max-width: calc(100vw - 24px);
+  transition: transform 600ms var(--ease), opacity 600ms var(--ease);
+}
+.dock[data-hidden='true'] {
+  transform: translate(-50%, calc(100% + 40px));
   opacity: 0;
-  transition: opacity var(--t-fast);
 }
-.spaces__item:hover .ext,
-.spaces__item:focus-visible .ext {
-  opacity: 0.6;
-}
-.spaces__add {
-  color: var(--text-3);
-}
-.spaces__add .plus {
-  width: 20px;
-  height: 20px;
-  display: grid;
-  place-items: center;
-  border: 1px dashed var(--border-strong);
-  border-radius: 6px;
-}
-.sidebar__bottom {
-  margin-top: auto;
-  display: grid;
-  gap: 1px;
-  padding-top: 10px;
-  border-top: 1px solid var(--border);
-}
-.profile {
+.dock__tab {
+  position: relative;
+  z-index: 1;
   display: flex;
   align-items: center;
   gap: 8px;
-  padding: 4px 0 0;
+  min-width: 48px;
+  height: 52px;
+  padding: 0 16px;
+  border-radius: 999px;
+  color: var(--text-2);
+  font-weight: 600;
+  font-size: var(--fs-md);
+  transition: color var(--t-fast) var(--ease);
 }
-.profile__btn {
-  flex: 1;
-  min-width: 0;
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  height: 40px;
-  padding: 0 6px;
-  border-radius: var(--r-md);
-  text-align: left;
+.dock__tab:hover {
+  color: var(--text);
 }
-.profile__btn:hover {
-  background: var(--surface-2);
+.dock__tab[aria-current='page'] {
+  color: var(--accent-text);
 }
-.avatar {
-  flex: none;
-  width: 28px;
-  height: 28px;
-  border-radius: 50%;
+.dock__tab:focus-visible {
+  outline: 2px solid var(--text);
+  outline-offset: -2px;
+  border-radius: 999px;
+}
+.dock__icon {
+  position: relative;
   display: grid;
   place-items: center;
-  background: var(--accent);
-  color: var(--on-accent);
-  font-size: 12.5px;
-  font-weight: 600;
 }
-.profile__text {
-  min-width: 0;
-  display: grid;
-  line-height: 1.25;
-}
-.profile__name {
-  font-size: var(--fs-md);
-  font-weight: 500;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-}
-.profile__meta {
-  font-size: var(--fs-xs);
-  color: var(--text-2);
-  white-space: nowrap;
-}
-
-/* Collapsed rail */
-.app[data-collapsed='true'] .sidebar {
-  padding-left: 10px;
-  padding-right: 10px;
-  align-items: stretch;
-}
-.app[data-collapsed='true'] .brand__word,
-.app[data-collapsed='true'] .nav__label,
-.app[data-collapsed='true'] .nav__count,
-.app[data-collapsed='true'] .sidebar__heading span,
-.app[data-collapsed='true'] .spaces__name,
-.app[data-collapsed='true'] .spaces__item .ext,
-.app[data-collapsed='true'] .profile__text,
-.app[data-collapsed='true'] .theme-toggle-wrap {
-  display: none;
-}
-.app[data-collapsed='true'] .sidebar__top {
-  flex-direction: column;
-  height: auto;
-  gap: 10px;
-  padding: 0;
-}
-.app[data-collapsed='true'] .nav__item,
-.app[data-collapsed='true'] .spaces__item {
-  justify-content: center;
-  padding: 0;
-}
-.app[data-collapsed='true'] .sidebar__heading {
-  justify-content: center;
-  padding: 0 0 6px;
-  border-top: 1px solid var(--border);
-  padding-top: 10px;
-}
-.app[data-collapsed='true'] .profile__btn {
-  justify-content: center;
-  padding: 0;
-}
-
-/* ---------- Main + topbar ---------- */
-.main {
-  min-width: 0;
-  display: flex;
-  flex-direction: column;
-}
-.topbar {
-  position: sticky;
-  top: env(safe-area-inset-top, 0px);
-  z-index: 20;
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  height: 60px;
-  padding-left: max(28px, env(safe-area-inset-left, 0px));
-  padding-right: max(28px, env(safe-area-inset-right, 0px));
-  background: color-mix(in srgb, var(--bg) 88%, transparent);
-  backdrop-filter: saturate(1.4) blur(10px);
-  -webkit-backdrop-filter: saturate(1.4) blur(10px);
-}
-.topbar::after {
-  content: '';
+.dock__badge {
   position: absolute;
+  top: -7px;
+  right: -10px;
+  min-width: 17px;
+  height: 17px;
+  padding: 0 4px;
+  border-radius: 999px;
+  background: var(--c-saved);
+  color: #fff;
+  font-size: 10.5px;
+  font-weight: 700;
+  line-height: 17px;
+  text-align: center;
+  font-variant-numeric: tabular-nums;
+}
+.dock__pebble {
+  position: absolute;
+  z-index: 0;
+  top: 6px;
+  bottom: 6px;
   left: 0;
-  right: 0;
-  bottom: 0;
-  height: 1px;
-  background: var(--border);
-  opacity: var(--topbar-line, 0);
-  transition: opacity var(--t-fast);
-}
-.topbar[data-scrolled='true'] {
-  --topbar-line: 1;
-}
-.topbar__mobile-brand {
-  display: none;
-}
-.search-trigger {
-  display: flex;
-  align-items: center;
-  gap: 9px;
-  width: min(380px, 100%);
-  height: 36px;
-  padding: 0 8px 0 11px;
-  border-radius: var(--r-md);
-  border: 1px solid var(--border);
+  width: var(--pebble-w);
+  transform: translateX(var(--pebble-x));
+  border-radius: 999px;
   background: var(--surface);
-  color: var(--text-3);
-  font-size: var(--fs-md);
-  transition: border-color var(--t-fast), box-shadow var(--t-fast);
-  min-width: 0;
+  box-shadow: var(--shadow-md);
+  transition: transform 420ms cubic-bezier(0.34, 1.56, 0.64, 1), width 420ms cubic-bezier(0.34, 1.56, 0.64, 1);
 }
-.search-trigger:hover {
-  border-color: var(--border-strong);
-  box-shadow: var(--shadow-sm);
-}
-.search-trigger__text {
-  flex: 1;
-  text-align: left;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-}
-.topbar__spacer {
-  flex: 1;
-}
-.topbar__icon-search,
-.topbar__mobile-only {
-  display: none;
+@media (max-width: 760px) {
+  .dock {
+    left: 12px;
+    right: 12px;
+    transform: none;
+    justify-content: space-between;
+    padding: 5px;
+  }
+  .dock[data-hidden='true'] {
+    transform: translateY(calc(100% + 40px));
+  }
+  .dock__tab {
+    flex: 1;
+    flex-direction: column;
+    justify-content: center;
+    gap: 2px;
+    min-width: 44px;
+    height: 54px;
+    padding: 0 4px;
+    font-size: 10.5px;
+  }
+  .dock__pebble {
+    top: 5px;
+    bottom: 5px;
+  }
 }
 
+/* ---------- Page frame ---------- */
 .page {
+  --dock-space: calc(64px + 16px + 24px + env(safe-area-inset-bottom, 0px));
   width: 100%;
   max-width: calc(var(--content-max) + 56px);
   margin: 0 auto;
-  padding-block: 18px 72px;
+  padding-top: calc(84px + env(safe-area-inset-top, 0px));
+  padding-bottom: var(--dock-space);
   padding-left: max(28px, env(safe-area-inset-left, 0px));
   padding-right: max(28px, env(safe-area-inset-right, 0px));
   animation: page-in var(--t-med) var(--ease);
+}
+.app[data-route='home'] .page {
+  max-width: none;
+  padding: 0;
 }
 .page-head {
   display: flex;
@@ -1630,39 +1519,9 @@ main[data-section] {
   font-weight: 500;
 }
 
-/* ---------- Mobile navigation ---------- */
-.tabbar {
-  display: none;
-}
 @media (max-width: 760px) {
-  .app,
-  .app[data-collapsed='true'] {
-    grid-template-columns: minmax(0, 1fr);
-  }
-  .sidebar {
-    display: none;
-  }
-  .topbar {
-    height: 54px;
-    padding-left: max(16px, env(safe-area-inset-left, 0px));
-    padding-right: max(16px, env(safe-area-inset-right, 0px));
-  }
-  .topbar__mobile-brand {
-    display: inline-flex;
-  }
-  .search-trigger,
-  .topbar__capture {
-    display: none;
-  }
-  .topbar__icon-search,
-  .topbar__mobile-only {
-    display: inline-grid;
-  }
-  .topbar__mobile-only[aria-current='page'] {
-    color: var(--accent-text);
-  }
   .page {
-    padding-block: 8px calc(96px + env(safe-area-inset-bottom, 0px));
+    padding-top: calc(72px + env(safe-area-inset-top, 0px));
     padding-left: max(16px, env(safe-area-inset-left, 0px));
     padding-right: max(16px, env(safe-area-inset-right, 0px));
   }
@@ -1674,77 +1533,11 @@ main[data-section] {
     align-items: flex-start;
   }
   .page-head .btn--primary {
-    display: none; /* the bottom bar's capture button and in-page add rows cover this */
+    display: none; /* the corner cluster's capture button and in-page add rows cover this */
   }
   .page-head .btn--primary.keep-mobile {
     display: inline-flex;
   }
-  .tabbar {
-    position: fixed;
-    z-index: 30;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    display: grid;
-    grid-template-columns: repeat(5, 1fr);
-    align-items: center;
-    padding: 6px max(8px, env(safe-area-inset-left, 0px)) calc(6px + env(safe-area-inset-bottom, 0px))
-      max(8px, env(safe-area-inset-right, 0px));
-    background: color-mix(in srgb, var(--surface) 92%, transparent);
-    backdrop-filter: blur(12px);
-    -webkit-backdrop-filter: blur(12px);
-    border-top: 1px solid var(--border);
-  }
-  .tabbar__item {
-    display: grid;
-    justify-items: center;
-    gap: 2px;
-    padding: 6px 0;
-    min-height: 48px;
-    color: var(--text-2);
-    font-size: 11px;
-    font-weight: 500;
-    border-radius: var(--r-md);
-  }
-  .tabbar__item[aria-current='page'] {
-    color: var(--accent-text);
-  }
-  .tabbar__home {
-    justify-self: center;
-    width: 48px;
-    height: 48px;
-    border-radius: 15px;
-    display: grid;
-    place-items: center;
-    background: var(--accent);
-    color: var(--on-accent);
-    box-shadow: 0 6px 16px color-mix(in srgb, var(--accent) 35%, transparent);
-    transition: transform var(--t-fast) var(--ease);
-  }
-  .tabbar__home[aria-current='page'] {
-    box-shadow: 0 0 0 3px color-mix(in srgb, var(--accent) 30%, transparent), 0 6px 16px color-mix(in srgb, var(--accent) 35%, transparent);
-  }
-  .tabbar__home:active {
-    transform: scale(0.93);
-  }
-}
-
-.more-list {
-  display: grid;
-  gap: 2px;
-}
-.more-list .nav__item {
-  height: 46px;
-  font-size: var(--fs-lg);
-}
-.more-list__heading {
-  margin: 14px 0 6px;
-  padding: 0 10px;
-  font-size: 11.5px;
-  font-weight: 600;
-  letter-spacing: 0.06em;
-  text-transform: uppercase;
-  color: var(--text-3);
 }
 /* ---------- Shared page pieces ---------- */
 .panel {
@@ -4148,28 +3941,6 @@ a.launch-tile__inner:active {
    * This source code is licensed under the ISC license.
    * See the LICENSE file in the root directory of this source tree.
    */
-  const PanelLeftClose = createLucideIcon("PanelLeftClose", [
-    ["rect", { width: "18", height: "18", x: "3", y: "3", rx: "2", key: "afitv7" }],
-    ["path", { d: "M9 3v18", key: "fh3hqa" }],
-    ["path", { d: "m16 15-3-3 3-3", key: "14y99z" }]
-  ]);
-  /**
-   * @license lucide-react v0.454.0 - ISC
-   *
-   * This source code is licensed under the ISC license.
-   * See the LICENSE file in the root directory of this source tree.
-   */
-  const PanelLeftOpen = createLucideIcon("PanelLeftOpen", [
-    ["rect", { width: "18", height: "18", x: "3", y: "3", rx: "2", key: "afitv7" }],
-    ["path", { d: "M9 3v18", key: "fh3hqa" }],
-    ["path", { d: "m14 9 3 3-3 3", key: "8010ee" }]
-  ]);
-  /**
-   * @license lucide-react v0.454.0 - ISC
-   *
-   * This source code is licensed under the ISC license.
-   * See the LICENSE file in the root directory of this source tree.
-   */
   const Pencil = createLucideIcon("Pencil", [
     [
       "path",
@@ -5814,117 +5585,89 @@ a.launch-tile__inner:active {
     if (hostTheme === "dark" || hostTheme === "light") return hostTheme;
     return systemDark ? "dark" : "light";
   }
-  function NavItem({ r, onNavigate, count }) {
-    const ui = useUI();
-    const active = ui.route === r.id;
-    return /* @__PURE__ */ React2.createElement(
-      "a",
-      {
-        href: `#${r.id}`,
-        className: "nav__item",
-        "aria-current": active ? "page" : void 0,
-        title: r.label,
-        onClick: (e) => {
-          e.preventDefault();
-          ui.navigate(r.id);
-          onNavigate == null ? void 0 : onNavigate();
-        }
-      },
-      /* @__PURE__ */ React2.createElement(r.icon, { size: 17, strokeWidth: active ? 2.2 : 1.9, "aria-hidden": true }),
-      /* @__PURE__ */ React2.createElement("span", { className: "nav__label" }, r.label),
-      count ? /* @__PURE__ */ React2.createElement("span", { className: "nav__count" }, count) : null
-    );
-  }
   function useOpenTodayCount() {
     const { data } = useStore();
     const today = todayISO();
     return data.tasks.filter((t) => !t.done && t.dueDate && t.dueDate <= today).length;
   }
-  function Sidebar({ collapsed, onToggleCollapse, theme, onToggleTheme }) {
+  // Top left: the ONE mark and where you are. Top right: the corner cluster.
+  function PageBar({ hidden }) {
     const ui = useUI();
-    const { data } = useStore();
-    const todayCount = useOpenTodayCount();
-    const lock = useLock();
-    const name = data.settings.name.trim();
-    return /* @__PURE__ */ React2.createElement("aside", { className: "sidebar", "aria-label": "Main" }, /* @__PURE__ */ React2.createElement("div", { className: "sidebar__top" }, /* @__PURE__ */ React2.createElement(
-      "a",
-      {
-        href: "#home",
-        className: "brand",
-        "aria-label": "ONE, go to Home",
-        onClick: (e) => {
-          e.preventDefault();
-          ui.navigate("home");
-        }
-      },
-      /* @__PURE__ */ React2.createElement(BrandMark, null),
-      /* @__PURE__ */ React2.createElement("span", { className: "brand__word" }, "ONE")
-    ), /* @__PURE__ */ React2.createElement(IconButton, { label: collapsed ? "Expand sidebar" : "Collapse sidebar", size: "sm", onClick: onToggleCollapse, "aria-expanded": !collapsed }, collapsed ? /* @__PURE__ */ React2.createElement(PanelLeftOpen, { size: 16 }) : /* @__PURE__ */ React2.createElement(PanelLeftClose, { size: 16 }))), /* @__PURE__ */ React2.createElement("nav", { className: "nav", "aria-label": "Pages" }, ROUTES.map((r) => /* @__PURE__ */ React2.createElement(NavItem, { key: r.id, r, count: r.id === "tasks" ? todayCount : void 0 }))), /* @__PURE__ */ React2.createElement("div", { className: "sidebar__bottom" }, /* @__PURE__ */ React2.createElement(NavItem, { r: PREFERENCES_ROUTE }), /* @__PURE__ */ React2.createElement("div", { className: "profile" }, /* @__PURE__ */ React2.createElement("button", { type: "button", className: "profile__btn", onClick: () => ui.navigate("preferences"), title: "Profile and settings" }, /* @__PURE__ */ React2.createElement("span", { className: "avatar", "aria-hidden": true }, (name[0] ?? "Y").toUpperCase()), /* @__PURE__ */ React2.createElement("span", { className: "profile__text" }, /* @__PURE__ */ React2.createElement("span", { className: "profile__name" }, name || "You"), /* @__PURE__ */ React2.createElement("span", { className: "profile__meta" }, React2.createElement(SyncMeta, null)))), /* @__PURE__ */ React2.createElement("span", { className: "theme-toggle-wrap" }, lock.enabled && React2.createElement(IconButton, { label: "Lock ONE now", size: "sm", onClick: lock.lock }, React2.createElement(Lock, { size: 15 })), /* @__PURE__ */ React2.createElement(IconButton, { label: theme === "dark" ? "Switch to light theme" : "Switch to dark theme", size: "sm", onClick: onToggleTheme }, theme === "dark" ? /* @__PURE__ */ React2.createElement(Sun, { size: 16 }) : /* @__PURE__ */ React2.createElement(Moon, { size: 16 }))))));
-  }
-  function Topbar({ theme, onToggleTheme }) {
-    const ui = useUI();
-    const lock = useLock();
-    const [scrolled, setScrolled] = React2.useState(false);
-    React2.useEffect(() => {
-      const on = () => setScrolled(window.scrollY > 4);
-      on();
-      window.addEventListener("scroll", on, { passive: true });
-      return () => window.removeEventListener("scroll", on);
-    }, []);
-    return /* @__PURE__ */ React2.createElement("header", { className: "topbar", "data-scrolled": scrolled }, /* @__PURE__ */ React2.createElement(
-      "a",
-      {
-        href: "#home",
-        className: "brand topbar__mobile-brand",
-        "aria-label": "ONE, go to Home",
-        onClick: (e) => {
-          e.preventDefault();
-          ui.navigate("home");
-        }
-      },
-      /* @__PURE__ */ React2.createElement(BrandMark, { size: 26 }),
-      /* @__PURE__ */ React2.createElement("span", { className: "brand__word" }, "ONE")
-    ), /* @__PURE__ */ React2.createElement("button", { type: "button", className: "search-trigger", onClick: ui.openSearch, "aria-label": `Search (${modKey}+K)` }, /* @__PURE__ */ React2.createElement(Search, { size: 15, "aria-hidden": true }), /* @__PURE__ */ React2.createElement("span", { className: "search-trigger__text" }, "Search everything…"), /* @__PURE__ */ React2.createElement(Kbd, null, modKey), /* @__PURE__ */ React2.createElement(Kbd, null, "K")), /* @__PURE__ */ React2.createElement("span", { className: "topbar__spacer" }), /* @__PURE__ */ React2.createElement(IconButton, { label: "Search", className: "topbar__icon-search", onClick: ui.openSearch }, /* @__PURE__ */ React2.createElement(Search, { size: 19 })), React2.createElement(IconButton, { label: "Quick capture", className: "topbar__mobile-only", onClick: () => ui.openCapture() }, React2.createElement(Plus, { size: 20, strokeWidth: 2.2 })), lock.enabled && React2.createElement(IconButton, { label: "Lock ONE now", className: "topbar__mobile-only", onClick: lock.lock }, React2.createElement(Lock, { size: 18 })), React2.createElement(IconButton, { label: theme === "dark" ? "Switch to light theme" : "Switch to dark theme", className: "topbar__mobile-only", onClick: onToggleTheme }, theme === "dark" ? React2.createElement(Sun, { size: 19 }) : React2.createElement(Moon, { size: 19 })), React2.createElement(IconButton, { label: "Settings", className: "topbar__mobile-only", "aria-current": ui.route === "preferences" ? "page" : void 0, onClick: () => ui.navigate("preferences") }, React2.createElement(Settings, { size: 19 })), /* @__PURE__ */ React2.createElement(Button, { variant: "primary", className: "topbar__capture", icon: /* @__PURE__ */ React2.createElement(Plus, { size: 16, strokeWidth: 2.4 }), onClick: () => ui.openCapture(), title: "Quick capture (C)" }, "Capture"));
-  }
-  const TABS = [
-    { id: "saved", label: "Saved", icon: Bookmark },
-    { id: "tasks", label: "Tasks", icon: SquareCheckBig }
-  ];
-  const TABS_RIGHT = [
-    { id: "ideas", label: "Ideas", icon: Lightbulb },
-    { id: "websites", label: "Websites", icon: Globe }
-  ];
-  function MobileNav() {
-    const ui = useUI();
-    const tab = (t) => /* @__PURE__ */ React2.createElement(
-      "a",
-      {
-        key: t.id,
-        href: `#${t.id}`,
-        className: "tabbar__item",
-        "aria-current": ui.route === t.id ? "page" : void 0,
-        onClick: (e) => {
-          e.preventDefault();
-          ui.navigate(t.id);
-        }
-      },
-      /* @__PURE__ */ React2.createElement(t.icon, { size: 21, strokeWidth: ui.route === t.id ? 2.2 : 1.8, "aria-hidden": true }),
-      t.label
+    const here = ALL_ROUTES.find((r) => r.id === ui.route);
+    return React2.createElement(
+      "div",
+      { className: "pagebar", "data-hidden": hidden ? "true" : void 0 },
+      React2.createElement(
+        "a",
+        {
+          href: "#home",
+          className: "brand pagebar__brand glass",
+          "aria-label": "ONE, go to Home",
+          onClick: (e) => {
+            e.preventDefault();
+            ui.navigate("home");
+          }
+        },
+        React2.createElement(BrandMark, { size: 22 }),
+        React2.createElement("span", { className: "brand__word" }, "ONE"),
+        here && here.id !== "home" && React2.createElement("span", { className: "pagebar__where", "aria-hidden": true }, here.label)
+      ),
+      React2.createElement(CornerCluster, null)
     );
-    return /* @__PURE__ */ React2.createElement("nav", { className: "tabbar", "aria-label": "Pages" }, TABS.map(tab), /* @__PURE__ */ React2.createElement(
-      "a",
-      {
-        href: "#home",
-        className: "tabbar__home",
-        "aria-label": "Home",
-        "aria-current": ui.route === "home" ? "page" : void 0,
-        onClick: (e) => {
-          e.preventDefault();
-          ui.navigate("home");
-        }
-      },
-      /* @__PURE__ */ React2.createElement(House, { size: 23, strokeWidth: 2.2, "aria-hidden": true })
-    ), TABS_RIGHT.map(tab));
+  }
+  function CornerCluster() {
+    const ui = useUI();
+    const lock = useLock();
+    return React2.createElement(
+      "div",
+      { className: "cluster glass", role: "toolbar", "aria-label": "Quick actions" },
+      React2.createElement(IconButton, { label: "Search", title: `Search (${modKey}+K)`, onClick: ui.openSearch }, React2.createElement(Search, { size: 18 })),
+      React2.createElement(IconButton, { label: "Quick capture", title: "Quick capture (C)", onClick: () => ui.openCapture() }, React2.createElement(Plus, { size: 19, strokeWidth: 2.2 })),
+      lock.enabled && React2.createElement(IconButton, { label: "Lock ONE now", onClick: lock.lock }, React2.createElement(Lock, { size: 17 })),
+      React2.createElement(IconButton, { label: "Settings", "aria-current": ui.route === "preferences" ? "page" : void 0, onClick: () => ui.navigate("preferences") }, React2.createElement(Settings, { size: 18 }))
+    );
+  }
+  // The floating glass tab bar, on every screen size. A solid "pebble" slides
+  // under the current tab.
+  function GlassDock({ hidden }) {
+    const ui = useUI();
+    const todayCount = useOpenTodayCount();
+    const navRef = React2.useRef(null);
+    const [pebble, setPebble] = React2.useState(null);
+    React2.useLayoutEffect(() => {
+      const measure = () => {
+        const el = navRef.current && navRef.current.querySelector(".dock__tab[aria-current='page']");
+        setPebble(el ? { x: el.offsetLeft, w: el.offsetWidth } : null);
+      };
+      measure();
+      window.addEventListener("resize", measure);
+      return () => window.removeEventListener("resize", measure);
+    }, [ui.route]);
+    return React2.createElement(
+      "nav",
+      { ref: navRef, className: "dock glass", "aria-label": "Pages", "data-hidden": hidden ? "true" : void 0, inert: hidden ? "" : void 0 },
+      pebble && React2.createElement("span", { className: "dock__pebble", "aria-hidden": true, style: { "--pebble-x": `${pebble.x}px`, "--pebble-w": `${pebble.w}px` } }),
+      ROUTES.map((r) => {
+        const active = ui.route === r.id;
+        const count = r.id === "tasks" ? todayCount : 0;
+        return React2.createElement(
+          "a",
+          {
+            key: r.id,
+            href: `#${r.id}`,
+            className: "dock__tab",
+            "data-route": r.id,
+            "aria-current": active ? "page" : void 0,
+            onClick: (e) => {
+              e.preventDefault();
+              ui.navigate(r.id);
+            }
+          },
+          React2.createElement("span", { className: "dock__icon" }, React2.createElement(r.icon, { size: 20, strokeWidth: active ? 2.3 : 1.9, "aria-hidden": true }), count ? React2.createElement("span", { className: "dock__badge", "aria-label": `${count} due today` }, count) : null),
+          React2.createElement("span", { className: "dock__label" }, r.label)
+        );
+      })
+    );
   }
   const KINDS = [
     { value: "task", label: "Task", icon: SquareCheckBig, placeholder: "Call the dentist on Friday…" },
@@ -7901,18 +7644,6 @@ a.launch-tile__inner:active {
     if (!ctx) throw new Error("useSync must be used inside SyncProvider");
     return ctx;
   }
-  function SyncMeta() {
-    const sync = useSync();
-    const [, tick] = React2.useState(0);
-    React2.useEffect(() => {
-      const id = window.setInterval(() => tick((n2) => n2 + 1), 3e4);
-      return () => window.clearInterval(id);
-    }, []);
-    if (!sync.connected) return "Saved on this device";
-    if (sync.status.state === "syncing") return "Syncing…";
-    if (sync.status.state === "error") return sync.status.kind === "offline" ? "Offline · will sync later" : "Sync problem · see Settings";
-    return sync.status.at ? `Synced ${timeAgo(sync.status.at)}` : "Sync on";
-  }
   const formatCode = (code) => `${code.slice(0, 3)} ${code.slice(3)}`;
   function ConnectDeviceDialog({ open, onClose }) {
     const sync = useSync();
@@ -8424,16 +8155,31 @@ a.launch-tile__inner:active {
   }
   function Shell() {
     const ui = useUI();
-    const { data, setSettings, persistence, saveFailed } = useStore();
+    const { data, persistence, saveFailed } = useStore();
     const theme = useTheme(data.settings.theme);
-    const isTablet = useMediaQuery("(max-width: 1080px) and (min-width: 761px)");
-    const [tabletExpanded, setTabletExpanded] = React2.useState(false);
+    const [breakActive, setBreakActive] = React2.useState(false);
     useGlobalShortcuts();
-    const collapsed = isTablet ? !tabletExpanded : data.settings.sidebarCollapsed;
-    const toggleCollapse = () => isTablet ? setTabletExpanded((v) => !v) : setSettings({ sidebarCollapsed: !data.settings.sidebarCollapsed });
-    const toggleTheme = () => setSettings({ theme: theme === "dark" ? "light" : "dark" });
     const Page = PAGES[ui.route];
-    return /* @__PURE__ */ React2.createElement(React2.Fragment, null, ui.route !== "home" && React2.createElement(Backdrop, { night: theme === "dark" }), React2.createElement("div", { className: "app", "data-collapsed": collapsed }, /* @__PURE__ */ React2.createElement(Sidebar, { collapsed, onToggleCollapse: toggleCollapse, theme, onToggleTheme: toggleTheme }), /* @__PURE__ */ React2.createElement("div", { className: "main" }, /* @__PURE__ */ React2.createElement(Topbar, { theme, onToggleTheme: toggleTheme }), /* @__PURE__ */ React2.createElement("main", { className: "page", key: ui.route, id: "main", "data-section": ui.route }, (persistence === "memory" || saveFailed) && /* @__PURE__ */ React2.createElement("div", { className: "storage-alert", role: "alert" }, /* @__PURE__ */ React2.createElement(TriangleAlert, { size: 16, "aria-hidden": true }), persistence === "memory" ? "This browser is blocking storage, so changes will be lost when you close the page." : "Your latest change couldn’t be saved. Storage may be full. Copy a backup from Settings."), /* @__PURE__ */ React2.createElement(Page, null))), /* @__PURE__ */ React2.createElement(MobileNav, null), /* @__PURE__ */ React2.createElement(QuickCapture, null), /* @__PURE__ */ React2.createElement(SearchPalette, null)));
+    const isHome = ui.route === "home";
+    return React2.createElement(
+      React2.Fragment,
+      null,
+      !isHome && React2.createElement(Backdrop, { night: theme === "dark" }),
+      React2.createElement(
+        "div",
+        { className: "app", "data-route": ui.route },
+        React2.createElement(PageBar, { hidden: breakActive }),
+        React2.createElement(
+          "main",
+          { className: "page", key: ui.route, id: "main", "data-section": ui.route },
+          (persistence === "memory" || saveFailed) && React2.createElement("div", { className: "storage-alert", role: "alert" }, React2.createElement(TriangleAlert, { size: 16, "aria-hidden": true }), persistence === "memory" ? "This browser is blocking storage, so changes will be lost when you close the page." : "Your latest change couldn’t be saved. Storage may be full. Copy a backup from Settings."),
+          React2.createElement(Page, isHome ? { onBreakChange: setBreakActive } : null)
+        )
+      ),
+      React2.createElement(GlassDock, { hidden: breakActive }),
+      React2.createElement(QuickCapture, null),
+      React2.createElement(SearchPalette, null)
+    );
   }
   function App() {
     return /* @__PURE__ */ React2.createElement(StoreProvider, null, /* @__PURE__ */ React2.createElement(ToastProvider, null, /* @__PURE__ */ React2.createElement(ConfirmProvider, null, React2.createElement(SyncProvider, null, React2.createElement(LockProvider, null, /* @__PURE__ */ React2.createElement(UIProvider, null, /* @__PURE__ */ React2.createElement(Shell, null)))))));
