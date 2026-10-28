@@ -71,7 +71,9 @@ function audioRoute(route, url) {
     return route.fulfill({ status: 404, body: "{}", headers: CORS });
   }
   const name = decodeURIComponent(u.pathname);
-  const file = /rain|cricket/i.test(name) ? "loop.wav" : /gymnop|sonata/i.test(name) ? "music.wav" : "tone.wav";
+  // Music and recitations are long enough not to end between test steps.
+  const long = /gymnop|sonata/i.test(name) || u.hostname === "audio.test-quran.example";
+  const file = /rain|cricket/i.test(name) ? "loop.wav" : long ? "music.wav" : "tone.wav";
   return fulfillFile(route, path.join(FIXTURES, "audio", file), "audio/wav");
 }
 
