@@ -2,7 +2,7 @@
 // Pages load from the network first (so updates show up), falling back to the
 // cached copy; libraries, fonts and icons come from the cache first.
 // Sync requests to Supabase are never cached.
-const CACHE = "one-v4";
+const CACHE = "one-v5";
 const SHELL = [
   "./",
   "./index.html",
@@ -13,7 +13,8 @@ const SHELL = [
   "https://cdnjs.cloudflare.com/ajax/libs/react/18.3.1/umd/react.production.min.js",
   "https://cdnjs.cloudflare.com/ajax/libs/react-dom/18.3.1/umd/react-dom.production.min.js"
 ];
-const CACHEABLE_HOSTS = ["cdnjs.cloudflare.com", "fonts.googleapis.com", "fonts.gstatic.com"];
+// cdn.jsdelivr.net serves three.js for the Home meadow; it is cached on first visit.
+const CACHEABLE_HOSTS = ["cdnjs.cloudflare.com", "cdn.jsdelivr.net", "fonts.googleapis.com", "fonts.gstatic.com"];
 
 self.addEventListener("install", (event) => {
   event.waitUntil(caches.open(CACHE).then((cache) => cache.addAll(SHELL)).then(() => self.skipWaiting()));

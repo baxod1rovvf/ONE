@@ -1922,6 +1922,22 @@ main[data-section] {
     translate: 0 -8px;
   }
 }
+@media (prefers-reduced-motion: reduce) {
+  .dock,
+  .dock__pebble,
+  .pagebar,
+  .meadow-hero,
+  .meadow-controls,
+  .meadow-fallback,
+  .hand-cursor svg {
+    transition: none !important;
+  }
+  .break-pill,
+  .meadow-welcome,
+  .backdrop__star {
+    animation: none !important;
+  }
+}
 .hand-cursor {
   position: fixed;
   z-index: 40;
@@ -6151,6 +6167,7 @@ a.launch-tile__inner:active {
       this.fpsWindow = { frames: 0, start: 0 };
       this.fps = 0;
       this.paused = false;
+      this.pressureLeft = 0; // upper bound of the pressure map, tracked on the CPU
       this.pointerActive = false;
       this.lastTouch = null;
       const coarse = window.matchMedia("(pointer: coarse)").matches;
@@ -6465,6 +6482,7 @@ a.launch-tile__inner:active {
       }
       this.touchPass(1, this.lastTouch || uv, uv);
       this.lastTouch = uv;
+      this.pressureLeft = 1;
       this.spawnTrailFirefly(hit.point);
       this.requestRender();
     }
@@ -6862,13 +6880,22 @@ a.launch-tile__inner:active {
     wake() {
       if (this.started && !this.raf && !this.disposed && !document.hidden) this.raf = requestAnimationFrame(this.loop);
     }
+    // With reduced motion nothing animates on its own: draw on demand, and keep
+    // drawing only while a touch glow is fading out.
     requestRender() {
-      if (this.reducedMotion) {
-        if (this.started && !this.raf && !this.disposed) this.raf = requestAnimationFrame(() => {
-          this.raf = 0;
-          this.render(0);
-        });
-      } else this.wake();
+      if (!this.reducedMotion) return this.wake();
+      if (!this.started || this.raf || this.disposed || document.hidden) return;
+      this.lastNow = performance.now();
+      const frame = () => {
+        this.raf = 0;
+        if (this.disposed) return;
+        const now = performance.now();
+        const elapsed = Math.max(0, (now - this.lastNow) / 1000);
+        this.lastNow = now;
+        this.render(Math.min(0.1, elapsed), elapsed);
+        if (this.pressureLeft > 0.01 && !document.hidden) this.raf = requestAnimationFrame(frame);
+      };
+      this.raf = requestAnimationFrame(frame);
     }
     loop(now) {
       this.raf = 0;
@@ -6907,7 +6934,10 @@ a.launch-tile__inner:active {
           if (c.position.x > 170) c.position.x = -170;
         }
       }
-      this.touchPass(Math.pow(0.05, dt / 3), null, null);
+      // Real time (capped), so a trail fades in ~3 s even when frames are slow.
+      const decay = Math.pow(0.05, Math.min(elapsed, 0.5) / 3);
+      this.pressureLeft *= decay;
+      this.touchPass(decay, null, null);
       this.updateFireflies();
     }
     renderOnce() {
