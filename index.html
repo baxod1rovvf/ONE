@@ -3767,6 +3767,191 @@ main[data-section='saved'] .panel::after {
     transform: none;
   }
 }
+
+/* ---------- Sounds panel ---------- */
+.sounds-panel {
+  position: fixed;
+  z-index: 45;
+  top: calc(68px + env(safe-area-inset-top, 0px));
+  right: max(16px, env(safe-area-inset-right, 0px));
+  width: min(400px, calc(100vw - 32px));
+  max-height: calc(100dvh - 68px - 110px);
+  display: flex;
+  flex-direction: column;
+  border-radius: 24px;
+  background: color-mix(in srgb, var(--surface) 86%, transparent);
+  animation: pill-in 220ms var(--ease);
+}
+.sounds-panel__head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 14px 14px 6px 20px;
+}
+.sounds-panel__title {
+  font-family: var(--font-display);
+  font-size: var(--fs-xl);
+  font-weight: 600;
+}
+.sounds-tabs {
+  display: flex;
+  gap: 4px;
+  margin: 0 14px;
+  padding: 3px;
+  border-radius: 999px;
+  background: color-mix(in srgb, var(--surface-2) 80%, transparent);
+}
+.sounds-tabs__tab {
+  flex: 1;
+  height: 34px;
+  border-radius: 999px;
+  font-weight: 600;
+  font-size: var(--fs-sm);
+  color: var(--text-2);
+}
+.sounds-tabs__tab[aria-selected='true'] {
+  background: var(--surface);
+  color: var(--text);
+  box-shadow: var(--shadow-sm);
+}
+.sounds-panel__body {
+  flex: 1;
+  min-height: 0;
+  overflow-y: auto;
+  padding: 12px 14px;
+}
+.sounds-panel__foot {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 10px 14px 14px 20px;
+  border-top: 1px solid var(--border);
+}
+.sounds-master {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: var(--fs-sm);
+  font-weight: 600;
+  color: var(--text-2);
+}
+.sounds-master input,
+.nature-row__volume {
+  flex: 1;
+  min-width: 0;
+  accent-color: var(--c-tasks);
+}
+.sounds-soon {
+  padding: 24px 6px;
+  color: var(--text-2);
+  text-align: center;
+}
+.sound-presets {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-bottom: 10px;
+}
+.nature-follow {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 8px 6px 10px;
+  font-weight: 600;
+  font-size: var(--fs-sm);
+}
+.nature-follow small {
+  display: block;
+  font-weight: 400;
+  color: var(--text-2);
+}
+.nature-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 4px;
+}
+.nature-row {
+  display: grid;
+  grid-template-columns: 28px 76px minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 10px;
+  padding: 8px 6px;
+  border-radius: 14px;
+}
+.nature-row[data-on='true'] {
+  background: color-mix(in srgb, var(--c-tasks) 10%, transparent);
+}
+.nature-row__icon {
+  font-size: 20px;
+  text-align: center;
+}
+.nature-row__label {
+  font-weight: 600;
+  font-size: var(--fs-sm);
+}
+.sound-switch {
+  position: relative;
+  width: 40px;
+  height: 24px;
+  border-radius: 999px;
+  background: var(--border-strong);
+  transition: background var(--t-fast) var(--ease);
+  flex: none;
+}
+.sound-switch__knob {
+  position: absolute;
+  top: 3px;
+  left: 3px;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background: #fff;
+  box-shadow: var(--shadow-sm);
+  transition: transform var(--t-fast) var(--ease);
+}
+.sound-switch[aria-checked='true'] {
+  background: var(--c-tasks);
+}
+.sound-switch[aria-checked='true'] .sound-switch__knob {
+  transform: translateX(16px);
+}
+.sound-bars rect {
+  fill: currentColor;
+  transform-origin: 50% 100%;
+  transform-box: fill-box;
+  transform: scaleY(0.45);
+}
+[data-playing='true'] .sound-bars rect {
+  animation: sound-bar 900ms ease-in-out infinite alternate;
+}
+@keyframes sound-bar {
+  from {
+    transform: scaleY(0.3);
+  }
+  to {
+    transform: scaleY(1);
+  }
+}
+@media (max-width: 760px) {
+  .sounds-panel {
+    top: auto;
+    left: 8px;
+    right: 8px;
+    bottom: calc(88px + env(safe-area-inset-bottom, 0px));
+    width: auto;
+    max-height: calc(100dvh - 160px);
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  [data-playing='true'] .sound-bars rect,
+  .sounds-panel {
+    animation: none !important;
+  }
+}
   </style>
 </head>
 <body>
@@ -4430,17 +4615,6 @@ main[data-section='saved'] .panel::after {
     ["path", { d: "M21 8V5a2 2 0 0 0-2-2h-3", key: "1e4gt3" }],
     ["path", { d: "M3 16v3a2 2 0 0 0 2 2h3", key: "wsl5sc" }],
     ["path", { d: "M16 21h3a2 2 0 0 0 2-2v-3", key: "18trek" }]
-  ]);
-  const SPEAKER = ["path", { d: "M11 4.702a.705.705 0 0 0-1.203-.498L6.413 7.587A1.4 1.4 0 0 1 5.416 8H3a1 1 0 0 0-1 1v6a1 1 0 0 0 1 1h2.416a1.4 1.4 0 0 1 .997.413l3.383 3.384A.705.705 0 0 0 11 19.298z", key: "uqj9uw" }];
-  const Volume2 = createLucideIcon("Volume2", [
-    SPEAKER,
-    ["path", { d: "M16 9a5 5 0 0 1 0 6", key: "1q6k2b" }],
-    ["path", { d: "M19.364 18.364a9 9 0 0 0 0-12.728", key: "ijwkga" }]
-  ]);
-  const VolumeX = createLucideIcon("VolumeX", [
-    SPEAKER,
-    ["line", { x1: "22", x2: "16", y1: "9", y2: "15", key: "1ewh16" }],
-    ["line", { x1: "16", x2: "22", y1: "9", y2: "15", key: "5ykzw1" }]
   ]);
   const Lock = createLucideIcon("Lock", [
     ["rect", { width: "18", height: "11", x: "3", y: "11", rx: "2", ry: "2", key: "1w4ew1" }],
@@ -5865,6 +6039,7 @@ main[data-section='saved'] .panel::after {
       { className: "cluster glass", role: "toolbar", "aria-label": "Quick actions" },
       React2.createElement(IconButton, { label: "Search", title: `Search (${modKey}+K)`, onClick: ui.openSearch }, React2.createElement(Search, { size: 18 })),
       React2.createElement(IconButton, { label: "Quick capture", title: "Quick capture (C)", onClick: () => ui.openCapture() }, React2.createElement(Plus, { size: 19, strokeWidth: 2.2 })),
+      React2.createElement(SoundsButton, null),
       lock.enabled && React2.createElement(IconButton, { label: "Lock ONE now", onClick: lock.lock }, React2.createElement(Lock, { size: 17 })),
       React2.createElement(IconButton, { label: "Settings", "aria-current": ui.route === "preferences" ? "page" : void 0, onClick: () => ui.navigate("preferences") }, React2.createElement(Settings, { size: 18 }))
     );
@@ -7252,7 +7427,630 @@ main[data-section='saved'] .panel::after {
       this.renderer.forceContextLoss();
     }
   }
-  /* ---------- Break mode and ambient sound ---------- */
+  /* ---------- Sound: nature voices ---------- */
+  // Seven nature sounds, each made in the browser from shaped noise and tones
+  // (no files). A sound's "recording" (Task 3) can replace the generated one.
+  const NATURE_SOUNDS = [
+    { id: "wind", label: "Wind", icon: "🌬️" },
+    { id: "birds", label: "Birds", icon: "🐦" },
+    { id: "crickets", label: "Crickets", icon: "🦗" },
+    { id: "river", label: "River", icon: "🏞️" },
+    { id: "waterfall", label: "Waterfall", icon: "💧" },
+    { id: "rain", label: "Rain", icon: "🌧️" },
+    { id: "ocean", label: "Ocean", icon: "🌊" }
+  ];
+  const NATURE_PRESETS = [
+    { name: "Rainy day", sounds: ["rain", "wind"] },
+    { name: "Forest stream", sounds: ["river", "birds"] },
+    { name: "Seaside", sounds: ["ocean", "wind"] },
+    { name: "Night meadow", sounds: ["crickets", "wind"] },
+    { name: "Deep focus", sounds: ["waterfall", "rain"] }
+  ];
+  const FADE = 1;
+  // Noise buffers shared by every voice of one AudioContext.
+  const noiseCache = new WeakMap();
+  function noiseBuffers(ctx) {
+    let b = noiseCache.get(ctx);
+    if (b) return b;
+    const len = ctx.sampleRate * 4;
+    const make = (fill) => {
+      const buf = ctx.createBuffer(1, len, ctx.sampleRate);
+      fill(buf.getChannelData(0));
+      return buf;
+    };
+    b = {
+      white: make((d) => {
+        for (let i = 0; i < d.length; i++) d[i] = Math.random() * 2 - 1;
+      }),
+      brown: make((d) => {
+        let last = 0;
+        for (let i = 0; i < d.length; i++) {
+          last = (last + 0.02 * (Math.random() * 2 - 1)) / 1.02;
+          d[i] = last * 3.5;
+        }
+      }),
+      pink: make((d) => {
+        let b0 = 0, b1 = 0, b2 = 0;
+        for (let i = 0; i < d.length; i++) {
+          const w = Math.random() * 2 - 1;
+          b0 = 0.99765 * b0 + w * 0.099046;
+          b1 = 0.963 * b1 + w * 0.2965164;
+          b2 = 0.57 * b2 + w * 1.0526913;
+          d[i] = (b0 + b1 + b2 + w * 0.1848) * 0.22;
+        }
+      })
+    };
+    noiseCache.set(ctx, b);
+    return b;
+  }
+  class NatureVoice {
+    constructor(ctx, destination, id) {
+      this.ctx = ctx;
+      this.id = id;
+      this.volume = 0.4;
+      this.out = ctx.createGain();
+      this.out.gain.value = 0;
+      this.out.connect(destination);
+      this.graph = null; // { nodes, timers } while the sound exists (playing or fading out)
+      this.isRunning = false;
+      this.teardown = 0;
+      this.recordingSource = null;
+    }
+    get running() {
+      return this.isRunning;
+    }
+    get alive() {
+      return !!this.graph;
+    }
+    get source() {
+      return this.recordingSource ? "recording" : "generated";
+    }
+    ramp(to) {
+      const g = this.out.gain;
+      const now = this.ctx.currentTime;
+      g.cancelScheduledValues(now);
+      g.setValueAtTime(g.value, now);
+      g.linearRampToValueAtTime(to, now + FADE);
+    }
+    start() {
+      window.clearTimeout(this.teardown);
+      if (!this.graph) this.graph = this.build();
+      this.isRunning = true;
+      this.ramp(this.volume);
+    }
+    stop() {
+      if (!this.isRunning) return;
+      this.isRunning = false;
+      this.ramp(0);
+      window.clearTimeout(this.teardown);
+      this.teardown = window.setTimeout(() => this.free(), FADE * 1000 + 100);
+    }
+    setVolume(v) {
+      this.volume = v;
+      if (this.isRunning) this.ramp(v);
+    }
+    free() {
+      const g = this.graph;
+      if (!g) return;
+      this.graph = null;
+      g.timers.forEach((t) => window.clearTimeout(t.id));
+      g.nodes.forEach((n) => {
+        try {
+          if (n.stop) n.stop();
+        } catch {
+        }
+        n.disconnect();
+      });
+    }
+    // Builds this sound's nodes into this.out; returns what free() must undo.
+    build() {
+      const ctx = this.ctx;
+      const nb = noiseBuffers(ctx);
+      const nodes = [];
+      const timers = [];
+      const add = (n) => (nodes.push(n), n);
+      const loop = (buffer) => {
+        const s = add(ctx.createBufferSource());
+        s.buffer = buffer;
+        s.loop = true;
+        s.start(0, Math.random() * buffer.duration);
+        return s;
+      };
+      const filter = (type, freq, q = 0.7) => {
+        const f = add(ctx.createBiquadFilter());
+        f.type = type;
+        f.frequency.value = freq;
+        f.Q.value = q;
+        return f;
+      };
+      const gain = (v) => {
+        const g = add(ctx.createGain());
+        g.gain.value = v;
+        return g;
+      };
+      const every = (min, max, fn) => {
+        const t = { id: 0 };
+        const tick = () => {
+          fn(ctx.currentTime);
+          t.id = window.setTimeout(tick, (min + Math.random() * (max - min)) * 1000);
+        };
+        t.id = window.setTimeout(tick, Math.random() * 600);
+        timers.push(t);
+      };
+      // A short tone with an envelope, freed by the browser when it ends.
+      const blip = (dest, freq, at, dur, peak, endFreq, type = "sine") => {
+        const o = ctx.createOscillator();
+        const g = ctx.createGain();
+        o.type = type;
+        o.frequency.setValueAtTime(freq, at);
+        if (endFreq) o.frequency.exponentialRampToValueAtTime(endFreq, at + dur);
+        g.gain.setValueAtTime(0, at);
+        g.gain.linearRampToValueAtTime(peak, at + Math.min(0.015, dur / 3));
+        g.gain.exponentialRampToValueAtTime(0.0001, at + dur);
+        o.connect(g).connect(dest);
+        o.start(at);
+        o.stop(at + dur + 0.05);
+      };
+      const out = this.out;
+      switch (this.id) {
+        case "wind": {
+          // Soft: deep low-pass, slow swells every 6–12 s.
+          const swell = gain(0.5);
+          loop(nb.brown).connect(filter("lowpass", 350)).connect(swell).connect(gain(1.1)).connect(out);
+          every(6, 12, (t) => {
+            const target = 0.3 + Math.random() * 0.7;
+            swell.gain.cancelScheduledValues(t);
+            swell.gain.setValueAtTime(swell.gain.value, t);
+            swell.gain.linearRampToValueAtTime(target, t + 5);
+          });
+          break;
+        }
+        case "birds": {
+          const pan = add(ctx.createStereoPanner());
+          pan.connect(out);
+          every(2, 7, (t) => {
+            pan.pan.setValueAtTime(Math.random() * 1.6 - 0.8, t);
+            const notes = 2 + Math.floor(Math.random() * 4);
+            const base = 2200 + Math.random() * 1800;
+            for (let i = 0; i < notes; i++) {
+              const f = base * (0.9 + Math.random() * 0.3);
+              blip(pan, f, t + i * (0.09 + Math.random() * 0.08), 0.08 + Math.random() * 0.06, 0.09, f * (1.2 + Math.random() * 0.5));
+            }
+          });
+          break;
+        }
+        case "crickets": {
+          const hp = filter("highpass", 3000);
+          hp.connect(gain(0.5)).connect(out);
+          every(0.6, 1.1, (t) => {
+            const pulses = 3 + Math.floor(Math.random() * 2);
+            const f = 4300 + Math.random() * 500;
+            for (let i = 0; i < pulses; i++) blip(hp, f, t + i * 0.034, 0.024, 0.05);
+          });
+          break;
+        }
+        case "river": {
+          const wobble = gain(0.8);
+          const lfo = add(ctx.createOscillator());
+          lfo.frequency.value = 3.5;
+          const depth = gain(0.22);
+          lfo.connect(depth).connect(wobble.gain);
+          lfo.start();
+          const src = loop(nb.white);
+          src.connect(filter("bandpass", 900, 0.8)).connect(wobble).connect(gain(0.9)).connect(out);
+          src.connect(filter("bandpass", 2200, 1.2)).connect(gain(0.25)).connect(out);
+          break;
+        }
+        case "waterfall": {
+          const src = loop(nb.white);
+          src.connect(filter("lowpass", 1100)).connect(gain(0.7)).connect(out);
+          src.connect(filter("highpass", 4000)).connect(gain(0.05)).connect(out);
+          break;
+        }
+        case "rain": {
+          loop(nb.pink).connect(filter("highpass", 400)).connect(filter("lowpass", 6000)).connect(gain(0.6)).connect(out);
+          const drops = filter("bandpass", 2500, 2);
+          drops.connect(gain(0.6)).connect(out);
+          every(0.05, 0.35, (t) => blip(drops, 1800 + Math.random() * 2400, t, 0.03, 0.06, 0, "triangle"));
+          break;
+        }
+        case "ocean": {
+          const lp = filter("lowpass", 400);
+          const wave = gain(0.25);
+          loop(nb.brown).connect(lp).connect(wave).connect(gain(1.3)).connect(out);
+          every(7, 9, (t) => {
+            // A wave builds for ~3 s, then washes back.
+            wave.gain.cancelScheduledValues(t);
+            wave.gain.setValueAtTime(wave.gain.value, t);
+            wave.gain.linearRampToValueAtTime(1, t + 3);
+            wave.gain.linearRampToValueAtTime(0.2, t + 7.5);
+            lp.frequency.cancelScheduledValues(t);
+            lp.frequency.setValueAtTime(lp.frequency.value, t);
+            lp.frequency.linearRampToValueAtTime(1300, t + 3);
+            lp.frequency.linearRampToValueAtTime(350, t + 7.5);
+          });
+          break;
+        }
+      }
+      return { nodes, timers };
+    }
+  }
+  /* ---------- Sound: engine ---------- */
+  // One engine for the whole app: it outlives page changes, so sound keeps
+  // playing on every page. Settings are kept per device.
+  const SOUND_SETTINGS_KEY = "one.sound.v2";
+  function defaultSoundSettings() {
+    const nature = {};
+    for (const s of NATURE_SOUNDS) nature[s.id] = { on: false, volume: 0.4, real: false };
+    return { nature, master: 0.8, followMeadow: true, tab: "nature", nasheedsOnly: false };
+  }
+  function loadSoundSettings() {
+    const base = defaultSoundSettings();
+    try {
+      const saved = JSON.parse(window.localStorage.getItem(SOUND_SETTINGS_KEY) || "null");
+      if (!saved) return base;
+      const nature = { ...base.nature };
+      for (const id of Object.keys(nature)) nature[id] = { ...nature[id], ...(saved.nature && saved.nature[id]) };
+      return { ...base, ...saved, nature };
+    } catch {
+      return base;
+    }
+  }
+  class AudioEngine {
+    constructor() {
+      this.settings = loadSoundSettings();
+      this.ctx = null;
+      this.voices = {};
+      this.listeners = new Set();
+      this.unlocked = false; // a tap has let sound play
+      this.paused = false; // paused by the lock until the person starts something
+    }
+    onChange(cb) {
+      this.listeners.add(cb);
+      return () => this.listeners.delete(cb);
+    }
+    emit() {
+      for (const cb of this.listeners) cb();
+    }
+    save() {
+      try {
+        window.localStorage.setItem(SOUND_SETTINGS_KEY, JSON.stringify(this.settings));
+      } catch {
+      }
+    }
+    ensureContext() {
+      if (this.ctx) return;
+      const AC = window.AudioContext || window.webkitAudioContext;
+      this.ctx = new AC();
+      this.master = this.ctx.createGain();
+      this.master.gain.value = this.settings.master;
+      this.master.connect(this.ctx.destination);
+      this.natureBus = this.ctx.createGain();
+      this.natureBus.connect(this.master);
+      for (const s of NATURE_SOUNDS) {
+        const v = new NatureVoice(this.ctx, this.natureBus, s.id);
+        v.volume = this.settings.nature[s.id].volume;
+        this.voices[s.id] = v;
+      }
+      this.ctx.addEventListener("statechange", () => this.emit());
+    }
+    // Call from a tap or key press: browsers only allow sound after one.
+    resume() {
+      this.ensureContext();
+      this.unlocked = true;
+      const p = this.ctx.resume();
+      if (!this.paused) this.applyMix();
+      this.emit();
+      return p;
+    }
+    applyMix() {
+      if (!this.ctx || !this.unlocked || this.paused) return;
+      for (const s of NATURE_SOUNDS) {
+        const want = this.settings.nature[s.id].on;
+        const v = this.voices[s.id];
+        if (want && !v.running) v.start();
+        else if (!want && v.running) v.stop();
+      }
+    }
+    setNature(id, on) {
+      this.settings.nature[id].on = on;
+      this.save();
+      this.paused = false;
+      this.resume();
+    }
+    setNatureVolume(id, v) {
+      this.settings.nature[id].volume = v;
+      this.save();
+      if (this.voices[id]) this.voices[id].setVolume(v);
+      this.emit();
+    }
+    // Several sounds at once (presets, Follow the meadow).
+    setMix(changes) {
+      for (const [id, on] of Object.entries(changes)) this.settings.nature[id].on = on;
+      this.save();
+      this.paused = false;
+      this.resume();
+    }
+    setMaster(v) {
+      this.settings.master = v;
+      this.save();
+      if (this.master) {
+        const now = this.ctx.currentTime;
+        this.master.gain.cancelScheduledValues(now);
+        this.master.gain.setValueAtTime(this.master.gain.value, now);
+        this.master.gain.linearRampToValueAtTime(v, now + 0.2);
+      }
+      this.emit();
+    }
+    setSetting(key, value) {
+      this.settings[key] = value;
+      this.save();
+      this.emit();
+    }
+    stopAll() {
+      for (const s of NATURE_SOUNDS) this.settings.nature[s.id].on = false;
+      this.save();
+      this.applyMix();
+      this.emit();
+    }
+    // Locking ONE: everything goes quiet and stays quiet until the person
+    // starts something again.
+    pauseAll() {
+      this.paused = true;
+      for (const v of Object.values(this.voices)) v.stop();
+      this.emit();
+    }
+    get anyNatureOn() {
+      return NATURE_SOUNDS.some((s) => this.settings.nature[s.id].on);
+    }
+    get playing() {
+      return !!this.ctx && this.ctx.state === "running" && Object.values(this.voices).some((v) => v.running);
+    }
+    chime() {
+      if (!this.playing) return;
+      const t = this.ctx.currentTime;
+      for (const [f, at, peak] of [[880, 0, 0.12], [1320, 0.18, 0.08]]) {
+        const o = this.ctx.createOscillator();
+        const g = this.ctx.createGain();
+        o.frequency.value = f;
+        g.gain.setValueAtTime(0, t + at);
+        g.gain.linearRampToValueAtTime(peak, t + at + 0.02);
+        g.gain.exponentialRampToValueAtTime(0.0001, t + at + 1.6);
+        o.connect(g).connect(this.master);
+        o.start(t + at);
+        o.stop(t + at + 1.7);
+      }
+    }
+    stats() {
+      const voices = {};
+      for (const s of NATURE_SOUNDS) {
+        const v = this.voices[s.id];
+        const set = this.settings.nature[s.id];
+        voices[s.id] = { on: set.on, volume: set.volume, running: !!v && v.running, source: v ? v.source : "generated" };
+      }
+      return {
+        context: this.ctx ? this.ctx.state : "none",
+        master: this.settings.master,
+        voices,
+        nodes: Object.values(this.voices).filter((v) => v.alive).length,
+        ducked: false,
+        track: null
+      };
+    }
+  }
+  /* ---------- Sound: UI ---------- */
+  const SoundContext = React2.createContext(null);
+  function useSound() {
+    const ctx = React2.useContext(SoundContext);
+    if (!ctx) throw new Error("useSound must be used inside SoundProvider");
+    return ctx;
+  }
+  // Owns the app-wide AudioEngine. Sits above the lock and the pages, so
+  // moving between pages never interrupts the sound.
+  function SoundProvider({ children }) {
+    const engineRef = React2.useRef(null);
+    if (!engineRef.current) {
+      engineRef.current = new AudioEngine();
+      window.__oneSound = engineRef.current;
+    }
+    const engine = engineRef.current;
+    const [, setVersion] = React2.useState(0);
+    React2.useEffect(() => engine.onChange(() => setVersion((n) => n + 1)), [engine]);
+    const [panel, setPanel] = React2.useState({ open: false, tab: engine.settings.tab || "nature" });
+    // Browsers keep sound off until the page is touched: the first tap or key
+    // lets a saved mix play again.
+    React2.useEffect(() => {
+      const unlock = () => {
+        if (!engine.unlocked && !engine.paused && engine.anyNatureOn) engine.resume();
+      };
+      window.addEventListener("pointerdown", unlock, true);
+      window.addEventListener("keydown", unlock, true);
+      return () => {
+        window.removeEventListener("pointerdown", unlock, true);
+        window.removeEventListener("keydown", unlock, true);
+      };
+    }, [engine]);
+    // Follow the meadow: birds in the morning, crickets at night, while a mix is on.
+    const { data } = useStore();
+    const theme = useTheme(data.settings.theme);
+    const lastTheme = React2.useRef(theme);
+    React2.useEffect(() => {
+      if (lastTheme.current === theme) return;
+      lastTheme.current = theme;
+      if (engine.settings.followMeadow && engine.anyNatureOn) {
+        engine.setMix(theme === "dark" ? { crickets: true, birds: false } : { birds: true, crickets: false });
+      }
+    }, [theme, engine]);
+    const api = React2.useMemo(
+      () => ({
+        engine,
+        panelOpen: panel.open,
+        tab: panel.tab,
+        openPanel: (tab) => setPanel((p) => ({ open: true, tab: tab || p.tab })),
+        closePanel: () => setPanel((p) => ({ ...p, open: false })),
+        setTab: (tab) => {
+          engine.setSetting("tab", tab);
+          setPanel((p) => ({ ...p, tab }));
+        },
+        applyPreset: (name) => {
+          const preset = NATURE_PRESETS.find((p) => p.name === name);
+          if (!preset) return;
+          const mix = {};
+          for (const s of NATURE_SOUNDS) mix[s.id] = preset.sounds.includes(s.id);
+          engine.setMix(mix);
+        }
+      }),
+      [engine, panel]
+    );
+    return React2.createElement(SoundContext.Provider, { value: api }, children, panel.open && React2.createElement(SoundsPanel, null));
+  }
+  // Rendered inside the unlocked app: when ONE locks, the app unmounts and
+  // the sound pauses (it doesn't come back by itself after unlocking).
+  function SoundLockGuard() {
+    const { engine, closePanel } = useSound();
+    React2.useEffect(
+      () => () => {
+        engine.pauseAll();
+        closePanel();
+      },
+      [engine]
+    );
+    return null;
+  }
+  function SoundBars() {
+    return React2.createElement(
+      "svg",
+      { className: "sound-bars", viewBox: "0 0 18 18", width: 18, height: 18, "aria-hidden": true },
+      [3, 8, 13].map((x, i) => React2.createElement("rect", { key: x, x, y: 4, width: 2.6, height: 10, rx: 1.3, style: { animationDelay: `${i * 0.18}s` } }))
+    );
+  }
+  function SoundsButton({ className = "" }) {
+    const s = useSound();
+    return React2.createElement(
+      IconButton,
+      {
+        label: "Sounds",
+        className,
+        "data-playing": s.engine.playing ? "true" : void 0,
+        "aria-haspopup": "dialog",
+        "aria-expanded": s.panelOpen ? "true" : "false",
+        onClick: () => (s.panelOpen ? s.closePanel() : s.openPanel())
+      },
+      React2.createElement(SoundBars, null)
+    );
+  }
+  const SOUND_TABS = [
+    { id: "nature", label: "Nature" },
+    { id: "music", label: "Music" },
+    { id: "quran", label: "Quran" }
+  ];
+  function SoundsPanel() {
+    const s = useSound();
+    const { engine } = s;
+    React2.useEffect(() => {
+      const onKey = (e) => {
+        if (e.key === "Escape" && !document.querySelector(".overlay")) {
+          e.preventDefault();
+          s.closePanel();
+        }
+      };
+      window.addEventListener("keydown", onKey);
+      return () => window.removeEventListener("keydown", onKey);
+    }, [s]);
+    const tabBody = s.tab === "nature" ? React2.createElement(NatureTab, null) : React2.createElement("p", { className: "sounds-soon" }, "Coming soon.");
+    return React2.createElement(
+      "div",
+      { className: "sounds-panel glass", role: "dialog", "aria-label": "Sounds" },
+      React2.createElement(
+        "div",
+        { className: "sounds-panel__head" },
+        React2.createElement("h2", { className: "sounds-panel__title" }, "Sounds"),
+        React2.createElement(IconButton, { label: "Close sounds", size: "sm", onClick: s.closePanel }, React2.createElement(X, { size: 16 }))
+      ),
+      React2.createElement(
+        "div",
+        { className: "sounds-tabs", role: "tablist", "aria-label": "Sound type" },
+        SOUND_TABS.map((t) =>
+          React2.createElement(
+            "button",
+            { key: t.id, type: "button", role: "tab", id: `sounds-tab-${t.id}`, "aria-selected": s.tab === t.id ? "true" : "false", "aria-controls": "sounds-tabpanel", className: "sounds-tabs__tab", onClick: () => s.setTab(t.id) },
+            t.label
+          )
+        )
+      ),
+      React2.createElement("div", { className: "sounds-panel__body", role: "tabpanel", id: "sounds-tabpanel", "aria-labelledby": `sounds-tab-${s.tab}` }, tabBody),
+      React2.createElement(
+        "div",
+        { className: "sounds-panel__foot" },
+        React2.createElement(
+          "label",
+          { className: "sounds-master" },
+          React2.createElement("span", null, "Volume"),
+          React2.createElement("input", {
+            type: "range",
+            min: 0,
+            max: 100,
+            value: Math.round(engine.settings.master * 100),
+            "aria-label": "Master volume",
+            onChange: (e) => engine.setMaster(Number(e.target.value) / 100)
+          })
+        ),
+        React2.createElement(Button, { size: "sm", variant: "secondary", onClick: () => engine.stopAll() }, "Stop all")
+      )
+    );
+  }
+  function SoundSwitch({ checked, label, onChange, ...rest }) {
+    return React2.createElement(
+      "button",
+      { type: "button", role: "switch", "aria-checked": checked ? "true" : "false", "aria-label": label, className: "sound-switch", onClick: () => onChange(!checked), ...rest },
+      React2.createElement("span", { className: "sound-switch__knob", "aria-hidden": true })
+    );
+  }
+  function NatureTab() {
+    const s = useSound();
+    const { engine } = s;
+    const set = engine.settings;
+    return React2.createElement(
+      React2.Fragment,
+      null,
+      React2.createElement(
+        "div",
+        { className: "sound-presets", role: "group", "aria-label": "Presets" },
+        NATURE_PRESETS.map((p) => React2.createElement("button", { key: p.name, type: "button", className: "chip", onClick: () => s.applyPreset(p.name) }, p.name))
+      ),
+      React2.createElement(
+        "div",
+        { className: "nature-follow" },
+        React2.createElement("span", null, "Follow the meadow", React2.createElement("small", null, "Birds in the morning, crickets at night")),
+        React2.createElement(SoundSwitch, { label: "Follow the meadow", checked: set.followMeadow, onChange: (v) => engine.setSetting("followMeadow", v) })
+      ),
+      React2.createElement(
+        "ul",
+        { className: "nature-list" },
+        NATURE_SOUNDS.map((n) => {
+          const cfg = set.nature[n.id];
+          const voice = engine.voices[n.id];
+          return React2.createElement(
+            "li",
+            { key: n.id, className: "nature-row", "data-on": cfg.on ? "true" : void 0, "data-source": voice ? voice.source : "generated" },
+            React2.createElement("span", { className: "nature-row__icon", "aria-hidden": true }, n.icon),
+            React2.createElement("span", { className: "nature-row__label" }, n.label),
+            React2.createElement("input", {
+              type: "range",
+              min: 0,
+              max: 100,
+              className: "nature-row__volume",
+              value: Math.round(cfg.volume * 100),
+              "aria-label": `${n.label} volume`,
+              onChange: (e) => engine.setNatureVolume(n.id, Number(e.target.value) / 100)
+            }),
+            React2.createElement(SoundSwitch, { label: n.label, checked: cfg.on, "data-sound": n.id, onChange: (v) => engine.setNature(n.id, v) })
+          );
+        })
+      )
+    );
+  }
+  /* ---------- Break mode ---------- */
   function formatCountdown(ms) {
     const secs = Math.max(0, Math.ceil(ms / 1000));
     return `${Math.floor(secs / 60)}:${String(secs % 60).padStart(2, "0")}`;
@@ -7300,140 +8098,6 @@ main[data-section='saved'] .panel::after {
       React2.createElement("button", { ref, type: "button", className: "break-pill__end", onClick: onEnd }, "end")
     );
   });
-  // Meadow sounds made in the browser, no files: wind always, birds in the
-  // morning, crickets at night. Created on the first tap of the sound button.
-  class AmbientSound {
-    constructor() {
-      this.ctx = null;
-      this.mode = "morning";
-      this.isPlaying = false;
-      this.timer = 0;
-    }
-    get playing() {
-      return this.isPlaying;
-    }
-    ensure() {
-      if (this.ctx) return;
-      const AC = window.AudioContext || window.webkitAudioContext;
-      const ctx = new AC();
-      this.ctx = ctx;
-      this.master = ctx.createGain();
-      this.master.gain.value = 0;
-      this.master.connect(ctx.destination);
-      // Wind: looped brown noise through a slowly swaying low-pass filter.
-      const len = ctx.sampleRate * 4;
-      const buf = ctx.createBuffer(1, len, ctx.sampleRate);
-      const d = buf.getChannelData(0);
-      let last = 0;
-      for (let i = 0; i < len; i++) {
-        last = (last + 0.02 * (Math.random() * 2 - 1)) / 1.02;
-        d[i] = last * 3.5;
-      }
-      const src = ctx.createBufferSource();
-      src.buffer = buf;
-      src.loop = true;
-      const lp = ctx.createBiquadFilter();
-      lp.type = "lowpass";
-      lp.frequency.value = 600;
-      const lfo = ctx.createOscillator();
-      lfo.frequency.value = 0.08;
-      const lfoDepth = ctx.createGain();
-      lfoDepth.gain.value = 250;
-      lfo.connect(lfoDepth).connect(lp.frequency);
-      const wind = ctx.createGain();
-      wind.gain.value = 0.6;
-      src.connect(lp).connect(wind).connect(this.master);
-      src.start();
-      lfo.start();
-    }
-    fade(to) {
-      const g = this.master.gain;
-      const now = this.ctx.currentTime;
-      g.cancelScheduledValues(now);
-      g.setValueAtTime(g.value, now);
-      g.linearRampToValueAtTime(to, now + 1);
-    }
-    start(mode) {
-      this.ensure();
-      this.mode = mode;
-      this.isPlaying = true;
-      this.ctx.resume();
-      this.fade(0.35);
-      this.schedule();
-    }
-    setMode(mode) {
-      this.mode = mode;
-    }
-    schedule() {
-      window.clearTimeout(this.timer);
-      const next = () => {
-        if (!this.isPlaying) return;
-        if (this.mode === "night") this.crickets();
-        else this.chirp();
-        this.timer = window.setTimeout(next, this.mode === "night" ? 700 + Math.random() * 300 : 2000 + Math.random() * 5000);
-      };
-      this.timer = window.setTimeout(next, 800);
-    }
-    tone(freq, at, dur, peak, endFreq) {
-      const ctx = this.ctx;
-      const osc = ctx.createOscillator();
-      const g = ctx.createGain();
-      osc.type = "sine";
-      osc.frequency.setValueAtTime(freq, at);
-      if (endFreq) osc.frequency.exponentialRampToValueAtTime(endFreq, at + dur);
-      g.gain.setValueAtTime(0, at);
-      g.gain.linearRampToValueAtTime(peak, at + Math.min(0.02, dur / 3));
-      g.gain.exponentialRampToValueAtTime(0.0001, at + dur);
-      osc.connect(g).connect(this.master);
-      osc.start(at);
-      osc.stop(at + dur + 0.05);
-    }
-    chirp() {
-      const t = this.ctx.currentTime;
-      const notes = 2 + Math.floor(Math.random() * 3);
-      const base = 2000 + Math.random() * 1500;
-      for (let i = 0; i < notes; i++) this.tone(base, t + i * 0.14, 0.11, 0.06, base * (1.6 + Math.random() * 0.6));
-    }
-    crickets() {
-      const t = this.ctx.currentTime;
-      const pulses = 3 + Math.floor(Math.random() * 2);
-      for (let i = 0; i < pulses; i++) this.tone(4500, t + i * 0.033, 0.025, 0.025);
-    }
-    chime() {
-      if (!this.ctx || !this.isPlaying) return;
-      const t = this.ctx.currentTime;
-      this.tone(880, t, 1.6, 0.12);
-      this.tone(1320, t + 0.18, 1.6, 0.08);
-    }
-    stop() {
-      this.isPlaying = false;
-      window.clearTimeout(this.timer);
-      if (!this.ctx) return;
-      this.fade(0);
-      window.setTimeout(() => {
-        if (!this.isPlaying && this.ctx && this.ctx.state === "running") this.ctx.suspend();
-      }, 1100);
-    }
-    close() {
-      this.stop();
-      const ctx = this.ctx;
-      if (ctx) window.setTimeout(() => ctx.close(), 1200);
-    }
-  }
-  const SOUND_KEY = "one.sound";
-  function readSoundPref() {
-    try {
-      return window.sessionStorage.getItem(SOUND_KEY) === "on";
-    } catch {
-      return false;
-    }
-  }
-  function writeSoundPref(on) {
-    try {
-      window.sessionStorage.setItem(SOUND_KEY, on ? "on" : "off");
-    } catch {
-    }
-  }
   /* ---------- Home: touch grass ---------- */
   // Home is a meadow you can touch. The live scene (Meadow, three.js) draws into
   // the canvas; MeadowFallback is a painted version shown until the first
@@ -7555,14 +8219,13 @@ main[data-section='saved'] .panel::after {
     const timeRef = React2.useRef(time);
     timeRef.current = time;
     const [sceneReady, setSceneReady] = React2.useState(false);
-    const soundRef = React2.useRef(null);
-    const [soundOn, setSoundOn] = React2.useState(false);
+    const sound = useSound();
     const [welcome, setWelcome] = React2.useState(false);
     const breakButtonRef = React2.useRef(null);
     const endButtonRef = React2.useRef(null);
     const pause = useBreak(60000, (reason) => {
       if (reason === "done") {
-        if (soundRef.current) soundRef.current.chime();
+        sound.engine.chime();
         setWelcome(true);
       }
       window.requestAnimationFrame(() => {
@@ -7684,42 +8347,6 @@ main[data-section='saved'] .panel::after {
       window.addEventListener("keydown", onKey, true);
       return () => window.removeEventListener("keydown", onKey, true);
     }, [pause.isActive, pause.end]);
-    // Sound: off until tapped, remembered for this session only.
-    const startSound = () => {
-      if (!soundRef.current) {
-        soundRef.current = new AmbientSound();
-        window.__oneSound = soundRef.current;
-      }
-      soundRef.current.start(timeRef.current);
-      setSoundOn(true);
-    };
-    const toggleSound = () => {
-      if (soundOn) {
-        if (soundRef.current) soundRef.current.stop();
-        setSoundOn(false);
-        writeSoundPref(false);
-      } else {
-        startSound();
-        writeSoundPref(true);
-      }
-    };
-    React2.useEffect(() => {
-      // Coming back to Home in the same session: resume only if the page has
-      // had a tap since it loaded (browsers block sound until then, e.g. after
-      // a reload), so the button never claims to play while silent.
-      const tapped = navigator.userActivation && navigator.userActivation.hasBeenActive;
-      if (readSoundPref() && tapped) startSound();
-      return () => {
-        const sound = soundRef.current;
-        if (sound) {
-          sound.close();
-          if (window.__oneSound === sound) delete window.__oneSound;
-        }
-      };
-    }, []);
-    React2.useEffect(() => {
-      if (soundRef.current) soundRef.current.setMode(time);
-    }, [time]);
     const onTimeKey = (e) => {
       if (e.key === "ArrowLeft" || e.key === "ArrowRight") {
         e.preventDefault();
@@ -7759,11 +8386,7 @@ main[data-section='saved'] .panel::after {
         "div",
         { className: "meadow-controls glass", role: "group", "aria-label": "Meadow controls", inert: pause.active ? "" : void 0 },
         React2.createElement("div", { className: "meadow-time", role: "radiogroup", "aria-label": "Time of day" }, timeOption("morning", "Morning", Sun), timeOption("night", "Night", Moon)),
-        React2.createElement(
-          "button",
-          { type: "button", className: "meadow-sound", "aria-label": "Ambient sound", title: "Ambient sound", "aria-pressed": soundOn ? "true" : "false", onClick: toggleSound },
-          soundOn ? React2.createElement(Volume2, { size: 16, "aria-hidden": true }) : React2.createElement(VolumeX, { size: 16, "aria-hidden": true })
-        )
+        React2.createElement(SoundsButton, { className: "meadow-sound" })
       ),
       React2.createElement(HandCursor, { targetRef: rootRef })
     );
@@ -9765,12 +10388,13 @@ main[data-section='saved'] .panel::after {
         )
       ),
       React2.createElement(GlassDock, { hidden: breakActive }),
+      React2.createElement(SoundLockGuard, null),
       React2.createElement(QuickCapture, null),
       React2.createElement(SearchPalette, null)
     );
   }
   function App() {
-    return /* @__PURE__ */ React2.createElement(StoreProvider, null, /* @__PURE__ */ React2.createElement(ToastProvider, null, /* @__PURE__ */ React2.createElement(ConfirmProvider, null, React2.createElement(SyncProvider, null, React2.createElement(LockProvider, null, /* @__PURE__ */ React2.createElement(UIProvider, null, /* @__PURE__ */ React2.createElement(Shell, null)))))));
+    return /* @__PURE__ */ React2.createElement(StoreProvider, null, /* @__PURE__ */ React2.createElement(ToastProvider, null, /* @__PURE__ */ React2.createElement(ConfirmProvider, null, React2.createElement(SyncProvider, null, React2.createElement(SoundProvider, null, React2.createElement(LockProvider, null, /* @__PURE__ */ React2.createElement(UIProvider, null, /* @__PURE__ */ React2.createElement(Shell, null))))))));
   }
   client.createRoot(document.getElementById("root")).render(/* @__PURE__ */ React2.createElement(App, null));
   if ("serviceWorker" in navigator && (location.protocol === "https:" || location.hostname === "localhost")) {

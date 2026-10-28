@@ -91,30 +91,3 @@ test("countdown ends on time even if the tab was hidden", async () => {
   assert.equal(await page.getByRole("timer").count(), 0);
   await page.close();
 });
-
-test("sound is off until tapped, and no AudioContext exists before that", async () => {
-  const { page } = await openApp(browser, server.url, { route: "home" });
-  const sound = page.getByRole("button", { name: "Ambient sound" });
-  assert.equal(await sound.getAttribute("aria-pressed"), "false");
-  assert.equal(await page.evaluate(() => window.__oneSound == null), true);
-  await sound.click();
-  assert.equal(await sound.getAttribute("aria-pressed"), "true");
-  assert.equal(await page.evaluate(() => window.__oneSound.playing), true);
-  assert.equal(await page.evaluate(() => sessionStorage.getItem("one.sound")), "on");
-  await sound.click();
-  assert.equal(await sound.getAttribute("aria-pressed"), "false");
-  assert.equal(await page.evaluate(() => window.__oneSound.playing), false);
-  await page.close();
-});
-
-test("leaving Home stops the sound", async () => {
-  const { page } = await openApp(browser, server.url, { route: "home" });
-  await page.getByRole("button", { name: "Ambient sound" }).click();
-  await page.evaluate(() => {
-    window.__soundRef = window.__oneSound;
-    location.hash = "tasks";
-  });
-  await page.waitForSelector(".dock:not([data-hidden])");
-  assert.equal(await page.evaluate(() => window.__soundRef.playing), false);
-  await page.close();
-});
