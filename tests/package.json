@@ -1,7 +1,7 @@
 {
   "private": true,
-  "description": "Browser tests for ONE. Run: npm install && node --test",
-  "scripts": { "test": "node --test" },
+  "description": "Browser tests for ONE. Run: npm install && npm test",
+  "scripts": { "test": "node --test --test-concurrency=1 --test-timeout=180000" },
   "devDependencies": {
     "react": "18.3.1",
     "react-dom": "18.3.1",

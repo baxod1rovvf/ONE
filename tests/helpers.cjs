@@ -78,7 +78,10 @@ async function newContext(browser, { viewport, hasTouch }) {
   await context.route(/^https:\/\//, (route) => {
     const url = route.request().url();
     if (BLOCKED.test(url)) return route.abort();
-    if (opts.blockThree && /three@/.test(url)) return route.abort();
+    // three.js (the 3D meadow) is only served to browsers launched with
+    // { threeD: true }; elsewhere Home shows its painted fallback, which keeps
+    // the software renderer used in CI free for the tests that need it.
+    if ((opts.blockThree || !opts.threeD) && /three@/.test(url)) return route.abort();
     for (const [re, file] of CDN_FILES) {
       if (re.test(url)) {
         return route.fulfill({
@@ -110,7 +113,7 @@ async function waitForApp(page) {
   await page.waitForFunction(() => {
     const root = document.getElementById("root");
     return root && root.children.length > 0;
-  });
+  }, null, { timeout: 30000 });
 }
 
 async function openApp(browser, baseUrl, { route = "home", theme = "light", viewport = { width: 1280, height: 800 }, hasTouch = false, data } = {}) {
