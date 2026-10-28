@@ -140,10 +140,11 @@ test("a renamed track keeps its new name after a reload", async () => {
   const field = panel(page).getByRole("textbox", { name: "Track name" });
   await field.fill("Morning Song");
   await field.press("Enter");
+  await panel(page).getByRole("button", { name: "Play Morning Song" }).waitFor(); // saved
   await page.reload();
   await openMusic(page);
   await album(page, "Test Album").click();
-  assert.ok(await panel(page).getByRole("button", { name: "Play Morning Song" }).isVisible());
+  await panel(page).getByRole("button", { name: "Play Morning Song" }).waitFor();
   await page.close();
 });
 
