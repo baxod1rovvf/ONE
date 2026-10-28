@@ -8769,8 +8769,9 @@ main[data-section='saved'] .panel::after {
       this.listeners.add(cb);
       return () => this.listeners.delete(cb);
     }
-    emit() {
-      for (const cb of this.listeners) cb();
+    // kind "time" is a playback-position tick; anything else is a real change.
+    emit(kind = "state") {
+      for (const cb of this.listeners) cb(kind);
     }
     save() {
       try {
@@ -8902,7 +8903,7 @@ main[data-section='saved'] .panel::after {
       });
       a.addEventListener("timeupdate", () => {
         this.saveTrack(false);
-        this.emit();
+        this.emit("time");
       });
       a.addEventListener("loadedmetadata", () => this.emit());
       a.addEventListener("ended", () => this.onEnded());
@@ -9272,7 +9273,8 @@ main[data-section='saved'] .panel::after {
     }
     const engine = engineRef.current;
     const [, setVersion] = React2.useState(0);
-    React2.useEffect(() => engine.onChange(() => setVersion((n) => n + 1)), [engine]);
+    // Position ticks only reach the parts that show the position (useSoundUpdates).
+    React2.useEffect(() => engine.onChange((kind) => kind !== "time" && setVersion((n) => n + 1)), [engine]);
     const [panel, setPanel] = React2.useState({ open: false, tab: engine.settings.tab || "nature" });
     const confirm = useConfirm();
     // What the app around us is doing (set by SoundLockGuard): unlocked? on a break?
@@ -9371,8 +9373,16 @@ main[data-section='saved'] .panel::after {
       [3, 8, 13].map((x, i) => React2.createElement("rect", { key: x, x, y: 4, width: 2.6, height: 10, rx: 1.3, style: { animationDelay: `${i * 0.18}s` } }))
     );
   }
+  // Re-renders the caller whenever the engine changes. Only components that
+  // show live sound state use it, so the pages don't re-render on every tick.
+  function useSoundUpdates() {
+    const { engine } = useSound();
+    const [, setTick] = React2.useState(0);
+    React2.useEffect(() => engine.onChange(() => setTick((n) => n + 1)), [engine]);
+  }
   function SoundsButton({ className = "" }) {
     const s = useSound();
+    useSoundUpdates();
     return React2.createElement(
       IconButton,
       {
@@ -9394,6 +9404,32 @@ main[data-section='saved'] .panel::after {
   function SoundsPanel() {
     const s = useSound();
     const { engine } = s;
+    const ref = React2.useRef(null);
+    // Focus moves in on open, stays inside, and returns to the opener on close.
+    React2.useEffect(() => {
+      const opener = document.activeElement;
+      const first = ref.current && ref.current.querySelector("[role=tab][aria-selected='true']");
+      if (first) first.focus();
+      return () => {
+        if (opener && opener.isConnected && typeof opener.focus === "function") opener.focus();
+      };
+    }, []);
+    const trap = (e) => {
+      if (e.key !== "Tab" || !ref.current) return;
+      const items = [...ref.current.querySelectorAll("button, input, select, textarea, summary, a[href], [tabindex]:not([tabindex='-1'])")].filter(
+        (el) => !el.disabled && el.tabIndex !== -1 && el.getClientRects().length
+      );
+      if (!items.length) return;
+      const firstEl = items[0];
+      const lastEl = items[items.length - 1];
+      if (e.shiftKey && (document.activeElement === firstEl || !ref.current.contains(document.activeElement))) {
+        e.preventDefault();
+        lastEl.focus();
+      } else if (!e.shiftKey && (document.activeElement === lastEl || !ref.current.contains(document.activeElement))) {
+        e.preventDefault();
+        firstEl.focus();
+      }
+    };
     React2.useEffect(() => {
       const onKey = (e) => {
         if (e.key === "Escape" && !document.querySelector(".overlay")) {
@@ -9407,7 +9443,7 @@ main[data-section='saved'] .panel::after {
     const tabBody = s.tab === "nature" ? React2.createElement(NatureTab, null) : s.tab === "music" ? React2.createElement(MusicTab, null) : React2.createElement(QuranTab, null);
     return React2.createElement(
       "div",
-      { className: "sounds-panel glass", role: "dialog", "aria-label": "Sounds" },
+      { ref, className: "sounds-panel glass", role: "dialog", "aria-label": "Sounds", onKeyDown: trap },
       React2.createElement(
         "div",
         { className: "sounds-panel__head" },
@@ -9456,6 +9492,7 @@ main[data-section='saved'] .panel::after {
   // The strip at the top of the panel while a track or recitation is loaded.
   function NowPlaying() {
     const { engine } = useSound();
+    useSoundUpdates();
     const t = engine.trackStats();
     if (!t) return null;
     const btn = (label, onClick, glyph) => React2.createElement("button", { type: "button", className: "np__btn", "aria-label": label, title: label, onClick }, glyph);
@@ -9938,6 +9975,7 @@ main[data-section='saved'] .panel::after {
   // A slim strip above the dock while something is loaded and the panel is closed.
   function MiniPlayer() {
     const s = useSound();
+    useSoundUpdates();
     const t = s.engine.trackStats();
     if (!t) return null;
     const hidden = s.chrome.breakActive || s.panelOpen;
@@ -12344,7 +12382,8 @@ main[data-section='saved'] .panel::after {
     const { data, persistence, saveFailed } = useStore();
     const theme = useTheme(data.settings.theme);
     const [breakActive, setBreakActive] = React2.useState(false);
-    useGlobalShortcuts(breakActive);
+    const sound = useSound();
+    useGlobalShortcuts(breakActive || sound.panelOpen);
     const Page = PAGES[ui.route];
     const isHome = ui.route === "home";
     return React2.createElement(
