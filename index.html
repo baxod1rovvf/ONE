@@ -1476,6 +1476,7 @@ main[data-section] {
 }
 .app[data-route='home'] .page {
   max-width: none;
+  min-height: 100dvh;
   padding: 0;
 }
 .page-head {
@@ -1716,248 +1717,191 @@ main[data-section] {
   box-shadow: 0 0 0 4px var(--accent-soft);
 }
 
-/* ---------- Home ---------- */
-.home-head {
+/* ---------- Home meadow ---------- */
+.meadow-home {
+  position: fixed;
+  inset: 0;
+  overflow: hidden;
+  cursor: none;
+  touch-action: none;
+  user-select: none;
+  -webkit-user-select: none;
+  background: #9fd1f7;
+  --hero-ink: #14301f;
+  --hero-sub: rgba(20, 48, 31, 0.78);
+}
+.meadow-home[data-time='night'] {
+  background: #0b1434;
+  --hero-ink: #f3f5ff;
+  --hero-sub: rgba(235, 240, 255, 0.82);
+}
+.meadow-canvas,
+.meadow-fallback {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+.meadow-fallback {
+  transition: opacity 800ms var(--ease);
+}
+.meadow-fallback[data-hidden='true'] {
+  opacity: 0;
+  pointer-events: none;
+}
+.meadow-hero {
+  position: absolute;
+  top: clamp(72px, 11vh, 120px);
+  left: 50%;
+  transform: translateX(-50%);
+  width: min(92vw, 640px);
   display: grid;
+  justify-items: center;
   gap: 6px;
-  margin: 10px 0 22px;
+  text-align: center;
+  transition: opacity 600ms var(--ease), transform 600ms var(--ease);
 }
-.sample-banner {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  padding: 10px 10px 10px 14px;
-  margin-bottom: 16px;
-  border-radius: var(--r-md);
-  border: 1px dashed var(--border-strong);
-  color: var(--text-2);
-  font-size: var(--fs-sm);
+.meadow-hero__title {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: clamp(44px, 7.4vw, 84px);
+  line-height: 1;
+  letter-spacing: -0.02em;
+  color: var(--hero-ink);
+  text-shadow: 0 2px 24px rgba(255, 255, 255, 0.35);
 }
-.sample-banner p {
-  flex: 1;
-  min-width: 0;
+.meadow-home[data-time='night'] .meadow-hero__title {
+  text-shadow: 0 2px 30px rgba(120, 140, 255, 0.35);
 }
-.sample-banner strong {
-  color: var(--text);
+.meadow-hero__sub {
+  font-family: var(--font-display);
+  font-weight: 500;
+  font-size: clamp(17px, 1.9vw, 22px);
+  color: var(--hero-sub);
+}
+.meadow-break {
+  margin-top: 14px;
+  height: 44px;
+  padding: 0 22px;
+  border-radius: 999px;
   font-weight: 600;
-}
-.sample-banner__icon {
-  color: var(--accent-text);
-  flex: none;
-}
-.sample-banner__actions {
-  display: flex;
-  align-items: center;
-  gap: 4px;
-  flex: none;
-}
-.capture-bar {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  width: 100%;
-  height: 50px;
-  padding: 0 12px 0 10px;
-  margin-bottom: 20px;
-  border-radius: var(--r-lg);
-  border: 1px solid var(--border);
-  background: var(--surface);
-  color: var(--text-3);
   font-size: var(--fs-lg);
-  text-align: left;
-  box-shadow: var(--shadow-sm);
-  transition: border-color var(--t-fast), box-shadow var(--t-fast), transform var(--t-fast);
+  background: #1f4d2e;
+  color: #f2fff4;
+  box-shadow: 0 6px 18px rgba(20, 60, 30, 0.3);
+  transition: transform var(--t-fast) var(--ease), box-shadow var(--t-fast) var(--ease), background var(--t-fast) var(--ease);
 }
-.capture-bar:hover {
-  border-color: var(--border-strong);
-  box-shadow: var(--shadow-md);
-}
-.capture-bar:active {
-  transform: scale(0.995);
-}
-.capture-bar__plus {
-  width: 30px;
-  height: 30px;
-  border-radius: 9px;
-  display: grid;
-  place-items: center;
-  background: var(--accent-soft);
-  color: var(--accent-text);
-  flex: none;
-}
-.capture-bar__text {
-  flex: 1;
-  min-width: 0;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-}
-.home-grid {
-  display: grid;
-  grid-template-columns: minmax(0, 1.65fr) minmax(0, 1fr);
-  gap: 20px;
-  align-items: start;
-}
-.home-side {
-  display: grid;
-  gap: 20px;
-  min-width: 0;
-}
-.focus {
-  padding-bottom: 12px;
-}
-.focus .add-row {
-  margin: 4px -8px 2px;
-}
-.focus__clear {
-  display: flex;
-  align-items: center;
-  gap: 7px;
-  margin-top: 10px;
-  padding: 9px 12px;
-  border-radius: var(--r-md);
-  background: var(--success-soft);
-  color: var(--success);
-  font-size: var(--fs-sm);
-  font-weight: 500;
-  animation: row-in var(--t-med) var(--ease);
-}
-.ring__done {
-  color: var(--success);
-}
-.stats {
-  list-style: none;
-  margin: 0 -8px;
-  padding: 0;
-  display: grid;
-}
-.stat {
-  width: 100%;
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  height: 40px;
-  padding: 0 8px;
-  border-radius: var(--r-md);
-  text-align: left;
-  transition: background var(--t-fast);
-}
-.stat:hover {
-  background: var(--surface-2);
-}
-.stat__icon {
-  color: var(--text-2);
-  display: grid;
-}
-.stat__label {
-  flex: 1;
-  color: var(--text-2);
-  font-size: var(--fs-md);
-}
-.stat__value {
-  font-size: var(--fs-xl);
-  font-weight: 600;
-}
-.stat__extra {
-  font-size: var(--fs-sm);
-  color: var(--text-2);
-  font-weight: 400;
-}
-.recent {
-  list-style: none;
-  margin: 0 -8px;
-  padding: 0;
-  display: grid;
-}
-.recent__item {
-  width: 100%;
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  padding: 7px 8px;
-  border-radius: var(--r-md);
-  text-align: left;
-  transition: background var(--t-fast);
-}
-.recent__item:hover {
-  background: var(--surface-2);
-}
-.recent__icon {
-  flex: none;
-  width: 28px;
-  height: 28px;
-  display: grid;
-  place-items: center;
-  border-radius: 8px;
-  background: var(--surface-2);
-  color: var(--text-2);
-}
-.recent__text {
-  flex: 1;
-  min-width: 0;
-  display: grid;
-  line-height: 1.3;
-}
-.recent__title {
-  font-size: var(--fs-md);
-  font-weight: 500;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-}
-.recent__meta {
-  font-size: var(--fs-xs);
-  color: var(--text-2);
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-}
-.recent__time {
-  flex: none;
-  font-size: var(--fs-xs);
-  color: var(--text-3);
-}
-.home-shortcuts {
-  margin-top: 28px;
-}
-.chips-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
-  gap: 8px;
-}
-.shortcut-chip {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  min-width: 0;
-  height: 48px;
-  padding: 0 12px 0 10px;
-  border-radius: var(--r-md);
-  border: 1px solid var(--border);
-  background: var(--surface);
-  font-size: var(--fs-md);
-  font-weight: 500;
-  text-align: left;
-  transition: border-color var(--t-fast), box-shadow var(--t-fast), transform var(--t-fast);
-}
-.shortcut-chip:hover {
-  border-color: var(--border-strong);
-  box-shadow: var(--shadow-md);
+.meadow-break:hover {
   transform: translateY(-1px);
+  box-shadow: 0 10px 24px rgba(20, 60, 30, 0.35);
 }
-.shortcut-chip:active {
-  transform: translateY(0) scale(0.98);
+.meadow-break:active {
+  transform: translateY(1px) scale(0.98);
 }
-.shortcut-chip__name {
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
+.meadow-home[data-time='night'] .meadow-break {
+  background: #eef1ff;
+  color: #18224a;
+  box-shadow: 0 6px 22px rgba(160, 175, 255, 0.35);
 }
-.shortcut-chip--add {
-  border-style: dashed;
-  background: transparent;
+.meadow-controls {
+  position: absolute;
+  left: 50%;
+  bottom: calc(96px + env(safe-area-inset-bottom, 0px));
+  transform: translateX(-50%);
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px;
+  border-radius: 999px;
+  transition: opacity 600ms var(--ease), transform 600ms var(--ease);
+}
+.meadow-time {
+  display: flex;
+  gap: 2px;
+}
+.meadow-time__opt {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  height: 36px;
+  padding: 0 14px;
+  border-radius: 999px;
+  font-weight: 600;
+  font-size: var(--fs-sm);
   color: var(--text-2);
+  transition: background var(--t-fast) var(--ease), color var(--t-fast) var(--ease);
 }
+.meadow-time__opt[aria-checked='true'] {
+  background: var(--surface);
+  color: var(--text);
+  box-shadow: var(--shadow-sm);
+}
+.meadow-sound {
+  display: grid;
+  place-items: center;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  color: var(--text-2);
+  border: 1px solid var(--glass-border);
+}
+.meadow-sound[aria-pressed='true'] {
+  background: var(--surface);
+  color: var(--text);
+}
+.meadow-time__opt:focus-visible,
+.meadow-sound:focus-visible,
+.meadow-break:focus-visible {
+  outline: 2px solid var(--hero-ink);
+  outline-offset: 2px;
+  border-radius: 999px;
+}
+.hand-cursor {
+  position: fixed;
+  z-index: 40;
+  top: 0;
+  left: 0;
+  pointer-events: none;
+  will-change: transform;
+}
+.hand-cursor[data-show='false'] {
+  display: none;
+}
+.hand-cursor svg {
+  display: block;
+  overflow: visible;
+  filter: drop-shadow(0 3px 4px rgba(0, 0, 0, 0.28));
+  transition: transform 120ms var(--ease);
+  transform-origin: 50% 90%;
+}
+.hand-cursor[data-down='true'] svg {
+  transform: scale(0.9) rotate(-6deg);
+}
+.hand-cursor__hand {
+  fill: #fff;
+  stroke: #17231c;
+  stroke-width: 1.6;
+  stroke-linejoin: round;
+}
+.hand-cursor__ticks {
+  fill: none;
+  stroke: #fff;
+  stroke-width: 1.6;
+  stroke-linecap: round;
+  opacity: 0;
+  transition: opacity 120ms var(--ease);
+}
+.hand-cursor[data-down='true'] .hand-cursor__ticks {
+  opacity: 1;
+}
+@media (max-width: 760px) {
+  .meadow-hero {
+    top: calc(88px + env(safe-area-inset-top, 0px));
+  }
+}
+
+/* "Add" monogram tile on Websites. */
 .mono--add {
   background: var(--surface-2);
   color: var(--text-2);
@@ -2821,24 +2765,7 @@ a.launch-tile__inner:active {
 }
 
 /* ---------- Responsive ---------- */
-@media (max-width: 960px) {
-  .home-grid {
-    grid-template-columns: minmax(0, 1fr);
-  }
-  .home-side {
-    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-  }
-}
 @media (max-width: 760px) {
-  .home-head {
-    margin-top: 4px;
-  }
-  .capture-bar {
-    display: none; /* the bottom bar’s capture button takes over */
-  }
-  .sample-banner {
-    align-items: flex-start;
-  }
   .notes {
     grid-template-columns: minmax(0, 1fr);
   }
@@ -2860,9 +2787,6 @@ a.launch-tile__inner:active {
   .launch-tile__inner {
     min-height: 128px;
     padding: 14px;
-  }
-  .chips-grid {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
   }
   .row__tags .badge:not(.badge--sample) {
     display: none;
@@ -4208,6 +4132,17 @@ a.launch-tile__inner:active {
     ["path", { d: "M3 16v3a2 2 0 0 0 2 2h3", key: "wsl5sc" }],
     ["path", { d: "M16 21h3a2 2 0 0 0 2-2v-3", key: "18trek" }]
   ]);
+  const SPEAKER = ["path", { d: "M11 4.702a.705.705 0 0 0-1.203-.498L6.413 7.587A1.4 1.4 0 0 1 5.416 8H3a1 1 0 0 0-1 1v6a1 1 0 0 0 1 1h2.416a1.4 1.4 0 0 1 .997.413l3.383 3.384A.705.705 0 0 0 11 19.298z", key: "uqj9uw" }];
+  const Volume2 = createLucideIcon("Volume2", [
+    SPEAKER,
+    ["path", { d: "M16 9a5 5 0 0 1 0 6", key: "1q6k2b" }],
+    ["path", { d: "M19.364 18.364a9 9 0 0 0 0-12.728", key: "ijwkga" }]
+  ]);
+  const VolumeX = createLucideIcon("VolumeX", [
+    SPEAKER,
+    ["line", { x1: "22", x2: "16", y1: "9", y2: "15", key: "1ewh16" }],
+    ["line", { x1: "16", x2: "22", y1: "9", y2: "15", key: "5ykzw1" }]
+  ]);
   const Lock = createLucideIcon("Lock", [
     ["rect", { width: "18", height: "11", x: "3", y: "11", rx: "2", ry: "2", key: "1w4ew1" }],
     ["path", { d: "M7 11V7a5 5 0 0 1 10 0v4", key: "fwvmzm" }]
@@ -4345,23 +4280,6 @@ a.launch-tile__inner:active {
   function isSameDay(isoTimestamp, date = /* @__PURE__ */ new Date()) {
     if (!isoTimestamp) return false;
     return toISODate(new Date(isoTimestamp)) === toISODate(date);
-  }
-  function greeting(date = /* @__PURE__ */ new Date()) {
-    const h = date.getHours();
-    if (h < 5) return "Still up";
-    if (h < 12) return "Good morning";
-    if (h < 18) return "Good afternoon";
-    return "Good evening";
-  }
-  function dayOfYear(date = /* @__PURE__ */ new Date()) {
-    const start = new Date(date.getFullYear(), 0, 1);
-    const day = Math.floor((date.getTime() - start.getTime()) / 864e5) + 1;
-    const y = date.getFullYear();
-    const leap = y % 4 === 0 && y % 100 !== 0 || y % 400 === 0;
-    return { day, total: leap ? 366 : 365 };
-  }
-  function longDate(date = /* @__PURE__ */ new Date()) {
-    return date.toLocaleDateString(void 0, { weekday: "long", month: "long", day: "numeric" });
   }
   function relativeDay(iso) {
     const today = todayISO();
@@ -5019,25 +4937,6 @@ a.launch-tile__inner:active {
     compact
   }) {
     return /* @__PURE__ */ React2.createElement("div", { className: `empty${compact ? " empty--compact" : ""}` }, /* @__PURE__ */ React2.createElement("div", { className: "empty__icon", "aria-hidden": true }, icon), /* @__PURE__ */ React2.createElement("p", { className: "empty__title" }, title), body && /* @__PURE__ */ React2.createElement("p", { className: "empty__body" }, body), action && /* @__PURE__ */ React2.createElement("div", { className: "empty__action" }, action));
-  }
-  function ProgressRing({ value, size = 48, stroke = 5, label }) {
-    const r = (size - stroke) / 2;
-    const c = 2 * Math.PI * r;
-    const v = Math.max(0, Math.min(1, value));
-    return /* @__PURE__ */ React2.createElement("div", { className: `ring${v >= 1 ? " ring--complete" : ""}`, style: { width: size, height: size } }, /* @__PURE__ */ React2.createElement("svg", { width: size, height: size, "aria-hidden": true }, /* @__PURE__ */ React2.createElement("circle", { className: "ring__track", cx: size / 2, cy: size / 2, r, fill: "none", strokeWidth: stroke }), /* @__PURE__ */ React2.createElement(
-      "circle",
-      {
-        className: "ring__value",
-        cx: size / 2,
-        cy: size / 2,
-        r,
-        fill: "none",
-        strokeWidth: stroke,
-        strokeLinecap: "round",
-        strokeDasharray: c,
-        strokeDashoffset: c * (1 - v)
-      }
-    )), label !== void 0 && /* @__PURE__ */ React2.createElement("span", { className: "ring__label" }, label));
   }
   function ProgressBar({ value, label }) {
     const v = Math.max(0, Math.min(100, value));
@@ -6100,91 +5999,169 @@ a.launch-tile__inner:active {
       /* @__PURE__ */ React2.createElement("span", { className: "sr-only", "aria-live": "polite" }, announce)
     );
   }
-  function HomePage() {
-    const { data, hasSamples, setSettings, removeSamples } = useStore();
-    const ui = useUI();
-    const now = /* @__PURE__ */ new Date();
-    const name = data.settings.name.trim();
-    const { day, total } = dayOfYear(now);
-    const today = todayISO();
-    const showBanner = hasSamples && !data.settings.sampleBannerDismissed;
-    return /* @__PURE__ */ React2.createElement("div", { className: "home" }, /* @__PURE__ */ React2.createElement("header", { className: "home-head" }, /* @__PURE__ */ React2.createElement("p", { className: "eyebrow num" }, longDate(now), " · Day ", day, " of ", total), /* @__PURE__ */ React2.createElement("h1", { className: "page-title" }, greeting(now), name ? `, ${name}` : "", "."), /* @__PURE__ */ React2.createElement(HomeSubtitle, null)), showBanner && /* @__PURE__ */ React2.createElement("div", { className: "sample-banner", role: "note" }, /* @__PURE__ */ React2.createElement(Sparkles, { size: 16, "aria-hidden": true, className: "sample-banner__icon" }), /* @__PURE__ */ React2.createElement("p", null, "ONE is filled with ", /* @__PURE__ */ React2.createElement("strong", null, "sample content"), " so you can see how it works. Items marked “Sample” are examples."), /* @__PURE__ */ React2.createElement("div", { className: "sample-banner__actions" }, /* @__PURE__ */ React2.createElement(Button, { size: "sm", variant: "secondary", onClick: () => removeSamples() }, "Clear samples"), /* @__PURE__ */ React2.createElement("button", { type: "button", className: "icon-btn icon-btn--sm", "aria-label": "Keep samples and hide this message", title: "Hide", onClick: () => setSettings({ sampleBannerDismissed: true }) }, /* @__PURE__ */ React2.createElement(X, { size: 15 })))), /* @__PURE__ */ React2.createElement("button", { type: "button", className: "capture-bar", onClick: () => ui.openCapture() }, /* @__PURE__ */ React2.createElement("span", { className: "capture-bar__plus", "aria-hidden": true }, /* @__PURE__ */ React2.createElement(Plus, { size: 16, strokeWidth: 2.4 })), /* @__PURE__ */ React2.createElement("span", { className: "capture-bar__text" }, "Capture a task, note, or link…"), /* @__PURE__ */ React2.createElement("span", { className: "capture-bar__kbd", "aria-hidden": true }, /* @__PURE__ */ React2.createElement(Kbd, null, "C"))), /* @__PURE__ */ React2.createElement("div", { className: "home-grid" }, /* @__PURE__ */ React2.createElement(TodayFocus, { today }), /* @__PURE__ */ React2.createElement("div", { className: "home-side" }, /* @__PURE__ */ React2.createElement(Overview, null), /* @__PURE__ */ React2.createElement(Recent, null))), /* @__PURE__ */ React2.createElement(Shortcuts, null));
-  }
-  function HomeSubtitle() {
-    const { data } = useStore();
-    const today = todayISO();
-    const open = data.tasks.filter((t) => !t.done && t.dueDate && t.dueDate <= today).length;
-    const doneToday = data.tasks.filter((t) => t.done && isSameDay(t.completedAt)).length;
-    let text = "Let's make today count.";
-    if (open === 0 && doneToday > 0) text = "Today’s list is clear. Enjoy the rest of the day.";
-    else if (open === 1) text = "One thing left on today’s list.";
-    else if (open > 1) text = `${open} things on today’s list.`;
-    return /* @__PURE__ */ React2.createElement("p", { className: "page-desc" }, text);
-  }
-  function TodayFocus({ today }) {
-    const { data } = useStore();
-    const ui = useUI();
-    const { settling, mark } = useSettling();
-    const toggle = useToggleTask(mark);
-    const { list, done, totalCount } = React2.useMemo(() => {
-      const relevant = data.tasks.filter((t) => t.dueDate && t.dueDate <= today && (!t.done || isSameDay(t.completedAt)));
-      const isDoneNow = (id, d) => d && !settling.has(id);
-      const open = relevant.filter((t) => !isDoneNow(t.id, t.done)).sort(compareTasks);
-      const finished = relevant.filter((t) => isDoneNow(t.id, t.done)).sort((a, b) => (b.completedAt ?? "").localeCompare(a.completedAt ?? ""));
-      return { list: [...open, ...finished], done: relevant.filter((t) => t.done).length, totalCount: relevant.length };
-    }, [data.tasks, today, settling]);
-    const ratio = totalCount ? done / totalCount : 0;
-    const allDone = totalCount > 0 && done === totalCount;
-    return /* @__PURE__ */ React2.createElement("section", { className: "panel focus", "aria-labelledby": "focus-title" }, /* @__PURE__ */ React2.createElement("div", { className: "panel__head" }, /* @__PURE__ */ React2.createElement("div", null, /* @__PURE__ */ React2.createElement("h2", { id: "focus-title", className: "panel__title" }, "Today’s focus"), /* @__PURE__ */ React2.createElement("p", { className: "panel__sub num", "aria-live": "polite" }, totalCount === 0 ? "Nothing planned yet" : allDone ? "All done for today" : `${done} of ${totalCount} done`)), totalCount > 0 && /* @__PURE__ */ React2.createElement(ProgressRing, { value: ratio, size: 44, stroke: 4.5, label: allDone ? /* @__PURE__ */ React2.createElement(CircleCheck, { size: 18, className: "ring__done" }) : `${Math.round(ratio * 100)}%` })), /* @__PURE__ */ React2.createElement(InlineAddTask, { dueDate: today, placeholder: "Add a task for today" }), totalCount === 0 ? /* @__PURE__ */ React2.createElement(EmptyState, { compact: true, icon: /* @__PURE__ */ React2.createElement(SquareCheckBig, { size: 20 }), title: "Nothing planned for today", body: "Add one or two things that would make today a good day." }) : /* @__PURE__ */ React2.createElement("ul", { className: "task-list", "aria-label": "Today’s tasks" }, list.map((t) => /* @__PURE__ */ React2.createElement(TaskRow, { key: t.id, task: t, onToggle: toggle, hideToday: true, settling: settling.has(t.id) }))), allDone && /* @__PURE__ */ React2.createElement("p", { className: "focus__clear" }, /* @__PURE__ */ React2.createElement(CircleCheck, { size: 15, "aria-hidden": true }), " Everything on today’s list is checked off."), /* @__PURE__ */ React2.createElement("div", { className: "panel__foot" }, /* @__PURE__ */ React2.createElement("button", { type: "button", className: "text-link", onClick: () => ui.navigate("tasks") }, "All tasks ", /* @__PURE__ */ React2.createElement(ArrowRight, { size: 14, "aria-hidden": true }))));
-  }
-  function Overview() {
-    const { data } = useStore();
-    const ui = useUI();
-    const today = todayISO();
-    const doneToday = data.tasks.filter((t) => t.done && isSameDay(t.completedAt)).length;
-    const openToday = data.tasks.filter((t) => !t.done && t.dueDate && t.dueDate <= today).length;
-    const activeGoals = data.goals.filter((g) => g.progress < 100).length;
-    const weekAgo = Date.now() - 7 * 864e5;
-    const savedWeek = data.saved.filter((s) => new Date(s.createdAt).getTime() >= weekAgo).length;
-    const rows = [
-      { label: "Done today", value: `${doneToday}`, extra: openToday ? `· ${openToday} to go` : "", icon: SquareCheckBig, go: () => ui.navigate("tasks") },
-      { label: "Active goals", value: `${activeGoals}`, extra: "", icon: Target, go: () => ui.navigate("goals") },
-      { label: "Saved this week", value: `${savedWeek}`, extra: "", icon: Bookmark, go: () => ui.navigate("saved") }
-    ];
-    return /* @__PURE__ */ React2.createElement("section", { className: "panel", "aria-labelledby": "overview-title" }, /* @__PURE__ */ React2.createElement("h2", { id: "overview-title", className: "panel__title panel__title--small" }, "Overview"), /* @__PURE__ */ React2.createElement("ul", { className: "stats" }, rows.map((r) => /* @__PURE__ */ React2.createElement("li", { key: r.label }, /* @__PURE__ */ React2.createElement("button", { type: "button", className: "stat", onClick: r.go }, /* @__PURE__ */ React2.createElement("span", { className: "stat__icon", "aria-hidden": true }, /* @__PURE__ */ React2.createElement(r.icon, { size: 15 })), /* @__PURE__ */ React2.createElement("span", { className: "stat__label" }, r.label), /* @__PURE__ */ React2.createElement("span", { className: "stat__value num" }, r.value, r.extra && /* @__PURE__ */ React2.createElement("span", { className: "stat__extra" }, " ", r.extra)))))));
-  }
-  function Recent() {
-    const { data, touch } = useStore();
-    const ui = useUI();
-    const items = React2.useMemo(() => {
-      const resolve = (r) => {
-        if (r.kind === "note") {
-          const n2 = data.notes.find((x) => x.id === r.id);
-          return n2 && { r, title: n2.title || "Untitled note", type: "Note", icon: /* @__PURE__ */ React2.createElement(StickyNote, { size: 15 }), onClick: () => ui.openNote(n2.id) };
-        }
-        if (r.kind === "saved") {
-          const s = data.saved.find((x) => x.id === r.id);
-          return s && { r, title: s.title, type: hostOf(s.url), icon: /* @__PURE__ */ React2.createElement(Bookmark, { size: 15 }), href: s.url };
-        }
-        if (r.kind === "shortcut") {
-          const s = data.shortcuts.find((x) => x.id === r.id);
-          return s && { r, title: s.name, type: "Shortcut", icon: /* @__PURE__ */ React2.createElement(Monogram, { name: s.name, size: "sm" }), href: s.url };
-        }
-        const g = data.goals.find((x) => x.id === r.id);
-        return g && { r, title: g.title, type: `Goal · ${g.progress}%`, icon: /* @__PURE__ */ React2.createElement(Target, { size: 15 }), onClick: () => ui.navigate("goals") };
+  /* ---------- Home: touch grass ---------- */
+  // Home is a meadow you can touch. The live scene (Meadow, three.js) draws into
+  // the canvas; MeadowFallback is a painted version shown until the first
+  // frame, or for good when WebGL or three.js is unavailable.
+  const HAND_PATH = "M11.5 30.5c-3.4-1.9-6.6-6.4-8-10.2-.6-1.7.9-3 2.4-2.1l3.1 2.4V7.7a1.9 1.9 0 0 1 3.8 0v7.6V4.6a1.9 1.9 0 0 1 3.8 0v10.7V5.8a1.9 1.9 0 0 1 3.8 0v9.9V8.6a1.9 1.9 0 0 1 3.8 0v11.6c0 5.6-3.4 10.3-8.6 10.3z";
+  // Little "touch" ticks drawn beside the hand while it presses the grass.
+  const HAND_TICKS = "M3 9.5 5.6 11M5.5 4.5l1.6 2.5M11 1.2v2.6";
+  function HandCursor({ targetRef }) {
+    const ref = React2.useRef(null);
+    React2.useEffect(() => {
+      const target = targetRef.current;
+      const hand = ref.current;
+      if (!target || !hand) return;
+      const show = (on) => {
+        hand.dataset.show = on ? "true" : "false";
       };
-      return data.recent.map(resolve).filter(Boolean).slice(0, 5);
-    }, [data, ui]);
-    return /* @__PURE__ */ React2.createElement("section", { className: "panel", "aria-labelledby": "recent-title" }, /* @__PURE__ */ React2.createElement("h2", { id: "recent-title", className: "panel__title panel__title--small" }, "Recently opened"), items.length === 0 ? /* @__PURE__ */ React2.createElement("p", { className: "panel__empty" }, /* @__PURE__ */ React2.createElement(Clock3, { size: 15, "aria-hidden": true }), " Notes, links and goals you open will show up here.") : /* @__PURE__ */ React2.createElement("ul", { className: "recent" }, items.map((it) => {
-      const inner = /* @__PURE__ */ React2.createElement(React2.Fragment, null, /* @__PURE__ */ React2.createElement("span", { className: "recent__icon", "aria-hidden": true }, it.icon), /* @__PURE__ */ React2.createElement("span", { className: "recent__text" }, /* @__PURE__ */ React2.createElement("span", { className: "recent__title" }, it.title), /* @__PURE__ */ React2.createElement("span", { className: "recent__meta" }, it.type)), /* @__PURE__ */ React2.createElement("span", { className: "recent__time" }, timeAgo(it.r.at)));
-      return /* @__PURE__ */ React2.createElement("li", { key: `${it.r.kind}-${it.r.id}` }, "href" in it && it.href ? /* @__PURE__ */ React2.createElement("a", { className: "recent__item", href: it.href, target: "_blank", rel: "noopener noreferrer", onClick: () => touch(it.r.kind, it.r.id) }, inner) : /* @__PURE__ */ React2.createElement("button", { type: "button", className: "recent__item", onClick: "onClick" in it ? it.onClick : void 0 }, inner));
-    })));
+      const onMove = (e) => {
+        if (e.pointerType !== "mouse") return show(false);
+        const overUi = e.target instanceof Element && e.target.closest("button, a, input, [role=radio], [role=timer], [role=status]");
+        hand.style.transform = `translate3d(${e.clientX - 13}px, ${e.clientY - 5}px, 0)`;
+        show(!overUi);
+      };
+      const onDown = (e) => {
+        if (e.pointerType === "mouse") hand.dataset.down = "true";
+      };
+      const onUp = () => {
+        delete hand.dataset.down;
+      };
+      const onLeave = () => {
+        onUp();
+        show(false);
+      };
+      target.addEventListener("pointermove", onMove);
+      target.addEventListener("pointerdown", onDown);
+      target.addEventListener("pointerup", onUp);
+      target.addEventListener("pointercancel", onLeave);
+      target.addEventListener("pointerleave", onLeave);
+      window.addEventListener("blur", onLeave);
+      return () => {
+        target.removeEventListener("pointermove", onMove);
+        target.removeEventListener("pointerdown", onDown);
+        target.removeEventListener("pointerup", onUp);
+        target.removeEventListener("pointercancel", onLeave);
+        target.removeEventListener("pointerleave", onLeave);
+        window.removeEventListener("blur", onLeave);
+      };
+    }, [targetRef]);
+    return React2.createElement(
+      "div",
+      { ref, className: "hand-cursor", "data-show": "false", "aria-hidden": true },
+      React2.createElement(
+        "svg",
+        { viewBox: "0 0 32 32", width: 40, height: 40 },
+        React2.createElement("path", { className: "hand-cursor__ticks", d: HAND_TICKS }),
+        React2.createElement("path", { className: "hand-cursor__hand", d: HAND_PATH })
+      )
+    );
   }
-  function Shortcuts() {
-    const { data, touch } = useStore();
-    const ui = useUI();
-    const list = data.shortcuts.slice(0, 8);
-    return /* @__PURE__ */ React2.createElement("section", { className: "home-shortcuts", "aria-labelledby": "shortcuts-title" }, /* @__PURE__ */ React2.createElement("div", { className: "section-head" }, /* @__PURE__ */ React2.createElement("h2", { id: "shortcuts-title", className: "panel__title" }, "Shortcuts"), /* @__PURE__ */ React2.createElement("button", { type: "button", className: "text-link", onClick: () => ui.navigate("launchpad") }, data.shortcuts.length > 8 ? `All ${data.shortcuts.length}` : "Manage", " ", /* @__PURE__ */ React2.createElement(ArrowRight, { size: 14, "aria-hidden": true }))), /* @__PURE__ */ React2.createElement("div", { className: "chips-grid" }, list.map((s) => /* @__PURE__ */ React2.createElement("a", { key: s.id, className: "shortcut-chip", href: s.url, target: "_blank", rel: "noopener noreferrer", onClick: () => touch("shortcut", s.id), title: hostOf(s.url) }, /* @__PURE__ */ React2.createElement(Monogram, { name: s.name }), /* @__PURE__ */ React2.createElement("span", { className: "shortcut-chip__name" }, s.name))), /* @__PURE__ */ React2.createElement("button", { type: "button", className: "shortcut-chip shortcut-chip--add", onClick: () => ui.editShortcut(null) }, /* @__PURE__ */ React2.createElement("span", { className: "mono mono--add", "aria-hidden": true }, /* @__PURE__ */ React2.createElement(Plus, { size: 15 })), /* @__PURE__ */ React2.createElement("span", { className: "shortcut-chip__name" }, "Add shortcut"))));
+  // Deterministic blades so the painting looks the same every time.
+  const FALLBACK_BLADES = Array.from({ length: 140 }, (_, i) => {
+    const x = (i * 97.3) % 1440;
+    const base = 700 + ((i * 31) % 100);
+    const h = 40 + ((i * 53) % 70);
+    const lean = ((i * 17) % 30) - 15;
+    return `M${x.toFixed(0)} ${base}q${(lean / 2).toFixed(0)} ${-h / 2} ${lean} ${-h}`;
+  }).join("");
+  function MeadowFallback({ time, hidden }) {
+    const night = time === "night";
+    return React2.createElement(
+      "svg",
+      { className: "meadow-fallback", "data-hidden": hidden ? "true" : void 0, viewBox: "0 0 1440 900", preserveAspectRatio: "xMidYMax slice", "aria-hidden": true },
+      React2.createElement(
+        "defs",
+        null,
+        React2.createElement(
+          "linearGradient",
+          { id: "mf-sky", x1: 0, y1: 0, x2: 0, y2: 1 },
+          React2.createElement("stop", { offset: "0", stopColor: night ? "#0a1233" : "#3f97ea" }),
+          React2.createElement("stop", { offset: "0.6", stopColor: night ? "#1b2668" : "#a9d6f8" }),
+          React2.createElement("stop", { offset: "1", stopColor: night ? "#30357e" : "#fff1d6" })
+        ),
+        React2.createElement(
+          "linearGradient",
+          { id: "mf-hill", x1: 0, y1: 0, x2: 0, y2: 1 },
+          React2.createElement("stop", { offset: "0", stopColor: night ? "#1f5a4c" : "#8ad45a" }),
+          React2.createElement("stop", { offset: "1", stopColor: night ? "#0b2a2c" : "#3f9a34" })
+        ),
+        React2.createElement(
+          "radialGradient",
+          { id: "mf-glow" },
+          React2.createElement("stop", { offset: "0", stopColor: night ? "#dfe8ff" : "#fffbe6", stopOpacity: 0.9 }),
+          React2.createElement("stop", { offset: "1", stopColor: night ? "#dfe8ff" : "#fffbe6", stopOpacity: 0 })
+        )
+      ),
+      React2.createElement("rect", { width: 1440, height: 900, fill: "url(#mf-sky)" }),
+      night && STARS.map((st, i) => React2.createElement("circle", { key: i, cx: (parseFloat(st.left) / 100) * 1440, cy: (parseFloat(st.top) / 100) * 520, r: 1.4, fill: "#fff", opacity: 0.8 })),
+      React2.createElement("circle", { cx: night ? 1080 : 260, cy: night ? 320 : 330, r: 120, fill: "url(#mf-glow)" }),
+      React2.createElement("circle", { cx: night ? 1080 : 260, cy: night ? 320 : 330, r: night ? 26 : 34, fill: night ? "#f4f6ff" : "#fffdf0" }),
+      React2.createElement("path", { d: "M0 560c200-40 420-60 640-30s520 20 800-20v200H0z", fill: night ? "#18305a" : "#9cc7a6", opacity: 0.7 }),
+      React2.createElement("path", { d: "M0 640c240-120 560-150 820-120s440 50 620 80v300H0z", fill: "url(#mf-hill)" }),
+      React2.createElement(
+        "g",
+        { transform: "translate(830 470)" },
+        React2.createElement("path", { d: "M-6 60c4-18 3-38 0-58h12c-3 20-4 40 0 58z", fill: night ? "#2b2130" : "#6b4a2f" }),
+        [[-34, 0, 34], [10, -16, 38], [44, 6, 30], [-6, -42, 30], [0, 14, 34]].map(([x, y, r], i) =>
+          React2.createElement("circle", { key: i, cx: x, cy: y, r, fill: night ? "#183c3a" : i % 2 ? "#4ea640" : "#5cb84a" })
+        )
+      ),
+      React2.createElement("path", { d: FALLBACK_BLADES, stroke: night ? "#2c7a63" : "#5fb845", strokeWidth: 3, strokeLinecap: "round", fill: "none" })
+    );
+  }
+  function HomePage({ onBreakChange }) {
+    const { data, setSettings } = useStore();
+    const theme = useTheme(data.settings.theme);
+    const time = theme === "dark" ? "night" : "morning";
+    const rootRef = React2.useRef(null);
+    const [soundOn, setSoundOn] = React2.useState(false);
+    const chooseTime = (t) => setSettings({ theme: t === "night" ? "dark" : "light" });
+    const onTimeKey = (e) => {
+      if (e.key === "ArrowLeft" || e.key === "ArrowRight") {
+        e.preventDefault();
+        chooseTime(time === "night" ? "morning" : "night");
+      }
+    };
+    const timeOption = (value, label, Icon) =>
+      React2.createElement(
+        "button",
+        {
+          type: "button",
+          role: "radio",
+          className: "meadow-time__opt",
+          "aria-checked": time === value ? "true" : "false",
+          tabIndex: time === value ? 0 : -1,
+          onClick: () => chooseTime(value),
+          onKeyDown: onTimeKey
+        },
+        React2.createElement(Icon, { size: 15, "aria-hidden": true }),
+        label
+      );
+    return React2.createElement(
+      "div",
+      { ref: rootRef, className: "meadow-home", "data-time": time },
+      React2.createElement("canvas", { className: "meadow-canvas", "aria-hidden": true }),
+      React2.createElement(MeadowFallback, { time }),
+      React2.createElement(
+        "header",
+        { className: "meadow-hero" },
+        React2.createElement("h1", { className: "meadow-hero__title" }, "touch grass"),
+        React2.createElement("p", { className: "meadow-hero__sub" }, "without leaving your desk"),
+        React2.createElement("button", { type: "button", className: "meadow-break" }, "try a break")
+      ),
+      React2.createElement(
+        "div",
+        { className: "meadow-controls glass", role: "group", "aria-label": "Meadow controls" },
+        React2.createElement("div", { className: "meadow-time", role: "radiogroup", "aria-label": "Time of day" }, timeOption("morning", "Morning", Sun), timeOption("night", "Night", Moon)),
+        React2.createElement(
+          "button",
+          { type: "button", className: "meadow-sound", "aria-label": "Ambient sound", title: "Ambient sound", "aria-pressed": soundOn ? "true" : "false", onClick: () => setSoundOn((v) => !v) },
+          soundOn ? React2.createElement(Volume2, { size: 16, "aria-hidden": true }) : React2.createElement(VolumeX, { size: 16, "aria-hidden": true })
+        )
+      ),
+      React2.createElement(HandCursor, { targetRef: rootRef })
+    );
   }
   function TasksPage() {
     const { data, remove } = useStore();
@@ -7236,7 +7213,7 @@ a.launch-tile__inner:active {
       });
       toast({ message: "Sample content added", tone: "success" });
     };
-    return /* @__PURE__ */ React2.createElement(React2.Fragment, null, /* @__PURE__ */ React2.createElement("div", { className: "page-head" }, /* @__PURE__ */ React2.createElement("div", { className: "page-head__text" }, /* @__PURE__ */ React2.createElement("h1", { className: "page-title" }, "Settings"), /* @__PURE__ */ React2.createElement("p", { className: "page-desc" }, "Your profile, how ONE looks, and your data."))), /* @__PURE__ */ React2.createElement("div", { className: "settings" }, React2.createElement(InstallSettings, null), /* @__PURE__ */ React2.createElement("section", { className: "panel settings__section", "aria-labelledby": "set-profile" }, /* @__PURE__ */ React2.createElement("h2", { id: "set-profile", className: "settings__title" }, "Profile"), /* @__PURE__ */ React2.createElement("div", { className: "settings__row" }, /* @__PURE__ */ React2.createElement("div", { className: "settings__label" }, /* @__PURE__ */ React2.createElement("p", null, "Your name"), /* @__PURE__ */ React2.createElement("span", null, "Used in the greeting on Home.")), /* @__PURE__ */ React2.createElement("div", { className: "settings__control" }, /* @__PURE__ */ React2.createElement(Field, { label: "Your name", hideLabel: true }, (p) => /* @__PURE__ */ React2.createElement("input", { ...p, className: "input", placeholder: "e.g. Alex", value: data.settings.name, maxLength: 40, onChange: (e) => setSettings({ name: e.target.value }) }))))), /* @__PURE__ */ React2.createElement(SyncSettings, null), React2.createElement(LockSettings, null), /* @__PURE__ */ React2.createElement("section", { className: "panel settings__section", "aria-labelledby": "set-look" }, /* @__PURE__ */ React2.createElement("h2", { id: "set-look", className: "settings__title" }, "Appearance"), /* @__PURE__ */ React2.createElement("div", { className: "settings__row" }, /* @__PURE__ */ React2.createElement("div", { className: "settings__label" }, /* @__PURE__ */ React2.createElement("p", null, "Theme"), /* @__PURE__ */ React2.createElement("span", null, "System follows your device setting.")), /* @__PURE__ */ React2.createElement("div", { className: "settings__control" }, /* @__PURE__ */ React2.createElement(
+    return /* @__PURE__ */ React2.createElement(React2.Fragment, null, /* @__PURE__ */ React2.createElement("div", { className: "page-head" }, /* @__PURE__ */ React2.createElement("div", { className: "page-head__text" }, /* @__PURE__ */ React2.createElement("h1", { className: "page-title" }, "Settings"), /* @__PURE__ */ React2.createElement("p", { className: "page-desc" }, "Your profile, how ONE looks, and your data."))), /* @__PURE__ */ React2.createElement("div", { className: "settings" }, React2.createElement(InstallSettings, null), /* @__PURE__ */ React2.createElement("section", { className: "panel settings__section", "aria-labelledby": "set-profile" }, /* @__PURE__ */ React2.createElement("h2", { id: "set-profile", className: "settings__title" }, "Profile"), /* @__PURE__ */ React2.createElement("div", { className: "settings__row" }, /* @__PURE__ */ React2.createElement("div", { className: "settings__label" }, /* @__PURE__ */ React2.createElement("p", null, "Your name"), /* @__PURE__ */ React2.createElement("span", null, "Kept with your data and synced devices.")), /* @__PURE__ */ React2.createElement("div", { className: "settings__control" }, /* @__PURE__ */ React2.createElement(Field, { label: "Your name", hideLabel: true }, (p) => /* @__PURE__ */ React2.createElement("input", { ...p, className: "input", placeholder: "e.g. Alex", value: data.settings.name, maxLength: 40, onChange: (e) => setSettings({ name: e.target.value }) }))))), /* @__PURE__ */ React2.createElement(SyncSettings, null), React2.createElement(LockSettings, null), /* @__PURE__ */ React2.createElement("section", { className: "panel settings__section", "aria-labelledby": "set-look" }, /* @__PURE__ */ React2.createElement("h2", { id: "set-look", className: "settings__title" }, "Appearance"), /* @__PURE__ */ React2.createElement("div", { className: "settings__row" }, /* @__PURE__ */ React2.createElement("div", { className: "settings__label" }, /* @__PURE__ */ React2.createElement("p", null, "Theme"), /* @__PURE__ */ React2.createElement("span", null, "System follows your device setting.")), /* @__PURE__ */ React2.createElement("div", { className: "settings__control" }, /* @__PURE__ */ React2.createElement(
       Segmented,
       {
         label: "Theme",

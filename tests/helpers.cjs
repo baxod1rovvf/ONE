@@ -116,6 +116,7 @@ async function waitForApp(page) {
 async function openApp(browser, baseUrl, { route = "home", theme = "light", viewport = { width: 1280, height: 800 }, hasTouch = false, data } = {}) {
   const context = await newContext(browser, { viewport, hasTouch });
   const page = await context.newPage();
+  page.setDefaultTimeout(6000);
   const errors = watchErrors(page);
   const close = page.close.bind(page);
   page.close = async () => {
