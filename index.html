@@ -4106,6 +4106,130 @@ main[data-section='saved'] .panel::after {
   overflow: hidden;
   text-overflow: ellipsis;
 }
+.music-tools {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 10px;
+}
+.music-tools .input {
+  flex: 1;
+  min-width: 0;
+  height: 36px;
+}
+.music-tools__nasheeds {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: var(--fs-xs);
+  font-weight: 600;
+  color: var(--text-2);
+  white-space: nowrap;
+}
+.import-result {
+  margin: 0 4px 10px;
+  padding: 8px 12px;
+  border-radius: 12px;
+  background: var(--surface-2);
+  font-size: var(--fs-xs);
+}
+.music-section__row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+}
+.music-section__add {
+  display: flex;
+  gap: 4px;
+}
+.music-usage {
+  margin: 8px 6px 0;
+  font-size: var(--fs-xs);
+  color: var(--text-3);
+}
+.music-empty {
+  display: grid;
+  justify-items: start;
+  gap: 8px;
+  padding: 8px 6px;
+  font-size: var(--fs-sm);
+  color: var(--text-2);
+}
+.album-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(104px, 1fr));
+  gap: 10px;
+  margin: 6px 0;
+}
+.album-tile {
+  display: grid;
+  gap: 2px;
+  text-align: left;
+  padding: 6px;
+  border-radius: 14px;
+}
+.album-tile:hover {
+  background: color-mix(in srgb, var(--c-tasks) 8%, transparent);
+}
+.album-tile__cover,
+.album-cover {
+  width: 100%;
+  aspect-ratio: 1;
+  border-radius: 12px;
+  object-fit: cover;
+  background: var(--surface-2);
+}
+.album-tile__cover--blank,
+.album-cover--blank {
+  display: grid;
+  place-items: center;
+  font-size: 28px;
+  color: var(--text-3);
+}
+.album-tile__title {
+  font-weight: 600;
+  font-size: var(--fs-sm);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.album-tile__artist {
+  font-size: var(--fs-xs);
+  color: var(--text-2);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.album-view__head {
+  display: grid;
+  grid-template-columns: 84px minmax(0, 1fr);
+  align-items: center;
+  gap: 12px;
+  margin: 8px 4px;
+}
+.album-view__actions {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin: 0 4px 8px;
+}
+.album-view__kind {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: var(--fs-sm);
+  font-weight: 600;
+}
+.track-row--actions {
+  display: flex;
+  align-items: center;
+  gap: 2px;
+}
+.track-row--actions .track-row__play {
+  flex: 1;
+  min-width: 0;
+}
 .sound-bars rect {
   fill: currentColor;
   transform-origin: 50% 100%;
@@ -7928,6 +8052,277 @@ main[data-section='saved'] .panel::after {
       return { nodes, timers };
     }
   }
+  /* ---------- Sound: library ---------- */
+  // Reads the title, artist, album, track number and cover built into a music
+  // file: ID3v2.3/2.4 (MP3) and the iTunes-style atoms of MP4/M4A.
+  async function readTags(file) {
+    const head = new Uint8Array(await file.slice(0, 512 * 1024).arrayBuffer());
+    if (head[0] === 0x49 && head[1] === 0x44 && head[2] === 0x33) return readId3(head);
+    if (String.fromCharCode(...head.subarray(4, 8)) === "ftyp") return readMp4(new Uint8Array(await file.arrayBuffer()));
+    return {};
+  }
+  function decodeText(bytes, encoding) {
+    try {
+      if (encoding === 1 || encoding === 2) {
+        let b = bytes;
+        let label = "utf-16be";
+        if (b[0] === 0xff && b[1] === 0xfe) {
+          label = "utf-16le";
+          b = b.subarray(2);
+        } else if (b[0] === 0xfe && b[1] === 0xff) b = b.subarray(2);
+        return new TextDecoder(label).decode(b).replace(/\0+$/, "");
+      }
+      return new TextDecoder(encoding === 3 ? "utf-8" : "latin1").decode(bytes).replace(/\0+$/, "");
+    } catch {
+      return "";
+    }
+  }
+  function readId3(b) {
+    const version = b[3];
+    const syncsafe = (i) => (b[i] << 21) | (b[i + 1] << 14) | (b[i + 2] << 7) | b[i + 3];
+    const end = Math.min(b.length, 10 + syncsafe(6));
+    const tags = {};
+    let i = 10;
+    while (i + 10 <= end) {
+      const id = String.fromCharCode(b[i], b[i + 1], b[i + 2], b[i + 3]);
+      if (!/^[A-Z0-9]{4}$/.test(id)) break;
+      const size = version === 4 ? syncsafe(i + 4) : (b[i + 4] << 24) | (b[i + 5] << 16) | (b[i + 6] << 8) | b[i + 7];
+      const body = b.subarray(i + 10, i + 10 + size);
+      i += 10 + size;
+      if (!size) continue;
+      const enc = body[0];
+      const text = () => decodeText(body.subarray(1), enc).trim();
+      if (id === "TIT2") tags.title = text();
+      else if (id === "TPE1") tags.artist = text();
+      else if (id === "TALB") tags.album = text();
+      else if (id === "TRCK") tags.track = parseInt(text(), 10) || void 0;
+      else if (id === "APIC") {
+        let j = 1;
+        while (j < body.length && body[j] !== 0) j++;
+        const mime = decodeText(body.subarray(1, j), 0) || "image/jpeg";
+        j += 2; // the 0 after the mime type, then the picture type
+        const wide = enc === 1 || enc === 2;
+        while (j < body.length && !(body[j] === 0 && (!wide || body[j + 1] === 0))) j += wide ? 2 : 1;
+        j += wide ? 2 : 1;
+        tags.cover = new Blob([body.subarray(j)], { type: mime.includes("/") ? mime : `image/${mime.toLowerCase()}` });
+      }
+    }
+    return tags;
+  }
+  function readMp4(b) {
+    const tags = {};
+    const u32 = (i) => ((b[i] << 24) >>> 0) + (b[i + 1] << 16) + (b[i + 2] << 8) + b[i + 3];
+    const name = (i) => String.fromCharCode(b[i], b[i + 1], b[i + 2], b[i + 3]);
+    const walk = (start, end) => {
+      let i = start;
+      while (i + 8 <= end) {
+        const size = u32(i);
+        const type = name(i + 4);
+        if (size < 8) break;
+        const next = i + size;
+        if (["moov", "udta", "ilst"].includes(type)) walk(i + 8, next);
+        else if (type === "meta") walk(i + 12, next);
+        else if (["©nam", "©ART", "©alb", "trkn", "covr"].includes(type) && name(i + 12) === "data") {
+          const data = b.subarray(i + 24, next);
+          if (type === "©nam") tags.title = decodeText(data, 3);
+          else if (type === "©ART") tags.artist = decodeText(data, 3);
+          else if (type === "©alb") tags.album = decodeText(data, 3);
+          else if (type === "trkn") tags.track = (data[2] << 8) | data[3];
+          else tags.cover = new Blob([data], { type: data[0] === 0x89 ? "image/png" : "image/jpeg" });
+        }
+        i = next;
+      }
+    };
+    walk(0, b.length);
+    return tags;
+  }
+  const AUDIO_EXT = /\.(mp3|m4a|mp4|aac|ogg|oga|opus|wav|flac)$/i;
+  // Plays a file for a moment, off-screen, to learn whether this browser can.
+  function canPlayFile(file) {
+    return new Promise((resolve) => {
+      const url = URL.createObjectURL(file);
+      const a = new Audio();
+      const done = (ok) => {
+        clearTimeout(timer);
+        a.removeAttribute("src");
+        URL.revokeObjectURL(url);
+        resolve(ok);
+      };
+      const timer = setTimeout(() => done(false), 3000);
+      a.oncanplay = () => done(true);
+      a.onerror = () => done(false);
+      a.preload = "auto";
+      a.src = url;
+    });
+  }
+  const isQuota = (e) => !!e && (e.name === "QuotaExceededError" || /quota/i.test(e.message || ""));
+  // Your own music, kept in this browser only (IndexedDB "one.media").
+  const MediaLibrary = {
+    db: null,
+    urls: new Map(),
+    open() {
+      if (this.db) return this.db;
+      this.db = new Promise((resolve, reject) => {
+        const req = indexedDB.open("one.media", 1);
+        req.onupgradeneeded = () => {
+          req.result.createObjectStore("tracks", { keyPath: "id" });
+          req.result.createObjectStore("blobs", { keyPath: "id" });
+        };
+        req.onsuccess = () => resolve(req.result);
+        req.onerror = () => reject(req.error);
+      });
+      return this.db;
+    },
+    async run(stores, mode, fn) {
+      const db = await this.open();
+      return new Promise((resolve, reject) => {
+        let result;
+        let tx;
+        try {
+          tx = db.transaction(stores, mode);
+          result = fn(tx);
+        } catch (e) {
+          if (tx) {
+            try {
+              tx.abort();
+            } catch {
+            }
+          }
+          reject(e);
+          return;
+        }
+        tx.oncomplete = () => resolve(result);
+        tx.onabort = tx.onerror = () => reject(tx.error);
+      });
+    },
+    async list() {
+      const rows = await this.run(["tracks"], "readonly", (tx) => {
+        const out = [];
+        tx.objectStore("tracks").openCursor().onsuccess = (e) => {
+          const c = e.target.result;
+          if (c) {
+            out.push(c.value);
+            c.continue();
+          }
+        };
+        return out;
+      });
+      return rows.sort((a, b) => a.albumKey.localeCompare(b.albumKey) || (a.track || 999) - (b.track || 999) || a.title.localeCompare(b.title));
+    },
+    // Saves files one by one; stops cleanly if storage runs out.
+    async add(files, kind = "music") {
+      const saved = [];
+      const skipped = [];
+      let full = false;
+      const existing = await this.list();
+      const kinds = new Map(existing.map((t) => [t.albumKey, t.kind]));
+      for (const file of files) {
+        if (!(file.type.startsWith("audio/") || AUDIO_EXT.test(file.name))) {
+          skipped.push({ name: file.name, reason: "Not an audio file" });
+          continue;
+        }
+        if (!(await canPlayFile(file))) {
+          skipped.push({ name: file.name, reason: "Can't play this file" });
+          continue;
+        }
+        let tags = {};
+        try {
+          tags = await readTags(file);
+        } catch {
+        }
+        const artist = tags.artist || "Unknown artist";
+        const album = tags.album || "Singles";
+        const albumKey = `${artist}\u0000${album}`;
+        const id = `t${Date.now().toString(36)}${Math.random().toString(36).slice(2, 8)}`;
+        const track = {
+          id,
+          title: tags.title || file.name.replace(/\.[^.]+$/, ""),
+          artist,
+          album,
+          albumKey,
+          track: tags.track,
+          kind: kinds.get(albumKey) || kind,
+          size: file.size,
+          type: file.type,
+          hasCover: !!tags.cover,
+          addedAt: Date.now()
+        };
+        try {
+          await this.run(["tracks", "blobs"], "readwrite", (tx) => {
+            tx.objectStore("blobs").put({ id, blob: file });
+            if (tags.cover) tx.objectStore("blobs").put({ id: `cover:${id}`, blob: tags.cover });
+            tx.objectStore("tracks").put(track);
+          });
+          kinds.set(albumKey, track.kind);
+          saved.push(track);
+        } catch (e) {
+          if (isQuota(e)) {
+            full = true;
+            break;
+          }
+          skipped.push({ name: file.name, reason: "Couldn't save this file" });
+        }
+      }
+      return { saved, skipped, full };
+    },
+    async remove(ids) {
+      for (const id of ids) this.forget(id);
+      await this.run(["tracks", "blobs"], "readwrite", (tx) => {
+        for (const id of ids) {
+          tx.objectStore("tracks").delete(id);
+          tx.objectStore("blobs").delete(id);
+          tx.objectStore("blobs").delete(`cover:${id}`);
+        }
+      });
+    },
+    async update(ids, changes) {
+      const rows = (await this.list()).filter((t) => ids.includes(t.id));
+      await this.run(["tracks"], "readwrite", (tx) => {
+        for (const t of rows) tx.objectStore("tracks").put({ ...t, ...changes });
+      });
+    },
+    rename(id, title) {
+      return this.update([id], { title });
+    },
+    async setKind(albumKey, kind) {
+      const ids = (await this.list()).filter((t) => t.albumKey === albumKey).map((t) => t.id);
+      return this.update(ids, { kind });
+    },
+    async blobUrl(key) {
+      if (this.urls.has(key)) return this.urls.get(key);
+      const row = await this.run(["blobs"], "readonly", (tx) => {
+        const holder = {};
+        tx.objectStore("blobs").get(key).onsuccess = (e) => {
+          holder.value = e.target.result;
+        };
+        return holder;
+      });
+      if (!row.value) throw new Error("This track is no longer on this device.");
+      const url = URL.createObjectURL(row.value.blob);
+      this.urls.set(key, url);
+      return url;
+    },
+    url(id) {
+      return this.blobUrl(id);
+    },
+    cover(id) {
+      return this.blobUrl(`cover:${id}`);
+    },
+    forget(id) {
+      for (const key of [id, `cover:${id}`]) {
+        const url = this.urls.get(key);
+        if (url) URL.revokeObjectURL(url);
+        this.urls.delete(key);
+      }
+    },
+    async usage() {
+      const rows = await this.list();
+      return { tracks: rows.length, bytes: rows.reduce((n, t) => n + (t.size || 0), 0) };
+    }
+  };
+  const fmtBytes = (n) => (n >= 1e9 ? `${(n / 1e9).toFixed(1)} GB` : n >= 1e6 ? `${(n / 1e6).toFixed(1)} MB` : `${Math.max(1, Math.round(n / 1e3))} KB`);
+  // A saved track as the player sees it.
+  const localTrack = (t) => ({ id: `local:${t.id}`, title: t.title, artist: t.artist, album: t.album, kind: t.kind, source: "local", mediaId: t.id });
   /* ---------- Sound: engine ---------- */
   // One engine for the whole app: it outlives page changes, so sound keeps
   // playing on every page. Settings are kept per device.
@@ -7968,7 +8363,7 @@ main[data-section='saved'] .panel::after {
       this.trackError = null;
       this.lastSave = 0;
       this.restoreAt = 0;
-      this.resolvers = {}; // kind of saved source → (item) => Promise<url>
+      this.resolvers = { local: (item) => MediaLibrary.url(item.mediaId) }; // saved source → (item) => Promise<url>
       const saved = this.settings.track;
       if (saved && saved.item) {
         this.queue = [saved.item];
@@ -8601,23 +8996,290 @@ main[data-section='saved'] .panel::after {
       )
     );
   }
+  function AlbumTile({ group, onOpen }) {
+    const [cover, setCover] = React2.useState(null);
+    const withCover = group.tracks.find((t) => t.hasCover);
+    React2.useEffect(() => {
+      let live = true;
+      if (withCover) MediaLibrary.cover(withCover.id).then((u) => live && setCover(u), () => {});
+      return () => {
+        live = false;
+      };
+    }, [withCover && withCover.id]);
+    return React2.createElement(
+      "button",
+      { type: "button", className: "album-tile", "aria-label": `Open album ${group.album}, ${group.artist}`, onClick: onOpen },
+      cover ? React2.createElement("img", { className: "album-tile__cover", src: cover, alt: "" }) : React2.createElement("span", { className: "album-tile__cover album-tile__cover--blank", "aria-hidden": true }, "♪"),
+      React2.createElement("span", { className: "album-tile__title" }, group.album),
+      React2.createElement("span", { className: "album-tile__artist" }, group.artist)
+    );
+  }
+  function groupAlbums(tracks) {
+    const map = new Map();
+    for (const t of tracks) {
+      if (!map.has(t.albumKey)) map.set(t.albumKey, { key: t.albumKey, album: t.album, artist: t.artist, kind: t.kind, tracks: [] });
+      map.get(t.albumKey).tracks.push(t);
+    }
+    return [...map.values()];
+  }
+  function AlbumView({ group, onBack, onChanged }) {
+    const { engine } = useSound();
+    const confirm = useConfirm();
+    const [cover, setCover] = React2.useState(null);
+    const [renaming, setRenaming] = React2.useState(null);
+    const withCover = group.tracks.find((t) => t.hasCover);
+    React2.useEffect(() => {
+      let live = true;
+      if (withCover) MediaLibrary.cover(withCover.id).then((u) => live && setCover(u), () => {});
+      return () => {
+        live = false;
+      };
+    }, [withCover && withCover.id]);
+    const queue = group.tracks.map(localTrack);
+    const cur = engine.current;
+    const dropFromPlayer = (ids) => {
+      if (cur && cur.source === "local" && ids.includes(cur.mediaId)) engine.stopTrack();
+    };
+    const deleteAlbum = async () => {
+      const ok = await confirm({ title: `Delete “${group.album}”?`, body: `Its ${group.tracks.length} track${group.tracks.length === 1 ? "" : "s"} will be removed from this device.`, confirmLabel: "Delete album" });
+      if (!ok) return;
+      const ids = group.tracks.map((t) => t.id);
+      dropFromPlayer(ids);
+      await MediaLibrary.remove(ids);
+      onChanged();
+      onBack();
+    };
+    const deleteTrack = async (t) => {
+      const ok = await confirm({ title: `Delete “${t.title}”?`, body: "It will be removed from this device.", confirmLabel: "Delete track" });
+      if (!ok) return;
+      dropFromPlayer([t.id]);
+      await MediaLibrary.remove([t.id]);
+      onChanged();
+    };
+    const saveName = async (t, title) => {
+      setRenaming(null);
+      const clean = title.trim();
+      if (clean && clean !== t.title) {
+        await MediaLibrary.rename(t.id, clean);
+        onChanged();
+      }
+    };
+    return React2.createElement(
+      "div",
+      { className: "album-view" },
+      React2.createElement(Button, { size: "sm", variant: "ghost", icon: React2.createElement(ArrowLeft, { size: 14 }), onClick: onBack }, "All music"),
+      React2.createElement(
+        "div",
+        { className: "album-view__head" },
+        cover ? React2.createElement("img", { className: "album-cover", src: cover, alt: `Cover of ${group.album}` }) : React2.createElement("span", { className: "album-cover album-cover--blank", "aria-hidden": true }, "♪"),
+        React2.createElement(
+          "div",
+          null,
+          React2.createElement("h3", { className: "music-section__title" }, group.album),
+          React2.createElement("p", { className: "track-row__artist" }, group.artist)
+        )
+      ),
+      React2.createElement(
+        "div",
+        { className: "album-view__actions" },
+        React2.createElement(
+          "label",
+          { className: "album-view__kind" },
+          React2.createElement(SoundSwitch, {
+            label: "Nasheed album",
+            checked: group.kind === "nasheed",
+            onChange: async (v) => {
+              await MediaLibrary.setKind(group.key, v ? "nasheed" : "music");
+              onChanged();
+            }
+          }),
+          React2.createElement("span", { "aria-hidden": true }, "Nasheed")
+        ),
+        React2.createElement(Button, { size: "sm", variant: "secondary", onClick: deleteAlbum }, "Delete album")
+      ),
+      React2.createElement(
+        "ul",
+        { className: "track-list" },
+        group.tracks.map((t, i) =>
+          renaming === t.id
+            ? React2.createElement(
+                "li",
+                { key: t.id, className: "track-row" },
+                React2.createElement("input", {
+                  className: "input",
+                  "aria-label": "Track name",
+                  defaultValue: t.title,
+                  autoFocus: true,
+                  onKeyDown: (e) => {
+                    if (e.key === "Enter") saveName(t, e.currentTarget.value);
+                    if (e.key === "Escape") {
+                      e.stopPropagation();
+                      setRenaming(null);
+                    }
+                  },
+                  onBlur: (e) => saveName(t, e.currentTarget.value)
+                })
+              )
+            : React2.createElement(
+                "li",
+                { key: t.id, className: "track-row track-row--actions", "data-active": cur && cur.mediaId === t.id ? "true" : void 0 },
+                React2.createElement(
+                  "button",
+                  { type: "button", className: "track-row__play", "aria-label": `Play ${t.title}`, onClick: () => engine.playQueue(queue, i) },
+                  React2.createElement("span", { className: "track-row__title" }, t.title),
+                  React2.createElement("span", { className: "track-row__artist" }, t.artist)
+                ),
+                React2.createElement(IconButton, { label: `Rename ${t.title}`, size: "sm", onClick: () => setRenaming(t.id) }, React2.createElement(Pencil, { size: 14 })),
+                React2.createElement(IconButton, { label: `Delete ${t.title}`, size: "sm", onClick: () => deleteTrack(t) }, React2.createElement(Trash2, { size: 14 }))
+              )
+        )
+      )
+    );
+  }
   function MusicTab() {
     const { engine } = useSound();
+    const [lib, setLib] = React2.useState([]);
+    const [albumKey, setAlbumKey] = React2.useState(null);
+    const [query, setQuery] = React2.useState("");
+    const [result, setResult] = React2.useState(null);
+    const [busy, setBusy] = React2.useState(false);
+    const musicInput = React2.useRef(null);
+    const nasheedInput = React2.useRef(null);
+    const folderInput = React2.useRef(null);
+    const refresh = React2.useCallback(() => MediaLibrary.list().then(setLib, () => setLib([])), []);
+    React2.useEffect(() => {
+      refresh();
+    }, [refresh]);
+    const nasheedsOnly = engine.settings.nasheedsOnly;
     const cur = engine.current;
     const calm = MUSIC_LIBRARY.filter((t) => t.kind === "music");
+    const builtInNasheeds = MUSIC_LIBRARY.filter((t) => t.kind === "nasheed");
+    const albums = groupAlbums(lib);
+    const musicAlbums = albums.filter((a) => a.kind !== "nasheed");
+    const nasheedAlbums = albums.filter((a) => a.kind === "nasheed");
+    const importFiles = async (fileList, kind) => {
+      const files = [...(fileList || [])];
+      if (!files.length) return;
+      setBusy(true);
+      const r = await MediaLibrary.add(files, kind);
+      setBusy(false);
+      const parts = [];
+      parts.push(`Added ${r.saved.length} track${r.saved.length === 1 ? "" : "s"}.`);
+      if (r.skipped.length) parts.push(`Skipped: ${r.skipped.map((x) => `${x.name} (${x.reason})`).join(", ")}.`);
+      if (r.full) parts.push(`Storage is full. Saved: ${r.saved.map((t) => t.title).join(", ") || "nothing"}.`);
+      setResult(parts.join(" "));
+      refresh();
+    };
+    const fileInput = (ref, label, kind, extra) =>
+      React2.createElement("input", {
+        ref,
+        type: "file",
+        multiple: true,
+        accept: "audio/*,.mp3,.m4a,.ogg,.wav",
+        className: "sr-only",
+        tabIndex: -1,
+        "aria-label": label,
+        onChange: (e) => {
+          importFiles(e.target.files, kind);
+          e.target.value = "";
+        },
+        ...extra
+      });
+    const supportsFolders = typeof document !== "undefined" && "webkitdirectory" in document.createElement("input");
+    const usageBytes = lib.reduce((n, t) => n + (t.size || 0), 0);
+    const tiles = (list) => React2.createElement("div", { className: "album-grid" }, list.map((g) => React2.createElement(AlbumTile, { key: g.key, group: g, onOpen: () => setAlbumKey(g.key) })));
+    const header = React2.createElement(
+      "div",
+      { className: "music-tools" },
+      React2.createElement("input", { type: "search", className: "input", placeholder: "Search music", "aria-label": "Search music", value: query, onChange: (e) => setQuery(e.target.value) }),
+      React2.createElement(
+        "label",
+        { className: "music-tools__nasheeds" },
+        React2.createElement("span", { "aria-hidden": true }, "Nasheeds only"),
+        React2.createElement(SoundSwitch, { label: "Nasheeds only", checked: nasheedsOnly, onChange: (v) => engine.setSetting("nasheedsOnly", v) })
+      ),
+      fileInput(musicInput, "Add music", "music"),
+      fileInput(nasheedInput, "Add nasheeds", "nasheed"),
+      supportsFolders && fileInput(folderInput, "Add folder", "music", { webkitdirectory: "" })
+    );
+    const status = (busy || result) && React2.createElement("p", { className: "import-result", role: "status" }, busy ? "Adding…" : result);
+    // Searching: one flat list of matching tracks.
+    const q = query.trim().toLowerCase();
+    if (q) {
+      const all = [
+        ...(nasheedsOnly ? builtInNasheeds : [...calm, ...builtInNasheeds]),
+        ...lib.filter((t) => !nasheedsOnly || t.kind === "nasheed").map(localTrack)
+      ].filter((t) => [t.title, t.artist, t.album].some((v) => (v || "").toLowerCase().includes(q)));
+      return React2.createElement(
+        React2.Fragment,
+        null,
+        header,
+        status,
+        React2.createElement(
+          "section",
+          { className: "music-section search-results", "aria-label": "Search results" },
+          all.length
+            ? React2.createElement("ul", { className: "track-list" }, all.map((t, i) => React2.createElement(TrackRow, { key: t.id, track: t, active: cur && cur.id === t.id, onPlay: () => engine.playQueue(all, i) })))
+            : React2.createElement("p", { className: "music-section__note" }, "Nothing matches that.")
+        )
+      );
+    }
+    const open = albums.find((a) => a.key === albumKey);
+    if (open) return React2.createElement(React2.Fragment, null, header, status, React2.createElement(AlbumView, { group: open, onBack: () => setAlbumKey(null), onChanged: refresh }));
     return React2.createElement(
       React2.Fragment,
       null,
+      header,
+      status,
+      !nasheedsOnly &&
+        React2.createElement(
+          "section",
+          { className: "music-section", "aria-label": "Calm music" },
+          React2.createElement("h3", { className: "music-section__title" }, "Calm music"),
+          React2.createElement(
+            "ul",
+            { className: "track-list" },
+            calm.map((t, i) => React2.createElement(TrackRow, { key: t.id, track: t, active: cur && cur.id === t.id, onPlay: () => engine.playQueue(calm, i) }))
+          ),
+          React2.createElement("p", { className: "music-section__note" }, "Public-domain recordings from Musopen, via Wikimedia Commons.")
+        ),
+      !nasheedsOnly &&
+        React2.createElement(
+          "section",
+          { className: "music-section", "aria-label": "My albums" },
+          React2.createElement(
+            "div",
+            { className: "music-section__row" },
+            React2.createElement("h3", { className: "music-section__title" }, "My albums"),
+            React2.createElement(
+              "div",
+              { className: "music-section__add" },
+              React2.createElement(Button, { size: "sm", variant: "secondary", icon: React2.createElement(Plus, { size: 14 }), onClick: () => musicInput.current && musicInput.current.click() }, "Add music"),
+              supportsFolders && React2.createElement(Button, { size: "sm", variant: "ghost", onClick: () => folderInput.current && folderInput.current.click() }, "Add folder")
+            )
+          ),
+          musicAlbums.length ? tiles(musicAlbums) : React2.createElement("p", { className: "music-section__note" }, "Add music you own. It stays private on this device."),
+          React2.createElement("p", { className: "music-usage" }, lib.length ? `${lib.length} track${lib.length === 1 ? "" : "s"} · ${fmtBytes(usageBytes)} on this device` : "No music added yet")
+        ),
       React2.createElement(
         "section",
-        { className: "music-section", "aria-labelledby": "music-calm" },
-        React2.createElement("h3", { id: "music-calm", className: "music-section__title" }, "Calm music"),
-        React2.createElement(
-          "ul",
-          { className: "track-list" },
-          calm.map((t, i) => React2.createElement(TrackRow, { key: t.id, track: t, active: cur && cur.id === t.id, onPlay: () => engine.playQueue(calm, i) }))
-        ),
-        React2.createElement("p", { className: "music-section__note" }, "Public-domain recordings from Musopen, via Wikimedia Commons.")
+        { className: "music-section", "aria-label": "Nasheeds" },
+        React2.createElement("h3", { className: "music-section__title" }, "Nasheeds"),
+        builtInNasheeds.length > 0 &&
+          React2.createElement(
+            "ul",
+            { className: "track-list" },
+            builtInNasheeds.map((t, i) => React2.createElement(TrackRow, { key: t.id, track: t, active: cur && cur.id === t.id, onPlay: () => engine.playQueue(builtInNasheeds, i) }))
+          ),
+        nasheedAlbums.length > 0 && tiles(nasheedAlbums),
+        !builtInNasheeds.length &&
+          !nasheedAlbums.length &&
+          React2.createElement(
+            "div",
+            { className: "music-empty" },
+            React2.createElement("p", null, "No nasheeds yet. Add nasheed files you have, or mark one of your albums as Nasheed."),
+            React2.createElement(Button, { size: "sm", variant: "primary", icon: React2.createElement(Plus, { size: 14 }), onClick: () => nasheedInput.current && nasheedInput.current.click() }, "Add your own nasheeds")
+          )
       )
     );
   }
