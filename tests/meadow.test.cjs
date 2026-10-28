@@ -17,7 +17,7 @@ const stats = (page) => page.evaluate(() => window.__oneMeadow && window.__oneMe
 // showing the 3D meadow get a longer default timeout.
 const ready = (page) => {
   page.setDefaultTimeout(25000);
-  return page.waitForFunction(() => window.__oneMeadow && window.__oneMeadow.stats().frames > 0);
+  return page.waitForFunction(() => window.__oneMeadow && window.__oneMeadow.stats().frames > 0, null, { timeout: 90000 });
 };
 // Software rendering in CI is slow; drop to the 9k floor (as a slow device would)
 // before tests that depend on frame timing.
@@ -44,14 +44,31 @@ test("Night blends over ~2.5s and reverses from where it is", async () => {
   await ready(page);
   await lite(page);
   assert.equal((await stats(page)).time, 0);
+  // Real clicks start the blend; time is then stepped by hand so the check
+  // doesn't depend on how fast the CI renderer draws.
+  await page.evaluate(() => {
+    window.__oneMeadow.paused = true;
+  });
   await page.getByRole("radio", { name: "Night" }).click();
-  await page.waitForFunction(() => window.__oneMeadow.stats().time > 0.3, null, { timeout: 20000 });
-  const mid = (await stats(page)).time;
-  assert.ok(mid > 0.3 && mid < 0.95, `mid-blend ${mid}`);
+  const mid = await page.evaluate(() => {
+    const m = window.__oneMeadow;
+    for (let i = 0; i < 12; i++) m.step(0.1, 0.1); // 1.2 s
+    return m.stats().time;
+  });
+  assert.ok(mid > 0.3 && mid < 0.7, `about half way after 1.2 s: ${mid}`);
   await page.getByRole("radio", { name: "Morning" }).click();
-  const after = (await stats(page)).time;
-  assert.ok(Math.abs(after - mid) < 0.2, `no jump: ${mid} -> ${after}`);
-  await page.waitForFunction(() => window.__oneMeadow.stats().time === 0, null, { timeout: 20000 });
+  const after = await page.evaluate(() => {
+    const m = window.__oneMeadow;
+    m.step(0.05, 0.05);
+    return m.stats().time;
+  });
+  assert.ok(after < mid && mid - after < 0.06, `reverses without a jump: ${mid} -> ${after}`);
+  const done = await page.evaluate(() => {
+    const m = window.__oneMeadow;
+    for (let i = 0; i < 13; i++) m.step(0.1, 0.1); // 1.3 s more
+    return m.stats().time;
+  });
+  assert.equal(done, 0);
   await page.close();
 });
 
