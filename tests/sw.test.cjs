@@ -11,6 +11,7 @@ const BODY = "0123456789";
 function makeWorld({ offline = {}, media = {}, app = {} } = {}) {
   const stores = { "one-quran-offline": new Map(Object.entries(offline)), "one-media": new Map(Object.entries(media)), "one-v7": new Map(Object.entries(app)) };
   const opened = [];
+  const added = [];
   const puts = [];
   const fetched = [];
   const keyOf = (r) => (typeof r === "string" ? r : r.url);
@@ -18,15 +19,19 @@ function makeWorld({ offline = {}, media = {}, app = {} } = {}) {
     if (!stores[name]) stores[name] = new Map();
     const m = stores[name];
     return {
-      match: async (r) => {
-        const hit = m.get(keyOf(r));
+      match: async (r, opts = {}) => {
+        const strip = (u) => u.split("?")[0];
+        const key = keyOf(r);
+        const hit = opts.ignoreSearch ? [...m].find(([k]) => strip(k) === strip(key))?.[1] : m.get(key);
         return hit ? hit.clone() : undefined;
       },
       put: async (r, res) => {
         puts.push({ cache: name, url: keyOf(r), status: res.status });
         m.set(keyOf(r), res);
       },
-      addAll: async () => {},
+      addAll: async (list) => {
+        added.push(...list);
+      },
       delete: async (r) => m.delete(keyOf(r))
     };
   };
@@ -78,7 +83,7 @@ function makeWorld({ offline = {}, media = {}, app = {} } = {}) {
     handlers.install({ waitUntil: (p) => waits.push(p) });
     await Promise.all(waits);
   }
-  return { dispatch, install, puts, fetched, stores, opened };
+  return { dispatch, install, puts, fetched, stores, opened, added };
 }
 
 const COMMONS = "https://commons.wikimedia.org/wiki/Special:FilePath/Sound%20of%20rain.ogg";
@@ -156,4 +161,35 @@ test("the app cache is one-v7", async () => {
   const w = makeWorld();
   await w.install();
   assert.ok(w.opened.includes("one-v7"), JSON.stringify(w.opened));
+});
+
+test("install saves fresh copies, never ones from the browser's HTTP cache", async () => {
+  const w = makeWorld();
+  await w.install();
+  assert.ok(w.added.length > 5);
+  for (const item of w.added) assert.equal(typeof item === "string" ? "default" : item.cache, "reload", String(item.url || item));
+});
+
+test("Quran API answers and Google Fonts styles are refreshed in the background", async () => {
+  for (const url of ["https://api.quran.com/api/v4/resources/chapter_reciters", "https://fonts.googleapis.com/css2?family=Fredoka"]) {
+    const w = makeWorld({ app: { [url]: saved("old") } });
+    const res = await w.dispatch(url);
+    assert.equal(await res.text(), "old", url);
+    assert.equal(w.fetched.length, 1, `${url} refreshed in the background`);
+  }
+});
+
+test("only page loads ignore the query string", async () => {
+  const js = "https://one.example/games/games.js";
+  const w = makeWorld({ app: { [js]: saved("games") } });
+  await w.dispatch(js + "?v=2");
+  assert.equal(w.fetched.length, 1);
+});
+
+test("index.html and sw.js name the same app cache", () => {
+  const html = fs.readFileSync(path.join(__dirname, "..", "index.html"), "utf8");
+  const sw = fs.readFileSync(path.join(__dirname, "..", "sw.js"), "utf8");
+  const inPage = /const APP_CACHE = "([^"]+)"/.exec(html)[1];
+  const inWorker = /const CACHE = "([^"]+)"/.exec(sw)[1];
+  assert.equal(inPage, inWorker);
 });

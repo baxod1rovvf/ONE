@@ -4395,6 +4395,32 @@ main[data-section='saved'] .panel::after {
 </head>
 <body>
   <div id="root"></div>
+  <script>
+    // Rescue: ONE opens from the copy saved on this device. If a saved release
+    // can't start (nothing shows within 8 s), drop the saved page and load a
+    // fresh one, once per visit, so a fixed release always gets through.
+    (function () {
+      setTimeout(function () {
+        if (window.__oneBooted) return;
+        try {
+          if (sessionStorage.getItem("one.rescue")) return;
+          sessionStorage.setItem("one.rescue", "1");
+        } catch (e) {
+          return;
+        }
+        var reload = function () {
+          location.reload();
+        };
+        if (!("caches" in window)) return reload();
+        caches
+          .open("one-v7")
+          .then(function (cache) {
+            return Promise.all([cache.delete(new URL("./index.html", location.href).href), cache.delete(new URL("./", location.href).href)]);
+          })
+          .then(reload, reload);
+      }, 8000);
+    })();
+  </script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/react/18.3.1/umd/react.production.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/react-dom/18.3.1/umd/react-dom.production.min.js"></script>
   <script>
@@ -6528,7 +6554,20 @@ main[data-section='saved'] .panel::after {
   function updateApp() {
     if (updating) return updating;
     updating = (async () => {
-      const responses = await Promise.all(APP_FILES.map((file) => fetch(file, { cache: "no-store", headers: { "x-one-fresh": "1" } })));
+      // A unique address per update: no cache on the way (an older service
+      // worker, the browser, GitHub's servers) can answer with an old copy.
+      // A connection that hangs gives up after 20 s.
+      const id = Date.now();
+      const abort = new AbortController();
+      const timer = window.setTimeout(() => abort.abort(), 20000);
+      let responses;
+      try {
+        responses = await Promise.all(APP_FILES.map((file) => fetch(`${file}?fresh=${id}`, { cache: "no-store", headers: { "x-one-fresh": "1" }, signal: abort.signal })));
+        // Read the bodies now, so a stalled body also times out.
+        responses = await Promise.all(responses.map(async (res) => new Response(await res.blob(), { status: res.status, statusText: res.statusText, headers: res.headers })));
+      } finally {
+        window.clearTimeout(timer);
+      }
       if (responses.some((res) => !res.ok)) throw new Error("Some files didn't arrive.");
       if ("caches" in window) {
         const cache = await caches.open(APP_CACHE);
@@ -12690,6 +12729,15 @@ main[data-section='saved'] .panel::after {
     const [breakActive, setBreakActive] = React2.useState(false);
     const sound = useSound();
     useGlobalShortcuts(breakActive || sound.panelOpen);
+    // ONE started: the rescue in <head> stands down (see "Rescue" there).
+    React2.useEffect(() => {
+      window.__oneBooted = true;
+      try {
+        window.sessionStorage.removeItem("one.rescue");
+      } catch {
+        // Nothing to clear.
+      }
+    }, []);
     React2.useEffect(() => whenIdle(() => loadGames().catch(() => {}), 1500), []);
     useDailyUpdate();
     const Page = PAGES[ui.route];

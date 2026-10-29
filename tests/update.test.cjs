@@ -24,6 +24,7 @@ async function watchUpdates(page, { fail } = {}) {
     const path = new URL(req.url()).pathname;
     if (!req.headers()["x-one-fresh"]) return route.fallback();
     seen.push(path);
+    seen.urls = [...(seen.urls || []), req.url()];
     const how = fail && fail(path);
     if (how === "abort") return route.abort();
     if (how) return route.fulfill({ status: how, body: "nope" });
@@ -189,5 +190,61 @@ test("hidden through 23:59, then visible again, updates once", async () => {
   await setVisible(true);
   await page.waitForTimeout(1500);
   assert.equal(seen.length, 4);
+  await page.close();
+});
+
+test("update requests use a fresh address no cache can answer", async () => {
+  const { page } = await openApp(browser, server.url, { route: "tasks", init: (p) => setLast(p, Date.now()) });
+  const seen = await watchUpdates(page);
+  await page.evaluate(() => window.__oneUpdate.updateApp());
+  assert.equal(seen.urls.length, 4);
+  for (const url of seen.urls) assert.match(url, /[?&]fresh=\d+/);
+  assert.equal(new Set(seen.urls.map((u) => new URL(u).search)).size, 1, "one id per update");
+  await page.close();
+});
+
+test("a hung connection gives up after 20 s with the message", async () => {
+  const { page } = await openApp(browser, server.url, {
+    route: "tasks",
+    init: async (p) => {
+      await p.clock.install({ time: new Date(2026, 9, 29, 9, 0) });
+      await setLast(p, local(2026, 9, 29, 0, 30));
+      await p.route((url) => FILES.includes(url.pathname) && url.href.startsWith(server.url), (route) => (route.request().headers()["x-one-fresh"] ? undefined : route.fallback()));
+    }
+  });
+  const button = page.getByRole("button", { name: "Refresh" });
+  await button.click();
+  await page.clock.runFor(21_000);
+  await page.getByText("Couldn't reach ONE. You're still on the saved version.").waitFor();
+  assert.equal(await button.getAttribute("data-busy"), null);
+  await page.close();
+});
+
+test("a saved page that can't start is dropped and loaded fresh, once", async () => {
+  const fs = require("node:fs");
+  const path = require("node:path");
+  const broken = fs.readFileSync(path.join(__dirname, "..", "index.html"), "utf8").replace("client.createRoot(", "throw new Error('broken release');client.createRoot(");
+  const { page } = await openApp(browser, server.url, { route: "tasks", init: (p) => setLast(p, Date.now()) });
+  await page.evaluate(async () => {
+    const cache = await caches.open("one-v7");
+    await cache.put(new URL("./index.html", location.href).href, new Response("saved"));
+  });
+  await page.route((url) => url.pathname === "/index.html", (route) => route.fulfill({ status: 200, contentType: "text/html", body: broken }));
+  await page.clock.install({ time: new Date(2026, 9, 29, 9, 0) });
+  let navigations = 0;
+  page.on("framenavigated", (f) => f === page.mainFrame() && navigations++);
+  page.on("pageerror", () => {});
+  // A real page load (the same address with only a #hash would stay in the page).
+  await page.goto(`${server.url}/index.html?saved=1#tasks`);
+  assert.equal(navigations, 1);
+  await page.clock.runFor(9000);
+  await page.waitForFunction(() => document.readyState === "complete");
+  await page.waitForTimeout(500);
+  assert.equal(navigations, 2, "the rescue reloaded once");
+  const dropped = await page.evaluate(async () => !(await (await caches.open("one-v7")).match(new URL("./index.html", location.href).href)));
+  assert.equal(dropped, true, "the saved page was dropped");
+  await page.clock.runFor(9000);
+  await page.waitForTimeout(500);
+  assert.equal(navigations, 2, "no second rescue in the same session");
   await page.close();
 });

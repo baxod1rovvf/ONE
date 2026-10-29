@@ -28,6 +28,8 @@ const SHELL = [
 // cdn.jsdelivr.net serves three.js for the Home meadow; Wikimedia serves the
 // free nature recordings and music; api.quran.com resolves recitations.
 // All are cached on first use.
+// Hosts whose addresses are versioned (or immutable), so a saved copy never goes stale.
+const PINNED_HOSTS = ["cdnjs.cloudflare.com", "cdn.jsdelivr.net", "fonts.gstatic.com"];
 const CACHEABLE_HOSTS = [
   "cdnjs.cloudflare.com",
   "cdn.jsdelivr.net",
@@ -39,7 +41,14 @@ const CACHEABLE_HOSTS = [
 ];
 
 self.addEventListener("install", (event) => {
-  event.waitUntil(caches.open(CACHE).then((cache) => cache.addAll(SHELL)).then(() => self.skipWaiting()));
+  // "reload" skips the browser's HTTP cache, so a new version never installs
+  // with copies that are minutes old.
+  event.waitUntil(
+    caches
+      .open(CACHE)
+      .then((cache) => cache.addAll(SHELL.map((url) => new Request(new URL(url, self.location.href).href, { cache: "reload" }))))
+      .then(() => self.skipWaiting())
+  );
 });
 
 self.addEventListener("activate", (event) => {
@@ -117,16 +126,37 @@ self.addEventListener("fetch", (event) => {
   // A page load: the saved index.html (the app routes with #hash, so every
   // page is the same file). Only a first visit uses the network.
   if (req.mode === "navigate") {
-    event.respondWith(fromCache(INDEX, req));
+    event.respondWith(fromCache(INDEX, req, { ignoreSearch: true }));
     return;
   }
-  event.respondWith(fromCache(req, req));
+  // ONE's own files and the pinned libraries and font files never change
+  // under the same address: the saved copy is enough.
+  if (sameOrigin || PINNED_HOSTS.includes(url.hostname)) {
+    event.respondWith(fromCache(req, req));
+    return;
+  }
+  // Everything else (the Quran API, the Google Fonts stylesheet, recordings'
+  // pages): the saved copy now, refreshed in the background.
+  event.respondWith(
+    caches.open(CACHE).then((cache) =>
+      cache.match(req).then((hit) => {
+        const fresh = fetch(req)
+          .then((res) => {
+            if (res.status === 200) cache.put(req, res.clone());
+            return res;
+          })
+          .catch(() => hit);
+        if (hit) event.waitUntil(fresh);
+        return hit || fresh;
+      })
+    )
+  );
 });
 
 // The saved copy when there is one; otherwise the network, saved for next time.
-async function fromCache(key, req) {
+async function fromCache(key, req, options) {
   const cache = await caches.open(CACHE);
-  const hit = await cache.match(key, { ignoreSearch: true });
+  const hit = await cache.match(key, options);
   if (hit) return hit;
   const res = await fetch(req);
   if (res.status === 200 || res.type === "opaque") await cache.put(key, res.clone());
