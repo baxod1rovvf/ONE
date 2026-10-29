@@ -375,3 +375,115 @@ test("a ball wedged between steel frees itself", async () => {
   });
   assert.equal(r, true);
 });
+
+// ---------- On screen ----------
+
+async function openBreakout(page, seams = {}) {
+  await waitForGames(page);
+  await page.evaluate((seams) => {
+    for (const [k, v] of Object.entries(seams)) window[k] = v;
+    window.__oneRetroSound.played = [];
+  }, seams);
+  await page.locator(".meadow-controls").getByRole("button", { name: "Games" }).click();
+  await page.getByRole("dialog", { name: "Retro games" }).getByRole("button", { name: /Breakout/ }).click();
+  return page.getByRole("dialog", { name: "Breakout" });
+}
+const field = (page, name) => page.locator("canvas.breakout-field").getAttribute(`data-${name}`);
+const bstatus = (page) => page.locator(".breakout").getAttribute("data-status");
+const waitAttr = (page, name, pred, arg) =>
+  page.waitForFunction(({ name, src, arg }) => new Function("v", "arg", `return (${src})(v, arg)`)(document.querySelector("canvas.breakout-field").dataset[name], arg), { name, src: pred.toString(), arg }, { timeout: 6000 });
+
+test("Breakout opens from its card with a field and a score bar", async () => {
+  const { page, errors } = await openApp(browser, server.url, { route: "home" });
+  const game = await openBreakout(page, { __oneBreakoutSeed: 3 });
+  assert.ok(await game.locator("canvas.breakout-field").isVisible());
+  assert.ok(await game.getByText("Ready?").isVisible());
+  for (const label of ["Score", "Lives", "Best"]) assert.ok(await game.getByText(label, { exact: true }).isVisible(), label);
+  assert.equal(await game.getByTestId("breakout-lives").textContent(), "3");
+  assert.doesNotMatch(await game.innerText(), /level|map \d/i);
+  assert.deepEqual(errors, []);
+  await page.close();
+});
+
+test("Space launches the ball; keys and the mouse move the paddle", async () => {
+  const { page, errors } = await openApp(browser, server.url, { route: "home" });
+  const game = await openBreakout(page, { __oneBreakoutSeed: 3 });
+  await page.keyboard.press("Space");
+  assert.equal(await bstatus(page), "playing");
+  const x0 = Number(await field(page, "paddle-x"));
+  // Hold the key until the paddle has travelled (slow test machines drop frames).
+  await page.keyboard.down("ArrowRight");
+  await waitAttr(page, "paddleX", (v, x0) => Number(v) >= x0 + 100, x0);
+  await page.keyboard.up("ArrowRight");
+  const box = await game.locator("canvas.breakout-field").boundingBox();
+  await page.mouse.move(box.x + 2, box.y + box.height / 2);
+  await waitAttr(page, "paddleX", (v) => Number(v) <= 60);
+  assert.deepEqual(errors, []);
+  await page.close();
+});
+
+test("after the mouse leaves the field, the keys still move the paddle", async () => {
+  const { page } = await openApp(browser, server.url, { route: "home" });
+  const game = await openBreakout(page, { __oneBreakoutSeed: 3 });
+  const box = await game.locator("canvas.breakout-field").boundingBox();
+  await page.mouse.move(box.x + box.width / 2, box.y + box.height / 2);
+  await page.mouse.move(box.x + box.width + 40, box.y + 10);
+  await page.waitForTimeout(100);
+  const x0 = Number(await field(page, "paddle-x"));
+  await page.keyboard.down("ArrowLeft");
+  await waitAttr(page, "paddleX", (v, x0) => Number(v) < x0 - 50, x0);
+  await page.keyboard.up("ArrowLeft");
+  await page.close();
+});
+
+test("P and Esc pause; Restart starts a fresh run", async () => {
+  const { page } = await openApp(browser, server.url, { route: "home" });
+  let game = await openBreakout(page, { __oneBreakoutSeed: 3 });
+  await page.keyboard.press("Space");
+  await page.keyboard.press("p");
+  assert.equal(await bstatus(page), "paused");
+  await page.keyboard.press("p");
+  assert.equal(await bstatus(page), "playing");
+  await page.keyboard.press("Escape");
+  assert.equal(await bstatus(page), "paused");
+  assert.ok(await page.getByRole("dialog", { name: "Breakout" }).isVisible());
+  await page.keyboard.press("Escape");
+  assert.ok(await page.getByRole("dialog", { name: "Retro games" }).isVisible());
+  await page.getByRole("dialog", { name: "Retro games" }).getByRole("button", { name: /Breakout/ }).click();
+  game = page.getByRole("dialog", { name: "Breakout" });
+  await page.keyboard.press("Space");
+  await page.waitForTimeout(400);
+  await page.keyboard.press("p");
+  await game.getByRole("button", { name: "Restart" }).click();
+  assert.equal(await bstatus(page), "ready");
+  assert.equal(await game.getByTestId("breakout-score").textContent(), "0");
+  assert.equal(await game.getByTestId("breakout-lives").textContent(), "3");
+  await page.close();
+});
+
+test("game over saves the best score", async () => {
+  const { page, errors } = await openApp(browser, server.url, { route: "home" });
+  const bricks = await rules.page.evaluate(() => Array.from({ length: 10 }, (_, i) => ({ col: i + 1, row: 9, kind: "normal", hp: 1, maxHp: 1, color: "#4dd8f0" })));
+  const game = await openBreakout(page, { __oneBreakoutSeed: 5, __oneBreakoutLives: 1, __oneBreakoutBricks: bricks });
+  await page.keyboard.press("Space");
+  await page.waitForFunction(() => Number(document.querySelector("[data-testid=breakout-score]").textContent) > 0, null, { timeout: 8000 });
+  await page.evaluate(() => window.__oneBreakoutControl.loseBall());
+  await page.waitForFunction(() => document.querySelector(".breakout").dataset.status === "over", null, { timeout: 6000 });
+  const score = Number(await game.getByTestId("breakout-score").textContent());
+  assert.ok(await game.getByText("Game over").isVisible());
+  assert.ok(await game.getByText("New record!").isVisible());
+  assert.equal(await page.evaluate(() => JSON.parse(localStorage.getItem("one.games.v1")).breakout.best), score);
+  await page.keyboard.press("Escape");
+  assert.ok(await page.getByRole("dialog", { name: "Retro games" }).getByText(`Best ${score}`).first().isVisible());
+  assert.deepEqual(errors, []);
+  await page.close();
+});
+
+test("game sounds come from what happens in play", async () => {
+  const { page } = await openApp(browser, server.url, { route: "home" });
+  const bricks = await rules.page.evaluate(() => Array.from({ length: 12 }, (_, i) => ({ col: i, row: 11, kind: "normal", hp: 1, maxHp: 1, color: "#4dd8f0" })));
+  await openBreakout(page, { __oneBreakoutSeed: 5, __oneBreakoutBricks: bricks });
+  await page.keyboard.press("Space");
+  await page.waitForFunction(() => window.__oneRetroSound.played.includes("bhit"), null, { timeout: 8000 });
+  await page.close();
+});

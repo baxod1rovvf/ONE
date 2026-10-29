@@ -144,6 +144,51 @@
       const { G5, C6, E6, G6 } = RETRO_NOTES;
       this.play("tlevel", [[G5, 0, 0.06], [C6, 0.06, 0.06], [E6, 0.12, 0.06], [G6, 0.18, 0.14]]);
     }
+    // Breakout
+    bPaddle() {
+      this.play("bpaddle", [[220, 0, 0.07, "square", 0.7, 160]]);
+    }
+    // Higher for bricks nearer the top.
+    bHit(row) {
+      this.play("bhit", [[RETRO_NOTES.C5 * Math.pow(2, (11 - Math.min(11, row)) / 12), 0, 0.05, "square", 0.6]]);
+    }
+    bSteel() {
+      this.play("bsteel", [[1800, 0, 0.05, "square", 0.35], [2400, 0.01, 0.07, "triangle", 0.3]]);
+    }
+    bBoom() {
+      this.played = [...this.played.slice(-19), "bboom"];
+      if (!this.on) return;
+      const AC = window.AudioContext || window.webkitAudioContext;
+      if (!AC) return;
+      try {
+        this.play("bboom-tone", [[120, 0, 0.25, "sawtooth", 0.5, 40]]);
+        const ctx = this.ctx;
+        const len = Math.floor(ctx.sampleRate * 0.3);
+        const buffer = ctx.createBuffer(1, len, ctx.sampleRate);
+        const data = buffer.getChannelData(0);
+        for (let i = 0; i < len; i++) data[i] = (Math.random() * 2 - 1) * (1 - i / len);
+        const src = ctx.createBufferSource();
+        const filter = ctx.createBiquadFilter();
+        filter.type = "lowpass";
+        filter.frequency.value = 900;
+        src.buffer = buffer;
+        src.connect(filter).connect(this.out);
+        src.start();
+      } catch {
+        // No sound on this device.
+      }
+    }
+    bCatch() {
+      const { C6, E6, G6 } = RETRO_NOTES;
+      this.play("bcatch", [[C6, 0, 0.06, "triangle", 0.8], [E6, 0.06, 0.06, "triangle", 0.8], [G6, 0.12, 0.12, "triangle", 0.8]]);
+    }
+    bLost() {
+      this.play("blost", [[RETRO_NOTES.G5, 0, 0.5, "square", 0.6, 180]]);
+    }
+    bCleared() {
+      const { C5, E5, G5, C6, E6, G6 } = RETRO_NOTES;
+      this.play("bcleared", [[C5, 0, 0.08], [E5, 0.08, 0.08], [G5, 0.16, 0.08], [C6, 0.24, 0.12], [E6, 0.36, 0.12], [G6, 0.48, 0.3, "triangle", 1]]);
+    }
   }
   const retroSound = new RetroSound();
   window.__oneRetroSound = retroSound;
@@ -1621,9 +1666,488 @@
     breakoutWithBricks,
     brickRect
   };
+  /* Breakout on screen */
+  // Fixed twinkling stars for the field.
+  const BREAKOUT_STARS = Array.from({ length: 60 }, (_, i) => ({ x: (i * 97.13) % 480, y: (i * 151.7) % 640, r: 0.6 + ((i * 7) % 10) / 10, p: (i * 0.71) % 6.28 }));
+  function roundRect(ctx, x, y, w, h, r) {
+    ctx.beginPath();
+    ctx.moveTo(x + r, y);
+    ctx.arcTo(x + w, y, x + w, y + h, r);
+    ctx.arcTo(x + w, y + h, x, y + h, r);
+    ctx.arcTo(x, y + h, x, y, r);
+    ctx.arcTo(x, y, x + w, y, r);
+    ctx.closePath();
+  }
+  const CAPSULE_LOOK = { wide: ["🟦", "#4d8dff"], multi: ["⚪", "#e8ecff"], slow: ["🐢", "#6bdc7b"], life: ["❤️", "#ff5fa2"] };
+  // Draws one frame. `fx` holds what only the screen needs: particles, the
+  // ball trail, the shake and flash, and the drop-in of a new map.
+  function breakoutDraw(ctx, s, fx, t) {
+    const scale = ctx.canvas.width / BREAKOUT.W;
+    const shake = fx.shakeUntil > t ? 3 : 0;
+    ctx.setTransform(scale, 0, 0, scale, shake ? (Math.random() - 0.5) * shake * scale : 0, shake ? (Math.random() - 0.5) * shake * scale : 0);
+    const bg = ctx.createLinearGradient(0, 0, 0, BREAKOUT.H);
+    bg.addColorStop(0, "#0b1030");
+    bg.addColorStop(1, "#151c4a");
+    ctx.fillStyle = bg;
+    ctx.fillRect(-10, -10, BREAKOUT.W + 20, BREAKOUT.H + 20);
+    ctx.strokeStyle = "rgba(120, 140, 255, 0.07)";
+    ctx.lineWidth = 1;
+    ctx.beginPath();
+    for (let x = 0; x <= BREAKOUT.W; x += 32) ctx.moveTo(x, 0), ctx.lineTo(x, BREAKOUT.H);
+    for (let y = 0; y <= BREAKOUT.H; y += 32) ctx.moveTo(0, y), ctx.lineTo(BREAKOUT.W, y);
+    ctx.stroke();
+    for (const st of BREAKOUT_STARS) {
+      ctx.globalAlpha = fx.still ? 0.6 : 0.35 + 0.35 * Math.sin(t / 700 + st.p);
+      ctx.fillStyle = "#fff";
+      ctx.fillRect(st.x, st.y, st.r, st.r);
+    }
+    ctx.globalAlpha = 1;
+    // Bricks (a new map drops in from above).
+    const drop = fx.still ? 1 : Math.min(1, (t - fx.dropAt) / 400);
+    ctx.textAlign = "center";
+    ctx.textBaseline = "middle";
+    for (const b of s.bricks) {
+      const r = brickRect(b);
+      const y = r.y - (1 - Math.min(1, Math.max(0, drop * 1.6 - b.row * 0.05))) * 220;
+      ctx.save();
+      if (b.kind === "steel") {
+        const g = ctx.createLinearGradient(0, y, 0, y + r.h);
+        g.addColorStop(0, "#d5dae6");
+        g.addColorStop(1, "#7d8597");
+        ctx.fillStyle = g;
+        roundRect(ctx, r.x, y, r.w, r.h, 4);
+        ctx.fill();
+        ctx.fillStyle = "#5d6475";
+        for (const dx of [5, r.w - 5]) {
+          ctx.beginPath();
+          ctx.arc(r.x + dx, y + r.h / 2, 1.6, 0, Math.PI * 2);
+          ctx.fill();
+        }
+      } else {
+        const life = b.kind === "strong" ? 0.55 + 0.45 * (b.hp / b.maxHp) : 1;
+        ctx.globalAlpha = life;
+        ctx.shadowColor = b.color;
+        ctx.shadowBlur = fx.still ? 0 : 12;
+        const g = ctx.createLinearGradient(0, y, 0, y + r.h);
+        g.addColorStop(0, "#ffffff");
+        g.addColorStop(0.25, b.color);
+        g.addColorStop(1, b.color);
+        ctx.fillStyle = g;
+        roundRect(ctx, r.x, y, r.w, r.h, 5);
+        ctx.fill();
+        ctx.shadowBlur = 0;
+        ctx.globalAlpha = 1;
+        if (b.kind === "strong") {
+          if (b.hp < b.maxHp) {
+            ctx.strokeStyle = "rgba(20, 20, 40, 0.45)";
+            ctx.lineWidth = 1;
+            ctx.beginPath();
+            ctx.moveTo(r.x + 8, y + 2);
+            ctx.lineTo(r.x + 13, y + 9);
+            ctx.lineTo(r.x + 10, y + r.h - 2);
+            ctx.stroke();
+          }
+          ctx.fillStyle = "#fff";
+          ctx.font = "700 11px Fredoka, system-ui, sans-serif";
+          ctx.fillText(String(b.hp), r.x + r.w / 2, y + r.h / 2 + 0.5);
+        } else if (b.kind === "explosive") {
+          const pulse = fx.still ? 1 : 1 + 0.15 * Math.sin(t / 150);
+          ctx.fillStyle = "#fff6d0";
+          ctx.font = `700 ${Math.round(13 * pulse)}px system-ui, sans-serif`;
+          ctx.fillText("✸", r.x + r.w / 2, y + r.h / 2 + 0.5);
+        } else if (b.kind === "bonus") {
+          ctx.fillStyle = "#fff";
+          ctx.font = "700 11px system-ui, sans-serif";
+          ctx.fillText("★", r.x + r.w / 2, y + r.h / 2 + 0.5);
+        }
+      }
+      ctx.restore();
+    }
+    // Capsules.
+    ctx.font = "14px system-ui, sans-serif";
+    for (const c of s.capsules) {
+      const [emoji, color] = CAPSULE_LOOK[c.kind];
+      ctx.fillStyle = "rgba(10, 14, 40, 0.75)";
+      ctx.strokeStyle = color;
+      ctx.lineWidth = 2;
+      roundRect(ctx, c.x - 15, c.y - 9, 30, 18, 9);
+      ctx.fill();
+      ctx.stroke();
+      ctx.fillText(emoji, c.x, c.y + 1);
+    }
+    // Paddle.
+    const p = s.paddle;
+    ctx.save();
+    ctx.shadowColor = "#4dd8f0";
+    ctx.shadowBlur = fx.still ? 0 : 16;
+    const pg = ctx.createLinearGradient(0, PADDLE.Y, 0, PADDLE.Y + PADDLE.H);
+    pg.addColorStop(0, "#c9f6ff");
+    pg.addColorStop(1, "#27b3d6");
+    ctx.fillStyle = pg;
+    roundRect(ctx, p.x - p.w / 2, PADDLE.Y, p.w, PADDLE.H, PADDLE.H / 2);
+    ctx.fill();
+    ctx.restore();
+    ctx.fillStyle = "rgba(255, 255, 255, 0.7)";
+    roundRect(ctx, p.x - p.w / 6, PADDLE.Y + 3, p.w / 3, 4, 2);
+    ctx.fill();
+    // Trail, then balls.
+    if (!fx.still)
+      fx.trail.forEach((pos, i) => {
+        ctx.globalAlpha = ((i + 1) / fx.trail.length) * 0.25;
+        ctx.fillStyle = "#7fe9ff";
+        ctx.beginPath();
+        ctx.arc(pos.x, pos.y, BALL.R * (0.5 + (0.5 * (i + 1)) / fx.trail.length), 0, Math.PI * 2);
+        ctx.fill();
+      });
+    ctx.globalAlpha = 1;
+    for (const ball of s.balls) {
+      ctx.save();
+      ctx.shadowColor = "#7fe9ff";
+      ctx.shadowBlur = fx.still ? 0 : 14;
+      const bg2 = ctx.createRadialGradient(ball.x - 2, ball.y - 2, 1, ball.x, ball.y, BALL.R);
+      bg2.addColorStop(0, "#ffffff");
+      bg2.addColorStop(1, "#8feeff");
+      ctx.fillStyle = bg2;
+      ctx.beginPath();
+      ctx.arc(ball.x, ball.y, BALL.R, 0, Math.PI * 2);
+      ctx.fill();
+      ctx.restore();
+    }
+    // Particles and flash.
+    for (const q of fx.particles) {
+      ctx.globalAlpha = Math.max(0, q.life);
+      ctx.fillStyle = q.color;
+      ctx.fillRect(q.x - 2, q.y - 2, 4, 4);
+    }
+    ctx.globalAlpha = 1;
+    if (fx.flashUntil > t) {
+      ctx.fillStyle = `rgba(255, 220, 180, ${(0.25 * (fx.flashUntil - t)) / 150})`;
+      ctx.fillRect(0, 0, BREAKOUT.W, BREAKOUT.H);
+    }
+  }
+  const BREAKOUT_KEYS = { ArrowLeft: -1, a: -1, A: -1, ArrowRight: 1, d: 1, D: 1 };
+  // A new run. Tests may fix the seed, the first map's bricks and the lives.
+  function breakoutFresh() {
+    let s = breakoutNew(window.__oneBreakoutSeed ?? Date.now());
+    if (window.__oneBreakoutBricks) s = breakoutWithBricks(s, window.__oneBreakoutBricks);
+    if (window.__oneBreakoutLives) s = { ...s, lives: window.__oneBreakoutLives };
+    return s;
+  }
+  function BreakoutGame({ escapeRef }) {
+    const canvasRef = React2.useRef(null);
+    const stateRef = React2.useRef(null);
+    if (!stateRef.current) stateRef.current = breakoutFresh();
+    const input = React2.useRef({ targetX: null, keys: new Set(), launch: false, loseBall: false });
+    const fx = React2.useRef({ particles: [], trail: [], shakeUntil: 0, flashUntil: 0, dropAt: 0, still: false });
+    const [hud, setHud] = React2.useState(() => ({ status: stateRef.current.status, score: 0, lives: stateRef.current.lives }));
+    const [best, offerBest] = useGameRecord("breakout");
+    const [record, setRecord] = React2.useState(false);
+    const [hurt, setHurt] = React2.useState(0);
+    const [soundOn, setSoundOn] = React2.useState(retroSound.on);
+    const playRef = React2.useRef(null);
+    const syncHud = React2.useCallback(() => {
+      const s = stateRef.current;
+      setHud((h) => (h.status === s.status && h.score === s.score && h.lives === s.lives ? h : { status: s.status, score: s.score, lives: s.lives }));
+    }, []);
+    const setStatus = React2.useCallback(
+      (status) => {
+        stateRef.current = { ...stateRef.current, status };
+        syncHud();
+      },
+      [syncHud]
+    );
+    const restart = React2.useCallback(() => {
+      stateRef.current = breakoutFresh();
+      fx.current.particles = [];
+      fx.current.dropAt = performance.now();
+      setRecord(false);
+      syncHud();
+    }, [syncHud]);
+    // Launching happens at once (a zero-length step), not on the next frame.
+    const launch = React2.useCallback(() => {
+      if (stateRef.current.status === "over") restart();
+      const s = stateRef.current;
+      if (s.status !== "ready" && s.status !== "playing") return;
+      stateRef.current = breakoutStep(s, 0, { targetX: input.current.targetX, dir: 0, launch: true });
+      syncHud();
+    }, [restart, syncHud]);
+    const togglePause = React2.useCallback(() => {
+      const s = stateRef.current.status;
+      if (s === "playing") setStatus("paused");
+      else if (s === "paused") setStatus("playing");
+    }, [setStatus]);
+    const toggleSound = React2.useCallback(() => {
+      setSoundOn((on) => {
+        retroSound.setOn(!on);
+        return !on;
+      });
+    }, []);
+    React2.useEffect(() => {
+      if (!escapeRef) return;
+      escapeRef.current = () => {
+        if (stateRef.current.status !== "playing") return false;
+        togglePause();
+        return true;
+      };
+      return () => {
+        escapeRef.current = null;
+      };
+    }, [escapeRef, togglePause]);
+    React2.useEffect(() => {
+      window.__oneBreakoutControl = { loseBall: () => (input.current.loseBall = true) };
+      return () => {
+        delete window.__oneBreakoutControl;
+      };
+    }, []);
+    // Sounds and effects from what happened in a step.
+    const react = React2.useCallback((events, t) => {
+      const f = fx.current;
+      let hitSound = false;
+      for (const e of events) {
+        if (e.type === "paddle") retroSound.bPaddle();
+        else if (e.type === "hit" && !hitSound) {
+          hitSound = true;
+          retroSound.bHit(e.row);
+        } else if (e.type === "steel") retroSound.bSteel();
+        else if (e.type === "break" && !f.still) {
+          const r = brickRect(e);
+          for (let i = 0; i < 10; i++) f.particles.push({ x: r.x + r.w / 2, y: r.y + r.h / 2, vx: (Math.random() - 0.5) * 220, vy: (Math.random() - 0.8) * 200, life: 1, color: e.color });
+        } else if (e.type === "boom") {
+          retroSound.bBoom();
+          if (!f.still) {
+            f.shakeUntil = t + 150;
+            f.flashUntil = t + 150;
+          }
+        } else if (e.type === "catch") retroSound.bCatch();
+        else if (e.type === "lost") {
+          retroSound.bLost();
+          setHurt((n) => n + 1);
+        } else if (e.type === "cleared") {
+          retroSound.bCleared();
+          if (!f.still) for (let i = 0; i < 60; i++) f.particles.push({ x: 240, y: 320, vx: (Math.random() - 0.5) * 520, vy: (Math.random() - 0.5) * 520, life: 1.4, color: NEON[i % NEON.length] });
+        }
+      }
+    }, []);
+    // The game loop.
+    React2.useEffect(() => {
+      let raf = 0;
+      let last = performance.now();
+      let lastAttrs = 0;
+      let prevMap = stateRef.current.mapId;
+      const frame = (t) => {
+        const f = fx.current;
+        f.still = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+        const dt = t - last;
+        last = t;
+        let s = stateRef.current;
+        if (input.current.loseBall && s.status === "playing") {
+          input.current.loseBall = false;
+          s = { ...s, balls: [] };
+        }
+        const keys = input.current.keys;
+        const dir = (keys.has(1) ? 1 : 0) - (keys.has(-1) ? 1 : 0);
+        const next = breakoutStep(s, dt, { targetX: input.current.targetX, dir, launch: input.current.launch });
+        input.current.launch = false;
+        stateRef.current = next;
+        if (next.events.length) react(next.events, t);
+        if (next.mapId !== prevMap) {
+          prevMap = next.mapId;
+          f.dropAt = t;
+        }
+        // Screen-only effects.
+        f.particles = f.particles.filter((q) => {
+          q.x += (q.vx * dt) / 1000;
+          q.y += (q.vy * dt) / 1000;
+          q.vy += (500 * dt) / 1000;
+          q.life -= dt / 600;
+          return q.life > 0;
+        });
+        if (next.status === "playing" && next.balls[0] && !next.balls[0].stuck) {
+          f.trail.push({ x: next.balls[0].x, y: next.balls[0].y });
+          if (f.trail.length > 8) f.trail.shift();
+        } else f.trail = [];
+        const canvas = canvasRef.current;
+        if (canvas) {
+          const ctx = canvas.getContext("2d");
+          if (ctx) breakoutDraw(ctx, next, f, t);
+          if (t - lastAttrs > 100) {
+            lastAttrs = t;
+            canvas.dataset.paddleX = Math.round(next.paddle.x);
+            canvas.dataset.balls = next.balls.length;
+            canvas.dataset.bricks = next.bricks.filter((b) => b.kind !== "steel").length;
+            canvas.dataset.map = next.mapId;
+          }
+        }
+        syncHud();
+        raf = window.requestAnimationFrame(frame);
+      };
+      raf = window.requestAnimationFrame(frame);
+      return () => window.cancelAnimationFrame(raf);
+    }, [react, syncHud]);
+    // Game over: the record and its fanfare.
+    React2.useEffect(() => {
+      if (hud.status !== "over") return;
+      const isRecord = offerBest(stateRef.current.score);
+      if (isRecord) setRecord(true);
+      retroSound.over();
+      window.requestAnimationFrame(() => playRef.current && playRef.current.focus());
+      if (isRecord) {
+        const id = window.setTimeout(() => retroSound.record(), 950);
+        return () => window.clearTimeout(id);
+      }
+    }, [hud.status]);
+    // The canvas is drawn at the screen's pixel density.
+    React2.useEffect(() => {
+      const canvas = canvasRef.current;
+      if (!canvas) return;
+      const fit = () => {
+        const w = canvas.clientWidth;
+        if (!w) return;
+        const dpr = Math.min(2, window.devicePixelRatio || 1);
+        canvas.width = Math.round(w * dpr);
+        canvas.height = Math.round(w * dpr * (BREAKOUT.H / BREAKOUT.W));
+      };
+      fit();
+      const ro = new ResizeObserver(fit);
+      ro.observe(canvas);
+      return () => ro.disconnect();
+    }, []);
+    // Keys, a hidden tab, leaving the window.
+    React2.useEffect(() => {
+      const onKey = (e) => {
+        if (e.metaKey || e.ctrlKey || e.altKey) return;
+        const dir = BREAKOUT_KEYS[e.key];
+        if (dir) {
+          e.preventDefault();
+          input.current.targetX = null;
+          input.current.keys.add(dir);
+        } else if (e.key === " " || e.key === "ArrowUp") {
+          e.preventDefault();
+          if (!e.repeat) launch();
+        } else if (e.key === "p" || e.key === "P") {
+          e.preventDefault();
+          togglePause();
+        } else if (e.key === "m" || e.key === "M") {
+          e.preventDefault();
+          toggleSound();
+        }
+      };
+      const onUp = (e) => {
+        const dir = BREAKOUT_KEYS[e.key];
+        if (dir) input.current.keys.delete(dir);
+      };
+      const letGo = () => input.current.keys.clear();
+      const onHide = () => {
+        if (document.hidden && stateRef.current.status === "playing") setStatus("paused");
+      };
+      window.addEventListener("keydown", onKey);
+      window.addEventListener("keyup", onUp);
+      window.addEventListener("blur", letGo);
+      document.addEventListener("visibilitychange", onHide);
+      return () => {
+        window.removeEventListener("keydown", onKey);
+        window.removeEventListener("keyup", onUp);
+        window.removeEventListener("blur", letGo);
+        document.removeEventListener("visibilitychange", onHide);
+      };
+    }, [launch, togglePause, toggleSound, setStatus]);
+    const pointerX = (e) => {
+      const r = canvasRef.current.getBoundingClientRect();
+      return ((e.clientX - r.left) / r.width) * BREAKOUT.W;
+    };
+    const onPointerMove = (e) => {
+      if (e.pointerType === "mouse" || e.buttons) input.current.targetX = pointerX(e);
+    };
+    const onPointerDown = (e) => {
+      input.current.targetX = pointerX(e);
+      if (e.target.closest("button")) return;
+      launch();
+    };
+    const status = hud.status;
+    const message =
+      status === "ready"
+        ? { title: "Ready?", sub: "Break every brick. Catch the power-ups.", action: "Play", onClick: launch }
+        : status === "paused"
+        ? { title: "Paused", sub: "Take a breath.", action: "Resume", onClick: togglePause, extra: { label: "Restart", onClick: restart } }
+        : status === "cleared"
+        ? { title: "Map cleared!", sub: "+500" }
+        : status === "over"
+        ? { title: "Game over", sub: `${hud.score} ${hud.score === 1 ? "point" : "points"}`, action: "Play again", onClick: launch }
+        : null;
+    return React2.createElement(
+      "div",
+      { className: "breakout", "data-status": status },
+      React2.createElement(
+        "div",
+        { className: "breakout-hud" },
+        React2.createElement(
+          "div",
+          { className: "breakout-stat" },
+          React2.createElement("span", { className: "snake-stat__label" }, "Score"),
+          React2.createElement("span", { className: "snake-stat__value num", "data-testid": "breakout-score" }, hud.score)
+        ),
+        React2.createElement(
+          "div",
+          { className: "breakout-stat breakout-stat--lives", "data-hurt": hurt ? "true" : void 0, key: `lives-${hurt}` },
+          React2.createElement("span", { className: "snake-stat__label" }, "Lives"),
+          React2.createElement(
+            "span",
+            { className: "snake-stat__value" },
+            React2.createElement("span", { className: "breakout-hearts", "aria-hidden": true }, "❤".repeat(hud.lives)),
+            React2.createElement("span", { className: "breakout-lives num", "data-testid": "breakout-lives" }, hud.lives)
+          )
+        ),
+        React2.createElement(
+          "div",
+          { className: "breakout-stat breakout-stat--best" },
+          React2.createElement("span", { className: "snake-stat__label" }, React2.createElement(Trophy, { size: 14, "aria-hidden": true }), "Best"),
+          React2.createElement("span", { className: "snake-stat__value num", "data-testid": "breakout-best" }, best)
+        ),
+        React2.createElement(
+          "div",
+          { className: "breakout-buttons" },
+          React2.createElement(
+            "button",
+            { type: "button", className: "snake-pause", onClick: togglePause, disabled: status !== "playing" && status !== "paused" },
+            status === "paused" ? "Resume" : "Pause"
+          ),
+          React2.createElement(
+            IconButton,
+            { label: "Game sounds", className: "snake-mute", "aria-pressed": soundOn ? "true" : "false", onClick: toggleSound },
+            React2.createElement(soundOn ? Volume2 : VolumeX, { size: 20 })
+          )
+        )
+      ),
+      React2.createElement(
+        "div",
+        { className: "breakout-stage" },
+        React2.createElement("canvas", {
+          ref: canvasRef,
+          className: "breakout-field",
+          role: "img",
+          "aria-label": "Breakout field",
+          onPointerMove,
+          onPointerDown,
+          onPointerLeave: () => (input.current.targetX = null)
+        }),
+        message &&
+          React2.createElement(
+            "div",
+            { className: "snake-message breakout-message", role: "status" },
+            status === "over" && record && hud.score > 0 && React2.createElement("span", { className: "snake-record" }, "🏆 New record!"),
+            React2.createElement("h3", { className: "snake-message__title" }, message.title),
+            React2.createElement("p", { className: "snake-message__sub" }, message.sub),
+            message.action && React2.createElement("button", { ref: playRef, type: "button", className: "snake-play", onClick: message.onClick, "data-autofocus": true }, message.action),
+            message.extra && React2.createElement("button", { type: "button", className: "snake-pause breakout-restart", onClick: message.extra.onClick }, message.extra.label)
+          )
+      ),
+      React2.createElement("p", { className: "snake-hint breakout-hint" }, "Mouse or ←→ to move · Click or Space to launch · P pause · M sound")
+    );
+  }
   const GAMES = [
     { id: "snake", title: "Snake", blurb: "Eat fruit, grow long, mind the walls.", emoji: "🐍", Component: SnakeGame },
-    { id: "tetris", title: "Tetris", blurb: "Stack the blocks, clear the lines.", emoji: "🧱", Component: TetrisGame }
+    { id: "tetris", title: "Tetris", blurb: "Stack the blocks, clear the lines.", emoji: "🧱", Component: TetrisGame },
+    { id: "breakout", title: "Breakout", blurb: "Break every brick, catch the power-ups.", emoji: "🏓", Component: BreakoutGame }
   ];
   function GamesPanel({ onClose }) {
     const [gameId, setGameId] = React2.useState(null);
