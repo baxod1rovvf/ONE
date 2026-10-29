@@ -170,6 +170,14 @@
     msWin() {
       this.record();
     }
+    // Memory sequences: one note per colour, and a buzz for a wrong one.
+    memTone(i, length = 0.25) {
+      const { C5, E5, G5, C6, E6, G6 } = RETRO_NOTES;
+      this.play(`mem${i}`, [[[C5, E5, G5, C6, E6, G6][i], 0, length, "triangle", 0.8]]);
+    }
+    memWrong() {
+      this.play("memwrong", [[140, 0, 0.45, "sawtooth", 0.6, 90]]);
+    }
     // Breakout
     bPaddle() {
       this.play("bpaddle", [[220, 0, 0.07, "square", 0.7, 160]]);
@@ -261,6 +269,14 @@
         const t = (records["mines-easy"] || {}).best;
         return t ? `Best ${clock(t)}` : "Best —";
       }
+    },
+    {
+      id: "memory",
+      title: "Memory",
+      blurb: "Watch the colours, repeat the sequence.",
+      emoji: "🎨",
+      file: "memory",
+      best: (records) => `Best ${Math.max(0, ...[4, 6].map((n) => (records[`memory-${n}`] || {}).best || 0))}`
     }
   ];
   const bestText = (g, records) => (g.best ? g.best(records, fmtClock) : `Best ${(records[g.id] || {}).best || 0}`);
