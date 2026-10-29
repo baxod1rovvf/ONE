@@ -16,6 +16,8 @@ async function openSnake(page) {
   await page.locator(".meadow-controls").getByRole("button", { name: "Games" }).click();
   const dialog = page.getByRole("dialog", { name: "Retro games" });
   await dialog.getByRole("button", { name: /Snake/ }).click();
+  // The game is listening for keys once its Play button has taken focus.
+  await page.waitForFunction(() => document.activeElement && document.activeElement.classList.contains("snake-play"));
   return page.getByRole("dialog", { name: "Snake" });
 }
 

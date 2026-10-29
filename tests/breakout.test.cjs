@@ -386,6 +386,8 @@ async function openBreakout(page, seams = {}) {
   }, seams);
   await page.locator(".meadow-controls").getByRole("button", { name: "Games" }).click();
   await page.getByRole("dialog", { name: "Retro games" }).getByRole("button", { name: /Breakout/ }).click();
+  // The game is listening for keys once its Play button has taken focus.
+  await page.waitForFunction(() => document.activeElement && document.activeElement.classList.contains("snake-play"));
   return page.getByRole("dialog", { name: "Breakout" });
 }
 const field = (page, name) => page.locator("canvas.breakout-field").getAttribute(`data-${name}`);

@@ -245,6 +245,8 @@ async function openTetris(page, { seed, shape } = {}) {
   );
   await page.locator(".meadow-controls").getByRole("button", { name: "Games" }).click();
   await page.getByRole("dialog", { name: "Retro games" }).getByRole("button", { name: /Tetris/ }).click();
+  // The game is listening for keys once its Play button has taken focus.
+  await page.waitForFunction(() => document.activeElement && document.activeElement.classList.contains("snake-play"));
   return page.getByRole("dialog", { name: "Tetris" });
 }
 const boardAttr = (page, name) => page.locator(".tetris-board").getAttribute(`data-${name}`);
