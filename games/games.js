@@ -1341,7 +1341,286 @@
     const bricks = breakoutBuild(def);
     return breakoutCheck(bricks).ok ? bricks : breakoutBuild(BREAKOUT_FALLBACK);
   }
-  window.__oneBreakout = { BREAKOUT, BREAKOUT_MAPS, breakoutMakers, breakoutRng, breakoutBuild, breakoutCheck, breakoutDeck, breakoutMap };
+  /* Breakout physics */
+  // breakoutStep(state, ms, input) moves everything by ms and returns a new
+  // state; `events` says what happened in that step (for sounds and effects).
+  // Each step is cut into sub-steps of at most 4 px of ball travel, so a fast
+  // ball can't slip through a brick.
+  const PADDLE = { Y: 600, H: 12, W: 88, WIDE: 132, KEYS: 520 };
+  const BALL = { R: 7, SPEED: 340, SLOW: 238 };
+  const CAPSULE = { W: 30, H: 14, FALL: 140 };
+  const EFFECT_MS = { wide: 15000, slow: 12000 };
+  const CAPSULE_KINDS = [["wide", 3], ["multi", 3], ["slow", 3], ["life", 1]];
+  const MIN_ANGLE = (15 * Math.PI) / 180;
+  const STALL_MS = 3000;
+  function breakoutRoll(s) {
+    const [value, next] = tetrisRandom(s.seed);
+    s.seed = next;
+    return value;
+  }
+  function brickRect(b) {
+    return { x: BREAKOUT.X0 + b.col * (BREAKOUT.BW + BREAKOUT.GAP), y: BREAKOUT.Y0 + b.row * (BREAKOUT.BH + BREAKOUT.GAP), w: BREAKOUT.BW, h: BREAKOUT.BH };
+  }
+  function stuckBall(paddle) {
+    return { x: paddle.x, y: PADDLE.Y - BALL.R - 1, vx: 0, vy: 0, stuck: true, stall: 0 };
+  }
+  // A new map: fresh bricks, paddle, ball and power-ups; score and lives stay.
+  function breakoutLoadMap(s, id) {
+    s.mapId = id;
+    s.bricks = breakoutMap(id);
+    s.paddle = { x: BREAKOUT.W / 2, w: PADDLE.W };
+    s.balls = [stuckBall(s.paddle)];
+    s.capsules = [];
+    s.effects = { wide: 0, slow: 0 };
+    s.speed = BALL.SPEED;
+    s.status = "ready";
+    s.clearMs = 0;
+  }
+  function breakoutNew(seed) {
+    const s = { seed: seed | 0, deck: [], deckIndex: 0, score: 0, lives: 3, events: [] };
+    s.deck = breakoutDeck(() => breakoutRoll(s), null);
+    breakoutLoadMap(s, s.deck[0]);
+    return s;
+  }
+  function breakoutWithBricks(state, bricks) {
+    return { ...state, bricks: bricks.map((b) => ({ ...b })) };
+  }
+  // Keeps the ball's speed but never lets it travel flatter than 15°.
+  function steepen(ball) {
+    const speed = Math.hypot(ball.vx, ball.vy);
+    if (!speed) return;
+    const minVy = speed * Math.sin(MIN_ANGLE);
+    if (Math.abs(ball.vy) < minVy) {
+      ball.vy = (ball.vy > 0 ? 1 : -1) * minVy;
+      ball.vx = (ball.vx >= 0 ? 1 : -1) * Math.sqrt(speed * speed - minVy * minVy);
+    }
+  }
+  // Slow on or off: every ball changes speed together, straight away.
+  function syncSpeed(s) {
+    const speed = s.effects.slow > 0 ? BALL.SLOW : BALL.SPEED;
+    if (speed === s.speed) return;
+    for (const ball of s.balls) {
+      const now = Math.hypot(ball.vx, ball.vy);
+      if (now) {
+        ball.vx *= speed / now;
+        ball.vy *= speed / now;
+      }
+    }
+    s.speed = speed;
+  }
+  function launch(ball, s) {
+    const angle = (breakoutRoll(s) - 0.5) * ((20 * Math.PI) / 180);
+    Object.assign(ball, { stuck: false, vx: s.speed * Math.sin(angle), vy: -s.speed * Math.cos(angle), stall: 0 });
+  }
+  function breakoutStep(state, dtMs, input) {
+    if (state.status === "paused" || state.status === "over") return state;
+    const dt = Math.min(dtMs, 50);
+    const s = { ...state, events: [], paddle: { ...state.paddle }, effects: { ...state.effects }, balls: state.balls.map((b) => ({ ...b })), capsules: state.capsules.map((c) => ({ ...c })) };
+    const emit = (type, extra) => s.events.push({ type, ...extra });
+    if (s.status === "cleared") {
+      s.clearMs += dt;
+      if (s.clearMs >= 1500) {
+        s.deckIndex++;
+        if (s.deckIndex >= s.deck.length) {
+          s.deck = breakoutDeck(() => breakoutRoll(s), s.mapId);
+          s.deckIndex = 0;
+        }
+        breakoutLoadMap(s, s.deck[s.deckIndex]);
+      }
+      return s;
+    }
+    // Paddle: follows the pointer, or slides with the keys.
+    s.effects.wide = Math.max(0, s.effects.wide - (s.status === "playing" ? dt : 0));
+    s.effects.slow = Math.max(0, s.effects.slow - (s.status === "playing" ? dt : 0));
+    s.paddle.w = s.effects.wide > 0 ? PADDLE.WIDE : PADDLE.W;
+    if (input.targetX != null) s.paddle.x = input.targetX;
+    else s.paddle.x += (input.dir || 0) * PADDLE.KEYS * (dt / 1000);
+    s.paddle.x = Math.max(s.paddle.w / 2, Math.min(BREAKOUT.W - s.paddle.w / 2, s.paddle.x));
+    syncSpeed(s);
+    for (const ball of s.balls) if (ball.stuck) ball.x = s.paddle.x;
+    if (input.launch) {
+      if (s.status === "ready") s.status = "playing";
+      for (const ball of s.balls) if (ball.stuck) launch(ball, s);
+    }
+    if (s.status !== "playing") return s;
+
+    let bricks = state.bricks.map((b) => ({ ...b }));
+    const at = new Map(bricks.map((b) => [cellKey(b.col, b.row), b]));
+    // One hit point off a brick; a broken explosive sets off its neighbours.
+    const damage = (start) => {
+      const queue = [start];
+      const blown = new Set();
+      while (queue.length) {
+        const b = queue.shift();
+        if (b.dead || b.kind === "steel") continue;
+        b.hp -= 1;
+        s.score += 10;
+        emit("hit", { row: b.row });
+        if (b.hp > 0) continue;
+        b.dead = true;
+        s.score += 10 * b.maxHp;
+        emit("break", { row: b.row, col: b.col, kind: b.kind, color: b.color });
+        if (b.kind === "bonus") {
+          let roll = breakoutRoll(s) * 10;
+          const kind = CAPSULE_KINDS.find(([, w]) => (roll -= w) < 0)[0];
+          const r = brickRect(b);
+          s.capsules.push({ x: r.x + r.w / 2, y: r.y + r.h / 2, kind });
+        }
+        if (b.kind === "explosive" && !blown.has(b)) {
+          blown.add(b);
+          s.score += 20;
+          emit("boom", { row: b.row, col: b.col });
+          for (let dr = -1; dr <= 1; dr++)
+            for (let dc = -1; dc <= 1; dc++) {
+              const n = (dr || dc) && at.get(cellKey(b.col + dc, b.row + dr));
+              if (n && !n.dead) queue.push(n);
+            }
+        }
+      }
+    };
+    const fastest = Math.max(0, ...s.balls.map((b) => Math.hypot(b.vx, b.vy)));
+    const subSteps = Math.max(1, Math.ceil((fastest * dt) / 1000 / 4));
+    const h = dt / subSteps;
+    const R = BALL.R;
+    let cleared = false;
+    for (let i = 0; i < subSteps && !cleared; i++) {
+      const hitThisStep = new Set();
+      for (const ball of s.balls) {
+        if (ball.stuck) continue;
+        ball.x += (ball.vx * h) / 1000;
+        ball.y += (ball.vy * h) / 1000;
+        ball.stall = (ball.stall || 0) + h;
+        if (ball.x < R) (ball.x = R), (ball.vx = Math.abs(ball.vx));
+        if (ball.x > BREAKOUT.W - R) (ball.x = BREAKOUT.W - R), (ball.vx = -Math.abs(ball.vx));
+        if (ball.y < R) (ball.y = R), (ball.vy = Math.abs(ball.vy));
+        // Paddle: where it hits sets the angle, up to 60° at the edges.
+        const p = s.paddle;
+        if (ball.vy > 0 && ball.y + R >= PADDLE.Y && ball.y - R <= PADDLE.Y + PADDLE.H && Math.abs(ball.x - p.x) <= p.w / 2 + R) {
+          const offset = Math.max(-1, Math.min(1, (ball.x - p.x) / (p.w / 2)));
+          const angle = offset * (Math.PI / 3);
+          ball.vx = s.speed * Math.sin(angle);
+          ball.vy = -s.speed * Math.cos(angle);
+          ball.y = PADDLE.Y - R;
+          ball.stall = 0;
+          emit("paddle");
+        }
+        // Bricks: bounce off the nearest side of the first one touched.
+        for (const b of bricks) {
+          if (b.dead) continue;
+          const r = brickRect(b);
+          const cx = Math.max(r.x, Math.min(ball.x, r.x + r.w));
+          const cy = Math.max(r.y, Math.min(ball.y, r.y + r.h));
+          if ((ball.x - cx) ** 2 + (ball.y - cy) ** 2 >= R * R) continue;
+          const dx = ball.x - (r.x + r.w / 2);
+          const dy = ball.y - (r.y + r.h / 2);
+          const overlapX = r.w / 2 + R - Math.abs(dx);
+          const overlapY = r.h / 2 + R - Math.abs(dy);
+          if (overlapX < overlapY) {
+            ball.vx = (dx < 0 ? -1 : 1) * Math.abs(ball.vx || 1);
+            ball.x += (dx < 0 ? -1 : 1) * overlapX;
+          } else {
+            ball.vy = (dy < 0 ? -1 : 1) * Math.abs(ball.vy);
+            ball.y += (dy < 0 ? -1 : 1) * overlapY;
+          }
+          if (b.kind === "steel") emit("steel");
+          else {
+            ball.stall = 0;
+            if (!hitThisStep.has(b)) {
+              hitThisStep.add(b);
+              damage(b);
+            }
+          }
+          break;
+        }
+        // A ball that only meets steel and walls for 3 s is turned towards the paddle.
+        if (ball.stall >= STALL_MS) {
+          const speedNow = Math.hypot(ball.vx, ball.vy);
+          const angle = Math.atan2(ball.vy, ball.vx);
+          const turn = (20 * Math.PI) / 180;
+          const down = Math.PI / 2;
+          const next = angle + Math.sign(down - angle || 1) * Math.min(turn, Math.abs(down - angle));
+          ball.vx = speedNow * Math.cos(next) || speedNow * 0.34;
+          ball.vy = speedNow * Math.sin(next);
+          ball.stall = 0;
+        }
+        steepen(ball);
+      }
+      bricks = bricks.filter((b) => !b.dead);
+      // The last brick gone: the map is cleared, even if a ball is falling out.
+      cleared = !bricks.some((b) => b.kind !== "steel");
+    }
+    s.bricks = bricks;
+    if (cleared) {
+      s.status = "cleared";
+      s.clearMs = 0;
+      s.score += 500;
+      emit("cleared");
+      return s;
+    }
+    // Capsules fall; the paddle catches them.
+    const p = s.paddle;
+    s.capsules = s.capsules.filter((c) => {
+      c.y += (CAPSULE.FALL * dt) / 1000;
+      const caught = c.y + CAPSULE.H / 2 >= PADDLE.Y && c.y - CAPSULE.H / 2 <= PADDLE.Y + PADDLE.H && Math.abs(c.x - p.x) <= p.w / 2 + CAPSULE.W / 2;
+      if (caught) {
+        emit("catch", { kind: c.kind });
+        if (c.kind === "wide") s.effects.wide = EFFECT_MS.wide;
+        else if (c.kind === "slow") s.effects.slow = EFFECT_MS.slow;
+        else if (c.kind === "life") {
+          s.lives = Math.min(5, s.lives + 1);
+          emit("life");
+        } else if (c.kind === "multi") {
+          const from = s.balls.find((b) => !b.stuck) || s.balls[0];
+          if (from) {
+            const sp = Math.hypot(from.vx, from.vy) || s.speed;
+            const base = from.stuck ? -Math.PI / 2 : Math.atan2(from.vy, from.vx);
+            for (const d of [-25, 25]) {
+              const a = base + (d * Math.PI) / 180;
+              s.balls.push({ x: from.x, y: from.y, vx: sp * Math.cos(a), vy: sp * Math.sin(a), stuck: false, stall: 0 });
+            }
+          }
+        }
+        return false;
+      }
+      return c.y - CAPSULE.H / 2 <= BREAKOUT.H;
+    });
+    if (s.effects.wide > 0) s.paddle.w = PADDLE.WIDE;
+    syncSpeed(s);
+    // Balls that fall out are gone; losing the last one costs a life.
+    s.balls = s.balls.filter((b) => b.y - BALL.R <= BREAKOUT.H);
+    if (!s.balls.length) {
+      s.lives -= 1;
+      emit("lost");
+      if (s.lives <= 0) {
+        s.lives = 0;
+        s.status = "over";
+        emit("over");
+      } else {
+        s.capsules = [];
+        s.effects = { wide: 0, slow: 0 };
+        s.paddle.w = PADDLE.W;
+        s.speed = BALL.SPEED;
+        s.balls = [stuckBall(s.paddle)];
+      }
+    }
+    return s;
+  }
+  window.__oneBreakout = {
+    BREAKOUT,
+    BREAKOUT_MAPS,
+    PADDLE,
+    BALL,
+    breakoutMakers,
+    breakoutRng,
+    breakoutBuild,
+    breakoutCheck,
+    breakoutDeck,
+    breakoutMap,
+    breakoutNew,
+    breakoutStep,
+    breakoutWithBricks,
+    brickRect
+  };
   const GAMES = [
     { id: "snake", title: "Snake", blurb: "Eat fruit, grow long, mind the walls.", emoji: "🐍", Component: SnakeGame },
     { id: "tetris", title: "Tetris", blurb: "Stack the blocks, clear the lines.", emoji: "🧱", Component: TetrisGame }
