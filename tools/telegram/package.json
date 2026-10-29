@@ -1,0 +1,17 @@
+{
+  "private": true,
+  "description": "Builds pages/telegram/gramjs-<version>.js, the browser copy of GramJS ONE loads. Run: npm install && npm run build",
+  "scripts": {
+    "build": "node build-gramjs.mjs"
+  },
+  "devDependencies": {
+    "buffer": "6.0.3",
+    "esbuild": "0.24.0",
+    "events": "3.3.0",
+    "os-browserify": "0.3.0",
+    "path-browserify": "1.0.1",
+    "process": "0.11.10",
+    "telegram": "2.26.22",
+    "util": "0.12.5"
+  }
+}
