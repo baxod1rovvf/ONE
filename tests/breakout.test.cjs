@@ -1,6 +1,6 @@
 const { test, before, after } = require("node:test");
 const assert = require("node:assert/strict");
-const { startServer, launch, openApp, waitForGames } = require("./helpers.cjs");
+const { startServer, launch, openApp, waitForGames, loadGame } = require("./helpers.cjs");
 
 let server, browser, rules;
 before(async () => {
@@ -8,7 +8,7 @@ before(async () => {
   browser = await launch();
   // One page for the rule tests: they only call window.__oneBreakout.
   rules = await openApp(browser, server.url, { route: "home" });
-  await waitForGames(rules.page);
+  await loadGame(rules.page, "breakout");
 });
 after(async () => {
   await rules.page.close();

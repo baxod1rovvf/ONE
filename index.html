@@ -6583,7 +6583,9 @@ main[data-section='saved'] .panel::after {
   // only refreshes the saved copy for the next open. The person's own data
   // is never touched.
   const APP_CACHE = "one-v7";
-  const APP_FILES = ["./index.html", "./games/games.js", "./games/games.css", "./manifest.webmanifest"];
+  // Every game has its own pair of files; keep this list in step with SHELL in sw.js.
+  const GAME_FILES = ["panel", "snake", "tetris", "breakout"].flatMap((f) => [`./games/${f}.js`, `./games/${f}.css`]);
+  const APP_FILES = ["./index.html", ...GAME_FILES, "./manifest.webmanifest"];
   const UPDATE_KEY = "one.update.v1";
   function lastUpdate() {
     try {
@@ -10749,7 +10751,8 @@ main[data-section='saved'] .panel::after {
     );
   }
   /* ---------- Games: loaded from their own files ---------- */
-  // The Retro games live in games/games.js and games/games.css. They load once,
+  // The Retro games panel lives in games/panel.js and games/panel.css (each
+  // game then has its own file, loaded when opened). The panel loads once,
   // in the background shortly after ONE opens, so opening Games never waits.
   let gamesPromise = null;
   function loadGames() {
@@ -10765,9 +10768,9 @@ main[data-section='saved'] .panel::after {
       });
     const css = document.createElement("link");
     css.rel = "stylesheet";
-    css.href = "games/games.css";
+    css.href = "games/panel.css";
     const js = document.createElement("script");
-    js.src = "games/games.js";
+    js.src = "games/panel.js";
     gamesPromise = Promise.all([add(css), add(js)])
       .then(() => {
         if (!window.__oneGames) throw new Error("The games file didn't start.");
@@ -13030,7 +13033,7 @@ main[data-section='saved'] .panel::after {
   function App() {
     return /* @__PURE__ */ React2.createElement(StoreProvider, null, /* @__PURE__ */ React2.createElement(ToastProvider, null, /* @__PURE__ */ React2.createElement(ConfirmProvider, null, React2.createElement(SyncProvider, null, React2.createElement(SoundProvider, null, React2.createElement(LockProvider, null, /* @__PURE__ */ React2.createElement(UIProvider, null, /* @__PURE__ */ React2.createElement(Shell, null))))))));
   }
-  // What games/games.js borrows from the app.
+  // What the games (games/*.js) borrow from the app.
   window.__oneKit = { React: React2, ReactDOM: reactDom, IconButton, icons: { Trophy, X, ArrowLeft, Volume2, VolumeX }, FOCUSABLE };
   client.createRoot(document.getElementById("root")).render(/* @__PURE__ */ React2.createElement(App, null));
   if ("serviceWorker" in navigator && (location.protocol === "https:" || location.hostname === "localhost")) {

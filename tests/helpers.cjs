@@ -198,8 +198,8 @@ async function openApp(browser, baseUrl, { route = "home", theme = "light", view
   return { page, errors };
 }
 
-// The games load in the background from games/games.js; tests that use the
-// game hooks wait for it.
+// The games panel loads in the background from games/panel.js; tests that use
+// it wait for it.
 async function waitForGames(page) {
   await page.waitForFunction(() => !!window.__oneGames, null, { timeout: 15000 });
 }
@@ -226,4 +226,10 @@ async function addAlbum(page, name, files, { kind = "music" } = {}) {
   });
 }
 
-module.exports = { startServer, launch, openApp, waitForGames, addAlbum, STORE_KEY, ROOT };
+// Loads one game's file (games/<id>.js), so its rule hooks (window.__oneSnake…) exist.
+async function loadGame(page, id) {
+  await waitForGames(page);
+  await page.evaluate((id) => window.__oneGames.loadGame(id), id);
+}
+
+module.exports = { startServer, launch, openApp, waitForGames, loadGame, addAlbum, STORE_KEY, ROOT };
