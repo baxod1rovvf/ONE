@@ -2176,6 +2176,20 @@ main[data-section] {
   color: var(--games-ink);
   border: 2px solid currentColor;
 }
+.snake-hud .snake-mute {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  color: var(--games-ink);
+  border: 2px solid currentColor;
+}
+.snake-hud .snake-mute[aria-pressed='false'] {
+  opacity: 0.6;
+}
+.snake-mute:focus-visible {
+  outline: 3px solid #f2a20c;
+  outline-offset: 3px;
+}
 .snake-pause:disabled {
   opacity: 0.4;
 }
@@ -5488,6 +5502,28 @@ main[data-section='saved'] .panel::after {
     ["path", { d: "M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4", key: "ih7n3h" }],
     ["polyline", { points: "17 8 12 3 7 8", key: "t8dd8p" }],
     ["line", { x1: "12", x2: "12", y1: "3", y2: "15", key: "widbto" }]
+  ]);
+  /**
+   * @license lucide-react v0.454.0 - ISC
+   *
+   * This source code is licensed under the ISC license.
+   * See the LICENSE file in the root directory of this source tree.
+   */
+  const Volume2 = createLucideIcon("Volume2", [
+    ["path", { d: "M11 4.702a.705.705 0 0 0-1.203-.498L6.413 7.587A1.4 1.4 0 0 1 5.416 8H3a1 1 0 0 0-1 1v6a1 1 0 0 0 1 1h2.416a1.4 1.4 0 0 1 .997.413l3.383 3.384A.705.705 0 0 0 11 19.298z", key: "uqj9uw" }],
+    ["path", { d: "M16 9a5 5 0 0 1 0 6", key: "1q6k2b" }],
+    ["path", { d: "M19.364 18.364a9 9 0 0 0 0-12.728", key: "ijwkga" }]
+  ]);
+  /**
+   * @license lucide-react v0.454.0 - ISC
+   *
+   * This source code is licensed under the ISC license.
+   * See the LICENSE file in the root directory of this source tree.
+   */
+  const VolumeX = createLucideIcon("VolumeX", [
+    ["path", { d: "M11 4.702a.705.705 0 0 0-1.203-.498L6.413 7.587A1.4 1.4 0 0 1 5.416 8H3a1 1 0 0 0-1 1v6a1 1 0 0 0 1 1h2.416a1.4 1.4 0 0 1 .997.413l3.383 3.384A.705.705 0 0 0 11 19.298z", key: "uqj9uw" }],
+    ["line", { x1: "22", x2: "16", y1: "9", y2: "15", key: "1ewh16" }],
+    ["line", { x1: "16", x2: "22", y1: "9", y2: "15", key: "5ykzw1" }]
   ]);
   /**
    * @license lucide-react v0.454.0 - ISC
@@ -10990,6 +11026,89 @@ main[data-section='saved'] .panel::after {
     );
     return [best, offer];
   }
+  // Chiptune blips for the games: square and triangle waves, made on the spot.
+  // Separate from the Sounds engine, so they play whether or not Sounds is on.
+  // The on/off choice is kept per device next to the records.
+  const RETRO_NOTES = { C5: 523.25, D5: 587.33, E5: 659.25, G5: 783.99, A5: 880, C6: 1046.5, E6: 1318.5, G6: 1568, C4: 261.63, G4: 392, E4: 329.63 };
+  class RetroSound {
+    constructor() {
+      this.ctx = null;
+      this.on = loadGameRecords().sound !== false;
+      this.played = []; // the last few cues, for tests
+    }
+    setOn(on) {
+      this.on = on;
+      try {
+        const all = loadGameRecords();
+        all.sound = on;
+        window.localStorage.setItem(GAMES_KEY, JSON.stringify(all));
+      } catch {
+        // Storage blocked: the choice lasts until the page closes.
+      }
+    }
+    // [frequency, start, length, wave, volume]; a second frequency slides the pitch.
+    play(cue, notes) {
+      this.played = [...this.played.slice(-19), cue];
+      if (!this.on) return;
+      const AC = window.AudioContext || window.webkitAudioContext;
+      if (!AC) return;
+      try {
+        if (!this.ctx) {
+          this.ctx = new AC();
+          this.out = this.ctx.createGain();
+          this.out.gain.value = 0.16;
+          this.out.connect(this.ctx.destination);
+        }
+        if (this.ctx.state !== "running") this.ctx.resume();
+        const t0 = this.ctx.currentTime + 0.01;
+        for (const [f, at, len, wave = "square", vol = 1, slideTo] of notes) {
+          const o = this.ctx.createOscillator();
+          const g = this.ctx.createGain();
+          o.type = wave;
+          o.frequency.setValueAtTime(f, t0 + at);
+          if (slideTo) o.frequency.exponentialRampToValueAtTime(slideTo, t0 + at + len);
+          g.gain.setValueAtTime(0, t0 + at);
+          g.gain.linearRampToValueAtTime(vol, t0 + at + 0.008);
+          g.gain.setValueAtTime(vol, t0 + at + len * 0.6);
+          g.gain.exponentialRampToValueAtTime(0.0001, t0 + at + len);
+          o.connect(g).connect(this.out);
+          o.start(t0 + at);
+          o.stop(t0 + at + len + 0.02);
+        }
+      } catch {
+        // No sound on this device; the game plays on silently.
+      }
+    }
+    start() {
+      const { C5, E5, G5, C6 } = RETRO_NOTES;
+      this.play("start", [[C5, 0, 0.09], [E5, 0.09, 0.09], [G5, 0.18, 0.09], [C6, 0.27, 0.16]]);
+    }
+    turn() {
+      this.play("turn", [[220, 0, 0.03, "triangle", 0.5]]);
+    }
+    // Bigger fruit, brighter jingle.
+    eat(points) {
+      const { E5, G5, C6, E6, G6 } = RETRO_NOTES;
+      const run = [E5, G5, C6, E6, G6].slice(0, Math.min(5, 1 + points));
+      this.play("eat", run.map((f, i) => [f, i * 0.05, 0.07, "square", 0.8]));
+    }
+    pause() {
+      this.play("pause", [[RETRO_NOTES.G5, 0, 0.07], [RETRO_NOTES.C5, 0.08, 0.1]]);
+    }
+    resume() {
+      this.play("resume", [[RETRO_NOTES.C5, 0, 0.07], [RETRO_NOTES.G5, 0.08, 0.1]]);
+    }
+    over() {
+      const { G4, E4, C4 } = RETRO_NOTES;
+      this.play("over", [[180, 0, 0.12, "sawtooth", 0.7, 90], [G4, 0.18, 0.16, "square", 0.8], [E4, 0.36, 0.16, "square", 0.8], [C4, 0.54, 0.4, "square", 0.8, 120]]);
+    }
+    record() {
+      const { C5, E5, G5, C6, E6, G6 } = RETRO_NOTES;
+      this.play("record", [[C5, 0, 0.1], [E5, 0.1, 0.1], [G5, 0.2, 0.1], [C6, 0.3, 0.12], [G5, 0.44, 0.08], [C6, 0.52, 0.12], [E6, 0.66, 0.12], [G6, 0.8, 0.35, "triangle", 1]]);
+    }
+  }
+  const retroSound = new RetroSound();
+  window.__oneRetroSound = retroSound;
   // Snake: a 10×10 field, fruit to eat, and walls (and its own tail) to avoid.
   // The rules are plain functions of the state, so a tick is snakeStep(state, dir).
   const SNAKE_SIZE = 10;
@@ -11086,6 +11205,16 @@ main[data-section='saved'] .panel::after {
     const swipe = React2.useRef(null);
     const statusRef = React2.useRef(game.status);
     statusRef.current = game.status;
+    const dirRef = React2.useRef(game.dir);
+    dirRef.current = game.dir;
+    const prevStatus = React2.useRef(game.status);
+    const [soundOn, setSoundOn] = React2.useState(retroSound.on);
+    const toggleSound = React2.useCallback(() => {
+      setSoundOn((on) => {
+        retroSound.setOn(!on);
+        return !on;
+      });
+    }, []);
     const start = React2.useCallback(() => {
       queue.current = [];
       setRecord(false);
@@ -11098,6 +11227,8 @@ main[data-section='saved'] .panel::after {
     // Turns wait in a short queue, so two quick presses (up, then left) both land.
     const turn = React2.useCallback((dir) => {
       const q = queue.current;
+      const facing = q.length ? q[q.length - 1] : dirRef.current;
+      if (statusRef.current === "playing" && dir !== facing && dir !== SNAKE_OPPOSITE[facing]) retroSound.turn();
       if (q.length < 3) q.push(dir);
       setGame((g) => (g.status === "ready" ? { ...g, status: "playing" } : g));
     }, []);
@@ -11121,15 +11252,31 @@ main[data-section='saved'] .panel::after {
     }, [game]);
     React2.useEffect(() => {
       if (game.last) {
+        retroSound.eat(game.last.points);
         setPop(game.last);
         const id = window.setTimeout(() => setPop(null), 700);
         return () => window.clearTimeout(id);
       }
     }, [game.last]);
     React2.useEffect(() => {
+      const was = prevStatus.current;
+      prevStatus.current = game.status;
+      if (game.status === "playing") {
+        if (was === "paused") retroSound.resume();
+        else retroSound.start();
+      } else if (game.status === "paused") {
+        retroSound.pause();
+      }
       if (game.status === "over" || game.status === "won") {
-        if (offerBest(game.score)) setRecord(true);
+        const isRecord = offerBest(game.score);
+        if (isRecord) setRecord(true);
         window.requestAnimationFrame(() => playRef.current && playRef.current.focus());
+        // A crash sound first, then the fanfare for a new record or a full field.
+        if (game.status === "over") retroSound.over();
+        if (game.status === "won" || isRecord) {
+          const id = window.setTimeout(() => retroSound.record(), game.status === "won" ? 0 : 950);
+          return () => window.clearTimeout(id);
+        }
       }
     }, [game.status]);
     // A hidden tab pauses the game.
@@ -11147,6 +11294,9 @@ main[data-section='saved'] .panel::after {
         if (dir) {
           e.preventDefault();
           turn(dir);
+        } else if (e.key === "m" || e.key === "M") {
+          e.preventDefault();
+          toggleSound();
         } else if (e.key === " " || e.key === "p" || e.key === "P") {
           e.preventDefault();
           const status = statusRef.current;
@@ -11156,7 +11306,7 @@ main[data-section='saved'] .panel::after {
       };
       window.addEventListener("keydown", onKey);
       return () => window.removeEventListener("keydown", onKey);
-    }, [turn, togglePause, start]);
+    }, [turn, togglePause, start, toggleSound]);
     const onPointerDown = (e) => {
       swipe.current = { x: e.clientX, y: e.clientY };
     };
@@ -11225,6 +11375,11 @@ main[data-section='saved'] .panel::after {
           "button",
           { type: "button", className: "snake-pause", onClick: togglePause, disabled: game.status !== "playing" && game.status !== "paused" },
           game.status === "paused" ? "Resume" : "Pause"
+        ),
+        React2.createElement(
+          IconButton,
+          { label: "Game sounds", className: "snake-mute", "aria-pressed": soundOn ? "true" : "false", onClick: toggleSound },
+          React2.createElement(soundOn ? Volume2 : VolumeX, { size: 20 })
         )
       ),
       React2.createElement(
@@ -11267,7 +11422,7 @@ main[data-section='saved'] .panel::after {
         { className: "snake-legend", "aria-label": "Fruit points" },
         SNAKE_FRUITS.map((f) => React2.createElement("li", { key: f.id }, React2.createElement("span", { "aria-hidden": true }, f.emoji), `${f.label} +${f.points}`))
       ),
-      React2.createElement("p", { className: "snake-hint" }, "Arrow keys or WASD to steer · Space to pause · swipe on touch screens")
+      React2.createElement("p", { className: "snake-hint" }, "Arrow keys or WASD to steer · Space to pause · M for sound · swipe on touch screens")
     );
   }
   const GAMES = [{ id: "snake", title: "Snake", blurb: "Eat fruit, grow long, mind the walls.", emoji: "🐍", Component: SnakeGame }];

@@ -108,3 +108,27 @@ test("Snake fits a phone screen", async () => {
   assert.deepEqual(errors, []);
   await page.close();
 });
+
+test("Snake plays retro sounds and remembers the mute choice", async () => {
+  const { page, errors } = await openApp(browser, server.url, { route: "home" });
+  const snake = await openSnake(page);
+  await page.evaluate(() => (Math.random = () => 0.55));
+  await page.keyboard.press("Space");
+  await page.waitForFunction(() => document.querySelector(".snake").dataset.status === "over", null, { timeout: 8000 });
+  await page.waitForFunction(() => window.__oneRetroSound.played.includes("record"));
+  assert.deepEqual(await page.evaluate(() => window.__oneRetroSound.played), ["start", "eat", "over", "record"]);
+  assert.ok(await page.evaluate(() => window.__oneRetroSound.ctx && window.__oneRetroSound.ctx.state !== "closed"), "made sound");
+  const mute = snake.getByRole("button", { name: "Game sounds" });
+  assert.equal(await mute.getAttribute("aria-pressed"), "true");
+  await mute.click();
+  assert.equal(await mute.getAttribute("aria-pressed"), "false");
+  assert.equal(await page.evaluate(() => JSON.parse(localStorage.getItem("one.games.v1")).sound), false);
+  await page.keyboard.press("m");
+  assert.equal(await mute.getAttribute("aria-pressed"), "true");
+  await page.keyboard.press("m");
+  await page.reload();
+  const again = await openSnake(page);
+  assert.equal(await again.getByRole("button", { name: "Game sounds" }).getAttribute("aria-pressed"), "false");
+  assert.deepEqual(errors, []);
+  await page.close();
+});
