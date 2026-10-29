@@ -826,10 +826,13 @@
   justify-items: center;
   gap: 10px;
 }
+/* One line on wide screens, even when the field is narrower than the bar. */
 .breakout-hud {
-  width: var(--bfield);
+  width: max-content;
+  max-width: 100%;
   display: flex;
   align-items: center;
+  justify-content: center;
   gap: 8px;
 }
 .breakout-stat {
@@ -946,16 +949,14 @@
     animation: none;
   }
 }
-.breakout-hud {
-  flex-wrap: wrap;
-  justify-content: center;
-}
 @media (max-width: 520px), (pointer: coarse) {
   .breakout {
     --bfield: min(480px, calc((100dvh - 220px) * 0.75), calc(100vw - 64px));
     gap: 8px;
   }
   .breakout-hud {
+    width: var(--bfield);
+    flex-wrap: wrap;
     gap: 6px;
   }
   .breakout-stat {

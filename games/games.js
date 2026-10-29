@@ -1397,7 +1397,9 @@
   const EFFECT_MS = { wide: 15000, slow: 12000 };
   const CAPSULE_KINDS = [["wide", 3], ["multi", 3], ["slow", 3], ["life", 1]];
   const MIN_ANGLE = (15 * Math.PI) / 180;
-  const STALL_MS = 3000;
+  // A ball that hits steel this many times in a row, with no brick or paddle
+  // in between, is turned towards the paddle (it may be wedged).
+  const STALL_HITS = 6;
   function breakoutRoll(s) {
     const [value, next] = tetrisRandom(s.seed);
     s.seed = next;
@@ -1534,7 +1536,6 @@
         if (ball.stuck) continue;
         ball.x += (ball.vx * h) / 1000;
         ball.y += (ball.vy * h) / 1000;
-        ball.stall = (ball.stall || 0) + h;
         if (ball.x < R) (ball.x = R), (ball.vx = Math.abs(ball.vx));
         if (ball.x > BREAKOUT.W - R) (ball.x = BREAKOUT.W - R), (ball.vx = -Math.abs(ball.vx));
         if (ball.y < R) (ball.y = R), (ball.vy = Math.abs(ball.vy));
@@ -1567,8 +1568,10 @@
             ball.vy = (dy < 0 ? -1 : 1) * Math.abs(ball.vy);
             ball.y += (dy < 0 ? -1 : 1) * overlapY;
           }
-          if (b.kind === "steel") emit("steel");
-          else {
+          if (b.kind === "steel") {
+            emit("steel");
+            ball.stall = (ball.stall || 0) + 1;
+          } else {
             ball.stall = 0;
             if (!hitThisStep.has(b)) {
               hitThisStep.add(b);
@@ -1577,8 +1580,7 @@
           }
           break;
         }
-        // A ball that only meets steel and walls for 3 s is turned towards the paddle.
-        if (ball.stall >= STALL_MS) {
+        if (ball.stall >= STALL_HITS) {
           const speedNow = Math.hypot(ball.vx, ball.vy);
           const angle = Math.atan2(ball.vy, ball.vx);
           const turn = (20 * Math.PI) / 180;
@@ -1747,8 +1749,13 @@
             ctx.lineTo(r.x + 10, y + r.h - 2);
             ctx.stroke();
           }
+          // White with a dark outline, readable on every brick colour.
+          ctx.font = `700 ${breakoutDigitSize(scale).toFixed(1)}px Fredoka, system-ui, sans-serif`;
+          ctx.lineJoin = "round";
+          ctx.lineWidth = 3;
+          ctx.strokeStyle = "rgba(10, 14, 40, 0.75)";
+          ctx.strokeText(String(b.hp), r.x + r.w / 2, y + r.h / 2 + 0.5);
           ctx.fillStyle = "#fff";
-          ctx.font = "700 11px Fredoka, system-ui, sans-serif";
           ctx.fillText(String(b.hp), r.x + r.w / 2, y + r.h / 2 + 0.5);
         } else if (b.kind === "explosive") {
           const pulse = fx.still ? 1 : 1 + 0.15 * Math.sin(t / 150);
@@ -1825,6 +1832,11 @@
       ctx.fillRect(0, 0, BREAKOUT.W, BREAKOUT.H);
     }
   }
+  // Hit numbers: at least 9 CSS px on screen, never taller than a brick.
+  function breakoutDigitSize(scale) {
+    return Math.min(15, Math.max(11, 9.2 / scale));
+  }
+  window.__oneBreakout.breakoutDigitSize = breakoutDigitSize;
   const BREAKOUT_KEYS = { ArrowLeft: -1, a: -1, A: -1, ArrowRight: 1, d: 1, D: 1 };
   // A new run. Tests may fix the seed, the first map's bricks and the lives.
   function breakoutFresh() {
@@ -1864,13 +1876,23 @@
       syncHud();
     }, [syncHud]);
     // Launching happens at once (a zero-length step), not on the next frame.
+    // At game over only "Play again" (or Space after a moment) starts a new
+    // run, so the score card isn't skipped by a tap meant for the last ball.
+    const overAt = React2.useRef(0);
     const launch = React2.useCallback(() => {
-      if (stateRef.current.status === "over") restart();
       const s = stateRef.current;
       if (s.status !== "ready" && s.status !== "playing") return;
       stateRef.current = breakoutStep(s, 0, { targetX: input.current.targetX, dir: 0, launch: true });
       syncHud();
-    }, [restart, syncHud]);
+    }, [syncHud]);
+    const playAgain = React2.useCallback(() => {
+      restart();
+      launch();
+    }, [restart, launch]);
+    const offerBestRef = React2.useRef(offerBest);
+    offerBestRef.current = offerBest;
+    const recordTimer = React2.useRef(0);
+    React2.useEffect(() => () => window.clearTimeout(recordTimer.current), []);
     const togglePause = React2.useCallback(() => {
       const s = stateRef.current.status;
       if (s === "playing") setStatus("paused");
@@ -1928,6 +1950,14 @@
         } else if (e.type === "cleared") {
           retroSound.bCleared();
           if (!f.still) for (let i = 0; i < 60; i++) f.particles.push({ x: 240, y: 320, vx: (Math.random() - 0.5) * 520, vy: (Math.random() - 0.5) * 520, life: 1.4, color: NEON[i % NEON.length] });
+        } else if (e.type === "over") {
+          // The record is kept the moment the game ends.
+          overAt.current = t;
+          retroSound.over();
+          if (offerBestRef.current(stateRef.current.score)) {
+            setRecord(true);
+            recordTimer.current = window.setTimeout(() => retroSound.record(), 950);
+          }
         }
       }
     }, []);
@@ -1987,17 +2017,8 @@
       raf = window.requestAnimationFrame(frame);
       return () => window.cancelAnimationFrame(raf);
     }, [react, syncHud]);
-    // Game over: the record and its fanfare.
     React2.useEffect(() => {
-      if (hud.status !== "over") return;
-      const isRecord = offerBest(stateRef.current.score);
-      if (isRecord) setRecord(true);
-      retroSound.over();
-      window.requestAnimationFrame(() => playRef.current && playRef.current.focus());
-      if (isRecord) {
-        const id = window.setTimeout(() => retroSound.record(), 950);
-        return () => window.clearTimeout(id);
-      }
+      if (hud.status === "over") window.requestAnimationFrame(() => playRef.current && playRef.current.focus());
     }, [hud.status]);
     // The canvas is drawn at the screen's pixel density.
     React2.useEffect(() => {
@@ -2026,7 +2047,9 @@
           input.current.keys.add(dir);
         } else if (e.key === " " || e.key === "ArrowUp") {
           e.preventDefault();
-          if (!e.repeat) launch();
+          if (e.repeat) return;
+          if (stateRef.current.status !== "over") launch();
+          else if (performance.now() - overAt.current > 700) playAgain();
         } else if (e.key === "p" || e.key === "P") {
           e.preventDefault();
           togglePause();
@@ -2053,7 +2076,7 @@
         window.removeEventListener("blur", letGo);
         document.removeEventListener("visibilitychange", onHide);
       };
-    }, [launch, togglePause, toggleSound, setStatus]);
+    }, [launch, playAgain, togglePause, toggleSound, setStatus]);
     const pointerX = (e) => {
       const r = canvasRef.current.getBoundingClientRect();
       return ((e.clientX - r.left) / r.width) * BREAKOUT.W;
@@ -2075,7 +2098,7 @@
         : status === "cleared"
         ? { title: "Map cleared!", sub: "+500" }
         : status === "over"
-        ? { title: "Game over", sub: `${hud.score} ${hud.score === 1 ? "point" : "points"}`, action: "Play again", onClick: launch }
+        ? { title: "Game over", sub: `${hud.score} ${hud.score === 1 ? "point" : "points"}`, action: "Play again", onClick: playAgain }
         : null;
     return React2.createElement(
       "div",
