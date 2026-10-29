@@ -144,6 +144,18 @@
       const { G5, C6, E6, G6 } = RETRO_NOTES;
       this.play("tlevel", [[G5, 0, 0.06], [C6, 0.06, 0.06], [E6, 0.12, 0.06], [G6, 0.18, 0.14]]);
     }
+    // 2048
+    g48Move() {
+      this.play("g48move", [[300, 0, 0.03, "triangle", 0.4]]);
+    }
+    // Bigger merges sound higher.
+    g48Merge(value) {
+      const step = Math.min(10, Math.log2(value) - 1);
+      this.play("g48merge", [[RETRO_NOTES.C5 * Math.pow(2, step / 6), 0, 0.08, "square", 0.6], [RETRO_NOTES.C5 * Math.pow(2, (step + 4) / 6), 0.06, 0.08, "square", 0.5]]);
+    }
+    g48Win() {
+      this.record();
+    }
     // Breakout
     bPaddle() {
       this.play("bpaddle", [[220, 0, 0.07, "square", 0.7, 160]]);
@@ -208,7 +220,7 @@
       };
     }, [id]);
   }
-  window.__oneGameKit = { React2, reactDom, IconButton, FOCUSABLE, icons: kit.icons, useGameRecord, loadGameRecords, retroSound, RETRO_NOTES, tetrisRandom, useActiveGame };
+  window.__oneGameKit = { React2, reactDom, IconButton, FOCUSABLE, icons: kit.icons, useGameRecord, loadGameRecords, saveGameRecord, retroSound, RETRO_NOTES, tetrisRandom, useActiveGame };
   window.__oneGameModules = window.__oneGameModules || {};
   const fmtClock = (s) => `${Math.floor(s / 60)}:${String(s % 60).padStart(2, "0")}`;
   // Metadata only; each game's code is in games/<file>.js. `best` says what
@@ -216,7 +228,15 @@
   const GAMES = [
     { id: "snake", title: "Snake", blurb: "Eat fruit, grow long, mind the walls.", emoji: "🐍", file: "snake" },
     { id: "tetris", title: "Tetris", blurb: "Stack the blocks, clear the lines.", emoji: "🧱", file: "tetris" },
-    { id: "breakout", title: "Breakout", blurb: "Break every brick, catch the power-ups.", emoji: "🏓", file: "breakout" }
+    { id: "breakout", title: "Breakout", blurb: "Break every brick, catch the power-ups.", emoji: "🏓", file: "breakout" },
+    {
+      id: "2048",
+      title: "2048",
+      blurb: "Slide, merge, reach 2048.",
+      emoji: "🔢",
+      file: "2048",
+      best: (records) => `Best ${Math.max(0, ...[3, 4, 5, 6].map((n) => (records[`2048-${n}`] || {}).best || 0))}`
+    }
   ];
   const bestText = (g, records) => (g.best ? g.best(records, fmtClock) : `Best ${(records[g.id] || {}).best || 0}`);
   // Loads a game's script and styles once; a failure is forgotten so the next

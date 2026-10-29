@@ -6584,7 +6584,7 @@ main[data-section='saved'] .panel::after {
   // is never touched.
   const APP_CACHE = "one-v7";
   // Every game has its own pair of files; keep this list in step with SHELL in sw.js.
-  const GAME_FILES = ["panel", "snake", "tetris", "breakout"].flatMap((f) => [`./games/${f}.js`, `./games/${f}.css`]);
+  const GAME_FILES = ["panel", "snake", "tetris", "breakout", "2048"].flatMap((f) => [`./games/${f}.js`, `./games/${f}.css`]);
   const APP_FILES = ["./index.html", ...GAME_FILES, "./manifest.webmanifest"];
   const UPDATE_KEY = "one.update.v1";
   function lastUpdate() {
