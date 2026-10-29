@@ -1,6 +1,6 @@
 const { test, before, after } = require("node:test");
 const assert = require("node:assert/strict");
-const { startServer, launch, openApp } = require("./helpers.cjs");
+const { startServer, launch, openApp, addAlbum } = require("./helpers.cjs");
 
 let server, browser;
 before(async () => {
@@ -18,12 +18,13 @@ async function openTab(page, tab) {
   if (!(await panel(page).count())) await page.getByRole("toolbar", { name: "Quick actions" }).getByRole("button", { name: "Sounds" }).click();
   await panel(page).getByRole("tab", { name: tab }).click();
 }
-// Rain on, and Gymnopédie playing from 20 s.
+// Rain on, and Long Song playing from 20 s.
 async function startMix(page) {
   await openTab(page, "Nature");
   await panel(page).getByRole("switch", { name: "Rain", exact: true }).click();
   await openTab(page, "Music");
-  await panel(page).getByRole("button", { name: "Play Gymnopédie No. 1" }).click();
+  await addAlbum(page, "Test", ["long.mp3"]);
+  await panel(page).getByRole("button", { name: "Play Long Song" }).click();
   await page.waitForFunction(() => window.__oneSound.stats().track && window.__oneSound.stats().track.duration > 0);
   await page.evaluate(() => window.__oneSound.seek(20));
   await page.waitForFunction(() => window.__oneSound.stats().track.playing && window.__oneSound.stats().track.position >= 20);
@@ -55,7 +56,7 @@ test("stopping the recitation brings back exactly what was playing", async () =>
   await panel(page).getByRole("group", { name: "Now playing" }).getByRole("button", { name: "Stop" }).click();
   await page.waitForFunction(() => {
     const s = window.__oneSound.stats();
-    return !s.ducked && s.natureGain > 0.99 && s.track && /Gymnop/.test(s.track.title) && s.track.playing && s.track.position >= 19.5;
+    return !s.ducked && s.natureGain > 0.99 && s.track && /Long Song/.test(s.track.title) && s.track.playing && s.track.position >= 19.5;
   }, null, { timeout: 5000 });
   await page.close();
 });
@@ -70,7 +71,7 @@ test("a surah that ends on another page still restores the mix", async () => {
   await page.evaluate(() => window.__oneSound.seek(window.__oneSound.stats().track.duration - 0.2));
   await page.waitForFunction(() => {
     const s = window.__oneSound.stats();
-    return !s.ducked && s.natureGain > 0.99 && s.track && /Gymnop/.test(s.track.title) && s.track.playing;
+    return !s.ducked && s.natureGain > 0.99 && s.track && /Long Song/.test(s.track.title) && s.track.playing;
   }, null, { timeout: 6000 });
   assert.match(page.url(), /#websites$/);
   await page.close();
@@ -95,11 +96,12 @@ test("choosing Pause stops the recitation and does what was asked", async () => 
   const { page } = await openApp(browser, server.url, { route: "tasks" });
   await startSurah(page);
   await openTab(page, "Music");
-  await panel(page).getByRole("button", { name: "Play Gymnopédie No. 1" }).click();
+  await addAlbum(page, "Test", ["long.mp3"]);
+  await panel(page).getByRole("button", { name: "Play Long Song" }).click();
   await page.getByRole("alertdialog").getByRole("button", { name: "Pause" }).click();
   await page.waitForFunction(() => {
     const s = window.__oneSound.stats();
-    return !s.ducked && s.track && /Gymnop/.test(s.track.title) && s.track.playing;
+    return !s.ducked && s.track && /Long Song/.test(s.track.title) && s.track.playing;
   });
   await page.close();
 });

@@ -204,4 +204,26 @@ async function waitForGames(page) {
   await page.waitForFunction(() => !!window.__oneGames, null, { timeout: 15000 });
 }
 
-module.exports = { startServer, launch, openApp, waitForGames, STORE_KEY, ROOT };
+// Sounds → Music → a new album (or nasheed collection) holding `files`.
+// Leaves the album open in the panel.
+const AUDIO = path.join(__dirname, "fixtures", "audio");
+async function addAlbum(page, name, files, { kind = "music" } = {}) {
+  const panel = page.getByRole("dialog", { name: "Sounds" });
+  if (!(await panel.count())) await page.getByRole("toolbar", { name: "Quick actions" }).getByRole("button", { name: "Sounds" }).click();
+  await panel.getByRole("tab", { name: "Music" }).click();
+  const back = panel.getByRole("button", { name: "All music" });
+  if (await back.count()) await back.click();
+  const section = panel.getByRole("region", { name: kind === "nasheed" ? "Nasheeds" : "My albums" });
+  await section.getByRole("button", { name: kind === "nasheed" ? "New collection" : "New album" }).click();
+  const field = section.getByRole("textbox", { name: kind === "nasheed" ? "Collection name" : "Album name" });
+  await field.fill(name);
+  await field.press("Enter");
+  await section.getByRole("button", { name: new RegExp(`^Open album ${name}`) }).first().click();
+  await panel.getByLabel(kind === "nasheed" ? "Add nasheeds" : "Add music").setInputFiles(files.map((f) => path.join(AUDIO, f)));
+  await page.waitForFunction(() => {
+    const el = document.querySelector(".import-result");
+    return el && !/Adding/.test(el.textContent);
+  });
+}
+
+module.exports = { startServer, launch, openApp, waitForGames, addAlbum, STORE_KEY, ROOT };

@@ -182,3 +182,15 @@ test("asks the browser to keep the music, once", async () => {
   assert.deepEqual(r, [1, 1]);
   await page.close();
 });
+
+test("Calm music and both Nasheed switches are gone", async () => {
+  const { page } = await openApp(browser, server.url, { route: "tasks" });
+  await page.getByRole("toolbar", { name: "Quick actions" }).getByRole("button", { name: "Sounds" }).click();
+  const panel = page.getByRole("dialog", { name: "Sounds" });
+  await panel.getByRole("tab", { name: "Music" }).click();
+  const text = await panel.innerText();
+  for (const gone of ["Calm music", "Gymnopédie", "Nasheeds only"]) assert.ok(!text.includes(gone), gone);
+  assert.equal(await panel.getByRole("switch", { name: /^Nasheed/ }).count(), 0);
+  for (const region of ["My albums", "Spotify", "Nasheeds"]) assert.equal(await panel.getByRole("region", { name: region }).count(), 1, region);
+  await page.close();
+});

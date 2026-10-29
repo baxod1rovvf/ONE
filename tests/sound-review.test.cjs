@@ -2,7 +2,7 @@
 const { test, before, after } = require("node:test");
 const assert = require("node:assert/strict");
 const path = require("node:path");
-const { startServer, launch, openApp } = require("./helpers.cjs");
+const { startServer, launch, openApp, addAlbum } = require("./helpers.cjs");
 
 let server, browser;
 before(async () => {
@@ -70,7 +70,8 @@ test("replaying a stopped surah from the mini player still plays it alone", asyn
 test("the break chime works when only music is playing", async () => {
   const { page } = await openApp(browser, server.url, { route: "tasks" });
   await openTab(page, "Music");
-  await panel(page).getByRole("button", { name: "Play Gymnopédie No. 1" }).click();
+  await addAlbum(page, "Test", ["long.mp3"]);
+  await panel(page).getByRole("button", { name: "Play Long Song" }).click();
   await page.waitForFunction(() => window.__oneSound.stats().track && window.__oneSound.stats().track.playing);
   const result = await page.evaluate(() => {
     try {
@@ -103,7 +104,8 @@ test("locking and Stop all also pause Spotify", async () => {
 test("Stop all during a recitation leaves silence, nothing restarts", async () => {
   const { page } = await openApp(browser, server.url, { route: "tasks" });
   await openTab(page, "Music");
-  await panel(page).getByRole("button", { name: "Play Gymnopédie No. 1" }).click();
+  await addAlbum(page, "Test", ["long.mp3"]);
+  await panel(page).getByRole("button", { name: "Play Long Song" }).click();
   await page.waitForFunction(() => window.__oneSound.stats().track && window.__oneSound.stats().track.playing);
   await playSurah(page);
   await panel(page).getByRole("button", { name: "Stop all" }).click();
@@ -120,8 +122,10 @@ test("pressing play inside Spotify's own player pauses ONE's music", async () =>
     window.__fakeSpotifyBlockPlay = true;
   });
   await addSpotify(page);
-  await panel(page).getByRole("button", { name: "Play Gymnopédie No. 1" }).click();
+  await addAlbum(page, "Test", ["long.mp3"]);
+  await panel(page).getByRole("button", { name: "Play Long Song" }).click();
   await page.waitForFunction(() => window.__oneSound.stats().track && window.__oneSound.stats().track.playing);
+  await panel(page).getByRole("button", { name: "All music" }).click();
   await panel(page).getByRole("button", { name: /^Play Spotify/ }).click();
   // play() was blocked: the embed must be shown so it can be pressed.
   await page.waitForSelector(".spotify-host[data-visible='true']");
@@ -163,19 +167,36 @@ test("a tap outside the panel closes it", async () => {
 test("a seek made while a track is still restoring wins", async () => {
   const { page } = await openApp(browser, server.url, { route: "tasks" });
   await openTab(page, "Music");
-  await panel(page).getByRole("button", { name: "Play Gymnopédie No. 1" }).click();
+  await addAlbum(page, "Test", ["long.mp3"]);
+  await panel(page).getByRole("button", { name: "Play Long Song" }).click();
   await page.waitForFunction(() => window.__oneSound.stats().track && window.__oneSound.stats().track.duration > 0);
   await page.evaluate(() => window.__oneSound.seek(20));
   await panel(page).getByRole("group", { name: "Now playing" }).getByRole("button", { name: "Pause" }).click();
   await page.waitForFunction(() => !window.__oneSound.stats().track.playing);
-  await page.route(/gymnopedies/i, async (route) => {
-    await new Promise((r) => setTimeout(r, 1500));
-    await route.fallback();
+  // After the reload, the track's file is held back until the test releases it.
+  await page.addInitScript(() => {
+    let lib;
+    let release;
+    const held = new Promise((r) => (release = r));
+    window.__releaseFile = () => release();
+    Object.defineProperty(window, "__oneMedia", {
+      configurable: true,
+      get: () => lib,
+      set(v) {
+        const url = v.url.bind(v);
+        v.url = async (id) => {
+          await held;
+          return url(id);
+        };
+        lib = v;
+      }
+    });
   });
   await page.reload();
   await page.locator(".mini-player").waitFor();
   await page.evaluate(() => window.__oneSound.seek(5));
-  await page.waitForTimeout(2500);
+  await page.evaluate(() => window.__releaseFile());
+  await page.waitForFunction(() => window.__oneSound.audio.getAttribute("src") && window.__oneSound.pendingStart == null, null, { timeout: 4000 });
   const t = (await stats(page)).track;
   assert.ok(Math.abs(t.position - 5) < 0.5, `position ${t.position}`);
   await page.close();
@@ -183,12 +204,7 @@ test("a seek made while a track is still restoring wins", async () => {
 
 test("a file with a broken tag doesn't freeze the page", async () => {
   const { page } = await openApp(browser, server.url, { route: "tasks" });
-  await openTab(page, "Music");
-  await panel(page).getByLabel("Add music").setInputFiles([path.join(__dirname, "fixtures", "audio", "bad-id3.mp3")]);
-  await page.waitForFunction(() => {
-    const el = document.querySelector(".import-result");
-    return el && !/Adding/.test(el.textContent);
-  }, null, { timeout: 8000 });
+  await addAlbum(page, "Test", ["bad-id3.mp3"]);
   await page.close();
 });
 
@@ -209,7 +225,8 @@ test("opening ONE while it is locked keeps the saved mix silent until unlocked",
 test("restoring the last track after a reload only fetches its details", async () => {
   const { page } = await openApp(browser, server.url, { route: "tasks" });
   await openTab(page, "Music");
-  await panel(page).getByRole("button", { name: "Play Gymnopédie No. 1" }).click();
+  await addAlbum(page, "Test", ["long.mp3"]);
+  await panel(page).getByRole("button", { name: "Play Long Song" }).click();
   await page.waitForFunction(() => window.__oneSound.stats().track && window.__oneSound.stats().track.playing);
   await panel(page).getByRole("group", { name: "Now playing" }).getByRole("button", { name: "Pause" }).click();
   await page.reload();

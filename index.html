@@ -4154,6 +4154,43 @@ main[data-section='saved'] .panel::after {
   justify-content: space-between;
   gap: 8px;
 }
+/* "New album" / "New collection": the name field that opens in place. */
+.album-new {
+  display: grid;
+  gap: 6px;
+  margin-bottom: 10px;
+}
+.album-new__row {
+  display: flex;
+  gap: 6px;
+  align-items: center;
+}
+.album-new__row .input {
+  flex: 1;
+  min-width: 0;
+}
+.album-view__name {
+  min-width: 0;
+  flex: 1;
+}
+.album-view__title {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  min-width: 0;
+}
+.album-view__title .music-section__title {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.album-view__actions {
+  flex-wrap: wrap;
+}
+.album-view__delete {
+  margin-left: auto;
+  color: var(--danger);
+}
 .music-section__add {
   display: flex;
   gap: 4px;
@@ -8066,12 +8103,6 @@ main[data-section='saved'] .panel::after {
     { name: "Night meadow", sounds: ["crickets", "wind"] },
     { name: "Deep focus", sounds: ["waterfall", "rain"] }
   ];
-  // Free calm music: public-domain recordings on Wikimedia Commons (Musopen).
-  const MUSIC_LIBRARY = [
-    { id: "satie-gymnopedie-1", title: "Gymnopédie No. 1", artist: "Erik Satie · Robin Alciatore", album: "Calm music", kind: "music", file: "Erik Satie - gymnopedies - la 1 ere. lent et douloureux.ogg", licence: "Public domain (Musopen)" },
-    { id: "beethoven-moonlight-1", title: "Moonlight Sonata, I. Adagio sostenuto", artist: "Ludwig van Beethoven · Musopen", album: "Calm music", kind: "music", file: "Ludwig van Beethoven - sonata no. 14 in c sharp minor 'moonlight', op. 27 no. 2 - i. adagio sostenuto.ogg", licence: "Public domain (Musopen)" },
-    { id: "beethoven-moonlight-3", title: "Moonlight Sonata, III. Presto agitato", artist: "Ludwig van Beethoven · Paul Pitman", album: "Calm music", kind: "music", file: "Moonlight Sonata Presto.ogg", licence: "Public domain (Musopen)" }
-  ];
   const FADE = 1;
   // Free recordings on Wikimedia Commons, by file name.
   const commonsFile = (file) => `https://commons.wikimedia.org/wiki/Special:FilePath/${encodeURIComponent(file)}`;
@@ -8686,10 +8717,6 @@ main[data-section='saved'] .panel::after {
     rename(id, title) {
       return this.update([id], { title });
     },
-    async setKind(albumKey, kind) {
-      const ids = (await this.list()).filter((t) => t.albumKey === albumKey).map((t) => t.id);
-      return this.update(ids, { kind });
-    },
     async blobUrl(key) {
       if (this.urls.has(key)) return this.urls.get(key);
       const row = await this.run(["blobs"], "readonly", (tx) => {
@@ -9024,7 +9051,7 @@ main[data-section='saved'] .panel::after {
   function defaultSoundSettings() {
     const nature = {};
     for (const s of NATURE_SOUNDS) nature[s.id] = { on: false, volume: 0.4, real: false };
-    return { nature, master: 0.8, followMeadow: true, tab: "nature", nasheedsOnly: false, repeat: "off", shuffle: false, track: null, quran: { reciterId: null, reciterName: "", favourites: [], last: null, continue: false, repeat: false, offline: [] }, spotify: [] };
+    return { nature, master: 0.8, followMeadow: true, tab: "nature", repeat: "off", shuffle: false, track: null, quran: { reciterId: null, reciterName: "", favourites: [], last: null, continue: false, repeat: false, offline: [] }, spotify: [] };
   }
   function loadSoundSettings() {
     const base = defaultSoundSettings();
@@ -9903,56 +9930,160 @@ main[data-section='saved'] .panel::after {
       )
     );
   }
-  function AlbumTile({ group, onOpen }) {
+  // Words that differ between music albums and nasheed collections.
+  const ALBUM_WORDS = {
+    music: { section: "My albums", add: "New album", label: "Album name", placeholder: "Road trip", upload: "Add music", remove: "Delete album", empty: "Create an album and add music you own. It stays private on this device." },
+    nasheed: { section: "Nasheeds", add: "New collection", label: "Collection name", placeholder: "Morning nasheeds", upload: "Add nasheeds", remove: "Delete collection", empty: "Create a collection and add nasheed files you have." }
+  };
+  const countTracks = (n) => `${n} track${n === 1 ? "" : "s"}`;
+  function useCover(tracks) {
     const [cover, setCover] = React2.useState(null);
-    const withCover = group.tracks.find((t) => t.hasCover);
+    const withCover = tracks.find((t) => t.hasCover);
     React2.useEffect(() => {
       let live = true;
+      setCover(null);
       if (withCover) MediaLibrary.cover(withCover.id).then((u) => live && setCover(u), () => {});
       return () => {
         live = false;
       };
     }, [withCover && withCover.id]);
+    return cover;
+  }
+  function AlbumTile({ album, tracks, onOpen }) {
+    const cover = useCover(tracks);
+    const count = tracks.length ? countTracks(tracks.length) : "Empty";
     return React2.createElement(
       "button",
-      { type: "button", className: "album-tile", "aria-label": `Open album ${group.album}, ${group.artist}`, onClick: onOpen },
-      cover ? React2.createElement("img", { className: "album-tile__cover", src: cover, alt: "" }) : React2.createElement("span", { className: "album-tile__cover album-tile__cover--blank", "aria-hidden": true }, "♪"),
-      React2.createElement("span", { className: "album-tile__title" }, group.album),
-      React2.createElement("span", { className: "album-tile__artist" }, group.artist)
+      { type: "button", className: "album-tile", "aria-label": `Open album ${album.name}, ${count}`, onClick: onOpen },
+      cover ? React2.createElement("img", { className: "album-tile__cover", src: cover, alt: "" }) : React2.createElement("span", { className: "album-tile__cover album-tile__cover--blank", "aria-hidden": true }, album.kind === "nasheed" ? "☾" : "♪"),
+      React2.createElement("span", { className: "album-tile__title" }, album.name),
+      React2.createElement("span", { className: "album-tile__artist" }, count)
     );
   }
-  function groupAlbums(tracks) {
-    const map = new Map();
-    for (const t of tracks) {
-      if (!map.has(t.albumKey)) map.set(t.albumKey, { key: t.albumKey, album: t.album, artist: t.artist, kind: t.kind, tracks: [] });
-      map.get(t.albumKey).tracks.push(t);
-    }
-    return [...map.values()];
+  // "New album" / "New collection": a name field that appears in place.
+  function NewAlbumForm({ kind, onCreated, onCancel }) {
+    const words = ALBUM_WORDS[kind];
+    const id = React2.useId();
+    const [name, setName] = React2.useState("");
+    const [error, setError] = React2.useState(null);
+    const submit = async (e) => {
+      e.preventDefault();
+      if (!name.trim()) {
+        setError("Give the album a name.");
+        return;
+      }
+      onCreated(await MediaLibrary.createAlbum(name, kind));
+    };
+    return React2.createElement(
+      "form",
+      { className: "album-new", onSubmit: submit, noValidate: true },
+      React2.createElement("label", { className: "field__label", htmlFor: id }, words.label),
+      React2.createElement(
+        "div",
+        { className: "album-new__row" },
+        React2.createElement("input", {
+          id,
+          className: "input",
+          type: "text",
+          maxLength: 60,
+          placeholder: words.placeholder,
+          autoFocus: true,
+          value: name,
+          "aria-invalid": error ? true : void 0,
+          "aria-describedby": error ? `${id}-error` : void 0,
+          onChange: (e) => {
+            setName(e.target.value);
+            if (error) setError(null);
+          },
+          onKeyDown: (e) => {
+            if (e.key === "Escape") {
+              e.stopPropagation();
+              onCancel();
+            }
+          }
+        }),
+        React2.createElement(Button, { size: "sm", variant: "primary", type: "submit" }, "Create"),
+        React2.createElement(Button, { size: "sm", variant: "ghost", onClick: onCancel }, "Cancel")
+      ),
+      error && React2.createElement("span", { id: `${id}-error`, className: "field__error", role: "alert" }, error)
+    );
   }
-  function AlbumView({ group, onBack, onChanged }) {
+  function AlbumSection({ kind, albums, tracksOf, onOpen, onCreated, footer }) {
+    const words = ALBUM_WORDS[kind];
+    const [creating, setCreating] = React2.useState(false);
+    return React2.createElement(
+      "section",
+      { className: "music-section", "aria-label": words.section },
+      React2.createElement(
+        "div",
+        { className: "music-section__row" },
+        React2.createElement("h3", { className: "music-section__title" }, words.section),
+        !creating && React2.createElement(Button, { size: "sm", variant: "secondary", icon: React2.createElement(Plus, { size: 14 }), onClick: () => setCreating(true) }, words.add)
+      ),
+      creating &&
+        React2.createElement(NewAlbumForm, {
+          kind,
+          onCancel: () => setCreating(false),
+          onCreated: (album) => {
+            setCreating(false);
+            onCreated(album);
+          }
+        }),
+      albums.length
+        ? React2.createElement("div", { className: "album-grid" }, albums.map((a) => React2.createElement(AlbumTile, { key: a.id, album: a, tracks: tracksOf(a.id), onOpen: () => onOpen(a.id) })))
+        : !creating && React2.createElement("p", { className: "music-section__note" }, words.empty),
+      footer
+    );
+  }
+  function AlbumView({ album, tracks, onBack, onChanged }) {
     const { engine, guard } = useSound();
     const confirm = useConfirm();
-    const [cover, setCover] = React2.useState(null);
+    const words = ALBUM_WORDS[album.kind];
+    const cover = useCover(tracks);
     const [renaming, setRenaming] = React2.useState(null);
-    const withCover = group.tracks.find((t) => t.hasCover);
-    React2.useEffect(() => {
-      let live = true;
-      if (withCover) MediaLibrary.cover(withCover.id).then((u) => live && setCover(u), () => {});
-      return () => {
-        live = false;
-      };
-    }, [withCover && withCover.id]);
-    const queue = group.tracks.map(localTrack);
+    const [renamingAlbum, setRenamingAlbum] = React2.useState(false);
+    const [result, setResult] = React2.useState(null);
+    const [busy, setBusy] = React2.useState(false);
+    const filesInput = React2.useRef(null);
+    const folderInput = React2.useRef(null);
+    const queue = tracks.map(localTrack);
     const cur = engine.current;
     const dropFromPlayer = (ids) => {
       if (cur && cur.source === "local" && ids.includes(cur.mediaId)) engine.stopTrack();
     };
+    const importFiles = async (fileList) => {
+      const files = [...(fileList || [])];
+      if (!files.length) return;
+      setBusy(true);
+      const r = await MediaLibrary.add(files, album.id);
+      setBusy(false);
+      const parts = [`Added ${countTracks(r.saved.length)}.`];
+      if (r.skipped.length) parts.push(`Skipped: ${r.skipped.map((x) => `${x.name} (${x.reason})`).join(", ")}.`);
+      if (r.full) parts.push(`Storage is full. Saved: ${r.saved.map((t) => t.title).join(", ") || "nothing"}.`);
+      setResult(parts.join(" "));
+      onChanged();
+    };
+    const fileInput = (ref, label, extra) =>
+      React2.createElement("input", {
+        ref,
+        type: "file",
+        multiple: true,
+        accept: "audio/*,.mp3,.m4a,.ogg,.wav",
+        className: "sr-only",
+        tabIndex: -1,
+        "aria-label": label,
+        onChange: (e) => {
+          importFiles(e.target.files);
+          e.target.value = "";
+        },
+        ...extra
+      });
+    const supportsFolders = typeof document !== "undefined" && "webkitdirectory" in document.createElement("input");
     const deleteAlbum = async () => {
-      const ok = await confirm({ title: `Delete “${group.album}”?`, body: `Its ${group.tracks.length} track${group.tracks.length === 1 ? "" : "s"} will be removed from this device.`, confirmLabel: "Delete album" });
+      const ok = await confirm({ title: `Delete “${album.name}” and its ${countTracks(tracks.length)}?`, body: "They’ll be removed from this device.", confirmLabel: words.remove });
       if (!ok) return;
-      const ids = group.tracks.map((t) => t.id);
-      dropFromPlayer(ids);
-      await MediaLibrary.remove(ids);
+      dropFromPlayer(tracks.map((t) => t.id));
+      await MediaLibrary.deleteAlbum(album.id);
       onChanged();
       onBack();
     };
@@ -9971,6 +10102,13 @@ main[data-section='saved'] .panel::after {
         onChanged();
       }
     };
+    const saveAlbumName = async (name) => {
+      setRenamingAlbum(false);
+      if (name.trim() && name.trim() !== album.name) {
+        await MediaLibrary.renameAlbum(album.id, name);
+        onChanged();
+      }
+    };
     return React2.createElement(
       "div",
       { className: "album-view" },
@@ -9978,36 +10116,50 @@ main[data-section='saved'] .panel::after {
       React2.createElement(
         "div",
         { className: "album-view__head" },
-        cover ? React2.createElement("img", { className: "album-cover", src: cover, alt: `Cover of ${group.album}` }) : React2.createElement("span", { className: "album-cover album-cover--blank", "aria-hidden": true }, "♪"),
+        cover ? React2.createElement("img", { className: "album-cover", src: cover, alt: `Cover of ${album.name}` }) : React2.createElement("span", { className: "album-cover album-cover--blank", "aria-hidden": true }, album.kind === "nasheed" ? "☾" : "♪"),
         React2.createElement(
           "div",
-          null,
-          React2.createElement("h3", { className: "music-section__title" }, group.album),
-          React2.createElement("p", { className: "track-row__artist" }, group.artist)
+          { className: "album-view__name" },
+          renamingAlbum
+            ? React2.createElement("input", {
+                className: "input",
+                "aria-label": words.label,
+                defaultValue: album.name,
+                maxLength: 60,
+                autoFocus: true,
+                onKeyDown: (e) => {
+                  if (e.key === "Enter") saveAlbumName(e.currentTarget.value);
+                  if (e.key === "Escape") {
+                    e.stopPropagation();
+                    setRenamingAlbum(false);
+                  }
+                },
+                onBlur: (e) => saveAlbumName(e.currentTarget.value)
+              })
+            : React2.createElement(
+                "div",
+                { className: "album-view__title" },
+                React2.createElement("h3", { className: "music-section__title" }, album.name),
+                React2.createElement(IconButton, { label: "Rename album", size: "sm", onClick: () => setRenamingAlbum(true) }, React2.createElement(Pencil, { size: 14 }))
+              ),
+          React2.createElement("p", { className: "track-row__artist" }, tracks.length ? countTracks(tracks.length) : "Empty")
         )
       ),
       React2.createElement(
         "div",
         { className: "album-view__actions" },
-        React2.createElement(
-          "label",
-          { className: "album-view__kind" },
-          React2.createElement(SoundSwitch, {
-            label: "Nasheed album",
-            checked: group.kind === "nasheed",
-            onChange: async (v) => {
-              await MediaLibrary.setKind(group.key, v ? "nasheed" : "music");
-              onChanged();
-            }
-          }),
-          React2.createElement("span", { "aria-hidden": true }, "Nasheed")
-        ),
-        React2.createElement(Button, { size: "sm", variant: "secondary", onClick: deleteAlbum }, "Delete album")
+        tracks.length > 0 && React2.createElement(Button, { size: "sm", variant: "primary", onClick: () => guard(() => engine.playQueue(queue, 0)) }, "Play all"),
+        React2.createElement(Button, { size: "sm", variant: "secondary", icon: React2.createElement(Plus, { size: 14 }), onClick: () => filesInput.current && filesInput.current.click() }, words.upload),
+        supportsFolders && React2.createElement(Button, { size: "sm", variant: "ghost", onClick: () => folderInput.current && folderInput.current.click() }, "Add folder"),
+        React2.createElement(Button, { size: "sm", variant: "ghost", className: "album-view__delete", onClick: deleteAlbum }, words.remove),
+        fileInput(filesInput, words.upload),
+        supportsFolders && fileInput(folderInput, "Add folder", { webkitdirectory: "" })
       ),
+      (busy || result) && React2.createElement("p", { className: "import-result", role: "status" }, busy ? "Adding…" : result),
       React2.createElement(
         "ul",
         { className: "track-list" },
-        group.tracks.map((t, i) =>
+        tracks.map((t, i) =>
           renaming === t.id
             ? React2.createElement(
                 "li",
@@ -10046,149 +10198,87 @@ main[data-section='saved'] .panel::after {
   function MusicTab() {
     const { engine, guard } = useSound();
     const [lib, setLib] = React2.useState([]);
-    const [albumKey, setAlbumKey] = React2.useState(null);
+    const [albums, setAlbums] = React2.useState([]);
+    const [openId, setOpenId] = React2.useState(null);
     const [query, setQuery] = React2.useState("");
-    const [result, setResult] = React2.useState(null);
-    const [busy, setBusy] = React2.useState(false);
-    const musicInput = React2.useRef(null);
-    const nasheedInput = React2.useRef(null);
-    const folderInput = React2.useRef(null);
-    const refresh = React2.useCallback(() => MediaLibrary.list().then(setLib, () => setLib([])), []);
+    const refresh = React2.useCallback(
+      () =>
+        Promise.all([MediaLibrary.list(), MediaLibrary.albums()]).then(
+          ([tracks, list]) => {
+            setLib(tracks);
+            setAlbums(list);
+            if (tracks.length) MediaLibrary.ensurePersisted();
+          },
+          () => {
+            setLib([]);
+            setAlbums([]);
+          }
+        ),
+      []
+    );
     React2.useEffect(() => {
       refresh();
     }, [refresh]);
-    const nasheedsOnly = engine.settings.nasheedsOnly;
     const cur = engine.current;
-    const calm = MUSIC_LIBRARY.filter((t) => t.kind === "music");
-    const builtInNasheeds = MUSIC_LIBRARY.filter((t) => t.kind === "nasheed");
-    const albums = groupAlbums(lib);
-    const musicAlbums = albums.filter((a) => a.kind !== "nasheed");
-    const nasheedAlbums = albums.filter((a) => a.kind === "nasheed");
-    const importFiles = async (fileList, kind) => {
-      const files = [...(fileList || [])];
-      if (!files.length) return;
-      setBusy(true);
-      const r = await MediaLibrary.add(files, kind);
-      setBusy(false);
-      const parts = [];
-      parts.push(`Added ${r.saved.length} track${r.saved.length === 1 ? "" : "s"}.`);
-      if (r.skipped.length) parts.push(`Skipped: ${r.skipped.map((x) => `${x.name} (${x.reason})`).join(", ")}.`);
-      if (r.full) parts.push(`Storage is full. Saved: ${r.saved.map((t) => t.title).join(", ") || "nothing"}.`);
-      setResult(parts.join(" "));
-      refresh();
-    };
-    const fileInput = (ref, label, kind, extra) =>
-      React2.createElement("input", {
-        ref,
-        type: "file",
-        multiple: true,
-        accept: "audio/*,.mp3,.m4a,.ogg,.wav",
-        className: "sr-only",
-        tabIndex: -1,
-        "aria-label": label,
-        onChange: (e) => {
-          importFiles(e.target.files, kind);
-          e.target.value = "";
-        },
-        ...extra
-      });
-    const supportsFolders = typeof document !== "undefined" && "webkitdirectory" in document.createElement("input");
+    const tracksOf = (id) => lib.filter((t) => t.albumId === id);
     const usageBytes = lib.reduce((n, t) => n + (t.size || 0), 0);
-    const tiles = (list) => React2.createElement("div", { className: "album-grid" }, list.map((g) => React2.createElement(AlbumTile, { key: g.key, group: g, onOpen: () => setAlbumKey(g.key) })));
     const header = React2.createElement(
       "div",
       { className: "music-tools" },
-      React2.createElement("input", { type: "search", className: "input", placeholder: "Search music", "aria-label": "Search music", value: query, onChange: (e) => setQuery(e.target.value) }),
-      React2.createElement(
-        "label",
-        { className: "music-tools__nasheeds" },
-        React2.createElement("span", { "aria-hidden": true }, "Nasheeds only"),
-        React2.createElement(SoundSwitch, { label: "Nasheeds only", checked: nasheedsOnly, onChange: (v) => engine.setSetting("nasheedsOnly", v) })
-      ),
-      fileInput(musicInput, "Add music", "music"),
-      fileInput(nasheedInput, "Add nasheeds", "nasheed"),
-      supportsFolders && fileInput(folderInput, "Add folder", "music", { webkitdirectory: "" })
+      React2.createElement("input", { type: "search", className: "input", placeholder: "Search music", "aria-label": "Search music", value: query, onChange: (e) => setQuery(e.target.value) })
     );
-    const status = (busy || result) && React2.createElement("p", { className: "import-result", role: "status" }, busy ? "Adding…" : result);
-    // Searching: one flat list of matching tracks.
+    // Searching: one list of matching tracks and Spotify links.
     const q = query.trim().toLowerCase();
     if (q) {
-      const all = [
-        ...(nasheedsOnly ? builtInNasheeds : [...calm, ...builtInNasheeds]),
-        ...lib.filter((t) => !nasheedsOnly || t.kind === "nasheed").map(localTrack)
-      ].filter((t) => [t.title, t.artist, t.album].some((v) => (v || "").toLowerCase().includes(q)));
+      const names = new Map(albums.map((a) => [a.id, a.name]));
+      const tracks = lib.map((t) => ({ ...localTrack(t), album: names.get(t.albumId) || t.album })).filter((t) => [t.title, t.artist, t.album].some((v) => (v || "").toLowerCase().includes(q)));
+      const links = (engine.settings.spotify || []).filter((it) => (it.title || "").toLowerCase().includes(q));
       return React2.createElement(
         React2.Fragment,
         null,
         header,
-        status,
         React2.createElement(
           "section",
           { className: "music-section search-results", "aria-label": "Search results" },
-          all.length
-            ? React2.createElement("ul", { className: "track-list" }, all.map((t, i) => React2.createElement(TrackRow, { key: t.id, track: t, active: cur && cur.id === t.id, onPlay: () => guard(() => engine.playQueue(all, i)) })))
+          tracks.length || links.length
+            ? React2.createElement(
+                "ul",
+                { className: "track-list" },
+                tracks.map((t, i) => React2.createElement(TrackRow, { key: t.id, track: t, active: cur && cur.id === t.id, onPlay: () => guard(() => engine.playQueue(tracks, i)) })),
+                links.map((it) =>
+                  React2.createElement(TrackRow, {
+                    key: it.uri,
+                    track: { title: it.title, artist: "Spotify" },
+                    active: SpotifyDock.current === it.uri,
+                    onPlay: () =>
+                      guard(() => {
+                        engine.pauseTrack();
+                        SpotifyDock.load(it.uri);
+                      })
+                  })
+                )
+              )
             : React2.createElement("p", { className: "music-section__note" }, "Nothing matches that.")
         )
       );
     }
-    const open = albums.find((a) => a.key === albumKey);
-    if (open) return React2.createElement(React2.Fragment, null, header, status, React2.createElement(AlbumView, { group: open, onBack: () => setAlbumKey(null), onChanged: refresh }));
+    const open = albums.find((a) => a.id === openId);
+    if (open) return React2.createElement(React2.Fragment, null, header, React2.createElement(AlbumView, { key: open.id, album: open, tracks: tracksOf(open.id), onBack: () => setOpenId(null), onChanged: refresh }));
+    const created = () => refresh();
     return React2.createElement(
       React2.Fragment,
       null,
       header,
-      status,
-      !nasheedsOnly &&
-        React2.createElement(
-          "section",
-          { className: "music-section", "aria-label": "Calm music" },
-          React2.createElement("h3", { className: "music-section__title" }, "Calm music"),
-          React2.createElement(
-            "ul",
-            { className: "track-list" },
-            calm.map((t, i) => React2.createElement(TrackRow, { key: t.id, track: t, active: cur && cur.id === t.id, onPlay: () => guard(() => engine.playQueue(calm, i)) }))
-          ),
-          React2.createElement("p", { className: "music-section__note" }, "Public-domain recordings from Musopen, via Wikimedia Commons.")
-        ),
-      !nasheedsOnly &&
-        React2.createElement(
-          "section",
-          { className: "music-section", "aria-label": "My albums" },
-          React2.createElement(
-            "div",
-            { className: "music-section__row" },
-            React2.createElement("h3", { className: "music-section__title" }, "My albums"),
-            React2.createElement(
-              "div",
-              { className: "music-section__add" },
-              React2.createElement(Button, { size: "sm", variant: "secondary", icon: React2.createElement(Plus, { size: 14 }), onClick: () => musicInput.current && musicInput.current.click() }, "Add music"),
-              supportsFolders && React2.createElement(Button, { size: "sm", variant: "ghost", onClick: () => folderInput.current && folderInput.current.click() }, "Add folder")
-            )
-          ),
-          musicAlbums.length ? tiles(musicAlbums) : React2.createElement("p", { className: "music-section__note" }, "Add music you own. It stays private on this device."),
-          React2.createElement("p", { className: "music-usage" }, lib.length ? `${lib.length} track${lib.length === 1 ? "" : "s"} · ${fmtBytes(usageBytes)} on this device` : "No music added yet")
-        ),
-      React2.createElement(SpotifySection, { nasheedsOnly }),
-      React2.createElement(
-        "section",
-        { className: "music-section", "aria-label": "Nasheeds" },
-        React2.createElement("h3", { className: "music-section__title" }, "Nasheeds"),
-        builtInNasheeds.length > 0 &&
-          React2.createElement(
-            "ul",
-            { className: "track-list" },
-            builtInNasheeds.map((t, i) => React2.createElement(TrackRow, { key: t.id, track: t, active: cur && cur.id === t.id, onPlay: () => guard(() => engine.playQueue(builtInNasheeds, i)) }))
-          ),
-        nasheedAlbums.length > 0 && tiles(nasheedAlbums),
-        !builtInNasheeds.length &&
-          !nasheedAlbums.length &&
-          React2.createElement(
-            "div",
-            { className: "music-empty" },
-            React2.createElement("p", null, "No nasheeds yet. Add nasheed files you have, or mark one of your albums as Nasheed."),
-            React2.createElement(Button, { size: "sm", variant: "primary", icon: React2.createElement(Plus, { size: 14 }), onClick: () => nasheedInput.current && nasheedInput.current.click() }, "Add your own nasheeds")
-          )
-      )
+      React2.createElement(AlbumSection, {
+        kind: "music",
+        albums: albums.filter((a) => a.kind !== "nasheed"),
+        tracksOf,
+        onOpen: setOpenId,
+        onCreated: created,
+        footer: React2.createElement("p", { className: "music-usage" }, lib.length ? `${countTracks(lib.length)} · ${fmtBytes(usageBytes)} on this device` : "No music added yet")
+      }),
+      React2.createElement(SpotifySection, null),
+      React2.createElement(AlbumSection, { kind: "nasheed", albums: albums.filter((a) => a.kind === "nasheed"), tracksOf, onOpen: setOpenId, onCreated: created })
     );
   }
   function QuranTab() {
