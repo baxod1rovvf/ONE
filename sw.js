@@ -1,8 +1,12 @@
-// ONE service worker: lets the installed app open offline.
-// Pages load from the network first (so updates show up), falling back to the
-// cached copy; libraries, fonts and icons come from the cache first.
+// ONE service worker: ONE always opens from the copy saved on this device, so
+// coming back takes no waiting, online or not. Pages and app files (scripts,
+// styles, libraries, fonts, icons) come from the saved copy; only a missing
+// file goes to the network, and is saved. New versions arrive through the
+// Refresh button and the daily 23:59 update (updateApp in index.html), whose
+// requests carry "x-one-fresh" and pass straight through.
 // Sync requests to Supabase are never cached.
-const CACHE = "one-v6";
+const CACHE = "one-v7";
+const INDEX = new URL("./index.html", self.location.href).href;
 // Surahs saved with "Keep offline"; never cleared by version updates.
 const QURAN_OFFLINE = "one-quran-offline";
 // Whole audio files (nature recordings, calm music) cached once played.
@@ -16,12 +20,16 @@ const SHELL = [
   "./icons/icon-192.png",
   "./icons/icon-512.png",
   "./icons/apple-touch-icon.png",
+  "./games/games.js",
+  "./games/games.css",
   "https://cdnjs.cloudflare.com/ajax/libs/react/18.3.1/umd/react.production.min.js",
   "https://cdnjs.cloudflare.com/ajax/libs/react-dom/18.3.1/umd/react-dom.production.min.js"
 ];
 // cdn.jsdelivr.net serves three.js for the Home meadow; Wikimedia serves the
 // free nature recordings and music; api.quran.com resolves recitations.
 // All are cached on first use.
+// Hosts whose addresses are versioned (or immutable), so a saved copy never goes stale.
+const PINNED_HOSTS = ["cdnjs.cloudflare.com", "cdn.jsdelivr.net", "fonts.gstatic.com"];
 const CACHEABLE_HOSTS = [
   "cdnjs.cloudflare.com",
   "cdn.jsdelivr.net",
@@ -33,7 +41,14 @@ const CACHEABLE_HOSTS = [
 ];
 
 self.addEventListener("install", (event) => {
-  event.waitUntil(caches.open(CACHE).then((cache) => cache.addAll(SHELL)).then(() => self.skipWaiting()));
+  // "reload" skips the browser's HTTP cache, so a new version never installs
+  // with copies that are minutes old.
+  event.waitUntil(
+    caches
+      .open(CACHE)
+      .then((cache) => cache.addAll(SHELL.map((url) => new Request(new URL(url, self.location.href).href, { cache: "reload" }))))
+      .then(() => self.skipWaiting())
+  );
 });
 
 self.addEventListener("activate", (event) => {
@@ -70,6 +85,11 @@ self.addEventListener("fetch", (event) => {
   if (req.method !== "GET") return;
   const url = new URL(req.url);
   const sameOrigin = url.origin === self.location.origin;
+  // Updates fetch fresh files themselves and save them; never answer from here.
+  if (req.headers.get("x-one-fresh")) {
+    event.respondWith(fetch(req));
+    return;
+  }
   // A recitation kept offline is answered from its own cache.
   if (QURAN_AUDIO.test(url.hostname)) {
     event.respondWith(
@@ -103,33 +123,42 @@ self.addEventListener("fetch", (event) => {
     return;
   }
 
-  // The page and the install manifest always come from the network when online,
-  // so Chrome never installs ONE from an outdated manifest.
-  if (req.mode === "navigate" || (sameOrigin && url.pathname.endsWith(".webmanifest"))) {
-    event.respondWith(
-      fetch(req)
-        .then((res) => {
-          const copy = res.clone();
-          caches.open(CACHE).then((cache) => cache.put(req, copy));
-          return res;
-        })
-        .catch(() => caches.match(req, { ignoreSearch: true }).then((hit) => hit || caches.match("./index.html")))
-    );
+  // A page load: the saved index.html (the app routes with #hash, so every
+  // page is the same file). Only a first visit uses the network.
+  if (req.mode === "navigate") {
+    event.respondWith(fromCache(INDEX, req, { ignoreSearch: true }));
     return;
   }
-
+  // ONE's own files and the pinned libraries and font files never change
+  // under the same address: the saved copy is enough.
+  if (sameOrigin || PINNED_HOSTS.includes(url.hostname)) {
+    event.respondWith(fromCache(req, req));
+    return;
+  }
+  // Everything else (the Quran API, the Google Fonts stylesheet, recordings'
+  // pages): the saved copy now, refreshed in the background.
   event.respondWith(
-    caches.match(req).then((hit) => {
-      const fresh = fetch(req)
-        .then((res) => {
-          if (res.status === 200 || res.type === "opaque") {
-            const copy = res.clone();
-            caches.open(CACHE).then((cache) => cache.put(req, copy));
-          }
-          return res;
-        })
-        .catch(() => hit);
-      return hit || fresh;
-    })
+    caches.open(CACHE).then((cache) =>
+      cache.match(req).then((hit) => {
+        const fresh = fetch(req)
+          .then((res) => {
+            if (res.status === 200) cache.put(req, res.clone());
+            return res;
+          })
+          .catch(() => hit);
+        if (hit) event.waitUntil(fresh);
+        return hit || fresh;
+      })
+    )
   );
 });
+
+// The saved copy when there is one; otherwise the network, saved for next time.
+async function fromCache(key, req, options) {
+  const cache = await caches.open(CACHE);
+  const hit = await cache.match(key, options);
+  if (hit) return hit;
+  const res = await fetch(req);
+  if (res.status === 200 || res.type === "opaque") await cache.put(key, res.clone());
+  return res;
+}

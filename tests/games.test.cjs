@@ -1,6 +1,6 @@
 const { test, before, after } = require("node:test");
 const assert = require("node:assert/strict");
-const { startServer, launch, openApp } = require("./helpers.cjs");
+const { startServer, launch, openApp, waitForGames } = require("./helpers.cjs");
 
 let server, browser;
 before(async () => {
@@ -16,11 +16,14 @@ async function openSnake(page) {
   await page.locator(".meadow-controls").getByRole("button", { name: "Games" }).click();
   const dialog = page.getByRole("dialog", { name: "Retro games" });
   await dialog.getByRole("button", { name: /Snake/ }).click();
+  // The game is listening for keys once its Play button has taken focus.
+  await page.waitForFunction(() => document.activeElement && document.activeElement.classList.contains("snake-play"));
   return page.getByRole("dialog", { name: "Snake" });
 }
 
 test("Snake rules: walls and the tail end the game, fruit grows it", async () => {
   const { page, errors } = await openApp(browser, server.url, { route: "home" });
+  await waitForGames(page);
   const r = await page.evaluate(() => {
     const { snakeNew, snakeStep } = window.__oneSnake;
     const zero = () => 0;
@@ -129,6 +132,31 @@ test("Snake plays retro sounds and remembers the mute choice", async () => {
   await page.reload();
   const again = await openSnake(page);
   assert.equal(await again.getByRole("button", { name: "Game sounds" }).getAttribute("aria-pressed"), "false");
+  assert.deepEqual(errors, []);
+  await page.close();
+});
+
+test("the snake is one smooth body that glides between squares", async () => {
+  const { page, errors } = await openApp(browser, server.url, { route: "home" });
+  const snake = await openSnake(page);
+  assert.equal(await snake.locator(".snake-layer [data-body]").count(), 3);
+  await page.keyboard.press("Space");
+  // Sample the drawn head for a while: it passes through in-between positions.
+  const xs = await page.evaluate(async () => {
+    const out = [];
+    const face = document.querySelector(".snake-face");
+    for (let i = 0; i < 30; i++) {
+      await new Promise((r) => requestAnimationFrame(r));
+      out.push(Number(/translate\(([\d.]+)/.exec(face.getAttribute("transform"))[1]));
+    }
+    return out;
+  });
+  const between = xs.filter((x) => Math.abs(x - Math.round(x - 0.5) - 0.5) > 0.1);
+  assert.ok(between.length > 5, `head glides (${xs.join(", ")})`);
+  for (let i = 1; i < xs.length; i++) assert.ok(xs[i] >= xs[i - 1], "head only moves forward");
+  // The body line runs from the head back to the tail.
+  const d = await snake.locator(".snake-line--skin").getAttribute("d");
+  assert.match(d, /^M[\d.]+ [\d.]+(L[\d.]+ [\d.]+){2,}$/);
   assert.deepEqual(errors, []);
   await page.close();
 });

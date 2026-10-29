@@ -13,6 +13,7 @@ const STORE_KEY = "one.workspace.v1";
 const TYPES = {
   ".html": "text/html; charset=utf-8",
   ".js": "text/javascript",
+  ".css": "text/css; charset=utf-8",
   ".mjs": "text/javascript",
   ".json": "application/json",
   ".webmanifest": "application/manifest+json",
@@ -161,7 +162,7 @@ async function waitForApp(page) {
   }, null, { timeout: 30000 });
 }
 
-async function openApp(browser, baseUrl, { route = "home", theme = "light", viewport = { width: 1280, height: 800 }, hasTouch = false, data, gesture = true } = {}) {
+async function openApp(browser, baseUrl, { route = "home", theme = "light", viewport = { width: 1280, height: 800 }, hasTouch = false, data, gesture = true, init } = {}) {
   const context = await newContext(browser, { viewport, hasTouch });
   const page = await context.newPage();
   page.setDefaultTimeout(6000);
@@ -187,6 +188,8 @@ async function openApp(browser, baseUrl, { route = "home", theme = "light", view
     },
     { key: STORE_KEY, data, theme }
   );
+  // init runs last, right before the real visit (routes, clocks, storage).
+  if (init) await init(page);
   await page.goto(`${baseUrl}/index.html#${route}`);
   await waitForApp(page);
   // One harmless click in the top-left corner, so the page counts as touched
@@ -195,4 +198,10 @@ async function openApp(browser, baseUrl, { route = "home", theme = "light", view
   return { page, errors };
 }
 
-module.exports = { startServer, launch, openApp, STORE_KEY, ROOT };
+// The games load in the background from games/games.js; tests that use the
+// game hooks wait for it.
+async function waitForGames(page) {
+  await page.waitForFunction(() => !!window.__oneGames, null, { timeout: 15000 });
+}
+
+module.exports = { startServer, launch, openApp, waitForGames, STORE_KEY, ROOT };
