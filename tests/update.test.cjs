@@ -12,7 +12,8 @@ after(async () => {
   await server.close();
 });
 
-const FILES = ["/index.html", "/games/games.js", "/games/games.css", "/manifest.webmanifest"];
+const GAME_FILES = ["panel", "snake", "tetris", "breakout", "2048", "minesweeper", "memory"].flatMap((f) => [`/games/${f}.js`, `/games/${f}.css`]);
+const FILES = ["/index.html", ...GAME_FILES, "/manifest.webmanifest"];
 const local = (...parts) => new Date(...parts).getTime();
 
 // Serves the four app files fresh (marked with x-one-fresh) and counts them.
@@ -67,9 +68,9 @@ test("Refresh fetches fresh files, saves them and reloads", async () => {
       const hit = await cache.match(new URL(p, location.href).href);
       return hit && (await hit.text());
     };
-    return [await read("./index.html"), await read("./games/games.js"), await read("./")];
+    return [await read("./index.html"), await read("./games/panel.js"), await read("./")];
   });
-  assert.deepEqual(saved, ["fresh /index.html", "fresh /games/games.js", "fresh /index.html"]);
+  assert.deepEqual(saved, ["fresh /index.html", "fresh /games/panel.js", "fresh /index.html"]);
   await page.close();
 });
 
@@ -97,7 +98,7 @@ test("a half-failed update saves nothing", async () => {
     await cache.put(key("./index.html"), new Response("old"));
     const result = await window.__oneUpdate.updateApp().then(() => "ok", () => "failed");
     const index = await (await cache.match(key("./index.html"))).text();
-    const games = await cache.match(key("./games/games.js"));
+    const games = await cache.match(key("./games/panel.js"));
     return { result, index, games: !!games };
   });
   assert.deepEqual(r, { result: "failed", index: "old", games: false });
@@ -111,7 +112,7 @@ test("two Refresh presses make one update and one reload", async () => {
   await page.getByRole("button", { name: "Refresh" }).dblclick();
   await page.waitForEvent("framenavigated", { timeout: 6000 });
   await page.waitForTimeout(800);
-  assert.equal(seen.length, 4);
+  assert.equal(seen.length, FILES.length);
   assert.equal(reloads.n, 1);
   await page.close();
 });
@@ -129,7 +130,7 @@ test("opening after a missed 23:59 updates once, with no reload", async () => {
   const reloads = countReloads(page);
   await page.waitForFunction(() => JSON.parse(localStorage.getItem("one.update.v1")).last >= new Date(2026, 9, 29, 9, 0).getTime(), null, { timeout: 6000 });
   await page.waitForTimeout(500);
-  assert.equal(seen.length, 4);
+  assert.equal(seen.length, FILES.length);
   assert.equal(reloads.n, 0);
   await page.close();
 });
@@ -164,7 +165,7 @@ test("the 23:59 timer updates while ONE is open, without reloading", async () =>
   assert.equal(seen.length, 0, "nothing before 23:59");
   await page.clock.runFor(70_000);
   await page.waitForFunction(() => JSON.parse(localStorage.getItem("one.update.v1")).last >= new Date(2026, 9, 29, 23, 59).getTime(), null, { timeout: 6000 });
-  assert.equal(seen.length, 4);
+  assert.equal(seen.length, FILES.length);
   assert.equal(reloads.n, 0);
   await page.close();
 });
@@ -189,7 +190,7 @@ test("hidden through 23:59, then visible again, updates once", async () => {
   await page.clock.runFor(70_000);
   await setVisible(true);
   await page.waitForTimeout(1500);
-  assert.equal(seen.length, 4);
+  assert.equal(seen.length, FILES.length);
   await page.close();
 });
 
@@ -197,7 +198,7 @@ test("update requests use a fresh address no cache can answer", async () => {
   const { page } = await openApp(browser, server.url, { route: "tasks", init: (p) => setLast(p, Date.now()) });
   const seen = await watchUpdates(page);
   await page.evaluate(() => window.__oneUpdate.updateApp());
-  assert.equal(seen.urls.length, 4);
+  assert.equal(seen.urls.length, FILES.length);
   for (const url of seen.urls) assert.match(url, /[?&]fresh=\d+/);
   assert.equal(new Set(seen.urls.map((u) => new URL(u).search)).size, 1, "one id per update");
   await page.close();

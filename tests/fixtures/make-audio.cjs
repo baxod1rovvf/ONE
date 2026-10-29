@@ -74,6 +74,8 @@ fs.writeFileSync(path.join(OUT, "loop.wav"), wav(tone(4, 220)));
 fs.writeFileSync(path.join(OUT, "music.wav"), wav(tone(30, 262, 8000), 8000));
 fs.writeFileSync(path.join(OUT, "album/01.mp3"), Buffer.concat([id3({ title: "First Song", artist: "Test Artist", album: "Test Album", track: 1 }), mp3(tone(3, 330))]));
 fs.writeFileSync(path.join(OUT, "album/02.mp3"), Buffer.concat([id3({ title: "Second Song", artist: "Test Artist", album: "Test Album", track: 2 }), mp3(tone(3, 392))]));
+// A long track for player tests (it doesn't end between test steps).
+fs.writeFileSync(path.join(OUT, "long.mp3"), Buffer.concat([id3({ title: "Long Song", artist: "Test Artist", album: "Long Album", track: 3 }), mp3(tone(60, 262))]));
 fs.writeFileSync(path.join(OUT, "untagged.mp3"), mp3(tone(2, 523)));
 fs.writeFileSync(path.join(OUT, "not-audio.txt"), "just some notes\n");
 // A tag frame whose size reads as -10 when treated as a signed number.

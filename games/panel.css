@@ -1,0 +1,555 @@
+/* ONE — Retro games panel and shared game styles (score boxes, messages,
+   buttons, and Snake, whose styles double as the shared kit). */
+
+/* ---------- Home: retro games ---------- */
+.games-overlay {
+  place-items: center;
+  padding: 16px;
+  overflow-y: auto;
+  background: radial-gradient(120% 90% at 50% 0%, rgba(255, 214, 102, 0.45), transparent 60%), var(--overlay);
+}
+.games {
+  --games-ink: #1d3a22;
+  --games-card: #fffdf4;
+  --games-edge: #2f6b35;
+  width: min(100%, 640px);
+  max-height: calc(100dvh - 32px);
+  overflow-y: auto;
+  display: grid;
+  gap: 16px;
+  padding: 16px 20px 20px;
+  border-radius: 28px;
+  background: var(--games-card);
+  color: var(--games-ink);
+  border: 3px solid var(--games-edge);
+  box-shadow: 0 8px 0 var(--games-edge), 0 24px 60px rgba(20, 50, 30, 0.35);
+  font-family: var(--font-display);
+  animation: games-in 260ms var(--ease);
+}
+:root[data-theme='dark'] .games,
+:root[data-one-theme='dark'] .games {
+  --games-ink: #f1f4ff;
+  --games-card: #1c2552;
+  --games-edge: #0d1433;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme='light']):not([data-one-theme='light']) .games {
+    --games-ink: #f1f4ff;
+    --games-card: #1c2552;
+    --games-edge: #0d1433;
+  }
+}
+/* The person's own choice inside ONE wins over the host theme. */
+:root[data-one-theme='light'] .games {
+  --games-ink: #1d3a22;
+  --games-card: #fffdf4;
+  --games-edge: #2f6b35;
+}
+@keyframes games-in {
+  from {
+    opacity: 0;
+    transform: translateY(12px) scale(0.98);
+  }
+}
+.games__head {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  min-height: 40px;
+}
+.games__head .icon-btn {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  color: var(--games-ink);
+}
+.games__title {
+  flex: 1;
+  font-size: 26px;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+}
+.games__close {
+  margin-left: auto;
+}
+.games__list {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 12px;
+}
+.game-card {
+  display: grid;
+  justify-items: start;
+  gap: 4px;
+  padding: 16px;
+  border-radius: 20px;
+  text-align: left;
+  background: #c8ef9a;
+  color: #1d3a22;
+  border: 3px solid #2f6b35;
+  box-shadow: 0 5px 0 #2f6b35;
+  transition: transform var(--t-fast) var(--ease), box-shadow var(--t-fast) var(--ease);
+}
+.game-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 7px 0 #2f6b35;
+}
+.game-card:active {
+  transform: translateY(4px);
+  box-shadow: 0 1px 0 #2f6b35;
+}
+.game-card:focus-visible,
+.snake-play:focus-visible,
+.snake-pause:focus-visible,
+.snake-dpad__btn:focus-visible,
+.games__head .icon-btn:focus-visible {
+  outline: 3px solid #f2a20c;
+  outline-offset: 3px;
+}
+.game-card__art {
+  font-size: 44px;
+  line-height: 1.1;
+}
+.game-card__title {
+  font-size: 22px;
+  font-weight: 700;
+}
+.game-card__blurb {
+  font-family: var(--font);
+  font-size: 15px;
+  opacity: 0.85;
+}
+.game-card__best {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  margin-top: 6px;
+  padding: 2px 10px;
+  border-radius: 999px;
+  background: #fff6c9;
+  font-weight: 600;
+  font-size: 14px;
+}
+.games__soon {
+  grid-column: 1 / -1;
+  font-size: 15px;
+  opacity: 0.7;
+}
+
+/* Snake */
+.snake {
+  --board: min(calc(100vw - 72px), calc(100dvh - 300px), 560px);
+  --cell: calc(var(--board) / 10);
+  display: grid;
+  justify-items: center;
+  gap: 12px;
+}
+.snake-hud {
+  width: var(--board);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.snake-stat {
+  display: grid;
+  padding: 4px 14px;
+  border-radius: 14px;
+  background: #e9f8d8;
+  color: #1d3a22;
+  border: 2px solid #2f6b35;
+}
+.snake-stat--best {
+  background: #fff1b8;
+}
+.snake-stat__label {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 13px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  opacity: 0.75;
+}
+.snake-stat__value {
+  font-size: 26px;
+  font-weight: 700;
+  line-height: 1.1;
+}
+.snake-pause {
+  margin-left: auto;
+  height: 44px;
+  padding: 0 18px;
+  border-radius: 999px;
+  font-weight: 600;
+  font-size: 16px;
+  background: var(--games-card);
+  color: var(--games-ink);
+  border: 2px solid currentColor;
+}
+.snake-hud .snake-mute,
+.tetris-buttons .snake-mute {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  color: var(--games-ink);
+  border: 2px solid currentColor;
+}
+.snake-hud .snake-mute[aria-pressed='false'],
+.tetris-buttons .snake-mute[aria-pressed='false'] {
+  opacity: 0.6;
+}
+.snake-mute:focus-visible {
+  outline: 3px solid #f2a20c;
+  outline-offset: 3px;
+}
+.snake-pause:disabled {
+  opacity: 0.4;
+}
+.snake-board {
+  position: relative;
+  width: var(--board);
+  height: var(--board);
+  display: grid;
+  grid-template-columns: repeat(10, 1fr);
+  grid-template-rows: repeat(10, 1fr);
+  border-radius: 20px;
+  overflow: hidden;
+  border: 6px solid #3d7a2e;
+  box-shadow: inset 0 0 0 3px rgba(255, 255, 255, 0.35), 0 6px 0 #2a5a20;
+  background: #a6dc6a;
+  touch-action: none;
+  user-select: none;
+  -webkit-user-select: none;
+  box-sizing: content-box;
+}
+.snake-cell {
+  position: relative;
+  display: grid;
+  place-items: center;
+  background: #aee373;
+}
+.snake-cell[data-dark='true'] {
+  background: #9dd463;
+}
+/* The snake is one smooth line drawn over the field (cell units, 10×10). */
+.snake-layer {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 2;
+  pointer-events: none;
+  overflow: visible;
+}
+.snake-line {
+  fill: none;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+.snake-line--edge {
+  stroke: #1f5e2a;
+  stroke-width: 0.84;
+}
+.snake-line--skin {
+  stroke: #47b552;
+  stroke-width: 0.7;
+}
+/* Spots ride along with the skin as it slides. */
+.snake-line--spots {
+  stroke: #2f8f3d;
+  stroke-width: 0.2;
+  stroke-dasharray: 0 0.62;
+  stroke-dashoffset: -0.75;
+}
+.snake-skull {
+  fill: #47b552;
+  stroke: #1f5e2a;
+  stroke-width: 0.07;
+}
+.snake-cheek {
+  fill: #ff8fa3;
+  opacity: 0.6;
+}
+.snake-eye {
+  fill: #fff;
+  stroke: #1f5e2a;
+  stroke-width: 0.035;
+}
+.snake-pupil {
+  fill: #14251a;
+}
+.snake-glint {
+  fill: #fff;
+}
+.snake-eye-x {
+  stroke: #14251a;
+  stroke-width: 0.045;
+  stroke-linecap: round;
+}
+.snake-tongue {
+  fill: none;
+  stroke: #e8475f;
+  stroke-width: 0.06;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  transform-origin: 0.4px 0;
+  animation: snake-tongue 2.4s ease-in-out infinite;
+}
+@keyframes snake-tongue {
+  0%,
+  70%,
+  100% {
+    transform: scaleX(0);
+  }
+  78%,
+  92% {
+    transform: scaleX(1);
+  }
+}
+.snake-layer[data-crash='true'] .snake-skull {
+  fill: #e0533c;
+}
+.snake-layer[data-crash='true'] .snake-line--skin {
+  stroke: #e86a4f;
+}
+.snake:not([data-status='playing']) .snake-tongue {
+  animation: none;
+  transform: scaleX(0);
+}
+.snake-layer[data-crash='true'] .snake-face {
+  animation: snake-bonk 320ms var(--ease);
+}
+@keyframes snake-bonk {
+  30% {
+    opacity: 0.4;
+  }
+}
+.snake-fruit {
+  font-size: calc(var(--cell) * 0.68);
+  line-height: 1;
+  filter: drop-shadow(0 3px 0 rgba(30, 70, 20, 0.35));
+  animation: fruit-bob 1.2s ease-in-out infinite;
+}
+@keyframes fruit-bob {
+  50% {
+    transform: translateY(-8%) scale(1.06);
+  }
+}
+/* An eaten fruit shrinks into the mouth as the head arrives. */
+.snake-fruit--gulp {
+  position: absolute;
+  left: calc(var(--x) * var(--cell));
+  top: calc(var(--y) * var(--cell));
+  width: var(--cell);
+  height: var(--cell);
+  display: grid;
+  place-items: center;
+  z-index: 1;
+  pointer-events: none;
+  animation: fruit-gulp var(--gulp, 250ms) ease-in forwards;
+}
+@keyframes fruit-gulp {
+  to {
+    transform: scale(0.2);
+    opacity: 0;
+  }
+}
+.snake-pop {
+  position: absolute;
+  left: calc(var(--x) * var(--cell));
+  top: calc(var(--y) * var(--cell));
+  width: var(--cell);
+  text-align: center;
+  font-size: calc(var(--cell) * 0.42);
+  font-weight: 700;
+  color: #fff;
+  -webkit-text-stroke: 1.5px #1d3a22;
+  pointer-events: none;
+  z-index: 3;
+  opacity: 0;
+  animation: snake-pop 700ms var(--ease) var(--gulp, 0ms) forwards;
+}
+@keyframes snake-pop {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+    transform: translateY(-80%);
+  }
+}
+.snake-message {
+  position: absolute;
+  inset: 0;
+  z-index: 4;
+  display: grid;
+  place-content: center;
+  justify-items: center;
+  gap: 6px;
+  padding: 16px;
+  text-align: center;
+  color: #1d3a22;
+  background: rgba(255, 253, 240, 0.66);
+  -webkit-backdrop-filter: blur(1.5px);
+  backdrop-filter: blur(1.5px);
+  animation: fade-in 200ms var(--ease);
+}
+.snake-message__title {
+  font-size: clamp(26px, 6vw, 38px);
+  font-weight: 700;
+  line-height: 1.1;
+}
+.snake-message__sub {
+  font-size: 17px;
+  max-width: 26ch;
+}
+.snake-record {
+  padding: 4px 14px;
+  border-radius: 999px;
+  background: #ffd84d;
+  border: 2px solid #b37d00;
+  font-weight: 700;
+  font-size: 17px;
+  animation: record-wiggle 900ms var(--ease) 2;
+}
+@keyframes record-wiggle {
+  25% {
+    transform: rotate(-5deg) scale(1.08);
+  }
+  75% {
+    transform: rotate(5deg) scale(1.08);
+  }
+}
+.snake-play {
+  margin-top: 10px;
+  height: 52px;
+  padding: 0 30px;
+  border-radius: 999px;
+  font-weight: 700;
+  font-size: 20px;
+  background: #ff7a45;
+  color: #fff;
+  border: 3px solid #b8431a;
+  box-shadow: 0 5px 0 #b8431a;
+  transition: transform var(--t-fast) var(--ease), box-shadow var(--t-fast) var(--ease);
+}
+.snake-play:hover {
+  transform: translateY(-1px);
+}
+.snake-play:active {
+  transform: translateY(4px);
+  box-shadow: 0 1px 0 #b8431a;
+}
+.snake-dpad {
+  display: none;
+  grid-template-areas: '. up .' 'left . right' '. down .';
+  grid-template-columns: repeat(3, 60px);
+  grid-template-rows: repeat(3, 52px);
+  gap: 4px;
+}
+.snake-dpad__btn {
+  display: grid;
+  place-items: center;
+  border-radius: 16px;
+  background: #ffd84d;
+  color: #5a3d00;
+  border: 3px solid #b37d00;
+  box-shadow: 0 4px 0 #b37d00;
+  touch-action: none;
+}
+.snake-dpad__btn:active {
+  transform: translateY(3px);
+  box-shadow: 0 1px 0 #b37d00;
+}
+.snake-dpad__btn--up { grid-area: up; }
+.snake-dpad__btn--down { grid-area: down; }
+.snake-dpad__btn--left { grid-area: left; }
+.snake-dpad__btn--right { grid-area: right; }
+.snake-legend {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 6px 14px;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  font-size: 15px;
+  font-weight: 500;
+}
+.snake-legend li {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+}
+.snake-hint {
+  font-size: 14px;
+  opacity: 0.7;
+  text-align: center;
+}
+@media (pointer: coarse) {
+  .snake {
+    --board: min(calc(100vw - 64px), calc(100dvh - 440px), 560px);
+  }
+  .snake-dpad {
+    display: grid;
+  }
+  .snake-hint {
+    display: none;
+  }
+}
+@media (max-width: 520px) {
+  .games-overlay {
+    padding: 8px;
+  }
+  .games {
+    padding: 12px 14px 16px;
+    max-height: calc(100dvh - 16px);
+  }
+  .snake {
+    --board: min(calc(100vw - 56px), calc(100dvh - 300px), 560px);
+  }
+}
+@media (max-width: 520px) and (pointer: coarse) {
+  .snake {
+    --board: min(calc(100vw - 56px), calc(100dvh - 430px));
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .snake-fruit--gulp {
+    display: none;
+  }
+  .snake-pop {
+    opacity: 1;
+  }
+  .games,
+  .snake-fruit,
+  .snake-pop,
+  .snake-record,
+  .snake-tongue,
+  .tetris-burst,
+  .snake-layer[data-crash='true'] .snake-face,
+  .snake-message {
+    animation: none !important;
+  }
+}
+
+.games__error {
+  grid-column: 1 / -1;
+  color: var(--danger);
+  font-size: 15px;
+}
+.game-card[data-loading='true'] .game-card__art {
+  animation: game-card-wait 0.8s ease-in-out infinite;
+}
+@keyframes game-card-wait {
+  50% {
+    opacity: 0.35;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .game-card[data-loading='true'] .game-card__art {
+    animation: none;
+    opacity: 0.5;
+  }
+}
