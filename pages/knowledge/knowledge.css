@@ -1,0 +1,97 @@
+/* ONE — Notes page styles. Loaded with pages/knowledge/knowledge.js. */
+.notes__items {
+  list-style: none;
+  margin: 6px 0 0;
+  padding: 0;
+  overflow-y: auto;
+  display: grid;
+  gap: 2px;
+}
+.notes__noresults {
+  padding: 14px 8px;
+}
+.note-item {
+  width: 100%;
+  display: grid;
+  gap: 2px;
+  padding: 9px 10px;
+  border-radius: var(--r-md);
+  text-align: left;
+  transition: background var(--t-fast);
+}
+.note-item:hover {
+  background: var(--surface-2);
+}
+.note-item[aria-current='true'] {
+  background: var(--accent-soft);
+}
+.note-item__title {
+  display: block;
+  font-weight: 500;
+  font-size: var(--fs-md);
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+.note-item__preview {
+  font-size: var(--fs-sm);
+  color: var(--text-2);
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+.note-item__time {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: var(--fs-xs);
+  color: var(--text-3);
+}
+.note-editor__bar {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin: 0 -12px 10px;
+  min-height: 32px;
+}
+.note-editor__status {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  justify-content: flex-end;
+  font-size: var(--fs-xs);
+  color: var(--text-3);
+}
+.note-editor__title {
+  width: 100%;
+  border: 0;
+  outline: none;
+  background: transparent;
+  font-size: var(--fs-2xl);
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  padding: 4px 0 10px;
+}
+.note-editor__title::placeholder,
+.note-editor__body::placeholder {
+  color: var(--text-3);
+}
+.note-editor__body {
+  width: 100%;
+  max-width: 68ch;
+  border: 0;
+  outline: none;
+  resize: none;
+  background: transparent;
+  font-size: var(--fs-lg);
+  line-height: 1.7;
+  min-height: 240px;
+  overflow: hidden;
+}
+@media (max-width: 760px) {
+  .notes__list {
+    position: static;
+    max-height: none;
+  }
+}

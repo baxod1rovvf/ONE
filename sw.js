@@ -5,7 +5,7 @@
 // Refresh button and the daily 23:59 update (updateApp in index.html), whose
 // requests carry "x-one-fresh" and pass straight through.
 // Sync requests to Supabase are never cached.
-const CACHE = "one-v7";
+const CACHE = "one-v8";
 const INDEX = new URL("./index.html", self.location.href).href;
 // Surahs saved with "Keep offline"; never cleared by version updates.
 const QURAN_OFFLINE = "one-quran-offline";
@@ -22,6 +22,22 @@ const SHELL = [
   "./icons/apple-touch-icon.png",
   "./games/games.js",
   "./games/games.css",
+  "./pages/home/home.js",
+  "./pages/home/home.css",
+  "./pages/tasks/tasks.js",
+  "./pages/tasks/tasks.css",
+  "./pages/websites/websites.js",
+  "./pages/websites/websites.css",
+  "./pages/ideas/ideas.js",
+  "./pages/ideas/ideas.css",
+  "./pages/saved/saved.js",
+  "./pages/saved/saved.css",
+  "./pages/goals/goals.js",
+  "./pages/goals/goals.css",
+  "./pages/knowledge/knowledge.js",
+  "./pages/knowledge/knowledge.css",
+  "./pages/preferences/preferences.js",
+  "./pages/preferences/preferences.css",
   "https://cdnjs.cloudflare.com/ajax/libs/react/18.3.1/umd/react.production.min.js",
   "https://cdnjs.cloudflare.com/ajax/libs/react-dom/18.3.1/umd/react-dom.production.min.js"
 ];

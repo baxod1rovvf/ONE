@@ -1,0 +1,94 @@
+/* ONE — Settings page styles. Loaded with pages/preferences/preferences.js. */
+.mono-text {
+  font-family: var(--mono);
+  font-size: 12px;
+}
+.settings__title {
+  font-size: var(--fs-lg);
+  margin-bottom: 4px;
+}
+.settings__row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  padding: 14px 0;
+  border-top: 1px solid var(--border);
+  flex-wrap: wrap;
+}
+.settings__section > .settings__row:first-of-type {
+  border-top: 0;
+}
+.settings__note + .settings__row {
+  margin-top: 8px;
+  border-top: 1px solid var(--border);
+}
+.settings__label {
+  flex: 1 1 260px;
+  min-width: 0;
+  display: grid;
+  gap: 2px;
+}
+.settings__control {
+  flex: 0 1 280px;
+  min-width: 0;
+  display: flex;
+  justify-content: flex-end;
+}
+.settings__control--buttons {
+  gap: 8px;
+  flex-wrap: wrap;
+}
+.settings__backup {
+  padding-bottom: 12px;
+}
+@media (max-width: 760px) {
+  .settings__control {
+    flex-basis: 100%;
+    justify-content: flex-start;
+  }
+}
+.sync-dot {
+  flex: none;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--success);
+  transform: translateY(-1px);
+}
+.sync-dot--syncing {
+  background: var(--accent);
+  animation: sync-pulse 1s ease-in-out infinite alternate;
+}
+.sync-dot--error {
+  background: var(--danger);
+}
+.sync-actions {
+  justify-content: flex-start;
+  margin-top: 14px;
+}
+.pair-code {
+  display: grid;
+  justify-items: center;
+  gap: 8px;
+  padding: 18px 0 6px;
+  text-align: center;
+}
+.pair-code__digits {
+  font-family: var(--mono);
+  font-size: 44px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  line-height: 1.1;
+  color: var(--text);
+  user-select: all;
+}
+.pair-code__timer,
+.pair-code__wait {
+  font-size: var(--fs-sm);
+  color: var(--text-2);
+}
+.pair-code__error {
+  font-size: var(--fs-sm);
+  color: var(--danger);
+}

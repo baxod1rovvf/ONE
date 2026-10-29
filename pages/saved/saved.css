@@ -1,0 +1,68 @@
+/* ONE — Saved page styles. Loaded with pages/saved/saved.js. */
+.panel__empty--pad {
+  padding: 22px 20px;
+}
+.toolbar--wrap {
+  flex-wrap: wrap;
+  justify-content: flex-start;
+}
+.chip__count {
+  font-size: var(--fs-xs);
+  opacity: 0.75;
+  font-variant-numeric: tabular-nums;
+}
+.search-field {
+  width: min(280px, 100%);
+  background: var(--surface);
+  border: 1px solid var(--border);
+}
+.row__main {
+  flex: 1;
+  min-width: 0;
+  display: grid;
+  gap: 2px;
+  border-radius: var(--r-sm);
+}
+.row__title {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  font-weight: 500;
+  font-size: var(--fs-md);
+  min-width: 0;
+}
+.row__title {
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  display: block;
+}
+.row__meta {
+  display: flex;
+  gap: 6px;
+  font-size: var(--fs-xs);
+  color: var(--text-2);
+  min-width: 0;
+}
+.row__host {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.row__tags {
+  display: flex;
+  gap: 6px;
+  flex: none;
+}
+@media (max-width: 760px) {
+  .search-field {
+    width: 100%;
+  }
+  .filter-chips {
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    width: 100%;
+    padding-bottom: 2px;
+    scrollbar-width: none;
+  }
+}
