@@ -1,7 +1,7 @@
 # Telegram in ONE: design
 
 Date: 2026-10-29
-Status: draft, waiting for review
+Status: built (2026-10-30), with the decisions below; not yet tried with a real account
 Builds on: pages in their own files (`pages/<id>/`), the PIN lock, Supabase sync
 
 ## Why
@@ -158,6 +158,15 @@ ONE appears in Telegram's Active sessions, so it can be disconnected from the ph
   - nothing from Telegram while locked.
 - **Regression:** all existing tests pass, including `pages-load`, now with the Telegram page.
 - **Real account:** the owner connects their own account by hand once it is built.
+
+## Decided while building
+
+- Chat levels and time limits live in `settings.telegram`, which already syncs.
+- Only the last waiting list is kept on the device; messages stay in memory.
+- The QR code is drawn by a small built-in encoder, `pages/telegram/qr.js`, with no library.
+- Telegram has its own section colour, Telegram blue.
+- A wrong cloud password during QR login ends that attempt (scan again); the phone login retries in place.
+- The Home card sits top left on wide screens, and above the meadow controls on narrower ones.
 
 ## Not included
 
