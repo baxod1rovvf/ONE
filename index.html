@@ -1990,6 +1990,21 @@ main[data-section] {
   }
 }
 
+/* Refresh spins while it fetches the newest files. */
+.refresh-btn[data-busy='true'] svg {
+  animation: refresh-spin 0.8s linear infinite;
+}
+@keyframes refresh-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .refresh-btn[data-busy='true'] svg {
+    animation: none;
+  }
+}
+
 /* "Add" monogram tile on Websites. */
 .mono--add {
   background: var(--surface-2);
@@ -6490,6 +6505,112 @@ main[data-section='saved'] .panel::after {
       React2.createElement(CornerCluster, null)
     );
   }
+  /* ---------- Updates: Refresh and the daily 23:59 update ---------- */
+  // ONE opens from the copy saved on this device (see sw.js). New versions come
+  // in two ways: the Refresh button, and a quiet download every day at 23:59
+  // local time. Neither shows a notice, and the daily one never reloads; it
+  // only refreshes the saved copy for the next open. The person's own data
+  // is never touched.
+  const APP_CACHE = "one-v7";
+  const APP_FILES = ["./index.html", "./games/games.js", "./games/games.css", "./manifest.webmanifest"];
+  const UPDATE_KEY = "one.update.v1";
+  function lastUpdate() {
+    try {
+      const saved = JSON.parse(window.localStorage.getItem(UPDATE_KEY) || "null");
+      return (saved && saved.last) || 0;
+    } catch {
+      return 0;
+    }
+  }
+  let updating = null;
+  // Fetches every app file fresh and saves them only when all of them arrived,
+  // so the saved copy is never half old, half new.
+  function updateApp() {
+    if (updating) return updating;
+    updating = (async () => {
+      const responses = await Promise.all(APP_FILES.map((file) => fetch(file, { cache: "no-store", headers: { "x-one-fresh": "1" } })));
+      if (responses.some((res) => !res.ok)) throw new Error("Some files didn't arrive.");
+      if ("caches" in window) {
+        const cache = await caches.open(APP_CACHE);
+        const key = (file) => new URL(file, window.location.href).href;
+        await Promise.all([...responses.map((res, i) => cache.put(key(APP_FILES[i]), res.clone())), cache.put(key("./"), responses[0].clone())]);
+      }
+      try {
+        const reg = navigator.serviceWorker && (await navigator.serviceWorker.getRegistration());
+        if (reg) await reg.update();
+      } catch {
+        // A new sw.js is picked up on a later update instead.
+      }
+      try {
+        window.localStorage.setItem(UPDATE_KEY, JSON.stringify({ last: Date.now() }));
+      } catch {
+        // Storage blocked: the next open simply updates again.
+      }
+    })().finally(() => {
+      updating = null;
+    });
+    return updating;
+  }
+  // The latest 23:59 at or before `now`, in local time.
+  function lastDailyBoundary(now) {
+    const d = new Date(now);
+    const boundary = new Date(d.getFullYear(), d.getMonth(), d.getDate(), 23, 59, 0);
+    if (now < boundary.getTime()) boundary.setDate(boundary.getDate() - 1);
+    return boundary.getTime();
+  }
+  function nextDailyBoundary(now) {
+    const boundary = new Date(lastDailyBoundary(now));
+    boundary.setDate(boundary.getDate() + 1);
+    return boundary.getTime();
+  }
+  // Catches up on open and whenever the tab comes back (a laptop may sleep
+  // through 23:59), and runs at 23:59 while ONE is open.
+  function useDailyUpdate() {
+    React2.useEffect(() => {
+      const check = () => {
+        if (lastUpdate() < lastDailyBoundary(Date.now())) updateApp().catch(() => {});
+      };
+      const cancelIdle = whenIdle(check, 1500);
+      const onVisible = () => document.visibilityState === "visible" && check();
+      document.addEventListener("visibilitychange", onVisible);
+      let timer = 0;
+      const arm = () => {
+        timer = window.setTimeout(() => {
+          updateApp().catch(() => {});
+          arm();
+        }, nextDailyBoundary(Date.now()) - Date.now() + 50);
+      };
+      arm();
+      return () => {
+        cancelIdle();
+        window.clearTimeout(timer);
+        document.removeEventListener("visibilitychange", onVisible);
+      };
+    }, []);
+  }
+  window.__oneUpdate = { updateApp, lastDailyBoundary };
+  function RefreshButton() {
+    const toast = useToast();
+    const [busy, setBusy] = React2.useState(false);
+    const busyRef = React2.useRef(false);
+    const refresh = () => {
+      if (busyRef.current) return;
+      busyRef.current = true;
+      setBusy(true);
+      updateApp()
+        .then(() => window.location.reload())
+        .catch(() => {
+          busyRef.current = false;
+          setBusy(false);
+          toast({ tone: "error", message: "Couldn't reach ONE. You're still on the saved version." });
+        });
+    };
+    return React2.createElement(
+      IconButton,
+      { label: "Refresh", className: "refresh-btn", "data-busy": busy ? "true" : void 0, "aria-busy": busy ? "true" : void 0, onClick: refresh },
+      React2.createElement(RefreshCw, { size: 18 })
+    );
+  }
   function CornerCluster() {
     const ui = useUI();
     const lock = useLock();
@@ -6500,6 +6621,7 @@ main[data-section='saved'] .panel::after {
       React2.createElement(IconButton, { label: "Quick capture", title: "Quick capture (C)", onClick: () => ui.openCapture() }, React2.createElement(Plus, { size: 19, strokeWidth: 2.2 })),
       React2.createElement(SoundsButton, null),
       lock.enabled && React2.createElement(IconButton, { label: "Lock ONE now", onClick: lock.lock }, React2.createElement(Lock, { size: 17 })),
+      React2.createElement(RefreshButton, null),
       React2.createElement(IconButton, { label: "Settings", "aria-current": ui.route === "preferences" ? "page" : void 0, onClick: () => ui.navigate("preferences") }, React2.createElement(Settings, { size: 18 }))
     );
   }
@@ -12569,6 +12691,7 @@ main[data-section='saved'] .panel::after {
     const sound = useSound();
     useGlobalShortcuts(breakActive || sound.panelOpen);
     React2.useEffect(() => whenIdle(() => loadGames().catch(() => {}), 1500), []);
+    useDailyUpdate();
     const Page = PAGES[ui.route];
     const isHome = ui.route === "home";
     return React2.createElement(
