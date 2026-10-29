@@ -132,3 +132,28 @@ test("Snake plays retro sounds and remembers the mute choice", async () => {
   assert.deepEqual(errors, []);
   await page.close();
 });
+
+test("the snake is one smooth body that glides between squares", async () => {
+  const { page, errors } = await openApp(browser, server.url, { route: "home" });
+  const snake = await openSnake(page);
+  assert.equal(await snake.locator(".snake-layer [data-body]").count(), 3);
+  await page.keyboard.press("Space");
+  // Sample the drawn head for a while: it passes through in-between positions.
+  const xs = await page.evaluate(async () => {
+    const out = [];
+    const face = document.querySelector(".snake-face");
+    for (let i = 0; i < 30; i++) {
+      await new Promise((r) => requestAnimationFrame(r));
+      out.push(Number(/translate\(([\d.]+)/.exec(face.getAttribute("transform"))[1]));
+    }
+    return out;
+  });
+  const between = xs.filter((x) => Math.abs(x - Math.round(x - 0.5) - 0.5) > 0.1);
+  assert.ok(between.length > 5, `head glides (${xs.join(", ")})`);
+  for (let i = 1; i < xs.length; i++) assert.ok(xs[i] >= xs[i - 1], "head only moves forward");
+  // The body line runs from the head back to the tail.
+  const d = await snake.locator(".snake-line--skin").getAttribute("d");
+  assert.match(d, /^M[\d.]+ [\d.]+(L[\d.]+ [\d.]+){2,}$/);
+  assert.deepEqual(errors, []);
+  await page.close();
+});

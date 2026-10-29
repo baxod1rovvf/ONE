@@ -2219,78 +2219,97 @@ main[data-section] {
 .snake-cell[data-dark='true'] {
   background: #9dd463;
 }
-.snake-body,
-.snake-head {
+/* The snake is one smooth line drawn over the field (cell units, 10×10). */
+.snake-layer {
   position: absolute;
-  inset: 6%;
-  border-radius: 30%;
-  background: hsl(calc(140 - var(--seg, 0) * 30) 60% 38%);
-  box-shadow: inset 0 -4px 0 rgba(0, 0, 0, 0.18), inset 0 3px 0 rgba(255, 255, 255, 0.25);
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 2;
+  pointer-events: none;
+  overflow: visible;
 }
-.snake-body[data-shade='a'] {
-  background: hsl(calc(140 - var(--seg, 0) * 30) 58% 44%);
+.snake-line {
+  fill: none;
+  stroke-linecap: round;
+  stroke-linejoin: round;
 }
-.snake-head {
-  inset: 2%;
-  border-radius: 38%;
-  background: #2c8a3c;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 10%;
-  z-index: 1;
+.snake-line--edge {
+  stroke: #1f5e2a;
+  stroke-width: 0.84;
 }
-.snake-head[data-dir='up'],
-.snake-head[data-dir='down'] {
-  flex-direction: row;
+.snake-line--skin {
+  stroke: #47b552;
+  stroke-width: 0.7;
 }
-.snake-head[data-dir='left'],
-.snake-head[data-dir='right'] {
-  flex-direction: column;
+/* Spots ride along with the skin as it slides. */
+.snake-line--spots {
+  stroke: #2f8f3d;
+  stroke-width: 0.2;
+  stroke-dasharray: 0 0.62;
+  stroke-dashoffset: -0.75;
 }
-.snake-head[data-dir='right'] {
-  padding-left: 30%;
+.snake-skull {
+  fill: #47b552;
+  stroke: #1f5e2a;
+  stroke-width: 0.07;
 }
-.snake-head[data-dir='left'] {
-  padding-right: 30%;
-}
-.snake-head[data-dir='up'] {
-  padding-bottom: 30%;
-}
-.snake-head[data-dir='down'] {
-  padding-top: 30%;
+.snake-cheek {
+  fill: #ff8fa3;
+  opacity: 0.6;
 }
 .snake-eye {
-  width: calc(var(--cell) * 0.26);
-  aspect-ratio: 1;
-  border-radius: 50%;
-  background: radial-gradient(circle, #14251a 0 42%, #fff 46%);
-  box-shadow: 0 0 0 1.5px rgba(20, 37, 26, 0.35);
+  fill: #fff;
+  stroke: #1f5e2a;
+  stroke-width: 0.035;
 }
-.snake-head[data-crash='true'] {
-  background: #c9482f;
+.snake-pupil {
+  fill: #14251a;
+}
+.snake-glint {
+  fill: #fff;
+}
+.snake-eye-x {
+  stroke: #14251a;
+  stroke-width: 0.045;
+  stroke-linecap: round;
+}
+.snake-tongue {
+  fill: none;
+  stroke: #e8475f;
+  stroke-width: 0.06;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  transform-origin: 0.4px 0;
+  animation: snake-tongue 2.4s ease-in-out infinite;
+}
+@keyframes snake-tongue {
+  0%,
+  70%,
+  100% {
+    transform: scaleX(0);
+  }
+  78%,
+  92% {
+    transform: scaleX(1);
+  }
+}
+.snake-layer[data-crash='true'] .snake-skull {
+  fill: #e0533c;
+}
+.snake-layer[data-crash='true'] .snake-line--skin {
+  stroke: #e86a4f;
+}
+.snake:not([data-status='playing']) .snake-tongue {
+  animation: none;
+  transform: scaleX(0);
+}
+.snake-layer[data-crash='true'] .snake-face {
   animation: snake-bonk 320ms var(--ease);
-}
-.snake-head[data-crash='true'] .snake-eye {
-  background: #fff;
-  box-shadow: none;
-  position: relative;
-}
-.snake-head[data-crash='true'] .snake-eye::before,
-.snake-head[data-crash='true'] .snake-eye::after {
-  content: '';
-  position: absolute;
-  inset: 45% 5%;
-  background: #14251a;
-  border-radius: 2px;
-  transform: rotate(45deg);
-}
-.snake-head[data-crash='true'] .snake-eye::after {
-  transform: rotate(-45deg);
 }
 @keyframes snake-bonk {
   30% {
-    transform: scale(1.15);
+    opacity: 0.4;
   }
 }
 .snake-fruit {
@@ -2304,6 +2323,25 @@ main[data-section] {
     transform: translateY(-8%) scale(1.06);
   }
 }
+/* An eaten fruit shrinks into the mouth as the head arrives. */
+.snake-fruit--gulp {
+  position: absolute;
+  left: calc(var(--x) * var(--cell));
+  top: calc(var(--y) * var(--cell));
+  width: var(--cell);
+  height: var(--cell);
+  display: grid;
+  place-items: center;
+  z-index: 1;
+  pointer-events: none;
+  animation: fruit-gulp var(--gulp, 250ms) ease-in forwards;
+}
+@keyframes fruit-gulp {
+  to {
+    transform: scale(0.2);
+    opacity: 0;
+  }
+}
 .snake-pop {
   position: absolute;
   left: calc(var(--x) * var(--cell));
@@ -2315,10 +2353,14 @@ main[data-section] {
   color: #fff;
   -webkit-text-stroke: 1.5px #1d3a22;
   pointer-events: none;
-  z-index: 2;
-  animation: snake-pop 700ms var(--ease) forwards;
+  z-index: 3;
+  opacity: 0;
+  animation: snake-pop 700ms var(--ease) var(--gulp, 0ms) forwards;
 }
 @keyframes snake-pop {
+  from {
+    opacity: 1;
+  }
   to {
     opacity: 0;
     transform: translateY(-80%);
@@ -2327,7 +2369,7 @@ main[data-section] {
 .snake-message {
   position: absolute;
   inset: 0;
-  z-index: 3;
+  z-index: 4;
   display: grid;
   place-content: center;
   justify-items: center;
@@ -2461,11 +2503,18 @@ main[data-section] {
   }
 }
 @media (prefers-reduced-motion: reduce) {
+  .snake-fruit--gulp {
+    display: none;
+  }
+  .snake-pop {
+    opacity: 1;
+  }
   .games,
   .snake-fruit,
   .snake-pop,
   .snake-record,
-  .snake-head[data-crash='true'],
+  .snake-tongue,
+  .snake-layer[data-crash='true'] .snake-face,
   .snake-message {
     animation: none !important;
   }
@@ -11164,7 +11213,7 @@ main[data-section='saved'] .panel::after {
       food,
       score: state.score + fruit.points,
       eaten: state.eaten + 1,
-      last: { fruit: fruit.id, points: fruit.points, at: state.eaten + 1 },
+      last: { fruit: fruit.id, points: fruit.points, at: state.eaten + 1, x: head.x, y: head.y },
       status: food ? "playing" : "won"
     };
   }
@@ -11208,6 +11257,12 @@ main[data-section='saved'] .panel::after {
     const dirRef = React2.useRef(game.dir);
     dirRef.current = game.dir;
     const prevStatus = React2.useRef(game.status);
+    const gameRef = React2.useRef(game);
+    gameRef.current = game;
+    // The drawing glides between moves: during each tick it slides from the
+    // previous body (prev) to the current one, so it runs one move behind the rules.
+    const anim = React2.useRef({ prev: game.snake, elapsed: 0 });
+    const layerRef = React2.useRef(null);
     const [soundOn, setSoundOn] = React2.useState(retroSound.on);
     const toggleSound = React2.useCallback(() => {
       setSoundOn((on) => {
@@ -11216,10 +11271,13 @@ main[data-section='saved'] .panel::after {
       });
     }, []);
     const start = React2.useCallback(() => {
+      if (gameRef.current.status === "paused") return setGame((g) => (g.status === "paused" ? { ...g, status: "playing" } : g));
+      const fresh = { ...snakeNew(), status: "playing" };
       queue.current = [];
+      anim.current = { prev: fresh.snake, elapsed: 0 };
       setRecord(false);
       setPop(null);
-      setGame((g) => (g.status === "paused" ? { ...g, status: "playing" } : { ...snakeNew(), status: "playing" }));
+      setGame(fresh);
     }, []);
     const togglePause = React2.useCallback(() => {
       setGame((g) => (g.status === "playing" ? { ...g, status: "paused" } : g.status === "paused" ? { ...g, status: "playing" } : g));
@@ -11232,11 +11290,43 @@ main[data-section='saved'] .panel::after {
       if (q.length < 3) q.push(dir);
       setGame((g) => (g.status === "ready" ? { ...g, status: "playing" } : g));
     }, []);
+    // Draws the snake at a point t (0–1) of the current move, straight into the SVG.
+    const draw = React2.useCallback((t) => {
+      const layer = layerRef.current;
+      if (!layer) return;
+      if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) t = 1;
+      const S = gameRef.current.snake;
+      const P = anim.current.prev;
+      const mid = (c) => [c.x + 0.5, c.y + 0.5];
+      const lerp = (a, b) => [a[0] + (b[0] - a[0]) * t, a[1] + (b[1] - a[1]) * t];
+      const head = lerp(mid(P[0]), mid(S[0]));
+      const pts = [head, ...S.slice(1).map(mid)];
+      // Unless it just grew, the tail end slides up after the body.
+      if (S.length === P.length) pts.push(lerp(mid(P[P.length - 1]), mid(S[S.length - 1])));
+      const d = "M" + pts.map((p) => `${p[0].toFixed(3)} ${p[1].toFixed(3)}`).join("L");
+      for (const path of layer.querySelectorAll("[data-body]")) path.setAttribute("d", d);
+      // The head turns smoothly at the start of a move.
+      const angleOf = (a, b, fallback) => (a.x === b.x && a.y === b.y ? fallback : (Math.atan2(b.y - a.y, b.x - a.x) * 180) / Math.PI);
+      const facing = { right: 0, down: 90, left: 180, up: -90 }[gameRef.current.dir];
+      const to = angleOf(P[0], S[0], facing);
+      const from = P.length > 1 ? angleOf(P[1], P[0], to) : to;
+      const turnBy = ((to - from + 540) % 360) - 180;
+      const angle = from + turnBy * Math.min(1, t / 0.35);
+      layer.querySelector(".snake-face").setAttribute("transform", `translate(${head[0].toFixed(3)} ${head[1].toFixed(3)}) rotate(${angle.toFixed(1)})`);
+    }, []);
+    // One loop per frame while playing: time adds up, and every snakeDelay ms
+    // the rules take a step. Pausing keeps the time, so a move resumes mid-way.
     React2.useEffect(() => {
       if (game.status !== "playing") return;
-      const id = window.setTimeout(() => {
-        setGame((g) => {
-          if (g.status !== "playing") return g;
+      let raf = 0;
+      let last = null;
+      const frame = (ts) => {
+        const a = anim.current;
+        if (last != null) a.elapsed += Math.min(ts - last, 100);
+        last = ts;
+        const g = gameRef.current;
+        if (g.status === "playing" && a.elapsed >= snakeDelay(g.eaten)) {
+          a.elapsed = Math.min(a.elapsed - snakeDelay(g.eaten), snakeDelay(g.eaten));
           let dir = g.dir;
           while (queue.current.length) {
             const next = queue.current.shift();
@@ -11245,17 +11335,35 @@ main[data-section='saved'] .panel::after {
               break;
             }
           }
-          return snakeStep(g, dir);
-        });
-      }, snakeDelay(game.eaten));
-      return () => window.clearTimeout(id);
-    }, [game]);
+          const next = snakeStep(g, dir);
+          if (next.status === "playing") a.prev = g.snake;
+          else {
+            a.prev = next.snake;
+            a.elapsed = 0;
+          }
+          gameRef.current = next;
+          setGame(next);
+        }
+        draw(Math.min(1, a.elapsed / snakeDelay(gameRef.current.eaten)));
+        raf = window.requestAnimationFrame(frame);
+      };
+      raf = window.requestAnimationFrame(frame);
+      return () => window.cancelAnimationFrame(raf);
+    }, [game.status, draw]);
+    React2.useLayoutEffect(() => {
+      draw(Math.min(1, anim.current.elapsed / snakeDelay(game.eaten)));
+    }, [game, draw]);
     React2.useEffect(() => {
       if (game.last) {
-        retroSound.eat(game.last.points);
-        setPop(game.last);
-        const id = window.setTimeout(() => setPop(null), 700);
-        return () => window.clearTimeout(id);
+        // The fruit is reached as the drawing arrives, a moment after the rules eat it.
+        const ms = snakeDelay(game.eaten - 1);
+        const bite = window.setTimeout(() => retroSound.eat(game.last.points), ms * 0.7);
+        setPop({ ...game.last, ms });
+        const id = window.setTimeout(() => setPop(null), ms + 700);
+        return () => {
+          window.clearTimeout(bite);
+          window.clearTimeout(id);
+        };
       }
     }, [game.last]);
     React2.useEffect(() => {
@@ -11319,28 +11427,46 @@ main[data-section='saved'] .panel::after {
       if (Math.max(Math.abs(dx), Math.abs(dy)) < 24) return;
       turn(Math.abs(dx) > Math.abs(dy) ? (dx > 0 ? "right" : "left") : dy > 0 ? "down" : "up");
     };
-    const segments = new Map(game.snake.map((c, i) => [c.y * SNAKE_SIZE + c.x, i]));
     const cells = [];
     for (let y = 0; y < SNAKE_SIZE; y++) {
       for (let x = 0; x < SNAKE_SIZE; x++) {
-        const i = segments.get(y * SNAKE_SIZE + x);
         const food = game.food && game.food.x === x && game.food.y === y ? SNAKE_FRUITS.find((f) => f.id === game.food.fruit) : null;
-        let content = null;
-        if (i === 0) {
-          content = React2.createElement(
-            "span",
-            { className: "snake-head", "data-dir": game.dir, "data-crash": game.status === "over" ? "true" : void 0 },
-            React2.createElement("span", { className: "snake-eye" }),
-            React2.createElement("span", { className: "snake-eye" })
-          );
-        } else if (i !== void 0) {
-          content = React2.createElement("span", { className: "snake-body", "data-shade": i % 2 ? "a" : "b", style: { "--seg": Math.min(i / game.snake.length, 1) } });
-        } else if (food) {
-          content = React2.createElement("span", { className: "snake-fruit", "data-fruit": food.id, role: "img", "aria-label": food.label }, food.emoji);
-        }
+        const content = food && React2.createElement("span", { className: "snake-fruit", "data-fruit": food.id, role: "img", "aria-label": food.label }, food.emoji);
         cells.push(React2.createElement("div", { key: `${x}-${y}`, className: "snake-cell", "data-dark": (x + y) % 2 ? "true" : void 0 }, content));
       }
     }
+    const crashed = game.status === "over";
+    const eyes = [-0.2, 0.2].map((y) =>
+      React2.createElement(
+        "g",
+        { key: y, transform: `translate(0.14 ${y})` },
+        React2.createElement("circle", { className: "snake-eye", r: 0.15 }),
+        crashed
+          ? React2.createElement("path", { className: "snake-eye-x", d: "M-0.07 -0.07L0.07 0.07M0.07 -0.07L-0.07 0.07" })
+          : React2.createElement(
+              React2.Fragment,
+              null,
+              React2.createElement("circle", { className: "snake-pupil", cx: 0.045, r: 0.08 }),
+              React2.createElement("circle", { className: "snake-glint", cx: 0.07, cy: -0.035, r: 0.025 })
+            )
+      )
+    );
+    const layer = React2.createElement(
+      "svg",
+      { ref: layerRef, className: "snake-layer", viewBox: `0 0 ${SNAKE_SIZE} ${SNAKE_SIZE}`, "data-crash": crashed ? "true" : void 0, "aria-hidden": true },
+      React2.createElement("path", { className: "snake-line snake-line--edge", "data-body": "" }),
+      React2.createElement("path", { className: "snake-line snake-line--skin", "data-body": "" }),
+      React2.createElement("path", { className: "snake-line snake-line--spots", "data-body": "" }),
+      React2.createElement(
+        "g",
+        { className: "snake-face" },
+        React2.createElement("path", { className: "snake-tongue", d: "M0.4 0H0.66M0.66 0L0.76 -0.07M0.66 0L0.76 0.07" }),
+        React2.createElement("ellipse", { className: "snake-skull", cx: 0.04, rx: 0.47, ry: 0.43 }),
+        React2.createElement("circle", { className: "snake-cheek", cx: -0.1, cy: -0.31, r: 0.065 }),
+        React2.createElement("circle", { className: "snake-cheek", cx: -0.1, cy: 0.31, r: 0.065 }),
+        eyes
+      )
+    );
     const head = game.snake[0];
     const ended = game.status === "over" || game.status === "won";
     const message =
@@ -11395,7 +11521,14 @@ main[data-section='saved'] .panel::after {
           onPointerCancel: () => (swipe.current = null)
         },
         cells,
-        pop && React2.createElement("span", { key: pop.at, className: "snake-pop", style: { "--x": head.x, "--y": head.y }, "aria-hidden": true }, `+${pop.points}`),
+        pop &&
+          React2.createElement(
+            "span",
+            { key: `gulp-${pop.at}`, className: "snake-fruit snake-fruit--gulp", style: { "--x": pop.x, "--y": pop.y, "--gulp": `${pop.ms}ms` }, "aria-hidden": true },
+            SNAKE_FRUITS.find((f) => f.id === pop.fruit).emoji
+          ),
+        layer,
+        pop && React2.createElement("span", { key: pop.at, className: "snake-pop", style: { "--x": pop.x, "--y": pop.y, "--gulp": `${pop.ms}ms` }, "aria-hidden": true }, `+${pop.points}`),
         message &&
           React2.createElement(
             "div",
