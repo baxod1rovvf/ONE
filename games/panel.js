@@ -156,6 +156,20 @@
     g48Win() {
       this.record();
     }
+    // Minesweeper
+    msOpen() {
+      this.play("msopen", [[600, 0, 0.03, "triangle", 0.4]]);
+    }
+    msFlag() {
+      this.play("msflag", [[RETRO_NOTES.E5, 0, 0.05, "square", 0.5], [RETRO_NOTES.A5, 0.05, 0.06, "square", 0.5]]);
+    }
+    msBoom() {
+      this.bBoom();
+      this.played = [...this.played.slice(-19), "msboom"];
+    }
+    msWin() {
+      this.record();
+    }
     // Breakout
     bPaddle() {
       this.play("bpaddle", [[220, 0, 0.07, "square", 0.7, 160]]);
@@ -236,6 +250,17 @@
       emoji: "🔢",
       file: "2048",
       best: (records) => `Best ${Math.max(0, ...[3, 4, 5, 6].map((n) => (records[`2048-${n}`] || {}).best || 0))}`
+    },
+    {
+      id: "minesweeper",
+      title: "Minesweeper",
+      blurb: "Clear the field without a boom.",
+      emoji: "💣",
+      file: "minesweeper",
+      best: (records, clock) => {
+        const t = (records["mines-easy"] || {}).best;
+        return t ? `Best ${clock(t)}` : "Best —";
+      }
     }
   ];
   const bestText = (g, records) => (g.best ? g.best(records, fmtClock) : `Best ${(records[g.id] || {}).best || 0}`);

@@ -12,7 +12,7 @@ after(async () => {
   await server.close();
 });
 
-const GAME_FILES = ["panel", "snake", "tetris", "breakout", "2048"].flatMap((f) => [`/games/${f}.js`, `/games/${f}.css`]);
+const GAME_FILES = ["panel", "snake", "tetris", "breakout", "2048", "minesweeper"].flatMap((f) => [`/games/${f}.js`, `/games/${f}.css`]);
 const FILES = ["/index.html", ...GAME_FILES, "/manifest.webmanifest"];
 const local = (...parts) => new Date(...parts).getTime();
 
