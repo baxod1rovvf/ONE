@@ -2615,6 +2615,87 @@ main[data-section] {
 .tetris-hint {
   grid-column: 1 / -1;
 }
+.tetris-touch {
+  display: none;
+}
+@media (max-width: 520px), (pointer: coarse) {
+  .tetris {
+    --tcell: min(34px, calc((100dvh - 300px) / 18), calc((100vw - 64px) / 10));
+    grid-template-columns: 1fr;
+    justify-items: center;
+    gap: 10px;
+  }
+  .tetris-side {
+    order: -1;
+    display: flex;
+    align-items: stretch;
+    justify-content: center;
+    gap: 6px;
+    min-width: 0;
+  }
+  .tetris-stat {
+    padding: 2px 8px;
+    border-radius: 12px;
+  }
+  .tetris-stat .snake-stat__label {
+    font-size: 11px;
+  }
+  .tetris-stat .snake-stat__value {
+    font-size: 20px;
+  }
+  .tetris-stat--lines,
+  .tetris-stat--best {
+    display: none;
+  }
+  .tetris-stat--next {
+    padding-bottom: 4px;
+  }
+  .tetris-next {
+    grid-template-columns: repeat(4, 10px);
+    grid-template-rows: repeat(4, 10px);
+    margin-top: 2px;
+    padding: 2px;
+  }
+  .tetris-next .tetris-mini {
+    margin: 0.5px;
+  }
+  .tetris-buttons .snake-pause {
+    height: 40px;
+    padding: 0 12px;
+    font-size: 15px;
+  }
+  .tetris-buttons .snake-mute {
+    width: 40px;
+    height: 40px;
+  }
+  .tetris-touch {
+    display: grid;
+    grid-template-columns: repeat(5, 56px);
+    gap: 6px;
+  }
+  .tetris-touch__btn {
+    height: 52px;
+    border-radius: 16px;
+    font-size: 22px;
+    font-weight: 700;
+    background: #ffd84d;
+    color: #5a3d00;
+    border: 3px solid #b37d00;
+    box-shadow: 0 4px 0 #b37d00;
+    touch-action: none;
+  }
+  .tetris-touch__btn:active {
+    transform: translateY(3px);
+    box-shadow: 0 1px 0 #b37d00;
+  }
+  .tetris-touch__btn:focus-visible {
+    outline: 3px solid #f2a20c;
+    outline-offset: 3px;
+  }
+  .tetris-hint {
+    display: none;
+  }
+}
 @media (pointer: coarse) {
   .snake {
     --board: min(calc(100vw - 64px), calc(100dvh - 440px), 560px);
@@ -11924,11 +12005,13 @@ main[data-section='saved'] .panel::after {
   // Held moves repeat like the arcade: a pause, then a quick run.
   const TETRIS_REPEAT_FIRST = 170;
   const TETRIS_REPEAT_EVERY = 50;
-  function tetrisSeed() {
-    return window.__oneTetrisSeed ?? Date.now();
+  // A new game. Tests may fix the seed (__oneTetrisSeed) and the starting field (__oneTetrisField).
+  function tetrisFresh() {
+    const state = tetrisNew(window.__oneTetrisSeed ?? Date.now());
+    return window.__oneTetrisField ? { ...state, field: window.__oneTetrisField.map((row) => [...row]) } : state;
   }
   function TetrisGame({ escapeRef }) {
-    const [game, setGame] = React2.useState(() => tetrisNew(tetrisSeed()));
+    const [game, setGame] = React2.useState(tetrisFresh);
     const gameRef = React2.useRef(game);
     gameRef.current = game;
     const [best, offerBest] = useGameRecord("tetris");
@@ -11989,7 +12072,7 @@ main[data-section='saved'] .panel::after {
     const start = React2.useCallback(() => {
       const g = gameRef.current;
       if (g.status === "paused") return apply((s) => ({ ...s, status: "playing" }));
-      const fresh = { ...tetrisNew(tetrisSeed()), status: "playing" };
+      const fresh = { ...tetrisFresh(), status: "playing" };
       setRecord(false);
       setBurst(null);
       apply(() => fresh);
@@ -12149,7 +12232,7 @@ main[data-section='saved'] .panel::after {
     const stat = (label, value, id) =>
       React2.createElement(
         "div",
-        { className: "tetris-stat" },
+        { className: `tetris-stat tetris-stat--${id.slice(7)}` },
         React2.createElement("span", { className: "snake-stat__label" }, label),
         React2.createElement("span", { className: "snake-stat__value num", "data-testid": id }, value)
       );
@@ -12219,6 +12302,39 @@ main[data-section='saved'] .panel::after {
             IconButton,
             { label: "Game sounds", className: "snake-mute", "aria-pressed": soundOn ? "true" : "false", onClick: toggleSound },
             React2.createElement(soundOn ? Volume2 : VolumeX, { size: 20 })
+          )
+        )
+      ),
+      React2.createElement(
+        "div",
+        { className: "tetris-touch", role: "group", "aria-label": "Tetris controls" },
+        [
+          ["Left", "left", "◀", true],
+          ["Right", "right", "▶", true],
+          ["Rotate", "cw", "↻", false],
+          ["Soft drop", "down", "▼", true],
+          ["Hard drop", "hard", "⤓", false]
+        ].map(([label, action, glyph, repeats]) =>
+          React2.createElement(
+            "button",
+            {
+              key: label,
+              type: "button",
+              className: "tetris-touch__btn",
+              "aria-label": label,
+              // Acts on press, so a held button repeats; a keyboard press (detail 0) acts on click.
+              onPointerDown: (e) => {
+                e.preventDefault();
+                if (gameRef.current.status !== "playing") return;
+                actions[action]();
+                if (repeats) startRepeat(`touch-${action}`, action);
+              },
+              onPointerUp: stopRepeat,
+              onPointerLeave: stopRepeat,
+              onPointerCancel: stopRepeat,
+              onClick: (e) => e.detail === 0 && gameRef.current.status === "playing" && actions[action]()
+            },
+            glyph
           )
         )
       ),

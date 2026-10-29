@@ -367,3 +367,61 @@ test("Space on a focused Play button starts one game", async () => {
   assert.equal((await played(page)).filter((c) => c === "start").length, 1);
   await page.close();
 });
+
+// ---------- Phones ----------
+
+const PHONE = { viewport: { width: 375, height: 740 }, hasTouch: true };
+
+test("Tetris fits a phone with touch buttons", async () => {
+  const { page, errors } = await openApp(browser, server.url, { route: "home", ...PHONE });
+  const game = await openTetris(page, { seed: 4 });
+  const board = await game.locator(".tetris-board").boundingBox();
+  assert.ok(board.x >= 0 && board.x + board.width <= 375, "board inside the screen");
+  assert.ok(board.y + board.height <= 740, "board above the bottom");
+  // Square size = the step from one square to the next.
+  const [a, b] = await Promise.all([game.locator(".tetris-cell").nth(0).boundingBox(), game.locator(".tetris-cell").nth(1).boundingBox()]);
+  assert.ok(b.x - a.x >= 22, `squares are big enough (${b.x - a.x}px)`);
+  assert.equal(await page.evaluate(() => document.documentElement.scrollWidth <= 375), true);
+  const touch = game.getByRole("group", { name: "Tetris controls" });
+  for (const name of ["Left", "Right", "Rotate", "Soft drop", "Hard drop"]) assert.ok(await touch.getByRole("button", { name }).isVisible(), name);
+  const pad = await touch.boundingBox();
+  assert.ok(pad.y + pad.height <= 740, "touch buttons on screen");
+  assert.deepEqual(errors, []);
+  await page.close();
+});
+
+test("touch buttons steer the piece", async () => {
+  const { page } = await openApp(browser, server.url, { route: "home", ...PHONE });
+  const game = await openTetris(page, { shape: "T" });
+  await game.getByRole("button", { name: "Play" }).click();
+  const touch = game.getByRole("group", { name: "Tetris controls" });
+  const x = Number(await boardAttr(page, "x"));
+  await touch.getByRole("button", { name: "Left" }).click();
+  assert.equal(Number(await boardAttr(page, "x")), x - 1);
+  await touch.getByRole("button", { name: "Rotate" }).click();
+  assert.equal(await boardAttr(page, "rot"), "1");
+  await touch.getByRole("button", { name: "Hard drop" }).click();
+  await page.waitForFunction(() => window.__oneRetroSound.played.includes("tlock"));
+  await page.close();
+});
+
+test("with reduced motion a full line clears without a flash", async () => {
+  const { page } = await openApp(browser, server.url, { route: "home" });
+  await page.emulateMedia({ reducedMotion: "reduce" });
+  await page.evaluate(() => {
+    const field = Array.from({ length: 18 }, () => Array(10).fill(null));
+    for (let x = 0; x < 10; x++) if (x < 3 || x > 6) field[17][x] = "Z";
+    window.__oneTetrisField = field;
+  });
+  await openTetris(page, { shape: "I" });
+  await page.keyboard.press("Space");
+  await page.keyboard.press("Space");
+  const gone = await page.evaluate(async () => {
+    const t = performance.now();
+    while (document.querySelectorAll(".tetris-cell[data-shape='Z']:not([data-active])").length && performance.now() - t < 1000) await new Promise((r) => setTimeout(r, 5));
+    return performance.now() - t;
+  });
+  assert.ok(gone < 100, `cleared in ${Math.round(gone)}ms`);
+  assert.equal(await page.getByTestId("tetris-lines").textContent(), "1");
+  await page.close();
+});
