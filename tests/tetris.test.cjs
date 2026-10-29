@@ -1,6 +1,6 @@
 const { test, before, after } = require("node:test");
 const assert = require("node:assert/strict");
-const { startServer, launch, openApp } = require("./helpers.cjs");
+const { startServer, launch, openApp, waitForGames } = require("./helpers.cjs");
 
 let server, browser, rules;
 before(async () => {
@@ -8,6 +8,7 @@ before(async () => {
   browser = await launch();
   // One page for the rule tests: they only call window.__oneTetris.
   rules = await openApp(browser, server.url, { route: "home" });
+  await waitForGames(rules.page);
 });
 after(async () => {
   await rules.page.close();
@@ -227,6 +228,7 @@ test("input is ignored during the line-clear flash", async () => {
 
 // Opens Games → Tetris. With a shape, picks a seed whose first piece is that shape.
 async function openTetris(page, { seed, shape } = {}) {
+  await waitForGames(page);
   await page.evaluate(
     ({ seed, shape }) => {
       if (shape) {

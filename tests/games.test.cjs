@@ -1,6 +1,6 @@
 const { test, before, after } = require("node:test");
 const assert = require("node:assert/strict");
-const { startServer, launch, openApp } = require("./helpers.cjs");
+const { startServer, launch, openApp, waitForGames } = require("./helpers.cjs");
 
 let server, browser;
 before(async () => {
@@ -21,6 +21,7 @@ async function openSnake(page) {
 
 test("Snake rules: walls and the tail end the game, fruit grows it", async () => {
   const { page, errors } = await openApp(browser, server.url, { route: "home" });
+  await waitForGames(page);
   const r = await page.evaluate(() => {
     const { snakeNew, snakeStep } = window.__oneSnake;
     const zero = () => 0;
