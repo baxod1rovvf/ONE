@@ -8980,7 +8980,25 @@ main[data-section='saved'] .panel::after {
     }, []);
     return React2.createElement("div", { ref, className: "spotify-slot", "aria-hidden": true });
   }
-  function SpotifySection({ nasheedsOnly }) {
+  const SPOTIFY_TYPE = { playlist: "Playlist", album: "Album", track: "Song" };
+  const spotifyType = (it) => it.type || (it.uri || "").split(":")[1] || "playlist";
+  // A link's real name from Spotify's public link preview (oEmbed); null when
+  // it can't be had (offline, an error, or anything but a name).
+  async function spotifyName(openUrl) {
+    const abort = new AbortController();
+    const timer = window.setTimeout(() => abort.abort(), 6000);
+    try {
+      const res = await fetch(`https://open.spotify.com/oembed?url=${encodeURIComponent(openUrl)}`, { signal: abort.signal });
+      if (!res.ok) return null;
+      const json = await res.json();
+      return json && typeof json.title === "string" && json.title.trim() ? json.title.trim() : null;
+    } catch {
+      return null;
+    } finally {
+      window.clearTimeout(timer);
+    }
+  }
+  function SpotifySection() {
     const { engine, guard } = useSound();
     // Follows the dock, so the player appears as soon as something is loaded.
     const [, setDockTick] = React2.useState(0);
@@ -8988,7 +9006,22 @@ main[data-section='saved'] .panel::after {
     const [link, setLink] = React2.useState("");
     const [error, setError] = React2.useState(null);
     const items = engine.settings.spotify || [];
-    const shown = items.filter((it) => !nasheedsOnly || it.kind === "nasheed");
+    // Saves a fetched name into the current list (which may have changed meanwhile).
+    const nameItem = React2.useCallback(
+      (uri) => {
+        const [, type, id] = uri.split(":");
+        spotifyName(`https://open.spotify.com/${type}/${id}`).then((title) => {
+          if (!title) return;
+          const now = engine.settings.spotify || [];
+          if (now.some((it) => it.uri === uri)) engine.setSetting("spotify", now.map((it) => (it.uri === uri ? { ...it, title, named: true } : it)));
+        });
+      },
+      [engine]
+    );
+    // Links still without a real name try again each time the tab opens.
+    React2.useEffect(() => {
+      for (const it of engine.settings.spotify || []) if (!it.named) nameItem(it.uri);
+    }, [nameItem]);
     const add = (e) => {
       e.preventDefault();
       const parsed = parseSpotifyLink(link);
@@ -8998,10 +9031,12 @@ main[data-section='saved'] .panel::after {
       }
       setError(null);
       const uri = `spotify:${parsed.type}:${parsed.id}`;
-      if (!items.some((it) => it.uri === uri)) engine.setSetting("spotify", [...items, { uri, title: `Spotify ${parsed.type} …${parsed.id.slice(-4)}`, kind: "music" }]);
+      if (!items.some((it) => it.uri === uri)) {
+        engine.setSetting("spotify", [...items, { uri, title: `Spotify ${parsed.type} …${parsed.id.slice(-4)}`, type: parsed.type, named: false }]);
+        nameItem(uri);
+      }
       setLink("");
     };
-    const update = (uri, changes) => engine.setSetting("spotify", items.map((it) => (it.uri === uri ? { ...it, ...changes } : it)));
     return React2.createElement(
       "section",
       { className: "music-section", "aria-label": "Spotify" },
@@ -9017,7 +9052,7 @@ main[data-section='saved'] .panel::after {
       React2.createElement(
         "ul",
         { className: "track-list" },
-        shown.map((it) =>
+        items.map((it) =>
           React2.createElement(
             "li",
             { key: it.uri, className: "track-row track-row--actions spotify-item", "data-active": SpotifyDock.current === it.uri ? "true" : void 0 },
@@ -9034,9 +9069,8 @@ main[data-section='saved'] .panel::after {
                   })
               },
               React2.createElement("span", { className: "track-row__title" }, it.title),
-              React2.createElement("span", { className: "track-row__artist" }, it.kind === "nasheed" ? "Nasheed" : "Music")
+              React2.createElement("span", { className: "track-row__artist" }, SPOTIFY_TYPE[spotifyType(it)] || "Spotify")
             ),
-            React2.createElement(SoundSwitch, { label: `Nasheed: ${it.title}`, checked: it.kind === "nasheed", onChange: (v) => update(it.uri, { kind: v ? "nasheed" : "music" }) }),
             React2.createElement(IconButton, { label: `Remove ${it.title}`, size: "sm", onClick: () => engine.setSetting("spotify", items.filter((x) => x.uri !== it.uri)) }, React2.createElement(X, { size: 14 }))
           )
         )
