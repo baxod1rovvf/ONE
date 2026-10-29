@@ -14,7 +14,7 @@ after(async () => {
   await server.close();
 });
 
-const PAGE_IDS = ["home", "tasks", "websites", "ideas", "saved", "goals", "knowledge", "preferences"];
+const PAGE_IDS = ["home", "tasks", "websites", "ideas", "telegram", "saved", "goals", "knowledge", "preferences"];
 const dockOf = (page) => page.getByRole("navigation", { name: "Pages" });
 const allPagesLoaded = (page) =>
   page.waitForFunction((ids) => ids.every((id) => window.__onePages && window.__onePages[id]), PAGE_IDS, { timeout: 15000 });

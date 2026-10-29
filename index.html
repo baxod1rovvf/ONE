@@ -3374,7 +3374,8 @@ main[data-section='saved'] .panel::after {
     (function () {
       var id = location.hash.replace(/^#/, "");
       if (id === "launchpad") id = "websites";
-      if (["home", "tasks", "websites", "ideas", "saved", "goals", "knowledge", "preferences"].indexOf(id) < 0) id = "home";
+      id = id.split("/")[0];
+      if (["home", "tasks", "websites", "ideas", "telegram", "saved", "goals", "knowledge", "preferences"].indexOf(id) < 0) id = "home";
       [["script", "js"], ["style", "css"]].forEach(function (k) {
         var link = document.createElement("link");
         link.rel = "preload";
@@ -3895,6 +3896,7 @@ main[data-section='saved'] .panel::after {
     ["path", { d: "M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20", key: "13o1zl" }],
     ["path", { d: "M2 12h20", key: "9i4pu4" }]
   ]);
+  const MessageCircle = createLucideIcon("MessageCircle", [["path", { d: "M7.9 20A9 9 0 1 0 4 16.1L2 22Z", key: "vv11sd" }]]);
   const Lightbulb = createLucideIcon("Lightbulb", [
     ["path", { d: "M15 14c.2-1 .7-1.7 1.5-2.5 1-.9 1.5-2.2 1.5-3.5A6 6 0 0 0 6 8c0 1 .2 2.2 1.5 3.5.7.7 1.3 1.5 1.5 2.5", key: "1gvzjb" }],
     ["path", { d: "M9 18h6", key: "x1upvd" }],
@@ -4713,6 +4715,7 @@ main[data-section='saved'] .panel::after {
     { id: "tasks", label: "Tasks", icon: SquareCheckBig, description: "Everything you need to do, and how far along you are" },
     { id: "websites", label: "Websites", icon: Globe, description: "Your favourite websites, sorted into categories" },
     { id: "ideas", label: "Ideas", icon: Lightbulb, description: "Ideas grouped by category, shown as a map" },
+    { id: "telegram", label: "Telegram", icon: MessageCircle, description: "Your chosen Telegram chats, and whom to answer first" },
     { id: "saved", label: "Saved", icon: Bookmark, description: "Links, articles and videos to come back to" }
   ];
   // Not in the sidebar any more, but Home still links to them and their data is kept.
@@ -4722,6 +4725,8 @@ main[data-section='saved'] .panel::after {
   ];
   const ROUTE_ALIASES = { launchpad: "websites" };
   function resolveRoute(r) {
+    // #telegram/<chat id> is the Telegram page with that chat open.
+    if (r.startsWith("telegram/")) return "telegram";
     return ROUTE_ALIASES[r] ?? r;
   }
   const PREFERENCES_ROUTE = {
@@ -5108,9 +5113,11 @@ main[data-section='saved'] .panel::after {
     }, []);
     const navigate = React2.useCallback((to) => {
       const r = resolveRoute(to);
-      if (window.location.hash.replace(/^#/, "") !== r) {
+      // #telegram/<chat id> keeps the chat in the address.
+      const hash = r === "telegram" && to.startsWith("telegram/") ? to : r;
+      if (window.location.hash.replace(/^#/, "") !== hash) {
         try {
-          window.location.hash = r;
+          window.location.hash = hash;
         } catch {
         }
       }
@@ -5265,6 +5272,11 @@ main[data-section='saved'] .panel::after {
     "./pages/websites/websites.css",
     "./pages/ideas/ideas.js",
     "./pages/ideas/ideas.css",
+    "./pages/telegram/telegram.js",
+    "./pages/telegram/telegram.css",
+    "./pages/telegram/rules.js",
+    "./pages/telegram/client.js",
+    "./pages/telegram/service.js",
     "./pages/saved/saved.js",
     "./pages/saved/saved.css",
     "./pages/goals/goals.js",
@@ -5404,6 +5416,7 @@ main[data-section='saved'] .panel::after {
   function GlassDock({ hidden }) {
     const ui = useUI();
     const todayCount = useOpenTodayCount();
+    const telegram = useTelegram();
     const navRef = React2.useRef(null);
     const [pebble, setPebble] = React2.useState(null);
     React2.useLayoutEffect(() => {
@@ -5421,7 +5434,7 @@ main[data-section='saved'] .panel::after {
       pebble && React2.createElement("span", { className: "dock__pebble", "aria-hidden": true, style: { "--pebble-x": `${pebble.x}px`, "--pebble-w": `${pebble.w}px` } }),
       ROUTES.map((r) => {
         const active = ui.route === r.id;
-        const count = r.id === "tasks" ? todayCount : 0;
+        const count = r.id === "tasks" ? todayCount : r.id === "telegram" && telegram ? telegram.waiting.length : 0;
         return React2.createElement(
           "a",
           {
@@ -5435,7 +5448,7 @@ main[data-section='saved'] .panel::after {
               ui.navigate(r.id);
             }
           },
-          React2.createElement("span", { className: "dock__icon" }, React2.createElement(r.icon, { size: 20, strokeWidth: active ? 2.3 : 1.9, "aria-hidden": true }), count ? React2.createElement("span", { className: "dock__badge", "aria-label": `${count} due today` }, count) : null),
+          React2.createElement("span", { className: "dock__icon" }, React2.createElement(r.icon, { size: 20, strokeWidth: active ? 2.3 : 1.9, "aria-hidden": true }), count ? React2.createElement("span", { className: "dock__badge", "aria-label": r.id === "telegram" ? `${count} waiting` : `${count} due today` }, count) : null),
           React2.createElement("span", { className: "dock__label" }, r.label)
         );
       })
@@ -8268,7 +8281,7 @@ main[data-section='saved'] .panel::after {
   // Every page lives in pages/<id>/<id>.js and pages/<id>/<id>.css. The open
   // page loads first (<head> already asked for its files); the others load in
   // the background right after, so switching pages never waits.
-  const PAGE_IDS = ["home", "tasks", "websites", "ideas", "saved", "goals", "knowledge", "preferences"];
+  const PAGE_IDS = ["home", "tasks", "websites", "ideas", "telegram", "saved", "goals", "knowledge", "preferences"];
   const pagePromises = {};
   function loadedPage(id) {
     return (window.__onePages || {})[id] || null;
@@ -8301,6 +8314,90 @@ main[data-section='saved'] .panel::after {
         throw err;
       });
     return pagePromises[id];
+  }
+  // One script, added once; a failure is forgotten so the next call retries.
+  const scriptPromises = {};
+  function loadScript(src) {
+    if (scriptPromises[src]) return scriptPromises[src];
+    scriptPromises[src] = new Promise((resolve, reject) => {
+      const el = document.createElement("script");
+      el.src = src;
+      el.onload = resolve;
+      el.onerror = () => {
+        delete scriptPromises[src];
+        el.remove();
+        reject(new Error(`${src} didn't load.`));
+      };
+      document.head.appendChild(el);
+    });
+    return scriptPromises[src];
+  }
+  /* ---------- Telegram: the live service, loaded only when it's used ---------- */
+  // pages/telegram/service.js keeps the connection and the chats (see there);
+  // the core only loads it and passes its state to Home, the dock and the page.
+  const TELEGRAM_DEVICE = "one.telegram.device.v1";
+  function telegramLoginHere() {
+    try {
+      const d = JSON.parse(window.localStorage.getItem(TELEGRAM_DEVICE) || "null");
+      return !!(d && d.session);
+    } catch {
+      return false;
+    }
+  }
+  function ensureTelegram() {
+    return ["pages/telegram/rules.js", "pages/telegram/client.js", "pages/telegram/service.js"].reduce((p, src) => p.then(() => loadScript(src)), Promise.resolve()).then(() => window.__oneTelegram);
+  }
+  // The service's state, or null while it isn't loaded.
+  function useTelegram() {
+    const [state, setState] = React2.useState(() => (window.__oneTelegram ? window.__oneTelegram.getState() : null));
+    React2.useEffect(() => {
+      let off = null;
+      const attach = () => {
+        if (off || !window.__oneTelegram) return;
+        setState(window.__oneTelegram.getState());
+        off = window.__oneTelegram.subscribe(setState);
+      };
+      attach();
+      window.addEventListener("one-telegram-ready", attach);
+      return () => {
+        window.removeEventListener("one-telegram-ready", attach);
+        if (off) off();
+      };
+    }, []);
+    return state;
+  }
+  // Starts Telegram in the background when this device has a login, keeps
+  // its preferences in step with the synced settings, and stops it when ONE
+  // locks (the lock unmounts the app).
+  function TelegramBridge({ ready }) {
+    const { data, setSettings } = useStore();
+    const prefs = data.settings.telegram;
+    const prefsRef = React2.useRef(prefs);
+    prefsRef.current = prefs;
+    const [login, setLogin] = React2.useState(telegramLoginHere);
+    React2.useEffect(() => {
+      const on = () => setLogin(telegramLoginHere());
+      window.addEventListener("one-telegram-device", on);
+      return () => window.removeEventListener("one-telegram-device", on);
+    }, []);
+    React2.useEffect(() => {
+      if (!ready || !login) return;
+      let live = true;
+      const cancel = whenIdle(() => {
+        ensureTelegram()
+          .then((tg) => live && tg.start({ prefs: prefsRef.current, onPrefs: (telegram) => setSettings({ telegram }) }))
+          .catch(() => {});
+      }, 1500);
+      return () => {
+        live = false;
+        cancel();
+        if (window.__oneTelegram) window.__oneTelegram.stop();
+      };
+    }, [ready, login]);
+    React2.useEffect(() => {
+      if (window.__oneTelegram) window.__oneTelegram.setPrefs(prefs);
+    }, [prefs]);
+    return null;
   }
   function loadAllPages() {
     return Promise.all(PAGE_IDS.map((id) => loadPage(id).catch(() => null)));
@@ -8894,6 +8991,7 @@ main[data-section='saved'] .panel::after {
         )
       ),
       React2.createElement(GlassDock, { hidden: breakActive }),
+      React2.createElement(TelegramBridge, { ready: firstShown }),
       React2.createElement(SoundLockGuard, { breakActive, route: ui.route }),
       React2.createElement(QuickCapture, null),
       React2.createElement(SearchPalette, null)
@@ -8903,7 +9001,7 @@ main[data-section='saved'] .panel::after {
     return /* @__PURE__ */ React2.createElement(StoreProvider, null, /* @__PURE__ */ React2.createElement(ToastProvider, null, /* @__PURE__ */ React2.createElement(ConfirmProvider, null, React2.createElement(SyncProvider, null, React2.createElement(SoundProvider, null, React2.createElement(LockProvider, null, /* @__PURE__ */ React2.createElement(UIProvider, null, /* @__PURE__ */ React2.createElement(Shell, null))))))));
   }
   // What the pages (pages/<id>/<id>.js) borrow from the app.
-  window.__oneApp = { React2, reactDom, ArrowLeft, ArrowRight, BookOpen, Button, Check, CircleCheck, EmptyState, Field, FolderPlus, IDEA_COLORS, IconButton, Kbd, Lightbulb, Lock, Menu, Minus, Modal, Monogram, Moon, Pencil, Plus, RefreshCw, STARS, SampleBadge, Search, Segmented, SoundsButton, StickyNote, Sun, Target, Trash2, Trophy, X, addDays, createLucideIcon, createSampleData, hostOf, isAppData, isMac, isTypingTarget, loadGames, modKey, newId, parseISODate, relativeDay, takeInstallPrompt, timeAgo, toISODate, todayISO, useConfirm, useDeleteCategory, useDeleteGoal, useDeleteIdea, useDeleteSaved, useDeleteShortcut, useDeleteTask, useLock, useMediaQuery, useSound, useStore, useSync, useTheme, useToast, useUI };
+  window.__oneApp = { React2, reactDom, loadScript, ensureTelegram, useTelegram, MessageCircle, ArrowLeft, ArrowRight, BookOpen, Button, Check, CircleCheck, EmptyState, Field, FolderPlus, IDEA_COLORS, IconButton, Kbd, Lightbulb, Lock, Menu, Minus, Modal, Monogram, Moon, Pencil, Plus, RefreshCw, STARS, SampleBadge, Search, Segmented, SoundsButton, StickyNote, Sun, Target, Trash2, Trophy, X, addDays, createLucideIcon, createSampleData, hostOf, isAppData, isMac, isTypingTarget, loadGames, modKey, newId, parseISODate, relativeDay, takeInstallPrompt, timeAgo, toISODate, todayISO, useConfirm, useDeleteCategory, useDeleteGoal, useDeleteIdea, useDeleteSaved, useDeleteShortcut, useDeleteTask, useLock, useMediaQuery, useSound, useStore, useSync, useTheme, useToast, useUI };
   // What games/games.js borrows from the app.
   window.__oneKit = { React: React2, ReactDOM: reactDom, IconButton, icons: { Trophy, X, ArrowLeft, Volume2, VolumeX }, FOCUSABLE };
   client.createRoot(document.getElementById("root")).render(/* @__PURE__ */ React2.createElement(App, null));

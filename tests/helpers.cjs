@@ -162,7 +162,11 @@ async function waitForApp(page) {
   }, null, { timeout: 30000 });
 }
 
-async function openApp(browser, baseUrl, { route = "home", theme = "light", viewport = { width: 1280, height: 800 }, hasTouch = false, data, gesture = true, init } = {}) {
+// telegram: { seed, device } runs ONE against the fake Telegram in
+// tests/fixtures/telegram-fake.js. seed describes the account
+// (window.__tgFakeSeed); device (true or an object) stores a login on this
+// device. settings is merged into the stored settings.
+async function openApp(browser, baseUrl, { route = "home", theme = "light", viewport = { width: 1280, height: 800 }, hasTouch = false, data, gesture = true, init, settings, telegram } = {}) {
   const context = await newContext(browser, { viewport, hasTouch });
   const page = await context.newPage();
   page.setDefaultTimeout(6000);
@@ -181,13 +185,18 @@ async function openApp(browser, baseUrl, { route = "home", theme = "light", view
   }
   await page.goto(`${baseUrl}/__blank`);
   await page.evaluate(
-    ({ key, data, theme }) => {
+    ({ key, data, theme, settings, device }) => {
       const stored = data ? JSON.parse(JSON.stringify(data)) : JSON.parse(localStorage.getItem(key));
-      stored.settings = { ...stored.settings, theme };
+      stored.settings = { ...stored.settings, ...settings, theme };
       localStorage.setItem(key, JSON.stringify(stored));
+      if (device) localStorage.setItem("one.telegram.device.v1", JSON.stringify(device));
     },
-    { key: STORE_KEY, data, theme }
+    { key: STORE_KEY, data, theme, settings: settings || {}, device: telegram && telegram.device ? (telegram.device === true ? { apiId: 12345, apiHash: "0123456789abcdef0123456789abcdef", session: "fake-session" } : telegram.device) : null }
   );
+  if (telegram) {
+    await page.addInitScript({ path: path.join(FIXTURES, "telegram-fake.js") });
+    if (telegram.seed) await page.addInitScript((seed) => (window.__tgFakeSeed = seed), telegram.seed);
+  }
   // init runs last, right before the real visit (routes, clocks, storage).
   if (init) await init(page);
   await page.goto(`${baseUrl}/index.html#${route}`);

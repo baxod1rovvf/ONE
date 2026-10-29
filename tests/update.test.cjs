@@ -12,7 +12,7 @@ after(async () => {
   await server.close();
 });
 
-const PAGE_IDS = ["home", "tasks", "websites", "ideas", "saved", "goals", "knowledge", "preferences"];
+const PAGE_IDS = ["home", "tasks", "websites", "ideas", "telegram", "saved", "goals", "knowledge", "preferences"];
 const FILES = [
   "/index.html",
   "/games/games.js",
