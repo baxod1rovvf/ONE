@@ -1086,6 +1086,262 @@
       React2.createElement("p", { className: "snake-hint tetris-hint" }, "←→ move · ↑ rotate · ↓ soft drop · Space hard drop · P pause · M sound")
     );
   }
+  /* Breakout maps */
+  // A fixed set of 30 maps, dealt in a shuffled order. Each map is a pattern
+  // maker plus settings and a seed, so it always builds the same bricks. The
+  // makers only choose which squares of the 12×12 brick grid are filled; the
+  // builder then decides what kind each brick is.
+  const BREAKOUT = { W: 480, H: 640, COLS: 12, ROWS: 12, BW: 34, BH: 16, GAP: 4, X0: 14, Y0: 56 };
+  function breakoutRng(seed) {
+    let state = seed | 0;
+    return () => {
+      const [value, next] = tetrisRandom(state);
+      state = next;
+      return value;
+    };
+  }
+  const cellKey = (col, row) => `${col},${row}`;
+  const centredFrom = (width) => Math.floor((BREAKOUT.COLS - width) / 2);
+  const breakoutMakers = {
+    wall(rng, { rows, cols }) {
+      const out = new Set();
+      const c0 = centredFrom(cols);
+      for (let r = 0; r < rows; r++) for (let c = c0; c < c0 + cols; c++) out.add(cellKey(c, r));
+      return out;
+    },
+    // Two blocks at the sides with an empty middle.
+    twin(rng, { rows, cols }) {
+      const out = new Set();
+      for (let r = 0; r < rows; r++)
+        for (let c = 0; c < cols; c++) {
+          out.add(cellKey(c, r));
+          out.add(cellKey(BREAKOUT.COLS - 1 - c, r));
+        }
+      return out;
+    },
+    // Random squares on the left half, mirrored to the right.
+    mirror(rng, { rows, density }) {
+      const out = new Set();
+      for (let r = 0; r < rows; r++)
+        for (let c = 0; c < BREAKOUT.COLS / 2; c++)
+          if (rng() < density) {
+            out.add(cellKey(c, r));
+            out.add(cellKey(BREAKOUT.COLS - 1 - c, r));
+          }
+      return out;
+    },
+    pyramid(rng, { rows, shape }) {
+      const out = new Set();
+      for (let r = 0; r < rows; r++) {
+        const step = shape === "down" ? rows - 1 - r : r;
+        const width = shape === "steps" ? BREAKOUT.COLS - 2 * Math.floor(r / 2) * 2 : Math.min(BREAKOUT.COLS, 2 + 2 * step);
+        const c0 = centredFrom(width);
+        for (let c = c0; c < c0 + width; c++) out.add(cellKey(c, r));
+      }
+      return out;
+    },
+    diamonds(rng, { count, r: radius }) {
+      const out = new Set();
+      for (let i = 0; i < count; i++) {
+        const cx = (BREAKOUT.COLS / count) * (i + 0.5) - 0.5;
+        for (let r = 0; r <= radius * 2; r++)
+          for (let c = 0; c < BREAKOUT.COLS; c++) if (Math.abs(c - cx) + Math.abs(r - radius) <= radius + 0.5) out.add(cellKey(c, r));
+      }
+      return out;
+    },
+    stripes(rng, { rows, style }) {
+      const out = new Set();
+      for (let r = 0; r < rows; r++)
+        for (let c = 0; c < BREAKOUT.COLS; c++) {
+          const on = style === "rows" ? r % 2 === 0 : style === "cols" ? c % 2 === 0 : (c + r) % 2 === 0;
+          if (on) out.add(cellKey(c, r));
+        }
+      return out;
+    },
+    pillars(rng, { rows, width, gap }) {
+      const out = new Set();
+      const period = width + gap;
+      const span = Math.floor((BREAKOUT.COLS + gap) / period) * period - gap;
+      const c0 = centredFrom(span);
+      for (let r = 0; r < rows; r++) for (let c = 0; c < span; c++) if (c % period < width) out.add(cellKey(c0 + c, r));
+      return out;
+    },
+    // A ring of bricks, an empty moat, and a core in the middle.
+    fortress(rng, { core, thick }) {
+      const out = new Set();
+      const size = core + 2 * (thick + 1);
+      const c0 = centredFrom(size);
+      for (let r = 0; r < size; r++)
+        for (let c = 0; c < size; c++) {
+          const edge = Math.min(r, c, size - 1 - r, size - 1 - c);
+          if (edge < thick || edge > thick) out.add(cellKey(c0 + c, r));
+        }
+      return out;
+    },
+    // Cave-like blobs: random fill, then three smoothing passes.
+    caves(rng, { rows, density }) {
+      let grid = Array.from({ length: rows }, () => Array.from({ length: BREAKOUT.COLS }, () => rng() < density));
+      for (let pass = 0; pass < 3; pass++) {
+        grid = grid.map((line, r) =>
+          line.map((on, c) => {
+            let n = 0;
+            for (let dr = -1; dr <= 1; dr++) for (let dc = -1; dc <= 1; dc++) if ((dr || dc) && grid[r + dr] && grid[r + dr][c + dc]) n++;
+            return n >= 5 ? true : n <= 2 ? false : on;
+          })
+        );
+      }
+      const out = new Set();
+      grid.forEach((line, r) => line.forEach((on, c) => on && out.add(cellKey(c, r))));
+      return out;
+    },
+    // A band that waves across the grid.
+    waves(rng, { thick, amp, period }) {
+      const out = new Set();
+      const phase = rng() * Math.PI * 2;
+      for (let c = 0; c < BREAKOUT.COLS; c++) {
+        const top = Math.round(amp + amp * Math.sin((2 * Math.PI * c) / period + phase));
+        for (let r = top; r < top + thick; r++) out.add(cellKey(c, r));
+      }
+      return out;
+    }
+  };
+  const NEON = ["#ff5fa2", "#ff9f43", "#ffd93d", "#6bdc7b", "#4dd8f0", "#7b8cff", "#c07bff"];
+  const STEEL = "#9aa3b5";
+  const BOMB = "#ff5a36";
+  function breakoutColor(palette, kind, col, row) {
+    if (kind === "steel") return STEEL;
+    if (kind === "explosive") return BOMB;
+    if (palette === "regions") return NEON[Math.floor((col * NEON.length) / BREAKOUT.COLS)];
+    if (palette === "by-kind") return kind === "strong" ? NEON[6] : kind === "bonus" ? NEON[2] : NEON[4];
+    return NEON[row % NEON.length];
+  }
+  // Squares → bricks. Kinds are given out by count (not by chance), so a map
+  // always has the mix its definition asks for. Steel only goes where it keeps
+  // every breakable brick reachable.
+  function breakoutBuild(def) {
+    const rng = breakoutRng(def.seed);
+    const cells = [...breakoutMakers[def.maker](rng, def.params)]
+      .map((k) => k.split(",").map(Number))
+      .filter(([c, r]) => c >= 0 && c < BREAKOUT.COLS && r >= 0 && r < BREAKOUT.ROWS)
+      .sort((a, b) => a[1] - b[1] || a[0] - b[0]);
+    const order = cells.map((_, i) => i);
+    for (let i = order.length - 1; i > 0; i--) {
+      const j = Math.floor(rng() * (i + 1));
+      [order[i], order[j]] = [order[j], order[i]];
+    }
+    const n = cells.length;
+    const count = (share) => Math.round(share * n);
+    const kinds = Array(n).fill("normal");
+    let at = 0;
+    const give = (kind, k) => {
+      for (let i = 0; i < k && at < n; i++) kinds[order[at++]] = kind;
+    };
+    give("explosive", count(def.mix.explosive));
+    give("bonus", count(def.mix.bonus));
+    give("strong", count(def.mix.strong));
+    const bricks = cells.map(([col, row], i) => {
+      const kind = kinds[i];
+      const hp = kind === "strong" ? 2 + (i % (def.mix.maxHp - 1)) : 1;
+      return { col, row, kind, hp, maxHp: hp, color: breakoutColor(def.palette, kind, col, row) };
+    });
+    // Strong bricks reach the tier's top strength.
+    const strong = bricks.filter((b) => b.kind === "strong");
+    if (strong.length) strong[0].hp = strong[0].maxHp = def.mix.maxHp;
+    // Steel goes on normal bricks, skipping any spot that would seal something off.
+    let steel = count(def.mix.steel);
+    for (let i = at; i < n && steel > 0; i++) {
+      const b = bricks[order[i]];
+      if (b.kind !== "normal") continue;
+      const was = { kind: b.kind, hp: b.hp, color: b.color };
+      Object.assign(b, { kind: "steel", hp: Infinity, maxHp: Infinity, color: STEEL });
+      if (breakoutCheck(bricks).ok) steel--;
+      else Object.assign(b, was, { maxHp: was.hp });
+    }
+    return bricks;
+  }
+  // Every breakable brick must be reachable by the ball, which comes from
+  // below the bricks and can also pass above them. Steel blocks the way;
+  // breakable bricks count as open, because they can be broken.
+  function breakoutCheck(bricks) {
+    const breakable = bricks.filter((b) => b.kind !== "steel").length;
+    if (breakable < 8) return { ok: false, breakable, reason: "too-few" };
+    const steel = new Set(bricks.filter((b) => b.kind === "steel").map((b) => cellKey(b.col, b.row)));
+    for (let r = 0; r < BREAKOUT.ROWS; r++) {
+      let all = true;
+      for (let c = 0; c < BREAKOUT.COLS && all; c++) all = steel.has(cellKey(c, r));
+      if (all) return { ok: false, breakable, reason: "sealed" };
+    }
+    const bottom = Math.max(...bricks.map((b) => b.row)) + 1;
+    const seen = new Set();
+    const queue = [];
+    for (let c = 0; c < BREAKOUT.COLS; c++) queue.push([c, bottom]);
+    while (queue.length) {
+      const [c, r] = queue.pop();
+      const k = cellKey(c, r);
+      if (c < 0 || c >= BREAKOUT.COLS || r < -1 || r > bottom || seen.has(k) || steel.has(k)) continue;
+      seen.add(k);
+      queue.push([c + 1, r], [c - 1, r], [c, r + 1], [c, r - 1]);
+    }
+    const unreachable = bricks.some((b) => b.kind !== "steel" && !seen.has(cellKey(b.col, b.row)));
+    return unreachable ? { ok: false, breakable, reason: "unreachable" } : { ok: true, breakable };
+  }
+  // A shuffled order of all 30 maps that never starts with the map just played.
+  function breakoutDeck(rng, lastId) {
+    const ids = BREAKOUT_MAPS.map((d) => d.id);
+    for (let i = ids.length - 1; i > 0; i--) {
+      const j = Math.floor(rng() * (i + 1));
+      [ids[i], ids[j]] = [ids[j], ids[i]];
+    }
+    if (ids[0] === lastId) {
+      const j = 1 + Math.floor(rng() * (ids.length - 1));
+      [ids[0], ids[j]] = [ids[j], ids[0]];
+    }
+    return ids;
+  }
+  const GENTLE = { strong: 0.05, maxHp: 2, steel: 0, explosive: 0.02, bonus: 0.08 };
+  const MEDIUM = { strong: 0.22, maxHp: 3, steel: 0.05, explosive: 0.05, bonus: 0.08 };
+  const TOUGH = { strong: 0.4, maxHp: 5, steel: 0.1, explosive: 0.06, bonus: 0.08 };
+  const map = (id, tier, maker, params, seed, palette = "rainbow-rows") => ({ id, tier, maker, params, seed, palette, mix: tier === "gentle" ? GENTLE : tier === "medium" ? MEDIUM : TOUGH });
+  const BREAKOUT_MAPS = [
+    map("g-wall", "gentle", "wall", { rows: 4, cols: 10 }, 11),
+    map("g-twin", "gentle", "twin", { rows: 4, cols: 4 }, 12, "regions"),
+    map("g-pyramid", "gentle", "pyramid", { rows: 5, shape: "up" }, 13),
+    map("g-stripes", "gentle", "stripes", { rows: 5, style: "rows" }, 14),
+    map("g-pillars", "gentle", "pillars", { rows: 4, width: 2, gap: 1 }, 15, "regions"),
+    map("g-diamonds", "gentle", "diamonds", { count: 2, r: 2 }, 16),
+    map("g-mirror", "gentle", "mirror", { rows: 4, density: 0.55 }, 17, "regions"),
+    map("g-waves", "gentle", "waves", { thick: 2, amp: 1, period: 6 }, 18),
+    map("g-caves", "gentle", "caves", { rows: 5, density: 0.6 }, 19, "by-kind"),
+    map("g-checker", "gentle", "stripes", { rows: 5, style: "checker" }, 20),
+    map("m-wall", "medium", "wall", { rows: 7, cols: 11 }, 31),
+    map("m-twin", "medium", "twin", { rows: 7, cols: 4 }, 32, "regions"),
+    map("m-pyramid", "medium", "pyramid", { rows: 6, shape: "down" }, 33),
+    map("m-diamond", "medium", "diamonds", { count: 1, r: 3 }, 34),
+    map("m-fortress", "medium", "fortress", { core: 2, thick: 1 }, 35, "by-kind"),
+    map("m-mirror", "medium", "mirror", { rows: 6, density: 0.5 }, 36, "regions"),
+    map("m-caves", "medium", "caves", { rows: 7, density: 0.55 }, 37),
+    map("m-waves", "medium", "waves", { thick: 3, amp: 2, period: 8 }, 38),
+    map("m-pillars", "medium", "pillars", { rows: 6, width: 1, gap: 1 }, 39),
+    map("m-columns", "medium", "stripes", { rows: 7, style: "cols" }, 40, "regions"),
+    map("m-steps", "medium", "pyramid", { rows: 6, shape: "steps" }, 41),
+    map("m-diamonds", "medium", "diamonds", { count: 2, r: 3 }, 42, "by-kind"),
+    map("t-wall", "tough", "wall", { rows: 10, cols: 12 }, 51),
+    map("t-twin", "tough", "twin", { rows: 9, cols: 5 }, 52, "regions"),
+    map("t-fortress", "tough", "fortress", { core: 4, thick: 1 }, 53, "by-kind"),
+    map("t-keep", "tough", "fortress", { core: 2, thick: 2 }, 54),
+    map("t-mirror", "tough", "mirror", { rows: 9, density: 0.6 }, 55, "regions"),
+    map("t-caves", "tough", "caves", { rows: 10, density: 0.55 }, 56),
+    map("t-waves", "tough", "waves", { thick: 4, amp: 3, period: 10 }, 57),
+    map("t-pillars", "tough", "pillars", { rows: 10, width: 2, gap: 1 }, 58, "regions")
+  ];
+  const BREAKOUT_FALLBACK = map("fallback", "gentle", "wall", { rows: 6, cols: 10 }, 1);
+  // A map's bricks; a map that ever fails the check is replaced by a plain wall.
+  function breakoutMap(id) {
+    const def = BREAKOUT_MAPS.find((d) => d.id === id) || BREAKOUT_FALLBACK;
+    const bricks = breakoutBuild(def);
+    return breakoutCheck(bricks).ok ? bricks : breakoutBuild(BREAKOUT_FALLBACK);
+  }
+  window.__oneBreakout = { BREAKOUT, BREAKOUT_MAPS, breakoutMakers, breakoutRng, breakoutBuild, breakoutCheck, breakoutDeck, breakoutMap };
   const GAMES = [
     { id: "snake", title: "Snake", blurb: "Eat fruit, grow long, mind the walls.", emoji: "🐍", Component: SnakeGame },
     { id: "tetris", title: "Tetris", blurb: "Stack the blocks, clear the lines.", emoji: "🧱", Component: TetrisGame }

@@ -29,8 +29,8 @@ The owner wants a Breakout game like their reference pictures (a paddle, a bounc
 ## 1. Maps
 
 **Grid.** Bricks sit on 12 columns × up to 12 rows:
-- each brick is 36×16, with 4 px gaps;
-- the grid starts at x = 12, y = 56;
+- each brick is 34×16, with 4 px gaps (12 × 34 + 11 × 4 = 452 px);
+- the grid starts at x = 14, y = 56, so it is centred;
 - the field is 480×640.
 
 A brick is `{ col, row, kind: "normal" | "strong" | "steel" | "explosive" | "bonus", hp, color }`. Normal, explosive and bonus bricks have hp 1. Strong bricks have hp 2–5. Steel has hp `Infinity`.
