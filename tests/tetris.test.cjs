@@ -139,3 +139,84 @@ test("ghost lands on the floor or on blocks", async () => {
   });
   assert.deepEqual(r, { floor: 17, onBlock: 9 });
 });
+
+test("gravity speeds up per level and stops at 80 ms", async () => {
+  const r = await inPage((T) => [1, 2, 10, 11, 12, 40].map((l) => T.tetrisGravity(l)));
+  assert.deepEqual(r, [800, 730, 170, 100, 80, 80]);
+});
+
+test("tick falls one row, then reports grounded", async () => {
+  const r = await inPage((T, h) => {
+    let s = h.withPiece("O");
+    for (let i = 0; i < 16; i++) s = T.tetrisTick(s);
+    const bottom = Math.max(...T.tetrisCells(s.piece).map((c) => c[1]));
+    const after = T.tetrisTick(s);
+    return { bottom, grounded: [s.grounded, after.grounded], y: [s.piece.y, after.piece.y] };
+  });
+  assert.deepEqual(r, { bottom: 17, grounded: [false, true], y: [16, 16] });
+});
+
+test("soft drop scores 1 per row, hard drop lands on the ghost and scores 2 per row", async () => {
+  const r = await inPage((T, h) => {
+    const s = h.withPiece("T");
+    const soft = T.tetrisSoftDrop(s);
+    const ghostY = T.tetrisGhost(s).y;
+    const hard = T.tetrisHardDrop(s);
+    const tCells = [];
+    hard.field.forEach((row, y) => row.forEach((c, x) => c === "T" && tCells.push([x, y])));
+    return { soft: soft.score, ghostY, hard: hard.score, tCells: tCells.sort((a, b) => a[1] - b[1] || a[0] - b[0]), nextIn: hard.piece.shape === s.next };
+  });
+  assert.equal(r.soft, 1);
+  assert.equal(r.ghostY, 16);
+  assert.equal(r.hard, 32);
+  assert.deepEqual(r.tCells, [[4, 16], [3, 17], [4, 17], [5, 17]]);
+  assert.equal(r.nextIn, true);
+});
+
+test("clearing 1–4 lines scores 100/300/500/800 × level and drops the rows above", async () => {
+  const r = await inPage((T, h) => {
+    const run = (n, level) => {
+      const s = h.withPiece("I", { level, lines: (level - 1) * 10 });
+      for (let y = 17; y > 17 - n; y--) for (let x = 1; x < 10; x++) s.field[y][x] = "Z";
+      s.field[17 - n][5] = "S";
+      s.piece = { shape: "I", rot: 1, x: -2, y: 0 };
+      const dropped = T.tetrisHardDrop(s);
+      const cleared = T.tetrisClear(dropped);
+      return { flashing: dropped.clearing.length, points: cleared.score - dropped.score, marker: cleared.field[17][5], last: cleared.last.lines, clearingAfter: cleared.clearing.length };
+    };
+    return [run(1, 1), run(2, 1), run(3, 1), run(4, 1), run(4, 3)];
+  });
+  assert.deepEqual(r.map((x) => x.points), [100, 300, 500, 800, 2400]);
+  assert.deepEqual(r.map((x) => x.flashing), [1, 2, 3, 4, 4]);
+  assert.ok(r.every((x) => x.marker === "S" && x.clearingAfter === 0));
+  assert.deepEqual(r.map((x) => x.last), [1, 2, 3, 4, 4]);
+});
+
+test("level rises every 10 lines and scores the clear at the old level", async () => {
+  const r = await inPage((T, h) => {
+    const s = h.withPiece("I", { lines: 9, level: 1 });
+    for (let x = 1; x < 10; x++) s.field[17][x] = "Z";
+    s.piece = { shape: "I", rot: 1, x: -2, y: 0 };
+    const dropped = T.tetrisHardDrop(s);
+    const cleared = T.tetrisClear(dropped);
+    return { lines: cleared.lines, level: cleared.level, points: cleared.score - dropped.score, levelUp: cleared.last.levelUp };
+  });
+  assert.deepEqual(r, { lines: 10, level: 2, points: 100, levelUp: true });
+});
+
+test("a blocked spawn ends the game", async () => {
+  const r = await inPage((T, h) => {
+    const s = h.withPiece("T");
+    for (let y = 0; y < 2; y++) for (let x = 3; x < 7; x++) s.field[y][x] = "Z";
+    return T.tetrisSpawn(s).status;
+  });
+  assert.equal(r, "over");
+});
+
+test("input is ignored during the line-clear flash", async () => {
+  const r = await inPage((T, h) => {
+    const s = h.withPiece("T", { clearing: [17] });
+    return [T.tetrisMove(s, 1), T.tetrisRotate(s, 1), T.tetrisSoftDrop(s), T.tetrisHardDrop(s), T.tetrisTick(s), T.tetrisLock(s)].every((x) => x === s);
+  });
+  assert.equal(r, true);
+});

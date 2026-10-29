@@ -11664,7 +11664,79 @@ main[data-section='saved'] .panel::after {
     while (tetrisFits(state.field, { ...piece, y: piece.y + 1 })) piece = { ...piece, y: piece.y + 1 };
     return piece;
   }
-  window.__oneTetris = { TETRIS_W, TETRIS_H, TETRIS_SHAPES, tetrisNew, tetrisRandom, tetrisCells, tetrisFits, tetrisDeal, tetrisMove, tetrisRotate, tetrisGhost };
+  const TETRIS_POINTS = [0, 100, 300, 500, 800];
+  // Milliseconds per row: 800 at level 1, 70 less each level, never under 80.
+  function tetrisGravity(level) {
+    return Math.max(80, 800 - (level - 1) * 70);
+  }
+  // Deals the next piece; if it doesn't fit, the game is over.
+  function tetrisSpawn(state) {
+    const dealt = tetrisDeal(state);
+    return tetrisFits(dealt.field, dealt.piece) ? dealt : { ...dealt, status: "over" };
+  }
+  // One row down. A piece that can't fall is "grounded"; the component then
+  // runs the lock delay.
+  function tetrisTick(state) {
+    if (!tetrisLive(state)) return state;
+    const piece = { ...state.piece, y: state.piece.y + 1 };
+    if (tetrisFits(state.field, piece)) return { ...state, piece, grounded: false };
+    return state.grounded ? state : { ...state, grounded: true };
+  }
+  function tetrisSoftDrop(state) {
+    const next = tetrisTick(state);
+    return next !== state && next.piece !== state.piece ? { ...next, score: next.score + 1 } : next;
+  }
+  function tetrisHardDrop(state) {
+    if (!tetrisLive(state)) return state;
+    const piece = tetrisGhost(state);
+    return tetrisLock({ ...state, piece, score: state.score + 2 * (piece.y - state.piece.y) });
+  }
+  // The piece joins the field. Full rows start their flash (tetrisClear
+  // removes them); with none, the next piece comes in at once.
+  function tetrisLock(state) {
+    if (!tetrisLive(state)) return state;
+    const field = state.field.map((row) => [...row]);
+    for (const [x, y] of tetrisCells(state.piece)) field[y][x] = state.piece.shape;
+    const clearing = [];
+    field.forEach((row, y) => row.every(Boolean) && clearing.push(y));
+    const locked = { ...state, field, clearing, grounded: false, last: state.last };
+    return clearing.length ? locked : tetrisSpawn(locked);
+  }
+  // Removes the flashing rows, drops everything above them, and scores the
+  // clear at the level it was made on.
+  function tetrisClear(state) {
+    const n = state.clearing.length;
+    if (!n || state.status !== "playing") return state;
+    const gone = new Set(state.clearing);
+    const kept = state.field.filter((_, y) => !gone.has(y));
+    const field = [...Array.from({ length: n }, () => Array(TETRIS_W).fill(null)), ...kept];
+    const points = TETRIS_POINTS[n] * state.level;
+    const lines = state.lines + n;
+    const level = 1 + Math.floor(lines / 10);
+    const last = { lines: n, points, levelUp: level > state.level, at: ((state.last && state.last.at) || 0) + 1 };
+    return tetrisSpawn({ ...state, field, clearing: [], score: state.score + points, lines, level, last });
+  }
+  window.__oneTetris = {
+    TETRIS_W,
+    TETRIS_H,
+    TETRIS_SHAPES,
+    TETRIS_POINTS,
+    tetrisNew,
+    tetrisRandom,
+    tetrisCells,
+    tetrisFits,
+    tetrisDeal,
+    tetrisSpawn,
+    tetrisMove,
+    tetrisRotate,
+    tetrisGhost,
+    tetrisGravity,
+    tetrisTick,
+    tetrisSoftDrop,
+    tetrisHardDrop,
+    tetrisLock,
+    tetrisClear
+  };
   const GAMES = [{ id: "snake", title: "Snake", blurb: "Eat fruit, grow long, mind the walls.", emoji: "🐍", Component: SnakeGame }];
   function GamesPanel({ onClose }) {
     const [gameId, setGameId] = React2.useState(null);

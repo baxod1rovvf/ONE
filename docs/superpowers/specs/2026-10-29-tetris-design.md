@@ -35,7 +35,7 @@ Success means Tetris feels like the real game: fair piece order, rotation that d
 
 **Rotation.** Clockwise and counter-clockwise, in four rotation states. If the rotated piece would overlap a wall or a block, the game tries these nudges in order and takes the first that fits: (−1,0), (+1,0), (0,−1), (−2,0), (+2,0). For I it also tries (0,−2). If none fits, the turn is refused. O doesn't rotate.
 
-**Gravity.** The piece falls one row per tick. The tick length depends on the level: `max(80, 800 − (level − 1) × 70)` ms, so level 1 is 800 ms, level 10 is 170 ms, and from level 11 on it stays at 80 ms.
+**Gravity.** The piece falls one row per tick. The tick length depends on the level: `max(80, 800 − (level − 1) × 70)` ms, so level 1 is 800 ms, level 10 is 170 ms, level 11 is 100 ms, and from level 12 on it stays at 80 ms.
 
 **Locking.** When the piece can't fall any further, a lock delay of 500 ms starts. A successful move or rotation restarts the delay, at most 15 times per piece; after that the next touchdown locks it at once. Hard drop locks immediately.
 
