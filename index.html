@@ -8466,22 +8466,109 @@ main[data-section='saved'] .panel::after {
     });
   }
   const isQuota = (e) => !!e && (e.name === "QuotaExceededError" || /quota/i.test(e.message || ""));
-  // Your own music, kept in this browser only (IndexedDB "one.media").
+  // Your own music and nasheeds, kept in this browser only (IndexedDB
+  // "one.media"): albums you create and name, their tracks, and the files.
+  // Version 2 added albums; older libraries are grouped into named albums once.
+  const newAlbumId = () => `a${Date.now().toString(36)}${Math.random().toString(36).slice(2, 8)}`;
+  function migrateToAlbums(tx) {
+    const tracks = tx.objectStore("tracks");
+    const albums = tx.objectStore("albums");
+    tracks.getAll().onsuccess = (e) => {
+      const groups = new Map();
+      for (const t of e.target.result) {
+        const key = t.albumKey || "\u0000Singles";
+        if (!groups.has(key)) groups.set(key, []);
+        groups.get(key).push(t);
+      }
+      for (const [key, list] of groups) {
+        list.sort((a, b) => (a.addedAt || 0) - (b.addedAt || 0));
+        const id = newAlbumId();
+        const name = (key !== "\u0000Singles" && list[0].album) || "Singles";
+        albums.put({ id, name, kind: list[0].kind === "nasheed" ? "nasheed" : "music", createdAt: list[0].addedAt || Date.now() });
+        list.forEach((t, order) => tracks.put({ ...t, albumId: id, order }));
+      }
+    };
+  }
   const MediaLibrary = {
     db: null,
     urls: new Map(),
+    persistAsked: false,
     open() {
       if (this.db) return this.db;
       this.db = new Promise((resolve, reject) => {
-        const req = indexedDB.open("one.media", 1);
-        req.onupgradeneeded = () => {
-          req.result.createObjectStore("tracks", { keyPath: "id" });
-          req.result.createObjectStore("blobs", { keyPath: "id" });
+        const req = indexedDB.open("one.media", 2);
+        req.onupgradeneeded = (e) => {
+          const db = req.result;
+          if (e.oldVersion < 1) {
+            db.createObjectStore("tracks", { keyPath: "id" });
+            db.createObjectStore("blobs", { keyPath: "id" });
+          }
+          if (!db.objectStoreNames.contains("albums")) db.createObjectStore("albums", { keyPath: "id" });
+          if (e.oldVersion === 1) migrateToAlbums(req.transaction);
         };
-        req.onsuccess = () => resolve(req.result);
-        req.onerror = () => reject(req.error);
+        req.onsuccess = () => {
+          const db = req.result;
+          // A newer ONE (in another tab) needs the database: let go of it.
+          db.onversionchange = () => {
+            db.close();
+            this.db = null;
+          };
+          resolve(db);
+        };
+        req.onerror = () => {
+          this.db = null;
+          reject(req.error);
+        };
       });
       return this.db;
+    },
+    // Asks the browser to keep the library even when the device runs low on space.
+    ensurePersisted() {
+      if (this.persistAsked) return;
+      this.persistAsked = true;
+      try {
+        const p = navigator.storage && navigator.storage.persist && navigator.storage.persist();
+        if (p && p.catch) p.catch(() => {});
+      } catch {
+        // Not supported: the library is still kept, just without the promise.
+      }
+    },
+    async albums() {
+      const rows = await this.run(["albums"], "readonly", (tx) => {
+        const holder = { value: [] };
+        tx.objectStore("albums").getAll().onsuccess = (e) => {
+          holder.value = e.target.result;
+        };
+        return holder;
+      });
+      return rows.value.sort((a, b) => a.createdAt - b.createdAt);
+    },
+    async createAlbum(name, kind = "music") {
+      const clean = (name || "").trim().slice(0, 60);
+      if (!clean) throw new Error("empty-name");
+      const album = { id: newAlbumId(), name: clean, kind: kind === "nasheed" ? "nasheed" : "music", createdAt: Date.now() };
+      await this.run(["albums"], "readwrite", (tx) => tx.objectStore("albums").put(album));
+      return album;
+    },
+    async renameAlbum(id, name) {
+      const clean = (name || "").trim().slice(0, 60);
+      if (!clean) return;
+      const album = (await this.albums()).find((a) => a.id === id);
+      if (album) await this.run(["albums"], "readwrite", (tx) => tx.objectStore("albums").put({ ...album, name: clean }));
+    },
+    // Removes the album, its tracks and their files; returns how many tracks went.
+    async deleteAlbum(id) {
+      const ids = (await this.list()).filter((t) => t.albumId === id).map((t) => t.id);
+      for (const tid of ids) this.forget(tid);
+      await this.run(["albums", "tracks", "blobs"], "readwrite", (tx) => {
+        for (const tid of ids) {
+          tx.objectStore("tracks").delete(tid);
+          tx.objectStore("blobs").delete(tid);
+          tx.objectStore("blobs").delete(`cover:${tid}`);
+        }
+        tx.objectStore("albums").delete(id);
+      });
+      return ids.length;
     },
     async run(stores, mode, fn) {
       const db = await this.open();
@@ -8517,15 +8604,18 @@ main[data-section='saved'] .panel::after {
         };
         return out;
       });
-      return rows.sort((a, b) => a.albumKey.localeCompare(b.albumKey) || (a.track || 999) - (b.track || 999) || a.title.localeCompare(b.title));
+      const at = (n) => (n == null ? Infinity : n);
+      return rows.sort((a, b) => (a.albumId || "").localeCompare(b.albumId || "") || at(a.track) - at(b.track) || at(a.order) - at(b.order) || (a.title || "").localeCompare(b.title || ""));
     },
-    // Saves files one by one; stops cleanly if storage runs out.
-    async add(files, kind = "music") {
+    // Saves files into an album one by one; stops cleanly if storage runs out.
+    async add(files, albumId) {
       const saved = [];
       const skipped = [];
       let full = false;
-      const existing = await this.list();
-      const kinds = new Map(existing.map((t) => [t.albumKey, t.kind]));
+      const album = (await this.albums()).find((a) => a.id === albumId);
+      if (!album) throw new Error("no-album");
+      const existing = (await this.list()).filter((t) => t.albumId === albumId);
+      let order = existing.reduce((n, t) => Math.max(n, t.order == null ? -1 : t.order), -1) + 1;
       for (const file of files) {
         if (!(file.type.startsWith("audio/") || AUDIO_EXT.test(file.name))) {
           skipped.push({ name: file.name, reason: "Not an audio file" });
@@ -8551,7 +8641,9 @@ main[data-section='saved'] .panel::after {
           album,
           albumKey,
           track: tags.track,
-          kind: kinds.get(albumKey) || kind,
+          kind: album.kind,
+          albumId,
+          order: order++,
           size: file.size,
           type: file.type,
           hasCover: !!tags.cover,
@@ -8563,7 +8655,6 @@ main[data-section='saved'] .panel::after {
             if (tags.cover) tx.objectStore("blobs").put({ id: `cover:${id}`, blob: tags.cover });
             tx.objectStore("tracks").put(track);
           });
-          kinds.set(albumKey, track.kind);
           saved.push(track);
         } catch (e) {
           if (isQuota(e)) {
@@ -8573,6 +8664,7 @@ main[data-section='saved'] .panel::after {
           skipped.push({ name: file.name, reason: "Couldn't save this file" });
         }
       }
+      if (saved.length) this.ensurePersisted();
       return { saved, skipped, full };
     },
     async remove(ids) {
@@ -8630,6 +8722,7 @@ main[data-section='saved'] .panel::after {
       return { tracks: rows.length, bytes: rows.reduce((n, t) => n + (t.size || 0), 0) };
     }
   };
+  window.__oneMedia = MediaLibrary;
   const fmtBytes = (n) => (n >= 1e9 ? `${(n / 1e9).toFixed(1)} GB` : n >= 1e6 ? `${(n / 1e6).toFixed(1)} MB` : `${Math.max(1, Math.round(n / 1e3))} KB`);
   // A saved track as the player sees it.
   const localTrack = (t) => ({ id: `local:${t.id}`, title: t.title, artist: t.artist, album: t.album, kind: t.kind, source: "local", mediaId: t.id });
