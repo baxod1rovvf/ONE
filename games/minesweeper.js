@@ -150,6 +150,7 @@
         const gap = Date.now() - pausedAt.current;
         pausedAt.current = null;
         setGame((g) => (g.startedAt ? { ...g, startedAt: g.startedAt + gap } : g));
+        setNow(Date.now());
       }
     }, [paused]);
     const apply = (next) => {
@@ -307,6 +308,8 @@
           onClick: () => onClick(r, c),
           onContextMenu: (e) => {
             e.preventDefault();
+            // After a touch long press (Android sends contextmenu too) the timer flags.
+            if (press.current) return;
             act(r, c, "flag");
           },
           onPointerDown: (e) => onPointerDown(e, r, c),
@@ -336,6 +339,7 @@
           React2.createElement("input", { type: "checkbox", role: "switch", "aria-label": "Flag mode", checked: flagMode, onChange: (e) => setFlagMode(e.target.checked) }),
           React2.createElement("span", { "aria-hidden": true }, "🚩 Flag mode")
         ),
+        React2.createElement("button", { type: "button", className: "snake-pause ms-new", onClick: () => newGame() }, "New game"),
         React2.createElement(
           IconButton,
           { label: "Game sounds", className: "snake-mute", "aria-pressed": soundOn ? "true" : "false", onClick: toggleSound },

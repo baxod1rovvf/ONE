@@ -87,5 +87,7 @@ test("index.html no longer carries the game code; each game has its own file", (
   assert.ok(file("tetris.js").includes("function TetrisGame"));
   assert.ok(file("breakout.js").includes("function BreakoutGame"));
   assert.ok(!file("panel.js").includes("function SnakeGame"));
-  assert.ok(!fs.existsSync(path.join(ROOT, "games", "games.js")));
+  // games.js stays only as an empty stub for old installs, outside the offline copy.
+  assert.ok(!file("games.js").includes("function"));
+  assert.ok(!fs.readFileSync(path.join(ROOT, "sw.js"), "utf8").includes('"games",'));
 });

@@ -188,3 +188,50 @@ test("leaving while the clock runs raises no errors", async () => {
   assert.equal(await page.evaluate(() => window.__oneActiveGame), undefined);
   await page.close();
 });
+
+test("a long press flags once even when the browser sends its own context menu", async () => {
+  const { page } = await openApp(browser, server.url, { route: "home", hasTouch: true });
+  await openMines(page, { __oneMinesSeed: 4 });
+  await cell(page, 4, 4).click();
+  const [r, c] = await page.evaluate(() => {
+    const el = document.querySelector(".ms-cell[data-state='closed']");
+    return [el.dataset.r, el.dataset.c];
+  });
+  await page.evaluate(([r, c]) => {
+    const el = document.querySelector(`.ms-cell[data-r='${r}'][data-c='${c}']`);
+    el.dispatchEvent(new PointerEvent("pointerdown", { pointerType: "touch", bubbles: true }));
+    return new Promise((done) =>
+      setTimeout(() => {
+        // Android fires contextmenu after a long press, then a click may follow.
+        el.dispatchEvent(new MouseEvent("contextmenu", { bubbles: true, cancelable: true }));
+        el.dispatchEvent(new PointerEvent("pointerup", { pointerType: "touch", bubbles: true }));
+        el.click();
+        done();
+      }, 480)
+    );
+  }, [r, c]);
+  assert.equal(await cell(page, r, c).getAttribute("data-state"), "flag");
+  await page.close();
+});
+
+test("New game in the top bar starts over mid-game", async () => {
+  const { page } = await openApp(browser, server.url, { route: "home" });
+  const game = await openMines(page, { __oneMinesSeed: 4 });
+  await cell(page, 4, 4).click();
+  assert.ok((await page.locator(".ms-cell[data-state='open']").count()) > 0);
+  await game.locator(".ms-bar").getByRole("button", { name: "New game" }).click();
+  assert.equal(await page.locator(".ms-cell[data-state='open']").count(), 0);
+  assert.equal(await game.getByTestId("ms-time").textContent(), "0:00");
+  await page.close();
+});
+
+test("Easy fits a phone held sideways without scrolling", async () => {
+  const { page } = await openApp(browser, server.url, { route: "home", viewport: { width: 740, height: 375 }, hasTouch: true });
+  await openMines(page);
+  const fits = await page.evaluate(() => {
+    const f = document.querySelector(".ms-frame");
+    return [f.scrollHeight <= f.clientHeight + 1, f.scrollWidth <= f.clientWidth + 1];
+  });
+  assert.deepEqual(fits, [true, true]);
+  await page.close();
+});

@@ -134,7 +134,8 @@ test("keys and swipes move the tiles", async () => {
     board.dispatchEvent(new PointerEvent("pointerdown", { pointerType: "touch", clientX: x0, clientY: y, bubbles: true }));
     board.dispatchEvent(new PointerEvent("pointerup", { pointerType: "touch", clientX: x1, clientY: y, bubbles: true }));
   }, { x0: box.x + 40, x1: box.x + box.width - 20, y: box.y + 30 });
-  await page.waitForFunction(() => document.querySelectorAll(".g48-tile").length >= 2);
+  // The swipe moved the tile right; a third tile appears only after a real move.
+  await page.waitForFunction(() => document.querySelectorAll(".g48-tile").length === 3 || document.querySelector("[data-testid=g48-score]").textContent !== "0");
   assert.ok(await game.getByRole("button", { name: "Undo" }).isEnabled());
   await page.close();
 });
@@ -160,5 +161,18 @@ test("leaving mid-slide raises no errors", async () => {
   await page.waitForTimeout(500);
   assert.deepEqual(errors, []);
   assert.equal(await page.evaluate(() => window.__oneActiveGame), undefined);
+  await page.close();
+});
+
+test("a win that fills the board ends the game after Keep going", async () => {
+  const { page } = await openApp(browser, server.url, { route: "home" });
+  const game = await open2048(page, { __one2048Seed: 1, __one2048Cells: [[1024, 1024, 32, 8], [2, 4, 2, 16], [4, 2, 4, 2], [2, 4, 2, 4]] });
+  await game.getByRole("button", { name: "Play" }).click();
+  await page.keyboard.press("ArrowLeft");
+  await game.getByText("You win!").waitFor();
+  assert.equal(await game.getByRole("button", { name: "Undo" }).first().isDisabled(), true, "Undo does nothing on the win card");
+  await game.getByRole("button", { name: "Keep going" }).click();
+  await page.waitForFunction(() => document.querySelector(".g48").dataset.status === "over");
+  assert.ok(await game.getByText("Game over").isVisible());
   await page.close();
 });

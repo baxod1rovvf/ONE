@@ -144,7 +144,7 @@
 }
 @media (pointer: coarse) and (max-height: 500px) {
   .ms {
-    --sq: max(18px, min(34px, calc((100dvh - 150px) / var(--rows))));
+    --sq: max(18px, min(34px, calc((100dvh - 166px) / var(--rows) - 2px)));
   }
   .ms-frame {
     max-height: calc(100dvh - 150px);

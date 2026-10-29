@@ -100,3 +100,26 @@ test("a game that can't load says so, and a second try works", async () => {
   await page.getByRole("dialog", { name: "Snake" }).waitFor();
   await page.close();
 });
+
+test("a game whose styles failed loads them again on the next try", async () => {
+  let fail = true;
+  const { page } = await openApp(browser, server.url, {
+    route: "home",
+    init: (p) => p.route("**/games/snake.css", (r) => (fail ? r.abort() : r.continue()))
+  });
+  await openList(page);
+  await card(page, "Snake").click();
+  await page.getByText("Couldn't open this game. Check your connection and try again.").waitFor();
+  fail = false;
+  await card(page, "Snake").click();
+  await page.getByRole("dialog", { name: "Snake" }).waitFor();
+  assert.equal(await page.locator("link[href='games/snake.css']").count(), 1);
+  await page.close();
+});
+
+test("old installs can still fetch the retired games file during their first Refresh", async () => {
+  for (const f of ["games.js", "games.css"]) {
+    const res = await fetch(`${server.url}/games/${f}`);
+    assert.equal(res.status, 200, f);
+  }
+});

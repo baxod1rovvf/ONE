@@ -173,8 +173,13 @@
       setStatus("playing");
     }, []);
     const keepGoing = () => {
-      setGame((g) => t48Keep(g));
-      setStatus("playing");
+      const g = t48Keep(ref.current.game);
+      setGame(g);
+      // The winning move may also have filled the board for good.
+      if (g.over) {
+        setStatus("over");
+        retroSound.over();
+      } else setStatus("playing");
     };
     const togglePause = React2.useCallback(() => setStatus((st) => (st === "playing" ? "paused" : st === "paused" ? "playing" : st)), []);
     const toggleSound = React2.useCallback(() => {
@@ -265,7 +270,7 @@
           React2.createElement("span", { className: "snake-stat__label" }, React2.createElement(Trophy, { size: 14, "aria-hidden": true }), "Best"),
           React2.createElement("span", { className: "snake-stat__value num", "data-testid": "g48-best" }, best)
         ),
-        React2.createElement("button", { type: "button", className: "snake-pause", onClick: undo, disabled: !game.undo || status === "ready" || status === "paused" }, "Undo"),
+        React2.createElement("button", { type: "button", className: "snake-pause", onClick: undo, disabled: !game.undo || status === "ready" || status === "paused" || status === "won" }, "Undo"),
         React2.createElement(
           IconButton,
           { label: "Game sounds", className: "snake-mute", "aria-pressed": soundOn ? "true" : "false", onClick: toggleSound },

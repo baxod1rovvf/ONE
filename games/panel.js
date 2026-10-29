@@ -301,14 +301,20 @@
     css.href = `games/${g.file}.css`;
     const js = document.createElement("script");
     js.src = `games/${g.file}.js`;
-    const p = Promise.all([add(css), add(js)])
-      .then(() => {
+    // Both files settle first, so a script that loads after the styles failed
+    // can't leave a half-loaded game behind.
+    const p = Promise.allSettled([add(css), add(js)])
+      .then((results) => {
+        const failed = results.find((r) => r.status === "rejected");
+        if (failed) throw failed.reason;
         if (!window.__oneGameModules[id]) throw new Error("The game file didn't start.");
         return window.__oneGameModules[id];
       })
       .catch((err) => {
         loading.delete(id);
         for (const el of tags) el.remove();
+        // The next try loads both files again, even if the script did start.
+        delete window.__oneGameModules[id];
         throw err;
       });
     loading.set(id, p);
