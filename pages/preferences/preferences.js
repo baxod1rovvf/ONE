@@ -7,7 +7,7 @@
   const {
     Button, Field, Kbd, Lock, Modal, Moon, React2, RefreshCw, Segmented, Sun, Trash2,
     createLucideIcon, createSampleData, isAppData, modKey, takeInstallPrompt, timeAgo, useConfirm,
-    useLock, useMediaQuery, useStore, useSync, useToast
+    useLock, useMediaQuery, useStore, useSync, useToast, useUI, useTelegram, ensureTelegram, telegramDevice
   } = window.__oneApp;
   /**
    * @license lucide-react v0.454.0 - ISC
@@ -126,7 +126,7 @@
       });
       toast({ message: "Sample content added", tone: "success" });
     };
-    return /* @__PURE__ */ React2.createElement(React2.Fragment, null, /* @__PURE__ */ React2.createElement("div", { className: "page-head" }, /* @__PURE__ */ React2.createElement("div", { className: "page-head__text" }, /* @__PURE__ */ React2.createElement("h1", { className: "page-title" }, "Settings"), /* @__PURE__ */ React2.createElement("p", { className: "page-desc" }, "Your profile, how ONE looks, and your data."))), /* @__PURE__ */ React2.createElement("div", { className: "settings" }, React2.createElement(InstallSettings, null), /* @__PURE__ */ React2.createElement("section", { className: "panel settings__section", "aria-labelledby": "set-profile" }, /* @__PURE__ */ React2.createElement("h2", { id: "set-profile", className: "settings__title" }, "Profile"), /* @__PURE__ */ React2.createElement("div", { className: "settings__row" }, /* @__PURE__ */ React2.createElement("div", { className: "settings__label" }, /* @__PURE__ */ React2.createElement("p", null, "Your name"), /* @__PURE__ */ React2.createElement("span", null, "Kept with your data and synced devices.")), /* @__PURE__ */ React2.createElement("div", { className: "settings__control" }, /* @__PURE__ */ React2.createElement(Field, { label: "Your name", hideLabel: true }, (p) => /* @__PURE__ */ React2.createElement("input", { ...p, className: "input", placeholder: "e.g. Alex", value: data.settings.name, maxLength: 40, onChange: (e) => setSettings({ name: e.target.value }) }))))), /* @__PURE__ */ React2.createElement(SyncSettings, null), React2.createElement(LockSettings, null), /* @__PURE__ */ React2.createElement("section", { className: "panel settings__section", "aria-labelledby": "set-look" }, /* @__PURE__ */ React2.createElement("h2", { id: "set-look", className: "settings__title" }, "Appearance"), /* @__PURE__ */ React2.createElement("div", { className: "settings__row" }, /* @__PURE__ */ React2.createElement("div", { className: "settings__label" }, /* @__PURE__ */ React2.createElement("p", null, "Theme"), /* @__PURE__ */ React2.createElement("span", null, "System follows your device setting.")), /* @__PURE__ */ React2.createElement("div", { className: "settings__control" }, /* @__PURE__ */ React2.createElement(
+    return /* @__PURE__ */ React2.createElement(React2.Fragment, null, /* @__PURE__ */ React2.createElement("div", { className: "page-head" }, /* @__PURE__ */ React2.createElement("div", { className: "page-head__text" }, /* @__PURE__ */ React2.createElement("h1", { className: "page-title" }, "Settings"), /* @__PURE__ */ React2.createElement("p", { className: "page-desc" }, "Your profile, how ONE looks, and your data."))), /* @__PURE__ */ React2.createElement("div", { className: "settings" }, React2.createElement(InstallSettings, null), /* @__PURE__ */ React2.createElement("section", { className: "panel settings__section", "aria-labelledby": "set-profile" }, /* @__PURE__ */ React2.createElement("h2", { id: "set-profile", className: "settings__title" }, "Profile"), /* @__PURE__ */ React2.createElement("div", { className: "settings__row" }, /* @__PURE__ */ React2.createElement("div", { className: "settings__label" }, /* @__PURE__ */ React2.createElement("p", null, "Your name"), /* @__PURE__ */ React2.createElement("span", null, "Kept with your data and synced devices.")), /* @__PURE__ */ React2.createElement("div", { className: "settings__control" }, /* @__PURE__ */ React2.createElement(Field, { label: "Your name", hideLabel: true }, (p) => /* @__PURE__ */ React2.createElement("input", { ...p, className: "input", placeholder: "e.g. Alex", value: data.settings.name, maxLength: 40, onChange: (e) => setSettings({ name: e.target.value }) }))))), /* @__PURE__ */ React2.createElement(SyncSettings, null), React2.createElement(TelegramSettings, null), React2.createElement(LockSettings, null), /* @__PURE__ */ React2.createElement("section", { className: "panel settings__section", "aria-labelledby": "set-look" }, /* @__PURE__ */ React2.createElement("h2", { id: "set-look", className: "settings__title" }, "Appearance"), /* @__PURE__ */ React2.createElement("div", { className: "settings__row" }, /* @__PURE__ */ React2.createElement("div", { className: "settings__label" }, /* @__PURE__ */ React2.createElement("p", null, "Theme"), /* @__PURE__ */ React2.createElement("span", null, "System follows your device setting.")), /* @__PURE__ */ React2.createElement("div", { className: "settings__control" }, /* @__PURE__ */ React2.createElement(
       Segmented,
       {
         label: "Theme",
@@ -468,6 +468,50 @@
           }
         }))
       )
+    );
+  }
+  // Telegram: who is connected on this device, and how long chats may wait
+  // before they move up (synced with the other settings).
+  function TelegramSettings() {
+    const tg = useTelegram();
+    const ui = useUI();
+    const { data, setSettings } = useStore();
+    const prefs = data.settings.telegram || {};
+    const limits = { normal: 180, low: 720, ...prefs.limits };
+    const device = telegramDevice();
+    const me = device && device.session && tg && tg.status !== "loggedOut" ? tg.me || device.me : device && device.session ? device.me : null;
+    const setLimit = (key, hours) => {
+      const n = Math.round(Number(hours));
+      if (!(n >= 1 && n <= 72)) return;
+      setSettings({ telegram: { chats: prefs.chats || {}, limits: { ...limits, [key]: n * 60 } } });
+    };
+    const [drafts, setDrafts] = React2.useState({});
+    const hoursField = (key, label) =>
+      React2.createElement(Field, { label, hideLabel: true }, (p) =>
+        React2.createElement("input", {
+          ...p,
+          className: "input input--hours num",
+          type: "number",
+          min: 1,
+          max: 72,
+          value: drafts[key] ?? String(limits[key] / 60),
+          onChange: (e) => {
+            setDrafts({ ...drafts, [key]: e.target.value });
+            setLimit(key, e.target.value);
+          },
+          onBlur: () => setDrafts({ ...drafts, [key]: void 0 })
+        })
+      );
+    const row = (title, note, control) => React2.createElement("div", { className: "settings__row" }, React2.createElement("div", { className: "settings__label" }, React2.createElement("p", null, title), note && React2.createElement("span", null, note)), React2.createElement("div", { className: "settings__control" }, control));
+    return React2.createElement(
+      "section",
+      { className: "panel settings__section", "aria-labelledby": "set-telegram" },
+      React2.createElement("h2", { id: "set-telegram", className: "settings__title" }, "Telegram"),
+      me
+        ? row(`Connected as ${me.name}${me.username ? ` (@${me.username})` : ""}`, "Your Telegram login stays on this device only.", React2.createElement(Button, { onClick: () => ensureTelegram().then((s) => s.logout()) }, "Log out"))
+        : row("Not connected", "Connect your Telegram account to see who's waiting.", React2.createElement(Button, { onClick: () => ui.navigate("telegram") }, "Connect")),
+      row("Normal moves up after (hours)", "A Normal chat waiting this long counts as High.", hoursField("normal", "Normal moves up after (hours)")),
+      row("Low moves up after (hours)", "A Low chat waiting this long counts as Normal.", hoursField("low", "Low moves up after (hours)"))
     );
   }
   function LockSettings() {

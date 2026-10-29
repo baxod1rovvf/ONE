@@ -1,1 +1,54 @@
 /* ONE — Telegram page styles. Loaded with pages/telegram/telegram.js. */
+.tg-connect {
+  display: grid;
+  gap: 14px;
+  max-width: 560px;
+}
+.tg-connect__title {
+  font-size: var(--fs-lg);
+  font-weight: 600;
+}
+.tg-connect__steps {
+  display: grid;
+  gap: 6px;
+  padding-left: 20px;
+}
+.tg-connect__steps a {
+  color: var(--accent);
+  text-decoration: underline;
+}
+.tg-connect__form {
+  display: grid;
+  gap: 12px;
+}
+.tg-connect__buttons {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+.tg-connect > .btn,
+.tg-connect__form > .btn {
+  justify-self: start;
+}
+.tg-connect__error {
+  color: var(--danger);
+  font-weight: 500;
+}
+.tg-connect__qr {
+  display: grid;
+  justify-items: center;
+  gap: 12px;
+  text-align: center;
+}
+.tg-qr {
+  width: min(232px, 70vw);
+  aspect-ratio: 1;
+  border-radius: var(--r-md);
+  background: #fff;
+}
+.tg-qr--empty {
+  background: var(--surface-2, rgba(255, 255, 255, 0.5));
+}
+.input--hours {
+  width: 88px;
+}

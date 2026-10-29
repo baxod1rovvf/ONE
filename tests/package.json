@@ -6,6 +6,7 @@
     "pretest": "node fixtures/make-audio.cjs"
   },
   "devDependencies": {
+    "jsqr": "1.4.0",
     "lamejs": "1.2.1",
     "react": "18.3.1",
     "react-dom": "18.3.1",

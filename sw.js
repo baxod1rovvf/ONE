@@ -35,6 +35,7 @@ const SHELL = [
   "./pages/telegram/rules.js",
   "./pages/telegram/client.js",
   "./pages/telegram/service.js",
+  "./pages/telegram/qr.js",
   "./pages/saved/saved.js",
   "./pages/saved/saved.css",
   "./pages/goals/goals.js",

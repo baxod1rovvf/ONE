@@ -133,6 +133,8 @@
     if (opts) {
       onPrefs = opts.onPrefs || onPrefs;
       state = { ...state, prefs: normalizePrefs(opts.prefs) };
+      // Already running (started right after logging in): just catch up.
+      if (client) return setPrefs(opts.prefs);
     }
     if (client) return;
     const device = read(DEVICE);
