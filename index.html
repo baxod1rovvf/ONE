@@ -11558,6 +11558,113 @@ main[data-section='saved'] .panel::after {
       React2.createElement("p", { className: "snake-hint" }, "Arrow keys or WASD to steer · Space to pause · M for sound · swipe on touch screens")
     );
   }
+  /* Tetris rules */
+  // Classic Tetris on a 10×18 field. Like Snake, the rules are plain functions
+  // of the state: each takes a state and returns a new one, and the component
+  // only runs the timers and draws. field[y][x] is null or a shape id; y = 0
+  // is the top row, and squares above it or past the walls count as blocked.
+  const TETRIS_W = 10;
+  const TETRIS_H = 18;
+  // Spawn orientation, flat side down, inside a box of `box` squares.
+  const TETRIS_SHAPES = {
+    I: { color: "white", box: 4, cells: [[0, 1], [1, 1], [2, 1], [3, 1]] },
+    O: { color: "yellow", box: 2, cells: [[0, 0], [1, 0], [0, 1], [1, 1]] },
+    T: { color: "pink", box: 3, cells: [[1, 0], [0, 1], [1, 1], [2, 1]] },
+    S: { color: "green", box: 3, cells: [[1, 0], [2, 0], [0, 1], [1, 1]] },
+    Z: { color: "red", box: 3, cells: [[0, 0], [1, 0], [1, 1], [2, 1]] },
+    J: { color: "blue", box: 3, cells: [[0, 0], [0, 1], [1, 1], [2, 1]] },
+    L: { color: "orange", box: 3, cells: [[2, 0], [0, 1], [1, 1], [2, 1]] }
+  };
+  const TETRIS_IDS = Object.keys(TETRIS_SHAPES);
+  // Nudges tried, in order, when a plain turn doesn't fit. I may also move
+  // down one, so it can stand up right after it spawns on the top row.
+  const TETRIS_KICKS = [[-1, 0], [1, 0], [0, -1], [-2, 0], [2, 0]];
+  const TETRIS_I_KICKS = [...TETRIS_KICKS, [0, -2], [0, 1]];
+  // mulberry32: a small seeded generator, so a seed replays the same game.
+  function tetrisRandom(rng) {
+    const next = (rng + 0x6d2b79f5) | 0;
+    let t = Math.imul(next ^ (next >>> 15), next | 1);
+    t ^= t + Math.imul(t ^ (t >>> 7), t | 61);
+    return [((t ^ (t >>> 14)) >>> 0) / 4294967296, next];
+  }
+  function tetrisCells({ shape, rot, x, y }) {
+    const { box, cells } = TETRIS_SHAPES[shape];
+    return cells.map(([cx, cy]) => {
+      for (let i = 0; i < rot; i++) [cx, cy] = [box - 1 - cy, cx];
+      return [x + cx, y + cy];
+    });
+  }
+  function tetrisFits(field, piece) {
+    return tetrisCells(piece).every(([x, y]) => x >= 0 && x < TETRIS_W && y >= 0 && y < TETRIS_H && !field[y][x]);
+  }
+  function tetrisSpawnPiece(shape) {
+    return { shape, rot: 0, x: shape === "O" ? 4 : 3, y: shape === "I" ? -1 : 0 };
+  }
+  // Takes the next shape from the bag, shuffling a fresh bag of all 7 when it runs out.
+  function tetrisDraw(bag, rng) {
+    if (!bag.length) {
+      bag = [...TETRIS_IDS];
+      for (let i = bag.length - 1; i > 0; i--) {
+        let r;
+        [r, rng] = tetrisRandom(rng);
+        const j = Math.floor(r * (i + 1));
+        [bag[i], bag[j]] = [bag[j], bag[i]];
+      }
+    }
+    return { shape: bag[0], bag: bag.slice(1), rng };
+  }
+  function tetrisNew(seed) {
+    const first = tetrisDraw([], seed | 0);
+    const second = tetrisDraw(first.bag, first.rng);
+    return {
+      field: Array.from({ length: TETRIS_H }, () => Array(TETRIS_W).fill(null)),
+      piece: tetrisSpawnPiece(first.shape),
+      next: second.shape,
+      bag: second.bag,
+      rng: second.rng,
+      score: 0,
+      lines: 0,
+      level: 1,
+      status: "ready",
+      clearing: [],
+      lockMoves: 0,
+      grounded: false,
+      last: null
+    };
+  }
+  // The next piece comes in and a new one is drawn for the preview.
+  function tetrisDeal(state) {
+    const drawn = tetrisDraw(state.bag, state.rng);
+    return { ...state, piece: tetrisSpawnPiece(state.next), next: drawn.shape, bag: drawn.bag, rng: drawn.rng, lockMoves: 0, grounded: false };
+  }
+  // Input only counts while a piece is in play (not during a line-clear flash).
+  function tetrisLive(state) {
+    return state.status === "playing" && !state.clearing.length;
+  }
+  function tetrisPlace(state, piece) {
+    return { ...state, piece, lockMoves: state.grounded ? state.lockMoves + 1 : state.lockMoves };
+  }
+  function tetrisMove(state, dx) {
+    if (!tetrisLive(state)) return state;
+    const piece = { ...state.piece, x: state.piece.x + dx };
+    return tetrisFits(state.field, piece) ? tetrisPlace(state, piece) : state;
+  }
+  function tetrisRotate(state, dir) {
+    if (!tetrisLive(state) || state.piece.shape === "O") return state;
+    const turned = { ...state.piece, rot: (state.piece.rot + (dir > 0 ? 1 : 3)) % 4 };
+    for (const [dx, dy] of [[0, 0], ...(turned.shape === "I" ? TETRIS_I_KICKS : TETRIS_KICKS)]) {
+      const piece = { ...turned, x: turned.x + dx, y: turned.y + dy };
+      if (tetrisFits(state.field, piece)) return tetrisPlace(state, piece);
+    }
+    return state;
+  }
+  // Where the piece would land: the same piece at its lowest free row.
+  function tetrisGhost(state) {
+    let piece = state.piece;
+    while (tetrisFits(state.field, { ...piece, y: piece.y + 1 })) piece = { ...piece, y: piece.y + 1 };
+    return piece;
+  }
+  window.__oneTetris = { TETRIS_W, TETRIS_H, TETRIS_SHAPES, tetrisNew, tetrisRandom, tetrisCells, tetrisFits, tetrisDeal, tetrisMove, tetrisRotate, tetrisGhost };
   const GAMES = [{ id: "snake", title: "Snake", blurb: "Eat fruit, grow long, mind the walls.", emoji: "🐍", Component: SnakeGame }];
   function GamesPanel({ onClose }) {
     const [gameId, setGameId] = React2.useState(null);
