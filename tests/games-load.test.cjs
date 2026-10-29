@@ -40,11 +40,16 @@ test("Games opens within 100 ms once loaded", async () => {
 });
 
 test("a slow games file shows the spinner, then opens", async () => {
+  // The file is held back until after the press, so the background load
+  // can't finish first, however slow the machine.
+  let release;
+  const pressed = new Promise((r) => (release = r));
   const { page } = await openApp(browser, server.url, {
     route: "home",
-    init: (p) => p.route("**/games/games.js", (r) => setTimeout(() => r.continue(), 1500))
+    init: (p) => p.route("**/games/games.js", (r) => pressed.then(() => setTimeout(() => r.continue(), 1500)))
   });
   await gamesButton(page).click();
+  release();
   await page.waitForFunction(() => document.querySelector(".meadow-games").getAttribute("aria-busy") === "true", null, { timeout: 1400 });
   await page.getByRole("dialog", { name: "Retro games" }).waitFor({ timeout: 4000 });
   assert.equal(await gamesButton(page).getAttribute("aria-busy"), null);
