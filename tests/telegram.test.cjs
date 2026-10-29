@@ -23,7 +23,7 @@ function seed() {
   const messages = {
     "11": [msg("11", 1, true, 6 * H), msg("11", 2, false, 5 * H, "Are you free?"), msg("11", 3, false, 4 * H, "Call me")],
     "12": [msg("12", 1, false, 2 * H, "Dinner at 7?")],
-    "13": [msg("13", 1, false, 3 * H), msg("13", 2, true, 2 * H)],
+    "13": [msg("13", 1, false, 3 * H), msg("13", 2, true, 2.5 * H)],
     "14": [msg("14", 1, false, 10 * MIN, "Hey")]
   };
   const chat = (id, name, username) => ({ id, name, username, lastMessage: messages[id][messages[id].length - 1], unread: 0, readOutboxMaxId: 0 });
@@ -226,4 +226,84 @@ test("logged out from the phone: ONE says so and can connect again", async () =>
   // The key is remembered; only the login is gone.
   assert.equal(await page.getByLabel("api_id", { exact: true }).inputValue(), "12345");
   await page.close();
+});
+
+// ---------- Choosing chats and the list ----------
+const NO_PREFS = { telegram: { chats: {}, limits: { normal: 180, low: 720 } } };
+const levelOf = (page, name) => page.getByRole("group", { name: `Level for ${name}` });
+
+test("first visit: every private chat, newest first, starts as Not in ONE", async () => {
+  const { page, errors } = await openApp(browser, server.url, { route: "telegram", ...connected({ settings: NO_PREFS }) });
+  await page.getByRole("heading", { name: "Choose your chats" }).waitFor({ timeout: 10000 });
+  const names = await page.locator(".tg-manage__name").allTextContents();
+  assert.deepEqual(names, ["Bek", "Mom", "Dilnoza", "Aziz"]);
+  for (const n of names) assert.equal(await levelOf(page, n).getByRole("button", { name: "Not in ONE" }).getAttribute("aria-pressed"), "true");
+  await page.getByLabel("Search chats").fill("di");
+  assert.deepEqual(await page.locator(".tg-manage__name").allTextContents(), ["Dilnoza"]);
+  assert.deepEqual(errors, []);
+  await page.close();
+});
+
+test("choosing a level keeps it in synced settings and lists the chat", async () => {
+  const { page } = await openApp(browser, server.url, { route: "telegram", ...connected({ settings: NO_PREFS }) });
+  await page.getByRole("heading", { name: "Choose your chats" }).waitFor({ timeout: 10000 });
+  await levelOf(page, "Aziz").getByRole("button", { name: "High" }).click();
+  const stored = await page.evaluate(() => JSON.parse(localStorage.getItem("one.workspace.v1")).settings.telegram.chats["11"]);
+  assert.equal(stored.level, "high");
+  assert.equal(stored.name, "Aziz");
+  await page.getByRole("button", { name: "Done" }).click();
+  await page.locator(".tg-list").getByText("Aziz").waitFor();
+  await badge(page).waitFor();
+  assert.equal(await badge(page).getAttribute("aria-label"), "1 waiting");
+  await page.close();
+});
+
+test("the list: Waiting first in answer order, then the other chats", async () => {
+  const s = connected();
+  s.settings = { telegram: { ...PREFS.telegram, limits: { normal: 60, low: 720 } } };
+  const { page } = await openApp(browser, server.url, { route: "telegram", ...s });
+  const waiting = page.locator(".tg-list__group", { has: page.getByRole("heading", { name: "Waiting" }) });
+  await waiting.locator(".tg-row").first().waitFor({ timeout: 10000 });
+  assert.deepEqual(await waiting.locator(".tg-row__name").allTextContents(), ["Aziz", "Mom"]);
+  assert.match(await waiting.locator(".tg-row").nth(0).textContent(), /waiting 5 h/);
+  assert.match(await waiting.locator(".tg-row").nth(1).textContent(), /waiting 2 h, moved up from Normal/);
+  assert.equal(await waiting.locator(".tg-row").nth(0).locator(".tg-dot--high").count(), 1);
+  const others = page.locator(".tg-list__group", { has: page.getByRole("heading", { name: "Other chats" }) });
+  assert.deepEqual(await others.locator(".tg-row__name").allTextContents(), ["Dilnoza"]);
+  await page.close();
+});
+
+test("new people writing shows a quiet line that opens Manage chats", async () => {
+  const { page } = await openApp(browser, server.url, { route: "telegram", ...connected() });
+  await page.locator(".tg-list .tg-row").first().waitFor({ timeout: 10000 });
+  await page.evaluate(() => {
+    window.__tgFake.push({ type: "message", message: { id: 2, chatId: "14", out: false, date: Date.now(), text: "You there?", replyToId: null, media: null } });
+    window.__tgFake.push({ type: "message", message: { id: 1, chatId: "15", out: false, date: Date.now(), text: "Hi, it's Sardor", replyToId: null, media: null } });
+  });
+  await page.getByRole("button", { name: "2 new chats in Telegram" }).click();
+  await page.getByRole("heading", { name: "Choose your chats" }).waitFor();
+  await page.close();
+});
+
+test("computer: list and chat side by side; phone: one at a time, with Back", async () => {
+  const { page } = await openApp(browser, server.url, { route: "telegram", ...connected() });
+  await page.locator(".tg-list .tg-row").first().waitFor({ timeout: 10000 });
+  const list = await page.locator(".tg-list").boundingBox();
+  const chat = await page.locator(".tg-pane").boundingBox();
+  assert.ok(chat.x >= list.x + list.width - 1, "chat to the right of the list");
+  await page.close();
+
+  const phone = await openApp(browser, server.url, { route: "telegram", viewport: { width: 375, height: 812 }, ...connected() });
+  const p = phone.page;
+  await p.locator(".tg-list .tg-row").first().waitFor({ timeout: 10000 });
+  assert.equal(await p.locator(".tg-pane").isVisible(), false);
+  await p.locator(".tg-list .tg-row", { hasText: "Mom" }).click();
+  await p.waitForFunction(() => location.hash === "#telegram/12");
+  await p.locator(".tg-pane").getByRole("heading", { name: "Mom" }).waitFor();
+  assert.equal(await p.locator(".tg-list").isVisible(), false);
+  assert.equal(await p.evaluate(() => document.documentElement.scrollWidth), 375);
+  await p.locator(".tg-pane").getByRole("button", { name: "Back" }).click();
+  await p.locator(".tg-list").waitFor();
+  assert.equal(await p.evaluate(() => location.hash), "#telegram");
+  await p.close();
 });

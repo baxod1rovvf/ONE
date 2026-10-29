@@ -3,7 +3,7 @@
 // pages/telegram/service.js, through useTelegram; this file only draws them.
 (function () {
   "use strict";
-  const { React2, Button, Field, Segmented, MessageCircle, RefreshCw, ensureTelegram, loadScript, useTelegram, useToast } = window.__oneApp;
+  const { React2, Button, Field, Segmented, MessageCircle, RefreshCw, ArrowLeft, Search, ensureTelegram, loadScript, useTelegram, useToast, useUI } = window.__oneApp;
   const h = React2.createElement;
 
   // Telegram's errors, in ONE's words.
@@ -222,6 +222,153 @@
     );
   }
 
+  // ---------- Choosing chats ----------
+  const rules = () => window.__oneTelegramRules;
+  const LEVEL_OPTIONS = [
+    { value: "high", label: "High" },
+    { value: "normal", label: "Normal" },
+    { value: "low", label: "Low" },
+    { value: "none", label: "Not in ONE" }
+  ];
+  const newest = (a, b) => ((b.lastMessage && b.lastMessage.date) || 0) - ((a.lastMessage && a.lastMessage.date) || 0);
+  function ManageChats({ tg, svc, onDone }) {
+    const [query, setQuery] = React2.useState("");
+    const q = query.trim().toLowerCase();
+    const list = [...tg.chats].sort(newest).filter((c) => !q || c.name.toLowerCase().includes(q) || (c.username || "").toLowerCase().includes(q));
+    return h(
+      "section",
+      { className: "panel tg-manage", "aria-labelledby": "tg-manage-title" },
+      h("div", { className: "tg-manage__head" }, h("h2", { id: "tg-manage-title", className: "tg-connect__title" }, "Choose your chats"), h(Button, { variant: "primary", onClick: onDone }, "Done")),
+      h("p", { className: "muted" }, "Give the people who matter a level. ONE shows only those chats, and tells you whom to answer first."),
+      h("div", { className: "search-field tg-manage__search" }, h(Search, { size: 15, "aria-hidden": true, className: "muted" }), h("input", { className: "notes__search-input", "aria-label": "Search chats", placeholder: "Search chats", value: query, onChange: (e) => setQuery(e.target.value) })),
+      list.length === 0 ? h("p", { className: "muted" }, q ? "No chats match." : "No private chats yet.") : null,
+      h(
+        "ul",
+        { className: "tg-manage__list" },
+        list.map((c) => {
+          const pref = tg.prefs.chats[c.id];
+          return h(
+            "li",
+            { key: c.id, className: "tg-manage__row" },
+            h(Avatar, { chat: c, svc }),
+            h("span", { className: "tg-manage__name" }, c.name),
+            h(Segmented, { label: `Level for ${c.name}`, value: pref ? pref.level : "none", options: LEVEL_OPTIONS, onChange: (v) => svc.setLevel(c.id, v === "none" ? null : v, c.name) })
+          );
+        })
+      )
+    );
+  }
+
+  // ---------- The list ----------
+  function Avatar({ chat, svc }) {
+    const [src, setSrc] = React2.useState(null);
+    React2.useEffect(() => {
+      let live = true;
+      svc.photo(chat.id).then((u) => live && setSrc(u));
+      return () => {
+        live = false;
+      };
+    }, [chat.id]);
+    const initial = (chat.name || "?").trim().charAt(0).toUpperCase();
+    return src ? h("img", { className: "tg-avatar", src, alt: "" }) : h("span", { className: "tg-avatar", "aria-hidden": true }, initial);
+  }
+  function waitLine(w) {
+    const R = rules();
+    return `waiting ${R.formatWait(w.waitedMs)}${w.movedFrom ? `, moved up from ${R.LEVEL_LABEL[w.movedFrom]}` : ""}`;
+  }
+  function preview(m) {
+    if (!m) return "";
+    const what = m.text || (m.media ? MEDIA_LABEL[m.media.kind] || "Attachment" : "");
+    return m.out ? `You: ${what}` : what;
+  }
+  function Row({ chat, level, line, selected, onSelect, svc }) {
+    return h(
+      "li",
+      null,
+      h(
+        "button",
+        { type: "button", className: "tg-row", "aria-current": selected ? "true" : void 0, onClick: () => onSelect(chat.id) },
+        h(Avatar, { chat, svc }),
+        h("span", { className: "tg-row__text" }, h("span", { className: "tg-row__name" }, chat.name), h("span", { className: "tg-row__line" }, line)),
+        h("span", { className: `tg-dot tg-dot--${level}`, title: rules().LEVEL_LABEL[level], "aria-label": `${rules().LEVEL_LABEL[level]} priority` })
+      )
+    );
+  }
+  function ChatList({ tg, svc, selectedId, onSelect, onManage }) {
+    const R = rules();
+    const byId = new Map(tg.chats.map((c) => [c.id, c]));
+    const chatOf = (id) => byId.get(id) || { id, name: (tg.prefs.chats[id] && tg.prefs.chats[id].name) || "Someone", lastMessage: null };
+    const waitingIds = new Set(tg.waiting.map((w) => w.id));
+    const others = Object.keys(tg.prefs.chats)
+      .filter((id) => !waitingIds.has(id))
+      .map(chatOf)
+      .sort((a, b) => R.LEVELS.indexOf(tg.prefs.chats[a.id].level) - R.LEVELS.indexOf(tg.prefs.chats[b.id].level) || newest(a, b));
+    const n = tg.newChats;
+    return h(
+      "div",
+      { className: "panel panel--flush tg-list" },
+      tg.status === "connecting" && tg.everConnected ? h("p", { className: "tg-list__note", role: "status" }, "Reconnecting…") : null,
+      tg.status === "offline" ? h("p", { className: "tg-list__note", role: "status" }, "Telegram isn't reachable right now.") : null,
+      n > 0 ? h("button", { type: "button", className: "tg-list__new", onClick: onManage }, `${n} new chat${n === 1 ? "" : "s"} in Telegram`) : null,
+      tg.waiting.length > 0 &&
+        h(
+          "section",
+          { className: "tg-list__group" },
+          h("h2", { className: "tg-list__title" }, "Waiting"),
+          h("ul", null, tg.waiting.map((w) => h(Row, { key: w.id, chat: chatOf(w.id), level: w.current, line: waitLine(w), selected: selectedId === w.id, onSelect, svc })))
+        ),
+      others.length > 0 &&
+        h(
+          "section",
+          { className: "tg-list__group" },
+          h("h2", { className: "tg-list__title" }, tg.waiting.length ? "Other chats" : "Your chats"),
+          h("ul", null, others.map((c) => h(Row, { key: c.id, chat: c, level: tg.prefs.chats[c.id].level, line: preview(c.lastMessage), selected: selectedId === c.id, onSelect, svc })))
+        ),
+      h("div", { className: "tg-list__foot" }, h(Button, { variant: "ghost", size: "sm", onClick: onManage }, "Manage chats"))
+    );
+  }
+
+  // ---------- A chat ----------
+  const MEDIA_LABEL = { photo: "Photo", file: "File", sticker: "Sticker", voice: "Voice message", video: "Video", other: "Message" };
+  function ChatView({ chatId, tg, svc, onBack }) {
+    const chat = tg.chats.find((c) => c.id === chatId) || { id: chatId, name: (tg.prefs.chats[chatId] && tg.prefs.chats[chatId].name) || "Chat" };
+    return h(
+      "div",
+      { className: "tg-chat" },
+      h("header", { className: "tg-chat__head" }, h(Button, { variant: "ghost", size: "sm", className: "tg-chat__back", icon: h(ArrowLeft, { size: 16, "aria-hidden": true }), onClick: onBack }, "Back"), h(Avatar, { chat, svc }), h("h2", { className: "tg-chat__name" }, chat.name))
+    );
+  }
+
+  function selectedFromHash() {
+    const m = /^#telegram\/(.+)$/.exec(window.location.hash);
+    return m ? decodeURIComponent(m[1]) : null;
+  }
+  function TelegramMain({ tg, svc }) {
+    const ui = useUI();
+    const [selected, setSelected] = React2.useState(selectedFromHash);
+    const [manage, setManage] = React2.useState(() => Object.keys(tg.prefs.chats).length === 0);
+    React2.useEffect(() => {
+      const on = () => setSelected(selectedFromHash());
+      window.addEventListener("hashchange", on);
+      return () => window.removeEventListener("hashchange", on);
+    }, []);
+    const select = (id) => {
+      ui.navigate(`telegram/${id}`);
+      setSelected(id);
+    };
+    const back = () => {
+      ui.navigate("telegram");
+      setSelected(null);
+    };
+    if (manage) return h(ManageChats, { tg, svc, onDone: () => setManage(false) });
+    return h(
+      "div",
+      { className: "tg", "data-open": selected ? "chat" : "list" },
+      h(ChatList, { tg, svc, selectedId: selected, onSelect: select, onManage: () => setManage(true) }),
+      h("section", { className: "panel tg-pane", "aria-label": "Chat" }, selected ? h(ChatView, { key: selected, chatId: selected, tg, svc, onBack: back }) : h("p", { className: "tg-pane__empty muted" }, "Choose a chat to read and reply."))
+    );
+  }
+
   // ---------- The page ----------
   function TelegramPage() {
     const tg = useTelegram();
@@ -235,7 +382,7 @@
     let body;
     if (tg.status === "loggedOut" && !connecting) body = h(LoggedOut, { onConnect: () => setConnecting(true) });
     else if (connecting || !svc.hasLogin()) body = h(ConnectFlow, { onDone: () => setConnecting(false) });
-    else body = h("div", { className: "tg" }, h(MessageCircle, { size: 18, "aria-hidden": true }));
+    else body = h(TelegramMain, { tg, svc });
     return h(React2.Fragment, null, head, body);
   }
 
