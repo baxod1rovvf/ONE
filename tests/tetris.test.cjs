@@ -145,15 +145,17 @@ test("gravity speeds up per level and stops at 80 ms", async () => {
   assert.deepEqual(r, [800, 730, 170, 100, 80, 80]);
 });
 
-test("tick falls one row, then reports grounded", async () => {
+test("tick falls one row and reports grounded as soon as it lands", async () => {
   const r = await inPage((T, h) => {
     let s = h.withPiece("O");
-    for (let i = 0; i < 16; i++) s = T.tetrisTick(s);
+    for (let i = 0; i < 15; i++) s = T.tetrisTick(s);
+    const flying = s.grounded;
+    s = T.tetrisTick(s);
     const bottom = Math.max(...T.tetrisCells(s.piece).map((c) => c[1]));
     const after = T.tetrisTick(s);
-    return { bottom, grounded: [s.grounded, after.grounded], y: [s.piece.y, after.piece.y] };
+    return { flying, bottom, grounded: s.grounded, y: s.piece.y, again: after === s };
   });
-  assert.deepEqual(r, { bottom: 17, grounded: [false, true], y: [16, 16] });
+  assert.deepEqual(r, { flying: false, bottom: 17, grounded: true, y: 16, again: true });
 });
 
 test("soft drop scores 1 per row, hard drop lands on the ghost and scores 2 per row", async () => {
@@ -424,4 +426,29 @@ test("with reduced motion a full line clears without a flash", async () => {
   assert.ok(gone < 100, `cleared in ${Math.round(gone)}ms`);
   assert.equal(await page.getByTestId("tetris-lines").textContent(), "1");
   await page.close();
+});
+
+test("Tetris stays playable on small and sideways phones", async () => {
+  for (const [width, height, minStep] of [[375, 667, 20], [320, 568, 15], [740, 375, 12]]) {
+    const { page, errors } = await openApp(browser, server.url, { route: "home", viewport: { width, height }, hasTouch: true });
+    const game = await openTetris(page, { seed: 4 });
+    const [a, b] = await Promise.all([game.locator(".tetris-cell").nth(0).boundingBox(), game.locator(".tetris-cell").nth(1).boundingBox()]);
+    assert.ok(b.x - a.x >= minStep, `${width}×${height}: squares ${b.x - a.x}px`);
+    const panel = await page.evaluate(() => {
+      const g = document.querySelector(".games");
+      return { sideways: g.scrollWidth > g.clientWidth, page: document.documentElement.scrollWidth };
+    });
+    assert.equal(panel.sideways, false, `${width}×${height}: no sideways scroll in the panel`);
+    assert.ok(panel.page <= width, `${width}×${height}: page fits`);
+    const board = await game.locator(".tetris-board").boundingBox();
+    assert.ok(board.y >= 0 && board.y + board.height <= height + 1, `${width}×${height}: whole field on screen`);
+    for (const name of ["Left", "Right", "Rotate", "Soft drop", "Hard drop"]) {
+      const box = await game.getByRole("group", { name: "Tetris controls" }).getByRole("button", { name }).boundingBox();
+      assert.ok(box.x >= 0 && box.x + box.width <= width && box.y + box.height <= height + 1, `${width}×${height}: ${name} on screen`);
+    }
+    const close = await page.getByRole("button", { name: "Close games" }).boundingBox();
+    assert.ok(close.x + close.width <= width, `${width}×${height}: close on screen`);
+    assert.deepEqual(errors, []);
+    await page.close();
+  }
 });

@@ -2615,12 +2615,13 @@ main[data-section] {
 .tetris-hint {
   grid-column: 1 / -1;
 }
-.tetris-touch {
+.tetris-touch,
+.tetris-pause__glyph {
   display: none;
 }
 @media (max-width: 520px), (pointer: coarse) {
   .tetris {
-    --tcell: min(34px, calc((100dvh - 300px) / 18), calc((100vw - 64px) / 10));
+    --tcell: max(14px, min(34px, calc((100dvh - 290px) / 18), calc((100vw - 72px) / 10)));
     grid-template-columns: 1fr;
     justify-items: center;
     gap: 10px;
@@ -2628,6 +2629,7 @@ main[data-section] {
   .tetris-side {
     order: -1;
     display: flex;
+    flex-wrap: wrap;
     align-items: stretch;
     justify-content: center;
     gap: 6px;
@@ -2670,7 +2672,9 @@ main[data-section] {
   }
   .tetris-touch {
     display: grid;
-    grid-template-columns: repeat(5, 56px);
+    grid-template-columns: repeat(5, minmax(0, 56px));
+    justify-content: center;
+    width: 100%;
     gap: 6px;
   }
   .tetris-touch__btn {
@@ -2694,6 +2698,68 @@ main[data-section] {
   }
   .tetris-hint {
     display: none;
+  }
+}
+@media (max-width: 360px) {
+  .tetris-pause__text {
+    display: none;
+  }
+  .tetris-pause__glyph {
+    display: inline;
+  }
+  .tetris-buttons .snake-pause {
+    width: 40px;
+    padding: 0;
+    font-size: 13px;
+  }
+  .tetris-stat {
+    padding: 2px 6px;
+  }
+}
+/* A phone on its side: stats, field and touch pad in one row. */
+@media (pointer: coarse) and (max-height: 500px) {
+  .games {
+    gap: 6px;
+    padding: 8px 14px 10px;
+  }
+  .games__head {
+    min-height: 32px;
+  }
+  .games__title {
+    font-size: 20px;
+  }
+  .tetris {
+    --tcell: max(12px, calc((100dvh - 124px) / 18));
+    grid-template-columns: auto auto auto;
+    align-items: center;
+    gap: 12px;
+  }
+  .tetris-side {
+    order: 0;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    width: 120px;
+  }
+  .tetris-stat--lines {
+    display: grid;
+  }
+  .tetris .snake-message__title {
+    font-size: 22px;
+  }
+  .tetris .snake-message__sub {
+    font-size: 13px;
+  }
+  .tetris .snake-play {
+    height: 42px;
+    padding: 0 18px;
+    font-size: 17px;
+  }
+  .tetris-touch {
+    grid-template-columns: repeat(2, 56px);
+    width: auto;
+  }
+  .tetris-touch__btn:last-child {
+    grid-column: 1 / -1;
   }
 }
 @media (pointer: coarse) {
@@ -11920,12 +11986,12 @@ main[data-section='saved'] .panel::after {
     const dealt = tetrisDeal(state);
     return tetrisFits(dealt.field, dealt.piece) ? dealt : { ...dealt, status: "over" };
   }
-  // One row down. A piece that can't fall is "grounded"; the component then
-  // runs the lock delay.
+  // One row down. A piece that can't fall any further is "grounded" the
+  // moment it lands; the component then runs the lock delay.
   function tetrisTick(state) {
     if (!tetrisLive(state)) return state;
     const piece = { ...state.piece, y: state.piece.y + 1 };
-    if (tetrisFits(state.field, piece)) return { ...state, piece, grounded: false };
+    if (tetrisFits(state.field, piece)) return { ...state, piece, grounded: !tetrisFits(state.field, { ...piece, y: piece.y + 1 }) };
     return state.grounded ? state : { ...state, grounded: true };
   }
   function tetrisSoftDrop(state) {
@@ -12295,8 +12361,10 @@ main[data-section='saved'] .panel::after {
           { className: "tetris-buttons" },
           React2.createElement(
             "button",
-            { type: "button", className: "snake-pause", onClick: togglePause, disabled: game.status !== "playing" && game.status !== "paused" },
-            game.status === "paused" ? "Resume" : "Pause"
+            { type: "button", className: "snake-pause", onClick: togglePause, disabled: game.status !== "playing" && game.status !== "paused", "aria-label": game.status === "paused" ? "Resume" : "Pause" },
+            // Very narrow screens show just the symbol.
+            React2.createElement("span", { className: "tetris-pause__text", "aria-hidden": true }, game.status === "paused" ? "Resume" : "Pause"),
+            React2.createElement("span", { className: "tetris-pause__glyph", "aria-hidden": true }, game.status === "paused" ? "▶" : "❚❚")
           ),
           React2.createElement(
             IconButton,
