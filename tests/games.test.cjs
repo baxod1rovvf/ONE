@@ -1,0 +1,110 @@
+const { test, before, after } = require("node:test");
+const assert = require("node:assert/strict");
+const { startServer, launch, openApp } = require("./helpers.cjs");
+
+let server, browser;
+before(async () => {
+  server = await startServer();
+  browser = await launch();
+});
+after(async () => {
+  await browser.close();
+  await server.close();
+});
+
+async function openSnake(page) {
+  await page.locator(".meadow-controls").getByRole("button", { name: "Games" }).click();
+  const dialog = page.getByRole("dialog", { name: "Retro games" });
+  await dialog.getByRole("button", { name: /Snake/ }).click();
+  return page.getByRole("dialog", { name: "Snake" });
+}
+
+test("Snake rules: walls and the tail end the game, fruit grows it", async () => {
+  const { page, errors } = await openApp(browser, server.url, { route: "home" });
+  const r = await page.evaluate(() => {
+    const { snakeNew, snakeStep } = window.__oneSnake;
+    const zero = () => 0;
+    const play = (s) => ({ ...s, status: "playing" });
+    // Wall: from (4,5) heading right, the sixth move leaves the field.
+    let s = play({ ...snakeNew(zero), food: null });
+    let moves = 0;
+    while (s.status === "playing") {
+      s = snakeStep(s);
+      moves++;
+    }
+    const wall = { status: s.status, crash: s.crash, moves };
+    // Reversing is ignored.
+    const rev = snakeStep(play({ ...snakeNew(zero), food: null }), "left");
+    // Fruit right ahead: grow by one and score its points.
+    const fed = snakeStep(play({ ...snakeNew(zero), food: { x: 5, y: 5, fruit: "cherry" } }), "right", zero);
+    // Tail: a 5-long snake turning into itself.
+    const body = [{ x: 3, y: 3 }, { x: 4, y: 3 }, { x: 4, y: 4 }, { x: 3, y: 4 }, { x: 2, y: 4 }];
+    const bitten = snakeStep({ snake: body, dir: "left", food: null, score: 0, eaten: 0, status: "playing" }, "down");
+    // Chasing the tail is fine: it moves out of the way.
+    const loop = [{ x: 3, y: 3 }, { x: 4, y: 3 }, { x: 4, y: 4 }, { x: 3, y: 4 }];
+    const chase = snakeStep({ snake: loop, dir: "left", food: null, score: 0, eaten: 0, status: "playing" }, "down");
+    return { wall, rev: rev.snake[0], fed: { len: fed.snake.length, score: fed.score, food: !!fed.food }, bitten: [bitten.status, bitten.crash], chase: chase.status };
+  });
+  assert.deepEqual(r.wall, { status: "over", crash: "wall", moves: 6 });
+  assert.deepEqual(r.rev, { x: 5, y: 5 });
+  assert.deepEqual(r.fed, { len: 4, score: 5, food: true });
+  assert.deepEqual(r.bitten, ["over", "tail"]);
+  assert.equal(r.chase, "playing");
+  assert.deepEqual(errors, []);
+  await page.close();
+});
+
+test("Snake plays on a 10×10 field with fruit, and keeps the best score", async () => {
+  const { page, errors } = await openApp(browser, server.url, { route: "home" });
+  const snake = await openSnake(page);
+  assert.equal(await snake.locator(".snake-cell").count(), 100);
+  assert.equal(await snake.locator(".snake-fruit").count(), 1);
+  assert.equal(await snake.getByTestId("snake-best").textContent(), "0");
+  // Fruit lands straight ahead (a banana at 6,5), so the snake eats it and then hits the wall.
+  await page.evaluate(() => (Math.random = () => 0.55));
+  await snake.getByRole("button", { name: "Play" }).click();
+  await page.waitForFunction(() => document.querySelector(".snake").dataset.status === "over", null, { timeout: 8000 });
+  assert.equal(await snake.getByTestId("snake-score").textContent(), "2");
+  assert.equal(await snake.getByTestId("snake-best").textContent(), "2");
+  assert.ok(await snake.getByText("New record!").isVisible());
+  assert.ok(await snake.getByText("Bonk! A wall.").isVisible());
+  assert.equal(await page.evaluate(() => JSON.parse(localStorage.getItem("one.games.v1")).snake.best), 2);
+  // The same score again is not a new record.
+  await page.keyboard.press("Space");
+  await page.waitForFunction(() => document.querySelector(".snake").dataset.status === "playing");
+  await page.waitForFunction(() => document.querySelector(".snake").dataset.status === "over", null, { timeout: 8000 });
+  assert.equal(await snake.getByText("New record!").count(), 0);
+  // Esc goes back to the list, which shows the record; Esc again closes.
+  await page.keyboard.press("Escape");
+  const list = page.getByRole("dialog", { name: "Retro games" });
+  assert.ok(await list.getByText("Best 2").isVisible());
+  await page.keyboard.press("Escape");
+  assert.equal(await page.locator(".games").count(), 0);
+  assert.deepEqual(errors, []);
+  await page.close();
+});
+
+test("arrow keys steer and Space pauses", async () => {
+  const { page } = await openApp(browser, server.url, { route: "home" });
+  await openSnake(page);
+  await page.keyboard.press("ArrowUp");
+  await page.waitForFunction(() => document.querySelector(".snake-board").dataset.head === "4,4");
+  await page.keyboard.press("Space");
+  await page.waitForFunction(() => document.querySelector(".snake").dataset.status === "paused");
+  const head = await page.locator(".snake-board").getAttribute("data-head");
+  await page.waitForTimeout(700);
+  assert.equal(await page.locator(".snake-board").getAttribute("data-head"), head);
+  await page.close();
+});
+
+test("Snake fits a phone screen", async () => {
+  const { page, errors } = await openApp(browser, server.url, { route: "home", viewport: { width: 375, height: 740 }, hasTouch: true });
+  await page.emulateMedia({ reducedMotion: "reduce" });
+  const snake = await openSnake(page);
+  const board = await snake.locator(".snake-board").boundingBox();
+  assert.ok(board.x >= 0 && board.x + board.width <= 375, "board inside the screen");
+  assert.ok(board.width >= 240, `board is big (${board.width}px)`);
+  assert.equal(await page.evaluate(() => document.documentElement.scrollWidth <= 375), true);
+  assert.deepEqual(errors, []);
+  await page.close();
+});

@@ -1990,6 +1990,473 @@ main[data-section] {
   }
 }
 
+/* ---------- Home: retro games ---------- */
+.games-overlay {
+  place-items: center;
+  padding: 16px;
+  overflow-y: auto;
+  background: radial-gradient(120% 90% at 50% 0%, rgba(255, 214, 102, 0.45), transparent 60%), var(--overlay);
+}
+.games {
+  --games-ink: #1d3a22;
+  --games-card: #fffdf4;
+  --games-edge: #2f6b35;
+  width: min(100%, 640px);
+  max-height: calc(100dvh - 32px);
+  overflow-y: auto;
+  display: grid;
+  gap: 16px;
+  padding: 16px 20px 20px;
+  border-radius: 28px;
+  background: var(--games-card);
+  color: var(--games-ink);
+  border: 3px solid var(--games-edge);
+  box-shadow: 0 8px 0 var(--games-edge), 0 24px 60px rgba(20, 50, 30, 0.35);
+  font-family: var(--font-display);
+  animation: games-in 260ms var(--ease);
+}
+:root[data-theme='dark'] .games,
+:root[data-one-theme='dark'] .games {
+  --games-ink: #f1f4ff;
+  --games-card: #1c2552;
+  --games-edge: #0d1433;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme='light']):not([data-one-theme='light']) .games {
+    --games-ink: #f1f4ff;
+    --games-card: #1c2552;
+    --games-edge: #0d1433;
+  }
+}
+/* The person's own choice inside ONE wins over the host theme. */
+:root[data-one-theme='light'] .games {
+  --games-ink: #1d3a22;
+  --games-card: #fffdf4;
+  --games-edge: #2f6b35;
+}
+@keyframes games-in {
+  from {
+    opacity: 0;
+    transform: translateY(12px) scale(0.98);
+  }
+}
+.games__head {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  min-height: 40px;
+}
+.games__head .icon-btn {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  color: var(--games-ink);
+}
+.games__title {
+  flex: 1;
+  font-size: 26px;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+}
+.games__close {
+  margin-left: auto;
+}
+.games__list {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 12px;
+}
+.game-card {
+  display: grid;
+  justify-items: start;
+  gap: 4px;
+  padding: 16px;
+  border-radius: 20px;
+  text-align: left;
+  background: #c8ef9a;
+  color: #1d3a22;
+  border: 3px solid #2f6b35;
+  box-shadow: 0 5px 0 #2f6b35;
+  transition: transform var(--t-fast) var(--ease), box-shadow var(--t-fast) var(--ease);
+}
+.game-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 7px 0 #2f6b35;
+}
+.game-card:active {
+  transform: translateY(4px);
+  box-shadow: 0 1px 0 #2f6b35;
+}
+.game-card:focus-visible,
+.snake-play:focus-visible,
+.snake-pause:focus-visible,
+.snake-dpad__btn:focus-visible,
+.games__head .icon-btn:focus-visible {
+  outline: 3px solid #f2a20c;
+  outline-offset: 3px;
+}
+.game-card__art {
+  font-size: 44px;
+  line-height: 1.1;
+}
+.game-card__title {
+  font-size: 22px;
+  font-weight: 700;
+}
+.game-card__blurb {
+  font-family: var(--font);
+  font-size: 15px;
+  opacity: 0.85;
+}
+.game-card__best {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  margin-top: 6px;
+  padding: 2px 10px;
+  border-radius: 999px;
+  background: #fff6c9;
+  font-weight: 600;
+  font-size: 14px;
+}
+.games__soon {
+  grid-column: 1 / -1;
+  font-size: 15px;
+  opacity: 0.7;
+}
+
+/* Snake */
+.snake {
+  --board: min(calc(100vw - 72px), calc(100dvh - 300px), 560px);
+  --cell: calc(var(--board) / 10);
+  display: grid;
+  justify-items: center;
+  gap: 12px;
+}
+.snake-hud {
+  width: var(--board);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.snake-stat {
+  display: grid;
+  padding: 4px 14px;
+  border-radius: 14px;
+  background: #e9f8d8;
+  color: #1d3a22;
+  border: 2px solid #2f6b35;
+}
+.snake-stat--best {
+  background: #fff1b8;
+}
+.snake-stat__label {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 13px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  opacity: 0.75;
+}
+.snake-stat__value {
+  font-size: 26px;
+  font-weight: 700;
+  line-height: 1.1;
+}
+.snake-pause {
+  margin-left: auto;
+  height: 44px;
+  padding: 0 18px;
+  border-radius: 999px;
+  font-weight: 600;
+  font-size: 16px;
+  background: var(--games-card);
+  color: var(--games-ink);
+  border: 2px solid currentColor;
+}
+.snake-pause:disabled {
+  opacity: 0.4;
+}
+.snake-board {
+  position: relative;
+  width: var(--board);
+  height: var(--board);
+  display: grid;
+  grid-template-columns: repeat(10, 1fr);
+  grid-template-rows: repeat(10, 1fr);
+  border-radius: 20px;
+  overflow: hidden;
+  border: 6px solid #3d7a2e;
+  box-shadow: inset 0 0 0 3px rgba(255, 255, 255, 0.35), 0 6px 0 #2a5a20;
+  background: #a6dc6a;
+  touch-action: none;
+  user-select: none;
+  -webkit-user-select: none;
+  box-sizing: content-box;
+}
+.snake-cell {
+  position: relative;
+  display: grid;
+  place-items: center;
+  background: #aee373;
+}
+.snake-cell[data-dark='true'] {
+  background: #9dd463;
+}
+.snake-body,
+.snake-head {
+  position: absolute;
+  inset: 6%;
+  border-radius: 30%;
+  background: hsl(calc(140 - var(--seg, 0) * 30) 60% 38%);
+  box-shadow: inset 0 -4px 0 rgba(0, 0, 0, 0.18), inset 0 3px 0 rgba(255, 255, 255, 0.25);
+}
+.snake-body[data-shade='a'] {
+  background: hsl(calc(140 - var(--seg, 0) * 30) 58% 44%);
+}
+.snake-head {
+  inset: 2%;
+  border-radius: 38%;
+  background: #2c8a3c;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10%;
+  z-index: 1;
+}
+.snake-head[data-dir='up'],
+.snake-head[data-dir='down'] {
+  flex-direction: row;
+}
+.snake-head[data-dir='left'],
+.snake-head[data-dir='right'] {
+  flex-direction: column;
+}
+.snake-head[data-dir='right'] {
+  padding-left: 30%;
+}
+.snake-head[data-dir='left'] {
+  padding-right: 30%;
+}
+.snake-head[data-dir='up'] {
+  padding-bottom: 30%;
+}
+.snake-head[data-dir='down'] {
+  padding-top: 30%;
+}
+.snake-eye {
+  width: calc(var(--cell) * 0.26);
+  aspect-ratio: 1;
+  border-radius: 50%;
+  background: radial-gradient(circle, #14251a 0 42%, #fff 46%);
+  box-shadow: 0 0 0 1.5px rgba(20, 37, 26, 0.35);
+}
+.snake-head[data-crash='true'] {
+  background: #c9482f;
+  animation: snake-bonk 320ms var(--ease);
+}
+.snake-head[data-crash='true'] .snake-eye {
+  background: #fff;
+  box-shadow: none;
+  position: relative;
+}
+.snake-head[data-crash='true'] .snake-eye::before,
+.snake-head[data-crash='true'] .snake-eye::after {
+  content: '';
+  position: absolute;
+  inset: 45% 5%;
+  background: #14251a;
+  border-radius: 2px;
+  transform: rotate(45deg);
+}
+.snake-head[data-crash='true'] .snake-eye::after {
+  transform: rotate(-45deg);
+}
+@keyframes snake-bonk {
+  30% {
+    transform: scale(1.15);
+  }
+}
+.snake-fruit {
+  font-size: calc(var(--cell) * 0.68);
+  line-height: 1;
+  filter: drop-shadow(0 3px 0 rgba(30, 70, 20, 0.35));
+  animation: fruit-bob 1.2s ease-in-out infinite;
+}
+@keyframes fruit-bob {
+  50% {
+    transform: translateY(-8%) scale(1.06);
+  }
+}
+.snake-pop {
+  position: absolute;
+  left: calc(var(--x) * var(--cell));
+  top: calc(var(--y) * var(--cell));
+  width: var(--cell);
+  text-align: center;
+  font-size: calc(var(--cell) * 0.42);
+  font-weight: 700;
+  color: #fff;
+  -webkit-text-stroke: 1.5px #1d3a22;
+  pointer-events: none;
+  z-index: 2;
+  animation: snake-pop 700ms var(--ease) forwards;
+}
+@keyframes snake-pop {
+  to {
+    opacity: 0;
+    transform: translateY(-80%);
+  }
+}
+.snake-message {
+  position: absolute;
+  inset: 0;
+  z-index: 3;
+  display: grid;
+  place-content: center;
+  justify-items: center;
+  gap: 6px;
+  padding: 16px;
+  text-align: center;
+  color: #1d3a22;
+  background: rgba(255, 253, 240, 0.66);
+  -webkit-backdrop-filter: blur(1.5px);
+  backdrop-filter: blur(1.5px);
+  animation: fade-in 200ms var(--ease);
+}
+.snake-message__title {
+  font-size: clamp(26px, 6vw, 38px);
+  font-weight: 700;
+  line-height: 1.1;
+}
+.snake-message__sub {
+  font-size: 17px;
+  max-width: 26ch;
+}
+.snake-record {
+  padding: 4px 14px;
+  border-radius: 999px;
+  background: #ffd84d;
+  border: 2px solid #b37d00;
+  font-weight: 700;
+  font-size: 17px;
+  animation: record-wiggle 900ms var(--ease) 2;
+}
+@keyframes record-wiggle {
+  25% {
+    transform: rotate(-5deg) scale(1.08);
+  }
+  75% {
+    transform: rotate(5deg) scale(1.08);
+  }
+}
+.snake-play {
+  margin-top: 10px;
+  height: 52px;
+  padding: 0 30px;
+  border-radius: 999px;
+  font-weight: 700;
+  font-size: 20px;
+  background: #ff7a45;
+  color: #fff;
+  border: 3px solid #b8431a;
+  box-shadow: 0 5px 0 #b8431a;
+  transition: transform var(--t-fast) var(--ease), box-shadow var(--t-fast) var(--ease);
+}
+.snake-play:hover {
+  transform: translateY(-1px);
+}
+.snake-play:active {
+  transform: translateY(4px);
+  box-shadow: 0 1px 0 #b8431a;
+}
+.snake-dpad {
+  display: none;
+  grid-template-areas: '. up .' 'left . right' '. down .';
+  grid-template-columns: repeat(3, 60px);
+  grid-template-rows: repeat(3, 52px);
+  gap: 4px;
+}
+.snake-dpad__btn {
+  display: grid;
+  place-items: center;
+  border-radius: 16px;
+  background: #ffd84d;
+  color: #5a3d00;
+  border: 3px solid #b37d00;
+  box-shadow: 0 4px 0 #b37d00;
+  touch-action: none;
+}
+.snake-dpad__btn:active {
+  transform: translateY(3px);
+  box-shadow: 0 1px 0 #b37d00;
+}
+.snake-dpad__btn--up { grid-area: up; }
+.snake-dpad__btn--down { grid-area: down; }
+.snake-dpad__btn--left { grid-area: left; }
+.snake-dpad__btn--right { grid-area: right; }
+.snake-legend {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 6px 14px;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  font-size: 15px;
+  font-weight: 500;
+}
+.snake-legend li {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+}
+.snake-hint {
+  font-size: 14px;
+  opacity: 0.7;
+  text-align: center;
+}
+@media (pointer: coarse) {
+  .snake {
+    --board: min(calc(100vw - 64px), calc(100dvh - 440px), 560px);
+  }
+  .snake-dpad {
+    display: grid;
+  }
+  .snake-hint {
+    display: none;
+  }
+}
+@media (max-width: 520px) {
+  .games-overlay {
+    padding: 8px;
+  }
+  .games {
+    padding: 12px 14px 16px;
+    max-height: calc(100dvh - 16px);
+  }
+  .snake {
+    --board: min(calc(100vw - 56px), calc(100dvh - 300px), 560px);
+  }
+}
+@media (max-width: 520px) and (pointer: coarse) {
+  .snake {
+    --board: min(calc(100vw - 56px), calc(100dvh - 430px));
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .games,
+  .snake-fruit,
+  .snake-pop,
+  .snake-record,
+  .snake-head[data-crash='true'],
+  .snake-message {
+    animation: none !important;
+  }
+}
+
 /* "Add" monogram tile on Websites. */
 .mono--add {
   background: var(--surface-2);
@@ -4983,6 +5450,19 @@ main[data-section='saved'] .panel::after {
     ],
     ["path", { d: "M12 9v4", key: "juzpu7" }],
     ["path", { d: "M12 17h.01", key: "p32p05" }]
+  ]);
+  /**
+   * @license lucide-react v0.454.0 - ISC
+   *
+   * This source code is licensed under the ISC license.
+   * See the LICENSE file in the root directory of this source tree.
+   */
+  const Gamepad2 = createLucideIcon("Gamepad2", [
+    ["line", { x1: "6", x2: "10", y1: "11", y2: "11", key: "1gktln" }],
+    ["line", { x1: "8", x2: "8", y1: "9", y2: "13", key: "qnk9ow" }],
+    ["line", { x1: "15", x2: "15.01", y1: "12", y2: "12", key: "krot7o" }],
+    ["line", { x1: "18", x2: "18.01", y1: "10", y2: "10", key: "1lcuu1" }],
+    ["path", { d: "M17.32 5H6.68a4 4 0 0 0-3.978 3.59c-.006.052-.01.101-.017.152C2.604 9.416 2 14.456 2 16a3 3 0 0 0 3 3c1 0 1.5-.5 2-1l1.414-1.414A2 2 0 0 1 9.828 16h4.344a2 2 0 0 1 1.414.586L17 18c.5.5 1 1 2 1a3 3 0 0 0 3-3c0-1.545-.604-6.584-.685-7.258-.007-.05-.011-.1-.017-.151A4 4 0 0 0 17.32 5z", key: "mfqc10" }]
   ]);
   /**
    * @license lucide-react v0.454.0 - ISC
@@ -10300,6 +10780,7 @@ main[data-section='saved'] .panel::after {
     const [sceneReady, setSceneReady] = React2.useState(false);
     const sound = useSound();
     const [welcome, setWelcome] = React2.useState(false);
+    const [gamesOpen, setGamesOpen] = React2.useState(false);
     const breakButtonRef = React2.useRef(null);
     const endButtonRef = React2.useRef(null);
     const pause = useBreak(60000, (reason) => {
@@ -10465,9 +10946,420 @@ main[data-section='saved'] .panel::after {
         "div",
         { className: "meadow-controls glass", role: "group", "aria-label": "Meadow controls", inert: pause.active ? "" : void 0 },
         React2.createElement("div", { className: "meadow-time", role: "radiogroup", "aria-label": "Time of day" }, timeOption("morning", "Morning", Sun), timeOption("night", "Night", Moon)),
-        React2.createElement(SoundsButton, { className: "meadow-sound" })
+        React2.createElement(SoundsButton, { className: "meadow-sound" }),
+        React2.createElement(
+          IconButton,
+          { label: "Games", className: "meadow-sound meadow-games", "aria-haspopup": "dialog", "aria-expanded": gamesOpen ? "true" : "false", onClick: () => setGamesOpen(true) },
+          React2.createElement(Gamepad2, { size: 18 })
+        )
       ),
+      gamesOpen && React2.createElement(GamesPanel, { onClose: () => setGamesOpen(false) }),
       React2.createElement(HandCursor, { targetRef: rootRef })
+    );
+  }
+  /* ---------- Home: retro games ---------- */
+  // Little games that open from the meadow. Best scores are kept per device.
+  const GAMES_KEY = "one.games.v1";
+  function loadGameRecords() {
+    try {
+      const saved = JSON.parse(window.localStorage.getItem(GAMES_KEY) || "null");
+      return saved && typeof saved === "object" ? saved : {};
+    } catch {
+      return {};
+    }
+  }
+  function saveGameRecord(game, best) {
+    try {
+      const all = loadGameRecords();
+      all[game] = { ...all[game], best };
+      window.localStorage.setItem(GAMES_KEY, JSON.stringify(all));
+    } catch {
+      // Storage blocked: the record lasts until the page closes.
+    }
+  }
+  function useGameRecord(game) {
+    const [best, setBest] = React2.useState(() => (loadGameRecords()[game] || {}).best || 0);
+    const offer = React2.useCallback(
+      (score) => {
+        if (score <= best) return false;
+        setBest(score);
+        saveGameRecord(game, score);
+        return true;
+      },
+      [game, best]
+    );
+    return [best, offer];
+  }
+  // Snake: a 10×10 field, fruit to eat, and walls (and its own tail) to avoid.
+  // The rules are plain functions of the state, so a tick is snakeStep(state, dir).
+  const SNAKE_SIZE = 10;
+  // Rarer fruit is worth more.
+  const SNAKE_FRUITS = [
+    { id: "apple", emoji: "🍎", label: "Apple", points: 1, weight: 4 },
+    { id: "banana", emoji: "🍌", label: "Banana", points: 2, weight: 3 },
+    { id: "strawberry", emoji: "🍓", label: "Strawberry", points: 3, weight: 2 },
+    { id: "cherry", emoji: "🍒", label: "Cherry", points: 5, weight: 1 }
+  ];
+  const SNAKE_DIRS = { up: [0, -1], down: [0, 1], left: [-1, 0], right: [1, 0] };
+  const SNAKE_OPPOSITE = { up: "down", down: "up", left: "right", right: "left" };
+  function snakeFood(snake, rand) {
+    const taken = new Set(snake.map((c) => c.y * SNAKE_SIZE + c.x));
+    const free = [];
+    for (let i = 0; i < SNAKE_SIZE * SNAKE_SIZE; i++) if (!taken.has(i)) free.push(i);
+    if (!free.length) return null;
+    const cell = free[Math.floor(rand() * free.length)];
+    let roll = rand() * SNAKE_FRUITS.reduce((n, f) => n + f.weight, 0);
+    const fruit = SNAKE_FRUITS.find((f) => (roll -= f.weight) < 0) || SNAKE_FRUITS[0];
+    return { x: cell % SNAKE_SIZE, y: Math.floor(cell / SNAKE_SIZE), fruit: fruit.id };
+  }
+  function snakeNew(rand = Math.random) {
+    const snake = [
+      { x: 4, y: 5 },
+      { x: 3, y: 5 },
+      { x: 2, y: 5 }
+    ];
+    return { snake, dir: "right", food: snakeFood(snake, rand), score: 0, eaten: 0, status: "ready", last: null };
+  }
+  // One move. "over" when the head leaves the field or bites the body; "won"
+  // when the snake fills the whole field.
+  function snakeStep(state, dir = state.dir, rand = Math.random) {
+    if (state.status !== "playing") return state;
+    const heading = SNAKE_DIRS[dir] && dir !== SNAKE_OPPOSITE[state.dir] ? dir : state.dir;
+    const [dx, dy] = SNAKE_DIRS[heading];
+    const head = { x: state.snake[0].x + dx, y: state.snake[0].y + dy };
+    const eats = !!state.food && state.food.x === head.x && state.food.y === head.y;
+    // The tail moves out of the way this tick unless the snake grows.
+    const body = eats ? state.snake : state.snake.slice(0, -1);
+    const out = head.x < 0 || head.y < 0 || head.x >= SNAKE_SIZE || head.y >= SNAKE_SIZE;
+    if (out || body.some((c) => c.x === head.x && c.y === head.y)) {
+      return { ...state, dir: heading, status: "over", crash: out ? "wall" : "tail" };
+    }
+    const snake = [head, ...body];
+    if (!eats) return { ...state, dir: heading, snake, last: null };
+    const fruit = SNAKE_FRUITS.find((f) => f.id === state.food.fruit);
+    const food = snakeFood(snake, rand);
+    return {
+      ...state,
+      dir: heading,
+      snake,
+      food,
+      score: state.score + fruit.points,
+      eaten: state.eaten + 1,
+      last: { fruit: fruit.id, points: fruit.points, at: state.eaten + 1 },
+      status: food ? "playing" : "won"
+    };
+  }
+  // Starts slow and speeds up a little with every fruit.
+  function snakeDelay(eaten) {
+    return Math.max(120, 280 - eaten * 10);
+  }
+  window.__oneSnake = { snakeNew, snakeStep, snakeFood, SNAKE_SIZE, SNAKE_FRUITS };
+  const SNAKE_KEYS = {
+    ArrowUp: "up",
+    ArrowDown: "down",
+    ArrowLeft: "left",
+    ArrowRight: "right",
+    w: "up",
+    s: "down",
+    a: "left",
+    d: "right",
+    W: "up",
+    S: "down",
+    A: "left",
+    D: "right"
+  };
+  function DpadArrow({ dir }) {
+    const rot = { up: 0, right: 90, down: 180, left: 270 }[dir];
+    return React2.createElement(
+      "svg",
+      { viewBox: "0 0 24 24", width: 26, height: 26, "aria-hidden": true, style: { transform: `rotate(${rot}deg)` } },
+      React2.createElement("path", { d: "M12 5 20 17H4z", fill: "currentColor", stroke: "currentColor", strokeWidth: 2, strokeLinejoin: "round" })
+    );
+  }
+  function SnakeGame() {
+    const [game, setGame] = React2.useState(() => snakeNew());
+    const [best, offerBest] = useGameRecord("snake");
+    const [record, setRecord] = React2.useState(false);
+    const [pop, setPop] = React2.useState(null);
+    const queue = React2.useRef([]);
+    const playRef = React2.useRef(null);
+    const swipe = React2.useRef(null);
+    const statusRef = React2.useRef(game.status);
+    statusRef.current = game.status;
+    const start = React2.useCallback(() => {
+      queue.current = [];
+      setRecord(false);
+      setPop(null);
+      setGame((g) => (g.status === "paused" ? { ...g, status: "playing" } : { ...snakeNew(), status: "playing" }));
+    }, []);
+    const togglePause = React2.useCallback(() => {
+      setGame((g) => (g.status === "playing" ? { ...g, status: "paused" } : g.status === "paused" ? { ...g, status: "playing" } : g));
+    }, []);
+    // Turns wait in a short queue, so two quick presses (up, then left) both land.
+    const turn = React2.useCallback((dir) => {
+      const q = queue.current;
+      if (q.length < 3) q.push(dir);
+      setGame((g) => (g.status === "ready" ? { ...g, status: "playing" } : g));
+    }, []);
+    React2.useEffect(() => {
+      if (game.status !== "playing") return;
+      const id = window.setTimeout(() => {
+        setGame((g) => {
+          if (g.status !== "playing") return g;
+          let dir = g.dir;
+          while (queue.current.length) {
+            const next = queue.current.shift();
+            if (next !== dir && next !== SNAKE_OPPOSITE[dir]) {
+              dir = next;
+              break;
+            }
+          }
+          return snakeStep(g, dir);
+        });
+      }, snakeDelay(game.eaten));
+      return () => window.clearTimeout(id);
+    }, [game]);
+    React2.useEffect(() => {
+      if (game.last) {
+        setPop(game.last);
+        const id = window.setTimeout(() => setPop(null), 700);
+        return () => window.clearTimeout(id);
+      }
+    }, [game.last]);
+    React2.useEffect(() => {
+      if (game.status === "over" || game.status === "won") {
+        if (offerBest(game.score)) setRecord(true);
+        window.requestAnimationFrame(() => playRef.current && playRef.current.focus());
+      }
+    }, [game.status]);
+    // A hidden tab pauses the game.
+    React2.useEffect(() => {
+      const onHide = () => {
+        if (document.hidden) setGame((g) => (g.status === "playing" ? { ...g, status: "paused" } : g));
+      };
+      document.addEventListener("visibilitychange", onHide);
+      return () => document.removeEventListener("visibilitychange", onHide);
+    }, []);
+    React2.useEffect(() => {
+      const onKey = (e) => {
+        if (e.metaKey || e.ctrlKey || e.altKey) return;
+        const dir = SNAKE_KEYS[e.key];
+        if (dir) {
+          e.preventDefault();
+          turn(dir);
+        } else if (e.key === " " || e.key === "p" || e.key === "P") {
+          e.preventDefault();
+          const status = statusRef.current;
+          if (status === "playing" || status === "paused") togglePause();
+          else start();
+        }
+      };
+      window.addEventListener("keydown", onKey);
+      return () => window.removeEventListener("keydown", onKey);
+    }, [turn, togglePause, start]);
+    const onPointerDown = (e) => {
+      swipe.current = { x: e.clientX, y: e.clientY };
+    };
+    const onPointerUp = (e) => {
+      const from = swipe.current;
+      swipe.current = null;
+      if (!from) return;
+      const dx = e.clientX - from.x;
+      const dy = e.clientY - from.y;
+      if (Math.max(Math.abs(dx), Math.abs(dy)) < 24) return;
+      turn(Math.abs(dx) > Math.abs(dy) ? (dx > 0 ? "right" : "left") : dy > 0 ? "down" : "up");
+    };
+    const segments = new Map(game.snake.map((c, i) => [c.y * SNAKE_SIZE + c.x, i]));
+    const cells = [];
+    for (let y = 0; y < SNAKE_SIZE; y++) {
+      for (let x = 0; x < SNAKE_SIZE; x++) {
+        const i = segments.get(y * SNAKE_SIZE + x);
+        const food = game.food && game.food.x === x && game.food.y === y ? SNAKE_FRUITS.find((f) => f.id === game.food.fruit) : null;
+        let content = null;
+        if (i === 0) {
+          content = React2.createElement(
+            "span",
+            { className: "snake-head", "data-dir": game.dir, "data-crash": game.status === "over" ? "true" : void 0 },
+            React2.createElement("span", { className: "snake-eye" }),
+            React2.createElement("span", { className: "snake-eye" })
+          );
+        } else if (i !== void 0) {
+          content = React2.createElement("span", { className: "snake-body", "data-shade": i % 2 ? "a" : "b", style: { "--seg": Math.min(i / game.snake.length, 1) } });
+        } else if (food) {
+          content = React2.createElement("span", { className: "snake-fruit", "data-fruit": food.id, role: "img", "aria-label": food.label }, food.emoji);
+        }
+        cells.push(React2.createElement("div", { key: `${x}-${y}`, className: "snake-cell", "data-dark": (x + y) % 2 ? "true" : void 0 }, content));
+      }
+    }
+    const head = game.snake[0];
+    const ended = game.status === "over" || game.status === "won";
+    const message =
+      game.status === "ready"
+        ? { title: "Ready?", sub: "Eat the fruit. Don’t hit the walls or your tail.", action: "Play" }
+        : game.status === "paused"
+        ? { title: "Paused", sub: "Take a breath.", action: "Resume" }
+        : game.status === "won"
+        ? { title: "You filled the field!", sub: `${game.score} points`, action: "Play again" }
+        : game.status === "over"
+        ? { title: game.crash === "tail" ? "Ouch, your tail!" : "Bonk! A wall.", sub: `${game.score} ${game.score === 1 ? "point" : "points"}`, action: "Play again" }
+        : null;
+    return React2.createElement(
+      "div",
+      { className: "snake", "data-status": game.status },
+      React2.createElement(
+        "div",
+        { className: "snake-hud" },
+        React2.createElement(
+          "div",
+          { className: "snake-stat" },
+          React2.createElement("span", { className: "snake-stat__label" }, "Score"),
+          React2.createElement("span", { className: "snake-stat__value num", "data-testid": "snake-score" }, game.score)
+        ),
+        React2.createElement(
+          "div",
+          { className: "snake-stat snake-stat--best" },
+          React2.createElement("span", { className: "snake-stat__label" }, React2.createElement(Trophy, { size: 14, "aria-hidden": true }), "Best"),
+          React2.createElement("span", { className: "snake-stat__value num", "data-testid": "snake-best" }, best)
+        ),
+        React2.createElement(
+          "button",
+          { type: "button", className: "snake-pause", onClick: togglePause, disabled: game.status !== "playing" && game.status !== "paused" },
+          game.status === "paused" ? "Resume" : "Pause"
+        )
+      ),
+      React2.createElement(
+        "div",
+        {
+          className: "snake-board",
+          role: "grid",
+          "aria-label": `Snake field, ${SNAKE_SIZE} by ${SNAKE_SIZE}`,
+          "data-head": `${head.x},${head.y}`,
+          "data-length": game.snake.length,
+          onPointerDown,
+          onPointerUp,
+          onPointerCancel: () => (swipe.current = null)
+        },
+        cells,
+        pop && React2.createElement("span", { key: pop.at, className: "snake-pop", style: { "--x": head.x, "--y": head.y }, "aria-hidden": true }, `+${pop.points}`),
+        message &&
+          React2.createElement(
+            "div",
+            { className: "snake-message", role: "status" },
+            ended && record && game.score > 0 && React2.createElement("span", { className: "snake-record" }, "🏆 New record!"),
+            React2.createElement("h3", { className: "snake-message__title" }, message.title),
+            React2.createElement("p", { className: "snake-message__sub" }, message.sub),
+            React2.createElement("button", { ref: playRef, type: "button", className: "snake-play", onClick: start, "data-autofocus": true }, message.action)
+          )
+      ),
+      React2.createElement(
+        "div",
+        { className: "snake-dpad", role: "group", "aria-label": "Steer the snake" },
+        ["up", "left", "right", "down"].map((d) =>
+          React2.createElement(
+            "button",
+            { key: d, type: "button", className: `snake-dpad__btn snake-dpad__btn--${d}`, "aria-label": d[0].toUpperCase() + d.slice(1), onPointerDown: (e) => (e.preventDefault(), turn(d)), onClick: (e) => e.detail === 0 && turn(d) },
+            React2.createElement(DpadArrow, { dir: d })
+          )
+        )
+      ),
+      React2.createElement(
+        "ul",
+        { className: "snake-legend", "aria-label": "Fruit points" },
+        SNAKE_FRUITS.map((f) => React2.createElement("li", { key: f.id }, React2.createElement("span", { "aria-hidden": true }, f.emoji), `${f.label} +${f.points}`))
+      ),
+      React2.createElement("p", { className: "snake-hint" }, "Arrow keys or WASD to steer · Space to pause · swipe on touch screens")
+    );
+  }
+  const GAMES = [{ id: "snake", title: "Snake", blurb: "Eat fruit, grow long, mind the walls.", emoji: "🐍", Component: SnakeGame }];
+  function GamesPanel({ onClose }) {
+    const [gameId, setGameId] = React2.useState(null);
+    const ref = React2.useRef(null);
+    const records = React2.useMemo(loadGameRecords, [gameId]);
+    const game = GAMES.find((g) => g.id === gameId);
+    React2.useEffect(() => {
+      const opener = document.activeElement;
+      document.body.style.overflow = "hidden";
+      return () => {
+        document.body.style.overflow = "";
+        if (opener && opener.isConnected && typeof opener.focus === "function") opener.focus();
+      };
+    }, []);
+    // Focus the first thing on each screen: a game card, or the game's Play button.
+    React2.useEffect(() => {
+      const t = window.setTimeout(() => {
+        const el = ref.current && (ref.current.querySelector("[data-autofocus]") || ref.current.querySelector(FOCUSABLE));
+        if (el) el.focus();
+      }, 20);
+      return () => window.clearTimeout(t);
+    }, [gameId]);
+    // Esc steps back: from a game to the list, then closes. It listens on the
+    // window, so it works even while focus is between screens.
+    const backRef = React2.useRef(null);
+    backRef.current = () => (game ? setGameId(null) : onClose());
+    React2.useEffect(() => {
+      const onKey = (e) => {
+        if (e.key !== "Escape") return;
+        e.preventDefault();
+        e.stopImmediatePropagation();
+        backRef.current();
+      };
+      window.addEventListener("keydown", onKey, true);
+      return () => window.removeEventListener("keydown", onKey, true);
+    }, []);
+    const onKeyDown = (e) => {
+      if (e.key === "Tab" && ref.current) {
+        const items = Array.from(ref.current.querySelectorAll(FOCUSABLE)).filter((el) => el.offsetParent !== null);
+        if (!items.length) return;
+        const first = items[0];
+        const last = items[items.length - 1];
+        if (e.shiftKey && document.activeElement === first) {
+          e.preventDefault();
+          last.focus();
+        } else if (!e.shiftKey && document.activeElement === last) {
+          e.preventDefault();
+          first.focus();
+        }
+      }
+    };
+    return reactDom.createPortal(
+      React2.createElement(
+        "div",
+        {
+          className: "overlay games-overlay",
+          onMouseDown: (e) => {
+            if (e.target === e.currentTarget) onClose();
+          }
+        },
+        React2.createElement(
+          "div",
+          { ref, className: "games", role: "dialog", "aria-modal": "true", "aria-label": game ? game.title : "Retro games", onKeyDown },
+          React2.createElement(
+            "div",
+            { className: "games__head" },
+            game && React2.createElement(IconButton, { label: "All games", onClick: () => setGameId(null) }, React2.createElement(ArrowLeft, { size: 18 })),
+            React2.createElement("h2", { className: "games__title" }, game ? game.title : "Retro games"),
+            React2.createElement(IconButton, { label: "Close games", className: "games__close", onClick: onClose }, React2.createElement(X, { size: 18 }))
+          ),
+          game
+            ? React2.createElement(game.Component, null)
+            : React2.createElement(
+                "div",
+                { className: "games__list" },
+                GAMES.map((g) =>
+                  React2.createElement(
+                    "button",
+                    { key: g.id, type: "button", className: "game-card", onClick: () => setGameId(g.id) },
+                    React2.createElement("span", { className: "game-card__art", "aria-hidden": true }, g.emoji),
+                    React2.createElement("span", { className: "game-card__title" }, g.title),
+                    React2.createElement("span", { className: "game-card__blurb" }, g.blurb),
+                    React2.createElement("span", { className: "game-card__best" }, React2.createElement(Trophy, { size: 14, "aria-hidden": true }), `Best ${(records[g.id] || {}).best || 0}`)
+                  )
+                ),
+                React2.createElement("p", { className: "games__soon" }, "More retro games are on the way.")
+              )
+        )
+      ),
+      document.body
     );
   }
   function TasksPage() {
