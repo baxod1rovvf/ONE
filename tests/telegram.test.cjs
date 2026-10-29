@@ -513,3 +513,19 @@ test("Home: no card without a Telegram login", async () => {
   assert.equal(await card(page).count(), 0);
   await page.close();
 });
+
+test("someone new who writes shows with their name, not as Someone", async () => {
+  const s = seed();
+  s.chats.push({ id: "15", name: "Sardor", username: "sardor", lastMessage: null, unread: 0, readOutboxMaxId: 0 });
+  const { page } = await openApp(browser, server.url, { route: "telegram", telegram: { seed: s, device: true }, settings: PREFS });
+  await page.locator(".tg-list .tg-row").first().waitFor({ timeout: 10000 });
+  // The service learned the chat list before Sardor existed in it.
+  await page.evaluate(() => {
+    window.__oneTelegram.getState().chats = window.__oneTelegram.getState().chats.filter((c) => c.id !== "15");
+    window.__tgFake.push({ type: "message", message: { id: 1, chatId: "15", out: false, date: Date.now(), text: "Hi, it's Sardor", replyToId: null, media: null } });
+  });
+  await page.getByRole("button", { name: "1 new chat in Telegram" }).click();
+  await page.locator(".tg-manage__name", { hasText: "Sardor" }).waitFor();
+  assert.equal(await page.locator(".tg-manage__name", { hasText: "Someone" }).count(), 0);
+  await page.close();
+});

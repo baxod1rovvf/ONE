@@ -89,7 +89,8 @@
     };
     const person = async (chatId) => {
       if (people.has(chatId)) return people.get(chatId);
-      const u = await tg.getEntity(chatId);
+      // A number, not a string: GramJS reads a string as a username.
+      const u = await tg.getEntity(Number(chatId));
       people.set(chatId, u);
       return u;
     };

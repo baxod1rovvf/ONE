@@ -76,12 +76,30 @@
     if (list.some((x) => x.id === m.id)) return;
     const messages = { ...state.messages, [m.chatId]: [...list, m].sort((a, b) => a.id - b.id) };
     const known = state.chats.some((c) => c.id === m.chatId);
+    if (!known) refreshChats();
     const chats = known ? state.chats.map((c) => (c.id === m.chatId && (!c.lastMessage || c.lastMessage.id <= m.id) ? { ...c, lastMessage: m } : c)) : [{ id: m.chatId, name: chatName(m.chatId), username: null, lastMessage: m, unread: 1, readOutboxMaxId: 0 }, ...state.chats];
     const typing = { ...state.typing };
     if (!m.out) delete typing[m.chatId];
     state = { ...state, messages, chats, typing };
   }
 
+  // Someone not in the list wrote: fetch the list again for their name.
+  let refreshing = null;
+  function refreshChats() {
+    if (refreshing || !client) return;
+    const c = client;
+    refreshing = setTimeout(() => {
+      c.listPrivateChats(100)
+        .then((list) => {
+          if (c !== client) return;
+          const fresh = new Map(list.map((x) => [x.id, x]));
+          set({ chats: [...list, ...state.chats.filter((x) => !fresh.has(x.id))].map((x) => (fresh.has(x.id) ? { ...fresh.get(x.id), lastMessage: newer(fresh.get(x.id).lastMessage, (state.chats.find((y) => y.id === x.id) || {}).lastMessage) } : x)) });
+        })
+        .catch(() => {})
+        .finally(() => (refreshing = null));
+    }, 300);
+  }
+  const newer = (a, b) => (!a ? b || null : !b ? a : a.id >= b.id ? a : b);
   function handle(u) {
     switch (u.type) {
       case "message":
