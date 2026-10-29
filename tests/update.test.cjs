@@ -118,7 +118,7 @@ test("two Refresh presses make one update and one reload", async () => {
   await page.getByRole("button", { name: "Refresh" }).dblclick();
   await page.waitForEvent("framenavigated", { timeout: 6000 });
   await page.waitForTimeout(800);
-  assert.equal(seen.length, 4);
+  assert.equal(seen.length, FILES.length);
   assert.equal(reloads.n, 1);
   await page.close();
 });
@@ -136,7 +136,7 @@ test("opening after a missed 23:59 updates once, with no reload", async () => {
   const reloads = countReloads(page);
   await page.waitForFunction(() => JSON.parse(localStorage.getItem("one.update.v1")).last >= new Date(2026, 9, 29, 9, 0).getTime(), null, { timeout: 6000 });
   await page.waitForTimeout(500);
-  assert.equal(seen.length, 4);
+  assert.equal(seen.length, FILES.length);
   assert.equal(reloads.n, 0);
   await page.close();
 });
@@ -171,7 +171,7 @@ test("the 23:59 timer updates while ONE is open, without reloading", async () =>
   assert.equal(seen.length, 0, "nothing before 23:59");
   await page.clock.runFor(70_000);
   await page.waitForFunction(() => JSON.parse(localStorage.getItem("one.update.v1")).last >= new Date(2026, 9, 29, 23, 59).getTime(), null, { timeout: 6000 });
-  assert.equal(seen.length, 4);
+  assert.equal(seen.length, FILES.length);
   assert.equal(reloads.n, 0);
   await page.close();
 });
@@ -196,7 +196,7 @@ test("hidden through 23:59, then visible again, updates once", async () => {
   await page.clock.runFor(70_000);
   await setVisible(true);
   await page.waitForTimeout(1500);
-  assert.equal(seen.length, 4);
+  assert.equal(seen.length, FILES.length);
   await page.close();
 });
 
