@@ -194,3 +194,91 @@ test("Calm music and both Nasheed switches are gone", async () => {
   for (const region of ["My albums", "Spotify", "Nasheeds"]) assert.equal(await panel.getByRole("region", { name: region }).count(), 1, region);
   await page.close();
 });
+
+// ---------- Review fixes ----------
+
+test("a track added to a collection is saved as a nasheed", async () => {
+  const { page } = await openApp(browser, server.url, { route: "tasks" });
+  const kinds = await inPage(
+    page,
+    async (M, files) => {
+      const music = await M.createAlbum("Road trip", "music");
+      const nasheeds = await M.createAlbum("Morning", "nasheed");
+      await M.add([files[0]], music.id);
+      await M.add([files[1]], nasheeds.id);
+      return (await M.list()).map((t) => `${t.title}:${t.kind}`).sort();
+    },
+    { files: ["album/01.mp3", "album/02.mp3"] }
+  );
+  assert.deepEqual(kinds, ["First Song:music", "Second Song:nasheed"]);
+  await page.close();
+});
+
+test("an older ONE tab holding the music says so, instead of looking empty", async () => {
+  const { page } = await openApp(browser, server.url, { route: "tasks" });
+  // Another (older) ONE holds the database at version 1 and never lets go.
+  const holder = await page.context().newPage();
+  await holder.goto(`${server.url}/__blank`);
+  await holder.evaluate(
+    () =>
+      new Promise((resolve) => {
+        indexedDB.deleteDatabase("one.media").onsuccess = () => {
+          const req = indexedDB.open("one.media", 1);
+          req.onupgradeneeded = () => {
+            req.result.createObjectStore("tracks", { keyPath: "id" });
+            req.result.createObjectStore("blobs", { keyPath: "id" });
+          };
+          req.onsuccess = () => {
+            window.__held = req.result;
+            resolve();
+          };
+        };
+      })
+  );
+  await page.reload();
+  await page.mouse.click(2, 2);
+  await page.getByRole("toolbar", { name: "Quick actions" }).getByRole("button", { name: "Sounds" }).click();
+  const panel = page.getByRole("dialog", { name: "Sounds" });
+  await panel.getByRole("tab", { name: "Music" }).click();
+  await panel.getByText("Close other ONE tabs to finish updating your music.").waitFor({ timeout: 4000 });
+  assert.equal(await panel.getByText("No music added yet").count(), 0);
+  // The other tab closes: the music comes back by itself.
+  await holder.close();
+  await panel.getByText("Close other ONE tabs to finish updating your music.").waitFor({ state: "detached", timeout: 4000 });
+  await page.close();
+});
+
+test("creating an album twice quickly makes one album", async () => {
+  const { page } = await openApp(browser, server.url, { route: "tasks" });
+  await page.getByRole("toolbar", { name: "Quick actions" }).getByRole("button", { name: "Sounds" }).click();
+  const panel = page.getByRole("dialog", { name: "Sounds" });
+  await panel.getByRole("tab", { name: "Music" }).click();
+  const mine = panel.getByRole("region", { name: "My albums" });
+  await mine.getByRole("button", { name: "New album" }).click();
+  await mine.getByRole("textbox", { name: "Album name" }).fill("Once");
+  await mine.getByRole("textbox", { name: "Album name" }).evaluate((el) => {
+    const form = el.form;
+    form.requestSubmit();
+    form.requestSubmit();
+  });
+  await mine.getByRole("button", { name: /^Open album Once/ }).first().waitFor();
+  await page.waitForTimeout(300);
+  assert.equal((await page.evaluate(() => window.__oneMedia.albums())).length, 1);
+  await page.close();
+});
+
+test("a saved Calm music track from before the update is dropped", async () => {
+  const { page } = await openApp(browser, server.url, {
+    route: "tasks",
+    init: (p) =>
+      p.evaluate(() => {
+        const saved = JSON.parse(localStorage.getItem("one.sound.v2") || "{}");
+        saved.track = { item: { id: "satie-gymnopedie-1", title: "Gymnopédie No. 1", artist: "Erik Satie · Robin Alciatore", album: "Calm music", kind: "music", file: "Erik Satie - gymnopedies - la 1 ere. lent et douloureux.ogg" }, position: 12 };
+        localStorage.setItem("one.sound.v2", JSON.stringify(saved));
+      })
+  });
+  await page.waitForTimeout(500);
+  assert.equal(await page.locator(".mini-player").count(), 0);
+  assert.equal(await page.evaluate(() => window.__oneSound.stats().track), null);
+  await page.close();
+});

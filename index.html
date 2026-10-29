@@ -4154,6 +4154,14 @@ main[data-section='saved'] .panel::after {
   justify-content: space-between;
   gap: 8px;
 }
+.music-alert {
+  margin: 0 0 10px;
+  padding: 8px 12px;
+  border-radius: var(--r-md);
+  background: var(--warn-soft);
+  color: var(--warn);
+  font-size: var(--fs-sm);
+}
 /* "New album" / "New collection": the name field that opens in place. */
 .album-new {
   display: grid;
@@ -8524,6 +8532,18 @@ main[data-section='saved'] .panel::after {
     db: null,
     urls: new Map(),
     persistAsked: false,
+    // True while another (older) ONE tab keeps the library from updating.
+    blocked: false,
+    watchers: new Set(),
+    watch(fn) {
+      this.watchers.add(fn);
+      return () => this.watchers.delete(fn);
+    },
+    setBlocked(on) {
+      if (this.blocked === on) return;
+      this.blocked = on;
+      for (const fn of this.watchers) fn();
+    },
     open() {
       if (this.db) return this.db;
       this.db = new Promise((resolve, reject) => {
@@ -8537,7 +8557,9 @@ main[data-section='saved'] .panel::after {
           if (!db.objectStoreNames.contains("albums")) db.createObjectStore("albums", { keyPath: "id" });
           if (e.oldVersion === 1) migrateToAlbums(req.transaction);
         };
+        req.onblocked = () => this.setBlocked(true);
         req.onsuccess = () => {
+          this.setBlocked(false);
           const db = req.result;
           // A newer ONE (in another tab) needs the database: let go of it.
           db.onversionchange = () => {
@@ -8662,14 +8684,14 @@ main[data-section='saved'] .panel::after {
         } catch {
         }
         const artist = tags.artist || "Unknown artist";
-        const album = tags.album || "Singles";
-        const albumKey = `${artist}\u0000${album}`;
+        const tagAlbum = tags.album || "Singles";
+        const albumKey = `${artist}\u0000${tagAlbum}`;
         const id = `t${Date.now().toString(36)}${Math.random().toString(36).slice(2, 8)}`;
         const track = {
           id,
           title: tags.title || file.name.replace(/\.[^.]+$/, ""),
           artist,
-          album,
+          album: tagAlbum,
           albumKey,
           track: tags.track,
           kind: album.kind,
@@ -9125,6 +9147,8 @@ main[data-section='saved'] .panel::after {
       this.duckListeners = new Set(); // external players (Spotify) to pause
       this.externalPlaying = false;
       this.resolvers = { local: (item) => MediaLibrary.url(item.mediaId), quran: (item) => QuranSource.surahUrl(item.reciterId, item.surah) };
+      // The built-in Calm music was removed: a saved one is forgotten.
+      if (this.settings.track && this.settings.track.item && this.settings.track.item.file) this.settings.track = null;
       const saved = this.settings.track;
       if (saved && saved.item) {
         this.queue = [saved.item];
@@ -10000,13 +10024,22 @@ main[data-section='saved'] .panel::after {
     const id = React2.useId();
     const [name, setName] = React2.useState("");
     const [error, setError] = React2.useState(null);
+    const busy = React2.useRef(false);
     const submit = async (e) => {
       e.preventDefault();
+      if (busy.current) return;
       if (!name.trim()) {
         setError("Give the album a name.");
         return;
       }
-      onCreated(await MediaLibrary.createAlbum(name, kind));
+      busy.current = true;
+      try {
+        onCreated(await MediaLibrary.createAlbum(name, kind));
+      } catch {
+        setError("Couldn’t create the album. Try again.");
+      } finally {
+        busy.current = false;
+      }
     };
     return React2.createElement(
       "form",
@@ -10235,31 +10268,45 @@ main[data-section='saved'] .panel::after {
     const [albums, setAlbums] = React2.useState([]);
     const [openId, setOpenId] = React2.useState(null);
     const [query, setQuery] = React2.useState("");
+    const [failed, setFailed] = React2.useState(false);
+    const [blocked, setBlocked] = React2.useState(MediaLibrary.blocked);
+    // A failure keeps what is shown and says so, never "no music yet".
     const refresh = React2.useCallback(
       () =>
         Promise.all([MediaLibrary.list(), MediaLibrary.albums()]).then(
           ([tracks, list]) => {
+            setFailed(false);
             setLib(tracks);
             setAlbums(list);
             if (tracks.length) MediaLibrary.ensurePersisted();
           },
-          () => {
-            setLib([]);
-            setAlbums([]);
-          }
+          () => setFailed(true)
         ),
       []
     );
     React2.useEffect(() => {
       refresh();
     }, [refresh]);
+    React2.useEffect(
+      () =>
+        MediaLibrary.watch(() => {
+          setBlocked(MediaLibrary.blocked);
+          if (!MediaLibrary.blocked) refresh();
+        }),
+      [refresh]
+    );
     const cur = engine.current;
     const tracksOf = (id) => lib.filter((t) => t.albumId === id);
     const usageBytes = lib.reduce((n, t) => n + (t.size || 0), 0);
     const header = React2.createElement(
-      "div",
-      { className: "music-tools" },
-      React2.createElement("input", { type: "search", className: "input", placeholder: "Search music", "aria-label": "Search music", value: query, onChange: (e) => setQuery(e.target.value) })
+      React2.Fragment,
+      null,
+      React2.createElement(
+        "div",
+        { className: "music-tools" },
+        React2.createElement("input", { type: "search", className: "input", placeholder: "Search music", "aria-label": "Search music", value: query, onChange: (e) => setQuery(e.target.value) })
+      ),
+      (blocked || failed) && React2.createElement("p", { className: "music-alert", role: "status" }, blocked ? "Close other ONE tabs to finish updating your music." : "Couldn’t open your music. Try again in a moment.")
     );
     // Searching: one list of matching tracks and Spotify links.
     const q = query.trim().toLowerCase();
@@ -10309,7 +10356,7 @@ main[data-section='saved'] .panel::after {
         tracksOf,
         onOpen: setOpenId,
         onCreated: created,
-        footer: React2.createElement("p", { className: "music-usage" }, lib.length ? `${countTracks(lib.length)} · ${fmtBytes(usageBytes)} on this device` : "No music added yet")
+        footer: !blocked && !failed && React2.createElement("p", { className: "music-usage" }, lib.length ? `${countTracks(lib.length)} · ${fmtBytes(usageBytes)} on this device` : "No music added yet")
       }),
       React2.createElement(SpotifySection, null),
       React2.createElement(AlbumSection, { kind: "nasheed", albums: albums.filter((a) => a.kind === "nasheed"), tracksOf, onOpen: setOpenId, onCreated: created })
