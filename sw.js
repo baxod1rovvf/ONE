@@ -1,8 +1,12 @@
-// ONE service worker: lets the installed app open offline.
-// Pages load from the network first (so updates show up), falling back to the
-// cached copy; libraries, fonts and icons come from the cache first.
+// ONE service worker: ONE always opens from the copy saved on this device, so
+// coming back takes no waiting, online or not. Pages and app files (scripts,
+// styles, libraries, fonts, icons) come from the saved copy; only a missing
+// file goes to the network, and is saved. New versions arrive through the
+// Refresh button and the daily 23:59 update (updateApp in index.html), whose
+// requests carry "x-one-fresh" and pass straight through.
 // Sync requests to Supabase are never cached.
-const CACHE = "one-v6";
+const CACHE = "one-v7";
+const INDEX = new URL("./index.html", self.location.href).href;
 // Surahs saved with "Keep offline"; never cleared by version updates.
 const QURAN_OFFLINE = "one-quran-offline";
 // Whole audio files (nature recordings, calm music) cached once played.
@@ -72,6 +76,11 @@ self.addEventListener("fetch", (event) => {
   if (req.method !== "GET") return;
   const url = new URL(req.url);
   const sameOrigin = url.origin === self.location.origin;
+  // Updates fetch fresh files themselves and save them; never answer from here.
+  if (req.headers.get("x-one-fresh")) {
+    event.respondWith(fetch(req));
+    return;
+  }
   // A recitation kept offline is answered from its own cache.
   if (QURAN_AUDIO.test(url.hostname)) {
     event.respondWith(
@@ -105,33 +114,21 @@ self.addEventListener("fetch", (event) => {
     return;
   }
 
-  // The page and the install manifest always come from the network when online,
-  // so Chrome never installs ONE from an outdated manifest.
-  if (req.mode === "navigate" || (sameOrigin && url.pathname.endsWith(".webmanifest"))) {
-    event.respondWith(
-      fetch(req)
-        .then((res) => {
-          const copy = res.clone();
-          caches.open(CACHE).then((cache) => cache.put(req, copy));
-          return res;
-        })
-        .catch(() => caches.match(req, { ignoreSearch: true }).then((hit) => hit || caches.match("./index.html")))
-    );
+  // A page load: the saved index.html (the app routes with #hash, so every
+  // page is the same file). Only a first visit uses the network.
+  if (req.mode === "navigate") {
+    event.respondWith(fromCache(INDEX, req));
     return;
   }
-
-  event.respondWith(
-    caches.match(req).then((hit) => {
-      const fresh = fetch(req)
-        .then((res) => {
-          if (res.status === 200 || res.type === "opaque") {
-            const copy = res.clone();
-            caches.open(CACHE).then((cache) => cache.put(req, copy));
-          }
-          return res;
-        })
-        .catch(() => hit);
-      return hit || fresh;
-    })
-  );
+  event.respondWith(fromCache(req, req));
 });
+
+// The saved copy when there is one; otherwise the network, saved for next time.
+async function fromCache(key, req) {
+  const cache = await caches.open(CACHE);
+  const hit = await cache.match(key, { ignoreSearch: true });
+  if (hit) return hit;
+  const res = await fetch(req);
+  if (res.status === 200 || res.type === "opaque") await cache.put(key, res.clone());
+  return res;
+}
