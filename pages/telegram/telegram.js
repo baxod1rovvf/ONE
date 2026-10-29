@@ -3,7 +3,7 @@
 // pages/telegram/service.js, through useTelegram; this file only draws them.
 (function () {
   "use strict";
-  const { React2, Button, Field, Segmented, MessageCircle, RefreshCw, ArrowLeft, Search, ensureTelegram, loadScript, useTelegram, useToast, useUI } = window.__oneApp;
+  const { React2, Button, Field, Segmented, MessageCircle, RefreshCw, ArrowLeft, Search, ensureTelegram, loadScript, useStore, useTelegram, useToast, useUI } = window.__oneApp;
   const h = React2.createElement;
 
   // Telegram's errors, in ONE's words.
@@ -330,12 +330,214 @@
 
   // ---------- A chat ----------
   const MEDIA_LABEL = { photo: "Photo", file: "File", sticker: "Sticker", voice: "Voice message", video: "Video", other: "Message" };
-  function ChatView({ chatId, tg, svc, onBack }) {
-    const chat = tg.chats.find((c) => c.id === chatId) || { id: chatId, name: (tg.prefs.chats[chatId] && tg.prefs.chats[chatId].name) || "Chat" };
+  const sameDay = (a, b) => new Date(a).toDateString() === new Date(b).toDateString();
+  function dayLabel(t) {
+    const now = Date.now();
+    if (sameDay(t, now)) return "Today";
+    if (sameDay(t, now - 864e5)) return "Yesterday";
+    return new Date(t).toLocaleDateString(undefined, { weekday: "short", day: "numeric", month: "short" });
+  }
+  const timeOf = (t) => new Date(t).toLocaleTimeString(undefined, { hour: "2-digit", minute: "2-digit" });
+  function sizeText(bytes) {
+    if (bytes < 1024) return `${bytes} B`;
+    if (bytes < 1024 * 1024) return `${(bytes / 1024).toFixed(1)} KB`;
+    return `${(bytes / 1024 / 1024).toFixed(1)} MB`;
+  }
+  // Text with its web links clickable.
+  function linked(text) {
+    const parts = text.split(/(https?:\/\/[^\s<]+[^\s<.,;:!?)\]'"])/g);
+    return parts.map((p, i) => (i % 2 ? h("a", { key: i, href: p, target: "_blank", rel: "noreferrer" }, p) : p));
+  }
+  const telegramLink = (chat) => (chat.username ? `https://t.me/${chat.username}` : `tg://user?id=${chat.id}`);
+
+  function Photo({ svc, chatId, id }) {
+    const [src, setSrc] = React2.useState(null);
+    React2.useEffect(() => {
+      let live = true;
+      let url = null;
+      svc.media(chatId, id).then((u) => {
+        url = u;
+        if (live) setSrc(u);
+        else if (u) URL.revokeObjectURL(u);
+      });
+      return () => {
+        live = false;
+        if (url) URL.revokeObjectURL(url);
+      };
+    }, [chatId, id]);
+    if (!src) return h("span", { className: "tg-msg__photo tg-msg__photo--loading", "aria-label": "Photo" });
+    return h("a", { href: src, target: "_blank", rel: "noreferrer", "aria-label": "Open photo" }, h("img", { className: "tg-msg__photo", src, alt: "Photo" }));
+  }
+  function Media({ m, chat, svc }) {
+    const media = m.media;
+    if (media.kind === "photo") return h(Photo, { svc, chatId: chat.id, id: m.id });
+    if (media.kind === "file") {
+      const download = async () => {
+        const url = await svc.media(chat.id, m.id);
+        if (!url) return;
+        const a = document.createElement("a");
+        a.href = url;
+        a.download = media.name || "file";
+        a.click();
+        setTimeout(() => URL.revokeObjectURL(url), 1000);
+      };
+      return h("span", { className: "tg-msg__file" }, h("span", { className: "tg-msg__file-name" }, media.name), h("span", { className: "tg-msg__file-size muted num" }, sizeText(media.size || 0)), h(Button, { size: "sm", onClick: download }, "Download"));
+    }
+    return h("span", { className: "tg-msg__other" }, h("span", { className: "tg-msg__label" }, MEDIA_LABEL[media.kind] || "Message"), " · ", h("a", { href: telegramLink(chat), target: "_blank", rel: "noreferrer" }, "Open in Telegram"));
+  }
+  function Bubble({ m, chat, svc, quoted, read, onReply, pending }) {
+    const cls = ["tg-msg", m.out ? "tg-msg--out" : "tg-msg--in", pending && pending.failed ? "tg-msg--failed" : ""].filter(Boolean).join(" ");
+    return h(
+      "li",
+      { className: cls, "data-id": pending ? void 0 : m.id },
+      quoted !== void 0 && h("span", { className: "tg-msg__quote" }, quoted || "Earlier message"),
+      m.media && h(Media, { m, chat, svc }),
+      m.text && h("span", { className: "tg-msg__text" }, linked(m.text)),
+      h(
+        "span",
+        { className: "tg-msg__meta" },
+        pending ? (pending.failed ? "Not sent" : "Sending…") : timeOf(m.date),
+        m.out && !pending && h("span", { className: `tg-msg__tick${read ? " tg-msg__tick--read" : ""}`, "aria-label": read ? "Read" : "Sent" }, read ? "✓✓" : "✓")
+      ),
+      pending && pending.failed && h(Button, { size: "sm", onClick: pending.retry }, "Try again"),
+      !pending && h("button", { type: "button", className: "tg-msg__reply", "aria-label": "Reply", title: "Reply", onClick: () => onReply(m) }, "↩")
+    );
+  }
+
+  function ChatView({ chatId, tg, svc, onBack, onSelect }) {
+    const R = rules();
+    const chat = tg.chats.find((c) => c.id === chatId) || { id: chatId, name: (tg.prefs.chats[chatId] && tg.prefs.chats[chatId].name) || "Chat", username: null, readOutboxMaxId: 0 };
+    const messages = tg.messages[chatId] || [];
+    const pending = tg.pending[chatId] || [];
+    const pref = tg.prefs.chats[chatId];
+    const waitingHere = tg.waiting.some((w) => w.id === chatId);
+    const [text, setText] = React2.useState("");
+    const [replyTo, setReplyTo] = React2.useState(null);
+    const [answered, setAnswered] = React2.useState(false);
+    const listRef = React2.useRef(null);
+    const loadingOlder = React2.useRef(false);
+    const keep = React2.useRef(null);
+    const stick = React2.useRef(true);
+    const lastIn = [...messages].reverse().find((m) => !m.out);
+
+    React2.useEffect(() => {
+      svc.openChat(chatId);
+    }, [chatId, lastIn && lastIn.id]);
+    // Stay at the bottom as messages arrive; keep the place when older ones
+    // are added above.
+    React2.useLayoutEffect(() => {
+      const el = listRef.current;
+      if (!el) return;
+      if (keep.current !== null) {
+        el.scrollTop = el.scrollHeight - keep.current;
+        keep.current = null;
+      } else if (stick.current) el.scrollTop = el.scrollHeight;
+    }, [messages.length, pending.length, messages[0] && messages[0].id]);
+    const onScroll = (e) => {
+      const el = e.currentTarget;
+      stick.current = el.scrollHeight - el.scrollTop - el.clientHeight < 60;
+      if (el.scrollTop < 40 && !loadingOlder.current && messages.length >= 50) {
+        loadingOlder.current = true;
+        keep.current = el.scrollHeight - el.scrollTop;
+        svc.loadOlder(chatId).then((n) => {
+          if (!n) keep.current = null;
+          // Nothing more to load once a page comes back short.
+          loadingOlder.current = n < 50;
+        });
+      }
+    };
+    const send = () => {
+      const body = text.trim();
+      if (!body) return;
+      const replyToId = replyTo ? replyTo.id : null;
+      setText("");
+      setReplyTo(null);
+      stick.current = true;
+      svc.send(chatId, text.replace(/\s+$/, ""), replyToId).then((m) => m && setAnswered(true));
+    };
+    const byId = new Map(messages.map((m) => [m.id, m]));
+    const quoteOf = (m) => {
+      if (!m.replyToId) return void 0;
+      const q = byId.get(m.replyToId);
+      return q ? q.text || MEDIA_LABEL[q.media && q.media.kind] || "" : null;
+    };
+    const items = [];
+    let prevDay = null;
+    messages.forEach((m) => {
+      if (!prevDay || !sameDay(prevDay, m.date)) items.push(h("li", { key: `d${m.date}`, className: "tg-day" }, h("span", null, dayLabel(m.date))));
+      prevDay = m.date;
+      items.push(h(Bubble, { key: m.id, m, chat, svc, quoted: quoteOf(m), read: m.out && m.id <= (chat.readOutboxMaxId || 0), onReply: setReplyTo }));
+    });
+    pending.forEach((p) => items.push(h(Bubble, { key: p.localId, m: { id: p.localId, out: true, text: p.text, date: Date.now(), replyToId: p.replyToId, media: null }, chat, svc, quoted: p.replyToId ? quoteOf(p) : void 0, pending: { ...p, retry: () => svc.retry(chatId, p.localId) } })));
+    const presence = tg.presence[chatId];
+    const typing = tg.typing[chatId];
+    const statusText = typing ? "typing…" : presence && presence.online ? "online" : presence && presence.lastSeen ? `last seen ${R.formatWait(Date.now() - presence.lastSeen)} ago` : "";
+    const next = answered && !waitingHere ? tg.waiting.find((w) => w.id !== chatId) : null;
     return h(
       "div",
       { className: "tg-chat" },
-      h("header", { className: "tg-chat__head" }, h(Button, { variant: "ghost", size: "sm", className: "tg-chat__back", icon: h(ArrowLeft, { size: 16, "aria-hidden": true }), onClick: onBack }, "Back"), h(Avatar, { chat, svc }), h("h2", { className: "tg-chat__name" }, chat.name))
+      h(
+        "header",
+        { className: "tg-chat__head" },
+        h(Button, { variant: "ghost", size: "sm", className: "tg-chat__back", icon: h(ArrowLeft, { size: 16, "aria-hidden": true }), onClick: onBack }, "Back"),
+        h(Avatar, { chat, svc }),
+        h("div", { className: "tg-chat__who" }, h("h2", { className: "tg-chat__name" }, chat.name), h("span", { className: "tg-chat__status muted", "aria-live": "polite" }, statusText)),
+        h(
+          "div",
+          { className: "tg-chat__tools" },
+          waitingHere && h(Button, { size: "sm", variant: "ghost", onClick: () => svc.markHandled(chatId) }, "No reply needed"),
+          h(
+            "label",
+            { className: "tg-chat__level" },
+            h("span", { className: "sr-only" }, "Level"),
+            h(
+              "select",
+              { className: "input input--sm", "aria-label": "Level", value: pref ? pref.level : "none", onChange: (e) => svc.setLevel(chatId, e.target.value === "none" ? null : e.target.value, chat.name) },
+              LEVEL_OPTIONS.map((o) => h("option", { key: o.value, value: o.value }, o.label))
+            )
+          ),
+          h("a", { className: "btn btn--ghost btn--sm", href: telegramLink(chat), target: "_blank", rel: "noreferrer" }, "Open in Telegram")
+        )
+      ),
+      h("ol", { className: "tg-msgs", ref: listRef, onScroll, "aria-label": `Messages with ${chat.name}` }, items),
+      h(
+        "form",
+        {
+          className: "tg-compose",
+          onSubmit: (e) => {
+            e.preventDefault();
+            send();
+          }
+        },
+        tg.flood ? h("p", { className: "tg-compose__note", role: "alert" }, `Telegram asks you to wait ${waitText(tg.flood)}.`) : null,
+        next ? h("button", { type: "button", className: "tg-next", onClick: () => onSelect(next.id) }, `Next: ${next.name}`) : null,
+        replyTo &&
+          h(
+            "div",
+            { className: "tg-compose__quote" },
+            h("span", null, replyTo.text || MEDIA_LABEL[replyTo.media && replyTo.media.kind] || "Message"),
+            h("button", { type: "button", className: "tg-compose__unquote", "aria-label": "Don't reply to this", onClick: () => setReplyTo(null) }, "×")
+          ),
+        h(
+          "div",
+          { className: "tg-compose__row" },
+          h("textarea", {
+            className: "textarea tg-compose__box",
+            "aria-label": "Message",
+            placeholder: "Write a message",
+            rows: 1,
+            value: text,
+            onChange: (e) => setText(e.target.value),
+            onKeyDown: (e) => {
+              if (e.key === "Enter" && !e.shiftKey && !e.isComposing) {
+                e.preventDefault();
+                send();
+              }
+            }
+          }),
+          h(Button, { type: "submit", variant: "primary", disabled: !text.trim() }, "Send")
+        )
+      )
     );
   }
 
@@ -346,7 +548,9 @@
   function TelegramMain({ tg, svc }) {
     const ui = useUI();
     const [selected, setSelected] = React2.useState(selectedFromHash);
-    const [manage, setManage] = React2.useState(() => Object.keys(tg.prefs.chats).length === 0);
+    const { data } = useStore();
+    // From the synced settings: the service may not have started yet.
+    const [manage, setManage] = React2.useState(() => Object.keys((data.settings.telegram && data.settings.telegram.chats) || {}).length === 0);
     React2.useEffect(() => {
       const on = () => setSelected(selectedFromHash());
       window.addEventListener("hashchange", on);
@@ -365,7 +569,7 @@
       "div",
       { className: "tg", "data-open": selected ? "chat" : "list" },
       h(ChatList, { tg, svc, selectedId: selected, onSelect: select, onManage: () => setManage(true) }),
-      h("section", { className: "panel tg-pane", "aria-label": "Chat" }, selected ? h(ChatView, { key: selected, chatId: selected, tg, svc, onBack: back }) : h("p", { className: "tg-pane__empty muted" }, "Choose a chat to read and reply."))
+      h("section", { className: "panel tg-pane", "aria-label": "Chat" }, selected ? h(ChatView, { key: selected, chatId: selected, tg, svc, onBack: back, onSelect: select }) : h("p", { className: "tg-pane__empty muted" }, "Choose a chat to read and reply."))
     );
   }
 

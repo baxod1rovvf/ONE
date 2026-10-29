@@ -13,32 +13,7 @@ after(async () => {
   await server.close();
 });
 
-const H = 3600e3;
-const MIN = 60e3;
-// A message from them (out: false) or from me (out: true), `ago` ms ago.
-const msg = (chatId, id, out, ago, text = out ? "ok" : "hello") => ({ id, chatId, out, date: Date.now() - ago, text, replyToId: null, media: null });
-// Aziz (High) waiting 5 h, Mom (Normal) waiting 2 h, Dilnoza (Low) answered,
-// plus Bek, who isn't in ONE.
-function seed() {
-  const messages = {
-    "11": [msg("11", 1, true, 6 * H), msg("11", 2, false, 5 * H, "Are you free?"), msg("11", 3, false, 4 * H, "Call me")],
-    "12": [msg("12", 1, false, 2 * H, "Dinner at 7?")],
-    "13": [msg("13", 1, false, 3 * H), msg("13", 2, true, 2.5 * H)],
-    "14": [msg("14", 1, false, 10 * MIN, "Hey")]
-  };
-  const chat = (id, name, username) => ({ id, name, username, lastMessage: messages[id][messages[id].length - 1], unread: 0, readOutboxMaxId: 0 });
-  return {
-    me: { id: "1", name: "Owner", username: "owner" },
-    chats: [chat("14", "Bek", "bek"), chat("12", "Mom", null), chat("11", "Aziz", "aziz"), chat("13", "Dilnoza", "dilnoza")],
-    messages
-  };
-}
-const PREFS = {
-  telegram: {
-    chats: { "11": { level: "high", name: "Aziz" }, "12": { level: "normal", name: "Mom" }, "13": { level: "low", name: "Dilnoza" } },
-    limits: { normal: 180, low: 720 }
-  }
-};
+const { H, MIN, msg, seed, chatSeed, PREFS } = require("./fixtures/telegram-seeds.cjs");
 const connected = (extra = {}) => ({ telegram: { seed: seed(), device: true }, settings: PREFS, ...extra });
 const badge = (page) => page.locator('.dock__tab[data-route="telegram"] .dock__badge');
 
@@ -306,4 +281,156 @@ test("computer: list and chat side by side; phone: one at a time, with Back", as
   await p.locator(".tg-list").waitFor();
   assert.equal(await p.evaluate(() => location.hash), "#telegram");
   await p.close();
+});
+
+// ---------- A chat ----------
+const openChat = async (id = "11", extra = {}) => {
+  const r = await openApp(browser, server.url, { route: `telegram/${id}`, telegram: { seed: chatSeed(), device: true }, settings: PREFS, ...extra });
+  await r.page.locator(".tg-msg").first().waitFor({ timeout: 10000 });
+  return r;
+};
+const box = (page) => page.getByLabel("Message", { exact: true });
+
+test("opening a chat shows the latest 50, day by day, and marks it read", async () => {
+  const { page, errors } = await openChat();
+  assert.equal(await page.locator(".tg-msg").count(), 50);
+  assert.ok((await page.locator(".tg-msg--in").count()) > 0 && (await page.locator(".tg-msg--out").count()) > 0);
+  assert.ok((await page.locator(".tg-day").count()) >= 2);
+  assert.equal(await page.locator('.tg-msg[data-id="58"] .tg-msg__tick--read').count(), 1);
+  await page.waitForFunction(() => window.__tgFake.reads.some((r) => r.chatId === "11" && r.maxId === 60));
+  await page.locator(".tg-chat__status", { hasText: "online" }).waitFor();
+  // The newest message is in view.
+  const last = await page.locator('.tg-msg[data-id="60"]').boundingBox();
+  const pane = await page.locator(".tg-msgs").boundingBox();
+  assert.ok(last.y + last.height <= pane.y + pane.height + 2 && last.y >= pane.y);
+  assert.deepEqual(errors, []);
+  await page.close();
+});
+
+test("scrolling to the top loads older messages and keeps your place", async () => {
+  const { page } = await openChat();
+  const firstBefore = await page.locator(".tg-msg").first().getAttribute("data-id");
+  await page.locator(".tg-msgs").evaluate((el) => (el.scrollTop = 0));
+  await page.waitForFunction(() => document.querySelectorAll(".tg-msg").length === 60);
+  const top = await page.evaluate((id) => {
+    const el = document.querySelector(`.tg-msg[data-id="${id}"]`);
+    const pane = document.querySelector(".tg-msgs");
+    return el.getBoundingClientRect().top - pane.getBoundingClientRect().top;
+  }, firstBefore);
+  assert.ok(top > -60 && top < 200, `the old first message stays near the top (${top})`);
+  await page.close();
+});
+
+test("photos, files and stickers", async () => {
+  const { page } = await openChat();
+  await page.locator('.tg-msg[data-id="55"] img.tg-msg__photo').waitFor();
+  assert.match(await page.locator('.tg-msg[data-id="55"] img.tg-msg__photo').getAttribute("src"), /^blob:/);
+  const file = page.locator('.tg-msg[data-id="56"]');
+  assert.match(await file.textContent(), /plan\.pdf/);
+  assert.match(await file.textContent(), /4\.9 KB/);
+  await file.getByRole("button", { name: "Download" }).waitFor();
+  const sticker = page.locator('.tg-msg[data-id="57"]');
+  assert.match(await sticker.textContent(), /Sticker/);
+  assert.equal(await sticker.getByRole("link", { name: "Open in Telegram" }).getAttribute("href"), "https://t.me/aziz");
+  // Links in text can be clicked; a reply shows what it answers.
+  assert.equal(await page.locator('.tg-msg[data-id="59"] a').getAttribute("href"), "https://example.com/agenda");
+  assert.match(await page.locator('.tg-msg[data-id="58"] .tg-msg__quote').textContent(), /Here is the plan/);
+  await page.close();
+});
+
+test("Enter sends, Shift+Enter starts a new line, and ONE says who's next", async () => {
+  const { page } = await openChat();
+  await box(page).click();
+  await box(page).type("Calling");
+  await box(page).press("Shift+Enter");
+  await box(page).type("now");
+  assert.equal(await box(page).inputValue(), "Calling\nnow");
+  await box(page).press("Enter");
+  await page.locator(".tg-msg--out", { hasText: "Calling" }).last().waitFor();
+  assert.equal(await page.evaluate(() => window.__tgFake.sent.at(-1).text), "Calling\nnow");
+  assert.equal(await box(page).inputValue(), "");
+  await page.waitForFunction(() => document.querySelector('.dock__tab[data-route="telegram"] .dock__badge')?.getAttribute("aria-label") === "1 waiting");
+  await page.getByRole("button", { name: "Next: Mom" }).click();
+  await page.waitForFunction(() => location.hash === "#telegram/12");
+  await page.close();
+});
+
+test("replying to a message quotes it", async () => {
+  const { page } = await openChat();
+  await page.locator('.tg-msg[data-id="59"]').hover();
+  await page.locator('.tg-msg[data-id="59"]').getByRole("button", { name: "Reply" }).click();
+  assert.match(await page.locator(".tg-compose__quote").textContent(), /Are you free\?/);
+  await box(page).fill("Yes");
+  await box(page).press("Enter");
+  await page.waitForFunction(() => window.__tgFake.sent.length === 1);
+  assert.equal(await page.evaluate(() => window.__tgFake.sent[0].replyToId), 59);
+  assert.equal(await page.locator(".tg-compose__quote").count(), 0);
+  await page.close();
+});
+
+test("a message that didn't send stays, with Try again", async () => {
+  const { page } = await openChat();
+  await page.evaluate(() => (window.__tgFake.fail.send = true));
+  await box(page).fill("Hello?");
+  await box(page).press("Enter");
+  const failed = page.locator(".tg-msg--failed", { hasText: "Hello?" });
+  await failed.waitFor();
+  await page.evaluate(() => (window.__tgFake.fail.send = null));
+  await failed.getByRole("button", { name: "Try again" }).click();
+  await page.waitForFunction(() => window.__tgFake.sent.some((m) => m.text === "Hello?"));
+  await page.locator(".tg-msg--failed").waitFor({ state: "detached" });
+  await page.close();
+});
+
+test("when Telegram asks to slow down, ONE says how long", async () => {
+  const { page } = await openChat();
+  await page.evaluate(() => (window.__tgFake.fail.send = { code: "FLOOD_WAIT", seconds: 30 }));
+  await box(page).fill("Hi");
+  await box(page).press("Enter");
+  await page.getByText("Telegram asks you to wait 30 seconds.").waitFor();
+  await page.close();
+});
+
+test("No reply needed clears the chat until they write again", async () => {
+  const { page } = await openChat();
+  await page.getByRole("button", { name: "No reply needed" }).click();
+  await page.waitForFunction(() => document.querySelector('.dock__tab[data-route="telegram"] .dock__badge')?.getAttribute("aria-label") === "1 waiting");
+  const handled = await page.evaluate(() => JSON.parse(localStorage.getItem("one.workspace.v1")).settings.telegram.chats["11"].handled);
+  assert.equal(handled, 60);
+  await page.evaluate(() => window.__tgFake.push({ type: "message", message: { id: 61, chatId: "11", out: false, date: Date.now(), text: "Hello??", replyToId: null, media: null } }));
+  await page.waitForFunction(() => document.querySelector('.dock__tab[data-route="telegram"] .dock__badge')?.getAttribute("aria-label") === "2 waiting");
+  await page.close();
+});
+
+test("a message arriving while the chat is open shows at once, and typing… shows and goes", async () => {
+  const { page } = await openChat();
+  await page.evaluate(() => window.__tgFake.push({ type: "typing", chatId: "11" }));
+  await page.locator(".tg-chat__status", { hasText: "typing…" }).waitFor();
+  await page.evaluate(() => window.__tgFake.push({ type: "message", message: { id: 61, chatId: "11", out: false, date: Date.now(), text: "Still there?", replyToId: null, media: null } }));
+  await page.locator('.tg-msg[data-id="61"]').waitFor();
+  assert.equal(await page.locator(".tg-chat__status", { hasText: "typing…" }).count(), 0);
+  assert.equal(await page.evaluate(() => window.__oneTelegram.getState().waiting.some((w) => w.id === "11")), true);
+  await page.evaluate(() => window.__tgFake.push({ type: "typing", chatId: "11" }));
+  await page.locator(".tg-chat__status", { hasText: "typing…" }).waitFor();
+  await page.locator(".tg-chat__status", { hasText: "typing…" }).waitFor({ state: "detached", timeout: 9000 });
+  await page.close();
+});
+
+test("the header: last seen, the level, and Open in Telegram", async () => {
+  const { page } = await openChat("12");
+  await page.locator(".tg-chat__status", { hasText: "last seen 5 min ago" }).waitFor();
+  assert.equal(await page.locator(".tg-chat__head").getByRole("link", { name: "Open in Telegram" }).getAttribute("href"), "tg://user?id=12");
+  await page.getByLabel("Level", { exact: true }).selectOption("high");
+  await page.waitForFunction(() => window.__oneTelegram.getState().waiting.find((w) => w.id === "12")?.current === "high");
+  assert.equal(await page.evaluate(() => JSON.parse(localStorage.getItem("one.workspace.v1")).settings.telegram.chats["12"].level), "high");
+  await page.close();
+});
+
+test("a lost connection shows Reconnecting…", async () => {
+  const { page } = await openChat();
+  await page.evaluate(() => window.__tgFake.push({ type: "connection", state: "connecting" }));
+  await page.getByText("Reconnecting…").waitFor();
+  await page.evaluate(() => window.__tgFake.push({ type: "connection", state: "connected" }));
+  await page.getByText("Reconnecting…").waitFor({ state: "detached" });
+  await page.close();
 });
