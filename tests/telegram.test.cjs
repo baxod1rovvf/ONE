@@ -434,3 +434,82 @@ test("a lost connection shows Reconnecting…", async () => {
   await page.getByText("Reconnecting…").waitFor({ state: "detached" });
   await page.close();
 });
+
+// ---------- Home ----------
+const card = (page) => page.locator(".tg-home");
+function homeSeed({ extra = 0 } = {}) {
+  const s = seed();
+  s.messages["13"].push(msg("13", 3, false, 1 * H, "Are we still on?"));
+  s.chats.find((c) => c.id === "13").lastMessage = s.messages["13"][2];
+  const chats = { ...PREFS.telegram.chats };
+  for (let i = 0; i < extra; i++) {
+    const id = String(20 + i);
+    s.messages[id] = [msg(id, 1, false, (10 + i) * MIN, "hi")];
+    s.chats.push({ id, name: `Friend ${i + 1}`, username: null, lastMessage: s.messages[id][0], unread: 1, readOutboxMaxId: 0 });
+    chats[id] = { level: "low", name: `Friend ${i + 1}` };
+  }
+  return { telegram: { seed: s, device: true }, settings: { telegram: { chats, limits: { normal: 180, low: 720 } } } };
+}
+
+test("Home: who has written, and whom to answer first", async () => {
+  const { page, errors } = await openApp(browser, server.url, { route: "home", ...homeSeed() });
+  await card(page).getByText("You have messages from").waitFor({ timeout: 10000 });
+  assert.equal((await card(page).locator(".tg-home__who").textContent()).trim(), "You have messages from Aziz, Mom and Dilnoza.");
+  assert.equal((await card(page).locator(".tg-home__first").textContent()).trim(), "Answer Aziz first: waiting 5 h. Then Mom, then Dilnoza.");
+  assert.equal(await card(page).getByRole("button", { name: "Aziz" }).first().locator(".tg-dot--high").count(), 1);
+  await card(page).getByRole("button", { name: "Mom" }).first().click();
+  await page.waitForFunction(() => location.hash === "#telegram/12");
+  await page.locator(".tg-pane").getByRole("heading", { name: "Mom" }).waitFor();
+  assert.deepEqual(errors, []);
+  await page.close();
+});
+
+test("Home: more than three people waiting", async () => {
+  const { page } = await openApp(browser, server.url, { route: "home", ...homeSeed({ extra: 2 }) });
+  await card(page).getByText("You have messages from").waitFor({ timeout: 10000 });
+  assert.equal((await card(page).locator(".tg-home__who").textContent()).trim(), "You have messages from Aziz, Mom, Dilnoza and 2 more.");
+  await page.close();
+});
+
+test("Home: a chat that moved up says why", async () => {
+  const s = homeSeed();
+  s.telegram.seed.messages["13"] = [msg("13", 1, false, 13 * H, "Ping")];
+  s.settings.telegram.chats = { "13": { level: "low", name: "Dilnoza" } };
+  const { page } = await openApp(browser, server.url, { route: "home", ...s });
+  await card(page).getByText("You have messages from").waitFor({ timeout: 10000 });
+  assert.equal((await card(page).locator(".tg-home__first").textContent()).trim(), "Answer Dilnoza first: waiting 13 h, moved up from Low.");
+  await page.close();
+});
+
+test("Home: all caught up", async () => {
+  const s = homeSeed();
+  s.settings.telegram.chats = { "13": { level: "low", name: "Dilnoza" } };
+  s.telegram.seed.messages["13"] = [msg("13", 1, false, 3 * H), msg("13", 2, true, 2 * H)];
+  const { page } = await openApp(browser, server.url, { route: "home", ...s });
+  await card(page).getByText("All caught up on Telegram.").waitFor({ timeout: 10000 });
+  await page.close();
+});
+
+test("Home: when Telegram can't be reached, the last list shows with a note", async () => {
+  const cached = { waiting: [{ id: "11", name: "Aziz", level: "high", current: "high", waitedMs: 5 * H, movedFrom: null }], at: Date.now() - 10 * MIN };
+  const { page } = await openApp(browser, server.url, {
+    route: "home",
+    ...homeSeed(),
+    init: (p) =>
+      p.addInitScript((c) => {
+        localStorage.setItem("one.telegram.cache.v1", JSON.stringify(c));
+        window.__tgFake.fail.connect = { code: "NETWORK" };
+      }, cached)
+  });
+  await card(page).getByText("Telegram isn't reachable right now.").waitFor({ timeout: 10000 });
+  assert.equal((await card(page).locator(".tg-home__who").textContent()).trim(), "You have messages from Aziz.");
+  await page.close();
+});
+
+test("Home: no card without a Telegram login", async () => {
+  const { page } = await openApp(browser, server.url, { route: "home", telegram: { seed: seed() }, settings: PREFS });
+  await page.locator(".meadow-hero").waitFor();
+  await page.waitForTimeout(2500);
+  assert.equal(await card(page).count(), 0);
+  await page.close();
+});

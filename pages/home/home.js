@@ -6,7 +6,7 @@
   "use strict";
   const {
     IconButton, Moon, React2, STARS, SoundsButton, Sun, createLucideIcon, isTypingTarget,
-    loadGames, useSound, useStore, useTheme, useToast
+    loadGames, useSound, useStore, useTelegram, useTheme, useToast, useUI
   } = window.__oneApp;
   /**
    * @license lucide-react v0.454.0 - ISC
@@ -1090,6 +1090,49 @@
       React2.createElement("path", { d: FALLBACK_BLADES, stroke: night ? "#2c7a63" : "#5fb845", strokeWidth: 3, strokeLinecap: "round", fill: "none" })
     );
   }
+  /* ---------- Telegram: who is waiting ---------- */
+  // "A", "A and B", "A, B and C"; more than three end "and 2 more".
+  function joinNames(parts, extra) {
+    const all = extra ? [...parts, `${extra} more`] : parts;
+    const out = [];
+    all.forEach((p, i) => {
+      if (i > 0) out.push(i === all.length - 1 ? " and " : ", ");
+      out.push(p);
+    });
+    return out;
+  }
+  function TelegramCard() {
+    const tg = useTelegram();
+    const ui = useUI();
+    const R = window.__oneTelegramRules;
+    if (!tg || !R) return null;
+    const offline = tg.status === "offline";
+    const live = tg.status === "connected" || (tg.status === "connecting" && tg.everConnected);
+    if (!live && !offline && !(tg.status === "connecting" && tg.waiting.length)) return null;
+    const waiting = tg.waiting;
+    const note = offline ? React2.createElement("p", { className: "tg-home__note" }, "Telegram isn't reachable right now.") : null;
+    if (!waiting.length) {
+      return React2.createElement("section", { className: "tg-home glass", "aria-label": "Telegram" }, offline ? note : React2.createElement("p", { className: "tg-home__who" }, "All caught up on Telegram."));
+    }
+    const shown = waiting.slice(0, 3);
+    const nameButton = (w) =>
+      React2.createElement(
+        "button",
+        { key: w.id, type: "button", className: "tg-home__name", onClick: () => ui.navigate(`telegram/${w.id}`) },
+        React2.createElement("span", { className: `tg-dot tg-dot--${w.current}`, "aria-hidden": true }),
+        w.name
+      );
+    const first = shown[0];
+    const why = `waiting ${R.formatWait(first.waitedMs)}${first.movedFrom ? `, moved up from ${R.LEVEL_LABEL[first.movedFrom]}` : ""}`;
+    const rest = shown.slice(1).map((w) => w.name);
+    return React2.createElement(
+      "section",
+      { className: "tg-home glass", "aria-label": "Telegram" },
+      React2.createElement("p", { className: "tg-home__who" }, "You have messages from ", joinNames(shown.map(nameButton), waiting.length - shown.length), "."),
+      React2.createElement("p", { className: "tg-home__first" }, "Answer ", React2.createElement("b", null, first.name), ` first: ${why}.`, rest.length ? ` Then ${rest.join(", then ")}.` : ""),
+      note
+    );
+  }
   function HomePage({ onBreakChange }) {
     const { data, setSettings } = useStore();
     const theme = useTheme(data.settings.theme);
@@ -1291,6 +1334,7 @@
       ),
       pause.active && React2.createElement(BreakPill, { ref: endButtonRef, remainingMs: pause.remainingMs, onEnd: () => pause.end("user") }),
       welcome && React2.createElement("div", { className: "meadow-welcome glass", role: "status" }, "welcome back 🌱"),
+      !pause.active && React2.createElement(TelegramCard, null),
       React2.createElement(
         "div",
         { className: "meadow-controls glass", role: "group", "aria-label": "Meadow controls", inert: pause.active ? "" : void 0 },
