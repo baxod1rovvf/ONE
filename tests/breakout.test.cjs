@@ -538,3 +538,70 @@ test("with reduced motion no particles are drawn", async () => {
   assert.equal(await page.evaluate(() => window.__oneBreakoutFx.particles.length), 0);
   await page.close();
 });
+
+// ---------- Review fixes ----------
+
+test("a ball in open space never changes direction on its own", async () => {
+  const r = await inGame((B, h) => {
+    // One brick in a far corner; the paddle follows the ball, so it rallies in open space.
+    let s = h.playing([h.brick(0, 0), h.brick(1, 0), h.brick(0, 1), h.brick(1, 1), h.brick(2, 0), h.brick(3, 0), h.brick(2, 1), h.brick(3, 1)], [{ x: 300, y: 560, vx: 120, vy: -318, stuck: false }]);
+    const swerves = [];
+    for (let t = 0; t < 12000; t += 16) {
+      const before = s.balls[0];
+      s = B.breakoutStep(s, 16, { targetX: before ? before.x : null, dir: 0, launch: false });
+      const after = s.balls[0];
+      if (!before || !after || s.status !== "playing") break;
+      const turned = Math.abs(Math.atan2(after.vy, after.vx) - Math.atan2(before.vy, before.vx)) > 0.01;
+      const nearEdge = after.x < 12 || after.x > 468 || after.y < 12 || after.y > 585;
+      if (turned && !nearEdge && !s.events.length) swerves.push(`${Math.round(after.x)},${Math.round(after.y)}`);
+    }
+    return swerves;
+  });
+  assert.deepEqual(r, []);
+});
+
+test("Breakout fits common laptop screens without scrolling", async () => {
+  for (const [width, height] of [[1280, 800], [1366, 768]]) {
+    const { page } = await openApp(browser, server.url, { route: "home", viewport: { width, height } });
+    const game = await openBreakout(page, { __oneBreakoutSeed: 3 });
+    const fit = await page.evaluate(() => {
+      const g = document.querySelector(".games");
+      const hint = document.querySelector(".breakout-hint").getBoundingClientRect();
+      return { scrolls: g.scrollHeight > g.clientHeight + 1, hintInside: hint.bottom <= g.getBoundingClientRect().bottom };
+    });
+    assert.deepEqual(fit, { scrolls: false, hintInside: true }, `${width}×${height}`);
+    assert.ok(await game.locator("canvas.breakout-field").isVisible());
+    await page.close();
+  }
+});
+
+test("hit numbers on strong bricks stay readable when the field is small", async () => {
+  const r = await inPage((B) => [480, 301, 246].map((px) => (B.breakoutDigitSize(px / 480) * px) / 480));
+  assert.ok(r[0] >= 11, `full size ${r[0]}`);
+  assert.ok(r[1] >= 9, `375-wide phone ${r[1]}`);
+  assert.ok(r[2] >= 7.4, `320-wide phone ${r[2]}`);
+  const capped = await inPage((B) => B.breakoutDigitSize(0.2));
+  assert.ok(capped <= 15, "never taller than a brick");
+});
+
+test("game over stays on screen and keeps the record, even with keys and taps", async () => {
+  const { page } = await openApp(browser, server.url, { route: "home" });
+  const bricks = await rules.page.evaluate(() => Array.from({ length: 10 }, (_, i) => ({ col: i + 1, row: 9, kind: "normal", hp: 1, maxHp: 1, color: "#4dd8f0" })));
+  const game = await openBreakout(page, { __oneBreakoutSeed: 5, __oneBreakoutLives: 1, __oneBreakoutBricks: bricks });
+  await page.keyboard.press("Space");
+  await page.waitForFunction(() => Number(document.querySelector("[data-testid=breakout-score]").textContent) > 0, null, { timeout: 8000 });
+  await page.evaluate(() => window.__oneBreakoutControl.loseBall());
+  await page.waitForFunction(() => document.querySelector(".breakout").dataset.status === "over", null, { timeout: 6000 });
+  // A player still mashing Space and tapping the field as the ball drops.
+  const box = await game.locator("canvas.breakout-field").boundingBox();
+  for (let i = 0; i < 4; i++) {
+    await page.keyboard.press("Space");
+    await page.mouse.click(box.x + 20, box.y + box.height - 20);
+  }
+  assert.equal(await bstatus(page), "over");
+  assert.ok(await game.getByText("New record!").isVisible());
+  assert.ok((await page.evaluate(() => JSON.parse(localStorage.getItem("one.games.v1")).breakout.best)) > 0);
+  await game.getByRole("button", { name: "Play again" }).click();
+  assert.notEqual(await bstatus(page), "over");
+  await page.close();
+});
