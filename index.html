@@ -2176,14 +2176,16 @@ main[data-section] {
   color: var(--games-ink);
   border: 2px solid currentColor;
 }
-.snake-hud .snake-mute {
+.snake-hud .snake-mute,
+.tetris-buttons .snake-mute {
   width: 44px;
   height: 44px;
   border-radius: 50%;
   color: var(--games-ink);
   border: 2px solid currentColor;
 }
-.snake-hud .snake-mute[aria-pressed='false'] {
+.snake-hud .snake-mute[aria-pressed='false'],
+.tetris-buttons .snake-mute[aria-pressed='false'] {
   opacity: 0.6;
 }
 .snake-mute:focus-visible {
@@ -2474,6 +2476,145 @@ main[data-section] {
   opacity: 0.7;
   text-align: center;
 }
+/* Tetris */
+.tetris {
+  --tcell: min(34px, calc((100dvh - 250px) / 18), calc((100vw - 250px) / 10));
+  display: grid;
+  grid-template-columns: auto auto;
+  justify-content: center;
+  align-items: start;
+  gap: 16px;
+}
+.tetris-board {
+  position: relative;
+  display: grid;
+  grid-template-columns: repeat(10, var(--tcell));
+  grid-template-rows: repeat(18, var(--tcell));
+  padding: 4px;
+  border-radius: 18px;
+  background:
+    linear-gradient(rgba(255, 255, 255, 0.05) 1px, transparent 1px) 4px 4px / var(--tcell) var(--tcell),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.05) 1px, transparent 1px) 4px 4px / var(--tcell) var(--tcell),
+    #1f2547;
+  border: 6px solid #2b3168;
+  box-shadow: inset 0 0 0 2px rgba(255, 255, 255, 0.08), 0 6px 0 #171b3d;
+  touch-action: manipulation;
+  user-select: none;
+  -webkit-user-select: none;
+}
+.tetris-cell,
+.tetris-mini {
+  --c: transparent;
+  border-radius: 22%;
+  margin: 1.5px;
+}
+.tetris-cell[data-shape],
+.tetris-mini[data-shape] {
+  background: linear-gradient(180deg, color-mix(in srgb, var(--c) 70%, #fff) 0 18%, var(--c) 18% 78%, color-mix(in srgb, var(--c) 72%, #000) 78%);
+  box-shadow: inset 0 0 0 1.5px rgba(0, 0, 0, 0.18);
+}
+[data-shape='I'] { --c: #f2f4fb; }
+[data-shape='O'] { --c: #ffd23f; }
+[data-shape='T'] { --c: #ff7eb6; }
+[data-shape='S'] { --c: #4cd964; }
+[data-shape='Z'] { --c: #ff4d4d; }
+[data-shape='J'] { --c: #4d8dff; }
+[data-shape='L'] { --c: #ff9f40; }
+.tetris-cell[data-ghost='true'] {
+  border: 2px dashed rgba(196, 202, 220, 0.6);
+  background: rgba(196, 202, 220, 0.1);
+}
+.tetris-cell[data-clearing='true'] {
+  animation: tetris-flash 250ms steps(2) forwards;
+}
+@keyframes tetris-flash {
+  50% {
+    --c: #fff;
+    background: #fff;
+  }
+  to {
+    background: #fff;
+    opacity: 0.2;
+  }
+}
+.tetris-burst {
+  position: absolute;
+  inset: 38% 0 auto;
+  z-index: 3;
+  text-align: center;
+  font-size: calc(var(--tcell) * 1.4);
+  font-weight: 700;
+  color: #fff;
+  -webkit-text-stroke: 2px #b8431a;
+  text-shadow: 0 4px 0 #b8431a;
+  pointer-events: none;
+  animation: tetris-burst 900ms var(--ease) forwards;
+}
+@keyframes tetris-burst {
+  0% {
+    transform: scale(0.4);
+    opacity: 0;
+  }
+  25% {
+    transform: scale(1.15);
+    opacity: 1;
+  }
+  80% {
+    opacity: 1;
+  }
+  to {
+    transform: scale(1);
+    opacity: 0;
+  }
+}
+.tetris .snake-message {
+  border-radius: 12px;
+}
+.tetris-side {
+  display: grid;
+  gap: 10px;
+  min-width: 132px;
+}
+.tetris-stat {
+  display: grid;
+  padding: 4px 14px;
+  border-radius: 14px;
+  background: #e9f8d8;
+  color: #1d3a22;
+  border: 2px solid #2f6b35;
+}
+.tetris-stat--best {
+  background: #fff1b8;
+}
+.tetris-stat--next {
+  padding-bottom: 10px;
+}
+.tetris-next {
+  display: grid;
+  grid-template-columns: repeat(4, 22px);
+  grid-template-rows: repeat(4, 22px);
+  justify-content: center;
+  margin-top: 4px;
+  padding: 4px;
+  border-radius: 10px;
+  background: #1f2547;
+}
+.tetris-next[data-shape='I'],
+.tetris-next[data-shape='O'] {
+  padding-top: 0;
+}
+.tetris-buttons {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.tetris-buttons .snake-pause {
+  margin-left: 0;
+  flex: 1;
+}
+.tetris-hint {
+  grid-column: 1 / -1;
+}
 @media (pointer: coarse) {
   .snake {
     --board: min(calc(100vw - 64px), calc(100dvh - 440px), 560px);
@@ -2514,6 +2655,7 @@ main[data-section] {
   .snake-pop,
   .snake-record,
   .snake-tongue,
+  .tetris-burst,
   .snake-layer[data-crash='true'] .snake-face,
   .snake-message {
     animation: none !important;
@@ -11155,6 +11297,29 @@ main[data-section='saved'] .panel::after {
       const { C5, E5, G5, C6, E6, G6 } = RETRO_NOTES;
       this.play("record", [[C5, 0, 0.1], [E5, 0.1, 0.1], [G5, 0.2, 0.1], [C6, 0.3, 0.12], [G5, 0.44, 0.08], [C6, 0.52, 0.12], [E6, 0.66, 0.12], [G6, 0.8, 0.35, "triangle", 1]]);
     }
+    // Tetris
+    tMove() {
+      this.play("tmove", [[330, 0, 0.025, "triangle", 0.45]]);
+    }
+    tRotate() {
+      this.play("trotate", [[RETRO_NOTES.A5, 0, 0.04, "square", 0.6, 1100]]);
+    }
+    tLock() {
+      this.play("tlock", [[140, 0, 0.09, "triangle", 1, 70]]);
+    }
+    // One note more for each extra line.
+    tLines(n) {
+      const { C5, E5, G5, C6 } = RETRO_NOTES;
+      this.play("tlines", [C5, E5, G5, C6].slice(0, n + 1).map((f, i) => [f, i * 0.06, 0.08, "square", 0.8]));
+    }
+    tTetris() {
+      const { C5, E5, G5, C6, E6, G6 } = RETRO_NOTES;
+      this.play("ttetris", [[C5, 0, 0.07], [E5, 0.07, 0.07], [G5, 0.14, 0.07], [C6, 0.21, 0.07], [E6, 0.28, 0.07], [G6, 0.35, 0.3, "triangle", 1], [C6, 0.35, 0.3, "square", 0.5]]);
+    }
+    tLevel() {
+      const { G5, C6, E6, G6 } = RETRO_NOTES;
+      this.play("tlevel", [[G5, 0, 0.06], [C6, 0.06, 0.06], [E6, 0.12, 0.06], [G6, 0.18, 0.14]]);
+    }
   }
   const retroSound = new RetroSound();
   window.__oneRetroSound = retroSound;
@@ -11737,7 +11902,333 @@ main[data-section='saved'] .panel::after {
     tetrisLock,
     tetrisClear
   };
-  const GAMES = [{ id: "snake", title: "Snake", blurb: "Eat fruit, grow long, mind the walls.", emoji: "🐍", Component: SnakeGame }];
+  /* Tetris on screen */
+  const TETRIS_KEYS = {
+    ArrowLeft: "left",
+    a: "left",
+    A: "left",
+    ArrowRight: "right",
+    d: "right",
+    D: "right",
+    ArrowDown: "down",
+    s: "down",
+    S: "down",
+    ArrowUp: "cw",
+    w: "cw",
+    W: "cw",
+    x: "cw",
+    X: "cw",
+    z: "ccw",
+    Z: "ccw"
+  };
+  // Held moves repeat like the arcade: a pause, then a quick run.
+  const TETRIS_REPEAT_FIRST = 170;
+  const TETRIS_REPEAT_EVERY = 50;
+  function tetrisSeed() {
+    return window.__oneTetrisSeed ?? Date.now();
+  }
+  function TetrisGame({ escapeRef }) {
+    const [game, setGame] = React2.useState(() => tetrisNew(tetrisSeed()));
+    const gameRef = React2.useRef(game);
+    gameRef.current = game;
+    const [best, offerBest] = useGameRecord("tetris");
+    const [record, setRecord] = React2.useState(false);
+    const [burst, setBurst] = React2.useState(null);
+    const [soundOn, setSoundOn] = React2.useState(retroSound.on);
+    const playRef = React2.useRef(null);
+    const prevStatus = React2.useRef(game.status);
+    const held = React2.useRef(null);
+    // Runs a rule on the latest state; returns [before, after].
+    const apply = React2.useCallback((rule) => {
+      const before = gameRef.current;
+      const after = rule(before);
+      if (after !== before) {
+        gameRef.current = after;
+        setGame(after);
+      }
+      return [before, after];
+    }, []);
+    const actions = React2.useMemo(() => {
+      const lockSound = ([before, after]) => after.field !== before.field && retroSound.tLock();
+      const moveSound = ([before, after]) => after.piece !== before.piece && retroSound.tMove();
+      return {
+        left: () => moveSound(apply((s) => tetrisMove(s, -1))),
+        right: () => moveSound(apply((s) => tetrisMove(s, 1))),
+        down: () => apply(tetrisSoftDrop),
+        cw: () => {
+          const [b, a] = apply((s) => tetrisRotate(s, 1));
+          if (a.piece !== b.piece) retroSound.tRotate();
+        },
+        ccw: () => {
+          const [b, a] = apply((s) => tetrisRotate(s, -1));
+          if (a.piece !== b.piece) retroSound.tRotate();
+        },
+        hard: () => lockSound(apply(tetrisHardDrop)),
+        // Locks a grounded piece, unless a move took it off its ledge.
+        lock: () => lockSound(apply((s) => (tetrisFits(s.field, { ...s.piece, y: s.piece.y + 1 }) ? { ...s, grounded: false } : tetrisLock(s))))
+      };
+    }, [apply]);
+    const stopRepeat = React2.useCallback(() => {
+      const h = held.current;
+      if (!h) return;
+      window.clearTimeout(h.timer);
+      window.clearInterval(h.timer);
+      held.current = null;
+    }, []);
+    const startRepeat = React2.useCallback(
+      (key, action) => {
+        stopRepeat();
+        const h = { key, timer: 0 };
+        h.timer = window.setTimeout(() => {
+          h.timer = window.setInterval(() => actions[action](), TETRIS_REPEAT_EVERY);
+        }, TETRIS_REPEAT_FIRST);
+        held.current = h;
+      },
+      [actions, stopRepeat]
+    );
+    const start = React2.useCallback(() => {
+      const g = gameRef.current;
+      if (g.status === "paused") return apply((s) => ({ ...s, status: "playing" }));
+      const fresh = { ...tetrisNew(tetrisSeed()), status: "playing" };
+      setRecord(false);
+      setBurst(null);
+      apply(() => fresh);
+    }, [apply]);
+    const togglePause = React2.useCallback(() => {
+      stopRepeat();
+      apply((s) => (s.status === "playing" ? { ...s, status: "paused" } : s.status === "paused" ? { ...s, status: "playing" } : s));
+    }, [apply, stopRepeat]);
+    const toggleSound = React2.useCallback(() => {
+      setSoundOn((on) => {
+        retroSound.setOn(!on);
+        return !on;
+      });
+    }, []);
+    // Esc pauses a running game; otherwise the panel steps back.
+    React2.useEffect(() => {
+      if (!escapeRef) return;
+      escapeRef.current = () => {
+        if (gameRef.current.status !== "playing") return false;
+        togglePause();
+        return true;
+      };
+      return () => {
+        escapeRef.current = null;
+      };
+    }, [escapeRef, togglePause]);
+    const live = game.status === "playing" && !game.clearing.length;
+    // Gravity.
+    React2.useEffect(() => {
+      if (!live) return;
+      const id = window.setInterval(() => apply(tetrisTick), tetrisGravity(game.level));
+      return () => window.clearInterval(id);
+    }, [live, game.level, apply]);
+    // Lock delay: 500 ms after touching down, restarted by each move (at most 15).
+    React2.useEffect(() => {
+      if (!live || !game.grounded) return;
+      if (game.lockMoves >= 15) return void actions.lock();
+      const id = window.setTimeout(actions.lock, 500);
+      return () => window.clearTimeout(id);
+    }, [live, game.grounded, game.lockMoves, game.piece.shape, actions]);
+    // Full rows flash, then go.
+    React2.useEffect(() => {
+      if (!game.clearing.length || game.status !== "playing") return;
+      const quick = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+      const id = window.setTimeout(() => apply(tetrisClear), quick ? 0 : 250);
+      return () => window.clearTimeout(id);
+    }, [game.clearing, game.status, apply]);
+    React2.useEffect(() => {
+      const last = game.last;
+      if (!last) return;
+      if (last.lines === 4) {
+        retroSound.tTetris();
+        setBurst(last.at);
+      } else retroSound.tLines(last.lines);
+      if (last.levelUp) {
+        const id = window.setTimeout(() => retroSound.tLevel(), 450);
+        return () => window.clearTimeout(id);
+      }
+    }, [game.last && game.last.at]);
+    React2.useEffect(() => {
+      if (burst == null) return;
+      const id = window.setTimeout(() => setBurst(null), 900);
+      return () => window.clearTimeout(id);
+    }, [burst]);
+    React2.useEffect(() => {
+      const was = prevStatus.current;
+      prevStatus.current = game.status;
+      if (was === game.status) return;
+      if (game.status !== "playing") stopRepeat();
+      if (game.status === "playing") {
+        if (was === "paused") retroSound.resume();
+        else retroSound.start();
+      } else if (game.status === "paused") retroSound.pause();
+      else if (game.status === "over") {
+        const isRecord = offerBest(game.score);
+        if (isRecord) setRecord(true);
+        retroSound.over();
+        window.requestAnimationFrame(() => playRef.current && playRef.current.focus());
+        if (isRecord) {
+          const id = window.setTimeout(() => retroSound.record(), 950);
+          return () => window.clearTimeout(id);
+        }
+      }
+    }, [game.status]);
+    // A hidden tab pauses the game; leaving the window lets go of held keys.
+    React2.useEffect(() => {
+      const onHide = () => {
+        if (document.hidden && gameRef.current.status === "playing") togglePause();
+      };
+      document.addEventListener("visibilitychange", onHide);
+      window.addEventListener("blur", stopRepeat);
+      return () => {
+        document.removeEventListener("visibilitychange", onHide);
+        window.removeEventListener("blur", stopRepeat);
+        stopRepeat();
+      };
+    }, [togglePause, stopRepeat]);
+    React2.useEffect(() => {
+      const onKey = (e) => {
+        if (e.metaKey || e.ctrlKey || e.altKey) return;
+        const action = TETRIS_KEYS[e.key];
+        const status = gameRef.current.status;
+        if (action) {
+          e.preventDefault();
+          if (e.repeat || status !== "playing") return;
+          actions[action]();
+          if (action === "left" || action === "right" || action === "down") startRepeat(e.key.toLowerCase(), action);
+        } else if (e.key === " ") {
+          e.preventDefault();
+          if (e.repeat) return;
+          if (status === "playing") actions.hard();
+          else if (status === "ready" || status === "over") start();
+        } else if (e.key === "p" || e.key === "P") {
+          e.preventDefault();
+          togglePause();
+        } else if (e.key === "m" || e.key === "M") {
+          e.preventDefault();
+          toggleSound();
+        }
+      };
+      const onUp = (e) => {
+        if (held.current && held.current.key === e.key.toLowerCase()) stopRepeat();
+      };
+      window.addEventListener("keydown", onKey);
+      window.addEventListener("keyup", onUp);
+      return () => {
+        window.removeEventListener("keydown", onKey);
+        window.removeEventListener("keyup", onUp);
+      };
+    }, [actions, start, togglePause, toggleSound, startRepeat, stopRepeat]);
+    // What each square shows: locked blocks, the falling piece, its shadow.
+    const view = game.field.map((row) => row.map((shape) => ({ shape })));
+    if (game.status !== "ready" && !game.clearing.length) {
+      if (game.status !== "over") for (const [x, y] of tetrisCells(tetrisGhost(game))) if (!view[y][x].shape) view[y][x] = { ghost: true };
+      for (const [x, y] of tetrisCells(game.piece)) if (y >= 0 && y < TETRIS_H) view[y][x] = { shape: game.piece.shape, active: true };
+    }
+    const flashing = new Set(game.clearing);
+    const cells = [];
+    view.forEach((row, y) =>
+      row.forEach((c, x) =>
+        cells.push(
+          React2.createElement("div", {
+            key: `${x}-${y}`,
+            className: "tetris-cell",
+            "data-shape": c.shape || void 0,
+            "data-active": c.active ? "true" : void 0,
+            "data-ghost": c.ghost ? "true" : void 0,
+            "data-clearing": flashing.has(y) ? "true" : void 0
+          })
+        )
+      )
+    );
+    const nextShape = TETRIS_SHAPES[game.next];
+    const nextCells = new Set(nextShape.cells.map(([x, y]) => `${x + (nextShape.box === 2 ? 1 : 0)},${y + (nextShape.box === 4 ? 0 : 1)}`));
+    const mini = [];
+    for (let y = 0; y < 4; y++) for (let x = 0; x < 4; x++) mini.push(React2.createElement("div", { key: `${x}-${y}`, className: "tetris-mini", "data-shape": nextCells.has(`${x},${y}`) ? game.next : void 0 }));
+    const stat = (label, value, id) =>
+      React2.createElement(
+        "div",
+        { className: "tetris-stat" },
+        React2.createElement("span", { className: "snake-stat__label" }, label),
+        React2.createElement("span", { className: "snake-stat__value num", "data-testid": id }, value)
+      );
+    const message =
+      game.status === "ready"
+        ? { title: "Ready?", sub: "Fill a row to clear it. Don’t let the blocks reach the top.", action: "Play" }
+        : game.status === "paused"
+        ? { title: "Paused", sub: "Take a breath.", action: "Resume" }
+        : game.status === "over"
+        ? { title: "Game over", sub: `${game.score} ${game.score === 1 ? "point" : "points"}`, action: "Play again" }
+        : null;
+    return React2.createElement(
+      "div",
+      { className: "tetris", "data-status": game.status },
+      React2.createElement(
+        "div",
+        {
+          className: "tetris-board",
+          role: "grid",
+          "aria-label": `Tetris field, ${TETRIS_W} by ${TETRIS_H}`,
+          "data-piece": game.piece.shape,
+          "data-x": game.piece.x,
+          "data-y": game.piece.y,
+          "data-rot": game.piece.rot,
+          "data-grounded": game.grounded ? "true" : void 0,
+          onClick: (e) => e.target.classList.contains("tetris-cell") && actions.cw()
+        },
+        cells,
+        burst != null && React2.createElement("span", { key: burst, className: "tetris-burst", "aria-hidden": true }, "TETRIS!"),
+        message &&
+          React2.createElement(
+            "div",
+            { className: "snake-message", role: "status" },
+            game.status === "over" && record && game.score > 0 && React2.createElement("span", { className: "snake-record" }, "🏆 New record!"),
+            React2.createElement("h3", { className: "snake-message__title" }, message.title),
+            React2.createElement("p", { className: "snake-message__sub" }, message.sub),
+            React2.createElement("button", { ref: playRef, type: "button", className: "snake-play", onClick: start, "data-autofocus": true }, message.action)
+          )
+      ),
+      React2.createElement(
+        "div",
+        { className: "tetris-side" },
+        React2.createElement(
+          "div",
+          { className: "tetris-stat tetris-stat--next" },
+          React2.createElement("span", { className: "snake-stat__label" }, "Next"),
+          React2.createElement("div", { className: "tetris-next", "data-shape": game.next, "aria-label": `Next: ${game.next}`, role: "img" }, mini)
+        ),
+        stat("Score", game.score, "tetris-score"),
+        stat("Lines", game.lines, "tetris-lines"),
+        stat("Level", game.level, "tetris-level"),
+        React2.createElement(
+          "div",
+          { className: "tetris-stat tetris-stat--best" },
+          React2.createElement("span", { className: "snake-stat__label" }, React2.createElement(Trophy, { size: 14, "aria-hidden": true }), "Best"),
+          React2.createElement("span", { className: "snake-stat__value num", "data-testid": "tetris-best" }, best)
+        ),
+        React2.createElement(
+          "div",
+          { className: "tetris-buttons" },
+          React2.createElement(
+            "button",
+            { type: "button", className: "snake-pause", onClick: togglePause, disabled: game.status !== "playing" && game.status !== "paused" },
+            game.status === "paused" ? "Resume" : "Pause"
+          ),
+          React2.createElement(
+            IconButton,
+            { label: "Game sounds", className: "snake-mute", "aria-pressed": soundOn ? "true" : "false", onClick: toggleSound },
+            React2.createElement(soundOn ? Volume2 : VolumeX, { size: 20 })
+          )
+        )
+      ),
+      React2.createElement("p", { className: "snake-hint tetris-hint" }, "←→ move · ↑ rotate · ↓ soft drop · Space hard drop · P pause · M sound")
+    );
+  }
+  const GAMES = [
+    { id: "snake", title: "Snake", blurb: "Eat fruit, grow long, mind the walls.", emoji: "🐍", Component: SnakeGame },
+    { id: "tetris", title: "Tetris", blurb: "Stack the blocks, clear the lines.", emoji: "🧱", Component: TetrisGame }
+  ];
   function GamesPanel({ onClose }) {
     const [gameId, setGameId] = React2.useState(null);
     const ref = React2.useRef(null);
@@ -11762,7 +12253,13 @@ main[data-section='saved'] .panel::after {
     // Esc steps back: from a game to the list, then closes. It listens on the
     // window, so it works even while focus is between screens.
     const backRef = React2.useRef(null);
-    backRef.current = () => (game ? setGameId(null) : onClose());
+    // An open game may take Esc first (Tetris pauses with it).
+    const escapeRef = React2.useRef(null);
+    backRef.current = () => {
+      if (game && escapeRef.current && escapeRef.current()) return;
+      if (game) setGameId(null);
+      else onClose();
+    };
     React2.useEffect(() => {
       const onKey = (e) => {
         if (e.key !== "Escape") return;
@@ -11808,7 +12305,7 @@ main[data-section='saved'] .panel::after {
             React2.createElement(IconButton, { label: "Close games", className: "games__close", onClick: onClose }, React2.createElement(X, { size: 18 }))
           ),
           game
-            ? React2.createElement(game.Component, null)
+            ? React2.createElement(game.Component, { escapeRef })
             : React2.createElement(
                 "div",
                 { className: "games__list" },

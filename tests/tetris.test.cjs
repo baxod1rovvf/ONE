@@ -220,3 +220,150 @@ test("input is ignored during the line-clear flash", async () => {
   });
   assert.equal(r, true);
 });
+
+// ---------- On screen ----------
+
+// Opens Games → Tetris. With a shape, picks a seed whose first piece is that shape.
+async function openTetris(page, { seed, shape } = {}) {
+  await page.evaluate(
+    ({ seed, shape }) => {
+      if (shape) {
+        for (let s = 1; s < 500; s++) {
+          if (window.__oneTetris.tetrisNew(s).piece.shape === shape) {
+            window.__oneTetrisSeed = s;
+            break;
+          }
+        }
+      } else if (seed != null) window.__oneTetrisSeed = seed;
+      window.__oneRetroSound.played = [];
+    },
+    { seed, shape }
+  );
+  await page.locator(".meadow-controls").getByRole("button", { name: "Games" }).click();
+  await page.getByRole("dialog", { name: "Retro games" }).getByRole("button", { name: /Tetris/ }).click();
+  return page.getByRole("dialog", { name: "Tetris" });
+}
+const boardAttr = (page, name) => page.locator(".tetris-board").getAttribute(`data-${name}`);
+const status = (page) => page.locator(".tetris").getAttribute("data-status");
+const played = (page) => page.evaluate(() => window.__oneRetroSound.played);
+
+test("Tetris shows a 10×18 field and the next piece", async () => {
+  const { page, errors } = await openApp(browser, server.url, { route: "home" });
+  const game = await openTetris(page, { seed: 7 });
+  assert.equal(await game.locator(".tetris-cell").count(), 180);
+  assert.equal(await game.locator(".tetris-mini").count(), 16);
+  const next = await game.locator(".tetris-next").getAttribute("data-shape");
+  assert.match(next, /^[IOTSZJL]$/);
+  assert.notEqual(next, await boardAttr(page, "piece"));
+  for (const label of ["Next", "Score", "Lines", "Level", "Best"]) assert.ok(await game.getByText(label, { exact: true }).isVisible(), label);
+  assert.deepEqual(errors, []);
+  await page.close();
+});
+
+test("keys move, rotate and hard-drop", async () => {
+  const { page, errors } = await openApp(browser, server.url, { route: "home" });
+  await openTetris(page, { shape: "T" });
+  await page.keyboard.press("Space");
+  assert.equal(await status(page), "playing");
+  const x = Number(await boardAttr(page, "x"));
+  await page.keyboard.press("ArrowLeft");
+  assert.equal(Number(await boardAttr(page, "x")), x - 1);
+  await page.keyboard.press("ArrowUp");
+  assert.equal(await boardAttr(page, "rot"), "1");
+  await page.keyboard.press("Space");
+  await page.waitForFunction(() => document.querySelectorAll(".tetris-cell[data-shape='T']:not([data-active])").length === 4);
+  assert.notEqual(await boardAttr(page, "piece"), "T");
+  assert.ok(Number(await page.getByTestId("tetris-score").textContent()) > 0);
+  assert.ok((await played(page)).includes("tlock"));
+  assert.deepEqual(errors, []);
+  await page.close();
+});
+
+test("P pauses and the piece stops falling", async () => {
+  const { page } = await openApp(browser, server.url, { route: "home" });
+  await openTetris(page, { seed: 4 });
+  await page.keyboard.press("Space");
+  await page.keyboard.press("p");
+  assert.equal(await status(page), "paused");
+  const y = await boardAttr(page, "y");
+  await page.waitForTimeout(1200);
+  assert.equal(await boardAttr(page, "y"), y);
+  await page.keyboard.press("p");
+  assert.equal(await status(page), "playing");
+  await page.close();
+});
+
+test("Esc pauses first, then goes back to the list", async () => {
+  const { page } = await openApp(browser, server.url, { route: "home" });
+  await openTetris(page, { seed: 4 });
+  await page.keyboard.press("Space");
+  await page.keyboard.press("Escape");
+  assert.equal(await status(page), "paused");
+  assert.ok(await page.getByRole("dialog", { name: "Tetris" }).isVisible());
+  await page.keyboard.press("Escape");
+  assert.ok(await page.getByRole("dialog", { name: "Retro games" }).isVisible());
+  await page.close();
+});
+
+test("game over saves the best score", async () => {
+  const { page, errors } = await openApp(browser, server.url, { route: "home" });
+  const game = await openTetris(page, { seed: 3 });
+  await page.keyboard.press("Space");
+  for (let i = 0; i < 60 && (await status(page)) !== "over"; i++) await page.keyboard.press("Space");
+  assert.equal(await status(page), "over");
+  const score = Number(await game.getByTestId("tetris-score").textContent());
+  assert.ok(score > 0);
+  assert.ok(await game.getByText("Game over").isVisible());
+  assert.ok(await game.getByText("New record!").isVisible());
+  assert.equal(await page.evaluate(() => JSON.parse(localStorage.getItem("one.games.v1")).tetris.best), score);
+  await page.keyboard.press("Escape");
+  assert.ok(await page.getByRole("dialog", { name: "Retro games" }).getByText(`Best ${score}`).first().isVisible());
+  assert.deepEqual(errors, []);
+  await page.close();
+});
+
+test("a hard drop during the lock delay locks once", async () => {
+  const { page } = await openApp(browser, server.url, { route: "home" });
+  await openTetris(page, { shape: "T" });
+  await page.keyboard.press("Space");
+  await page.keyboard.down("ArrowDown");
+  await page.waitForFunction(() => document.querySelector(".tetris-board").dataset.grounded === "true", null, { timeout: 8000 });
+  await page.keyboard.up("ArrowDown");
+  const before = Number(await page.getByTestId("tetris-score").textContent());
+  await page.evaluate(() => (window.__oneRetroSound.played = []));
+  await page.keyboard.press("Space");
+  await page.waitForTimeout(600);
+  assert.equal((await played(page)).filter((c) => c === "tlock").length, 1);
+  assert.equal(Number(await page.getByTestId("tetris-score").textContent()), before);
+  await page.close();
+});
+
+test("a held arrow stops repeating on blur and after a pause", async () => {
+  const { page } = await openApp(browser, server.url, { route: "home" });
+  await openTetris(page, { shape: "T" });
+  await page.keyboard.press("Space");
+  await page.keyboard.down("ArrowLeft");
+  await page.evaluate(() => window.dispatchEvent(new Event("blur")));
+  const x = await boardAttr(page, "x");
+  await page.waitForTimeout(400);
+  assert.equal(await boardAttr(page, "x"), x);
+  await page.keyboard.up("ArrowLeft");
+  await page.keyboard.down("ArrowRight");
+  await page.keyboard.press("p");
+  await page.keyboard.press("p");
+  const x2 = await boardAttr(page, "x");
+  await page.waitForTimeout(400);
+  assert.equal(await boardAttr(page, "x"), x2);
+  await page.keyboard.up("ArrowRight");
+  await page.close();
+});
+
+test("Space on a focused Play button starts one game", async () => {
+  const { page } = await openApp(browser, server.url, { route: "home" });
+  const game = await openTetris(page, { seed: 5 });
+  await game.getByRole("button", { name: "Play" }).focus();
+  await page.keyboard.press("Space");
+  await page.waitForTimeout(100);
+  assert.equal((await played(page)).filter((c) => c === "start").length, 1);
+  await page.close();
+});
