@@ -487,3 +487,52 @@ test("game sounds come from what happens in play", async () => {
   await page.waitForFunction(() => window.__oneRetroSound.played.includes("bhit"), null, { timeout: 8000 });
   await page.close();
 });
+
+// ---------- Phones ----------
+
+test("Breakout fits phones, upright and on their side", async () => {
+  for (const [width, height] of [[375, 740], [320, 568], [740, 375]]) {
+    const { page, errors } = await openApp(browser, server.url, { route: "home", viewport: { width, height }, hasTouch: true });
+    const game = await openBreakout(page, { __oneBreakoutSeed: 3 });
+    const box = await game.locator("canvas.breakout-field").boundingBox();
+    const where = `${width}×${height}`;
+    assert.ok(box.x >= 0 && box.y >= 0 && box.x + box.width <= width && box.y + box.height <= height + 1, `${where}: field on screen ${JSON.stringify(box)}`);
+    if (width < height) assert.ok(box.width >= 240, `${where}: field ${box.width}px wide`);
+    else assert.ok(box.height >= 250, `${where}: field ${box.height}px tall`);
+    assert.equal(await page.evaluate(() => document.querySelector(".games").scrollWidth <= document.querySelector(".games").clientWidth), true, `${where}: no sideways scroll`);
+    assert.ok(await game.getByText("Score", { exact: true }).isVisible());
+    assert.ok(await game.getByText("Lives", { exact: true }).isVisible());
+    const close = await page.getByRole("button", { name: "Close games" }).boundingBox();
+    assert.ok(close.x + close.width <= width && close.y >= 0, `${where}: close on screen`);
+    assert.deepEqual(errors, []);
+    await page.close();
+  }
+});
+
+test("dragging a finger moves the paddle", async () => {
+  const { page } = await openApp(browser, server.url, { route: "home", viewport: { width: 375, height: 740 }, hasTouch: true });
+  const game = await openBreakout(page, { __oneBreakoutSeed: 3 });
+  const box = await game.locator("canvas.breakout-field").boundingBox();
+  await page.touchscreen.tap(box.x + box.width * 0.75, box.y + box.height * 0.6);
+  assert.equal(await bstatus(page), "playing");
+  await page.evaluate(({ x0, x1, y }) => {
+    const canvas = document.querySelector("canvas.breakout-field");
+    const fire = (type, x) => canvas.dispatchEvent(new PointerEvent(type, { pointerType: "touch", pointerId: 7, buttons: type === "pointerup" ? 0 : 1, clientX: x, clientY: y, bubbles: true }));
+    fire("pointerdown", x0);
+    for (let i = 1; i <= 10; i++) fire("pointermove", x0 + ((x1 - x0) * i) / 10);
+    fire("pointerup", x1);
+  }, { x0: box.x + box.width / 2, x1: box.x + 2, y: box.y + box.height * 0.8 });
+  await waitAttr(page, "paddleX", (v) => Number(v) <= 80);
+  await page.close();
+});
+
+test("with reduced motion no particles are drawn", async () => {
+  const { page } = await openApp(browser, server.url, { route: "home" });
+  await page.emulateMedia({ reducedMotion: "reduce" });
+  const bricks = await rules.page.evaluate(() => Array.from({ length: 12 }, (_, i) => ({ col: i, row: 11, kind: "normal", hp: 1, maxHp: 1, color: "#4dd8f0" })));
+  await openBreakout(page, { __oneBreakoutSeed: 5, __oneBreakoutBricks: bricks });
+  await page.keyboard.press("Space");
+  await page.waitForFunction(() => Number(document.querySelector("[data-testid=breakout-score]").textContent) > 0, null, { timeout: 8000 });
+  assert.equal(await page.evaluate(() => window.__oneBreakoutFx.particles.length), 0);
+  await page.close();
+});

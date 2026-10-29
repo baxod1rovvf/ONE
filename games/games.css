@@ -946,3 +946,68 @@
     animation: none;
   }
 }
+.breakout-hud {
+  flex-wrap: wrap;
+  justify-content: center;
+}
+@media (max-width: 520px), (pointer: coarse) {
+  .breakout {
+    --bfield: min(480px, calc((100dvh - 220px) * 0.75), calc(100vw - 64px));
+    gap: 8px;
+  }
+  .breakout-hud {
+    gap: 6px;
+  }
+  .breakout-stat {
+    padding: 2px 8px;
+    border-radius: 12px;
+  }
+  .breakout-stat .snake-stat__label {
+    font-size: 11px;
+  }
+  .breakout-stat .snake-stat__value {
+    font-size: 18px;
+  }
+  .breakout-buttons {
+    margin-left: 0;
+  }
+  .breakout-buttons .snake-pause {
+    height: 40px;
+    padding: 0 12px;
+    font-size: 15px;
+  }
+  .breakout-buttons .snake-mute {
+    width: 40px;
+    height: 40px;
+  }
+  .breakout-hint {
+    display: none;
+  }
+}
+@media (max-width: 360px) {
+  .breakout-stat--best {
+    display: none;
+  }
+}
+/* A phone on its side: the score bar beside the field. */
+@media (pointer: coarse) and (max-height: 500px) {
+  .breakout {
+    --bfield: max(150px, calc((100dvh - 110px) * 0.75));
+    grid-template-columns: auto auto;
+    justify-content: center;
+    align-items: center;
+    gap: 14px;
+  }
+  .breakout-hud {
+    width: 128px;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    align-items: stretch;
+  }
+  .breakout-stat--best {
+    display: grid;
+  }
+  .breakout-buttons {
+    justify-content: center;
+  }
+}

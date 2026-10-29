@@ -1894,9 +1894,12 @@
       };
     }, [escapeRef, togglePause]);
     React2.useEffect(() => {
+      // Test hooks: end the current ball, and read the screen effects.
       window.__oneBreakoutControl = { loseBall: () => (input.current.loseBall = true) };
+      window.__oneBreakoutFx = fx.current;
       return () => {
         delete window.__oneBreakoutControl;
+        delete window.__oneBreakoutFx;
       };
     }, []);
     // Sounds and effects from what happened in a step.
@@ -2120,16 +2123,9 @@
       ),
       React2.createElement(
         "div",
-        { className: "breakout-stage" },
-        React2.createElement("canvas", {
-          ref: canvasRef,
-          className: "breakout-field",
-          role: "img",
-          "aria-label": "Breakout field",
-          onPointerMove,
-          onPointerDown,
-          onPointerLeave: () => (input.current.targetX = null)
-        }),
+        // The whole field steers and launches, even under a message.
+        { className: "breakout-stage", onPointerMove, onPointerDown, onPointerLeave: () => (input.current.targetX = null) },
+        React2.createElement("canvas", { ref: canvasRef, className: "breakout-field", role: "img", "aria-label": "Breakout field" }),
         message &&
           React2.createElement(
             "div",
