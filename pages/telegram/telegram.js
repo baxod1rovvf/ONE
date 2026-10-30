@@ -488,7 +488,6 @@
         h(
           "div",
           { className: "tg-chat__tools" },
-          waitingHere && h(Button, { size: "sm", variant: "ghost", onClick: () => svc.markHandled(chatId) }, "No reply needed"),
           h(
             "label",
             { className: "tg-chat__level" },

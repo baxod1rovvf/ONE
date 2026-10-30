@@ -1325,6 +1325,11 @@ main[data-section] {
 .pagebar[data-hidden='true'] > * {
   pointer-events: none;
 }
+@media (max-width: 600px) {
+  .cluster .cluster__wide {
+    display: none;
+  }
+}
 .pagebar__brand {
   height: 44px;
   padding: 0 14px 0 11px;
@@ -5451,10 +5456,12 @@ main[data-section='saved'] .panel::after {
     return React2.createElement(
       "div",
       { className: "cluster glass", role: "toolbar", "aria-label": "Quick actions" },
-      React2.createElement(IconButton, { label: "Search", title: `Search (${modKey}+K)`, onClick: ui.openSearch }, React2.createElement(Search, { size: 18 })),
-      React2.createElement(IconButton, { label: "Quick capture", title: "Quick capture (C)", onClick: () => ui.openCapture() }, React2.createElement(Plus, { size: 19, strokeWidth: 2.2 })),
+      // Search, quick capture and the lock stay off phones, so the page name
+      // beside ONE has room.
+      React2.createElement(IconButton, { label: "Search", title: `Search (${modKey}+K)`, className: "cluster__wide", onClick: ui.openSearch }, React2.createElement(Search, { size: 18 })),
+      React2.createElement(IconButton, { label: "Quick capture", title: "Quick capture (C)", className: "cluster__wide", onClick: () => ui.openCapture() }, React2.createElement(Plus, { size: 19, strokeWidth: 2.2 })),
       React2.createElement(SoundsButton, null),
-      lock.enabled && React2.createElement(IconButton, { label: "Lock ONE now", onClick: lock.lock }, React2.createElement(Lock, { size: 17 })),
+      lock.enabled && React2.createElement(IconButton, { label: "Lock ONE now", className: "cluster__wide", onClick: lock.lock }, React2.createElement(Lock, { size: 17 })),
       React2.createElement(RefreshButton, null),
       React2.createElement(IconButton, { label: "Settings", "aria-current": ui.route === "preferences" ? "page" : void 0, onClick: () => ui.navigate("preferences") }, React2.createElement(Settings, { size: 18 }))
     );
