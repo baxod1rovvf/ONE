@@ -44,6 +44,19 @@ test("dock tabs are at least 44px and the page never scrolls sideways at 375px",
   }
 });
 
+test("on a phone the corner keeps only more, refresh and settings", async () => {
+  const { page } = await openApp(browser, server.url, { route: "telegram", viewport: { width: 375, height: 812 } });
+  const corner = page.getByRole("toolbar", { name: "Quick actions" });
+  await corner.getByRole("button", { name: "Settings" }).waitFor();
+  for (const name of ["Search", "Quick capture"]) assert.equal(await corner.getByRole("button", { name }).isVisible(), false, name);
+  assert.equal(await corner.getByRole("button", { name: "Refresh" }).isVisible(), true);
+  // The page name next to ONE isn't covered.
+  const brand = await page.locator(".pagebar__brand").boundingBox();
+  const box = await corner.boundingBox();
+  assert.ok(brand.x + brand.width <= box.x, `brand ends at ${brand.x + brand.width}, corner starts at ${box.x}`);
+  await page.close();
+});
+
 test("corner cluster: search (Ctrl+K), capture (C), settings; lock only when enabled", async () => {
   const { page } = await openApp(browser, server.url, { route: "tasks" });
   const cluster = page.getByRole("toolbar", { name: "Quick actions" });

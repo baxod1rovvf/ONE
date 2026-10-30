@@ -237,8 +237,11 @@
     if (!client) return;
     await loadRecent(id);
     const list = state.messages[id] || [];
+    // Seen in ONE counts as read in ONE: the chat stops waiting. Telegram
+    // isn't told, so the other person sees no read receipt.
     const lastIn = [...list].reverse().find((m) => !m.out);
-    if (lastIn) client.markRead(id, lastIn.id).catch(() => {});
+    const pref = state.prefs.chats[id];
+    if (lastIn && pref && !(pref.handled >= lastIn.id)) savePrefs({ ...state.prefs, chats: { ...state.prefs.chats, [id]: { ...pref, handled: lastIn.id } } });
     client
       .status(id)
       .then((s) => set({ presence: { ...state.presence, [id]: s } }))

@@ -308,13 +308,12 @@ const openChat = async (id = "11", extra = {}) => {
 };
 const box = (page) => page.getByLabel("Message", { exact: true });
 
-test("opening a chat shows the latest 50, day by day, and marks it read", async () => {
+test("opening a chat shows the latest 50, day by day", async () => {
   const { page, errors } = await openChat();
   assert.equal(await page.locator(".tg-msg").count(), 50);
   assert.ok((await page.locator(".tg-msg--in").count()) > 0 && (await page.locator(".tg-msg--out").count()) > 0);
   assert.ok((await page.locator(".tg-day").count()) >= 2);
   assert.equal(await page.locator('.tg-msg[data-id="58"] .tg-msg__tick--read').count(), 1);
-  await page.waitForFunction(() => window.__tgFake.reads.some((r) => r.chatId === "11" && r.maxId === 60));
   await page.locator(".tg-chat__status", { hasText: "online" }).waitFor();
   // The newest message is in view.
   const last = await page.locator('.tg-msg[data-id="60"]').boundingBox();
@@ -408,25 +407,30 @@ test("when Telegram asks to slow down, ONE says how long", async () => {
   await page.close();
 });
 
-test("No reply needed clears the chat until they write again", async () => {
+test("opening a chat counts as read in ONE, without telling Telegram", async () => {
   const { page } = await openChat();
-  await page.getByRole("button", { name: "No reply needed" }).click();
   await page.waitForFunction(() => document.querySelector('.dock__tab[data-route="telegram"] .dock__badge')?.getAttribute("aria-label") === "1 waiting");
   const handled = await page.evaluate(() => JSON.parse(localStorage.getItem("one.workspace.v1")).settings.telegram.chats["11"].handled);
   assert.equal(handled, 60);
+  await page.waitForTimeout(500);
+  assert.deepEqual(await page.evaluate(() => window.__tgFake.reads), [], "nothing is marked read in Telegram");
+  // Back to the list: a new message makes the chat wait again.
+  await page.evaluate(() => (location.hash = "#telegram"));
+  await page.locator(".tg-pane__empty").waitFor();
   await page.evaluate(() => window.__tgFake.push({ type: "message", message: { id: 61, chatId: "11", out: false, date: Date.now(), text: "Hello??", replyToId: null, media: null } }));
   await page.waitForFunction(() => document.querySelector('.dock__tab[data-route="telegram"] .dock__badge')?.getAttribute("aria-label") === "2 waiting");
   await page.close();
 });
 
-test("a message arriving while the chat is open shows at once, and typing… shows and goes", async () => {
+test("a message arriving while the chat is open shows at once and counts as read; typing… shows and goes", async () => {
   const { page } = await openChat();
   await page.evaluate(() => window.__tgFake.push({ type: "typing", chatId: "11" }));
   await page.locator(".tg-chat__status", { hasText: "typing…" }).waitFor();
   await page.evaluate(() => window.__tgFake.push({ type: "message", message: { id: 61, chatId: "11", out: false, date: Date.now(), text: "Still there?", replyToId: null, media: null } }));
   await page.locator('.tg-msg[data-id="61"]').waitFor();
   assert.equal(await page.locator(".tg-chat__status", { hasText: "typing…" }).count(), 0);
-  assert.equal(await page.evaluate(() => window.__oneTelegram.getState().waiting.some((w) => w.id === "11")), true);
+  // Seen as it arrives, so it isn't waiting.
+  await page.waitForFunction(() => !window.__oneTelegram.getState().waiting.some((w) => w.id === "11"));
   await page.evaluate(() => window.__tgFake.push({ type: "typing", chatId: "11" }));
   await page.locator(".tg-chat__status", { hasText: "typing…" }).waitFor();
   await page.locator(".tg-chat__status", { hasText: "typing…" }).waitFor({ state: "detached", timeout: 9000 });
@@ -438,7 +442,6 @@ test("the header: last seen, the level, and Open in Telegram", async () => {
   await page.locator(".tg-chat__status", { hasText: "last seen 5 min ago" }).waitFor();
   assert.equal(await page.locator(".tg-chat__head").getByRole("link", { name: "Open in Telegram" }).getAttribute("href"), "tg://user?id=12");
   await page.getByLabel("Level", { exact: true }).selectOption("high");
-  await page.waitForFunction(() => window.__oneTelegram.getState().waiting.find((w) => w.id === "12")?.current === "high");
   assert.equal(await page.evaluate(() => JSON.parse(localStorage.getItem("one.workspace.v1")).settings.telegram.chats["12"].level), "high");
   await page.close();
 });
