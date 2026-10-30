@@ -1,0 +1,245 @@
+/* ONE — Ideas page styles. Loaded with pages/ideas/ideas.js. */
+.cat-dot {
+  flex: none;
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: radial-gradient(circle at 40% 35%, #fff 0%, var(--c) 90%);
+  box-shadow: 0 0 0 1.5px var(--c);
+}
+.ideas-side {
+  display: grid;
+  gap: 12px;
+  padding: 16px;
+  position: sticky;
+  top: 76px;
+  max-height: clamp(440px, 70vh, 740px);
+  overflow: auto;
+}
+.ideas-side__back {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  justify-self: start;
+  padding: 4px 6px;
+  margin: -4px -6px 0;
+  border-radius: var(--r-sm);
+  color: var(--text-2);
+  font-size: var(--fs-sm);
+  font-weight: 500;
+}
+.ideas-side__back:hover {
+  color: var(--text);
+  background: var(--surface-2);
+}
+.ideas-side__card:last-child {
+  border-bottom: 0;
+  padding-bottom: 0;
+}
+.ideas-side__title-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.ideas-side__title {
+  flex: 1;
+  min-width: 0;
+  font-size: var(--fs-xl);
+  line-height: 1.3;
+  overflow-wrap: anywhere;
+}
+.ideas-side__cat {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  justify-self: start;
+  padding: 3px 10px 3px 8px;
+  border-radius: 99px;
+  background: var(--surface-2);
+  font-size: var(--fs-sm);
+  font-weight: 500;
+}
+.ideas-side__cat:hover {
+  background: var(--surface-3);
+}
+.ideas-side__body {
+  font-size: var(--fs-md);
+  line-height: 1.55;
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+}
+.ideas-side__meta {
+  font-size: var(--fs-xs);
+  color: var(--text-2);
+}
+.ideas-side__actions {
+  display: flex;
+  gap: 8px;
+}
+.ideas-side__head {
+  display: grid;
+  gap: 2px;
+}
+.ideas-side__heading {
+  font-size: var(--fs-lg);
+}
+.ideas-side__list {
+  list-style: none;
+  margin: 0 -8px;
+  padding: 0;
+  display: grid;
+  gap: 2px;
+}
+.ideas-side__item {
+  width: 100%;
+  display: grid;
+  gap: 2px;
+  padding: 8px;
+  border-radius: var(--r-md);
+  text-align: left;
+  transition: background var(--t-fast);
+}
+.ideas-side__item:hover {
+  background: var(--surface-2);
+}
+.ideas-side__item--cat {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.ideas-side__item-title {
+  flex: 1;
+  min-width: 0;
+  font-size: var(--fs-md);
+  font-weight: 500;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.ideas-side__item-sub {
+  font-size: var(--fs-xs);
+  color: var(--text-2);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.ideas-side__count {
+  font-size: var(--fs-sm);
+  color: var(--text-2);
+}
+.ideas-side__empty {
+  font-size: var(--fs-sm);
+  color: var(--text-2);
+}
+.ideas-side__new {
+  justify-self: start;
+}
+.igraph__svg {
+  display: block;
+  width: 100%;
+  height: 100%;
+  cursor: grab;
+  touch-action: none;
+  user-select: none;
+  -webkit-user-select: none;
+}
+.igraph__svg:active {
+  cursor: grabbing;
+}
+.igraph__edge {
+  stroke: var(--text-3);
+  stroke-opacity: 0.55;
+  stroke-width: 1.1;
+  animation: ig-fade 0.6s var(--ease) 0.2s both;
+  transition: stroke-opacity var(--t-fast);
+}
+.igraph__arrow {
+  fill: var(--text-3);
+}
+.igraph__node {
+  cursor: pointer;
+  outline: none;
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: ig-pop 0.5s var(--ease) both;
+}
+.igraph__pos {
+  transition: opacity var(--t-med);
+}
+.igraph__dot {
+  stroke: var(--c);
+  stroke-width: 1.6;
+  transition: stroke-width var(--t-fast), filter var(--t-fast);
+}
+.igraph__node--hub .igraph__dot {
+  stroke-width: 3;
+}
+.igraph__halo {
+  fill: none;
+  stroke: var(--c);
+  stroke-width: 2;
+  stroke-opacity: 0.5;
+}
+.igraph__label {
+  font-family: var(--font);
+  font-size: 11px;
+  font-weight: 500;
+  fill: var(--text);
+  stroke: var(--surface-2);
+  stroke-width: 3.5px;
+  stroke-linejoin: round;
+  paint-order: stroke;
+  pointer-events: none;
+}
+.igraph__label--hub {
+  font-size: 13.5px;
+  font-weight: 650;
+}
+.igraph__hub-count {
+  font-family: var(--font);
+  font-size: 13px;
+  font-weight: 650;
+  fill: #26282c;
+  pointer-events: none;
+}
+.igraph__controls {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  display: grid;
+  gap: 6px;
+}
+.igraph__hint {
+  position: absolute;
+  left: 14px;
+  bottom: 10px;
+  font-size: var(--fs-xs);
+  color: var(--text-3);
+  pointer-events: none;
+}
+@media (max-width: 900px) {
+  .ideas-side {
+    position: static;
+    max-height: none;
+  }
+  .igraph {
+    height: clamp(360px, 60vh, 560px);
+    grid-row: 1;
+  }
+  .igraph__hint {
+    display: none;
+  }
+}
+main[data-section='ideas'] .igraph {
+  background: radial-gradient(ellipse at 50% 15%, color-mix(in srgb, var(--section-soft) 70%, transparent) 0%, transparent 70%), var(--card-bg);
+}
+.igraph__edge {
+  stroke: var(--c-tasks);
+  stroke-opacity: 0.45;
+  stroke-width: 1.6;
+  stroke-linecap: round;
+  stroke-dasharray: 6 3;
+}
+.igraph__dot {
+  stroke-width: 2.2;
+}

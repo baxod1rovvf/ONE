@@ -69,6 +69,6 @@ test("Sources lists each recording with its licence", async () => {
 
 test("the service worker caches the sound sources", () => {
   const sw = fs.readFileSync(path.join(__dirname, "..", "sw.js"), "utf8");
-  assert.match(sw, /const CACHE = "one-v7"/);
+  assert.match(sw, /const CACHE = "one-v8"/);
   for (const host of ["commons.wikimedia.org", "upload.wikimedia.org", "api.quran.com"]) assert.ok(sw.includes(`"${host}"`), host);
 });

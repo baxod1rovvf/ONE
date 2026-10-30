@@ -9,7 +9,7 @@ const vm = require("node:vm");
 const BODY = "0123456789";
 
 function makeWorld({ offline = {}, media = {}, app = {} } = {}) {
-  const stores = { "one-quran-offline": new Map(Object.entries(offline)), "one-media": new Map(Object.entries(media)), "one-v7": new Map(Object.entries(app)) };
+  const stores = { "one-quran-offline": new Map(Object.entries(offline)), "one-media": new Map(Object.entries(media)), "one-v8": new Map(Object.entries(app)) };
   const opened = [];
   const added = [];
   const puts = [];
@@ -138,7 +138,7 @@ test("a first visit loads the page from the network and saves it", async () => {
   const w = makeWorld();
   const res = await w.dispatch("https://one.example/index.html", {}, { navigate: true });
   assert.equal(await res.text(), BODY);
-  assert.ok(w.puts.some((p) => p.cache === "one-v7" && p.url === PAGE), JSON.stringify(w.puts));
+  assert.ok(w.puts.some((p) => p.cache === "one-v8" && p.url === PAGE), JSON.stringify(w.puts));
 });
 
 test("saved app files are used without a background fetch", async () => {
@@ -157,10 +157,10 @@ test("fresh requests always reach the network and are not saved by the worker", 
   assert.equal(w.puts.length, 0);
 });
 
-test("the app cache is one-v7", async () => {
+test("the app cache is one-v8", async () => {
   const w = makeWorld();
   await w.install();
-  assert.ok(w.opened.includes("one-v7"), JSON.stringify(w.opened));
+  assert.ok(w.opened.includes("one-v8"), JSON.stringify(w.opened));
 });
 
 test("install saves fresh copies, never ones from the browser's HTTP cache", async () => {

@@ -1,0 +1,94 @@
+/* ONE — Goals page styles. Loaded with pages/goals/goals.js. */
+.badge--success {
+  background: var(--success-soft);
+  color: var(--success);
+}
+.bar__fill {
+  height: 100%;
+  border-radius: inherit;
+  background: var(--accent);
+  transition: width 400ms var(--ease), background var(--t-med) var(--ease);
+}
+.bar--complete .bar__fill {
+  background: var(--success);
+}
+.section-label {
+  margin: 28px 0 12px;
+  font-size: var(--fs-sm);
+  font-weight: 600;
+  color: var(--text-2);
+}
+.inline-note {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: var(--text-2);
+  font-size: var(--fs-md);
+  margin: -8px 0 18px;
+}
+.goal-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 16px;
+}
+.goal__top {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 8px;
+}
+.goal__titles {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+  min-width: 0;
+}
+.goal__title {
+  font-size: var(--fs-lg);
+  font-weight: 600;
+  overflow-wrap: anywhere;
+}
+.goal__desc {
+  color: var(--text-2);
+  font-size: var(--fs-md);
+  overflow-wrap: anywhere;
+}
+.goal__progress {
+  display: grid;
+  gap: 8px;
+  margin-top: auto;
+  padding-top: 6px;
+}
+.goal__progress-row {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+.goal__pct {
+  font-size: var(--fs-2xl);
+  font-weight: 600;
+  letter-spacing: -0.02em;
+}
+.goal__meta {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  font-size: var(--fs-xs);
+  color: var(--text-2);
+}
+.goal__controls {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.goal--reached .goal__pct {
+  color: var(--success);
+}
+@media (max-width: 760px) {
+  .goal-grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}

@@ -13,10 +13,12 @@ after(async () => {
 });
 
 const GAME_FILES = ["panel", "snake", "tetris", "breakout", "2048", "minesweeper", "memory"].flatMap((f) => [`/games/${f}.js`, `/games/${f}.css`]);
-const FILES = ["/index.html", ...GAME_FILES, "/manifest.webmanifest"];
+const PAGE_IDS = ["home", "tasks", "websites", "ideas", "telegram", "saved", "goals", "knowledge", "preferences"];
+const PAGE_FILES = [...PAGE_IDS.flatMap((id) => [`/pages/${id}/${id}.js`, `/pages/${id}/${id}.css`]), ...["rules", "client", "service", "qr"].map((f) => `/pages/telegram/${f}.js`)];
+const FILES = ["/index.html", ...GAME_FILES, "/manifest.webmanifest", ...PAGE_FILES];
 const local = (...parts) => new Date(...parts).getTime();
 
-// Serves the four app files fresh (marked with x-one-fresh) and counts them.
+// Serves the app files fresh (marked with x-one-fresh) and counts them.
 // fail(path) may return a status to answer with, or "abort".
 async function watchUpdates(page, { fail } = {}) {
   const seen = [];
@@ -63,7 +65,7 @@ test("Refresh fetches fresh files, saves them and reloads", async () => {
   assert.deepEqual([...seen].sort(), [...FILES].sort());
   assert.equal(reloads.n, 1);
   const saved = await page.evaluate(async () => {
-    const cache = await caches.open("one-v7");
+    const cache = await caches.open("one-v8");
     const read = async (p) => {
       const hit = await cache.match(new URL(p, location.href).href);
       return hit && (await hit.text());
@@ -93,8 +95,8 @@ test("a half-failed update saves nothing", async () => {
   const r = await page.evaluate(async () => {
     const key = (p) => new URL(p, location.href).href;
     // Start from a clean saved copy (the helper's warm-up visit may have saved one).
-    await caches.delete("one-v7");
-    const cache = await caches.open("one-v7");
+    await caches.delete("one-v8");
+    const cache = await caches.open("one-v8");
     await cache.put(key("./index.html"), new Response("old"));
     const result = await window.__oneUpdate.updateApp().then(() => "ok", () => "failed");
     const index = await (await cache.match(key("./index.html"))).text();
@@ -227,7 +229,7 @@ test("a saved page that can't start is dropped and loaded fresh, once", async ()
   const broken = fs.readFileSync(path.join(__dirname, "..", "index.html"), "utf8").replace("client.createRoot(", "throw new Error('broken release');client.createRoot(");
   const { page } = await openApp(browser, server.url, { route: "tasks", init: (p) => setLast(p, Date.now()) });
   await page.evaluate(async () => {
-    const cache = await caches.open("one-v7");
+    const cache = await caches.open("one-v8");
     await cache.put(new URL("./index.html", location.href).href, new Response("saved"));
   });
   await page.route((url) => url.pathname === "/index.html", (route) => route.fulfill({ status: 200, contentType: "text/html", body: broken }));
@@ -242,7 +244,7 @@ test("a saved page that can't start is dropped and loaded fresh, once", async ()
   await page.waitForFunction(() => document.readyState === "complete");
   await page.waitForTimeout(500);
   assert.equal(navigations, 2, "the rescue reloaded once");
-  const dropped = await page.evaluate(async () => !(await (await caches.open("one-v7")).match(new URL("./index.html", location.href).href)));
+  const dropped = await page.evaluate(async () => !(await (await caches.open("one-v8")).match(new URL("./index.html", location.href).href)));
   assert.equal(dropped, true, "the saved page was dropped");
   await page.clock.runFor(9000);
   await page.waitForTimeout(500);

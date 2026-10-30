@@ -1,0 +1,267 @@
+/* ONE — Home page styles. Loaded with pages/home/home.js. */
+.meadow-home {
+  position: fixed;
+  inset: 0;
+  overflow: hidden;
+  cursor: none;
+  touch-action: none;
+  user-select: none;
+  -webkit-user-select: none;
+  background: #9fd1f7;
+  --hero-ink: #14301f;
+  --hero-sub: rgba(20, 48, 31, 0.78);
+}
+.meadow-home[data-time='night'] {
+  background: #0b1434;
+  --hero-ink: #f3f5ff;
+  --hero-sub: rgba(235, 240, 255, 0.82);
+}
+.meadow-canvas,
+.meadow-fallback {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+.meadow-fallback {
+  transition: opacity 800ms var(--ease);
+}
+.meadow-fallback[data-hidden='true'] {
+  opacity: 0;
+  pointer-events: none;
+}
+.meadow-hero {
+  position: absolute;
+  top: clamp(72px, 11vh, 120px);
+  left: 50%;
+  transform: translateX(-50%);
+  width: min(92vw, 640px);
+  display: grid;
+  justify-items: center;
+  gap: 6px;
+  text-align: center;
+  transition: opacity 600ms var(--ease), transform 600ms var(--ease);
+}
+.meadow-hero__title {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: clamp(44px, 7.4vw, 84px);
+  line-height: 1;
+  letter-spacing: -0.02em;
+  color: var(--hero-ink);
+  text-shadow: 0 2px 24px rgba(255, 255, 255, 0.35);
+}
+.meadow-home[data-time='night'] .meadow-hero__title {
+  text-shadow: 0 2px 30px rgba(120, 140, 255, 0.35);
+}
+.meadow-hero__sub {
+  font-family: var(--font-display);
+  font-weight: 500;
+  font-size: clamp(17px, 1.9vw, 22px);
+  color: var(--hero-sub);
+}
+.meadow-break {
+  margin-top: 14px;
+  height: 44px;
+  padding: 0 22px;
+  border-radius: 999px;
+  font-weight: 600;
+  font-size: var(--fs-lg);
+  background: #1f4d2e;
+  color: #f2fff4;
+  box-shadow: 0 6px 18px rgba(20, 60, 30, 0.3);
+  transition: transform var(--t-fast) var(--ease), box-shadow var(--t-fast) var(--ease), background var(--t-fast) var(--ease);
+}
+.meadow-break:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 10px 24px rgba(20, 60, 30, 0.35);
+}
+.meadow-break:active {
+  transform: translateY(1px) scale(0.98);
+}
+.meadow-home[data-time='night'] .meadow-break {
+  background: #eef1ff;
+  color: #18224a;
+  box-shadow: 0 6px 22px rgba(160, 175, 255, 0.35);
+}
+.meadow-controls {
+  position: absolute;
+  left: 50%;
+  bottom: calc(96px + env(safe-area-inset-bottom, 0px));
+  transform: translateX(-50%);
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px;
+  border-radius: 999px;
+  transition: opacity 600ms var(--ease), transform 600ms var(--ease);
+}
+.meadow-time {
+  display: flex;
+  gap: 2px;
+}
+.meadow-time__opt {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  height: 36px;
+  padding: 0 14px;
+  border-radius: 999px;
+  font-weight: 600;
+  font-size: var(--fs-sm);
+  color: var(--text-2);
+  transition: background var(--t-fast) var(--ease), color var(--t-fast) var(--ease);
+}
+.meadow-time__opt[aria-checked='true'] {
+  background: var(--surface);
+  color: var(--text);
+  box-shadow: var(--shadow-sm);
+}
+.meadow-home[data-break='true'] .meadow-hero,
+.meadow-home[data-break='true'] .meadow-controls {
+  opacity: 0;
+  pointer-events: none;
+}
+.meadow-home[data-break='true'] .meadow-hero {
+  transform: translate(-50%, -16px);
+}
+.meadow-home[data-break='true'] .meadow-controls {
+  transform: translate(-50%, 16px);
+}
+.break-pill {
+  position: absolute;
+  z-index: 2;
+  top: max(16px, env(safe-area-inset-top, 0px));
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 4px 4px 4px 16px;
+  border-radius: 999px;
+  font-weight: 600;
+  font-size: var(--fs-sm);
+  color: var(--hero-ink);
+  animation: pill-in 600ms var(--ease);
+}
+.break-pill__label {
+  color: var(--hero-sub);
+}
+.break-pill__time {
+  min-width: 2.6em;
+}
+.break-pill__end {
+  height: 32px;
+  padding: 0 14px;
+  border-radius: 999px;
+  background: var(--surface);
+  color: var(--text);
+  font-weight: 600;
+}
+.break-pill__end:focus-visible {
+  outline: 2px solid var(--hero-ink);
+  outline-offset: 2px;
+}
+.meadow-welcome {
+  position: absolute;
+  z-index: 2;
+  top: 45%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  padding: 12px 22px;
+  border-radius: 999px;
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: 20px;
+  color: var(--hero-ink);
+  animation: pill-in 500ms var(--ease);
+}
+.hand-cursor {
+  position: fixed;
+  z-index: 40;
+  top: 0;
+  left: 0;
+  pointer-events: none;
+  will-change: transform;
+}
+.hand-cursor[data-show='false'] {
+  display: none;
+}
+.hand-cursor__hand {
+  fill: #fff;
+  stroke: #17231c;
+  stroke-width: 1.6;
+  stroke-linejoin: round;
+}
+.hand-cursor__ticks {
+  fill: none;
+  stroke: #fff;
+  stroke-width: 1.6;
+  stroke-linecap: round;
+  opacity: 0;
+  transition: opacity 120ms var(--ease);
+}
+.hand-cursor[data-down='true'] .hand-cursor__ticks {
+  opacity: 1;
+}
+@media (max-width: 760px) {
+  .meadow-hero {
+    top: calc(88px + env(safe-area-inset-top, 0px));
+  }
+}
+/* Telegram: who is waiting. Top left on a wide screen; above the meadow
+   controls on narrower ones, clear of the title and the controls. */
+.tg-home {
+  position: absolute;
+  z-index: 1;
+  top: 88px;
+  left: 24px;
+  width: min(340px, calc(100% - 48px));
+  display: grid;
+  gap: 6px;
+  padding: 14px 16px;
+  border-radius: 18px;
+  font-size: var(--fs-sm);
+  line-height: 1.45;
+}
+.tg-home__who {
+  font-weight: 500;
+}
+.tg-home__name {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  min-height: 28px;
+  padding: 0 2px;
+  font-weight: 700;
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 3px;
+}
+.tg-home__note {
+  color: var(--text-2);
+}
+.tg-home .tg-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+}
+.tg-home .tg-dot--high {
+  background: var(--danger);
+}
+.tg-home .tg-dot--normal {
+  background: var(--c-ideas);
+}
+.tg-home .tg-dot--low {
+  box-shadow: inset 0 0 0 1.5px var(--success);
+}
+@media (max-width: 1100px) {
+  .tg-home {
+    top: auto;
+    left: 50%;
+    width: min(420px, calc(100% - 32px));
+    transform: translateX(-50%);
+    bottom: calc(168px + env(safe-area-inset-bottom, 0px));
+  }
+}

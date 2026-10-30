@@ -5,7 +5,7 @@
 // Refresh button and the daily 23:59 update (updateApp in index.html), whose
 // requests carry "x-one-fresh" and pass straight through.
 // Sync requests to Supabase are never cached.
-const CACHE = "one-v7";
+const CACHE = "one-v8";
 const INDEX = new URL("./index.html", self.location.href).href;
 // Surahs saved with "Keep offline"; never cleared by version updates.
 const QURAN_OFFLINE = "one-quran-offline";
@@ -22,6 +22,9 @@ const SHELL = [
   "./icons/apple-touch-icon.png",
   // Every game's files (keep in step with GAME_FILES in index.html).
   ...["panel", "snake", "tetris", "breakout", "2048", "minesweeper", "memory"].flatMap((f) => [`./games/${f}.js`, `./games/${f}.css`]),
+  // Every page's files and Telegram's own scripts (PAGE_FILES in index.html).
+  ...["home", "tasks", "websites", "ideas", "telegram", "saved", "goals", "knowledge", "preferences"].flatMap((p) => [`./pages/${p}/${p}.js`, `./pages/${p}/${p}.css`]),
+  ...["rules", "client", "service", "qr"].map((f) => `./pages/telegram/${f}.js`),
   "https://cdnjs.cloudflare.com/ajax/libs/react/18.3.1/umd/react.production.min.js",
   "https://cdnjs.cloudflare.com/ajax/libs/react-dom/18.3.1/umd/react-dom.production.min.js"
 ];
