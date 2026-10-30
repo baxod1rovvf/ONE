@@ -11,7 +11,11 @@ import { fileURLToPath } from "node:url";
 const here = path.dirname(fileURLToPath(import.meta.url));
 const tg = path.join(here, "node_modules/telegram");
 const version = JSON.parse(fs.readFileSync(path.join(tg, "package.json"), "utf8")).version;
-const swap = { [path.join(tg, "CryptoFile.js")]: path.join(tg, "crypto/crypto.js") };
+// CryptoFile.js hands Node's crypto to the rest of GramJS as its default
+// export; in the browser it hands over GramJS's own crypto/crypto.js instead,
+// in the same shape.
+const cryptoFile = path.join(tg, "CryptoFile.js");
+const browserCrypto = path.join(tg, "crypto/crypto.js");
 const leaveOut = new Set([path.join(tg, "extensions/net.js"), path.join(tg, "extensions/socks.js"), path.join(tg, "sessions/localStorage.js")]);
 const nodeOnly = new Set(["net", "tls", "fs", "crypto", "constants", "node-localstorage", "socks"]);
 
@@ -23,11 +27,16 @@ const browserOnly = {
       if (nodeOnly.has(args.path)) return { path: args.path, namespace: "left-out" };
       const r = await build.resolve(args.path, { resolveDir: args.resolveDir, kind: args.kind, pluginData: true });
       if (r.errors.length) return;
-      if (swap[r.path]) return { path: swap[r.path] };
+      if (r.path === cryptoFile) return { path: r.path, namespace: "crypto-file" };
       if (leaveOut.has(r.path)) return { path: r.path, namespace: "left-out" };
       return r;
     });
     build.onLoad({ filter: /.*/, namespace: "left-out" }, () => ({ contents: "module.exports = {};", loader: "js" }));
+    build.onLoad({ filter: /.*/, namespace: "crypto-file" }, () => ({
+      contents: `Object.defineProperty(exports, "__esModule", { value: true }); exports.default = require(${JSON.stringify(browserCrypto)});`,
+      loader: "js",
+      resolveDir: path.dirname(cryptoFile)
+    }));
   }
 };
 
