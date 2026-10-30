@@ -1,0 +1,195 @@
+/* ONE — Breakout (loaded with games/breakout.js). */
+/* Breakout */
+.breakout {
+  --bfield: min(480px, calc((100dvh - 250px) * 0.75), calc(100vw - 72px));
+  display: grid;
+  justify-items: center;
+  gap: 10px;
+}
+/* One line on wide screens, even when the field is narrower than the bar. */
+.breakout-hud {
+  width: max-content;
+  max-width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+.breakout-stat {
+  display: grid;
+  padding: 3px 12px;
+  border-radius: 14px;
+  background: #e9f8d8;
+  color: #1d3a22;
+  border: 2px solid #2f6b35;
+}
+.breakout-stat .snake-stat__value {
+  font-size: 22px;
+}
+.breakout-stat--best {
+  background: #fff1b8;
+}
+.breakout-stat--lives .snake-stat__value {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+.breakout-hearts {
+  white-space: nowrap;
+  color: #e8475f;
+  font-size: 16px;
+  letter-spacing: 1px;
+}
+.breakout-lives {
+  font-size: 14px;
+  opacity: 0.6;
+}
+.breakout-stat--lives[data-hurt='true'] {
+  animation: breakout-hurt 600ms var(--ease);
+}
+@keyframes breakout-hurt {
+  20%,
+  60% {
+    background: #ffd0d6;
+    transform: translateX(-3px);
+  }
+  40%,
+  80% {
+    transform: translateX(3px);
+  }
+}
+.breakout-buttons {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-left: auto;
+}
+.breakout-buttons .snake-pause {
+  margin-left: 0;
+}
+.breakout-buttons .snake-mute {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  color: var(--games-ink);
+  border: 2px solid currentColor;
+}
+.breakout-buttons .snake-mute[aria-pressed='false'] {
+  opacity: 0.6;
+}
+.breakout-stage {
+  position: relative;
+  width: var(--bfield);
+  aspect-ratio: 3 / 4;
+  border-radius: 18px;
+  overflow: hidden;
+  border: 5px solid #2b3168;
+  box-shadow: 0 6px 0 #171b3d, 0 0 30px rgba(77, 216, 240, 0.18);
+}
+.breakout-field {
+  display: block;
+  width: 100%;
+  height: 100%;
+  touch-action: none;
+  user-select: none;
+  -webkit-user-select: none;
+  background: #0b1030;
+}
+.breakout[data-status='playing'] .breakout-field {
+  cursor: none;
+}
+.breakout-message {
+  background: rgba(11, 16, 48, 0.55);
+  color: #f1f4ff;
+}
+.breakout[data-status='cleared'] .breakout-message {
+  background: transparent;
+  pointer-events: none;
+}
+.breakout[data-status='cleared'] .snake-message__title {
+  color: #ffd93d;
+  text-shadow: 0 0 18px rgba(255, 217, 61, 0.7);
+  animation: breakout-cleared 700ms var(--ease);
+}
+@keyframes breakout-cleared {
+  from {
+    transform: scale(0.5);
+    opacity: 0;
+  }
+}
+.breakout-restart {
+  margin-top: 8px;
+  background: transparent;
+  color: #f1f4ff;
+  border-color: #f1f4ff;
+}
+@media (prefers-reduced-motion: reduce) {
+  .breakout-stat--lives[data-hurt='true'],
+  .breakout[data-status='cleared'] .snake-message__title {
+    animation: none;
+  }
+}
+@media (max-width: 520px), (pointer: coarse) {
+  .breakout {
+    --bfield: min(480px, calc((100dvh - 220px) * 0.75), calc(100vw - 64px));
+    gap: 8px;
+  }
+  .breakout-hud {
+    width: var(--bfield);
+    flex-wrap: wrap;
+    gap: 6px;
+  }
+  .breakout-stat {
+    padding: 2px 8px;
+    border-radius: 12px;
+  }
+  .breakout-stat .snake-stat__label {
+    font-size: 11px;
+  }
+  .breakout-stat .snake-stat__value {
+    font-size: 18px;
+  }
+  .breakout-buttons {
+    margin-left: 0;
+  }
+  .breakout-buttons .snake-pause {
+    height: 40px;
+    padding: 0 12px;
+    font-size: 15px;
+  }
+  .breakout-buttons .snake-mute {
+    width: 40px;
+    height: 40px;
+  }
+  .breakout-hint {
+    display: none;
+  }
+}
+@media (max-width: 360px) {
+  .breakout-stat--best {
+    display: none;
+  }
+}
+/* A phone on its side: the score bar beside the field. */
+@media (pointer: coarse) and (max-height: 500px) {
+  .breakout {
+    --bfield: max(150px, calc((100dvh - 110px) * 0.75));
+    grid-template-columns: auto auto;
+    justify-content: center;
+    align-items: center;
+    gap: 14px;
+  }
+  .breakout-hud {
+    width: 128px;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    align-items: stretch;
+  }
+  .breakout-stat--best {
+    display: grid;
+  }
+  .breakout-buttons {
+    justify-content: center;
+  }
+}
+

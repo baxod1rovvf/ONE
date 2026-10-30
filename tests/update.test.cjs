@@ -12,14 +12,10 @@ after(async () => {
   await server.close();
 });
 
+const GAME_FILES = ["panel", "snake", "tetris", "breakout", "2048", "minesweeper", "memory"].flatMap((f) => [`/games/${f}.js`, `/games/${f}.css`]);
 const PAGE_IDS = ["home", "tasks", "websites", "ideas", "telegram", "saved", "goals", "knowledge", "preferences"];
-const FILES = [
-  "/index.html",
-  "/games/games.js",
-  "/games/games.css",
-  "/manifest.webmanifest",
-  ...PAGE_IDS.flatMap((id) => [`/pages/${id}/${id}.js`, `/pages/${id}/${id}.css`])
-];
+const PAGE_FILES = [...PAGE_IDS.flatMap((id) => [`/pages/${id}/${id}.js`, `/pages/${id}/${id}.css`]), ...["rules", "client", "service", "qr"].map((f) => `/pages/telegram/${f}.js`)];
+const FILES = ["/index.html", ...GAME_FILES, "/manifest.webmanifest", ...PAGE_FILES];
 const local = (...parts) => new Date(...parts).getTime();
 
 // Serves the app files fresh (marked with x-one-fresh) and counts them.
@@ -74,9 +70,9 @@ test("Refresh fetches fresh files, saves them and reloads", async () => {
       const hit = await cache.match(new URL(p, location.href).href);
       return hit && (await hit.text());
     };
-    return [await read("./index.html"), await read("./games/games.js"), await read("./")];
+    return [await read("./index.html"), await read("./games/panel.js"), await read("./")];
   });
-  assert.deepEqual(saved, ["fresh /index.html", "fresh /games/games.js", "fresh /index.html"]);
+  assert.deepEqual(saved, ["fresh /index.html", "fresh /games/panel.js", "fresh /index.html"]);
   await page.close();
 });
 
@@ -104,7 +100,7 @@ test("a half-failed update saves nothing", async () => {
     await cache.put(key("./index.html"), new Response("old"));
     const result = await window.__oneUpdate.updateApp().then(() => "ok", () => "failed");
     const index = await (await cache.match(key("./index.html"))).text();
-    const games = await cache.match(key("./games/games.js"));
+    const games = await cache.match(key("./games/panel.js"));
     return { result, index, games: !!games };
   });
   assert.deepEqual(r, { result: "failed", index: "old", games: false });

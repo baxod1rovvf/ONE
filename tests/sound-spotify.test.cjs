@@ -1,6 +1,6 @@
 const { test, before, after } = require("node:test");
 const assert = require("node:assert/strict");
-const { startServer, launch, openApp } = require("./helpers.cjs");
+const { startServer, launch, openApp, addAlbum } = require("./helpers.cjs");
 
 let server, browser;
 before(async () => {
@@ -50,9 +50,10 @@ test("saved Spotify items stay after a reload", async () => {
 
 test("playing an item loads it in Spotify's player and pauses ONE's own music", async () => {
   const { page } = await openApp(browser, server.url, { route: "tasks" });
-  await openTab(page, "Music");
-  await panel(page).getByRole("button", { name: "Play Gymnopédie No. 1" }).click();
+  await addAlbum(page, "Test", ["long.mp3"]);
+  await panel(page).getByRole("button", { name: "Play Long Song" }).click();
   await page.waitForFunction(() => window.__oneSound.stats().track && window.__oneSound.stats().track.playing);
+  await panel(page).getByRole("button", { name: "All music" }).click();
   await addLink(page, PLAYLIST);
   await spotify(page).getByRole("button", { name: /^Play Spotify/ }).click();
   await page.waitForFunction(() => window.__fakeSpotify && window.__fakeSpotify.calls.some((c) => c[0] === "play"));
@@ -88,14 +89,50 @@ test("starting a surah pauses Spotify", async () => {
   await page.close();
 });
 
-test("Nasheeds only hides Spotify items labelled Music", async () => {
+const oembed = (page, reply) =>
+  page.route("https://open.spotify.com/oembed**", (route) => (reply === "abort" ? route.abort() : route.fulfill({ status: 200, headers: { "access-control-allow-origin": "*" }, ...reply })));
+
+test("a pasted link shows its real name and its type", async () => {
+  const { page } = await openApp(browser, server.url, { route: "tasks" });
+  await oembed(page, { contentType: "application/json", body: JSON.stringify({ title: "Lo-fi Beats" }) });
+  await openTab(page, "Music");
+  await addLink(page, PLAYLIST);
+  const row = spotify(page).locator(".spotify-item");
+  await row.getByText("Lo-fi Beats").waitFor();
+  assert.ok(await row.getByText("Playlist", { exact: true }).isVisible());
+  assert.ok(await row.getByRole("button", { name: "Remove Lo-fi Beats" }).isVisible());
+  await page.close();
+});
+
+test("without the name service the placeholder stays, and the name comes later", async () => {
+  const { page } = await openApp(browser, server.url, { route: "tasks" });
+  await oembed(page, "abort");
+  await openTab(page, "Music");
+  await addLink(page, PLAYLIST);
+  const row = spotify(page).locator(".spotify-item");
+  await row.getByText(/Spotify playlist …/).waitFor();
+  // Junk (HTML) instead of a name is ignored too.
+  await page.unroute("https://open.spotify.com/oembed**");
+  await oembed(page, { contentType: "text/html", body: "<html>nope</html>" });
+  await addLink(page, PLAYLIST);
+  assert.equal(await row.count(), 1, "the same link is saved once");
+  await page.keyboard.press("Escape");
+  await openTab(page, "Music");
+  await page.waitForTimeout(300);
+  assert.ok(await spotify(page).getByText(/Spotify playlist …/).isVisible());
+  // Now the service answers: reopening the tab fills the name in.
+  await page.unroute("https://open.spotify.com/oembed**");
+  await oembed(page, { contentType: "application/json", body: JSON.stringify({ title: "Later Name" }) });
+  await page.keyboard.press("Escape");
+  await openTab(page, "Music");
+  await spotify(page).getByText("Later Name").waitFor();
+  await page.close();
+});
+
+test("Spotify items have no Nasheed switch", async () => {
   const { page } = await openApp(browser, server.url, { route: "tasks" });
   await openTab(page, "Music");
   await addLink(page, PLAYLIST);
-  await addLink(page, "spotify:album:1A2B3C4D5E");
-  await spotify(page).locator(".spotify-item").nth(1).getByRole("switch", { name: /^Nasheed/ }).click();
-  await panel(page).getByRole("switch", { name: "Nasheeds only" }).click();
-  assert.equal(await spotify(page).locator(".spotify-item").count(), 1);
-  assert.match(await spotify(page).locator(".spotify-item").textContent(), /album/i);
+  assert.equal(await spotify(page).getByRole("switch").count(), 0);
   await page.close();
 });

@@ -1,6 +1,6 @@
 const { test, before, after } = require("node:test");
 const assert = require("node:assert/strict");
-const { startServer, launch, openApp } = require("./helpers.cjs");
+const { startServer, launch, openApp, addAlbum } = require("./helpers.cjs");
 
 let server, browser;
 before(async () => {
@@ -100,7 +100,8 @@ test("playback ticks don't re-render the Quran list", async () => {
   await page.mouse.click(2, 2);
   await soundsButton(page).click();
   await panel(page).getByRole("tab", { name: "Music" }).click();
-  await panel(page).getByRole("button", { name: "Play Gymnopédie No. 1" }).click();
+  await addAlbum(page, "Test", ["long.mp3"]);
+  await panel(page).getByRole("button", { name: "Play Long Song" }).click();
   await page.waitForFunction(() => window.__oneSound.stats().track && window.__oneSound.stats().track.playing);
   await panel(page).getByRole("tab", { name: "Quran" }).click();
   await page.waitForTimeout(800);

@@ -1,0 +1,200 @@
+/* ONE — 2048 (loaded with games/2048.js). A dark purple board, tiles from
+   pale lavender to deep violet, then pink and gold for the big ones. */
+.g48 {
+  --board: min(440px, calc(100vw - 64px), calc(100dvh - 300px));
+  --gap: calc(var(--board) * 0.03);
+  --cell: calc((var(--board) - var(--gap) * (var(--n) + 1)) / var(--n));
+  display: grid;
+  justify-items: center;
+  gap: 12px;
+}
+.g48-hud {
+  width: var(--board);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.g48-hud .snake-pause {
+  margin-left: auto;
+}
+.g48-hud .snake-mute {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  color: var(--games-ink);
+  border: 2px solid currentColor;
+}
+.g48-hud .snake-mute[aria-pressed='false'] {
+  opacity: 0.6;
+}
+.g48-stat {
+  position: relative;
+}
+.g48-gain {
+  position: absolute;
+  right: 8px;
+  top: 4px;
+  font-weight: 700;
+  color: #7426f0;
+  pointer-events: none;
+  animation: g48-gain 700ms var(--ease) forwards;
+}
+@keyframes g48-gain {
+  to {
+    transform: translateY(-24px);
+    opacity: 0;
+  }
+}
+.g48-board {
+  position: relative;
+  width: var(--board);
+  height: var(--board);
+  padding: var(--gap);
+  box-sizing: border-box;
+  display: grid;
+  grid-template-columns: repeat(var(--n), var(--cell));
+  grid-auto-rows: var(--cell);
+  gap: var(--gap);
+  border-radius: 16px;
+  background: #2a2140;
+  box-shadow: 0 6px 0 #1a1430;
+  touch-action: none;
+  user-select: none;
+  -webkit-user-select: none;
+}
+.g48-cell {
+  border-radius: 10px;
+  background: #191428;
+}
+.g48-tile {
+  --tile: #efe3ff;
+  --ink: #2a0f4d;
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: var(--cell);
+  height: var(--cell);
+  display: grid;
+  place-items: center;
+  border-radius: 10px;
+  background: var(--tile);
+  color: var(--ink);
+  font-weight: 700;
+  font-size: calc(var(--cell) * 0.42);
+  line-height: 1;
+  transform: translate(calc(var(--gap) + (var(--cell) + var(--gap)) * var(--c)), calc(var(--gap) + (var(--cell) + var(--gap)) * var(--r)));
+  transition: transform 120ms ease-out;
+}
+.g48-tile[data-digits='3'] { font-size: calc(var(--cell) * 0.34); }
+.g48-tile[data-digits='4'] { font-size: calc(var(--cell) * 0.27); }
+.g48-tile[data-digits='5'],
+.g48-tile[data-digits='6'] { font-size: calc(var(--cell) * 0.22); }
+.g48-tile[data-value='4'] { --tile: #dcc6ff; }
+.g48-tile[data-value='8'] { --tile: #c39bff; }
+.g48-tile[data-value='16'] { --tile: #a874ff; }
+.g48-tile[data-value='32'] { --tile: #8f4dff; }
+.g48-tile[data-value='64'] { --tile: #7426f0; --ink: #f6efff; }
+.g48-tile[data-value='128'] { --tile: #5f12cc; --ink: #f6efff; }
+.g48-tile[data-value='256'] { --tile: #4a0aa8; --ink: #f6efff; }
+.g48-tile[data-value='512'] { --tile: #ff8fb1; --ink: #3a0a22; }
+.g48-tile[data-value='1024'] { --tile: #ff6f7d; --ink: #3a0a12; }
+.g48-tile[data-value='2048'] { --tile: #ffc24b; --ink: #3a2400; box-shadow: 0 0 22px rgba(255, 194, 75, 0.6); }
+.g48-tile[data-big='true'] { --tile: #ffd86e; --ink: #3a2400; }
+.g48-tile[data-fresh='true'] .g48-tile__v,
+.g48-tile[data-fresh='true'] {
+  animation: g48-appear 160ms ease-out;
+}
+.g48-tile[data-merged='true'] .g48-tile__v {
+  display: grid;
+  place-items: center;
+  width: 100%;
+  height: 100%;
+  border-radius: 10px;
+  animation: g48-pop 150ms ease-out 100ms;
+}
+@keyframes g48-appear {
+  from {
+    opacity: 0;
+    scale: 0.4;
+  }
+}
+@keyframes g48-pop {
+  50% {
+    scale: 1.14;
+  }
+}
+.g48-message {
+  border-radius: 16px;
+  background: rgba(25, 20, 40, 0.72);
+  color: #f6efff;
+}
+.g48-sizes {
+  display: flex;
+  gap: 6px;
+  margin-top: 6px;
+}
+.g48-size {
+  height: 40px;
+  padding: 0 12px;
+  border-radius: 999px;
+  border: 2px solid #c39bff;
+  color: #f6efff;
+  font-weight: 700;
+}
+.g48-size[aria-checked='true'] {
+  background: #c39bff;
+  color: #2a0f4d;
+}
+.g48-size:focus-visible {
+  outline: 3px solid #f2a20c;
+  outline-offset: 2px;
+}
+.g48-extra {
+  margin-top: 8px;
+  background: transparent;
+  color: #f6efff;
+  border-color: #f6efff;
+}
+@media (max-width: 520px), (pointer: coarse) {
+  .g48 {
+    --board: min(440px, calc(100vw - 56px), calc(100dvh - 230px));
+  }
+  .g48-hud {
+    gap: 6px;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+  .g48-hud .snake-pause {
+    margin-left: 0;
+  }
+  .g48-hud .snake-stat {
+    padding: 2px 8px;
+  }
+  .g48 .snake-hint {
+    display: none;
+  }
+}
+@media (pointer: coarse) and (max-height: 500px) {
+  .g48 {
+    --board: calc(100dvh - 110px);
+    grid-template-columns: auto auto;
+    justify-content: center;
+    align-items: center;
+  }
+  .g48-hud {
+    width: 130px;
+    flex-direction: column;
+    align-items: stretch;
+  }
+  .g48-hud .snake-pause {
+    margin-left: 0;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .g48-tile,
+  .g48-tile .g48-tile__v,
+  .g48-gain {
+    transition: none !important;
+    animation: none !important;
+  }
+}

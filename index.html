@@ -3123,6 +3123,51 @@ main[data-section='saved'] .panel::after {
   justify-content: space-between;
   gap: 8px;
 }
+.music-alert {
+  margin: 0 0 10px;
+  padding: 8px 12px;
+  border-radius: var(--r-md);
+  background: var(--warn-soft);
+  color: var(--warn);
+  font-size: var(--fs-sm);
+}
+/* "New album" / "New collection": the name field that opens in place. */
+.album-new {
+  display: grid;
+  gap: 6px;
+  margin-bottom: 10px;
+}
+.album-new__row {
+  display: flex;
+  gap: 6px;
+  align-items: center;
+}
+.album-new__row .input {
+  flex: 1;
+  min-width: 0;
+}
+.album-view__name {
+  min-width: 0;
+  flex: 1;
+}
+.album-view__title {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  min-width: 0;
+}
+.album-view__title .music-section__title {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.album-view__actions {
+  flex-wrap: wrap;
+}
+.album-view__delete {
+  margin-left: auto;
+  color: var(--danger);
+}
 .music-section__add {
   display: flex;
   gap: 4px;
@@ -5281,34 +5326,14 @@ main[data-section='saved'] .panel::after {
   // only refreshes the saved copy for the next open. The person's own data
   // is never touched.
   const APP_CACHE = "one-v8";
-  const APP_FILES = [
-    "./index.html",
-    "./games/games.js",
-    "./games/games.css",
-    "./manifest.webmanifest",
-    "./pages/home/home.js",
-    "./pages/home/home.css",
-    "./pages/tasks/tasks.js",
-    "./pages/tasks/tasks.css",
-    "./pages/websites/websites.js",
-    "./pages/websites/websites.css",
-    "./pages/ideas/ideas.js",
-    "./pages/ideas/ideas.css",
-    "./pages/telegram/telegram.js",
-    "./pages/telegram/telegram.css",
-    "./pages/telegram/rules.js",
-    "./pages/telegram/client.js",
-    "./pages/telegram/service.js",
-    "./pages/telegram/qr.js",
-    "./pages/saved/saved.js",
-    "./pages/saved/saved.css",
-    "./pages/goals/goals.js",
-    "./pages/goals/goals.css",
-    "./pages/knowledge/knowledge.js",
-    "./pages/knowledge/knowledge.css",
-    "./pages/preferences/preferences.js",
-    "./pages/preferences/preferences.css"
+  // Every game has its own pair of files; keep this list in step with SHELL in sw.js.
+  const GAME_FILES = ["panel", "snake", "tetris", "breakout", "2048", "minesweeper", "memory"].flatMap((f) => [`./games/${f}.js`, `./games/${f}.css`]);
+  // Every page's files, and Telegram's own scripts (also in step with sw.js).
+  const PAGE_FILES = [
+    ...["home", "tasks", "websites", "ideas", "telegram", "saved", "goals", "knowledge", "preferences"].flatMap((p) => [`./pages/${p}/${p}.js`, `./pages/${p}/${p}.css`]),
+    ...["rules", "client", "service", "qr"].map((f) => `./pages/telegram/${f}.js`)
   ];
+  const APP_FILES = ["./index.html", ...GAME_FILES, "./manifest.webmanifest", ...PAGE_FILES];
   const UPDATE_KEY = "one.update.v1";
   function lastUpdate() {
     try {
@@ -5773,12 +5798,6 @@ main[data-section='saved'] .panel::after {
     { name: "Night meadow", sounds: ["crickets", "wind"] },
     { name: "Deep focus", sounds: ["waterfall", "rain"] }
   ];
-  // Free calm music: public-domain recordings on Wikimedia Commons (Musopen).
-  const MUSIC_LIBRARY = [
-    { id: "satie-gymnopedie-1", title: "Gymnopédie No. 1", artist: "Erik Satie · Robin Alciatore", album: "Calm music", kind: "music", file: "Erik Satie - gymnopedies - la 1 ere. lent et douloureux.ogg", licence: "Public domain (Musopen)" },
-    { id: "beethoven-moonlight-1", title: "Moonlight Sonata, I. Adagio sostenuto", artist: "Ludwig van Beethoven · Musopen", album: "Calm music", kind: "music", file: "Ludwig van Beethoven - sonata no. 14 in c sharp minor 'moonlight', op. 27 no. 2 - i. adagio sostenuto.ogg", licence: "Public domain (Musopen)" },
-    { id: "beethoven-moonlight-3", title: "Moonlight Sonata, III. Presto agitato", artist: "Ludwig van Beethoven · Paul Pitman", album: "Calm music", kind: "music", file: "Moonlight Sonata Presto.ogg", licence: "Public domain (Musopen)" }
-  ];
   const FADE = 1;
   // Free recordings on Wikimedia Commons, by file name.
   const commonsFile = (file) => `https://commons.wikimedia.org/wiki/Special:FilePath/${encodeURIComponent(file)}`;
@@ -6173,22 +6192,123 @@ main[data-section='saved'] .panel::after {
     });
   }
   const isQuota = (e) => !!e && (e.name === "QuotaExceededError" || /quota/i.test(e.message || ""));
-  // Your own music, kept in this browser only (IndexedDB "one.media").
+  // Your own music and nasheeds, kept in this browser only (IndexedDB
+  // "one.media"): albums you create and name, their tracks, and the files.
+  // Version 2 added albums; older libraries are grouped into named albums once.
+  const newAlbumId = () => `a${Date.now().toString(36)}${Math.random().toString(36).slice(2, 8)}`;
+  function migrateToAlbums(tx) {
+    const tracks = tx.objectStore("tracks");
+    const albums = tx.objectStore("albums");
+    tracks.getAll().onsuccess = (e) => {
+      const groups = new Map();
+      for (const t of e.target.result) {
+        const key = t.albumKey || "\u0000Singles";
+        if (!groups.has(key)) groups.set(key, []);
+        groups.get(key).push(t);
+      }
+      for (const [key, list] of groups) {
+        list.sort((a, b) => (a.addedAt || 0) - (b.addedAt || 0));
+        const id = newAlbumId();
+        const name = (key !== "\u0000Singles" && list[0].album) || "Singles";
+        albums.put({ id, name, kind: list[0].kind === "nasheed" ? "nasheed" : "music", createdAt: list[0].addedAt || Date.now() });
+        list.forEach((t, order) => tracks.put({ ...t, albumId: id, order }));
+      }
+    };
+  }
   const MediaLibrary = {
     db: null,
     urls: new Map(),
+    persistAsked: false,
+    // True while another (older) ONE tab keeps the library from updating.
+    blocked: false,
+    watchers: new Set(),
+    watch(fn) {
+      this.watchers.add(fn);
+      return () => this.watchers.delete(fn);
+    },
+    setBlocked(on) {
+      if (this.blocked === on) return;
+      this.blocked = on;
+      for (const fn of this.watchers) fn();
+    },
     open() {
       if (this.db) return this.db;
       this.db = new Promise((resolve, reject) => {
-        const req = indexedDB.open("one.media", 1);
-        req.onupgradeneeded = () => {
-          req.result.createObjectStore("tracks", { keyPath: "id" });
-          req.result.createObjectStore("blobs", { keyPath: "id" });
+        const req = indexedDB.open("one.media", 2);
+        req.onupgradeneeded = (e) => {
+          const db = req.result;
+          if (e.oldVersion < 1) {
+            db.createObjectStore("tracks", { keyPath: "id" });
+            db.createObjectStore("blobs", { keyPath: "id" });
+          }
+          if (!db.objectStoreNames.contains("albums")) db.createObjectStore("albums", { keyPath: "id" });
+          if (e.oldVersion === 1) migrateToAlbums(req.transaction);
         };
-        req.onsuccess = () => resolve(req.result);
-        req.onerror = () => reject(req.error);
+        req.onblocked = () => this.setBlocked(true);
+        req.onsuccess = () => {
+          this.setBlocked(false);
+          const db = req.result;
+          // A newer ONE (in another tab) needs the database: let go of it.
+          db.onversionchange = () => {
+            db.close();
+            this.db = null;
+          };
+          resolve(db);
+        };
+        req.onerror = () => {
+          this.db = null;
+          reject(req.error);
+        };
       });
       return this.db;
+    },
+    // Asks the browser to keep the library even when the device runs low on space.
+    ensurePersisted() {
+      if (this.persistAsked) return;
+      this.persistAsked = true;
+      try {
+        const p = navigator.storage && navigator.storage.persist && navigator.storage.persist();
+        if (p && p.catch) p.catch(() => {});
+      } catch {
+        // Not supported: the library is still kept, just without the promise.
+      }
+    },
+    async albums() {
+      const rows = await this.run(["albums"], "readonly", (tx) => {
+        const holder = { value: [] };
+        tx.objectStore("albums").getAll().onsuccess = (e) => {
+          holder.value = e.target.result;
+        };
+        return holder;
+      });
+      return rows.value.sort((a, b) => a.createdAt - b.createdAt);
+    },
+    async createAlbum(name, kind = "music") {
+      const clean = (name || "").trim().slice(0, 60);
+      if (!clean) throw new Error("empty-name");
+      const album = { id: newAlbumId(), name: clean, kind: kind === "nasheed" ? "nasheed" : "music", createdAt: Date.now() };
+      await this.run(["albums"], "readwrite", (tx) => tx.objectStore("albums").put(album));
+      return album;
+    },
+    async renameAlbum(id, name) {
+      const clean = (name || "").trim().slice(0, 60);
+      if (!clean) return;
+      const album = (await this.albums()).find((a) => a.id === id);
+      if (album) await this.run(["albums"], "readwrite", (tx) => tx.objectStore("albums").put({ ...album, name: clean }));
+    },
+    // Removes the album, its tracks and their files; returns how many tracks went.
+    async deleteAlbum(id) {
+      const ids = (await this.list()).filter((t) => t.albumId === id).map((t) => t.id);
+      for (const tid of ids) this.forget(tid);
+      await this.run(["albums", "tracks", "blobs"], "readwrite", (tx) => {
+        for (const tid of ids) {
+          tx.objectStore("tracks").delete(tid);
+          tx.objectStore("blobs").delete(tid);
+          tx.objectStore("blobs").delete(`cover:${tid}`);
+        }
+        tx.objectStore("albums").delete(id);
+      });
+      return ids.length;
     },
     async run(stores, mode, fn) {
       const db = await this.open();
@@ -6224,15 +6344,18 @@ main[data-section='saved'] .panel::after {
         };
         return out;
       });
-      return rows.sort((a, b) => a.albumKey.localeCompare(b.albumKey) || (a.track || 999) - (b.track || 999) || a.title.localeCompare(b.title));
+      const at = (n) => (n == null ? Infinity : n);
+      return rows.sort((a, b) => (a.albumId || "").localeCompare(b.albumId || "") || at(a.track) - at(b.track) || at(a.order) - at(b.order) || (a.title || "").localeCompare(b.title || ""));
     },
-    // Saves files one by one; stops cleanly if storage runs out.
-    async add(files, kind = "music") {
+    // Saves files into an album one by one; stops cleanly if storage runs out.
+    async add(files, albumId) {
       const saved = [];
       const skipped = [];
       let full = false;
-      const existing = await this.list();
-      const kinds = new Map(existing.map((t) => [t.albumKey, t.kind]));
+      const album = (await this.albums()).find((a) => a.id === albumId);
+      if (!album) throw new Error("no-album");
+      const existing = (await this.list()).filter((t) => t.albumId === albumId);
+      let order = existing.reduce((n, t) => Math.max(n, t.order == null ? -1 : t.order), -1) + 1;
       for (const file of files) {
         if (!(file.type.startsWith("audio/") || AUDIO_EXT.test(file.name))) {
           skipped.push({ name: file.name, reason: "Not an audio file" });
@@ -6248,17 +6371,19 @@ main[data-section='saved'] .panel::after {
         } catch {
         }
         const artist = tags.artist || "Unknown artist";
-        const album = tags.album || "Singles";
-        const albumKey = `${artist}\u0000${album}`;
+        const tagAlbum = tags.album || "Singles";
+        const albumKey = `${artist}\u0000${tagAlbum}`;
         const id = `t${Date.now().toString(36)}${Math.random().toString(36).slice(2, 8)}`;
         const track = {
           id,
           title: tags.title || file.name.replace(/\.[^.]+$/, ""),
           artist,
-          album,
+          album: tagAlbum,
           albumKey,
           track: tags.track,
-          kind: kinds.get(albumKey) || kind,
+          kind: album.kind,
+          albumId,
+          order: order++,
           size: file.size,
           type: file.type,
           hasCover: !!tags.cover,
@@ -6270,7 +6395,6 @@ main[data-section='saved'] .panel::after {
             if (tags.cover) tx.objectStore("blobs").put({ id: `cover:${id}`, blob: tags.cover });
             tx.objectStore("tracks").put(track);
           });
-          kinds.set(albumKey, track.kind);
           saved.push(track);
         } catch (e) {
           if (isQuota(e)) {
@@ -6280,6 +6404,7 @@ main[data-section='saved'] .panel::after {
           skipped.push({ name: file.name, reason: "Couldn't save this file" });
         }
       }
+      if (saved.length) this.ensurePersisted();
       return { saved, skipped, full };
     },
     async remove(ids) {
@@ -6300,10 +6425,6 @@ main[data-section='saved'] .panel::after {
     },
     rename(id, title) {
       return this.update([id], { title });
-    },
-    async setKind(albumKey, kind) {
-      const ids = (await this.list()).filter((t) => t.albumKey === albumKey).map((t) => t.id);
-      return this.update(ids, { kind });
     },
     async blobUrl(key) {
       if (this.urls.has(key)) return this.urls.get(key);
@@ -6337,6 +6458,7 @@ main[data-section='saved'] .panel::after {
       return { tracks: rows.length, bytes: rows.reduce((n, t) => n + (t.size || 0), 0) };
     }
   };
+  window.__oneMedia = MediaLibrary;
   const fmtBytes = (n) => (n >= 1e9 ? `${(n / 1e9).toFixed(1)} GB` : n >= 1e6 ? `${(n / 1e6).toFixed(1)} MB` : `${Math.max(1, Math.round(n / 1e3))} KB`);
   // A saved track as the player sees it.
   const localTrack = (t) => ({ id: `local:${t.id}`, title: t.title, artist: t.artist, album: t.album, kind: t.kind, source: "local", mediaId: t.id });
@@ -6567,7 +6689,25 @@ main[data-section='saved'] .panel::after {
     }, []);
     return React2.createElement("div", { ref, className: "spotify-slot", "aria-hidden": true });
   }
-  function SpotifySection({ nasheedsOnly }) {
+  const SPOTIFY_TYPE = { playlist: "Playlist", album: "Album", track: "Song" };
+  const spotifyType = (it) => it.type || (it.uri || "").split(":")[1] || "playlist";
+  // A link's real name from Spotify's public link preview (oEmbed); null when
+  // it can't be had (offline, an error, or anything but a name).
+  async function spotifyName(openUrl) {
+    const abort = new AbortController();
+    const timer = window.setTimeout(() => abort.abort(), 6000);
+    try {
+      const res = await fetch(`https://open.spotify.com/oembed?url=${encodeURIComponent(openUrl)}`, { signal: abort.signal });
+      if (!res.ok) return null;
+      const json = await res.json();
+      return json && typeof json.title === "string" && json.title.trim() ? json.title.trim() : null;
+    } catch {
+      return null;
+    } finally {
+      window.clearTimeout(timer);
+    }
+  }
+  function SpotifySection() {
     const { engine, guard } = useSound();
     // Follows the dock, so the player appears as soon as something is loaded.
     const [, setDockTick] = React2.useState(0);
@@ -6575,7 +6715,22 @@ main[data-section='saved'] .panel::after {
     const [link, setLink] = React2.useState("");
     const [error, setError] = React2.useState(null);
     const items = engine.settings.spotify || [];
-    const shown = items.filter((it) => !nasheedsOnly || it.kind === "nasheed");
+    // Saves a fetched name into the current list (which may have changed meanwhile).
+    const nameItem = React2.useCallback(
+      (uri) => {
+        const [, type, id] = uri.split(":");
+        spotifyName(`https://open.spotify.com/${type}/${id}`).then((title) => {
+          if (!title) return;
+          const now = engine.settings.spotify || [];
+          if (now.some((it) => it.uri === uri)) engine.setSetting("spotify", now.map((it) => (it.uri === uri ? { ...it, title, named: true } : it)));
+        });
+      },
+      [engine]
+    );
+    // Links still without a real name try again each time the tab opens.
+    React2.useEffect(() => {
+      for (const it of engine.settings.spotify || []) if (!it.named) nameItem(it.uri);
+    }, [nameItem]);
     const add = (e) => {
       e.preventDefault();
       const parsed = parseSpotifyLink(link);
@@ -6585,10 +6740,12 @@ main[data-section='saved'] .panel::after {
       }
       setError(null);
       const uri = `spotify:${parsed.type}:${parsed.id}`;
-      if (!items.some((it) => it.uri === uri)) engine.setSetting("spotify", [...items, { uri, title: `Spotify ${parsed.type} …${parsed.id.slice(-4)}`, kind: "music" }]);
+      if (!items.some((it) => it.uri === uri)) {
+        engine.setSetting("spotify", [...items, { uri, title: `Spotify ${parsed.type} …${parsed.id.slice(-4)}`, type: parsed.type, named: false }]);
+        nameItem(uri);
+      }
       setLink("");
     };
-    const update = (uri, changes) => engine.setSetting("spotify", items.map((it) => (it.uri === uri ? { ...it, ...changes } : it)));
     return React2.createElement(
       "section",
       { className: "music-section", "aria-label": "Spotify" },
@@ -6604,7 +6761,7 @@ main[data-section='saved'] .panel::after {
       React2.createElement(
         "ul",
         { className: "track-list" },
-        shown.map((it) =>
+        items.map((it) =>
           React2.createElement(
             "li",
             { key: it.uri, className: "track-row track-row--actions spotify-item", "data-active": SpotifyDock.current === it.uri ? "true" : void 0 },
@@ -6621,9 +6778,8 @@ main[data-section='saved'] .panel::after {
                   })
               },
               React2.createElement("span", { className: "track-row__title" }, it.title),
-              React2.createElement("span", { className: "track-row__artist" }, it.kind === "nasheed" ? "Nasheed" : "Music")
+              React2.createElement("span", { className: "track-row__artist" }, SPOTIFY_TYPE[spotifyType(it)] || "Spotify")
             ),
-            React2.createElement(SoundSwitch, { label: `Nasheed: ${it.title}`, checked: it.kind === "nasheed", onChange: (v) => update(it.uri, { kind: v ? "nasheed" : "music" }) }),
             React2.createElement(IconButton, { label: `Remove ${it.title}`, size: "sm", onClick: () => engine.setSetting("spotify", items.filter((x) => x.uri !== it.uri)) }, React2.createElement(X, { size: 14 }))
           )
         )
@@ -6638,7 +6794,7 @@ main[data-section='saved'] .panel::after {
   function defaultSoundSettings() {
     const nature = {};
     for (const s of NATURE_SOUNDS) nature[s.id] = { on: false, volume: 0.4, real: false };
-    return { nature, master: 0.8, followMeadow: true, tab: "nature", nasheedsOnly: false, repeat: "off", shuffle: false, track: null, quran: { reciterId: null, reciterName: "", favourites: [], last: null, continue: false, repeat: false, offline: [] }, spotify: [] };
+    return { nature, master: 0.8, followMeadow: true, tab: "nature", repeat: "off", shuffle: false, track: null, quran: { reciterId: null, reciterName: "", favourites: [], last: null, continue: false, repeat: false, offline: [] }, spotify: [] };
   }
   function loadSoundSettings() {
     const base = defaultSoundSettings();
@@ -6678,6 +6834,8 @@ main[data-section='saved'] .panel::after {
       this.duckListeners = new Set(); // external players (Spotify) to pause
       this.externalPlaying = false;
       this.resolvers = { local: (item) => MediaLibrary.url(item.mediaId), quran: (item) => QuranSource.surahUrl(item.reciterId, item.surah) };
+      // The built-in Calm music was removed: a saved one is forgotten.
+      if (this.settings.track && this.settings.track.item && this.settings.track.item.file) this.settings.track = null;
       const saved = this.settings.track;
       if (saved && saved.item) {
         this.queue = [saved.item];
@@ -7517,56 +7675,169 @@ main[data-section='saved'] .panel::after {
       )
     );
   }
-  function AlbumTile({ group, onOpen }) {
+  // Words that differ between music albums and nasheed collections.
+  const ALBUM_WORDS = {
+    music: { section: "My albums", add: "New album", label: "Album name", placeholder: "Road trip", upload: "Add music", remove: "Delete album", empty: "Create an album and add music you own. It stays private on this device." },
+    nasheed: { section: "Nasheeds", add: "New collection", label: "Collection name", placeholder: "Morning nasheeds", upload: "Add nasheeds", remove: "Delete collection", empty: "Create a collection and add nasheed files you have." }
+  };
+  const countTracks = (n) => `${n} track${n === 1 ? "" : "s"}`;
+  function useCover(tracks) {
     const [cover, setCover] = React2.useState(null);
-    const withCover = group.tracks.find((t) => t.hasCover);
+    const withCover = tracks.find((t) => t.hasCover);
     React2.useEffect(() => {
       let live = true;
+      setCover(null);
       if (withCover) MediaLibrary.cover(withCover.id).then((u) => live && setCover(u), () => {});
       return () => {
         live = false;
       };
     }, [withCover && withCover.id]);
+    return cover;
+  }
+  function AlbumTile({ album, tracks, onOpen }) {
+    const cover = useCover(tracks);
+    const count = tracks.length ? countTracks(tracks.length) : "Empty";
     return React2.createElement(
       "button",
-      { type: "button", className: "album-tile", "aria-label": `Open album ${group.album}, ${group.artist}`, onClick: onOpen },
-      cover ? React2.createElement("img", { className: "album-tile__cover", src: cover, alt: "" }) : React2.createElement("span", { className: "album-tile__cover album-tile__cover--blank", "aria-hidden": true }, "♪"),
-      React2.createElement("span", { className: "album-tile__title" }, group.album),
-      React2.createElement("span", { className: "album-tile__artist" }, group.artist)
+      { type: "button", className: "album-tile", "aria-label": `Open album ${album.name}, ${count}`, onClick: onOpen },
+      cover ? React2.createElement("img", { className: "album-tile__cover", src: cover, alt: "" }) : React2.createElement("span", { className: "album-tile__cover album-tile__cover--blank", "aria-hidden": true }, album.kind === "nasheed" ? "☾" : "♪"),
+      React2.createElement("span", { className: "album-tile__title" }, album.name),
+      React2.createElement("span", { className: "album-tile__artist" }, count)
     );
   }
-  function groupAlbums(tracks) {
-    const map = new Map();
-    for (const t of tracks) {
-      if (!map.has(t.albumKey)) map.set(t.albumKey, { key: t.albumKey, album: t.album, artist: t.artist, kind: t.kind, tracks: [] });
-      map.get(t.albumKey).tracks.push(t);
-    }
-    return [...map.values()];
+  // "New album" / "New collection": a name field that appears in place.
+  function NewAlbumForm({ kind, onCreated, onCancel }) {
+    const words = ALBUM_WORDS[kind];
+    const id = React2.useId();
+    const [name, setName] = React2.useState("");
+    const [error, setError] = React2.useState(null);
+    const busy = React2.useRef(false);
+    const submit = async (e) => {
+      e.preventDefault();
+      if (busy.current) return;
+      if (!name.trim()) {
+        setError("Give the album a name.");
+        return;
+      }
+      busy.current = true;
+      try {
+        onCreated(await MediaLibrary.createAlbum(name, kind));
+      } catch {
+        setError("Couldn’t create the album. Try again.");
+      } finally {
+        busy.current = false;
+      }
+    };
+    return React2.createElement(
+      "form",
+      { className: "album-new", onSubmit: submit, noValidate: true },
+      React2.createElement("label", { className: "field__label", htmlFor: id }, words.label),
+      React2.createElement(
+        "div",
+        { className: "album-new__row" },
+        React2.createElement("input", {
+          id,
+          className: "input",
+          type: "text",
+          maxLength: 60,
+          placeholder: words.placeholder,
+          autoFocus: true,
+          value: name,
+          "aria-invalid": error ? true : void 0,
+          "aria-describedby": error ? `${id}-error` : void 0,
+          onChange: (e) => {
+            setName(e.target.value);
+            if (error) setError(null);
+          },
+          onKeyDown: (e) => {
+            if (e.key === "Escape") {
+              e.stopPropagation();
+              onCancel();
+            }
+          }
+        }),
+        React2.createElement(Button, { size: "sm", variant: "primary", type: "submit" }, "Create"),
+        React2.createElement(Button, { size: "sm", variant: "ghost", onClick: onCancel }, "Cancel")
+      ),
+      error && React2.createElement("span", { id: `${id}-error`, className: "field__error", role: "alert" }, error)
+    );
   }
-  function AlbumView({ group, onBack, onChanged }) {
+  function AlbumSection({ kind, albums, tracksOf, onOpen, onCreated, footer }) {
+    const words = ALBUM_WORDS[kind];
+    const [creating, setCreating] = React2.useState(false);
+    return React2.createElement(
+      "section",
+      { className: "music-section", "aria-label": words.section },
+      React2.createElement(
+        "div",
+        { className: "music-section__row" },
+        React2.createElement("h3", { className: "music-section__title" }, words.section),
+        !creating && React2.createElement(Button, { size: "sm", variant: "secondary", icon: React2.createElement(Plus, { size: 14 }), onClick: () => setCreating(true) }, words.add)
+      ),
+      creating &&
+        React2.createElement(NewAlbumForm, {
+          kind,
+          onCancel: () => setCreating(false),
+          onCreated: (album) => {
+            setCreating(false);
+            onCreated(album);
+          }
+        }),
+      albums.length
+        ? React2.createElement("div", { className: "album-grid" }, albums.map((a) => React2.createElement(AlbumTile, { key: a.id, album: a, tracks: tracksOf(a.id), onOpen: () => onOpen(a.id) })))
+        : !creating && React2.createElement("p", { className: "music-section__note" }, words.empty),
+      footer
+    );
+  }
+  function AlbumView({ album, tracks, onBack, onChanged }) {
     const { engine, guard } = useSound();
     const confirm = useConfirm();
-    const [cover, setCover] = React2.useState(null);
+    const words = ALBUM_WORDS[album.kind];
+    const cover = useCover(tracks);
     const [renaming, setRenaming] = React2.useState(null);
-    const withCover = group.tracks.find((t) => t.hasCover);
-    React2.useEffect(() => {
-      let live = true;
-      if (withCover) MediaLibrary.cover(withCover.id).then((u) => live && setCover(u), () => {});
-      return () => {
-        live = false;
-      };
-    }, [withCover && withCover.id]);
-    const queue = group.tracks.map(localTrack);
+    const [renamingAlbum, setRenamingAlbum] = React2.useState(false);
+    const [result, setResult] = React2.useState(null);
+    const [busy, setBusy] = React2.useState(false);
+    const filesInput = React2.useRef(null);
+    const folderInput = React2.useRef(null);
+    const queue = tracks.map(localTrack);
     const cur = engine.current;
     const dropFromPlayer = (ids) => {
       if (cur && cur.source === "local" && ids.includes(cur.mediaId)) engine.stopTrack();
     };
+    const importFiles = async (fileList) => {
+      const files = [...(fileList || [])];
+      if (!files.length) return;
+      setBusy(true);
+      const r = await MediaLibrary.add(files, album.id);
+      setBusy(false);
+      const parts = [`Added ${countTracks(r.saved.length)}.`];
+      if (r.skipped.length) parts.push(`Skipped: ${r.skipped.map((x) => `${x.name} (${x.reason})`).join(", ")}.`);
+      if (r.full) parts.push(`Storage is full. Saved: ${r.saved.map((t) => t.title).join(", ") || "nothing"}.`);
+      setResult(parts.join(" "));
+      onChanged();
+    };
+    const fileInput = (ref, label, extra) =>
+      React2.createElement("input", {
+        ref,
+        type: "file",
+        multiple: true,
+        accept: "audio/*,.mp3,.m4a,.ogg,.wav",
+        className: "sr-only",
+        tabIndex: -1,
+        "aria-label": label,
+        onChange: (e) => {
+          importFiles(e.target.files);
+          e.target.value = "";
+        },
+        ...extra
+      });
+    const supportsFolders = typeof document !== "undefined" && "webkitdirectory" in document.createElement("input");
     const deleteAlbum = async () => {
-      const ok = await confirm({ title: `Delete “${group.album}”?`, body: `Its ${group.tracks.length} track${group.tracks.length === 1 ? "" : "s"} will be removed from this device.`, confirmLabel: "Delete album" });
+      const ok = await confirm({ title: `Delete “${album.name}” and its ${countTracks(tracks.length)}?`, body: "They’ll be removed from this device.", confirmLabel: words.remove });
       if (!ok) return;
-      const ids = group.tracks.map((t) => t.id);
-      dropFromPlayer(ids);
-      await MediaLibrary.remove(ids);
+      dropFromPlayer(tracks.map((t) => t.id));
+      await MediaLibrary.deleteAlbum(album.id);
       onChanged();
       onBack();
     };
@@ -7585,6 +7856,13 @@ main[data-section='saved'] .panel::after {
         onChanged();
       }
     };
+    const saveAlbumName = async (name) => {
+      setRenamingAlbum(false);
+      if (name.trim() && name.trim() !== album.name) {
+        await MediaLibrary.renameAlbum(album.id, name);
+        onChanged();
+      }
+    };
     return React2.createElement(
       "div",
       { className: "album-view" },
@@ -7592,36 +7870,50 @@ main[data-section='saved'] .panel::after {
       React2.createElement(
         "div",
         { className: "album-view__head" },
-        cover ? React2.createElement("img", { className: "album-cover", src: cover, alt: `Cover of ${group.album}` }) : React2.createElement("span", { className: "album-cover album-cover--blank", "aria-hidden": true }, "♪"),
+        cover ? React2.createElement("img", { className: "album-cover", src: cover, alt: `Cover of ${album.name}` }) : React2.createElement("span", { className: "album-cover album-cover--blank", "aria-hidden": true }, album.kind === "nasheed" ? "☾" : "♪"),
         React2.createElement(
           "div",
-          null,
-          React2.createElement("h3", { className: "music-section__title" }, group.album),
-          React2.createElement("p", { className: "track-row__artist" }, group.artist)
+          { className: "album-view__name" },
+          renamingAlbum
+            ? React2.createElement("input", {
+                className: "input",
+                "aria-label": words.label,
+                defaultValue: album.name,
+                maxLength: 60,
+                autoFocus: true,
+                onKeyDown: (e) => {
+                  if (e.key === "Enter") saveAlbumName(e.currentTarget.value);
+                  if (e.key === "Escape") {
+                    e.stopPropagation();
+                    setRenamingAlbum(false);
+                  }
+                },
+                onBlur: (e) => saveAlbumName(e.currentTarget.value)
+              })
+            : React2.createElement(
+                "div",
+                { className: "album-view__title" },
+                React2.createElement("h3", { className: "music-section__title" }, album.name),
+                React2.createElement(IconButton, { label: "Rename album", size: "sm", onClick: () => setRenamingAlbum(true) }, React2.createElement(Pencil, { size: 14 }))
+              ),
+          React2.createElement("p", { className: "track-row__artist" }, tracks.length ? countTracks(tracks.length) : "Empty")
         )
       ),
       React2.createElement(
         "div",
         { className: "album-view__actions" },
-        React2.createElement(
-          "label",
-          { className: "album-view__kind" },
-          React2.createElement(SoundSwitch, {
-            label: "Nasheed album",
-            checked: group.kind === "nasheed",
-            onChange: async (v) => {
-              await MediaLibrary.setKind(group.key, v ? "nasheed" : "music");
-              onChanged();
-            }
-          }),
-          React2.createElement("span", { "aria-hidden": true }, "Nasheed")
-        ),
-        React2.createElement(Button, { size: "sm", variant: "secondary", onClick: deleteAlbum }, "Delete album")
+        tracks.length > 0 && React2.createElement(Button, { size: "sm", variant: "primary", onClick: () => guard(() => engine.playQueue(queue, 0)) }, "Play all"),
+        React2.createElement(Button, { size: "sm", variant: "secondary", icon: React2.createElement(Plus, { size: 14 }), onClick: () => filesInput.current && filesInput.current.click() }, words.upload),
+        supportsFolders && React2.createElement(Button, { size: "sm", variant: "ghost", onClick: () => folderInput.current && folderInput.current.click() }, "Add folder"),
+        React2.createElement(Button, { size: "sm", variant: "ghost", className: "album-view__delete", onClick: deleteAlbum }, words.remove),
+        fileInput(filesInput, words.upload),
+        supportsFolders && fileInput(folderInput, "Add folder", { webkitdirectory: "" })
       ),
+      (busy || result) && React2.createElement("p", { className: "import-result", role: "status" }, busy ? "Adding…" : result),
       React2.createElement(
         "ul",
         { className: "track-list" },
-        group.tracks.map((t, i) =>
+        tracks.map((t, i) =>
           renaming === t.id
             ? React2.createElement(
                 "li",
@@ -7660,149 +7952,101 @@ main[data-section='saved'] .panel::after {
   function MusicTab() {
     const { engine, guard } = useSound();
     const [lib, setLib] = React2.useState([]);
-    const [albumKey, setAlbumKey] = React2.useState(null);
+    const [albums, setAlbums] = React2.useState([]);
+    const [openId, setOpenId] = React2.useState(null);
     const [query, setQuery] = React2.useState("");
-    const [result, setResult] = React2.useState(null);
-    const [busy, setBusy] = React2.useState(false);
-    const musicInput = React2.useRef(null);
-    const nasheedInput = React2.useRef(null);
-    const folderInput = React2.useRef(null);
-    const refresh = React2.useCallback(() => MediaLibrary.list().then(setLib, () => setLib([])), []);
+    const [failed, setFailed] = React2.useState(false);
+    const [blocked, setBlocked] = React2.useState(MediaLibrary.blocked);
+    // A failure keeps what is shown and says so, never "no music yet".
+    const refresh = React2.useCallback(
+      () =>
+        Promise.all([MediaLibrary.list(), MediaLibrary.albums()]).then(
+          ([tracks, list]) => {
+            setFailed(false);
+            setLib(tracks);
+            setAlbums(list);
+            if (tracks.length) MediaLibrary.ensurePersisted();
+          },
+          () => setFailed(true)
+        ),
+      []
+    );
     React2.useEffect(() => {
       refresh();
     }, [refresh]);
-    const nasheedsOnly = engine.settings.nasheedsOnly;
-    const cur = engine.current;
-    const calm = MUSIC_LIBRARY.filter((t) => t.kind === "music");
-    const builtInNasheeds = MUSIC_LIBRARY.filter((t) => t.kind === "nasheed");
-    const albums = groupAlbums(lib);
-    const musicAlbums = albums.filter((a) => a.kind !== "nasheed");
-    const nasheedAlbums = albums.filter((a) => a.kind === "nasheed");
-    const importFiles = async (fileList, kind) => {
-      const files = [...(fileList || [])];
-      if (!files.length) return;
-      setBusy(true);
-      const r = await MediaLibrary.add(files, kind);
-      setBusy(false);
-      const parts = [];
-      parts.push(`Added ${r.saved.length} track${r.saved.length === 1 ? "" : "s"}.`);
-      if (r.skipped.length) parts.push(`Skipped: ${r.skipped.map((x) => `${x.name} (${x.reason})`).join(", ")}.`);
-      if (r.full) parts.push(`Storage is full. Saved: ${r.saved.map((t) => t.title).join(", ") || "nothing"}.`);
-      setResult(parts.join(" "));
-      refresh();
-    };
-    const fileInput = (ref, label, kind, extra) =>
-      React2.createElement("input", {
-        ref,
-        type: "file",
-        multiple: true,
-        accept: "audio/*,.mp3,.m4a,.ogg,.wav",
-        className: "sr-only",
-        tabIndex: -1,
-        "aria-label": label,
-        onChange: (e) => {
-          importFiles(e.target.files, kind);
-          e.target.value = "";
-        },
-        ...extra
-      });
-    const supportsFolders = typeof document !== "undefined" && "webkitdirectory" in document.createElement("input");
-    const usageBytes = lib.reduce((n, t) => n + (t.size || 0), 0);
-    const tiles = (list) => React2.createElement("div", { className: "album-grid" }, list.map((g) => React2.createElement(AlbumTile, { key: g.key, group: g, onOpen: () => setAlbumKey(g.key) })));
-    const header = React2.createElement(
-      "div",
-      { className: "music-tools" },
-      React2.createElement("input", { type: "search", className: "input", placeholder: "Search music", "aria-label": "Search music", value: query, onChange: (e) => setQuery(e.target.value) }),
-      React2.createElement(
-        "label",
-        { className: "music-tools__nasheeds" },
-        React2.createElement("span", { "aria-hidden": true }, "Nasheeds only"),
-        React2.createElement(SoundSwitch, { label: "Nasheeds only", checked: nasheedsOnly, onChange: (v) => engine.setSetting("nasheedsOnly", v) })
-      ),
-      fileInput(musicInput, "Add music", "music"),
-      fileInput(nasheedInput, "Add nasheeds", "nasheed"),
-      supportsFolders && fileInput(folderInput, "Add folder", "music", { webkitdirectory: "" })
+    React2.useEffect(
+      () =>
+        MediaLibrary.watch(() => {
+          setBlocked(MediaLibrary.blocked);
+          if (!MediaLibrary.blocked) refresh();
+        }),
+      [refresh]
     );
-    const status = (busy || result) && React2.createElement("p", { className: "import-result", role: "status" }, busy ? "Adding…" : result);
-    // Searching: one flat list of matching tracks.
+    const cur = engine.current;
+    const tracksOf = (id) => lib.filter((t) => t.albumId === id);
+    const usageBytes = lib.reduce((n, t) => n + (t.size || 0), 0);
+    const header = React2.createElement(
+      React2.Fragment,
+      null,
+      React2.createElement(
+        "div",
+        { className: "music-tools" },
+        React2.createElement("input", { type: "search", className: "input", placeholder: "Search music", "aria-label": "Search music", value: query, onChange: (e) => setQuery(e.target.value) })
+      ),
+      (blocked || failed) && React2.createElement("p", { className: "music-alert", role: "status" }, blocked ? "Close other ONE tabs to finish updating your music." : "Couldn’t open your music. Try again in a moment.")
+    );
+    // Searching: one list of matching tracks and Spotify links.
     const q = query.trim().toLowerCase();
     if (q) {
-      const all = [
-        ...(nasheedsOnly ? builtInNasheeds : [...calm, ...builtInNasheeds]),
-        ...lib.filter((t) => !nasheedsOnly || t.kind === "nasheed").map(localTrack)
-      ].filter((t) => [t.title, t.artist, t.album].some((v) => (v || "").toLowerCase().includes(q)));
+      const names = new Map(albums.map((a) => [a.id, a.name]));
+      const tracks = lib.map((t) => ({ ...localTrack(t), album: names.get(t.albumId) || t.album })).filter((t) => [t.title, t.artist, t.album].some((v) => (v || "").toLowerCase().includes(q)));
+      const links = (engine.settings.spotify || []).filter((it) => (it.title || "").toLowerCase().includes(q));
       return React2.createElement(
         React2.Fragment,
         null,
         header,
-        status,
         React2.createElement(
           "section",
           { className: "music-section search-results", "aria-label": "Search results" },
-          all.length
-            ? React2.createElement("ul", { className: "track-list" }, all.map((t, i) => React2.createElement(TrackRow, { key: t.id, track: t, active: cur && cur.id === t.id, onPlay: () => guard(() => engine.playQueue(all, i)) })))
+          tracks.length || links.length
+            ? React2.createElement(
+                "ul",
+                { className: "track-list" },
+                tracks.map((t, i) => React2.createElement(TrackRow, { key: t.id, track: t, active: cur && cur.id === t.id, onPlay: () => guard(() => engine.playQueue(tracks, i)) })),
+                links.map((it) =>
+                  React2.createElement(TrackRow, {
+                    key: it.uri,
+                    track: { title: it.title, artist: "Spotify" },
+                    active: SpotifyDock.current === it.uri,
+                    onPlay: () =>
+                      guard(() => {
+                        engine.pauseTrack();
+                        SpotifyDock.load(it.uri);
+                      })
+                  })
+                )
+              )
             : React2.createElement("p", { className: "music-section__note" }, "Nothing matches that.")
         )
       );
     }
-    const open = albums.find((a) => a.key === albumKey);
-    if (open) return React2.createElement(React2.Fragment, null, header, status, React2.createElement(AlbumView, { group: open, onBack: () => setAlbumKey(null), onChanged: refresh }));
+    const open = albums.find((a) => a.id === openId);
+    if (open) return React2.createElement(React2.Fragment, null, header, React2.createElement(AlbumView, { key: open.id, album: open, tracks: tracksOf(open.id), onBack: () => setOpenId(null), onChanged: refresh }));
+    const created = () => refresh();
     return React2.createElement(
       React2.Fragment,
       null,
       header,
-      status,
-      !nasheedsOnly &&
-        React2.createElement(
-          "section",
-          { className: "music-section", "aria-label": "Calm music" },
-          React2.createElement("h3", { className: "music-section__title" }, "Calm music"),
-          React2.createElement(
-            "ul",
-            { className: "track-list" },
-            calm.map((t, i) => React2.createElement(TrackRow, { key: t.id, track: t, active: cur && cur.id === t.id, onPlay: () => guard(() => engine.playQueue(calm, i)) }))
-          ),
-          React2.createElement("p", { className: "music-section__note" }, "Public-domain recordings from Musopen, via Wikimedia Commons.")
-        ),
-      !nasheedsOnly &&
-        React2.createElement(
-          "section",
-          { className: "music-section", "aria-label": "My albums" },
-          React2.createElement(
-            "div",
-            { className: "music-section__row" },
-            React2.createElement("h3", { className: "music-section__title" }, "My albums"),
-            React2.createElement(
-              "div",
-              { className: "music-section__add" },
-              React2.createElement(Button, { size: "sm", variant: "secondary", icon: React2.createElement(Plus, { size: 14 }), onClick: () => musicInput.current && musicInput.current.click() }, "Add music"),
-              supportsFolders && React2.createElement(Button, { size: "sm", variant: "ghost", onClick: () => folderInput.current && folderInput.current.click() }, "Add folder")
-            )
-          ),
-          musicAlbums.length ? tiles(musicAlbums) : React2.createElement("p", { className: "music-section__note" }, "Add music you own. It stays private on this device."),
-          React2.createElement("p", { className: "music-usage" }, lib.length ? `${lib.length} track${lib.length === 1 ? "" : "s"} · ${fmtBytes(usageBytes)} on this device` : "No music added yet")
-        ),
-      React2.createElement(SpotifySection, { nasheedsOnly }),
-      React2.createElement(
-        "section",
-        { className: "music-section", "aria-label": "Nasheeds" },
-        React2.createElement("h3", { className: "music-section__title" }, "Nasheeds"),
-        builtInNasheeds.length > 0 &&
-          React2.createElement(
-            "ul",
-            { className: "track-list" },
-            builtInNasheeds.map((t, i) => React2.createElement(TrackRow, { key: t.id, track: t, active: cur && cur.id === t.id, onPlay: () => guard(() => engine.playQueue(builtInNasheeds, i)) }))
-          ),
-        nasheedAlbums.length > 0 && tiles(nasheedAlbums),
-        !builtInNasheeds.length &&
-          !nasheedAlbums.length &&
-          React2.createElement(
-            "div",
-            { className: "music-empty" },
-            React2.createElement("p", null, "No nasheeds yet. Add nasheed files you have, or mark one of your albums as Nasheed."),
-            React2.createElement(Button, { size: "sm", variant: "primary", icon: React2.createElement(Plus, { size: 14 }), onClick: () => nasheedInput.current && nasheedInput.current.click() }, "Add your own nasheeds")
-          )
-      )
+      React2.createElement(AlbumSection, {
+        kind: "music",
+        albums: albums.filter((a) => a.kind !== "nasheed"),
+        tracksOf,
+        onOpen: setOpenId,
+        onCreated: created,
+        footer: !blocked && !failed && React2.createElement("p", { className: "music-usage" }, lib.length ? `${countTracks(lib.length)} · ${fmtBytes(usageBytes)} on this device` : "No music added yet")
+      }),
+      React2.createElement(SpotifySection, null),
+      React2.createElement(AlbumSection, { kind: "nasheed", albums: albums.filter((a) => a.kind === "nasheed"), tracksOf, onOpen: setOpenId, onCreated: created })
     );
   }
   function QuranTab() {
@@ -8033,7 +8277,8 @@ main[data-section='saved'] .panel::after {
     );
   }
   /* ---------- Games: loaded from their own files ---------- */
-  // The Retro games live in games/games.js and games/games.css. They load once,
+  // The Retro games panel lives in games/panel.js and games/panel.css (each
+  // game then has its own file, loaded when opened). The panel loads once,
   // in the background shortly after ONE opens, so opening Games never waits.
   let gamesPromise = null;
   function loadGames() {
@@ -8049,9 +8294,9 @@ main[data-section='saved'] .panel::after {
       });
     const css = document.createElement("link");
     css.rel = "stylesheet";
-    css.href = "games/games.css";
+    css.href = "games/panel.css";
     const js = document.createElement("script");
-    js.src = "games/games.js";
+    js.src = "games/panel.js";
     gamesPromise = Promise.all([add(css), add(js)])
       .then(() => {
         if (!window.__oneGames) throw new Error("The games file didn't start.");
@@ -9029,7 +9274,7 @@ main[data-section='saved'] .panel::after {
   }
   // What the pages (pages/<id>/<id>.js) borrow from the app.
   window.__oneApp = { React2, reactDom, loadScript, ensureTelegram, useTelegram, telegramDevice, MessageCircle, ArrowLeft, ArrowRight, BookOpen, Button, Check, CircleCheck, EmptyState, Field, FolderPlus, IDEA_COLORS, IconButton, Kbd, Lightbulb, Lock, Menu, Minus, Modal, Monogram, Moon, Pencil, Plus, RefreshCw, STARS, SampleBadge, Search, Segmented, SoundsButton, StickyNote, Sun, Target, Trash2, Trophy, X, addDays, createLucideIcon, createSampleData, hostOf, isAppData, isMac, isTypingTarget, loadGames, modKey, newId, parseISODate, relativeDay, takeInstallPrompt, timeAgo, toISODate, todayISO, useConfirm, useDeleteCategory, useDeleteGoal, useDeleteIdea, useDeleteSaved, useDeleteShortcut, useDeleteTask, useLock, useMediaQuery, useSound, useStore, useSync, useTheme, useToast, useUI };
-  // What games/games.js borrows from the app.
+  // What the games (games/*.js) borrow from the app.
   window.__oneKit = { React: React2, ReactDOM: reactDom, IconButton, icons: { Trophy, X, ArrowLeft, Volume2, VolumeX }, FOCUSABLE };
   client.createRoot(document.getElementById("root")).render(/* @__PURE__ */ React2.createElement(App, null));
   if ("serviceWorker" in navigator && (location.protocol === "https:" || location.hostname === "localhost")) {
