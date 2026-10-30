@@ -1,9 +1,10 @@
 // Bundles GramJS (npm "telegram") for the browser into one file,
-// pages/telegram/gramjs-<version>.js, exposing window.GramJS =
+// pages/telegram/gramjs-<version>.<fingerprint>.js, exposing window.GramJS =
 // { TelegramClient, Api, StringSession }. Run: npm install && npm run build
 // The parts of GramJS that only work in Node are swapped for their browser
 // versions (as GramJS's own browser build does) or left out.
 import * as esbuild from "esbuild";
+import crypto from "node:crypto";
 import fs from "node:fs";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
@@ -40,8 +41,12 @@ const browserOnly = {
   }
 };
 
-const outfile = path.join(here, `../../pages/telegram/gramjs-${version}.js`);
-await esbuild.build({
+// The file is named after its contents (gramjs-<version>.<fingerprint>.js):
+// ONE keeps app files on the device and never refetches a name it has, so a
+// rebuilt bundle must get a new name. client.js is pointed at it, and older
+// bundles are removed.
+const pagesDir = path.join(here, "../../pages/telegram");
+const result = await esbuild.build({
   entryPoints: [path.join(here, "entry.js")],
   bundle: true,
   format: "iife",
@@ -55,6 +60,14 @@ await esbuild.build({
   alias: { os: "os-browserify/browser", path: "path-browserify", util: "util", events: "events" },
   plugins: [browserOnly],
   banner: { js: `/* GramJS ${version} (MIT), bundled for ONE by tools/telegram (npm run build). */` },
-  outfile
+  write: false,
+  outfile: path.join(pagesDir, "gramjs.js")
 });
-console.log("wrote", path.relative(process.cwd(), outfile));
+const code = result.outputFiles[0].contents;
+const fingerprint = crypto.createHash("sha256").update(code).digest("hex").slice(0, 10);
+const name = `gramjs-${version}.${fingerprint}.js`;
+for (const f of fs.readdirSync(pagesDir)) if (f.startsWith("gramjs-") && f !== name) fs.unlinkSync(path.join(pagesDir, f));
+fs.writeFileSync(path.join(pagesDir, name), code);
+const clientFile = path.join(pagesDir, "client.js");
+fs.writeFileSync(clientFile, fs.readFileSync(clientFile, "utf8").replace(/"pages\/telegram\/gramjs-[^"]+\.js"/, `"pages/telegram/${name}"`));
+console.log("wrote", name);

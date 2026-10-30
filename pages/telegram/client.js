@@ -4,7 +4,7 @@
 // window.__oneTelegramClient; Node (the mapping tests): module.exports.
 (function (root) {
   "use strict";
-  const GRAMJS = "pages/telegram/gramjs-2.26.22.js";
+  const GRAMJS = "pages/telegram/gramjs-2.26.22.19a0b56a13.js";
   const idOf = (x) => (x === null || x === undefined ? null : String(x));
 
   // ---------- Mapping ----------
@@ -51,15 +51,23 @@
   }
   const UNAUTHORIZED = ["AUTH_KEY_UNREGISTERED", "SESSION_REVOKED", "SESSION_EXPIRED", "USER_DEACTIVATED", "USER_DEACTIVATED_BAN", "AUTH_KEY_INVALID"];
   function normalizeError(e) {
-    if (e && typeof e.code === "string" && /^[A-Z_]+$/.test(e.code)) return e.seconds ? { code: e.code, seconds: e.seconds } : { code: e.code };
+    if (e && typeof e.code === "string" && /^[A-Z_]+$/.test(e.code)) {
+      const out = { code: e.code };
+      if (e.seconds) out.seconds = e.seconds;
+      if (e.detail) out.detail = e.detail;
+      return out;
+    }
     const msg = (e && (e.errorMessage || e.message)) || "";
     if (/^FLOOD_WAIT/.test(msg)) return { code: "FLOOD_WAIT", seconds: e.seconds || Number(msg.split("_").pop()) || 30 };
     if (msg === "PHONE_CODE_INVALID" || msg === "PHONE_CODE_EMPTY") return { code: "CODE_INVALID" };
     if (msg === "PHONE_CODE_EXPIRED") return { code: "CODE_EXPIRED" };
     if (msg === "PASSWORD_HASH_INVALID") return { code: "PASSWORD_INVALID" };
     if (UNAUTHORIZED.includes(msg)) return { code: "UNAUTHORIZED" };
+    if (msg === "API_ID_INVALID" || msg === "API_ID_PUBLISHED_FLOOD") return { code: "KEY_INVALID" };
     if (/network|websocket|connection|timeout|not connected|disconnect/i.test(msg)) return { code: "NETWORK" };
-    return { code: "OTHER" };
+    // Kept, so the message can show what went wrong.
+    const name = e && !e.errorMessage && e.name && e.name !== "Error" ? `${e.name}: ` : "";
+    return { code: "OTHER", detail: `${name}${msg}` || String(e) };
   }
 
   // ---------- The client ----------

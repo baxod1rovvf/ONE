@@ -23,8 +23,11 @@
         return `Telegram asks you to wait ${waitText(err.seconds)} before trying again.`;
       case "NETWORK":
         return "Couldn't reach Telegram. Check your connection and try again.";
+      case "KEY_INVALID":
+        return "Telegram didn't accept this api_id and api_hash. Check them on my.telegram.org.";
       default:
-        return "Something went wrong with Telegram. Try again.";
+        // What went wrong, in brackets, so it can be reported.
+        return `Something went wrong with Telegram. Try again.${err && err.detail ? ` (${err.detail})` : ""}`;
     }
   }
   const asError = (e) => window.__oneTelegramClient.normalizeError(e);
@@ -153,7 +156,7 @@
           "ol",
           { className: "tg-connect__steps" },
           h("li", null, "Open ", h("a", { href: "https://my.telegram.org", target: "_blank", rel: "noreferrer" }, "my.telegram.org"), " and log in with your phone number."),
-          h("li", null, "Choose ", h("b", null, "API development tools"), " and create an app (any name, for example “ONE”)."),
+          h("li", null, "Choose ", h("b", null, "API development tools"), " and create an app (any name of 5 or more letters, for example “My ONE app”)."),
           h("li", null, "Copy ", h("b", null, "App api_id"), " and ", h("b", null, "App api_hash"), " here.")
         ),
         h(Field, { label: "api_id" }, (p) => h("input", { ...p, className: "input", inputMode: "numeric", autoComplete: "off", value: apiId, onChange: (e) => setApiId(e.target.value) })),

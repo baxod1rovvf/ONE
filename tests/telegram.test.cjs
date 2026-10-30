@@ -171,6 +171,23 @@ test("when Telegram asks to wait, ONE says how long", async () => {
   await page.close();
 });
 
+test("an unexpected error shows what went wrong; a rejected key says so", async () => {
+  const { page } = await openApp(browser, server.url, {
+    route: "telegram",
+    telegram: { seed: seed() },
+    init: (p) => p.addInitScript(() => window.addEventListener("one-telegram-ready", () => (window.__tgFake.fail.sendCode = { errorMessage: "PHONE_NUMBER_BANNED" })))
+  });
+  await enterKey(page);
+  await page.getByRole("button", { name: "Phone number" }).click();
+  await fill(page, "Phone number", "+998901234567");
+  await page.getByRole("button", { name: "Send code" }).click();
+  await page.getByText("Something went wrong with Telegram. Try again. (PHONE_NUMBER_BANNED)").waitFor();
+  await page.evaluate(() => (window.__tgFake.fail.sendCode = { errorMessage: "API_ID_INVALID" }));
+  await page.getByRole("button", { name: "Send code" }).click();
+  await page.getByText("Telegram didn't accept this api_id and api_hash. Check them on my.telegram.org.").waitFor();
+  await page.close();
+});
+
 test("Settings: who is connected, log out, and the time limits", async () => {
   const { page } = await openApp(browser, server.url, { route: "preferences", ...connected() });
   const section = page.locator("section", { has: page.getByRole("heading", { name: "Telegram" }) });
