@@ -47,7 +47,10 @@ test("errors in ONE's words", () => {
   assert.deepEqual(normalizeError({ errorMessage: "AUTH_KEY_UNREGISTERED" }), { code: "UNAUTHORIZED" });
   assert.deepEqual(normalizeError({ errorMessage: "SESSION_REVOKED" }), { code: "UNAUTHORIZED" });
   assert.deepEqual(normalizeError(new Error("WebSocket connection failed")), { code: "NETWORK" });
-  assert.deepEqual(normalizeError({ errorMessage: "SOMETHING_ELSE" }), { code: "OTHER" });
+  assert.deepEqual(normalizeError({ errorMessage: "API_ID_INVALID" }), { code: "KEY_INVALID" });
+  // Anything else keeps what went wrong, so it can be shown and reported.
+  assert.deepEqual(normalizeError({ errorMessage: "SOMETHING_ELSE" }), { code: "OTHER", detail: "SOMETHING_ELSE" });
+  assert.deepEqual(normalizeError(new TypeError("x is undefined")), { code: "OTHER", detail: "TypeError: x is undefined" });
   // Already normalized errors pass through.
   assert.deepEqual(normalizeError({ code: "FLOOD_WAIT", seconds: 30 }), { code: "FLOOD_WAIT", seconds: 30 });
 });
