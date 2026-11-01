@@ -4096,6 +4096,40 @@ main[data-section='saved'] .panel::after {
     date.setDate(date.getDate() + days);
     return toISODate(date);
   }
+  // Repeating tasks. A repeating task is one task: ticking it off keeps the
+  // done one in Done and adds the next one, due on the next date this gives.
+  const REPEATS = [
+    { value: "daily", label: "Every day", short: "Daily" },
+    { value: "weekdays", label: "Weekdays", short: "Weekdays" },
+    { value: "weekly", label: "Every week", short: "Weekly" },
+    { value: "monthly", label: "Every month", short: "Monthly" }
+  ];
+  function stepRepeat(iso, repeat, anchorDay) {
+    if (repeat === "daily") return addDays(iso, 1);
+    if (repeat === "weekly") return addDays(iso, 7);
+    if (repeat === "weekdays") {
+      let next = addDays(iso, 1);
+      while ([0, 6].includes(parseISODate(next).getDay())) next = addDays(next, 1);
+      return next;
+    }
+    if (repeat === "monthly") {
+      const [y, m] = iso.split("-").map(Number);
+      const last = new Date(y, m + 1, 0).getDate();
+      return toISODate(new Date(y, m, Math.min(anchorDay, last)));
+    }
+    return null;
+  }
+  // The next due date after a repeating task is done: one step on from its
+  // due date, skipping ahead past today when it was overdue. Monthly tasks
+  // keep their day of the month (the 31st falls back to a short month's end).
+  function nextRepeatDate(task, today = todayISO()) {
+    if (!REPEATS.some((r) => r.value === task.repeat)) return null;
+    const from = task.dueDate || today;
+    const anchorDay = Number(from.split("-")[2]);
+    let next = stepRepeat(from, task.repeat, anchorDay);
+    while (next <= today) next = stepRepeat(next, task.repeat, anchorDay);
+    return next;
+  }
   function parseISODate(iso) {
     const [y, m, d] = iso.split("-").map(Number);
     return new Date(y, m - 1, d);
@@ -4231,7 +4265,7 @@ main[data-section='saved'] .panel::after {
       { title: "Review project brief", dueTime: "09:30", priority: "high", label: "Work", done: true, completedAt: ago(90) },
       { title: "Reply to Sara about Saturday", dueTime: null, priority: "none", label: "Personal", done: true, completedAt: ago(30) },
       { title: "Draft portfolio intro", dueTime: "14:00", priority: "medium", label: "Portfolio", done: false, completedAt: null },
-      { title: "30-minute run", dueTime: "18:00", priority: "none", label: "Health", done: false, completedAt: null },
+      { title: "30-minute run", dueTime: "18:00", priority: "none", label: "Health", done: false, completedAt: null, repeat: "daily" },
       { title: "Pay electricity bill", dueTime: null, priority: "high", label: "Home", done: false, completedAt: null }
     ].map((t) => ({ id: sid(), dueDate: today, createdAt: ago(60 * 12), sample: true, ...t }));
     tasks.push(
@@ -4835,11 +4869,13 @@ main[data-section='saved'] .panel::after {
     const [priority, setPriority] = React2.useState("none");
     const [label, setLabel] = React2.useState("");
     const [percent, setPercent] = React2.useState(0);
+    const [repeat, setRepeat] = React2.useState("");
     const [error, setError] = React2.useState(null);
     React2.useEffect(() => {
       if (!open) return;
       const src = task ?? defaults ?? {};
       setPercent(src.percent ?? 0);
+      setRepeat(src.repeat ?? "");
       setTitle(src.title ?? "");
       setDueDate(src.dueDate ?? "");
       setDueTime(src.dueTime ?? "");
@@ -4855,13 +4891,16 @@ main[data-section='saved'] .panel::after {
         setError("Give the task a name.");
         return;
       }
+      // A repeating task needs a day to count from; without one it starts today.
+      const due = dueDate || (repeat ? todayISO() : "");
       const fields = {
         title: t,
-        dueDate: dueDate || null,
-        dueTime: dueDate && dueTime ? dueTime : null,
+        dueDate: due || null,
+        dueTime: due && dueTime ? dueTime : null,
         priority,
         label: label.trim(),
-        percent
+        percent,
+        repeat: repeat || null
       };
       if (task) {
         update("tasks", task.id, fields);
@@ -4910,7 +4949,7 @@ main[data-section='saved'] .panel::after {
         { l: "Tomorrow", v: addDays(today, 1) },
         { l: "Next week", v: addDays(today, 7) },
         { l: "No date", v: "" }
-      ].map((o) => /* @__PURE__ */ React2.createElement("button", { key: o.l, type: "button", className: "chip", "aria-pressed": dueDate === o.v, onClick: () => setDueDate(o.v) }, o.l)))), /* @__PURE__ */ React2.createElement("div", { className: "form-row" }, /* @__PURE__ */ React2.createElement(Field, { label: "Date" }, (p) => /* @__PURE__ */ React2.createElement("input", { ...p, type: "date", className: "input", value: dueDate, onChange: (e) => setDueDate(e.target.value) })), /* @__PURE__ */ React2.createElement(Field, { label: "Time", hint: dueDate ? "Optional" : "Pick a date first" }, (p) => /* @__PURE__ */ React2.createElement("input", { ...p, type: "time", className: "input", value: dueTime, disabled: !dueDate, onChange: (e) => setDueTime(e.target.value) }))), /* @__PURE__ */ React2.createElement("div", { className: "form-row" }, /* @__PURE__ */ React2.createElement(Field, { label: "Priority" }, (p) => /* @__PURE__ */ React2.createElement("select", { ...p, className: "select", value: priority, onChange: (e) => setPriority(e.target.value) }, /* @__PURE__ */ React2.createElement("option", { value: "none" }, "None"), /* @__PURE__ */ React2.createElement("option", { value: "low" }, "Low"), /* @__PURE__ */ React2.createElement("option", { value: "medium" }, "Medium"), /* @__PURE__ */ React2.createElement("option", { value: "high" }, "High"))), /* @__PURE__ */ React2.createElement(Field, { label: "Label", hint: "Optional, e.g. Work" }, (p) => /* @__PURE__ */ React2.createElement(React2.Fragment, null, /* @__PURE__ */ React2.createElement("input", { ...p, className: "input", list: "task-labels", value: label, maxLength: 24, onChange: (e) => setLabel(e.target.value) }), /* @__PURE__ */ React2.createElement("datalist", { id: "task-labels" }, labels.map((l) => /* @__PURE__ */ React2.createElement("option", { key: l, value: l })))))), React2.createElement(Field, { label: `My progress: ${percent}%`, hint: "How much of this task you’ve done, in your own estimate." }, (p) => React2.createElement("input", { ...p, type: "range", className: "range", min: 0, max: 100, step: 5, value: percent, style: { ["--val"]: `${percent}%` }, onChange: (e) => setPercent(Number(e.target.value)) })))
+      ].map((o) => /* @__PURE__ */ React2.createElement("button", { key: o.l, type: "button", className: "chip", "aria-pressed": dueDate === o.v, onClick: () => setDueDate(o.v) }, o.l)))), React2.createElement("div", { className: "field" }, React2.createElement("span", { className: "field__label", id: "task-repeat-label" }, "Repeat"), React2.createElement("div", { className: "date-quick", role: "group", "aria-labelledby": "task-repeat-label" }, [{ value: "", label: "Never" }, ...REPEATS].map((o) => React2.createElement("button", { key: o.value || "never", type: "button", className: "chip", "aria-pressed": repeat === o.value, onClick: () => setRepeat(o.value) }, o.label))), repeat && !dueDate && React2.createElement("span", { className: "field__hint" }, "Starts today. Set a date to start another day.")), /* @__PURE__ */ React2.createElement("div", { className: "form-row" }, /* @__PURE__ */ React2.createElement(Field, { label: "Date" }, (p) => /* @__PURE__ */ React2.createElement("input", { ...p, type: "date", className: "input", value: dueDate, onChange: (e) => setDueDate(e.target.value) })), /* @__PURE__ */ React2.createElement(Field, { label: "Time", hint: dueDate ? "Optional" : "Pick a date first" }, (p) => /* @__PURE__ */ React2.createElement("input", { ...p, type: "time", className: "input", value: dueTime, disabled: !dueDate, onChange: (e) => setDueTime(e.target.value) }))), /* @__PURE__ */ React2.createElement("div", { className: "form-row" }, /* @__PURE__ */ React2.createElement(Field, { label: "Priority" }, (p) => /* @__PURE__ */ React2.createElement("select", { ...p, className: "select", value: priority, onChange: (e) => setPriority(e.target.value) }, /* @__PURE__ */ React2.createElement("option", { value: "none" }, "None"), /* @__PURE__ */ React2.createElement("option", { value: "low" }, "Low"), /* @__PURE__ */ React2.createElement("option", { value: "medium" }, "Medium"), /* @__PURE__ */ React2.createElement("option", { value: "high" }, "High"))), /* @__PURE__ */ React2.createElement(Field, { label: "Label", hint: "Optional, e.g. Work" }, (p) => /* @__PURE__ */ React2.createElement(React2.Fragment, null, /* @__PURE__ */ React2.createElement("input", { ...p, className: "input", list: "task-labels", value: label, maxLength: 24, onChange: (e) => setLabel(e.target.value) }), /* @__PURE__ */ React2.createElement("datalist", { id: "task-labels" }, labels.map((l) => /* @__PURE__ */ React2.createElement("option", { key: l, value: l })))))), React2.createElement(Field, { label: `My progress: ${percent}%`, hint: "How much of this task you’ve done, in your own estimate." }, (p) => React2.createElement("input", { ...p, type: "range", className: "range", min: 0, max: 100, step: 5, value: percent, style: { ["--val"]: `${percent}%` }, onChange: (e) => setPercent(Number(e.target.value)) })))
     );
   }
   function useDeleteTask() {
@@ -9294,7 +9333,7 @@ main[data-section='saved'] .panel::after {
     return /* @__PURE__ */ React2.createElement(StoreProvider, null, /* @__PURE__ */ React2.createElement(ToastProvider, null, /* @__PURE__ */ React2.createElement(ConfirmProvider, null, React2.createElement(SyncProvider, null, React2.createElement(SoundProvider, null, React2.createElement(LockProvider, null, /* @__PURE__ */ React2.createElement(UIProvider, null, /* @__PURE__ */ React2.createElement(Shell, null))))))));
   }
   // What the pages (pages/<id>/<id>.js) borrow from the app.
-  window.__oneApp = { React2, reactDom, loadScript, ensureTelegram, useTelegram, telegramDevice, MessageCircle, ArrowLeft, ArrowRight, BookOpen, Button, Check, CircleCheck, EmptyState, Field, FolderPlus, IDEA_COLORS, IconButton, Kbd, Lightbulb, Lock, Menu, Minus, Modal, Monogram, Moon, Pencil, Plus, RefreshCw, STARS, SampleBadge, Search, Segmented, SoundsButton, StickyNote, Sun, Target, Trash2, Trophy, X, addDays, createLucideIcon, createSampleData, hostOf, isAppData, isMac, isTypingTarget, loadGames, modKey, newId, parseISODate, relativeDay, takeInstallPrompt, timeAgo, toISODate, todayISO, useConfirm, useDeleteCategory, useDeleteGoal, useDeleteIdea, useDeleteSaved, useDeleteShortcut, useDeleteTask, useLock, useMediaQuery, useSound, useStore, useSync, useTheme, useToast, useUI };
+  window.__oneApp = { REPEATS, nextRepeatDate, React2, reactDom, loadScript, ensureTelegram, useTelegram, telegramDevice, MessageCircle, ArrowLeft, ArrowRight, BookOpen, Button, Check, CircleCheck, EmptyState, Field, FolderPlus, IDEA_COLORS, IconButton, Kbd, Lightbulb, Lock, Menu, Minus, Modal, Monogram, Moon, Pencil, Plus, RefreshCw, STARS, SampleBadge, Search, Segmented, SoundsButton, StickyNote, Sun, Target, Trash2, Trophy, X, addDays, createLucideIcon, createSampleData, hostOf, isAppData, isMac, isTypingTarget, loadGames, modKey, newId, parseISODate, relativeDay, takeInstallPrompt, timeAgo, toISODate, todayISO, useConfirm, useDeleteCategory, useDeleteGoal, useDeleteIdea, useDeleteSaved, useDeleteShortcut, useDeleteTask, useLock, useMediaQuery, useSound, useStore, useSync, useTheme, useToast, useUI };
   // What the games (games/*.js) borrow from the app.
   window.__oneKit = { React: React2, ReactDOM: reactDom, IconButton, icons: { Trophy, X, ArrowLeft, Volume2, VolumeX }, FOCUSABLE };
   client.createRoot(document.getElementById("root")).render(/* @__PURE__ */ React2.createElement(App, null));
