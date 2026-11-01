@@ -52,7 +52,7 @@ test("connecting reaches the network step without crashing", async () => {
   await page.close();
 });
 
-// ONE keeps app files on the device and treats a name as never changing, so
+// Core keeps app files on the device and treats a name as never changing, so
 // the bundle's name carries a fingerprint of its contents: a rebuilt bundle
 // always gets a new name, and devices fetch it fresh.
 test("the bundle's file name carries a fingerprint of its contents", () => {

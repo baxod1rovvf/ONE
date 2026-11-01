@@ -4,7 +4,7 @@ const MIN = 60e3;
 // A message from them (out: false) or from me (out: true), `ago` ms ago.
 const msg = (chatId, id, out, ago, text = out ? "ok" : "hello") => ({ id, chatId, out, date: Date.now() - ago, text, replyToId: null, media: null });
 // Aziz (High) waiting 5 h, Mom (Normal) waiting 2 h, Dilnoza (Low) answered,
-// plus Bek, who isn't in ONE.
+// plus Bek, who isn't in Core.
 function seed() {
   const messages = {
     "11": [msg("11", 1, true, 6 * H), msg("11", 2, false, 5 * H, "Are you free?"), msg("11", 3, false, 4 * H, "Call me")],

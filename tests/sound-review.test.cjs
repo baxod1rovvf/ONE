@@ -96,7 +96,7 @@ test("locking and Stop all also pause Spotify", async () => {
   await panel(page).getByRole("button", { name: /^Play Spotify/ }).click();
   const pauses = await page.evaluate(() => window.__fakeSpotify.calls.filter((c) => c[0] === "pause").length);
   await page.keyboard.press("Escape");
-  await page.getByRole("button", { name: "Lock ONE now" }).click();
+  await page.getByRole("button", { name: "Lock Core now" }).click();
   await page.waitForFunction((n) => window.__fakeSpotify.calls.filter((c) => c[0] === "pause").length > n, pauses);
   await page.close();
 });
@@ -116,7 +116,7 @@ test("Stop all during a recitation leaves silence, nothing restarts", async () =
   await page.close();
 });
 
-test("pressing play inside Spotify's own player pauses ONE's music", async () => {
+test("pressing play inside Spotify's own player pauses Core's music", async () => {
   const { page } = await openApp(browser, server.url, { route: "tasks" });
   await page.evaluate(() => {
     window.__fakeSpotifyBlockPlay = true;
@@ -208,7 +208,7 @@ test("a file with a broken tag doesn't freeze the page", async () => {
   await page.close();
 });
 
-test("opening ONE while it is locked keeps the saved mix silent until unlocked", async () => {
+test("opening Core while it is locked keeps the saved mix silent until unlocked", async () => {
   const { page } = await openApp(browser, server.url, { route: "tasks" });
   await setPin(page);
   await openTab(page, "Nature");

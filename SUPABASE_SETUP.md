@@ -1,6 +1,6 @@
 # Turning on sync (one time, about 5 minutes)
 
-ONE can share a Supabase project with another site. It only adds three tables
+Core can share a Supabase project with another site. It only adds three tables
 and four functions whose names start with `one_`, and it doesn't touch
 anything else in the project.
 
@@ -11,7 +11,7 @@ anything else in the project.
 3. Paste the whole of [`supabase/one_sync.sql`](supabase/one_sync.sql) and press **Run**.
    You should see "Success. No rows returned". Running it again is safe.
 
-## 2. Give ONE the project address and key
+## 2. Give Core the project address and key
 
 1. Open **Project Settings** → **API** (in newer dashboards: **Data API** and **API Keys**).
 2. Copy the **Project URL** (looks like `https://abcd1234.supabase.co`).
@@ -29,7 +29,7 @@ anything else in the project.
 5. Commit and push. GitHub Pages updates in a minute or two.
 
 The anon key is meant to be public: it's the same kind of key your other site
-already ships to every visitor. For ONE it can only call the four `one_*`
+already ships to every visitor. For Core it can only call the four `one_*`
 functions. The tables themselves are locked.
 
 ## 3. Connect your devices
@@ -48,10 +48,10 @@ for 15 minutes.
   being passed inside the pairing code exchange, which is itself encrypted
   with the code.
 - The PIN lock is per device and is not synced. If you forget it, "Forgot PIN?"
-  erases ONE on that device only. Connect it again with a code to get your data back.
+  erases Core on that device only. Connect it again with a code to get your data back.
 
 ## Free plan note
 
 Supabase pauses free projects after a week with no activity. Because your
 other site uses the same project, it will usually stay awake. If it ever does
-pause, ONE keeps working offline and syncs again once you restore the project.
+pause, Core keeps working offline and syncs again once you restore the project.

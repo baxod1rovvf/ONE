@@ -1,4 +1,4 @@
-// ONE — Home page. It loads into the same page as index.html (see
+// Core — Home page. It loads into the same page as index.html (see
 // loadPage there), so switching to it never reloads anything. index.html
 // shares what the page needs through window.__oneApp; the page is handed
 // back in window.__onePages.

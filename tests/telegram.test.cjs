@@ -1,4 +1,4 @@
-// Telegram in ONE, against the fake Telegram (tests/fixtures/telegram-fake.js).
+// Telegram in Core, against the fake Telegram (tests/fixtures/telegram-fake.js).
 const { test, before, after } = require("node:test");
 const assert = require("node:assert/strict");
 const { startServer, launch, openApp } = require("./helpers.cjs");
@@ -61,7 +61,7 @@ test("locked, nothing from Telegram shows or loads", async () => {
     ...connected(),
     init: (p) => p.addInitScript((rec) => localStorage.setItem("one.lock.v1", JSON.stringify(rec)), lockRec)
   });
-  await page.getByText("ONE is locked").waitFor();
+  await page.getByText("Core is locked").waitFor();
   await page.waitForTimeout(2500);
   assert.equal(await badge(page).count(), 0);
   const loaded = await page.evaluate(() => !!document.querySelector("script[src*='pages/telegram/service']"));
@@ -157,7 +157,7 @@ test("QR login with a cloud password asks for it, and again if it's wrong", asyn
   await page.close();
 });
 
-test("when Telegram asks to wait, ONE says how long", async () => {
+test("when Telegram asks to wait, Core says how long", async () => {
   const { page } = await openApp(browser, server.url, {
     route: "telegram",
     telegram: { seed: seed() },
@@ -207,7 +207,7 @@ test("Settings: who is connected, log out, and the time limits", async () => {
   await page.close();
 });
 
-test("logged out from the phone: ONE says so and can connect again", async () => {
+test("logged out from the phone: Core says so and can connect again", async () => {
   const { page } = await openApp(browser, server.url, { route: "telegram", ...connected() });
   await badge(page).waitFor({ timeout: 10000 });
   await page.evaluate(() => window.__tgFake.revoke());
@@ -224,12 +224,12 @@ test("logged out from the phone: ONE says so and can connect again", async () =>
 const NO_PREFS = { telegram: { chats: {}, limits: { normal: 180, low: 720 } } };
 const levelOf = (page, name) => page.getByRole("group", { name: `Level for ${name}` });
 
-test("first visit: every private chat, newest first, starts as Not in ONE", async () => {
+test("first visit: every private chat, newest first, starts as Not in Core", async () => {
   const { page, errors } = await openApp(browser, server.url, { route: "telegram", ...connected({ settings: NO_PREFS }) });
   await page.getByRole("heading", { name: "Choose your chats" }).waitFor({ timeout: 10000 });
   const names = await page.locator(".tg-manage__name").allTextContents();
   assert.deepEqual(names, ["Bek", "Mom", "Dilnoza", "Aziz"]);
-  for (const n of names) assert.equal(await levelOf(page, n).getByRole("button", { name: "Not in ONE" }).getAttribute("aria-pressed"), "true");
+  for (const n of names) assert.equal(await levelOf(page, n).getByRole("button", { name: "Not in Core" }).getAttribute("aria-pressed"), "true");
   await page.getByLabel("Search chats").fill("di");
   assert.deepEqual(await page.locator(".tg-manage__name").allTextContents(), ["Dilnoza"]);
   assert.deepEqual(errors, []);
@@ -354,7 +354,7 @@ test("photos, files and stickers", async () => {
   await page.close();
 });
 
-test("Enter sends, Shift+Enter starts a new line, and ONE says who's next", async () => {
+test("Enter sends, Shift+Enter starts a new line, and Core says who's next", async () => {
   const { page } = await openChat();
   await box(page).click();
   await box(page).type("Calling");
@@ -398,7 +398,7 @@ test("a message that didn't send stays, with Try again", async () => {
   await page.close();
 });
 
-test("when Telegram asks to slow down, ONE says how long", async () => {
+test("when Telegram asks to slow down, Core says how long", async () => {
   const { page } = await openChat();
   await page.evaluate(() => (window.__tgFake.fail.send = { code: "FLOOD_WAIT", seconds: 30 }));
   await box(page).fill("Hi");
@@ -407,7 +407,7 @@ test("when Telegram asks to slow down, ONE says how long", async () => {
   await page.close();
 });
 
-test("opening a chat counts as read in ONE, without telling Telegram", async () => {
+test("opening a chat counts as read in Core, without telling Telegram", async () => {
   const { page } = await openChat();
   await page.waitForFunction(() => document.querySelector('.dock__tab[data-route="telegram"] .dock__badge')?.getAttribute("aria-label") === "1 waiting");
   const handled = await page.evaluate(() => JSON.parse(localStorage.getItem("one.workspace.v1")).settings.telegram.chats["11"].handled);

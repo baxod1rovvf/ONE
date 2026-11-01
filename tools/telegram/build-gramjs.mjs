@@ -42,7 +42,7 @@ const browserOnly = {
 };
 
 // The file is named after its contents (gramjs-<version>.<fingerprint>.js):
-// ONE keeps app files on the device and never refetches a name it has, so a
+// Core keeps app files on the device and never refetches a name it has, so a
 // rebuilt bundle must get a new name. client.js is pointed at it, and older
 // bundles are removed.
 const pagesDir = path.join(here, "../../pages/telegram");

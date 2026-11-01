@@ -1,4 +1,4 @@
-// How pages/telegram/client.js turns GramJS objects into ONE's plain shapes.
+// How pages/telegram/client.js turns GramJS objects into Core's plain shapes.
 const { test } = require("node:test");
 const assert = require("node:assert/strict");
 const { mapMessage, mapUser, mapStatus, normalizeError, isPrivatePerson } = require("../pages/telegram/client.js");
@@ -39,7 +39,7 @@ test("online and last seen", () => {
   assert.deepEqual(mapStatus(undefined), { online: false, lastSeen: null });
 });
 
-test("errors in ONE's words", () => {
+test("errors in Core's words", () => {
   assert.deepEqual(normalizeError({ errorMessage: "FLOOD_WAIT", seconds: 240 }), { code: "FLOOD_WAIT", seconds: 240 });
   assert.deepEqual(normalizeError({ errorMessage: "PHONE_CODE_INVALID" }), { code: "CODE_INVALID" });
   assert.deepEqual(normalizeError({ errorMessage: "PHONE_CODE_EXPIRED" }), { code: "CODE_EXPIRED" });

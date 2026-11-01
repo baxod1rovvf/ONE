@@ -1,4 +1,4 @@
-// ONE — Telegram page. It loads into the same page as index.html (see
+// Core — Telegram page. It loads into the same page as index.html (see
 // loadPage there). The live connection and the chats come from
 // pages/telegram/service.js, through useTelegram; this file only draws them.
 (function () {
@@ -6,7 +6,7 @@
   const { React2, Button, Field, Segmented, MessageCircle, RefreshCw, ArrowLeft, Search, ensureTelegram, loadScript, useStore, useTelegram, useToast, useUI } = window.__oneApp;
   const h = React2.createElement;
 
-  // Telegram's errors, in ONE's words.
+  // Telegram's errors, in Core's words.
   function waitText(seconds) {
     if (seconds < 60) return `${seconds} second${seconds === 1 ? "" : "s"}`;
     const m = Math.ceil(seconds / 60);
@@ -156,7 +156,7 @@
           "ol",
           { className: "tg-connect__steps" },
           h("li", null, "Open ", h("a", { href: "https://my.telegram.org", target: "_blank", rel: "noreferrer" }, "my.telegram.org"), " and log in with your phone number."),
-          h("li", null, "Choose ", h("b", null, "API development tools"), " and create an app (any name of 5 or more letters, for example “My ONE app”)."),
+          h("li", null, "Choose ", h("b", null, "API development tools"), " and create an app (any name of 5 or more letters, for example “My Core app”)."),
           h("li", null, "Copy ", h("b", null, "App api_id"), " and ", h("b", null, "App api_hash"), " here.")
         ),
         h(Field, { label: "api_id" }, (p) => h("input", { ...p, className: "input", inputMode: "numeric", autoComplete: "off", value: apiId, onChange: (e) => setApiId(e.target.value) })),
@@ -231,7 +231,7 @@
     { value: "high", label: "High" },
     { value: "normal", label: "Normal" },
     { value: "low", label: "Low" },
-    { value: "none", label: "Not in ONE" }
+    { value: "none", label: "Not in Core" }
   ];
   const newest = (a, b) => ((b.lastMessage && b.lastMessage.date) || 0) - ((a.lastMessage && a.lastMessage.date) || 0);
   function ManageChats({ tg, svc, onDone }) {
@@ -242,7 +242,7 @@
       "section",
       { className: "panel tg-manage", "aria-labelledby": "tg-manage-title" },
       h("div", { className: "tg-manage__head" }, h("h2", { id: "tg-manage-title", className: "tg-connect__title" }, "Choose your chats"), h(Button, { variant: "primary", onClick: onDone }, "Done")),
-      h("p", { className: "muted" }, "Give the people who matter a level. ONE shows only those chats, and tells you whom to answer first."),
+      h("p", { className: "muted" }, "Give the people who matter a level. Core shows only those chats, and tells you whom to answer first."),
       h("div", { className: "search-field tg-manage__search" }, h(Search, { size: 15, "aria-hidden": true, className: "muted" }), h("input", { className: "notes__search-input", "aria-label": "Search chats", placeholder: "Search chats", value: query, onChange: (e) => setQuery(e.target.value) })),
       list.length === 0 ? h("p", { className: "muted" }, q ? "No chats match." : "No private chats yet.") : null,
       h(

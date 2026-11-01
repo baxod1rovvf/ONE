@@ -82,7 +82,7 @@ test("Refresh offline shows the message and stays on the page", async () => {
   const reloads = countReloads(page);
   const button = page.getByRole("button", { name: "Refresh" });
   await button.click();
-  await page.getByText("Couldn't reach ONE. You're still on the saved version.").waitFor();
+  await page.getByText("Couldn't reach Core. You're still on the saved version.").waitFor();
   await page.waitForTimeout(1000);
   assert.equal(reloads.n, 0);
   assert.equal(await button.getAttribute("data-busy"), null);
@@ -152,7 +152,7 @@ test("no update when today's is already done", async () => {
   await page.close();
 });
 
-test("the 23:59 timer updates while ONE is open, without reloading", async () => {
+test("the 23:59 timer updates while Core is open, without reloading", async () => {
   let seen;
   const { page } = await openApp(browser, server.url, {
     route: "tasks",
@@ -218,7 +218,7 @@ test("a hung connection gives up after 20 s with the message", async () => {
   const button = page.getByRole("button", { name: "Refresh" });
   await button.click();
   await page.clock.runFor(21_000);
-  await page.getByText("Couldn't reach ONE. You're still on the saved version.").waitFor();
+  await page.getByText("Couldn't reach Core. You're still on the saved version.").waitFor();
   assert.equal(await button.getAttribute("data-busy"), null);
   await page.close();
 });

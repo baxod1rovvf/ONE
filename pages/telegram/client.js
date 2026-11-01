@@ -1,5 +1,5 @@
-// ONE — Telegram: the only code that talks to GramJS. It turns GramJS objects
-// into ONE's plain shapes, so the rest of ONE (and the tests, which use a fake
+// Core — Telegram: the only code that talks to GramJS. It turns GramJS objects
+// into Core's plain shapes, so the rest of Core (and the tests, which use a fake
 // client with the same methods) never sees GramJS. Browser:
 // window.__oneTelegramClient; Node (the mapping tests): module.exports.
 (function (root) {
@@ -81,7 +81,7 @@
     const listeners = new Set();
     const emit = (u) => listeners.forEach((fn) => fn(u));
     // Every call goes through here: a revoked session is reported once as
-    // "loggedOut", and errors reach ONE in its own words.
+    // "loggedOut", and errors reach Core in its own words.
     let gone = false;
     const call = async (fn) => {
       try {

@@ -1,4 +1,4 @@
-/* ONE — Tetris (loaded with games/tetris.js). */
+/* Core — Tetris (loaded with games/tetris.js). */
 /* Tetris */
 .tetris {
   --tcell: min(34px, calc((100dvh - 250px) / 18), calc((100vw - 250px) / 10));

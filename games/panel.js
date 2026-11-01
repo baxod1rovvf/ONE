@@ -1,5 +1,5 @@
-// ONE — Retro games panel: the list of games, best scores and the shared
-// game sounds. It loads in the background after ONE opens (loadGames in
+// Core — Retro games panel: the list of games, best scores and the shared
+// game sounds. It loads in the background after Core opens (loadGames in
 // index.html). Each game lives in its own file (games/<file>.js and .css),
 // loaded only when it is opened; only one game is ever mounted and running.
 (function () {

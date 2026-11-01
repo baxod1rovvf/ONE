@@ -1,4 +1,4 @@
-// ONE — a small QR code encoder for the Telegram login link: byte mode,
+// Core — a small QR code encoder for the Telegram login link: byte mode,
 // error correction level M, versions 1 to 10 (up to 213 bytes). It works
 // offline and needs no library. encodeQR(text) returns the modules as rows
 // of booleans (true = dark). Browser: window.__oneQR; Node: module.exports.

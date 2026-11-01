@@ -1,4 +1,4 @@
-// ONE — Memory sequences. Loaded only when this game is opened from Retro games
+// Core — Memory sequences. Loaded only when this game is opened from Retro games
 // (games/panel.js); leaving the game unmounts it and stops everything it runs.
 (function () {
   const { React2, IconButton, icons, loadGameRecords, retroSound, tetrisRandom, useActiveGame, useGameRecord } = window.__oneGameKit;

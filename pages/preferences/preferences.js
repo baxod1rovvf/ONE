@@ -1,4 +1,4 @@
-// ONE — Settings page. It loads into the same page as index.html (see
+// Core — Settings page. It loads into the same page as index.html (see
 // loadPage there), so switching to it never reloads anything. index.html
 // shares what the page needs through window.__oneApp; the page is handed
 // back in window.__onePages.
@@ -126,7 +126,7 @@
       });
       toast({ message: "Sample content added", tone: "success" });
     };
-    return /* @__PURE__ */ React2.createElement(React2.Fragment, null, /* @__PURE__ */ React2.createElement("div", { className: "page-head" }, /* @__PURE__ */ React2.createElement("div", { className: "page-head__text" }, /* @__PURE__ */ React2.createElement("h1", { className: "page-title" }, "Settings"), /* @__PURE__ */ React2.createElement("p", { className: "page-desc" }, "Your profile, how ONE looks, and your data."))), /* @__PURE__ */ React2.createElement("div", { className: "settings" }, React2.createElement(InstallSettings, null), /* @__PURE__ */ React2.createElement("section", { className: "panel settings__section", "aria-labelledby": "set-profile" }, /* @__PURE__ */ React2.createElement("h2", { id: "set-profile", className: "settings__title" }, "Profile"), /* @__PURE__ */ React2.createElement("div", { className: "settings__row" }, /* @__PURE__ */ React2.createElement("div", { className: "settings__label" }, /* @__PURE__ */ React2.createElement("p", null, "Your name"), /* @__PURE__ */ React2.createElement("span", null, "Kept with your data and synced devices.")), /* @__PURE__ */ React2.createElement("div", { className: "settings__control" }, /* @__PURE__ */ React2.createElement(Field, { label: "Your name", hideLabel: true }, (p) => /* @__PURE__ */ React2.createElement("input", { ...p, className: "input", placeholder: "e.g. Alex", value: data.settings.name, maxLength: 40, onChange: (e) => setSettings({ name: e.target.value }) }))))), /* @__PURE__ */ React2.createElement(SyncSettings, null), React2.createElement(TelegramSettings, null), React2.createElement(LockSettings, null), /* @__PURE__ */ React2.createElement("section", { className: "panel settings__section", "aria-labelledby": "set-look" }, /* @__PURE__ */ React2.createElement("h2", { id: "set-look", className: "settings__title" }, "Appearance"), /* @__PURE__ */ React2.createElement("div", { className: "settings__row" }, /* @__PURE__ */ React2.createElement("div", { className: "settings__label" }, /* @__PURE__ */ React2.createElement("p", null, "Theme"), /* @__PURE__ */ React2.createElement("span", null, "System follows your device setting.")), /* @__PURE__ */ React2.createElement("div", { className: "settings__control" }, /* @__PURE__ */ React2.createElement(
+    return /* @__PURE__ */ React2.createElement(React2.Fragment, null, /* @__PURE__ */ React2.createElement("div", { className: "page-head" }, /* @__PURE__ */ React2.createElement("div", { className: "page-head__text" }, /* @__PURE__ */ React2.createElement("h1", { className: "page-title" }, "Settings"), /* @__PURE__ */ React2.createElement("p", { className: "page-desc" }, "Your profile, how Core looks, and your data."))), /* @__PURE__ */ React2.createElement("div", { className: "settings" }, React2.createElement(InstallSettings, null), /* @__PURE__ */ React2.createElement("section", { className: "panel settings__section", "aria-labelledby": "set-profile" }, /* @__PURE__ */ React2.createElement("h2", { id: "set-profile", className: "settings__title" }, "Profile"), /* @__PURE__ */ React2.createElement("div", { className: "settings__row" }, /* @__PURE__ */ React2.createElement("div", { className: "settings__label" }, /* @__PURE__ */ React2.createElement("p", null, "Your name"), /* @__PURE__ */ React2.createElement("span", null, "Kept with your data and synced devices.")), /* @__PURE__ */ React2.createElement("div", { className: "settings__control" }, /* @__PURE__ */ React2.createElement(Field, { label: "Your name", hideLabel: true }, (p) => /* @__PURE__ */ React2.createElement("input", { ...p, className: "input", placeholder: "e.g. Alex", value: data.settings.name, maxLength: 40, onChange: (e) => setSettings({ name: e.target.value }) }))))), /* @__PURE__ */ React2.createElement(SyncSettings, null), React2.createElement(TelegramSettings, null), React2.createElement(LockSettings, null), /* @__PURE__ */ React2.createElement("section", { className: "panel settings__section", "aria-labelledby": "set-look" }, /* @__PURE__ */ React2.createElement("h2", { id: "set-look", className: "settings__title" }, "Appearance"), /* @__PURE__ */ React2.createElement("div", { className: "settings__row" }, /* @__PURE__ */ React2.createElement("div", { className: "settings__label" }, /* @__PURE__ */ React2.createElement("p", null, "Theme"), /* @__PURE__ */ React2.createElement("span", null, "System follows your device setting.")), /* @__PURE__ */ React2.createElement("div", { className: "settings__control" }, /* @__PURE__ */ React2.createElement(
       Segmented,
       {
         label: "Theme",
@@ -175,7 +175,7 @@
         open: restoreOpen,
         onClose: () => setRestoreOpen(false),
         onRestore: async (d) => {
-          const ok = await confirm({ title: "Replace your data with this backup?", body: "Everything currently in ONE on this browser will be replaced by the backup.", confirmLabel: "Replace data", tone: "default" });
+          const ok = await confirm({ title: "Replace your data with this backup?", body: "Everything currently in Core on this browser will be replaced by the backup.", confirmLabel: "Replace data", tone: "default" });
           if (!ok) return;
           replaceAll(d);
           setRestoreOpen(false);
@@ -194,7 +194,7 @@
         setError(null);
         onRestore(parsed);
       } catch {
-        setError("This isn’t a ONE backup. Paste the full text you copied with “Copy backup”, starting with { and ending with }.");
+        setError("This isn’t a Core backup. Paste the full text you copied with “Copy backup”, starting with { and ending with }.");
       }
     };
     return /* @__PURE__ */ React2.createElement(
@@ -254,7 +254,7 @@
         open,
         onClose,
         title: "Connect a device",
-        description: "Enter this code in ONE on your other device: Settings → I have a code.",
+        description: "Enter this code in Core on your other device: Settings → I have a code.",
         footer: React2.createElement(React2.Fragment, null, React2.createElement("span", { className: "spacer" }), (expired || state.phase === "error") && React2.createElement(Button, { onClick: make, icon: React2.createElement(RefreshCw, { size: 15 }) }, "New code"), React2.createElement(Button, { variant: "primary", onClick: onClose }, "Done"))
       },
       React2.createElement(
@@ -337,8 +337,8 @@
     const [dialog, setDialog] = React2.useState(null);
     const { status } = sync;
     let line;
-    if (!sync.configured) line = "Sync needs a one-time setup: add your Supabase address and key to ONE (see SUPABASE_SETUP.md).";
-    else if (!sync.connected) line = "Use ONE on your phone and computer with the same data. Everything is encrypted on your device before it’s uploaded.";
+    if (!sync.configured) line = "Sync needs a one-time setup: add your Supabase address and key to Core (see SUPABASE_SETUP.md).";
+    else if (!sync.connected) line = "Use Core on your phone and computer with the same data. Everything is encrypted on your device before it’s uploaded.";
     else if (status.state === "error") line = status.error;
     else if (status.state === "syncing") line = "Syncing…";
     else line = status.at ? `Synced ${timeAgo(status.at)}. Changes sync automatically.` : "Sync is on.";
@@ -445,7 +445,7 @@
         open: !!mode,
         onClose,
         title: mode === "set" ? "Set a PIN" : mode === "change" ? "Change PIN" : "Turn off app lock",
-        description: kind === "new" ? "4 to 6 digits. ONE asks for it when it opens." : void 0,
+        description: kind === "new" ? "4 to 6 digits. Core asks for it when it opens." : void 0,
         footer: React2.createElement(React2.Fragment, null, React2.createElement("span", { className: "spacer" }), React2.createElement(Button, { variant: "secondary", onClick: onClose }, "Cancel"), React2.createElement(Button, { variant: mode === "off" ? "danger" : "primary", type: "submit", form: "pin-form", disabled: busy }, mode === "off" ? "Turn off" : last ? "Save PIN" : "Continue"))
       },
       kind && React2.createElement(
@@ -524,7 +524,7 @@
       React2.createElement(
         "div",
         { className: "settings__row" },
-        React2.createElement("div", { className: "settings__label" }, React2.createElement("p", null, "PIN lock"), React2.createElement("span", null, lock.enabled ? "ONE asks for your PIN on this device." : "Ask for a PIN when ONE opens on this device.")),
+        React2.createElement("div", { className: "settings__label" }, React2.createElement("p", null, "PIN lock"), React2.createElement("span", null, lock.enabled ? "Core asks for your PIN on this device." : "Ask for a PIN when Core opens on this device.")),
         React2.createElement(
           "div",
           { className: "settings__control settings__control--buttons" },
@@ -534,7 +534,7 @@
       lock.enabled && React2.createElement(
         "div",
         { className: "settings__row" },
-        React2.createElement("div", { className: "settings__label" }, React2.createElement("p", null, "Lock again"), React2.createElement("span", null, "When ONE has been in the background this long.")),
+        React2.createElement("div", { className: "settings__label" }, React2.createElement("p", null, "Lock again"), React2.createElement("span", null, "When Core has been in the background this long.")),
         React2.createElement("div", { className: "settings__control" }, React2.createElement(Field, { label: "Lock again", hideLabel: true }, (p) => React2.createElement("select", { ...p, className: "select", value: lock.rec.autoLock, onChange: (e) => lock.setAutoLock(Number(e.target.value)) }, AUTO_LOCK_OPTIONS.map((o) => React2.createElement("option", { key: o.value, value: o.value }, o.label)))))
       ),
       React2.createElement(PinDialog, { mode, onClose: () => setMode(null) })
@@ -567,8 +567,8 @@
     };
     const howTo = isIOS ? "In Safari, tap the Share button, then “Add to Home Screen”." : "Open your browser’s menu and choose “Install app” or “Add to Home screen”.";
     let text;
-    if (standalone) text = "ONE is installed. You’re using it as an app right now.";
-    else if (canPrompt) text = "Add ONE to your home screen or dock. It opens in its own window and works offline.";
+    if (standalone) text = "Core is installed. You’re using it as an app right now.";
+    else if (canPrompt) text = "Add Core to your home screen or dock. It opens in its own window and works offline.";
     else text = howTo;
     return React2.createElement(
       "section",
@@ -577,7 +577,7 @@
       React2.createElement(
         "div",
         { className: "settings__row" },
-        React2.createElement("div", { className: "settings__label" }, React2.createElement("p", null, standalone ? "Installed" : "Use ONE like an app"), React2.createElement("span", null, text)),
+        React2.createElement("div", { className: "settings__label" }, React2.createElement("p", null, standalone ? "Installed" : "Use Core like an app"), React2.createElement("span", null, text)),
         !standalone && React2.createElement("div", { className: "settings__control" }, React2.createElement(Button, { variant: "primary", icon: React2.createElement(Download, { size: 15 }), onClick: install }, "Install"))
       )
     );
