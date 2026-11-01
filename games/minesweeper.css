@@ -1,4 +1,4 @@
-/* ONE — Minesweeper (loaded with games/minesweeper.js). Raised blue squares,
+/* Core — Minesweeper (loaded with games/minesweeper.js). Raised blue squares,
    white opened ones with coloured numbers, yellow flagged ones. */
 .ms {
   --sq: max(20px, min(34px, calc((min(100vw, 640px) - 90px) / var(--cols) - 2px), calc((100dvh - 290px) / var(--rows) - 2px)));

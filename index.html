@@ -3,22 +3,22 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-  <title>ONE — Everything in one place</title>
+  <title>Core — Everything in one place</title>
   <link rel="manifest" href="manifest.webmanifest">
   <meta name="theme-color" content="#f7f7f4" media="(prefers-color-scheme: light)">
   <meta name="theme-color" content="#151517" media="(prefers-color-scheme: dark)">
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="default">
-  <meta name="apple-mobile-web-app-title" content="ONE">
-  <link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
-  <meta name="description" content="ONE: a personal workspace for tasks, websites, ideas and saved links.">
-  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Crect width='24' height='24' rx='7' fill='%236258E8'/%3E%3Ccircle cx='12' cy='12.5' r='5.6' fill='none' stroke='white' stroke-width='2.2'/%3E%3Ccircle cx='12' cy='6.9' r='2.1' fill='white'/%3E%3C/svg%3E">
+  <meta name="apple-mobile-web-app-title" content="Core">
+  <link rel="apple-touch-icon" href="icons/core-apple-touch.png">
+  <meta name="description" content="Core: a personal workspace for tasks, websites, ideas and saved links.">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 48 48'%3E%3Cdefs%3E%3ClinearGradient id='c' gradientUnits='userSpaceOnUse' x1='34' y1='11' x2='31' y2='37'%3E%3Cstop offset='0' stop-color='%23ffcf5a'/%3E%3Cstop offset='.28' stop-color='%23ff8a3d'/%3E%3Cstop offset='.5' stop-color='%23ec62c4'/%3E%3Cstop offset='.72' stop-color='%237b4cf0'/%3E%3Cstop offset='1' stop-color='%234fb2ff'/%3E%3C/linearGradient%3E%3ClinearGradient id='i' gradientUnits='userSpaceOnUse' x1='16' y1='18' x2='30' y2='34'%3E%3Cstop offset='0' stop-color='%233b1d8f'/%3E%3Cstop offset='.6' stop-color='%237b4cf0'/%3E%3Cstop offset='1' stop-color='%235aa8ff'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='48' height='48' rx='13' fill='%230b0a14'/%3E%3Cpath d='M32.81 16.61A11.5 11.5 0 1 0 32.81 31.39' fill='none' stroke='url(%23c)' stroke-width='7.5' stroke-linecap='round'/%3E%3Cpath d='M15.9 21A8.6 8.6 0 0 0 31.5 30.2' fill='none' stroke='url(%23i)' stroke-width='2.6' stroke-linecap='round' opacity='.85'/%3E%3Cpath d='M24 18.6Q24.8 23.2 29.4 24Q24.8 24.8 24 29.4Q23.2 24.8 18.6 24Q23.2 23.2 24 18.6Z' fill='%23fbf1de'/%3E%3C/svg%3E">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600;700&family=Geist:wght@400;500;600;700&family=Geist+Mono:wght@400;500&display=swap">
   <style>
-/* ONE design tokens.
+/* Core design tokens.
    Concept: "touch grass". Light is Morning (blue sky, fresh grass), dark is Night
    (moonlit navy). Every page sits on a sky backdrop; each section has its own
    colour (--c-<route>), exposed inside <main> as --section. */
@@ -266,7 +266,7 @@
   color-scheme: dark;
 }
 
-/* The person's own choice inside ONE wins over the host theme. */
+/* The person's own choice inside Core wins over the host theme. */
 :root[data-one-theme='light'] {
   --bg: #dcefff;
   --surface: #ffffff;
@@ -2580,7 +2580,7 @@ a.launch-tile__inner:hover,
     font-size: 22px;
   }
 }
-/* The rest of ONE in the meadow's style: frosted cards on the sky, pill
+/* The rest of Core in the meadow's style: frosted cards on the sky, pill
    buttons, rounded fields and a few small touches per section. Values
    only; layout and class names are unchanged. */
 .panel,
@@ -3415,7 +3415,7 @@ main[data-section='saved'] .panel::after {
 <body>
   <div id="root"></div>
   <script>
-    // Rescue: ONE opens from the copy saved on this device. If a saved release
+    // Rescue: Core opens from the copy saved on this device. If a saved release
     // can't start (nothing shows within 8 s), drop the saved page and load a
     // fresh one, once per visit, so a fixed release always gets through.
     (function () {
@@ -4096,6 +4096,40 @@ main[data-section='saved'] .panel::after {
     date.setDate(date.getDate() + days);
     return toISODate(date);
   }
+  // Repeating tasks. A repeating task is one task: ticking it off keeps the
+  // done one in Done and adds the next one, due on the next date this gives.
+  const REPEATS = [
+    { value: "daily", label: "Every day", short: "Daily" },
+    { value: "weekdays", label: "Weekdays", short: "Weekdays" },
+    { value: "weekly", label: "Every week", short: "Weekly" },
+    { value: "monthly", label: "Every month", short: "Monthly" }
+  ];
+  function stepRepeat(iso, repeat, anchorDay) {
+    if (repeat === "daily") return addDays(iso, 1);
+    if (repeat === "weekly") return addDays(iso, 7);
+    if (repeat === "weekdays") {
+      let next = addDays(iso, 1);
+      while ([0, 6].includes(parseISODate(next).getDay())) next = addDays(next, 1);
+      return next;
+    }
+    if (repeat === "monthly") {
+      const [y, m] = iso.split("-").map(Number);
+      const last = new Date(y, m + 1, 0).getDate();
+      return toISODate(new Date(y, m, Math.min(anchorDay, last)));
+    }
+    return null;
+  }
+  // The next due date after a repeating task is done: one step on from its
+  // due date, skipping ahead past today when it was overdue. Monthly tasks
+  // keep their day of the month (the 31st falls back to a short month's end).
+  function nextRepeatDate(task, today = todayISO()) {
+    if (!REPEATS.some((r) => r.value === task.repeat)) return null;
+    const from = task.dueDate || today;
+    const anchorDay = Number(from.split("-")[2]);
+    let next = stepRepeat(from, task.repeat, anchorDay);
+    while (next <= today) next = stepRepeat(next, task.repeat, anchorDay);
+    return next;
+  }
   function parseISODate(iso) {
     const [y, m, d] = iso.split("-").map(Number);
     return new Date(y, m - 1, d);
@@ -4231,7 +4265,7 @@ main[data-section='saved'] .panel::after {
       { title: "Review project brief", dueTime: "09:30", priority: "high", label: "Work", done: true, completedAt: ago(90) },
       { title: "Reply to Sara about Saturday", dueTime: null, priority: "none", label: "Personal", done: true, completedAt: ago(30) },
       { title: "Draft portfolio intro", dueTime: "14:00", priority: "medium", label: "Portfolio", done: false, completedAt: null },
-      { title: "30-minute run", dueTime: "18:00", priority: "none", label: "Health", done: false, completedAt: null },
+      { title: "30-minute run", dueTime: "18:00", priority: "none", label: "Health", done: false, completedAt: null, repeat: "daily" },
       { title: "Pay electricity bill", dueTime: null, priority: "high", label: "Home", done: false, completedAt: null }
     ].map((t) => ({ id: sid(), dueDate: today, createdAt: ago(60 * 12), sample: true, ...t }));
     tasks.push(
@@ -4779,8 +4813,22 @@ main[data-section='saved'] .panel::after {
     const letter = (name.trim()[0] ?? "?").toUpperCase();
     return /* @__PURE__ */ React2.createElement("span", { className: `mono${size === "md" ? "" : ` mono--${size}`}`, style: { ["--h"]: hueFor(name.toLowerCase()) }, "aria-hidden": true }, letter);
   }
+  // The Core mark: a C in sunrise colours around a star.
   function BrandMark({ size = 24 }) {
-    return /* @__PURE__ */ React2.createElement("svg", { className: "brand__mark", width: size, height: size, viewBox: "0 0 24 24", "aria-hidden": true }, /* @__PURE__ */ React2.createElement("rect", { width: "24", height: "24", rx: "7", fill: "var(--accent)" }), /* @__PURE__ */ React2.createElement("circle", { cx: "12", cy: "12.5", r: "5.6", fill: "none", stroke: "var(--on-accent)", strokeWidth: "2.2" }), /* @__PURE__ */ React2.createElement("circle", { cx: "12", cy: "6.9", r: "2.1", fill: "var(--on-accent)" }));
+    const uid = React2.useId().replace(/:/g, "");
+    const id = (k) => `bm${uid}${k}`;
+    const h = React2.createElement;
+    const stops = (list) => list.map(([o, c]) => h("stop", { key: o, offset: o, stopColor: c }));
+    return h("svg", { className: "brand__mark", width: size, height: size, viewBox: "0 0 48 48", "aria-hidden": true },
+      h("defs", null,
+        h("linearGradient", { id: id("c"), gradientUnits: "userSpaceOnUse", x1: "34", y1: "11", x2: "31", y2: "37" }, stops([["0", "#ffcf5a"], [".28", "#ff8a3d"], [".5", "#ec62c4"], [".72", "#7b4cf0"], ["1", "#4fb2ff"]])),
+        h("linearGradient", { id: id("i"), gradientUnits: "userSpaceOnUse", x1: "16", y1: "18", x2: "30", y2: "34" }, stops([["0", "#3b1d8f"], [".6", "#7b4cf0"], ["1", "#5aa8ff"]]))
+      ),
+      h("rect", { width: "48", height: "48", rx: "13", fill: "#0b0a14" }),
+      h("path", { d: "M32.81 16.61A11.5 11.5 0 1 0 32.81 31.39", fill: "none", stroke: `url(#${id("c")})`, strokeWidth: "7.5", strokeLinecap: "round" }),
+      h("path", { d: "M15.9 21A8.6 8.6 0 0 0 31.5 30.2", fill: "none", stroke: `url(#${id("i")})`, strokeWidth: "2.6", strokeLinecap: "round", opacity: ".85" }),
+      h("path", { d: "M24 18.6Q24.8 23.2 29.4 24Q24.8 24.8 24 29.4Q23.2 24.8 18.6 24Q23.2 23.2 24 18.6Z", fill: "#fbf1de" })
+    );
   }
   const ROUTES = [
     { id: "home", label: "Home", icon: House, description: "Touch grass and take a one-minute break" },
@@ -4821,11 +4869,13 @@ main[data-section='saved'] .panel::after {
     const [priority, setPriority] = React2.useState("none");
     const [label, setLabel] = React2.useState("");
     const [percent, setPercent] = React2.useState(0);
+    const [repeat, setRepeat] = React2.useState("");
     const [error, setError] = React2.useState(null);
     React2.useEffect(() => {
       if (!open) return;
       const src = task ?? defaults ?? {};
       setPercent(src.percent ?? 0);
+      setRepeat(src.repeat ?? "");
       setTitle(src.title ?? "");
       setDueDate(src.dueDate ?? "");
       setDueTime(src.dueTime ?? "");
@@ -4841,13 +4891,16 @@ main[data-section='saved'] .panel::after {
         setError("Give the task a name.");
         return;
       }
+      // A repeating task needs a day to count from; without one it starts today.
+      const due = dueDate || (repeat ? todayISO() : "");
       const fields = {
         title: t,
-        dueDate: dueDate || null,
-        dueTime: dueDate && dueTime ? dueTime : null,
+        dueDate: due || null,
+        dueTime: due && dueTime ? dueTime : null,
         priority,
         label: label.trim(),
-        percent
+        percent,
+        repeat: repeat || null
       };
       if (task) {
         update("tasks", task.id, fields);
@@ -4896,7 +4949,7 @@ main[data-section='saved'] .panel::after {
         { l: "Tomorrow", v: addDays(today, 1) },
         { l: "Next week", v: addDays(today, 7) },
         { l: "No date", v: "" }
-      ].map((o) => /* @__PURE__ */ React2.createElement("button", { key: o.l, type: "button", className: "chip", "aria-pressed": dueDate === o.v, onClick: () => setDueDate(o.v) }, o.l)))), /* @__PURE__ */ React2.createElement("div", { className: "form-row" }, /* @__PURE__ */ React2.createElement(Field, { label: "Date" }, (p) => /* @__PURE__ */ React2.createElement("input", { ...p, type: "date", className: "input", value: dueDate, onChange: (e) => setDueDate(e.target.value) })), /* @__PURE__ */ React2.createElement(Field, { label: "Time", hint: dueDate ? "Optional" : "Pick a date first" }, (p) => /* @__PURE__ */ React2.createElement("input", { ...p, type: "time", className: "input", value: dueTime, disabled: !dueDate, onChange: (e) => setDueTime(e.target.value) }))), /* @__PURE__ */ React2.createElement("div", { className: "form-row" }, /* @__PURE__ */ React2.createElement(Field, { label: "Priority" }, (p) => /* @__PURE__ */ React2.createElement("select", { ...p, className: "select", value: priority, onChange: (e) => setPriority(e.target.value) }, /* @__PURE__ */ React2.createElement("option", { value: "none" }, "None"), /* @__PURE__ */ React2.createElement("option", { value: "low" }, "Low"), /* @__PURE__ */ React2.createElement("option", { value: "medium" }, "Medium"), /* @__PURE__ */ React2.createElement("option", { value: "high" }, "High"))), /* @__PURE__ */ React2.createElement(Field, { label: "Label", hint: "Optional, e.g. Work" }, (p) => /* @__PURE__ */ React2.createElement(React2.Fragment, null, /* @__PURE__ */ React2.createElement("input", { ...p, className: "input", list: "task-labels", value: label, maxLength: 24, onChange: (e) => setLabel(e.target.value) }), /* @__PURE__ */ React2.createElement("datalist", { id: "task-labels" }, labels.map((l) => /* @__PURE__ */ React2.createElement("option", { key: l, value: l })))))), React2.createElement(Field, { label: `My progress: ${percent}%`, hint: "How much of this task you’ve done, in your own estimate." }, (p) => React2.createElement("input", { ...p, type: "range", className: "range", min: 0, max: 100, step: 5, value: percent, style: { ["--val"]: `${percent}%` }, onChange: (e) => setPercent(Number(e.target.value)) })))
+      ].map((o) => /* @__PURE__ */ React2.createElement("button", { key: o.l, type: "button", className: "chip", "aria-pressed": dueDate === o.v, onClick: () => setDueDate(o.v) }, o.l)))), React2.createElement("div", { className: "field" }, React2.createElement("span", { className: "field__label", id: "task-repeat-label" }, "Repeat"), React2.createElement("div", { className: "date-quick", role: "group", "aria-labelledby": "task-repeat-label" }, [{ value: "", label: "Never" }, ...REPEATS].map((o) => React2.createElement("button", { key: o.value || "never", type: "button", className: "chip", "aria-pressed": repeat === o.value, onClick: () => setRepeat(o.value) }, o.label))), repeat && !dueDate && React2.createElement("span", { className: "field__hint" }, "Starts today. Set a date to start another day.")), /* @__PURE__ */ React2.createElement("div", { className: "form-row" }, /* @__PURE__ */ React2.createElement(Field, { label: "Date" }, (p) => /* @__PURE__ */ React2.createElement("input", { ...p, type: "date", className: "input", value: dueDate, onChange: (e) => setDueDate(e.target.value) })), /* @__PURE__ */ React2.createElement(Field, { label: "Time", hint: dueDate ? "Optional" : "Pick a date first" }, (p) => /* @__PURE__ */ React2.createElement("input", { ...p, type: "time", className: "input", value: dueTime, disabled: !dueDate, onChange: (e) => setDueTime(e.target.value) }))), /* @__PURE__ */ React2.createElement("div", { className: "form-row" }, /* @__PURE__ */ React2.createElement(Field, { label: "Priority" }, (p) => /* @__PURE__ */ React2.createElement("select", { ...p, className: "select", value: priority, onChange: (e) => setPriority(e.target.value) }, /* @__PURE__ */ React2.createElement("option", { value: "none" }, "None"), /* @__PURE__ */ React2.createElement("option", { value: "low" }, "Low"), /* @__PURE__ */ React2.createElement("option", { value: "medium" }, "Medium"), /* @__PURE__ */ React2.createElement("option", { value: "high" }, "High"))), /* @__PURE__ */ React2.createElement(Field, { label: "Label", hint: "Optional, e.g. Work" }, (p) => /* @__PURE__ */ React2.createElement(React2.Fragment, null, /* @__PURE__ */ React2.createElement("input", { ...p, className: "input", list: "task-labels", value: label, maxLength: 24, onChange: (e) => setLabel(e.target.value) }), /* @__PURE__ */ React2.createElement("datalist", { id: "task-labels" }, labels.map((l) => /* @__PURE__ */ React2.createElement("option", { key: l, value: l })))))), React2.createElement(Field, { label: `My progress: ${percent}%`, hint: "How much of this task you’ve done, in your own estimate." }, (p) => React2.createElement("input", { ...p, type: "range", className: "range", min: 0, max: 100, step: 5, value: percent, style: { ["--val"]: `${percent}%` }, onChange: (e) => setPercent(Number(e.target.value)) })))
     );
   }
   function useDeleteTask() {
@@ -5299,7 +5352,7 @@ main[data-section='saved'] .panel::after {
     const today = todayISO();
     return data.tasks.filter((t) => !t.done && t.dueDate && t.dueDate <= today).length;
   }
-  // Top left: the ONE mark and where you are. Top right: the corner cluster.
+  // Top left: the Core mark and where you are. Top right: the corner cluster.
   function PageBar({ hidden }) {
     const ui = useUI();
     const here = ALL_ROUTES.find((r) => r.id === ui.route);
@@ -5311,21 +5364,21 @@ main[data-section='saved'] .panel::after {
         {
           href: "#home",
           className: "brand pagebar__brand glass",
-          "aria-label": "ONE, go to Home",
+          "aria-label": "Core, go to Home",
           onClick: (e) => {
             e.preventDefault();
             ui.navigate("home");
           }
         },
         React2.createElement(BrandMark, { size: 22 }),
-        React2.createElement("span", { className: "brand__word" }, "ONE"),
+        React2.createElement("span", { className: "brand__word" }, "CORE"),
         here && here.id !== "home" && React2.createElement("span", { className: "pagebar__where", "aria-hidden": true }, here.label)
       ),
       React2.createElement(CornerCluster, null)
     );
   }
   /* ---------- Updates: Refresh and the daily 23:59 update ---------- */
-  // ONE opens from the copy saved on this device (see sw.js). New versions come
+  // Core opens from the copy saved on this device (see sw.js). New versions come
   // in two ways: the Refresh button, and a quiet download every day at 23:59
   // local time. Neither shows a notice, and the daily one never reloads; it
   // only refreshes the saved copy for the next open. The person's own data
@@ -5403,7 +5456,7 @@ main[data-section='saved'] .panel::after {
     return boundary.getTime();
   }
   // Catches up on open and whenever the tab comes back (a laptop may sleep
-  // through 23:59), and runs at 23:59 while ONE is open.
+  // through 23:59), and runs at 23:59 while Core is open.
   function useDailyUpdate() {
     React2.useEffect(() => {
       const check = () => {
@@ -5441,7 +5494,7 @@ main[data-section='saved'] .panel::after {
         .catch(() => {
           busyRef.current = false;
           setBusy(false);
-          toast({ tone: "error", message: "Couldn't reach ONE. You're still on the saved version." });
+          toast({ tone: "error", message: "Couldn't reach Core. You're still on the saved version." });
         });
     };
     return React2.createElement(
@@ -5457,11 +5510,11 @@ main[data-section='saved'] .panel::after {
       "div",
       { className: "cluster glass", role: "toolbar", "aria-label": "Quick actions" },
       // Search, quick capture and the lock stay off phones, so the page name
-      // beside ONE has room.
+      // beside Core has room.
       React2.createElement(IconButton, { label: "Search", title: `Search (${modKey}+K)`, className: "cluster__wide", onClick: ui.openSearch }, React2.createElement(Search, { size: 18 })),
       React2.createElement(IconButton, { label: "Quick capture", title: "Quick capture (C)", className: "cluster__wide", onClick: () => ui.openCapture() }, React2.createElement(Plus, { size: 19, strokeWidth: 2.2 })),
       React2.createElement(SoundsButton, null),
-      lock.enabled && React2.createElement(IconButton, { label: "Lock ONE now", className: "cluster__wide", onClick: lock.lock }, React2.createElement(Lock, { size: 17 })),
+      lock.enabled && React2.createElement(IconButton, { label: "Lock Core now", className: "cluster__wide", onClick: lock.lock }, React2.createElement(Lock, { size: 17 })),
       React2.createElement(RefreshButton, null),
       React2.createElement(IconButton, { label: "Settings", "aria-current": ui.route === "preferences" ? "page" : void 0, onClick: () => ui.navigate("preferences") }, React2.createElement(Settings, { size: 18 }))
     );
@@ -6226,7 +6279,7 @@ main[data-section='saved'] .panel::after {
     db: null,
     urls: new Map(),
     persistAsked: false,
-    // True while another (older) ONE tab keeps the library from updating.
+    // True while another (older) Core tab keeps the library from updating.
     blocked: false,
     watchers: new Set(),
     watch(fn) {
@@ -6255,7 +6308,7 @@ main[data-section='saved'] .panel::after {
         req.onsuccess = () => {
           this.setBlocked(false);
           const db = req.result;
-          // A newer ONE (in another tab) needs the database: let go of it.
+          // A newer Core (in another tab) needs the database: let go of it.
           db.onversionchange = () => {
             db.close();
             this.db = null;
@@ -6579,7 +6632,7 @@ main[data-section='saved'] .panel::after {
   };
   /* ---------- Sound: Spotify ---------- */
   // Spotify plays only through Spotify's own embed player (its iFrame API);
-  // ONE never downloads or copies Spotify audio. The player is created once
+  // Core never downloads or copies Spotify audio. The player is created once
   // and kept in the page, so it keeps playing on every page.
   const SPOTIFY_API = "https://open.spotify.com/embed/iframe-api/v1";
   function parseSpotifyLink(text) {
@@ -6959,7 +7012,7 @@ main[data-section='saved'] .panel::after {
       }
       this.emit();
     }
-    // Locking ONE: everything goes quiet and stays quiet until the person
+    // Locking Core: everything goes quiet and stays quiet until the person
     // starts something again.
     pauseAll() {
       this.paused = true;
@@ -7110,7 +7163,7 @@ main[data-section='saved'] .panel::after {
       this.emit();
     }
     playQueue(tracks, index) {
-      // One music at a time: ONE's player pauses outside players too.
+      // One music at a time: Core's player pauses outside players too.
       for (const fn of this.duckListeners) fn();
       this.queue = tracks.slice();
       this.buildOrder(index);
@@ -7412,7 +7465,7 @@ main[data-section='saved'] .panel::after {
     // lets a saved mix play again.
     React2.useEffect(() => {
       const unlock = () => {
-        // Only once ONE itself is open: typing a PIN on the lock screen doesn't count.
+        // Only once Core itself is open: typing a PIN on the lock screen doesn't count.
         if (engine.appOpen && !engine.unlocked && !engine.paused && engine.anyNatureOn) engine.resume();
       };
       window.addEventListener("pointerdown", unlock, true);
@@ -7472,7 +7525,7 @@ main[data-section='saved'] .panel::after {
       chrome.mounted && engine.current && React2.createElement(MiniPlayer, null)
     );
   }
-  // Rendered inside the unlocked app: when ONE locks, the app unmounts and
+  // Rendered inside the unlocked app: when Core locks, the app unmounts and
   // the sound pauses (it doesn't come back by itself after unlocking).
   function SoundLockGuard({ breakActive, route }) {
     const { engine, closePanel, setChrome } = useSound();
@@ -8000,7 +8053,7 @@ main[data-section='saved'] .panel::after {
         { className: "music-tools" },
         React2.createElement("input", { type: "search", className: "input", placeholder: "Search music", "aria-label": "Search music", value: query, onChange: (e) => setQuery(e.target.value) })
       ),
-      (blocked || failed) && React2.createElement("p", { className: "music-alert", role: "status" }, blocked ? "Close other ONE tabs to finish updating your music." : "Couldn’t open your music. Try again in a moment.")
+      (blocked || failed) && React2.createElement("p", { className: "music-alert", role: "status" }, blocked ? "Close other Core tabs to finish updating your music." : "Couldn’t open your music. Try again in a moment.")
     );
     // Searching: one list of matching tracks and Spotify links.
     const q = query.trim().toLowerCase();
@@ -8286,7 +8339,7 @@ main[data-section='saved'] .panel::after {
   /* ---------- Games: loaded from their own files ---------- */
   // The Retro games panel lives in games/panel.js and games/panel.css (each
   // game then has its own file, loaded when opened). The panel loads once,
-  // in the background shortly after ONE opens, so opening Games never waits.
+  // in the background shortly after Core opens, so opening Games never waits.
   let gamesPromise = null;
   function loadGames() {
     if (window.__oneGames) return Promise.resolve(window.__oneGames);
@@ -8646,7 +8699,7 @@ main[data-section='saved'] .panel::after {
     return state;
   }
   // Starts Telegram in the background when this device has a login, keeps
-  // its preferences in step with the synced settings, and stops it when ONE
+  // its preferences in step with the synced settings, and stops it when Core
   // locks (the lock unmounts the app).
   function TelegramBridge({ ready }) {
     const { data, setSettings } = useStore();
@@ -8806,9 +8859,9 @@ main[data-section='saved'] .panel::after {
       throw new SyncError("offline", "Can’t reach the sync server. Check your internet connection.");
     }
     if (res.status === 403) throw new SyncError("denied", "The sync server didn’t accept this device. Disconnect it and connect again with a new code.");
-    if (res.status === 401) throw new SyncError("setup", "The Supabase key in ONE isn’t valid.");
+    if (res.status === 401) throw new SyncError("setup", "The Supabase key in Core isn’t valid.");
     if (res.status === 404) throw new SyncError("setup", "The sync tables are missing. Run supabase/one_sync.sql in Supabase.");
-    if (!res.ok) throw new SyncError("server", `The sync server had a problem (${res.status}). ONE will try again.`);
+    if (!res.ok) throw new SyncError("server", `The sync server had a problem (${res.status}). Core will try again.`);
     return res.json();
   }
   function newer(a, b) {
@@ -9125,7 +9178,7 @@ main[data-section='saved'] .panel::after {
     const forgot = async () => {
       const ok = await confirm({
         title: "Forgot your PIN?",
-        body: sync.connected ? "ONE will erase everything on this device and remove the lock. Your data stays on your other connected devices: connect this one again with a code to get it back." : "ONE will erase everything on this device and remove the lock. This can’t be undone.",
+        body: sync.connected ? "Core will erase everything on this device and remove the lock. Your data stays on your other connected devices: connect this one again with a code to get it back." : "Core will erase everything on this device and remove the lock. This can’t be undone.",
         confirmLabel: "Erase this device"
       });
       if (!ok) return;
@@ -9140,7 +9193,7 @@ main[data-section='saved'] .panel::after {
         "div",
         { className: "lock__box" },
         React2.createElement(BrandMark, { size: 44 }),
-        React2.createElement("h1", { id: "lock-title", className: "lock__title" }, "ONE is locked"),
+        React2.createElement("h1", { id: "lock-title", className: "lock__title" }, "Core is locked"),
         React2.createElement("p", { className: "lock__sub" }, "Enter your PIN"),
         React2.createElement("div", { key: shake, className: `lock__dots${shake ? " is-wrong" : ""}`, "aria-label": `${pin.length} of ${rec.len} digits entered`, role: "status" }, Array.from({ length: rec.len }, (_, i) => React2.createElement("span", { key: i, className: `lock__dot${i < pin.length ? " is-filled" : ""}` }))),
         React2.createElement("p", { className: "lock__error", role: "alert" }, wait ? `Too many wrong tries. Try again in ${wait}s.` : error || " "),
@@ -9225,7 +9278,7 @@ main[data-section='saved'] .panel::after {
     const [breakActive, setBreakActive] = React2.useState(false);
     const sound = useSound();
     useGlobalShortcuts(breakActive || sound.panelOpen);
-    // ONE started: the rescue in <head> stands down (see "Rescue" there).
+    // Core started: the rescue in <head> stands down (see "Rescue" there).
     React2.useEffect(() => {
       window.__oneBooted = true;
       try {
@@ -9280,7 +9333,7 @@ main[data-section='saved'] .panel::after {
     return /* @__PURE__ */ React2.createElement(StoreProvider, null, /* @__PURE__ */ React2.createElement(ToastProvider, null, /* @__PURE__ */ React2.createElement(ConfirmProvider, null, React2.createElement(SyncProvider, null, React2.createElement(SoundProvider, null, React2.createElement(LockProvider, null, /* @__PURE__ */ React2.createElement(UIProvider, null, /* @__PURE__ */ React2.createElement(Shell, null))))))));
   }
   // What the pages (pages/<id>/<id>.js) borrow from the app.
-  window.__oneApp = { React2, reactDom, loadScript, ensureTelegram, useTelegram, telegramDevice, MessageCircle, ArrowLeft, ArrowRight, BookOpen, Button, Check, CircleCheck, EmptyState, Field, FolderPlus, IDEA_COLORS, IconButton, Kbd, Lightbulb, Lock, Menu, Minus, Modal, Monogram, Moon, Pencil, Plus, RefreshCw, STARS, SampleBadge, Search, Segmented, SoundsButton, StickyNote, Sun, Target, Trash2, Trophy, X, addDays, createLucideIcon, createSampleData, hostOf, isAppData, isMac, isTypingTarget, loadGames, modKey, newId, parseISODate, relativeDay, takeInstallPrompt, timeAgo, toISODate, todayISO, useConfirm, useDeleteCategory, useDeleteGoal, useDeleteIdea, useDeleteSaved, useDeleteShortcut, useDeleteTask, useLock, useMediaQuery, useSound, useStore, useSync, useTheme, useToast, useUI };
+  window.__oneApp = { REPEATS, nextRepeatDate, React2, reactDom, loadScript, ensureTelegram, useTelegram, telegramDevice, MessageCircle, ArrowLeft, ArrowRight, BookOpen, Button, Check, CircleCheck, EmptyState, Field, FolderPlus, IDEA_COLORS, IconButton, Kbd, Lightbulb, Lock, Menu, Minus, Modal, Monogram, Moon, Pencil, Plus, RefreshCw, STARS, SampleBadge, Search, Segmented, SoundsButton, StickyNote, Sun, Target, Trash2, Trophy, X, addDays, createLucideIcon, createSampleData, hostOf, isAppData, isMac, isTypingTarget, loadGames, modKey, newId, parseISODate, relativeDay, takeInstallPrompt, timeAgo, toISODate, todayISO, useConfirm, useDeleteCategory, useDeleteGoal, useDeleteIdea, useDeleteSaved, useDeleteShortcut, useDeleteTask, useLock, useMediaQuery, useSound, useStore, useSync, useTheme, useToast, useUI };
   // What the games (games/*.js) borrow from the app.
   window.__oneKit = { React: React2, ReactDOM: reactDom, IconButton, icons: { Trophy, X, ArrowLeft, Volume2, VolumeX }, FOCUSABLE };
   client.createRoot(document.getElementById("root")).render(/* @__PURE__ */ React2.createElement(App, null));

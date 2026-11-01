@@ -1,14 +1,20 @@
-// ONE — Tasks page. It loads into the same page as index.html (see
+// Core — Tasks page. It loads into the same page as index.html (see
 // loadPage there), so switching to it never reloads anything. index.html
 // shares what the page needs through window.__oneApp; the page is handed
 // back in window.__onePages.
 (function () {
   "use strict";
   const {
-    ArrowRight, Button, Check, CircleCheck, EmptyState, Menu, Pencil, Plus, React2, SampleBadge,
-    Segmented, Sun, Trash2, addDays, createLucideIcon, newId, relativeDay, toISODate, todayISO,
+    ArrowRight, Button, Check, CircleCheck, EmptyState, Menu, Pencil, Plus, REPEATS, React2, SampleBadge,
+    Segmented, Sun, Trash2, addDays, createLucideIcon, newId, nextRepeatDate, relativeDay, toISODate, todayISO,
     useConfirm, useDeleteTask, useStore, useToast, useUI
   } = window.__oneApp;
+  const Repeat = createLucideIcon("Repeat", [
+    ["path", { d: "m17 2 4 4-4 4", key: "nntrym" }],
+    ["path", { d: "M3 11v-1a4 4 0 0 1 4-4h14", key: "84bu3i" }],
+    ["path", { d: "m7 22-4-4 4-4", key: "1wqhfi" }],
+    ["path", { d: "M21 13v1a4 4 0 0 1-4 4H3", key: "1rx37r" }]
+  ]);
   /**
    * @license lucide-react v0.454.0 - ISC
    *
@@ -160,11 +166,28 @@
     );
     return { settling: ids, mark };
   }
+  // Ticking off a repeating task adds the next one, due on its next date.
+  // Unticking it takes that next one back, as long as it hasn't been ticked.
   function useToggleTask(onToggled) {
-    const { update } = useStore();
+    const { update, add, remove, data } = useStore();
+    const toast = useToast();
     return (t) => {
       onToggled == null ? void 0 : onToggled(t.id);
-      update("tasks", t.id, t.done ? { done: false, completedAt: null } : { done: true, completedAt: (/* @__PURE__ */ new Date()).toISOString() });
+      if (t.done) {
+        update("tasks", t.id, { done: false, completedAt: null, repeatNextId: null });
+        const next = t.repeatNextId && data.tasks.find((x) => x.id === t.repeatNextId);
+        if (next && !next.done) remove("tasks", next.id);
+        return;
+      }
+      const dueDate = t.repeat ? nextRepeatDate(t) : null;
+      if (!dueDate) {
+        update("tasks", t.id, { done: true, completedAt: (/* @__PURE__ */ new Date()).toISOString() });
+        return;
+      }
+      const nextId = newId();
+      update("tasks", t.id, { done: true, completedAt: (/* @__PURE__ */ new Date()).toISOString(), repeatNextId: nextId });
+      add("tasks", { id: nextId, title: t.title, done: false, completedAt: null, dueDate, dueTime: t.dueTime ?? null, priority: t.priority, label: t.label ?? "", percent: 0, repeat: t.repeat, createdAt: (/* @__PURE__ */ new Date()).toISOString() }, true);
+      toast({ message: `Next one: ${relativeDay(dueDate)}`, tone: "success" });
     };
   }
   function TaskProgress({ task }) {
@@ -226,7 +249,7 @@
     const overdue = !task.done && task.dueDate && task.dueDate < today;
     const showDate = task.dueDate && !(hideToday && task.dueDate === today);
     const visuallyDone = task.done;
-    return /* @__PURE__ */ React2.createElement("li", { className: `task${visuallyDone ? " task--done" : ""}${settling ? " task--settling" : ""}` }, /* @__PURE__ */ React2.createElement(TaskCheck, { checked: task.done, onToggle: () => onToggle(task), label: task.title, priority: task.priority }), React2.createElement(Sprout, { show: task.done }), /* @__PURE__ */ React2.createElement("button", { type: "button", className: "task__main", onClick: () => ui.editTask(task), "aria-label": `Edit "${task.title}"` }, /* @__PURE__ */ React2.createElement("span", { className: "task__title" }, task.title), /* @__PURE__ */ React2.createElement("span", { className: "task__meta" }, task.dueTime && /* @__PURE__ */ React2.createElement("span", { className: "task__meta-item" }, /* @__PURE__ */ React2.createElement(Clock, { size: 12, "aria-hidden": true }), " ", formatTime(task.dueTime)), showDate && /* @__PURE__ */ React2.createElement("span", { className: `task__meta-item${overdue ? " is-overdue" : ""}` }, /* @__PURE__ */ React2.createElement(Calendar, { size: 12, "aria-hidden": true }), " ", overdue ? `Overdue · ${relativeDay(task.dueDate)}` : relativeDay(task.dueDate)), task.priority !== "none" && !task.done && /* @__PURE__ */ React2.createElement("span", { className: `task__meta-item prio prio--${task.priority}` }, /* @__PURE__ */ React2.createElement(Flag, { size: 12, "aria-hidden": true }), " ", task.priority[0].toUpperCase() + task.priority.slice(1)), task.label && /* @__PURE__ */ React2.createElement("span", { className: "task__label" }, task.label), task.sample && /* @__PURE__ */ React2.createElement(SampleBadge, null))), showProgress && React2.createElement(TaskProgress, { task }), /* @__PURE__ */ React2.createElement(
+    return /* @__PURE__ */ React2.createElement("li", { className: `task${visuallyDone ? " task--done" : ""}${settling ? " task--settling" : ""}` }, /* @__PURE__ */ React2.createElement(TaskCheck, { checked: task.done, onToggle: () => onToggle(task), label: task.title, priority: task.priority }), React2.createElement(Sprout, { show: task.done }), /* @__PURE__ */ React2.createElement("button", { type: "button", className: "task__main", onClick: () => ui.editTask(task), "aria-label": `Edit "${task.title}"` }, /* @__PURE__ */ React2.createElement("span", { className: "task__title" }, task.title), /* @__PURE__ */ React2.createElement("span", { className: "task__meta" }, task.dueTime && /* @__PURE__ */ React2.createElement("span", { className: "task__meta-item" }, /* @__PURE__ */ React2.createElement(Clock, { size: 12, "aria-hidden": true }), " ", formatTime(task.dueTime)), showDate && /* @__PURE__ */ React2.createElement("span", { className: `task__meta-item${overdue ? " is-overdue" : ""}` }, /* @__PURE__ */ React2.createElement(Calendar, { size: 12, "aria-hidden": true }), " ", overdue ? `Overdue · ${relativeDay(task.dueDate)}` : relativeDay(task.dueDate)), task.repeat && !task.done && React2.createElement("span", { className: "task__meta-item task__repeat", title: `Repeats: ${(REPEATS.find((r) => r.value === task.repeat) || {}).label || ""}` }, React2.createElement(Repeat, { size: 12, "aria-hidden": true }), " ", (REPEATS.find((r) => r.value === task.repeat) || {}).short || ""), task.priority !== "none" && !task.done && /* @__PURE__ */ React2.createElement("span", { className: `task__meta-item prio prio--${task.priority}` }, /* @__PURE__ */ React2.createElement(Flag, { size: 12, "aria-hidden": true }), " ", task.priority[0].toUpperCase() + task.priority.slice(1)), task.label && /* @__PURE__ */ React2.createElement("span", { className: "task__label" }, task.label), task.sample && /* @__PURE__ */ React2.createElement(SampleBadge, null))), showProgress && React2.createElement(TaskProgress, { task }), /* @__PURE__ */ React2.createElement(
       Menu,
       {
         label: `Actions for "${task.title}"`,

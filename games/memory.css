@@ -1,4 +1,4 @@
-/* ONE — Memory sequences (loaded with games/memory.js). A ring of colour
+/* Core — Memory sequences (loaded with games/memory.js). A ring of colour
    slices on a dark disc; the lit slice brightens and glows. */
 .mem {
   --size: min(400px, calc(100vw - 64px), calc(100dvh - 300px));

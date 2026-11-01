@@ -141,7 +141,7 @@ test("a version 1 library becomes named albums, keeping every file", async () =>
   await page.close();
 });
 
-test("ONE lets go of the database when a newer version needs it", async () => {
+test("Core lets go of the database when a newer version needs it", async () => {
   const { page } = await openApp(browser, server.url, { route: "tasks" });
   const ok = await page.evaluate(async () => {
     await window.__oneMedia.open();
@@ -214,9 +214,9 @@ test("a track added to a collection is saved as a nasheed", async () => {
   await page.close();
 });
 
-test("an older ONE tab holding the music says so, instead of looking empty", async () => {
+test("an older Core tab holding the music says so, instead of looking empty", async () => {
   const { page } = await openApp(browser, server.url, { route: "tasks" });
-  // Another (older) ONE holds the database at version 1 and never lets go.
+  // Another (older) Core holds the database at version 1 and never lets go.
   const holder = await page.context().newPage();
   await holder.goto(`${server.url}/__blank`);
   await holder.evaluate(
@@ -240,11 +240,11 @@ test("an older ONE tab holding the music says so, instead of looking empty", asy
   await page.getByRole("toolbar", { name: "Quick actions" }).getByRole("button", { name: "Sounds" }).click();
   const panel = page.getByRole("dialog", { name: "Sounds" });
   await panel.getByRole("tab", { name: "Music" }).click();
-  await panel.getByText("Close other ONE tabs to finish updating your music.").waitFor({ timeout: 4000 });
+  await panel.getByText("Close other Core tabs to finish updating your music.").waitFor({ timeout: 4000 });
   assert.equal(await panel.getByText("No music added yet").count(), 0);
   // The other tab closes: the music comes back by itself.
   await holder.close();
-  await panel.getByText("Close other ONE tabs to finish updating your music.").waitFor({ state: "detached", timeout: 4000 });
+  await panel.getByText("Close other Core tabs to finish updating your music.").waitFor({ state: "detached", timeout: 4000 });
   await page.close();
 });
 

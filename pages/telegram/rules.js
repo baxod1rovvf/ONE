@@ -1,4 +1,4 @@
-// ONE — Telegram: who is waiting, and in what order. Plain functions with no
+// Core — Telegram: who is waiting, and in what order. Plain functions with no
 // dependencies, used by the Telegram service in the browser
 // (window.__oneTelegramRules) and by the tests in Node (module.exports).
 (function (root) {

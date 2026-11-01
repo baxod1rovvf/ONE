@@ -1,4 +1,4 @@
-/* ONE — Tasks page styles. Loaded with pages/tasks/tasks.js. */
+/* Core — Tasks page styles. Loaded with pages/tasks/tasks.js. */
 .tcheck::before {
   /* larger touch target */
   content: '';

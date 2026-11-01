@@ -1,4 +1,4 @@
-// ONE — Minesweeper. Loaded only when this game is opened from Retro games
+// Core — Minesweeper. Loaded only when this game is opened from Retro games
 // (games/panel.js); leaving the game unmounts it and stops everything it runs.
 (function () {
   const { React2, IconButton, icons, loadGameRecords, saveGameRecord, retroSound, tetrisRandom, useActiveGame } = window.__oneGameKit;

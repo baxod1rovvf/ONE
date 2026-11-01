@@ -1,4 +1,4 @@
-/* ONE — Breakout (loaded with games/breakout.js). */
+/* Core — Breakout (loaded with games/breakout.js). */
 /* Breakout */
 .breakout {
   --bfield: min(480px, calc((100dvh - 250px) * 0.75), calc(100vw - 72px));

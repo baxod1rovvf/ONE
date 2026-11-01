@@ -48,7 +48,7 @@ test("saved Spotify items stay after a reload", async () => {
   await page.close();
 });
 
-test("playing an item loads it in Spotify's player and pauses ONE's own music", async () => {
+test("playing an item loads it in Spotify's player and pauses Core's own music", async () => {
   const { page } = await openApp(browser, server.url, { route: "tasks" });
   await addAlbum(page, "Test", ["long.mp3"]);
   await panel(page).getByRole("button", { name: "Play Long Song" }).click();

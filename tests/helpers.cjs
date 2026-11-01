@@ -1,5 +1,5 @@
 // Shared test helpers: a static server for the repo, a Chromium launcher, and
-// openApp(), which loads ONE with CDN libraries served from tests/node_modules
+// openApp(), which loads Core with CDN libraries served from tests/node_modules
 // (the CDNs are not always reachable from test sandboxes).
 const http = require("node:http");
 const fs = require("node:fs");
@@ -162,7 +162,7 @@ async function waitForApp(page) {
   }, null, { timeout: 30000 });
 }
 
-// telegram: { seed, device } runs ONE against the fake Telegram in
+// telegram: { seed, device } runs Core against the fake Telegram in
 // tests/fixtures/telegram-fake.js. seed describes the account
 // (window.__tgFakeSeed); device (true or an object) stores a login on this
 // device. settings is merged into the stored settings.

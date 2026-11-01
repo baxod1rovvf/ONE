@@ -1,4 +1,4 @@
-/* ONE — 2048 (loaded with games/2048.js). A dark purple board, tiles from
+/* Core — 2048 (loaded with games/2048.js). A dark purple board, tiles from
    pale lavender to deep violet, then pink and gold for the big ones. */
 .g48 {
   --board: min(440px, calc(100vw - 64px), calc(100dvh - 300px));

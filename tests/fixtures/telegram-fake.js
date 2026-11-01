@@ -1,6 +1,6 @@
 // A fake Telegram for the browser tests: the same methods as the client in
 // pages/telegram/client.js, driven by window.__tgFake. Tests describe the
-// account with window.__tgFakeSeed (set before ONE starts) and steer it with
+// account with window.__tgFakeSeed (set before Core starts) and steer it with
 // __tgFake.push(update), __tgFake.scanQr(), __tgFake.revoke() and __tgFake.fail.
 (function () {
   const H = 3600e3;

@@ -1,4 +1,4 @@
-/* ONE — Retro games panel and shared game styles (score boxes, messages,
+/* Core — Retro games panel and shared game styles (score boxes, messages,
    buttons, and Snake, whose styles double as the shared kit). */
 
 /* ---------- Home: retro games ---------- */
@@ -39,7 +39,7 @@
     --games-edge: #0d1433;
   }
 }
-/* The person's own choice inside ONE wins over the host theme. */
+/* The person's own choice inside Core wins over the host theme. */
 :root[data-one-theme='light'] .games {
   --games-ink: #1d3a22;
   --games-card: #fffdf4;

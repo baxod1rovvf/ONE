@@ -50,7 +50,7 @@ test("on a phone the corner keeps only more, refresh and settings", async () => 
   await corner.getByRole("button", { name: "Settings" }).waitFor();
   for (const name of ["Search", "Quick capture"]) assert.equal(await corner.getByRole("button", { name }).isVisible(), false, name);
   assert.equal(await corner.getByRole("button", { name: "Refresh" }).isVisible(), true);
-  // The page name next to ONE isn't covered.
+  // The page name next to Core isn't covered.
   const brand = await page.locator(".pagebar__brand").boundingBox();
   const box = await corner.boundingBox();
   assert.ok(brand.x + brand.width <= box.x, `brand ends at ${brand.x + brand.width}, corner starts at ${box.x}`);
@@ -75,7 +75,7 @@ test("corner cluster: search (Ctrl+K), capture (C), settings; lock only when ena
   await page.waitForSelector("[role=dialog]", { state: "detached" });
   await cluster.getByRole("button", { name: "Settings" }).click();
   assert.match(page.url(), /#preferences$/);
-  assert.equal(await page.getByRole("button", { name: "Lock ONE now" }).count(), 0);
+  assert.equal(await page.getByRole("button", { name: "Lock Core now" }).count(), 0);
   await page.close();
 });
 

@@ -148,7 +148,7 @@ test("locking pauses everything and unlocking doesn't resume", async () => {
   await openPanel(page);
   await sw(page, "Rain").click();
   await page.keyboard.press("Escape");
-  await page.getByRole("button", { name: "Lock ONE now" }).click();
+  await page.getByRole("button", { name: "Lock Core now" }).click();
   await page.waitForFunction(() => !window.__oneSound.stats().voices.rain.running);
   for (const d of "1234") await page.keyboard.press(d);
   await page.locator(".lock").waitFor({ state: "detached" });

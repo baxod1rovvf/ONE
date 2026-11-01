@@ -1,4 +1,4 @@
-// ONE service worker: ONE always opens from the copy saved on this device, so
+// Core service worker: Core always opens from the copy saved on this device, so
 // coming back takes no waiting, online or not. Pages and app files (scripts,
 // styles, libraries, fonts, icons) come from the saved copy; only a missing
 // file goes to the network, and is saved. New versions arrive through the
@@ -17,9 +17,9 @@ const SHELL = [
   "./",
   "./index.html",
   "./manifest.webmanifest",
-  "./icons/icon-192.png",
-  "./icons/icon-512.png",
-  "./icons/apple-touch-icon.png",
+  "./icons/core-192.png",
+  "./icons/core-512.png",
+  "./icons/core-apple-touch.png",
   // Every game's files (keep in step with GAME_FILES in index.html).
   ...["panel", "snake", "tetris", "breakout", "2048", "minesweeper", "memory"].flatMap((f) => [`./games/${f}.js`, `./games/${f}.css`]),
   // Every page's files and Telegram's own scripts (PAGE_FILES in index.html).
@@ -132,7 +132,7 @@ self.addEventListener("fetch", (event) => {
     event.respondWith(fromCache(INDEX, req, { ignoreSearch: true }));
     return;
   }
-  // ONE's own files and the pinned libraries and font files never change
+  // Core's own files and the pinned libraries and font files never change
   // under the same address: the saved copy is enough.
   if (sameOrigin || PINNED_HOSTS.includes(url.hostname)) {
     event.respondWith(fromCache(req, req));

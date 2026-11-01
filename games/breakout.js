@@ -1,4 +1,4 @@
-// ONE — Breakout. Loaded only when this game is opened from Retro games
+// Core — Breakout. Loaded only when this game is opened from Retro games
 // (games/panel.js); leaving the game unmounts it and stops everything it runs.
 (function () {
   const { React2, reactDom, IconButton, FOCUSABLE, icons, useGameRecord, loadGameRecords, retroSound, RETRO_NOTES, tetrisRandom, useActiveGame } = window.__oneGameKit;

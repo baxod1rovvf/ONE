@@ -1,4 +1,4 @@
-/* ONE — Goals page styles. Loaded with pages/goals/goals.js. */
+/* Core — Goals page styles. Loaded with pages/goals/goals.js. */
 .badge--success {
   background: var(--success-soft);
   color: var(--success);

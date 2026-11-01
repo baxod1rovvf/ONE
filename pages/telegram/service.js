@@ -1,4 +1,4 @@
-// ONE — Telegram: the live state. It keeps the connection, the chosen chats
+// Core — Telegram: the live state. It keeps the connection, the chosen chats
 // and their messages, works out who is waiting (rules.js), and tells
 // subscribers when anything changes. index.html loads it in the background
 // when this device has a Telegram login (TelegramBridge), and the Telegram
@@ -237,7 +237,7 @@
     if (!client) return;
     await loadRecent(id);
     const list = state.messages[id] || [];
-    // Seen in ONE counts as read in ONE: the chat stops waiting. Telegram
+    // Seen in Core counts as read in Core: the chat stops waiting. Telegram
     // isn't told, so the other person sees no read receipt.
     const lastIn = [...list].reverse().find((m) => !m.out);
     const pref = state.prefs.chats[id];
