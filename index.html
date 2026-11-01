@@ -13,7 +13,7 @@
   <meta name="apple-mobile-web-app-title" content="Core">
   <link rel="apple-touch-icon" href="icons/core-apple-touch.png">
   <meta name="description" content="Core: a personal workspace for tasks, websites, ideas and saved links.">
-  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 48 48'%3E%3Cdefs%3E%3ClinearGradient id='c' x1='0' y1='0' x2='1' y2='1'%3E%3Cstop offset='0' stop-color='%23f6f3ee'/%3E%3Cstop offset='1' stop-color='%23a9a49d'/%3E%3C/linearGradient%3E%3CradialGradient id='g'%3E%3Cstop offset='0' stop-color='%23ff9a2e' stop-opacity='.6'/%3E%3Cstop offset='1' stop-color='%23ff9a2e' stop-opacity='0'/%3E%3C/radialGradient%3E%3CradialGradient id='d' cx='.4' cy='.35' r='.7'%3E%3Cstop offset='0' stop-color='%23ffc061'/%3E%3Cstop offset='1' stop-color='%23ee7410'/%3E%3C/radialGradient%3E%3ClinearGradient id='o' x1='0' y1='0' x2='1' y2='0'%3E%3Cstop offset='0' stop-color='%23ff9a2e' stop-opacity='.3'/%3E%3Cstop offset='.6' stop-color='%23ffb24a'/%3E%3Cstop offset='1' stop-color='%23ff8a1a'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='48' height='48' rx='13' fill='%230b0b0d'/%3E%3Cpath fill='url(%23c)' fill-rule='evenodd' d='M36.19 19.4A13.5 13.5 0 1 0 36.19 28.6H28.78A7 7 0 1 1 28.78 19.4Z'/%3E%3Ccircle cx='23.5' cy='24' r='7' fill='url(%23g)'/%3E%3Ccircle cx='23.5' cy='24' r='3.4' fill='url(%23d)'/%3E%3Cellipse cx='24' cy='24.5' rx='21' ry='5' transform='rotate(-17 24 24.5)' fill='none' stroke='url(%23o)' stroke-width='1.7'/%3E%3C/svg%3E">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 48 48'%3E%3Cdefs%3E%3ClinearGradient id='c' gradientUnits='userSpaceOnUse' x1='34' y1='11' x2='31' y2='37'%3E%3Cstop offset='0' stop-color='%23ffcf5a'/%3E%3Cstop offset='.28' stop-color='%23ff8a3d'/%3E%3Cstop offset='.5' stop-color='%23ec62c4'/%3E%3Cstop offset='.72' stop-color='%237b4cf0'/%3E%3Cstop offset='1' stop-color='%234fb2ff'/%3E%3C/linearGradient%3E%3ClinearGradient id='i' gradientUnits='userSpaceOnUse' x1='16' y1='18' x2='30' y2='34'%3E%3Cstop offset='0' stop-color='%233b1d8f'/%3E%3Cstop offset='.6' stop-color='%237b4cf0'/%3E%3Cstop offset='1' stop-color='%235aa8ff'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='48' height='48' rx='13' fill='%230b0a14'/%3E%3Cellipse cx='24' cy='24' rx='21' ry='6.5' transform='rotate(-15 24 24)' fill='none' stroke='%233d2f6e' stroke-width='1'/%3E%3Cpath d='M32.81 16.61A11.5 11.5 0 1 0 32.81 31.39' fill='none' stroke='url(%23c)' stroke-width='7.5' stroke-linecap='round'/%3E%3Cpath d='M15.9 21A8.6 8.6 0 0 0 31.5 30.2' fill='none' stroke='url(%23i)' stroke-width='2.6' stroke-linecap='round' opacity='.85'/%3E%3Cpath d='M24 18.6Q24.8 23.2 29.4 24Q24.8 24.8 24 29.4Q23.2 24.8 18.6 24Q23.2 23.2 24 18.6Z' fill='%23fbf1de'/%3E%3Ccircle cx='42.5' cy='16.75' r='1.9' fill='%23ffb02e'/%3E%3Ccircle cx='5.5' cy='31.25' r='1.7' fill='%23a35cff'/%3E%3C/svg%3E">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600;700&family=Geist:wght@400;500;600;700&family=Geist+Mono:wght@400;500&display=swap">
@@ -4779,23 +4779,25 @@ main[data-section='saved'] .panel::after {
     const letter = (name.trim()[0] ?? "?").toUpperCase();
     return /* @__PURE__ */ React2.createElement("span", { className: `mono${size === "md" ? "" : ` mono--${size}`}`, style: { ["--h"]: hueFor(name.toLowerCase()) }, "aria-hidden": true }, letter);
   }
-  // The Core mark: a C around a glowing core, with an orbit across it.
+  // The Core mark: a C in sunrise colours around a star, on an orbit with
+  // two small planets.
   function BrandMark({ size = 24 }) {
     const uid = React2.useId().replace(/:/g, "");
     const id = (k) => `bm${uid}${k}`;
     const h = React2.createElement;
+    const stops = (list) => list.map(([o, c]) => h("stop", { key: o, offset: o, stopColor: c }));
     return h("svg", { className: "brand__mark", width: size, height: size, viewBox: "0 0 48 48", "aria-hidden": true },
       h("defs", null,
-        h("linearGradient", { id: id("c"), x1: "0", y1: "0", x2: "1", y2: "1" }, h("stop", { offset: "0", stopColor: "#f6f3ee" }), h("stop", { offset: "1", stopColor: "#a9a49d" })),
-        h("radialGradient", { id: id("g") }, h("stop", { offset: "0", stopColor: "#ff9a2e", stopOpacity: ".6" }), h("stop", { offset: "1", stopColor: "#ff9a2e", stopOpacity: "0" })),
-        h("radialGradient", { id: id("d"), cx: ".4", cy: ".35", r: ".7" }, h("stop", { offset: "0", stopColor: "#ffc061" }), h("stop", { offset: "1", stopColor: "#ee7410" })),
-        h("linearGradient", { id: id("o"), x1: "0", y1: "0", x2: "1", y2: "0" }, h("stop", { offset: "0", stopColor: "#ff9a2e", stopOpacity: ".3" }), h("stop", { offset: ".6", stopColor: "#ffb24a" }), h("stop", { offset: "1", stopColor: "#ff8a1a" }))
+        h("linearGradient", { id: id("c"), gradientUnits: "userSpaceOnUse", x1: "34", y1: "11", x2: "31", y2: "37" }, stops([["0", "#ffcf5a"], [".28", "#ff8a3d"], [".5", "#ec62c4"], [".72", "#7b4cf0"], ["1", "#4fb2ff"]])),
+        h("linearGradient", { id: id("i"), gradientUnits: "userSpaceOnUse", x1: "16", y1: "18", x2: "30", y2: "34" }, stops([["0", "#3b1d8f"], [".6", "#7b4cf0"], ["1", "#5aa8ff"]]))
       ),
-      h("rect", { width: "48", height: "48", rx: "13", fill: "#0b0b0d" }),
-      h("path", { fill: `url(#${id("c")})`, fillRule: "evenodd", d: "M36.19 19.4A13.5 13.5 0 1 0 36.19 28.6H28.78A7 7 0 1 1 28.78 19.4Z" }),
-      h("circle", { cx: "23.5", cy: "24", r: "7", fill: `url(#${id("g")})` }),
-      h("circle", { cx: "23.5", cy: "24", r: "3.4", fill: `url(#${id("d")})` }),
-      h("ellipse", { cx: "24", cy: "24.5", rx: "21", ry: "5", transform: "rotate(-17 24 24.5)", fill: "none", stroke: `url(#${id("o")})`, strokeWidth: "1.7" })
+      h("rect", { width: "48", height: "48", rx: "13", fill: "#0b0a14" }),
+      h("ellipse", { cx: "24", cy: "24", rx: "21", ry: "6.5", transform: "rotate(-15 24 24)", fill: "none", stroke: "#3d2f6e", strokeWidth: "1" }),
+      h("path", { d: "M32.81 16.61A11.5 11.5 0 1 0 32.81 31.39", fill: "none", stroke: `url(#${id("c")})`, strokeWidth: "7.5", strokeLinecap: "round" }),
+      h("path", { d: "M15.9 21A8.6 8.6 0 0 0 31.5 30.2", fill: "none", stroke: `url(#${id("i")})`, strokeWidth: "2.6", strokeLinecap: "round", opacity: ".85" }),
+      h("path", { d: "M24 18.6Q24.8 23.2 29.4 24Q24.8 24.8 24 29.4Q23.2 24.8 18.6 24Q23.2 23.2 24 18.6Z", fill: "#fbf1de" }),
+      h("circle", { cx: "42.5", cy: "16.75", r: "1.9", fill: "#ffb02e" }),
+      h("circle", { cx: "5.5", cy: "31.25", r: "1.7", fill: "#a35cff" })
     );
   }
   const ROUTES = [
