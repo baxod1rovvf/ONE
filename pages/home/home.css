@@ -270,6 +270,14 @@
     bottom: calc(168px + env(safe-area-inset-bottom, 0px));
   }
 }
+/* On phones the cards sit in the sky under "try a break", so the grass
+   below stays free to touch. */
+@media (max-width: 760px) {
+  .home-cards {
+    top: calc(248px + env(safe-area-inset-top, 0px));
+    bottom: auto;
+  }
+}
 
 /* "How was today?" */
 .mood-home {
