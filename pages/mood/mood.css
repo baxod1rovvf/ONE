@@ -1,0 +1,185 @@
+/* Core — Mood page styles. Loaded with pages/mood/mood.js. */
+.mood-week-nav {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.mood-week-nav__label {
+  min-width: 112px;
+  text-align: center;
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+}
+
+/* The week strip */
+.mood-strip {
+  display: grid;
+  grid-template-columns: repeat(7, minmax(0, 1fr));
+  gap: 4px;
+  padding: 8px;
+  margin-bottom: 16px;
+}
+.mood-strip__day {
+  display: grid;
+  justify-items: center;
+  gap: 2px;
+  min-width: 0;
+  min-height: 44px;
+  padding: 8px 2px;
+  border-radius: 14px;
+  color: var(--text-2);
+  font-size: var(--fs-xs, 12px);
+  transition: background-color 0.15s ease;
+}
+.mood-strip__day:hover:not(:disabled) {
+  background: var(--surface-2);
+}
+.mood-strip__day[aria-pressed="true"] {
+  background: var(--accent-soft);
+  color: var(--text);
+}
+.mood-strip__day.is-today {
+  box-shadow: inset 0 0 0 2px var(--accent);
+}
+.mood-strip__day:disabled {
+  opacity: 0.4;
+  cursor: default;
+}
+.mood-strip__wd {
+  font-weight: 600;
+}
+
+/* Faces to pick from */
+.mood-faces {
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap: 4px;
+}
+.mood-faces__btn {
+  display: grid;
+  justify-items: center;
+  gap: 4px;
+  min-height: 44px;
+  padding: 8px 2px;
+  border-radius: 14px;
+  color: var(--text-2);
+  font-size: var(--fs-xs, 12px);
+  font-weight: 600;
+}
+.mood-faces__btn .mood-face {
+  opacity: 0.6;
+  transition: opacity 0.15s ease, transform 0.15s ease;
+}
+.mood-faces__btn:hover .mood-face,
+.mood-faces__btn[aria-pressed="true"] .mood-face {
+  opacity: 1;
+}
+.mood-faces__btn[aria-pressed="true"] {
+  background: var(--accent-soft);
+  color: var(--text);
+}
+.mood-faces__btn[aria-pressed="true"] .mood-face {
+  transform: scale(1.08);
+}
+
+/* The open day */
+.mood-day {
+  display: grid;
+  gap: 12px;
+  margin-bottom: 16px;
+}
+.mood-day__title,
+.mood-empty__title {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: var(--fs-lg, 18px);
+  font-weight: 600;
+}
+.mood-day__note {
+  display: grid;
+  gap: 6px;
+}
+.mood-day__note textarea {
+  width: 100%;
+  resize: vertical;
+}
+.mood-empty {
+  display: grid;
+  gap: 10px;
+}
+
+/* This week, best and worst */
+.mood-summary {
+  display: grid;
+  gap: 2px;
+  padding: 8px;
+  margin-bottom: 20px;
+}
+.mood-line {
+  display: grid;
+  grid-template-columns: 88px 22px minmax(0, 1fr);
+  align-items: center;
+  gap: 10px;
+  min-height: 44px;
+  padding: 6px 8px;
+  border-radius: 12px;
+  text-align: left;
+}
+.mood-line--btn:hover {
+  background: var(--surface-2);
+}
+.mood-line__label {
+  color: var(--text-2);
+  font-size: var(--fs-sm, 14px);
+  font-weight: 600;
+}
+.mood-line__text {
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.mood-summary__hint {
+  padding: 8px;
+  color: var(--text-2);
+}
+
+/* The week's notes */
+.mood-notes__list {
+  display: grid;
+  gap: 10px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.mood-note {
+  display: grid;
+  gap: 6px;
+}
+.mood-note__head {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  color: var(--text-2);
+  font-size: var(--fs-sm, 14px);
+}
+.mood-note__text {
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+}
+
+@media (max-width: 480px) {
+  .mood-week-nav__label {
+    min-width: 96px;
+  }
+  .mood-line {
+    grid-template-columns: 72px 22px minmax(0, 1fr);
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .mood-strip__day,
+  .mood-faces__btn .mood-face {
+    transition: none;
+  }
+}

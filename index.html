@@ -508,6 +508,8 @@ main[data-section='goals'] {
   --section-text: var(--c-goals-text);
   --on-section: var(--c-goals-on);
 }
+/* Mood borrows the warm Notes colour: sunrise, like the Core mark. */
+main[data-section='mood'],
 main[data-section='knowledge'] {
   --section: var(--c-knowledge);
   --section-soft: var(--c-knowledge-soft);
@@ -3851,6 +3853,12 @@ main[data-section='saved'] .panel::after {
    * This source code is licensed under the ISC license.
    * See the LICENSE file in the root directory of this source tree.
    */
+  const Smile = createLucideIcon("Smile", [
+    ["circle", { cx: "12", cy: "12", r: "10", key: "1mglay" }],
+    ["path", { d: "M8 14s1.5 2 4 2 4-2 4-2", key: "1y1vjs" }],
+    ["line", { x1: "9", x2: "9.01", y1: "9", y2: "9", key: "yxxnd0" }],
+    ["line", { x1: "15", x2: "15.01", y1: "9", y2: "9", key: "1p4y9e" }]
+  ]);
   const SquareCheckBig = createLucideIcon("SquareCheckBig", [
     ["path", { d: "M21 10.5V19a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h12.5", key: "1uzm8b" }],
     ["path", { d: "m9 11 3 3L22 4", key: "1pflzl" }]
@@ -4902,6 +4910,7 @@ main[data-section='saved'] .panel::after {
   const ROUTES = [
     { id: "home", label: "Home", icon: House, description: "Touch grass and take a one-minute break" },
     { id: "tasks", label: "Tasks", icon: SquareCheckBig, description: "Everything you need to do, and how far along you are" },
+    { id: "mood", label: "Mood", icon: Smile, description: "Mark your days and see how your week went" },
     { id: "websites", label: "Websites", icon: Globe, description: "Your favourite websites, sorted into categories" },
     { id: "ideas", label: "Ideas", icon: Lightbulb, description: "Ideas grouped by category, shown as a map" },
     { id: "telegram", label: "Telegram", icon: MessageCircle, description: "Your chosen Telegram chats, and whom to answer first" },
@@ -5457,8 +5466,9 @@ main[data-section='saved'] .panel::after {
   const GAME_FILES = ["panel", "snake", "tetris", "breakout", "2048", "minesweeper", "memory"].flatMap((f) => [`./games/${f}.js`, `./games/${f}.css`]);
   // Every page's files, and Telegram's own scripts (also in step with sw.js).
   const PAGE_FILES = [
-    ...["home", "tasks", "websites", "ideas", "telegram", "saved", "goals", "knowledge", "preferences"].flatMap((p) => [`./pages/${p}/${p}.js`, `./pages/${p}/${p}.css`]),
-    ...["rules", "client", "service", "qr"].map((f) => `./pages/telegram/${f}.js`)
+    ...["home", "tasks", "mood", "websites", "ideas", "telegram", "saved", "goals", "knowledge", "preferences"].flatMap((p) => [`./pages/${p}/${p}.js`, `./pages/${p}/${p}.css`]),
+    ...["rules", "client", "service", "qr"].map((f) => `./pages/telegram/${f}.js`),
+    "./pages/mood/rules.js"
   ];
   const APP_FILES = ["./index.html", ...GAME_FILES, "./manifest.webmanifest", ...PAGE_FILES];
   const UPDATE_KEY = "one.update.v1";
@@ -8678,11 +8688,12 @@ main[data-section='saved'] .panel::after {
   // Every page lives in pages/<id>/<id>.js and pages/<id>/<id>.css. The open
   // page loads first (<head> already asked for its files); the others load in
   // the background right after, so switching pages never waits.
-  const PAGE_IDS = ["home", "tasks", "websites", "ideas", "telegram", "saved", "goals", "knowledge", "preferences"];
+  const PAGE_IDS = ["home", "tasks", "mood", "websites", "ideas", "telegram", "saved", "goals", "knowledge", "preferences"];
   const pagePromises = {};
   function loadedPage(id) {
     return (window.__onePages || {})[id] || null;
   }
+  const PAGE_DEPS = { mood: ["pages/mood/rules.js"] };
   function loadPage(id) {
     if (loadedPage(id)) return Promise.resolve(loadedPage(id));
     if (pagePromises[id]) return pagePromises[id];
@@ -8699,7 +8710,9 @@ main[data-section='saved'] .panel::after {
     css.href = `pages/${id}/${id}.css`;
     const js = document.createElement("script");
     js.src = `pages/${id}/${id}.js`;
-    pagePromises[id] = Promise.all([add(css), add(js)])
+    // Scripts a page needs before its own (loaded once, kept between visits).
+    const deps = (PAGE_DEPS[id] || []).reduce((p, src) => p.then(() => loadScript(src)), Promise.resolve());
+    pagePromises[id] = Promise.all([add(css), deps.then(() => add(js))])
       .then(() => {
         if (!loadedPage(id)) throw new Error(`The ${id} page didn't start.`);
         return loadedPage(id);

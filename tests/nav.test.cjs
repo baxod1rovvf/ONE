@@ -26,7 +26,7 @@ test("no sidebar or top bar; one glass dock at the bottom", async () => {
 
 test("dock tabs navigate and mark the current page", async () => {
   const { page } = await openApp(browser, server.url, { route: "tasks" });
-  for (const name of ["Websites", "Ideas", "Saved", "Home", "Tasks"]) {
+  for (const name of ["Websites", "Ideas", "Saved", "Home", "Tasks", "Mood"]) {
     await dockOf(page).getByRole("link", { name }).click();
     assert.equal(await dockOf(page).getByRole("link", { name }).getAttribute("aria-current"), "page", name);
   }
@@ -34,10 +34,10 @@ test("dock tabs navigate and mark the current page", async () => {
 });
 
 test("dock tabs are at least 44px and the page never scrolls sideways at 375px", async () => {
-  for (const route of ["home", "tasks", "websites", "ideas", "telegram", "saved", "preferences"]) {
+  for (const route of ["home", "tasks", "mood", "websites", "ideas", "telegram", "saved", "preferences"]) {
     const { page } = await openApp(browser, server.url, { route, viewport: { width: 375, height: 812 } });
     const boxes = await page.locator(".dock__tab").evaluateAll((els) => els.map((e) => e.getBoundingClientRect().toJSON()));
-    assert.equal(boxes.length, 6);
+    assert.equal(boxes.length, 7);
     for (const b of boxes) assert.ok(b.width >= 44 && b.height >= 44, `tab ${b.width}x${b.height} on ${route}`);
     assert.equal(await page.evaluate(() => document.documentElement.scrollWidth), 375, `no sideways scroll on ${route}`);
     await page.close();

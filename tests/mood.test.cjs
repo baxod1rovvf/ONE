@@ -101,3 +101,88 @@ test("Home: from 21:00 an unmarked day is more noticeable", async () => {
   await page.waitForFunction(() => !document.querySelector('[aria-label="How was today?"]').classList.contains("is-evening"));
   await page.close();
 });
+
+// --- The Mood page. The clock stands at Wednesday 2026-11-04, noon: the week is Nov 2 – 8. ---
+const WED = (p) => p.clock.setFixedTime(new Date(2026, 10, 4, 12, 0, 0));
+const day = (date, mood, note = "") => ({ id: `m-${date}`, date, mood, note, createdAt: `${date}T10:00:00Z` });
+const strip = (page) => page.getByRole("group", { name: "Days of the week" });
+const openMood = (opts) => openApp(browser, server.url, { route: "mood", init: WED, ...opts });
+
+test("Mood: marked on Home, shown on the page", async () => {
+  const { page, errors } = await openApp(browser, server.url, { route: "home", init: WED, data: withMoods([]) });
+  await homeCard(page).getByRole("button", { name: "Good" }).click();
+  await page.getByRole("navigation", { name: "Pages" }).getByRole("link", { name: "Mood" }).click();
+  await strip(page).getByRole("button", { name: "Wed, Nov 4: Good" }).waitFor();
+  await page.getByText("Good · 1 of 7 days").waitFor();
+  assert.deepEqual(errors, []);
+  await page.close();
+});
+
+test("Mood: best and worst, and the week's notes", async () => {
+  const { page, errors } = await openMood({ data: withMoods([day("2026-11-02", 5, "Great run"), day("2026-11-03", 1, "Sick"), day("2026-11-04", 3)]) });
+  const best = page.getByRole("button", { name: /^Best day/ });
+  const worst = page.getByRole("button", { name: /^Worst day/ });
+  assert.match(await best.textContent(), /Mon/);
+  assert.match(await best.textContent(), /Great run/);
+  assert.match(await worst.textContent(), /Tue/);
+  const notes = page.getByRole("list", { name: "This week's notes" }).getByRole("listitem");
+  assert.deepEqual((await notes.allTextContents()).map((t) => /Sick/.test(t) ? "Sick" : /Great run/.test(t) ? "Great run" : t), ["Sick", "Great run"]);
+  await best.click();
+  assert.equal(await strip(page).getByRole("button", { name: "Mon, Nov 2: Great" }).getAttribute("aria-pressed"), "true");
+  assert.equal(await page.getByLabel("Why was it like that?").inputValue(), "Great run");
+  assert.deepEqual(errors, []);
+  await page.close();
+});
+
+test("Mood: not enough days yet", async () => {
+  const { page } = await openMood({ data: withMoods([day("2026-11-04", 3)]) });
+  await page.getByText("Mark a few more days to see your best and worst.").waitFor();
+  await page.close();
+});
+
+test("Mood: an empty week offers today's faces", async () => {
+  const { page, errors } = await openMood({ data: withMoods([]) });
+  const empty = page.locator(".mood-empty");
+  await empty.getByText("How was today?").waitFor();
+  await empty.getByRole("button", { name: "Okay" }).click();
+  await strip(page).getByRole("button", { name: "Wed, Nov 4: Okay" }).waitFor();
+  assert.deepEqual(errors, []);
+  await page.close();
+});
+
+test("Mood: a past day's note saves and survives a reload", async () => {
+  const { page, errors } = await openMood({ data: withMoods([day("2026-11-04", 4)]) });
+  await strip(page).getByRole("button", { name: "Mon, Nov 2: not marked" }).click();
+  await page.getByRole("group", { name: "Mood for the day" }).getByRole("button", { name: "Bad" }).click();
+  await page.getByLabel("Why was it like that?").fill("Late train");
+  await page.waitForFunction(() => JSON.parse(localStorage.getItem("one.workspace.v1")).moods.some((m) => m.date === "2026-11-02" && m.note === "Late train"));
+  await page.reload();
+  await strip(page).getByRole("button", { name: "Mon, Nov 2: Bad" }).click();
+  assert.equal(await page.getByLabel("Why was it like that?").inputValue(), "Late train");
+  assert.deepEqual(errors, []);
+  await page.close();
+});
+
+test("Mood: step back a week, never into the future", async () => {
+  const { page } = await openMood({ data: withMoods([]) });
+  const next = page.getByRole("button", { name: "Next week" });
+  const prev = page.getByRole("button", { name: "Previous week" });
+  assert.equal(await next.isDisabled(), true);
+  await page.getByText("Nov 2 – 8").waitFor();
+  assert.equal(await strip(page).getByRole("button", { name: "Thu, Nov 5: not marked" }).isDisabled(), true);
+  await prev.click();
+  await page.getByText("Oct 26 – Nov 1").waitFor();
+  assert.equal(await next.isDisabled(), false);
+  await next.click();
+  await page.getByText("Nov 2 – 8").waitFor();
+  await page.close();
+});
+
+test("Mood: phone width and dark theme, with a very long note", async () => {
+  const { page, errors } = await openMood({ viewport: { width: 375, height: 812 }, theme: "dark", data: withMoods([day("2026-11-04", 4, "x".repeat(500))]) });
+  await strip(page).waitFor();
+  await page.getByRole("list", { name: "This week's notes" }).waitFor();
+  assert.equal(await page.evaluate(() => document.documentElement.scrollWidth), 375);
+  assert.deepEqual(errors, []);
+  await page.close();
+});
