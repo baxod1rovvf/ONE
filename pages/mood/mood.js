@@ -6,7 +6,7 @@
   "use strict";
   const {
     ArrowLeft, ArrowRight, IconButton, MOODS, MOOD_NOTE_MAX, MoodFace, React2, SampleBadge, parseISODate, relativeDay,
-    todayISO, useMoodDay, useStore
+    useMoodDay, useStore, useToday
   } = window.__oneApp;
   const R = window.__oneMoodRules;
   const h = React2.createElement;
@@ -76,11 +76,21 @@
 
   function MoodPage() {
     const { data } = useStore();
-    const today = todayISO();
+    const today = useToday();
     const thisWeek = R.weekStart(today);
     const [start, setStart] = React2.useState(thisWeek);
     const days = R.weekDays(start);
     const [selected, setSelected] = React2.useState(today);
+    // At midnight, a page left on yesterday follows on to the new day (and
+    // into the new week when one begins).
+    const lastToday = React2.useRef(today);
+    React2.useEffect(() => {
+      const before = lastToday.current;
+      if (before === today) return;
+      lastToday.current = today;
+      if (start === R.weekStart(before)) setStart(thisWeek);
+      if (selected === before) setSelected(today);
+    }, [today]);
     // Moving to another week opens its latest day you can mark.
     const go = (n) => {
       const next = R.shiftWeek(start, n);
@@ -133,7 +143,7 @@
           );
         })
       ),
-      empty && start === thisWeek
+      empty && start === thisWeek && selected === today
         ? h(
             "section",
             { className: "panel mood-empty" },

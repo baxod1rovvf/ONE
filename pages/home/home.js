@@ -6,7 +6,7 @@
   "use strict";
   const {
     IconButton, MOODS, MOOD_NOTE_MAX, Moon, MoodFace, React2, STARS, SoundsButton, Sun, createLucideIcon, isTypingTarget,
-    loadGames, todayISO, useMoodDay, useSound, useStore, useTelegram, useTheme, useToast, useUI
+    loadGames, useMoodDay, useToday, useSound, useStore, useTelegram, useTheme, useToast, useUI
   } = window.__oneApp;
   /**
    * @license lucide-react v0.454.0 - ISC
@@ -1100,20 +1100,6 @@
       out.push(p);
     });
     return out;
-  }
-  // Today's date, kept current: it moves on at midnight while Home is open.
-  function useToday() {
-    const [today, setToday] = React2.useState(todayISO);
-    React2.useEffect(() => {
-      const check = () => setToday(todayISO());
-      const timer = setInterval(check, 60e3);
-      document.addEventListener("visibilitychange", check);
-      return () => {
-        clearInterval(timer);
-        document.removeEventListener("visibilitychange", check);
-      };
-    }, []);
-    return today;
   }
   // "How was today?": one tap marks the day, "Why?" opens its note. From
   // 21:00 an unmarked day stands out a little; nothing ever notifies.

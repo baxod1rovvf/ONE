@@ -186,3 +186,54 @@ test("Mood: phone width and dark theme, with a very long note", async () => {
   assert.deepEqual(errors, []);
   await page.close();
 });
+
+// --- Fixes from the final review ---
+test("removing sample content removes the sample moods too", async () => {
+  const sampleMood = { ...day("2026-11-01", 4, "Long walk"), sample: true };
+  const { page, errors } = await openApp(browser, server.url, { route: "preferences", data: withMoods([sampleMood, day("2026-11-02", 3)]) });
+  await page.getByRole("button", { name: "Remove samples" }).first().click();
+  const dialog = page.getByRole("alertdialog");
+  await dialog.getByRole("button", { name: "Remove samples" }).click();
+  await page.waitForFunction(() => JSON.parse(localStorage.getItem("one.workspace.v1")).moods.length === 1);
+  assert.equal((await stored(page)).moods[0].date, "2026-11-02");
+  assert.deepEqual(errors, []);
+  await page.close();
+});
+
+test("clearing a day marked on two devices clears it, not just the newer mark", async () => {
+  const a = { ...day("2026-11-04", 2), id: "a", _m: 100 };
+  const b = { ...day("2026-11-04", 5), id: "b", _m: 200 };
+  const { page, errors } = await openMood({ data: withMoods([a, b]) });
+  await strip(page).getByRole("button", { name: "Wed, Nov 4: Great" }).waitFor();
+  await page.getByRole("group", { name: "Mood for the day" }).getByRole("button", { name: "Great" }).click();
+  await strip(page).getByRole("button", { name: "Wed, Nov 4: not marked" }).waitFor();
+  assert.deepEqual((await stored(page)).moods, []);
+  assert.deepEqual(errors, []);
+  await page.close();
+});
+
+test("Mood: the page moves on to the new day at midnight", async () => {
+  const { page, errors } = await openApp(browser, server.url, {
+    route: "mood", data: withMoods([day("2026-11-03", 4)]),
+    init: (p) => p.clock.install({ time: new Date(2026, 10, 3, 23, 59, 0) })
+  });
+  const wed = strip(page).getByRole("button", { name: "Wed, Nov 4: not marked" });
+  assert.equal(await wed.isDisabled(), true);
+  await page.clock.fastForward("02:00");
+  await page.waitForFunction(() => {
+    const b = document.querySelector('[aria-label="Wed, Nov 4: not marked"]');
+    return b && !b.disabled && b.classList.contains("is-today");
+  });
+  assert.deepEqual(errors, []);
+  await page.close();
+});
+
+test("Mood: on an empty week, tapping an earlier day opens it", async () => {
+  const { page, errors } = await openMood({ data: withMoods([]) });
+  await strip(page).getByRole("button", { name: "Mon, Nov 2: not marked" }).click();
+  await page.getByRole("group", { name: "Mood for the day" }).getByRole("button", { name: "Bad" }).click();
+  await strip(page).getByRole("button", { name: "Mon, Nov 2: Bad" }).waitFor();
+  assert.equal((await stored(page)).moods[0].date, "2026-11-02");
+  assert.deepEqual(errors, []);
+  await page.close();
+});
