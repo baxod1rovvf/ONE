@@ -42,7 +42,7 @@ Success: marking a day takes a couple of seconds, and the week view answers
 ## 2. Rules
 
 All the date and summary maths lives in `pages/mood/rules.js`, which knows
-nothing about the screen and is exposed as `window.__coreMoodRules`.
+nothing about the screen and is exposed as `window.__oneMoodRules` (internal names keep `one`, like `__oneTelegramRules`)`.
 
 - **Marking.** Choosing a face on a day with no entry adds one. Choosing a
   different face changes it. Choosing the same face again clears the mood;
