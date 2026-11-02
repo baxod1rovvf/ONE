@@ -1,7 +1,7 @@
 # Mood in Core: design
 
 Date: 2026-11-02
-Status: approved in conversation, waiting for spec review
+Status: built (2026-11-02)
 Builds on: pages in their own files (`pages/<id>/`), Supabase sync, the Home cards
 
 ## Why
@@ -19,7 +19,7 @@ Success: marking a day takes a couple of seconds, and the week view answers
 |---|---|
 | How a day is marked | 5 faces: 1 awful, 2 bad, 3 okay, 4 good, 5 great. One tap. |
 | Best and worst day | For the week being shown only. Earlier weeks can be stepped back to. |
-| Where it lives | A new Mood page in the side menu, plus a "How was today?" card on Home. |
+| Where it lives | A new Mood page as a dock tab after Tasks, plus a "How was today?" card on Home. |
 | Week | Monday to Sunday. |
 | Reminders | None. After 21:00 the Home card is a little more noticeable; nothing else. |
 
@@ -109,7 +109,7 @@ nothing about the screen and is exposed as `window.__oneMoodRules` (internal nam
 - `pages/mood/rules.js` (new): the rules in section 2.
 - `pages/mood/mood.js`, `pages/mood/mood.css` (new): the page, loaded like
   the other pages.
-- `index.html`: the `moods` collection, the Mood route in the side menu,
+- `index.html`: the `moods` collection, the Mood route in the dock,
   `PAGE_FILES`, a shared `MoodFace` component and the mood words and colours
   on `window.__oneApp`, and loading `rules.js` before the page and the Home
   card need it.
