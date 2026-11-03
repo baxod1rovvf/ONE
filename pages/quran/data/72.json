@@ -1,0 +1,186 @@
+{
+ "n": 72,
+ "nameAr": "الجن",
+ "nameUz": "Al-Jinn",
+ "verses": [
+  {
+   "n": 1,
+   "ar": "قُلْ أُوحِىَ إِلَىَّ أَنَّهُ ٱسْتَمَعَ نَفَرٌ مِّنَ ٱلْجِنِّ فَقَالُوٓا۟ إِنَّا سَمِعْنَا قُرْءَانًا عَجَبًا",
+   "reading": "Qul uuhiya ilaiya annna hustama'a nafarum minal jinnni faqaaluu innaa sami'naa quraanan 'ajabaa.",
+   "uz": "Sen ayt: «Menga vahiy qilindiki, albatta jinlardan (bir necha) nafari quloq osdilar va dedilar: «Biz ajoyib Qurʼonni eshitdik."
+  },
+  {
+   "n": 2,
+   "ar": "يَهْدِىٓ إِلَى ٱلرُّشْدِ فَـَٔامَنَّا بِهِۦ ۖ وَلَن نُّشْرِكَ بِرَبِّنَآ أَحَدًا",
+   "reading": "Yahdiy ilar rushdi fa aamannaa bihiy va lan nushrika bi Robbinaaa ahadaa.",
+   "uz": "U toʻgʻri yoʻlga hidoyat qiladir. Bas, biz unga iymon keltirdik va oʻz Robbimizga birovni shirk keltirmasmiz,  [1]",
+   "notes": "[1] (Jinlar oʻz aql-farosatlari ila Qurʼonni tushirgan Alloh ularning Robilari ekanligi va unga sherik boʻlishi mumkin emasligini ham tushunib yetadilar. Makka mushriklariga oʻxshab Allohga shirk keltirmasliklarini taʼkidlaydilar.)"
+  },
+  {
+   "n": 3,
+   "ar": "وَأَنَّهُۥ تَعَـٰلَىٰ جَدُّ رَبِّنَا مَا ٱتَّخَذَ صَـٰحِبَةً وَلَا وَلَدًا",
+   "reading": "Va annahuu Ta'aalaa jaddu Robbinaa mat taxaza saahibatanv va la valadaa.",
+   "uz": "Va albatta, Robbimizning azamati yuksak boʻldi. U oʻziga xotin va farzand tutgani yoʻq."
+  },
+  {
+   "n": 4,
+   "ar": "وَأَنَّهُۥ كَانَ يَقُولُ سَفِيهُنَا عَلَى ٱللَّهِ شَطَطًا",
+   "reading": "Va annahuu kaana yaquulu safiyhunaa 'alal laahi shatataa.",
+   "uz": "Va albatta, esi pastimiz Allohga nohaq gaplarni aytardi."
+  },
+  {
+   "n": 5,
+   "ar": "وَأَنَّا ظَنَنَّآ أَن لَّن تَقُولَ ٱلْإِنسُ وَٱلْجِنُّ عَلَى ٱللَّهِ كَذِبًا",
+   "reading": "Va annaa zanannaaa al lan taquulal insu val jinnu 'alal laahi kazibaa.",
+   "uz": "Va albatta, biz ins ham, jin ham Allohga (nisbatan) yolgʻon gapirmas, deb oʻylardik."
+  },
+  {
+   "n": 6,
+   "ar": "وَأَنَّهُۥ كَانَ رِجَالٌ مِّنَ ٱلْإِنسِ يَعُوذُونَ بِرِجَالٍ مِّنَ ٱلْجِنِّ فَزَادُوهُمْ رَهَقًا",
+   "reading": "Va annahuu kaana rijaa lum minal insi ya'uuzuuna birijaalim minal jinni fazaa duuhum rahaqaa.",
+   "uz": "Va albatta, insdan baʼzi kishilar jinlarning baʼzi kishilaridan panoh soʻrardilar. Bas, bu(jin)lar u(inson)larning gunoh va xorligini ziyoda qildilar."
+  },
+  {
+   "n": 7,
+   "ar": "وَأَنَّهُمْ ظَنُّوا۟ كَمَا ظَنَنتُمْ أَن لَّن يَبْعَثَ ٱللَّهُ أَحَدًا",
+   "reading": "Va annahum zannuu kamaa zanantum al lany yab'asal laahu ahadaa.",
+   "uz": "Va albatta, u(inson)lar xuddi sizlar gumon qilganingizdek, Alloh biror kishini oʻlgandan soʻng tiriltirmas, deb gumon qilardilar."
+  },
+  {
+   "n": 8,
+   "ar": "وَأَنَّا لَمَسْنَا ٱلسَّمَآءَ فَوَجَدْنَـٰهَا مُلِئَتْ حَرَسًا شَدِيدًا وَشُهُبًا",
+   "reading": "Va annaa lamasnas sa maaa'a fa vajadnaahaa muli'at harasan shadiydanv va shuhubaa.",
+   "uz": "Va albatta, biz osmon(ga yetish)ni talab qildik. Bas, uni kuchli qoʻriqchilarga va uchqunlarga toʻlgan holda koʻrdik."
+  },
+  {
+   "n": 9,
+   "ar": "وَأَنَّا كُنَّا نَقْعُدُ مِنْهَا مَقَـٰعِدَ لِلسَّمْعِ ۖ فَمَن يَسْتَمِعِ ٱلْـَٔانَ يَجِدْ لَهُۥ شِهَابًا رَّصَدًا",
+   "reading": "Va annaa kunnaa naq'udu minhaa maqaa'ida lis'sam'i famany yastami'il aana yajid lahuu shihaabar rasada.",
+   "uz": "Va albatta, biz u(osmon)da tinglashga qulay joylarga joylashib olar edik. Endi esa, kim quloq solsa, oʻzini poylab turgan uchqunga duchor boʻladir."
+  },
+  {
+   "n": 10,
+   "ar": "وَأَنَّا لَا نَدْرِىٓ أَشَرٌّ أُرِيدَ بِمَن فِى ٱلْأَرْضِ أَمْ أَرَادَ بِهِمْ رَبُّهُمْ رَشَدًا",
+   "reading": "Va annaa laa nadriy asharrun uriyda biman fil ardi am araada bihim Robbuhum rashadaa.",
+   "uz": "Va albatta, biz, yer yuzidagilarga yomonlik iroda qilindimi yoki Robbilari ularga rushdni iroda qildimi, bilmasmiz."
+  },
+  {
+   "n": 11,
+   "ar": "وَأَنَّا مِنَّا ٱلصَّـٰلِحُونَ وَمِنَّا دُونَ ذَٰلِكَ ۖ كُنَّا طَرَآئِقَ قِدَدًا",
+   "reading": "Va annaa minnas saalihuuna va minnaa duuna zaalika kunnaa taraaa'ilqa qidadaa.",
+   "uz": "Va albatta, bizdan solihlar ham va boshqalar ham bor. Turli guruhlar boʻlgan edik."
+  },
+  {
+   "n": 12,
+   "ar": "وَأَنَّا ظَنَنَّآ أَن لَّن نُّعْجِزَ ٱللَّهَ فِى ٱلْأَرْضِ وَلَن نُّعْجِزَهُۥ هَرَبًا",
+   "reading": "Va annaa zanannaaa al lan nu'jizal laaha fil ardi va lan nu'jizahuu harabaa.",
+   "uz": "Va albatta, biz Allohni yer yuzida ojiz qoldira olmasligimizga va Undan qochib qutula olmasligimizga ishondik."
+  },
+  {
+   "n": 13,
+   "ar": "وَأَنَّا لَمَّا سَمِعْنَا ٱلْهُدَىٰٓ ءَامَنَّا بِهِۦ ۖ فَمَن يُؤْمِنۢ بِرَبِّهِۦ فَلَا يَخَافُ بَخْسًا وَلَا رَهَقًا",
+   "reading": "Va annaa lammaa sami'nal hudaaa aamannaa bihiy famany yu'mim bi Robbihiy falaa yaxaafu baxsanv va laa rahaqaa.",
+   "uz": "Va albatta, biz hidoyatni eshitgan paytimizda unga iymon keltirdik. Kimki oʻz Robbisiga iymon keltirsa, savobi ozayib qolishdan ham, unga ogʻir yuk yuklanishidan ham qoʻrqmaydi."
+  },
+  {
+   "n": 14,
+   "ar": "وَأَنَّا مِنَّا ٱلْمُسْلِمُونَ وَمِنَّا ٱلْقَـٰسِطُونَ ۖ فَمَنْ أَسْلَمَ فَأُو۟لَـٰٓئِكَ تَحَرَّوْا۟ رَشَدًا",
+   "reading": "Va annaa minnal muslimuuna va minnal qaasituuna faman aslama fa ulaaa'ika taharrav rashadaa.",
+   "uz": "Va albatta, bizdan musulmonlar (bor) va bizdan adashganlar (bor). Kimlar Islomga kirsa, bas, ular haq yoʻlni tanlabdilar."
+  },
+  {
+   "n": 15,
+   "ar": "وَأَمَّا ٱلْقَـٰسِطُونَ فَكَانُوا۟ لِجَهَنَّمَ حَطَبًا",
+   "reading": "Va ammal qaasituuna fa kaanuu li jahannama hatabaa.",
+   "uz": "Va ammo, adashganlar, bas, jahannamga oʻtin boʻlibdilar.  [2]",
+   "notes": "[2] (Oyatda yoʻldan adashganlar jahannamga yoqilgʻi boʻlishliklari ham aniq, ochiq-oydin aytilmoqda.)"
+  },
+  {
+   "n": 16,
+   "ar": "وَأَلَّوِ ٱسْتَقَـٰمُوا۟ عَلَى ٱلطَّرِيقَةِ لَأَسْقَيْنَـٰهُم مَّآءً غَدَقًا",
+   "reading": "Va alla vis taqaamuu 'alat tariyqati la asqaynaahum maa'an g'adaqaa.",
+   "uz": "Va agar ular toʻgʻri yoʻldan yursalar, albatta Biz ularni koʻp suv ila sugʻoramiz."
+  },
+  {
+   "n": 17,
+   "ar": "لِّنَفْتِنَهُمْ فِيهِ ۚ وَمَن يُعْرِضْ عَن ذِكْرِ رَبِّهِۦ يَسْلُكْهُ عَذَابًا صَعَدًا",
+   "reading": "Linaftinahum fiyh; va many yu'rid 'an zikri Robbihiy yasluk hu 'azaaban sa'adaa.",
+   "uz": "U ila ularni sinash uchun. Va kimki oʻz Robbisi zikridan yuz oʻgirsa, uni U zot qiyin azobga soladir."
+  },
+  {
+   "n": 18,
+   "ar": "وَأَنَّ ٱلْمَسَـٰجِدَ لِلَّهِ فَلَا تَدْعُوا۟ مَعَ ٱللَّهِ أَحَدًا",
+   "reading": "Va annal masaajida lillaahi falaa tad'uu ma'al laahi ahadaa.",
+   "uz": "Va albatta, masjidlar Allohnikidir. Bas, Allohdan boshqaga duo qilmang.  [3]",
+   "notes": "[3] (Masjidlar Allohga ibodat qilish uchun bino qilingan joylardir, shuning uchun ham ular «Baytulloh» — Allohning uyi deb ataladi. Boshqa din vakillari oʻz ibodatxonalarida Allohga shirk keltirishar, yagona Allohdan oʻzgaga ham ibodat, duo qilishardi. Alloh taolo bu oyatda Oʻz Paygʻambari va moʻmin-musulmonlarni tavhidga — faqat Allohning Oʻziga ibodat qilishga chaqiradi.)"
+  },
+  {
+   "n": 19,
+   "ar": "وَأَنَّهُۥ لَمَّا قَامَ عَبْدُ ٱللَّهِ يَدْعُوهُ كَادُوا۟ يَكُونُونَ عَلَيْهِ لِبَدًا",
+   "reading": "Va annahuu lammaa qaama 'adul laahi yad'uuhu kaaduu yakuunuuna 'alaihi libadaa.",
+   "uz": "Va albatta, Allohning bandasi Unga ibodat qilib turganda ular uning atrofida ot yolidek toʻplanib, bosib yuboray deyishdi.  [4]",
+   "notes": "[4] (Bu oyatda jinlarning Paygʻambar alayhissalom huzurlariga ikkinchi bor kelib Qurʼon eshitgan paytlari tasvirlanyapti.)"
+  },
+  {
+   "n": 20,
+   "ar": "قُلْ إِنَّمَآ أَدْعُوا۟ رَبِّى وَلَآ أُشْرِكُ بِهِۦٓ أَحَدًا",
+   "reading": "Qul innamaaa ad'uu Robbiy va laaa ushriku bihiy ahadaa.",
+   "uz": "Sen: «Albatta, men faqat oʻz Robbimga ibodat qilurman va Unga hech kimni shirk keltirmasman», deb ayt."
+  },
+  {
+   "n": 21,
+   "ar": "قُلْ إِنِّى لَآ أَمْلِكُ لَكُمْ ضَرًّا وَلَا رَشَدًا",
+   "reading": "Qul inniy laaa amliku lakum darranv va laa rashadaa.",
+   "uz": "Sen: «Albatta, men sizlar uchun zararga ham, manfaatga ham molik emasman», deb ayt."
+  },
+  {
+   "n": 22,
+   "ar": "قُلْ إِنِّى لَن يُجِيرَنِى مِنَ ٱللَّهِ أَحَدٌ وَلَنْ أَجِدَ مِن دُونِهِۦ مُلْتَحَدًا",
+   "reading": "Qul inniy lany yujiyraniy minal laahi ahad, va lan ajida min duunihiy multahadaa.",
+   "uz": "Sen: «Albatta, meni hech kim Alloh(azobi)dan saqlab qola olmas va hargiz Allohdan oʻzga pushti panoh topa olmasman."
+  },
+  {
+   "n": 23,
+   "ar": "إِلَّا بَلَـٰغًا مِّنَ ٱللَّهِ وَرِسَـٰلَـٰتِهِۦ ۚ وَمَن يَعْصِ ٱللَّهَ وَرَسُولَهُۥ فَإِنَّ لَهُۥ نَارَ جَهَنَّمَ خَـٰلِدِينَ فِيهَآ أَبَدًا",
+   "reading": "Illaa balaag'am minal laahi va risaalaatih; va many ya'sil laaha va rasuulahuu fa inna lahuu naara jahannama xaalidiyna fiyhaaa abadaa.",
+   "uz": "Faqat, Allohdan U zotning topshiriqlarini yetkazishdir. Kimki Allohga va Uning Paygʻambariga boʻysunmasa, unga jahannam otashi bor, unda abadiy qolajaklar», deb ayt."
+  },
+  {
+   "n": 24,
+   "ar": "حَتَّىٰٓ إِذَا رَأَوْا۟ مَا يُوعَدُونَ فَسَيَعْلَمُونَ مَنْ أَضْعَفُ نَاصِرًا وَأَقَلُّ عَدَدًا",
+   "reading": "Hattaaa izaa ra av maa yuu'aduuna fasaya'lamuuna man ad'afu naasiranv va aqallu 'adadaa.",
+   "uz": "Toki ularga vaʼda qilingan narsani koʻrganlarida, kimning yordamchisi zaif-u, kimning soni ozligini ham bilurlar."
+  },
+  {
+   "n": 25,
+   "ar": "قُلْ إِنْ أَدْرِىٓ أَقَرِيبٌ مَّا تُوعَدُونَ أَمْ يَجْعَلُ لَهُۥ رَبِّىٓ أَمَدًا",
+   "reading": "Qul in adriy a qariybum maa tuu'aduuna am yaj'alu lahuu Robbiy amadaa.",
+   "uz": "Sen: «Sizlarga vaʼda qilingan narsa yaqinmi yoki Robbim unga uzoq muddat qilganmi, bilmasman», deb ayt."
+  },
+  {
+   "n": 26,
+   "ar": "عَـٰلِمُ ٱلْغَيْبِ فَلَا يُظْهِرُ عَلَىٰ غَيْبِهِۦٓ أَحَدًا",
+   "reading": "'Aalimul g'aibi falaa yuzhiru alaa g'aibihiy ahadaa.",
+   "uz": "U gʻaybni biluvchidir va hech kimni oʻz gʻaybidan xabardor qilmas."
+  },
+  {
+   "n": 27,
+   "ar": "إِلَّا مَنِ ٱرْتَضَىٰ مِن رَّسُولٍ فَإِنَّهُۥ يَسْلُكُ مِنۢ بَيْنِ يَدَيْهِ وَمِنْ خَلْفِهِۦ رَصَدًا",
+   "reading": "Illaa manir tadaa mir rasuulin fa innahuu yasluku mim baini yadihi va min xalfihiy rasadaa.",
+   "uz": "Illo, Oʻzi rozi boʻlgan Paygʻambarlar. Albatta, Alloh uning oldidan ham, ortidan ham kuzatib yuruvchi qoʻyib qoʻyadir."
+  },
+  {
+   "n": 28,
+   "ar": "لِّيَعْلَمَ أَن قَدْ أَبْلَغُوا۟ رِسَـٰلَـٰتِ رَبِّهِمْ وَأَحَاطَ بِمَا لَدَيْهِمْ وَأَحْصَىٰ كُلَّ شَىْءٍ عَدَدًۢا",
+   "reading": "Liya'lama an qad ablag'uu risaalaati Robbihim va ahaata bima ladihim va ahsaa kulla shai'in 'adadaa.",
+   "uz": "(Paygʻambarlar) oʻz Robbilari risolatlarini haqiqatan yetkazganliklarini va Alloh u(banda)lar huzuridagi barcha narsani ihota qilib olganligini va hamma narsaning adadini hisob qilganligini bilish uchun. [5]",
+   "notes": "[5] (Paygʻambarlar muhofazasi uchun qoʻyilgan farishtalar bir yoʻla, ularning Allohning dinini odamlarga qandoq yetkazayotganlariga guvoh ham boʻlib turadilar. Alloh hamma narsani Oʻz ixtiyoriga olib oʻragani, hamma narsaning hisob-kitobini qilib turishiga ham shohiddirlar.)"
+  }
+ ],
+ "sources": {
+  "arabic": "Quran.com API v4, text_uthmani (Tanzil text)",
+  "translation": "QuranEnc, uzbek_sadiq: Shaykh Muhammad Sodiq Muhammad Yusuf (converted to Latin script)",
+  "reading": "github.com/AbdurazzoqAbdugafforov/uzbek-quran-transliteration, uzbekReading"
+ },
+ "fetchedAt": "2026-11-03"
+}

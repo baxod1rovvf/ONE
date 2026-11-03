@@ -1,0 +1,5 @@
+{ "timestamps": [
+  { "verse_key": "108:1", "timestamp_from": 0, "timestamp_to": 3000 },
+  { "verse_key": "108:2", "timestamp_from": 4000, "timestamp_to": 7000 },
+  { "verse_key": "108:3", "timestamp_from": 7000, "timestamp_to": 10000 }
+] }

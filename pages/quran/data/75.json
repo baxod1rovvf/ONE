@@ -1,0 +1,254 @@
+{
+ "n": 75,
+ "nameAr": "القيامة",
+ "nameUz": "Al-Qiyamah",
+ "verses": [
+  {
+   "n": 1,
+   "ar": "لَآ أُقْسِمُ بِيَوْمِ ٱلْقِيَـٰمَةِ",
+   "reading": "Laaa uqsimu bi yavmil qiyaamah.",
+   "uz": "Qiyomat kuni bilan qasam."
+  },
+  {
+   "n": 2,
+   "ar": "وَلَآ أُقْسِمُ بِٱلنَّفْسِ ٱللَّوَّامَةِ",
+   "reading": "Va laaa uqsimu bin nafsil lavvaamah.",
+   "uz": "Va malomatchi nafs bilan qasam."
+  },
+  {
+   "n": 3,
+   "ar": "أَيَحْسَبُ ٱلْإِنسَـٰنُ أَلَّن نَّجْمَعَ عِظَامَهُۥ",
+   "reading": "Ayahsabul insaanu al lan najm'a 'izaamah.",
+   "uz": "(Kofir) Inson Bizni uning suyaklarini jamlab olmas, deb oʻylarmi?"
+  },
+  {
+   "n": 4,
+   "ar": "بَلَىٰ قَـٰدِرِينَ عَلَىٰٓ أَن نُّسَوِّىَ بَنَانَهُۥ",
+   "reading": "Balaa qaadiriyna 'alaaa an nusavviya banaanah.",
+   "uz": "Albatta, Biz uning barmoq uchlarini ham asl holiga keltirishga qodirmiz."
+  },
+  {
+   "n": 5,
+   "ar": "بَلْ يُرِيدُ ٱلْإِنسَـٰنُ لِيَفْجُرَ أَمَامَهُۥ",
+   "reading": "Bal yuriydul insaanu liyafjura amaamah.",
+   "uz": "Balki, inson kelajakda fisqu fujur qilishni xohlaydir."
+  },
+  {
+   "n": 6,
+   "ar": "يَسْـَٔلُ أَيَّانَ يَوْمُ ٱلْقِيَـٰمَةِ",
+   "reading": "Yas'alu ayyyaana yavmul qiyaamah.",
+   "uz": "Qiyomat kuni qachon? — deb soʻraydir."
+  },
+  {
+   "n": 7,
+   "ar": "فَإِذَا بَرِقَ ٱلْبَصَرُ",
+   "reading": "Fa izaa bariqal basar.",
+   "uz": "Qachonki koʻz lol qolib qoʻrqinchga toʻlsa."
+  },
+  {
+   "n": 8,
+   "ar": "وَخَسَفَ ٱلْقَمَرُ",
+   "reading": "Va xasafal qamar.",
+   "uz": "Va oy tutilsa."
+  },
+  {
+   "n": 9,
+   "ar": "وَجُمِعَ ٱلشَّمْسُ وَٱلْقَمَرُ",
+   "reading": "Va jumi'ash shamusu val qamar.",
+   "uz": "Va quyosh bilan oy jamlansa."
+  },
+  {
+   "n": 10,
+   "ar": "يَقُولُ ٱلْإِنسَـٰنُ يَوْمَئِذٍ أَيْنَ ٱلْمَفَرُّ",
+   "reading": "Yaquulul insaanu yav ma 'izin aynal mafarr.",
+   "uz": "Oʻshal kunda inson: «Qochar joy qayerda?» deb qoladir."
+  },
+  {
+   "n": 11,
+   "ar": "كَلَّا لَا وَزَرَ",
+   "reading": "Kallaa laa vazar.",
+   "uz": "Yoʻq! Qochar joy yoʻqdir!"
+  },
+  {
+   "n": 12,
+   "ar": "إِلَىٰ رَبِّكَ يَوْمَئِذٍ ٱلْمُسْتَقَرُّ",
+   "reading": "Ilaa Robbika yavma 'izinil mustaqarr.",
+   "uz": "U kunda joylashuv faqat Robbing huzurida boʻladir."
+  },
+  {
+   "n": 13,
+   "ar": "يُنَبَّؤُا۟ ٱلْإِنسَـٰنُ يَوْمَئِذٍۭ بِمَا قَدَّمَ وَأَخَّرَ",
+   "reading": "Yunabba 'ul insaanu yavma 'izim bimaa qaddama va axxar.",
+   "uz": "U kunda insonga avvalu oxir qilgan ishlarining xabari beriladir."
+  },
+  {
+   "n": 14,
+   "ar": "بَلِ ٱلْإِنسَـٰنُ عَلَىٰ نَفْسِهِۦ بَصِيرَةٌ",
+   "reading": "Balil insaanu 'alaa nafsihiy basiyrah.",
+   "uz": "Ha, inson oʻz nafsiga qarshi oʻzi shohiddir."
+  },
+  {
+   "n": 15,
+   "ar": "وَلَوْ أَلْقَىٰ مَعَاذِيرَهُۥ",
+   "reading": "Va lav alqaa ma'aaziyrah.",
+   "uz": "Va agar uzrlarini toʻkib solsa ham."
+  },
+  {
+   "n": 16,
+   "ar": "لَا تُحَرِّكْ بِهِۦ لِسَانَكَ لِتَعْجَلَ بِهِۦٓ",
+   "reading": "Laa tuharrik bihiy lisaa naka lita'jala bih.",
+   "uz": "Sen shoshilib u bilan tilingni qimirlatma."
+  },
+  {
+   "n": 17,
+   "ar": "إِنَّ عَلَيْنَا جَمْعَهُۥ وَقُرْءَانَهُۥ",
+   "reading": "Inna 'alainaa jam'ahuu va qur aanah.",
+   "uz": "Albatta, u(Qurʼon)ni jamlash va oʻqib berish Bizning zimmamizda."
+  },
+  {
+   "n": 18,
+   "ar": "فَإِذَا قَرَأْنَـٰهُ فَٱتَّبِعْ قُرْءَانَهُۥ",
+   "reading": "Fa izaa qaraanaahu fattabi' qur aanah.",
+   "uz": "Bas, Biz uni oʻqisak, qiroatiga zehn solib tur."
+  },
+  {
+   "n": 19,
+   "ar": "ثُمَّ إِنَّ عَلَيْنَا بَيَانَهُۥ",
+   "reading": "Summa inna 'alainaa bayaanah.",
+   "uz": "Soʻngra u(Qurʼon)ni bayon qilib berish ham Bizning zimmamizda."
+  },
+  {
+   "n": 20,
+   "ar": "كَلَّا بَلْ تُحِبُّونَ ٱلْعَاجِلَةَ",
+   "reading": "Kallaa bal tuhibbuunal 'aajilah.",
+   "uz": "Yoʻq! Balki sizlar shoshar dunyoni yaxshi koʻrasizlar."
+  },
+  {
+   "n": 21,
+   "ar": "وَتَذَرُونَ ٱلْـَٔاخِرَةَ",
+   "reading": "Va tazaruunal Aaxirah.",
+   "uz": "Va oxiratni tark etasizlar."
+  },
+  {
+   "n": 22,
+   "ar": "وُجُوهٌ يَوْمَئِذٍ نَّاضِرَةٌ",
+   "reading": "Vujuuhuny yavma 'izin naadirah.",
+   "uz": "U kunda chiroyli yuzlar bor."
+  },
+  {
+   "n": 23,
+   "ar": "إِلَىٰ رَبِّهَا نَاظِرَةٌ",
+   "reading": "Ilaa Robbihaa naazirah.",
+   "uz": "Oʻz Robbisiga nazar soluvchilar."
+  },
+  {
+   "n": 24,
+   "ar": "وَوُجُوهٌ يَوْمَئِذٍۭ بَاسِرَةٌ",
+   "reading": "Va vujuuhuny yavma 'izim baasirah.",
+   "uz": "Va u kunda tirishib-burishgan yuzlar ham bor."
+  },
+  {
+   "n": 25,
+   "ar": "تَظُنُّ أَن يُفْعَلَ بِهَا فَاقِرَةٌ",
+   "reading": "Tazunnu any yuf'ala bihaa faaqirah.",
+   "uz": "Oʻzlariga umurtqasini sindiradigan ish boʻlishiga ishonarlar."
+  },
+  {
+   "n": 26,
+   "ar": "كَلَّآ إِذَا بَلَغَتِ ٱلتَّرَاقِىَ",
+   "reading": "Kallaaa izaa balag'atit taraaqiy.",
+   "uz": "Yoʻq! Vaqtiki, (jon) halqumga kelsa."
+  },
+  {
+   "n": 27,
+   "ar": "وَقِيلَ مَنْ ۜ رَاقٍ",
+   "reading": "Va qiyla man raaq.",
+   "uz": "Va «Kim buni qutqarar?» deyilsa."
+  },
+  {
+   "n": 28,
+   "ar": "وَظَنَّ أَنَّهُ ٱلْفِرَاقُ",
+   "reading": "Va zanna annahul firaaq.",
+   "uz": "Va, albatta, bu firoq ekanligiga ishonsa."
+  },
+  {
+   "n": 29,
+   "ar": "وَٱلْتَفَّتِ ٱلسَّاقُ بِٱلسَّاقِ",
+   "reading": "Valtaffatis saaqu bissaaq.",
+   "uz": "Va boldirlar bir-biriga almashsa."
+  },
+  {
+   "n": 30,
+   "ar": "إِلَىٰ رَبِّكَ يَوْمَئِذٍ ٱلْمَسَاقُ",
+   "reading": "Ilaa Robbika yavma'izinil masaaq.",
+   "uz": "U kunda haydab borish joyi Robbing huzuridadir.  [1]",
+   "notes": "[1] (Yaʼni, joni halqumiga kelib qolganda, uni hayotda olib qolish uchun barcha chora koʻriladi, Kim qutqararkin, deb iltijo qilinadi. Lekin iloji boʻlmay firoq vaqti kelganiga ishonch hosil boʻladi. Jon chiqqanda esa oyoqlar jonsiz boʻlib bir-biriga chalmashadi.)"
+  },
+  {
+   "n": 31,
+   "ar": "فَلَا صَدَّقَ وَلَا صَلَّىٰ",
+   "reading": "Falaa saddaqa va laa sallaa.",
+   "uz": "Bas, u tasdiqlamadi va namoz oʻqimadi."
+  },
+  {
+   "n": 32,
+   "ar": "وَلَـٰكِن كَذَّبَ وَتَوَلَّىٰ",
+   "reading": "Va laakin kazzaba va tavalla.",
+   "uz": "Va lekin yolgʻonga chiqardi va yuz oʻgirdi."
+  },
+  {
+   "n": 33,
+   "ar": "ثُمَّ ذَهَبَ إِلَىٰٓ أَهْلِهِۦ يَتَمَطَّىٰٓ",
+   "reading": "Summa zahaba ilaaa ahlihiy yatamatta.",
+   "uz": "Soʻng oʻz ahliga kerilib bordi."
+  },
+  {
+   "n": 34,
+   "ar": "أَوْلَىٰ لَكَ فَأَوْلَىٰ",
+   "reading": "Avlaa laka fa avlaa.",
+   "uz": "Holingga voy boʻlsin sening, voy boʻlsin!"
+  },
+  {
+   "n": 35,
+   "ar": "ثُمَّ أَوْلَىٰ لَكَ فَأَوْلَىٰٓ",
+   "reading": "Summa avlaa laka fa avla.",
+   "uz": "Yana holingga voy boʻlsin sening, voy boʻlsin!"
+  },
+  {
+   "n": 36,
+   "ar": "أَيَحْسَبُ ٱلْإِنسَـٰنُ أَن يُتْرَكَ سُدًى",
+   "reading": "Ayahsabul insaanu anyytraka sudaa.",
+   "uz": "Inson behuda tark qilinishlikning hisobini qilurmi?"
+  },
+  {
+   "n": 37,
+   "ar": "أَلَمْ يَكُ نُطْفَةً مِّن مَّنِىٍّ يُمْنَىٰ",
+   "reading": "Alam yaku nutfatam mim maniyyiny yumnaa.",
+   "uz": "U maniydan oqqan nutfa boʻlmaganmidi?"
+  },
+  {
+   "n": 38,
+   "ar": "ثُمَّ كَانَ عَلَقَةً فَخَلَقَ فَسَوَّىٰ",
+   "reading": "Summa kaana 'alaqata faxalaq fasavvaa.",
+   "uz": "Soʻng alaqa boʻldi. Bas, bekami-koʻst etib yaratdi."
+  },
+  {
+   "n": 39,
+   "ar": "فَجَعَلَ مِنْهُ ٱلزَّوْجَيْنِ ٱلذَّكَرَ وَٱلْأُنثَىٰٓ",
+   "reading": "Faja'ala minhuz zavjayniz zakara val unsaa.",
+   "uz": "Bas, undan juftni — erkak va ayolni yaratdi."
+  },
+  {
+   "n": 40,
+   "ar": "أَلَيْسَ ذَٰلِكَ بِقَـٰدِرٍ عَلَىٰٓ أَن يُحْـِۧىَ ٱلْمَوْتَىٰ",
+   "reading": "Alaisa zaalika biqaadirin 'alaaa any yuhyiyal mavtaa.",
+   "uz": "Shunday Zot oʻliklarni tiriltirishga qodir emasmi?!"
+  }
+ ],
+ "sources": {
+  "arabic": "Quran.com API v4, text_uthmani (Tanzil text)",
+  "translation": "QuranEnc, uzbek_sadiq: Shaykh Muhammad Sodiq Muhammad Yusuf (converted to Latin script)",
+  "reading": "github.com/AbdurazzoqAbdugafforov/uzbek-quran-transliteration, uzbekReading"
+ },
+ "fetchedAt": "2026-11-03"
+}

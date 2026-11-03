@@ -1,0 +1,332 @@
+{
+ "n": 69,
+ "nameAr": "الحاقة",
+ "nameUz": "Al-Haqqah",
+ "verses": [
+  {
+   "n": 1,
+   "ar": "ٱلْحَآقَّةُ",
+   "reading": "Al haaaqqah.",
+   "uz": "Al-Haaqqoh."
+  },
+  {
+   "n": 2,
+   "ar": "مَا ٱلْحَآقَّةُ",
+   "reading": "Mal haaaqqah.",
+   "uz": "Al-Haaqqoh nima oʻzi?!"
+  },
+  {
+   "n": 3,
+   "ar": "وَمَآ أَدْرَىٰكَ مَا ٱلْحَآقَّةُ",
+   "reading": "Va maaa adraaka mal haaaqqah.",
+   "uz": "Al-Haaqqoh nimaligini senga nima bildirdi?!"
+  },
+  {
+   "n": 4,
+   "ar": "كَذَّبَتْ ثَمُودُ وَعَادٌۢ بِٱلْقَارِعَةِ",
+   "reading": "Kazzabat samuudu va 'Aadum bil qaari'ah.",
+   "uz": "Samud va Od qoriʼani yolgʻonga chiqarishdi.  [1]",
+   "notes": "[1] («Qoriʼa» ham qiyomatning nomlaridan biri, shiddat bilan eshik qoqib keluvchi maʼnosini anglatadi.)"
+  },
+  {
+   "n": 5,
+   "ar": "فَأَمَّا ثَمُودُ فَأُهْلِكُوا۟ بِٱلطَّاغِيَةِ",
+   "reading": "Fa-ammaa Samuudu fauhlikuu bittaag'iyah.",
+   "uz": "Bas, ammo Samud haddan oshuvchi bilan halok qilindi.  [2]",
+   "notes": "[2] («Haddan oshuvchi»dan murod qattiq chaqmoqdir.)"
+  },
+  {
+   "n": 6,
+   "ar": "وَأَمَّا عَادٌ فَأُهْلِكُوا۟ بِرِيحٍ صَرْصَرٍ عَاتِيَةٍ",
+   "reading": "Va ammaa 'Aadun fa uhlikuu biriyhin sarsarin 'aatiyah.",
+   "uz": "Va ammo Od qattiq (sovuq) shamol bilan halok qilindilar."
+  },
+  {
+   "n": 7,
+   "ar": "سَخَّرَهَا عَلَيْهِمْ سَبْعَ لَيَالٍ وَثَمَـٰنِيَةَ أَيَّامٍ حُسُومًا فَتَرَى ٱلْقَوْمَ فِيهَا صَرْعَىٰ كَأَنَّهُمْ أَعْجَازُ نَخْلٍ خَاوِيَةٍ",
+   "reading": "Saxxarahaa 'alaihim sab'a la yaalinv va samaaniyata ayyaamin husuuman fataral qavma fiyhaa sar'aa ka annahum a'jaazu naxlin xaaviyah.",
+   "uz": "U zot ularning ustidan bu shamolni yetti kechayu sakkiz kunduz «beminnat xizmat» qildirib qoʻydi. Bas, qavmning u yerda halok boʻlib, agʻdarilib yotganini koʻrasan. Ular xuddi xurmoning chirigan tomirlariga oʻxsharlar."
+  },
+  {
+   "n": 8,
+   "ar": "فَهَلْ تَرَىٰ لَهُم مِّنۢ بَاقِيَةٍ",
+   "reading": "Fahal taraa lahum mim baaqiyah.",
+   "uz": "Bas, sen ulardan birortasining boqiy qolganini koʻrasanmi?"
+  },
+  {
+   "n": 9,
+   "ar": "وَجَآءَ فِرْعَوْنُ وَمَن قَبْلَهُۥ وَٱلْمُؤْتَفِكَـٰتُ بِٱلْخَاطِئَةِ",
+   "reading": "Va jaaa'a Firavnu va man qablahuu val mu'tafikaatu bilhaati'ah.",
+   "uz": "Firʼavn, undan avvalgilar va toʻntarilganliklar xato qildilar."
+  },
+  {
+   "n": 10,
+   "ar": "فَعَصَوْا۟ رَسُولَ رَبِّهِمْ فَأَخَذَهُمْ أَخْذَةً رَّابِيَةً",
+   "reading": "Fa'ansav Rasuula Robbihim fa axazahum axzatar raabiyah.",
+   "uz": "Bas, ular Robbilarining Rasuliga osiy boʻldilar. Darhaqiqat, U zot ularni qattiq tutishlik bilan tutdi."
+  },
+  {
+   "n": 11,
+   "ar": "إِنَّا لَمَّا طَغَا ٱلْمَآءُ حَمَلْنَـٰكُمْ فِى ٱلْجَارِيَةِ",
+   "reading": "Innaa lammaa tag'al maaa'u hamalnaakum fil jaariyah.",
+   "uz": "Albatta, Biz suv tugʻyonga kelgan paytda sizlarni kemada koʻtarganmiz."
+  },
+  {
+   "n": 12,
+   "ar": "لِنَجْعَلَهَا لَكُمْ تَذْكِرَةً وَتَعِيَهَآ أُذُنٌ وَٰعِيَةٌ",
+   "reading": "Linaj'alahaa lakum tazki ratanv-va ta'iyahaa unzununv vaa'iyah.",
+   "uz": "Uni sizlarga eslatma qilish uchun va anglovchi quloqlar anglab olishi uchun.  [3]",
+   "notes": "[3] (Boʻlib oʻtgan qissa va hodisalar hamma uchun oʻrnak, eslatma, vaʼz-nasihat boʻlishi kerak.)"
+  },
+  {
+   "n": 13,
+   "ar": "فَإِذَا نُفِخَ فِى ٱلصُّورِ نَفْخَةٌ وَٰحِدَةٌ",
+   "reading": "Fa izaa nufixa fis suuri nafxatunv vaahidah.",
+   "uz": "Agar dudga birgina puflash-la puflansa..."
+  },
+  {
+   "n": 14,
+   "ar": "وَحُمِلَتِ ٱلْأَرْضُ وَٱلْجِبَالُ فَدُكَّتَا دَكَّةً وَٰحِدَةً",
+   "reading": "Va humilatil ardu val jibaalu fadukkataa dakkatanv vaahidah.",
+   "uz": "Va yeru togʻlar koʻtarilib, bir martagina silkitilsa..."
+  },
+  {
+   "n": 15,
+   "ar": "فَيَوْمَئِذٍ وَقَعَتِ ٱلْوَاقِعَةُ",
+   "reading": "Fa yavma'izinv vaqa'atil vaaqi'ah.",
+   "uz": "Bas, oʻsha kunda, Voqiʼa voqeʼ boʻlibdir."
+  },
+  {
+   "n": 16,
+   "ar": "وَٱنشَقَّتِ ٱلسَّمَآءُ فَهِىَ يَوْمَئِذٍ وَاهِيَةٌ",
+   "reading": "Vanshaqqatis samaaa'u fahiya yavma 'izinv-vaahiyah.",
+   "uz": "Va osmon parchalansa, bas, oʻsha kunda, u (osmon) beholdir."
+  },
+  {
+   "n": 17,
+   "ar": "وَٱلْمَلَكُ عَلَىٰٓ أَرْجَآئِهَا ۚ وَيَحْمِلُ عَرْشَ رَبِّكَ فَوْقَهُمْ يَوْمَئِذٍ ثَمَـٰنِيَةٌ",
+   "reading": "Val malaku 'alaaa arjaaa'ihaa; va yahmilu 'Arsha Robbika favqahum yavma'izin samaaniyah.",
+   "uz": "Va farishtalar uning atrofida va oʻsha kunda Robbingning arshini sakkiztasi koʻtarib turadir.  [4]",
+   "notes": "[4] (Allohning arshini sakkizta yoki sakkiz turli farishtalar koʻtarib turadilar. Arsh oʻzida izzat, sulton va moliklik maʼnolarini anglatadi. Bashariyat Arshning ismini biladi, uning haqiqatini Allohning Oʻzi biladi.)"
+  },
+  {
+   "n": 18,
+   "ar": "يَوْمَئِذٍ تُعْرَضُونَ لَا تَخْفَىٰ مِنكُمْ خَافِيَةٌ",
+   "reading": "Yavma'izin tu'raduuna laa taxfaa min kum xaafiyah.",
+   "uz": "Bas, oʻsha kunda koʻrikdan oʻtasizlar, birorta narsangiz maxfiy qolmaydir."
+  },
+  {
+   "n": 19,
+   "ar": "فَأَمَّا مَنْ أُوتِىَ كِتَـٰبَهُۥ بِيَمِينِهِۦ فَيَقُولُ هَآؤُمُ ٱقْرَءُوا۟ كِتَـٰبِيَهْ",
+   "reading": "Fa ammaa man uutiya kitaabahuu biyamiynihiy fa yaquulu haaa'umuq ra'uu kitaabiyah.",
+   "uz": "Bas, kimning kitobi oʻng tarafdan berilsa, u: «Mana, mening kitobimni oʻqib koʻringlar!"
+  },
+  {
+   "n": 20,
+   "ar": "إِنِّى ظَنَنتُ أَنِّى مُلَـٰقٍ حِسَابِيَهْ",
+   "reading": "Inniy zannantu anniy mulaaqin hisaabiyah.",
+   "uz": "Albatta, men hisob-kitobimga yoʻliqishimga ishonardim», deydir."
+  },
+  {
+   "n": 21,
+   "ar": "فَهُوَ فِى عِيشَةٍ رَّاضِيَةٍ",
+   "reading": "Fahuva fiy 'iyshatir raadiyah.",
+   "uz": "Bas, u rozilik hayotidadir."
+  },
+  {
+   "n": 22,
+   "ar": "فِى جَنَّةٍ عَالِيَةٍ",
+   "reading": "Fiy jannnatin 'aaliyah.",
+   "uz": "Oliy jannatdadir."
+  },
+  {
+   "n": 23,
+   "ar": "قُطُوفُهَا دَانِيَةٌ",
+   "reading": "Qutuufuhaa daaniyah.",
+   "uz": "Uning mevalari yaqindir."
+  },
+  {
+   "n": 24,
+   "ar": "كُلُوا۟ وَٱشْرَبُوا۟ هَنِيٓـًٔۢا بِمَآ أَسْلَفْتُمْ فِى ٱلْأَيَّامِ ٱلْخَالِيَةِ",
+   "reading": "Kuluu vashrabuu haniy'am bimaaa aslaftum fil ayyaamil xaliyah.",
+   "uz": "Oʻtgan kunlarda qilgan narsalaringiz tufayli yenglar va ichinglar, osh boʻlsin."
+  },
+  {
+   "n": 25,
+   "ar": "وَأَمَّا مَنْ أُوتِىَ كِتَـٰبَهُۥ بِشِمَالِهِۦ فَيَقُولُ يَـٰلَيْتَنِى لَمْ أُوتَ كِتَـٰبِيَهْ",
+   "reading": "Va ammaa man uutiya kitaabahuu bishimaalihiy fa yaquulu yaalaitaniy lam uuta kitaaabiyah.",
+   "uz": "Va ammo kimning kitobi chap tarafdan berilsa, u: «Voy shoʻrim, koshki menga kitobim berilmasa edi."
+  },
+  {
+   "n": 26,
+   "ar": "وَلَمْ أَدْرِ مَا حِسَابِيَهْ",
+   "reading": "Va lam adri maa hisaabiyah.",
+   "uz": "Va hisob-kitob qandoqligini bilmasam edim."
+  },
+  {
+   "n": 27,
+   "ar": "يَـٰلَيْتَهَا كَانَتِ ٱلْقَاضِيَةَ",
+   "reading": "Yaa laitahaa kaanatil qaadiyah.",
+   "uz": "Qani endi, (bu dunyodagi oʻlim) oxirgisi boʻlsa edi."
+  },
+  {
+   "n": 28,
+   "ar": "مَآ أَغْنَىٰ عَنِّى مَالِيَهْ ۜ",
+   "reading": "Maaa ag'naa 'anniy maaliyah.",
+   "uz": "Molu mulkim meni saqlab qola olmadi."
+  },
+  {
+   "n": 29,
+   "ar": "هَلَكَ عَنِّى سُلْطَـٰنِيَهْ",
+   "reading": "Halaka 'anniy sultaaniyah.",
+   "uz": "Mening sultonim ham halok boʻldi», deydir.  [5]",
+   "notes": "[5] (Mulku sultonim, mansabu obroʻyim, nasabu xasabim hamma hammasi halok boʻldi.)"
+  },
+  {
+   "n": 30,
+   "ar": "خُذُوهُ فَغُلُّوهُ",
+   "reading": "Xuzuuhu fag'ulluuh.",
+   "uz": "Tutinglar uni va kishanlanglar uni!!!"
+  },
+  {
+   "n": 31,
+   "ar": "ثُمَّ ٱلْجَحِيمَ صَلُّوهُ",
+   "reading": "Summal Jahiyma salluuh.",
+   "uz": "Soʻngra jahannamga solinglar uni!!!"
+  },
+  {
+   "n": 32,
+   "ar": "ثُمَّ فِى سِلْسِلَةٍ ذَرْعُهَا سَبْعُونَ ذِرَاعًا فَٱسْلُكُوهُ",
+   "reading": "Summa fiy silsilatin zar'uhaa sab'uuna ziraa'an faslukuuh.",
+   "uz": "Soʻngra yetmish qulochli zanjirga kiriting uni!!!"
+  },
+  {
+   "n": 33,
+   "ar": "إِنَّهُۥ كَانَ لَا يُؤْمِنُ بِٱللَّهِ ٱلْعَظِيمِ",
+   "reading": "Innahuu kaana laa yu'minubillaahil 'Aziym.",
+   "uz": "Chunki, u ulugʻ Allohga iymon keltirmagan edi."
+  },
+  {
+   "n": 34,
+   "ar": "وَلَا يَحُضُّ عَلَىٰ طَعَامِ ٱلْمِسْكِينِ",
+   "reading": "Va laa yahuddu 'alaa ta'aamil miskiyn.",
+   "uz": "Va miskinlarga taom berishga qiziqtirmagan edi. [6]",
+   "notes": "[6] (Miskinlarga taom berishga qiziqtirmaslik shunchalikka olib kelsa, imkoni boʻla turib ularga taom bermaslik qanchalik gunoh ekan — buni kitobxonning oʻzi fahmlayversin.)"
+  },
+  {
+   "n": 35,
+   "ar": "فَلَيْسَ لَهُ ٱلْيَوْمَ هَـٰهُنَا حَمِيمٌ",
+   "reading": "Falaysa lahul yavma haahunaa hamiym.",
+   "uz": "Bas, bugungi kunda unga bu yerda biron chin doʻst yoʻq."
+  },
+  {
+   "n": 36,
+   "ar": "وَلَا طَعَامٌ إِلَّا مِنْ غِسْلِينٍ",
+   "reading": "Va laa ta'aamun illaa min g'isliyn.",
+   "uz": "Va gʻisliyndan oʻzga taom ham yoʻq."
+  },
+  {
+   "n": 37,
+   "ar": "لَّا يَأْكُلُهُۥٓ إِلَّا ٱلْخَـٰطِـُٔونَ",
+   "reading": "Laa yaakuluhuu illal xati'uun.",
+   "uz": "Uni xatokorlardan boshqa hech kim yemas."
+  },
+  {
+   "n": 38,
+   "ar": "فَلَآ أُقْسِمُ بِمَا تُبْصِرُونَ",
+   "reading": "Falaaa uqsimu bimaa tubsiruun.",
+   "uz": "Sizlar koʻrib turgan narsalar bilan qasam ichurman."
+  },
+  {
+   "n": 39,
+   "ar": "وَمَا لَا تُبْصِرُونَ",
+   "reading": "Va maa laa tubsiruun.",
+   "uz": "Va sizlar koʻrmaydigan narsalar bilan ham."
+  },
+  {
+   "n": 40,
+   "ar": "إِنَّهُۥ لَقَوْلُ رَسُولٍ كَرِيمٍ",
+   "reading": "Innahuu laqavlu Rasuulin kariym.",
+   "uz": "Albatta u (Qurʼon) karamli Rasulning soʻzidir.  [7]",
+   "notes": "[7] (Qurʼoni Karimni Paygʻambarimiz sollallohu alayhi va sallamga nisbat berilishi U zot sollallohu alayhi va sallam u kalomni tilovat qiluvchi va kishilarga yetkazuvchi ekanligidandir.)"
+  },
+  {
+   "n": 41,
+   "ar": "وَمَا هُوَ بِقَوْلِ شَاعِرٍ ۚ قَلِيلًا مَّا تُؤْمِنُونَ",
+   "reading": "Va ma huva biqavli shaa'ir; qaliylam maa tu'minuun.",
+   "uz": "Va u shoirning soʻzi emas. Sizlar juda oz ishonasizlar."
+  },
+  {
+   "n": 42,
+   "ar": "وَلَا بِقَوْلِ كَاهِنٍ ۚ قَلِيلًا مَّا تَذَكَّرُونَ",
+   "reading": "Va laa biqavli kaahin; qaliylam maa tazakkaruun.",
+   "uz": "Va u folbinning soʻzi ham emas. Sizlar juda oz eslaysizlar."
+  },
+  {
+   "n": 43,
+   "ar": "تَنزِيلٌ مِّن رَّبِّ ٱلْعَـٰلَمِينَ",
+   "reading": "Tanziylum mir Robbil 'aalamiyn.",
+   "uz": "U olamlar Robbisidan tushirilgandir."
+  },
+  {
+   "n": 44,
+   "ar": "وَلَوْ تَقَوَّلَ عَلَيْنَا بَعْضَ ٱلْأَقَاوِيلِ",
+   "reading": "Va lav taqavvala 'alainaa ba'dal aqaaviyl.",
+   "uz": "Va agar u Bizning (nomimizdan) baʼzan yolgʻon soʻzlarni toʻqisa."
+  },
+  {
+   "n": 45,
+   "ar": "لَأَخَذْنَا مِنْهُ بِٱلْيَمِينِ",
+   "reading": "La-axaznaa minhu bilyamiyn.",
+   "uz": "Albatta, Biz uni qudrat bilan tutamiz."
+  },
+  {
+   "n": 46,
+   "ar": "ثُمَّ لَقَطَعْنَا مِنْهُ ٱلْوَتِينَ",
+   "reading": "Summa laqata'naa minhul vatiyn.",
+   "uz": "Soʻngra, albatta, uning shoh tomirini kesamiz."
+  },
+  {
+   "n": 47,
+   "ar": "فَمَا مِنكُم مِّنْ أَحَدٍ عَنْهُ حَـٰجِزِينَ",
+   "reading": "Famaa minkum min ahadin'anhu haajiziyn.",
+   "uz": "Bas, sizlardan hech kim uni toʻsib qola olmas."
+  },
+  {
+   "n": 48,
+   "ar": "وَإِنَّهُۥ لَتَذْكِرَةٌ لِّلْمُتَّقِينَ",
+   "reading": "Va innahuu latazkiratul lilmuttaqiyn.",
+   "uz": "Va albatta, u (Qurʼon) taqvodorlar uchun eslatmadir."
+  },
+  {
+   "n": 49,
+   "ar": "وَإِنَّا لَنَعْلَمُ أَنَّ مِنكُم مُّكَذِّبِينَ",
+   "reading": "Va inna lana'lamu anna minkum mukazzibiyn.",
+   "uz": "Va albatta, Biz sizlarning ichingizda yolgʻonga chiqaruvchilar borligini bilib turamiz."
+  },
+  {
+   "n": 50,
+   "ar": "وَإِنَّهُۥ لَحَسْرَةٌ عَلَى ٱلْكَـٰفِرِينَ",
+   "reading": "Va innahu lahasratun 'alal kaafiriyn.",
+   "uz": "Va albatta, u (Qurʼon) kofirlar uchun hasratdir."
+  },
+  {
+   "n": 51,
+   "ar": "وَإِنَّهُۥ لَحَقُّ ٱلْيَقِينِ",
+   "reading": "Va innahuu lahaqqul yaqiyn.",
+   "uz": "Va albatta, u (Qurʼon) shubhasiz haqiqatdir."
+  },
+  {
+   "n": 52,
+   "ar": "فَسَبِّحْ بِٱسْمِ رَبِّكَ ٱلْعَظِيمِ",
+   "reading": "Fasbbih bismi Robbikal 'Aziym.",
+   "uz": "Bas, ulugʻ Robbingning ismini poklab yod et."
+  }
+ ],
+ "sources": {
+  "arabic": "Quran.com API v4, text_uthmani (Tanzil text)",
+  "translation": "QuranEnc, uzbek_sadiq: Shaykh Muhammad Sodiq Muhammad Yusuf (converted to Latin script)",
+  "reading": "github.com/AbdurazzoqAbdugafforov/uzbek-quran-transliteration, uzbekReading"
+ },
+ "fetchedAt": "2026-11-03"
+}

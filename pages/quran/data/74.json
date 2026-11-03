@@ -1,0 +1,349 @@
+{
+ "n": 74,
+ "nameAr": "المدثر",
+ "nameUz": "Al-Muddaththir",
+ "verses": [
+  {
+   "n": 1,
+   "ar": "يَـٰٓأَيُّهَا ٱلْمُدَّثِّرُ",
+   "reading": "Yaaa ayyuhal muddassir.",
+   "uz": "Ey, burkanib yotgan!"
+  },
+  {
+   "n": 2,
+   "ar": "قُمْ فَأَنذِرْ",
+   "reading": "Qum fa anzir.",
+   "uz": "Tur va ogohlantir!"
+  },
+  {
+   "n": 3,
+   "ar": "وَرَبَّكَ فَكَبِّرْ",
+   "reading": "Va Robbaka fakabbir.",
+   "uz": "Va Robbingni ulugʻla!"
+  },
+  {
+   "n": 4,
+   "ar": "وَثِيَابَكَ فَطَهِّرْ",
+   "reading": "Va siyaabaka fatahhir.",
+   "uz": "Va kiyimingni pokla!"
+  },
+  {
+   "n": 5,
+   "ar": "وَٱلرُّجْزَ فَٱهْجُرْ",
+   "reading": "Varrujza fahjur.",
+   "uz": "Va azob(sababchisi)dan chetlan!"
+  },
+  {
+   "n": 6,
+   "ar": "وَلَا تَمْنُن تَسْتَكْثِرُ",
+   "reading": "Va laa tamnun tastaksir.",
+   "uz": "Va koʻp (ish) qilgan boʻlsang ham, minnat qilma."
+  },
+  {
+   "n": 7,
+   "ar": "وَلِرَبِّكَ فَٱصْبِرْ",
+   "reading": "Va li Robbika fasbir.",
+   "uz": "Va Robbing uchun sabr qil."
+  },
+  {
+   "n": 8,
+   "ar": "فَإِذَا نُقِرَ فِى ٱلنَّاقُورِ",
+   "reading": "Fa izaa nuqira fin naaquur.",
+   "uz": "Bas, vaqti kelib, dudga puflansa..."
+  },
+  {
+   "n": 9,
+   "ar": "فَذَٰلِكَ يَوْمَئِذٍ يَوْمٌ عَسِيرٌ",
+   "reading": "Fazaalika yavma 'iziny yavmun 'asiyr.",
+   "uz": "Bas, oʻsha, oʻshal kun qiyin kundir."
+  },
+  {
+   "n": 10,
+   "ar": "عَلَى ٱلْكَـٰفِرِينَ غَيْرُ يَسِيرٍ",
+   "reading": "'Alal kaafiriyna g'airu yasiyr.",
+   "uz": "U kofirlarga oson emasdir."
+  },
+  {
+   "n": 11,
+   "ar": "ذَرْنِى وَمَنْ خَلَقْتُ وَحِيدًا",
+   "reading": "Zarniy va man xalaqtu vahiydaa.",
+   "uz": "Meni Oʻzim yakka yaratgan kishi bilan qoʻyib qoʻy."
+  },
+  {
+   "n": 12,
+   "ar": "وَجَعَلْتُ لَهُۥ مَالًا مَّمْدُودًا",
+   "reading": "Va ja'altu lahuu maalam mamduudaa.",
+   "uz": "Va unga koʻplab molu dunyo berib qoʻydim."
+  },
+  {
+   "n": 13,
+   "ar": "وَبَنِينَ شُهُودًا",
+   "reading": "Va baniyna shuhuudaa.",
+   "uz": "Va hoziru nozir farzandlar ham."
+  },
+  {
+   "n": 14,
+   "ar": "وَمَهَّدتُّ لَهُۥ تَمْهِيدًا",
+   "reading": "Va mahhattu lahuu tamhiyda.",
+   "uz": "Va unga (hamma narsani) osonlashtirib qoʻydim."
+  },
+  {
+   "n": 15,
+   "ar": "ثُمَّ يَطْمَعُ أَنْ أَزِيدَ",
+   "reading": "Summa yat ma'u an aziyd.",
+   "uz": "Soʻngra, yana ziyoda qilishimni tamaʼ qilur."
+  },
+  {
+   "n": 16,
+   "ar": "كَلَّآ ۖ إِنَّهُۥ كَانَ لِـَٔايَـٰتِنَا عَنِيدًا",
+   "reading": "Kallaaa innahuu kaana li Aayaatinaa 'aniydaa.",
+   "uz": "Yoʻq! Chunki, u Bizning oyatlarimizga sarkash edi."
+  },
+  {
+   "n": 17,
+   "ar": "سَأُرْهِقُهُۥ صَعُودًا",
+   "reading": "Sa urhiquhuu sa'uudaa.",
+   "uz": "Tezda uni mashaqqatli chiqish-la horitaman."
+  },
+  {
+   "n": 18,
+   "ar": "إِنَّهُۥ فَكَّرَ وَقَدَّرَ",
+   "reading": "Innahuu fakkara va qaddar.",
+   "uz": "Albatta, u tafakkur qildi va chamalab koʻrdi."
+  },
+  {
+   "n": 19,
+   "ar": "فَقُتِلَ كَيْفَ قَدَّرَ",
+   "reading": "Faqutila kayfa qaddar.",
+   "uz": "Laʼnat boʻlsin unga, qandoq ham chamaladi!"
+  },
+  {
+   "n": 20,
+   "ar": "ثُمَّ قُتِلَ كَيْفَ قَدَّرَ",
+   "reading": "Summa qutila kaifa qaddar.",
+   "uz": "Soʻngra yana laʼnat boʻlsin unga, qandoq ham chamaladi."
+  },
+  {
+   "n": 21,
+   "ar": "ثُمَّ نَظَرَ",
+   "reading": "Summa nazar.",
+   "uz": "Soʻngra nazar soldi."
+  },
+  {
+   "n": 22,
+   "ar": "ثُمَّ عَبَسَ وَبَسَرَ",
+   "reading": "Summa 'abasa va basar.",
+   "uz": "Soʻngra yuzini burishtirdi va qavogʻini soldi."
+  },
+  {
+   "n": 23,
+   "ar": "ثُمَّ أَدْبَرَ وَٱسْتَكْبَرَ",
+   "reading": "Summaa adbara vastakbar.",
+   "uz": "Soʻngra yuz oʻgirdi va takabburlik qildi."
+  },
+  {
+   "n": 24,
+   "ar": "فَقَالَ إِنْ هَـٰذَآ إِلَّا سِحْرٌ يُؤْثَرُ",
+   "reading": "Faqaala in haazaaa illaa sihruny yu'sar.",
+   "uz": "Bas, «Bu asar qolgan sehrdan oʻzga hech narsa emas."
+  },
+  {
+   "n": 25,
+   "ar": "إِنْ هَـٰذَآ إِلَّا قَوْلُ ٱلْبَشَرِ",
+   "reading": "In haazaaa illaa qavlul bashar.",
+   "uz": "Bu bashar soʻzidan oʻzga hech narsa emas», dedi."
+  },
+  {
+   "n": 26,
+   "ar": "سَأُصْلِيهِ سَقَرَ",
+   "reading": "Sa usliyhi saqar.",
+   "uz": "Tezda uni saqar(doʻzaxi)ga kiriturman."
+  },
+  {
+   "n": 27,
+   "ar": "وَمَآ أَدْرَىٰكَ مَا سَقَرُ",
+   "reading": "Va maaa adraaka maa saqar.",
+   "uz": "Va saqar nimaligini senga nima bildirdi?"
+  },
+  {
+   "n": 28,
+   "ar": "لَا تُبْقِى وَلَا تَذَرُ",
+   "reading": "Laa tubqiy va laa tazar.",
+   "uz": "U boqiy qoldirmas va tark ham qilmas."
+  },
+  {
+   "n": 29,
+   "ar": "لَوَّاحَةٌ لِّلْبَشَرِ",
+   "reading": "Lavvaahatul lilbashar.",
+   "uz": "U terini koʻp kuydiruvchidir."
+  },
+  {
+   "n": 30,
+   "ar": "عَلَيْهَا تِسْعَةَ عَشَرَ",
+   "reading": "'Alaihaa tis'ata 'ashar.",
+   "uz": "U(saqar)ning ustida oʻn toʻqqizta (farishta) bor."
+  },
+  {
+   "n": 31,
+   "ar": "وَمَا جَعَلْنَآ أَصْحَـٰبَ ٱلنَّارِ إِلَّا مَلَـٰٓئِكَةً ۙ وَمَا جَعَلْنَا عِدَّتَهُمْ إِلَّا فِتْنَةً لِّلَّذِينَ كَفَرُوا۟ لِيَسْتَيْقِنَ ٱلَّذِينَ أُوتُوا۟ ٱلْكِتَـٰبَ وَيَزْدَادَ ٱلَّذِينَ ءَامَنُوٓا۟ إِيمَـٰنًا ۙ وَلَا يَرْتَابَ ٱلَّذِينَ أُوتُوا۟ ٱلْكِتَـٰبَ وَٱلْمُؤْمِنُونَ ۙ وَلِيَقُولَ ٱلَّذِينَ فِى قُلُوبِهِم مَّرَضٌ وَٱلْكَـٰفِرُونَ مَاذَآ أَرَادَ ٱللَّهُ بِهَـٰذَا مَثَلًا ۚ كَذَٰلِكَ يُضِلُّ ٱللَّهُ مَن يَشَآءُ وَيَهْدِى مَن يَشَآءُ ۚ وَمَا يَعْلَمُ جُنُودَ رَبِّكَ إِلَّا هُوَ ۚ وَمَا هِىَ إِلَّا ذِكْرَىٰ لِلْبَشَرِ",
+   "reading": "Va maaja'alnaaa As-haaban naari illaa malaaa 'ikatanv va maa ja'alnaa 'iddatahum illaa fitnatal lillaziyna kafaruu liyastaiqinal laziyna uutul kitaaba va yazdaadal laziyna aamanuu iymaananv va laa yartaabal laziyna uutul kitaaba valmu'minuuna va liyaquulal laziyna fiy quluu bihim maradunv valkaafiruuna maazaaa araadal laahu bihaazaa masalaa; kazaalika yudillul laahu mai yashaaa'u va yahdiy mai yashaaa'; va maa ya'lamu junuuda Robbika illaa huu; va maa hiya illaa zikraa lil bashar.",
+   "uz": "Doʻzax sohiblarini farishtalardan qilganimiz va ularning adadi ham faqat kofirlarni sinash uchun. Kitob berilganlar ishonch hosil qilishlari uchun. Va iymonlilarning iymoni ziyoda boʻlishi uchun. Kitob berilganlar va moʻminlar shak-shubha qilmasliklari uchun va qalblarida kasali borlar (munofiqlar) va kofirlar, Alloh bu bilan nima misolni iroda qilmoqchi, deyishlari uchun. Shundoq qilib, Alloh xohlagan kimsani adashtirur va xohlagan kimsani hidoyatga solur. Robbingning askarlarini Oʻzidan boshqa hech kim bilmas. Va u (doʻzax) bashar uchun eslatmadan oʻzga hech narsa emas."
+  },
+  {
+   "n": 32,
+   "ar": "كَلَّا وَٱلْقَمَرِ",
+   "reading": "Kallaa valqamar.",
+   "uz": "Yoʻq! Oy bilan qasam."
+  },
+  {
+   "n": 33,
+   "ar": "وَٱلَّيْلِ إِذْ أَدْبَرَ",
+   "reading": "Vallaili id adbar.",
+   "uz": "Va chekinayotgan tun bilan qasam."
+  },
+  {
+   "n": 34,
+   "ar": "وَٱلصُّبْحِ إِذَآ أَسْفَرَ",
+   "reading": "Vassub hi izaaa asfar.",
+   "uz": "Va yorishayotgan tong bilan qasam."
+  },
+  {
+   "n": 35,
+   "ar": "إِنَّهَا لَإِحْدَى ٱلْكُبَرِ",
+   "reading": "Innahaa la ihdal kubar.",
+   "uz": "Albatta, u(doʻzax) ulkan(azob)larning biridir."
+  },
+  {
+   "n": 36,
+   "ar": "نَذِيرًا لِّلْبَشَرِ",
+   "reading": "Naziyral lilbashar.",
+   "uz": "U bashariyat uchun ogohlantiruvchidir."
+  },
+  {
+   "n": 37,
+   "ar": "لِمَن شَآءَ مِنكُمْ أَن يَتَقَدَّمَ أَوْ يَتَأَخَّرَ",
+   "reading": "Liman shaaa'a minkum any yataqaddama av yata axxar.",
+   "uz": "Sizlardan peshqadam boʻlishni yoki ortda qolishni xohlayotgan kimsalar uchundir."
+  },
+  {
+   "n": 38,
+   "ar": "كُلُّ نَفْسٍۭ بِمَا كَسَبَتْ رَهِينَةٌ",
+   "reading": "Kullu nafsim bim kasabat rahiynah.",
+   "uz": "Har bir shaxs oʻz kasbining garovidir."
+  },
+  {
+   "n": 39,
+   "ar": "إِلَّآ أَصْحَـٰبَ ٱلْيَمِينِ",
+   "reading": "Illaaa as haabal yamiyn.",
+   "uz": "(Bundan) oʻng taraf sohiblari mustasnodir."
+  },
+  {
+   "n": 40,
+   "ar": "فِى جَنَّـٰتٍ يَتَسَآءَلُونَ",
+   "reading": "Fiy jannaatiny yata saaa'aluun.",
+   "uz": "Ular jannatlarda, soʻraydirlar."
+  },
+  {
+   "n": 41,
+   "ar": "عَنِ ٱلْمُجْرِمِينَ",
+   "reading": "'Anil mujrimiyn.",
+   "uz": "Gunohkorlardan."
+  },
+  {
+   "n": 42,
+   "ar": "مَا سَلَكَكُمْ فِى سَقَرَ",
+   "reading": "Maa salakakum fiy saqar.",
+   "uz": "«Sizlarni doʻzaxga nima kiritdi?» (deb)"
+  },
+  {
+   "n": 43,
+   "ar": "قَالُوا۟ لَمْ نَكُ مِنَ ٱلْمُصَلِّينَ",
+   "reading": "Qaaluu lam naku minal musalliyn.",
+   "uz": "Alar: «Namoz oʻqiydiganlardan boʻlmagan edik."
+  },
+  {
+   "n": 44,
+   "ar": "وَلَمْ نَكُ نُطْعِمُ ٱلْمِسْكِينَ",
+   "reading": "Va lam naku nut'imul miskiyn.",
+   "uz": "Va miskinlarga taom bermagan edik."
+  },
+  {
+   "n": 45,
+   "ar": "وَكُنَّا نَخُوضُ مَعَ ٱلْخَآئِضِينَ",
+   "reading": "Va kunnaa naxuudu ma'al xaaa'idiyn.",
+   "uz": "Va botilga shoʻngʻuvchilar bilan birga shoʻngʻir edik."
+  },
+  {
+   "n": 46,
+   "ar": "وَكُنَّا نُكَذِّبُ بِيَوْمِ ٱلدِّينِ",
+   "reading": "Va kunnaa nukazzibu bi yavmid Diyn.",
+   "uz": "Va qiyomat kunini yolgʻonga chiqarar edik."
+  },
+  {
+   "n": 47,
+   "ar": "حَتَّىٰٓ أَتَىٰنَا ٱلْيَقِينُ",
+   "reading": "Hattaaa ataanal yaqiyn.",
+   "uz": "Toki bizga oʻlim kelgunicha», derlar."
+  },
+  {
+   "n": 48,
+   "ar": "فَمَا تَنفَعُهُمْ شَفَـٰعَةُ ٱلشَّـٰفِعِينَ",
+   "reading": "Famaa tanfa'uhum shafaa'atush shaafi'iyn.",
+   "uz": "Bas, ularga shafoatchilarning shafoati manfaat bermaydir."
+  },
+  {
+   "n": 49,
+   "ar": "فَمَا لَهُمْ عَنِ ٱلتَّذْكِرَةِ مُعْرِضِينَ",
+   "reading": "Famaa lahum 'anittazkirati mu'ridiyn.",
+   "uz": "Ularga nima boʻldiki, eslatmadan yuz oʻgirarlar."
+  },
+  {
+   "n": 50,
+   "ar": "كَأَنَّهُمْ حُمُرٌ مُّسْتَنفِرَةٌ",
+   "reading": "Ka annahum humurum mustanfirah.",
+   "uz": "Xuddi qattiq qoʻrqqan eshaklar."
+  },
+  {
+   "n": 51,
+   "ar": "فَرَّتْ مِن قَسْوَرَةٍۭ",
+   "reading": "Farrat min qasvarah.",
+   "uz": "Arslondan qochgani kabi."
+  },
+  {
+   "n": 52,
+   "ar": "بَلْ يُرِيدُ كُلُّ ٱمْرِئٍ مِّنْهُمْ أَن يُؤْتَىٰ صُحُفًا مُّنَشَّرَةً",
+   "reading": "Bal yuriydu kullum ri'im minhum any yu'taa suhufam munashsharah.",
+   "uz": "Balki ulardan har biri oʻziga nashr qilingan sahifalar berilishini iroda qilar."
+  },
+  {
+   "n": 53,
+   "ar": "كَلَّا ۖ بَل لَّا يَخَافُونَ ٱلْـَٔاخِرَةَ",
+   "reading": "Kallaa bal laa yaxaafuunal aaxirah.",
+   "uz": "Yoʻq! Balki ular oxiratdan qoʻrqmaslar."
+  },
+  {
+   "n": 54,
+   "ar": "كَلَّآ إِنَّهُۥ تَذْكِرَةٌ",
+   "reading": "Kallaaa innahuu tazkirah.",
+   "uz": "Yoʻq! Albatta, u(Qurʼon) eslatmadur."
+  },
+  {
+   "n": 55,
+   "ar": "فَمَن شَآءَ ذَكَرَهُۥ",
+   "reading": "Fa man shaaa'a zakarah.",
+   "uz": "Bas, kim xohlasa, uni eslaydir."
+  },
+  {
+   "n": 56,
+   "ar": "وَمَا يَذْكُرُونَ إِلَّآ أَن يَشَآءَ ٱللَّهُ ۚ هُوَ أَهْلُ ٱلتَّقْوَىٰ وَأَهْلُ ٱلْمَغْفِرَةِ",
+   "reading": "Va maa yazkuruuna illaaa any yashaaa'al laah; Huva ahlut taqvaa va ahlul mag'firah.",
+   "uz": "Va faqat Alloh xohlasagina, eslarlar. U zot taqvo ahlidir va magʻfirat ahlidir."
+  }
+ ],
+ "sources": {
+  "arabic": "Quran.com API v4, text_uthmani (Tanzil text)",
+  "translation": "QuranEnc, uzbek_sadiq: Shaykh Muhammad Sodiq Muhammad Yusuf (converted to Latin script)",
+  "reading": "github.com/AbdurazzoqAbdugafforov/uzbek-quran-transliteration, uzbekReading"
+ },
+ "fetchedAt": "2026-11-03"
+}

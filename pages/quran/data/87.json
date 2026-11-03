@@ -1,0 +1,127 @@
+{
+ "n": 87,
+ "nameAr": "الأعلى",
+ "nameUz": "Al-A'la",
+ "verses": [
+  {
+   "n": 1,
+   "ar": "سَبِّحِ ٱسْمَ رَبِّكَ ٱلْأَعْلَى",
+   "reading": "Sabbihisma Robbikal A'laa.",
+   "uz": "Oliy qadar boʻlgan Robbing ismini poklab yod et."
+  },
+  {
+   "n": 2,
+   "ar": "ٱلَّذِى خَلَقَ فَسَوَّىٰ",
+   "reading": "Allaziy xalaqa fasavvaa.",
+   "uz": "U yaratgan va mutanosib qilgan Zotdir."
+  },
+  {
+   "n": 3,
+   "ar": "وَٱلَّذِى قَدَّرَ فَهَدَىٰ",
+   "reading": "Vallaziy qaddara fahadaa.",
+   "uz": "U, oʻlchov bilan qilgan va hidoyatga boshlagan Zotdir."
+  },
+  {
+   "n": 4,
+   "ar": "وَٱلَّذِىٓ أَخْرَجَ ٱلْمَرْعَىٰ",
+   "reading": "Vallaziy axrajal mar'aa.",
+   "uz": "U, oʻt-oʻlanni chiqargan Zotdir."
+  },
+  {
+   "n": 5,
+   "ar": "فَجَعَلَهُۥ غُثَآءً أَحْوَىٰ",
+   "reading": "Faja'alahuu g'usaaa'an ahvaa.",
+   "uz": "Bas, uni qoraygan xashak qilgan Zotdir."
+  },
+  {
+   "n": 6,
+   "ar": "سَنُقْرِئُكَ فَلَا تَنسَىٰٓ",
+   "reading": "Sanuqri'uka falaa tansaaa.",
+   "uz": "Biz senga (Qurʼonni) qiroat qildiramiz, bas, sen uni esdan chiqarmassan."
+  },
+  {
+   "n": 7,
+   "ar": "إِلَّا مَا شَآءَ ٱللَّهُ ۚ إِنَّهُۥ يَعْلَمُ ٱلْجَهْرَ وَمَا يَخْفَىٰ",
+   "reading": "Illaa maa shaaa'al laah; innahuu ya'lamul jahra va maa yaxfaa.",
+   "uz": "Illo, Alloh xohlaganini. Albatta, U oshkorni ham, maxfiy narsalarni ham biladir."
+  },
+  {
+   "n": 8,
+   "ar": "وَنُيَسِّرُكَ لِلْيُسْرَىٰ",
+   "reading": "Va nu-yassiruka lilyusraa.",
+   "uz": "Va seni oson yoʻlga muyassar qilamiz."
+  },
+  {
+   "n": 9,
+   "ar": "فَذَكِّرْ إِن نَّفَعَتِ ٱلذِّكْرَىٰ",
+   "reading": "Fazakkir in nafa'atizzikraa.",
+   "uz": "Bas, agar eslatish manfaat bersa, eslatgin."
+  },
+  {
+   "n": 10,
+   "ar": "سَيَذَّكَّرُ مَن يَخْشَىٰ",
+   "reading": "Sa yazzakkaru maiyaxshaa.",
+   "uz": "Albatta, U zotdan qoʻrqqan esga oladir."
+  },
+  {
+   "n": 11,
+   "ar": "وَيَتَجَنَّبُهَا ٱلْأَشْقَى",
+   "reading": "Va yatajannabuhal ashqaa.",
+   "uz": "Va badbaxtgina undan chetda boʻladir."
+  },
+  {
+   "n": 12,
+   "ar": "ٱلَّذِى يَصْلَى ٱلنَّارَ ٱلْكُبْرَىٰ",
+   "reading": "Allaziy yaslan Naaral kubraa.",
+   "uz": "U katta olovga kiradir."
+  },
+  {
+   "n": 13,
+   "ar": "ثُمَّ لَا يَمُوتُ فِيهَا وَلَا يَحْيَىٰ",
+   "reading": "Summa laa yamuutu fiyhaa va laa yahyaa.",
+   "uz": "Soʻngra, uning ichida oʻlmay ham, tirilmay ham qoladir."
+  },
+  {
+   "n": 14,
+   "ar": "قَدْ أَفْلَحَ مَن تَزَكَّىٰ",
+   "reading": "Qad aflaha man tazakkaa.",
+   "uz": "Haqiqatan, kim pok boʻlsa, yutuq topadir."
+  },
+  {
+   "n": 15,
+   "ar": "وَذَكَرَ ٱسْمَ رَبِّهِۦ فَصَلَّىٰ",
+   "reading": "Va zakaras ma Robbihiy fasallaa.",
+   "uz": "Va Robbi ismini zikr qilsa va namoz oʻqisa hamdir."
+  },
+  {
+   "n": 16,
+   "ar": "بَلْ تُؤْثِرُونَ ٱلْحَيَوٰةَ ٱلدُّنْيَا",
+   "reading": "Bal tu'siruunal hayaatad dunyaa.",
+   "uz": "Balki, sizlar bu dunyo hayotini ustun qoʻyasizlar."
+  },
+  {
+   "n": 17,
+   "ar": "وَٱلْـَٔاخِرَةُ خَيْرٌ وَأَبْقَىٰٓ",
+   "reading": "Val Aaxiratu xairunv va abqaa.",
+   "uz": "Holbuki, oxirat yaxshiroq va boqiyroqdir."
+  },
+  {
+   "n": 18,
+   "ar": "إِنَّ هَـٰذَا لَفِى ٱلصُّحُفِ ٱلْأُولَىٰ",
+   "reading": "Inna haazaa lafis suhu fil uulaa.",
+   "uz": "Albatta, bu avvalgi sahifalarda bordir."
+  },
+  {
+   "n": 19,
+   "ar": "صُحُفِ إِبْرَٰهِيمَ وَمُوسَىٰ",
+   "reading": "Suhufi Ibraahiyma va Muusaa.",
+   "uz": "Ibrohim va Muso sahifalaridadir."
+  }
+ ],
+ "sources": {
+  "arabic": "Quran.com API v4, text_uthmani (Tanzil text)",
+  "translation": "QuranEnc, uzbek_sadiq: Shaykh Muhammad Sodiq Muhammad Yusuf (converted to Latin script)",
+  "reading": "github.com/AbdurazzoqAbdugafforov/uzbek-quran-transliteration, uzbekReading"
+ },
+ "fetchedAt": "2026-11-03"
+}

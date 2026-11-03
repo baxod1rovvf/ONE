@@ -1,0 +1,80 @@
+{
+ "n": 101,
+ "nameAr": "القارعة",
+ "nameUz": "Al-Qari'ah",
+ "verses": [
+  {
+   "n": 1,
+   "ar": "ٱلْقَارِعَةُ",
+   "reading": "Al qaari'ah.",
+   "uz": "Al-Qoriʼa."
+  },
+  {
+   "n": 2,
+   "ar": "مَا ٱلْقَارِعَةُ",
+   "reading": "Mal qaariah.",
+   "uz": "Al-Qoriʼa nima?"
+  },
+  {
+   "n": 3,
+   "ar": "وَمَآ أَدْرَىٰكَ مَا ٱلْقَارِعَةُ",
+   "reading": "Va maa adraaka mal qaari'ah.",
+   "uz": "Al-Qoriʼa qandoq narsa ekanligini senga nima bildirdi?"
+  },
+  {
+   "n": 4,
+   "ar": "يَوْمَ يَكُونُ ٱلنَّاسُ كَٱلْفَرَاشِ ٱلْمَبْثُوثِ",
+   "reading": "Yauma yakuunun naasu kalfarashil mabsuus.",
+   "uz": "U kunda odamlar toʻzib ketgan kapalakka oʻxshab qolarlar."
+  },
+  {
+   "n": 5,
+   "ar": "وَتَكُونُ ٱلْجِبَالُ كَٱلْعِهْنِ ٱلْمَنفُوشِ",
+   "reading": "Va takuunul jibalu kal 'ihnil manfuush.",
+   "uz": "Va togʻlar titilgan junga oʻxshab qolarlar."
+  },
+  {
+   "n": 6,
+   "ar": "فَأَمَّا مَن ثَقُلَتْ مَوَٰزِينُهُۥ",
+   "reading": "Fa amma man saqulat mavaziynuh.",
+   "uz": "Kimning tarozusi ogʻir kelsa..."
+  },
+  {
+   "n": 7,
+   "ar": "فَهُوَ فِى عِيشَةٍ رَّاضِيَةٍ",
+   "reading": "Fahuva fiy 'ishatir raadiyah.",
+   "uz": "Bas, u rozilik hayotidadir."
+  },
+  {
+   "n": 8,
+   "ar": "وَأَمَّا مَنْ خَفَّتْ مَوَٰزِينُهُۥ",
+   "reading": "Va amma man xaffat mavaziynuh.",
+   "uz": "Va ammo kimning tarozusi yengil kelsa..."
+  },
+  {
+   "n": 9,
+   "ar": "فَأُمُّهُۥ هَاوِيَةٌ",
+   "reading": "Fa ummuhu haaviyah.",
+   "uz": "Bas, uning onasi haaviya (doʻzax)dir. [1]",
+   "notes": "[1] (Odatda ona doim panoh boʻlgan. Inson ayniqsa ogʻir paytlarda onasiga intilganday, qiyomatda ham onasini qoʻmsaganda jahannam ularni ona oʻrnida kutib olarkan. Mehr-muhabbat, shafqat izlab turganda, koni azobga, qiynoqqa, dahshatli olovda yonishga duch kelishi nihoyatda katta baxtsizlik.)"
+  },
+  {
+   "n": 10,
+   "ar": "وَمَآ أَدْرَىٰكَ مَا هِيَهْ",
+   "reading": "Va maa adraaka maa hiyah.",
+   "uz": "U (Haaviya) qandoq narsa ekanligini senga nima bildirdi?"
+  },
+  {
+   "n": 11,
+   "ar": "نَارٌ حَامِيَةٌۢ",
+   "reading": "Naarun hamiyah.",
+   "uz": "U qattiq qizigan oʻtdir."
+  }
+ ],
+ "sources": {
+  "arabic": "Quran.com API v4, text_uthmani (Tanzil text)",
+  "translation": "QuranEnc, uzbek_sadiq: Shaykh Muhammad Sodiq Muhammad Yusuf (converted to Latin script)",
+  "reading": "github.com/AbdurazzoqAbdugafforov/uzbek-quran-transliteration, uzbekReading"
+ },
+ "fetchedAt": "2026-11-03"
+}

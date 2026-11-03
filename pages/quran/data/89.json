@@ -1,0 +1,197 @@
+{
+ "n": 89,
+ "nameAr": "الفجر",
+ "nameUz": "Al-Fajr",
+ "verses": [
+  {
+   "n": 1,
+   "ar": "وَٱلْفَجْرِ",
+   "reading": "Val-Fajr.",
+   "uz": "Fajr bilan qasam."
+  },
+  {
+   "n": 2,
+   "ar": "وَلَيَالٍ عَشْرٍ",
+   "reading": "Va layaalin 'ashr.",
+   "uz": "Va oʻn kecha bilan qasam. [1]",
+   "notes": "[1] (Ulamolarimiz, ushbu oyatdagi oʻn kechadan murod Ramazon oyining oxirgi oʻn kechasi, ularda Laylatul qadr kechasi ham bor, deganlar.)"
+  },
+  {
+   "n": 3,
+   "ar": "وَٱلشَّفْعِ وَٱلْوَتْرِ",
+   "reading": "Vash shaf'i val vatr.",
+   "uz": "Juftu toq bilan qasam."
+  },
+  {
+   "n": 4,
+   "ar": "وَٱلَّيْلِ إِذَا يَسْرِ",
+   "reading": "Vallaili izaa yasr.",
+   "uz": "Va yurgan tun bilan qasam."
+  },
+  {
+   "n": 5,
+   "ar": "هَلْ فِى ذَٰلِكَ قَسَمٌ لِّذِى حِجْرٍ",
+   "reading": "Hal fiy zaalika qasamul liziy hijr.",
+   "uz": "Mana shularda aql egasi uchun (qanoatlantiruvchi) qasam bordir?!"
+  },
+  {
+   "n": 6,
+   "ar": "أَلَمْ تَرَ كَيْفَ فَعَلَ رَبُّكَ بِعَادٍ",
+   "reading": "Alam tara kaifa fa'ala Robbuka bi'aad.",
+   "uz": "Sening Robbing Odga qanday (muomala) qilganini bilmadingmi?"
+  },
+  {
+   "n": 7,
+   "ar": "إِرَمَ ذَاتِ ٱلْعِمَادِ",
+   "reading": "Iramaa zaatil 'imaad.",
+   "uz": "Baland ustunli «Iram»ga?"
+  },
+  {
+   "n": 8,
+   "ar": "ٱلَّتِى لَمْ يُخْلَقْ مِثْلُهَا فِى ٱلْبِلَـٰدِ",
+   "reading": "Allatiy lam yuxlaq misluhaa fil bilaad.",
+   "uz": "Uning misli boshqa diyorlarda xalq qilinmaganga?"
+  },
+  {
+   "n": 9,
+   "ar": "وَثَمُودَ ٱلَّذِينَ جَابُوا۟ ٱلصَّخْرَ بِٱلْوَادِ",
+   "reading": "Va samuudal laziyna jaabus saxra bil vaad.",
+   "uz": "Va vodiyda xarsang toshlarni kesib (imorat yasagan) Samudni. [2]",
+   "notes": "[2] (Robbing nima qilganini bilmadingmi?)"
+  },
+  {
+   "n": 10,
+   "ar": "وَفِرْعَوْنَ ذِى ٱلْأَوْتَادِ",
+   "reading": "Va fir'avna zil avtaad.",
+   "uz": "Va koʻp askarlari bor Firʼavnni.  [3]",
+   "notes": "[3] (Robbing nima qilganini bilmadingmi?)"
+  },
+  {
+   "n": 11,
+   "ar": "ٱلَّذِينَ طَغَوْا۟ فِى ٱلْبِلَـٰدِ",
+   "reading": "Allaziyna tag'av fil bilaad.",
+   "uz": "Ular turli oʻlkalarda tugʻyonga ketgan edilar."
+  },
+  {
+   "n": 12,
+   "ar": "فَأَكْثَرُوا۟ فِيهَا ٱلْفَسَادَ",
+   "reading": "Fa aksaruu fiyhal fasaad.",
+   "uz": "Ular u(oʻlka)larda buzgʻunchilikni koʻpaytirgan edilar."
+  },
+  {
+   "n": 13,
+   "ar": "فَصَبَّ عَلَيْهِمْ رَبُّكَ سَوْطَ عَذَابٍ",
+   "reading": "Fasabba 'alaihim Robbuka savta 'azaab.",
+   "uz": "Bas, Robbing ularning boshiga turli azoblarni quydi."
+  },
+  {
+   "n": 14,
+   "ar": "إِنَّ رَبَّكَ لَبِٱلْمِرْصَادِ",
+   "reading": "Inna Robbaka labil mirsaad.",
+   "uz": "Albatta, Robbing kuzatib turuvchidir. [4]",
+   "notes": "[4] (U kim nima qilayotganini oʻta aniqlik bilan kuzatib turadi. Kuzatib turib tugʻyonga ketgan, haddidan oshgan va zulm qilganlarning jazosini beradi.)"
+  },
+  {
+   "n": 15,
+   "ar": "فَأَمَّا ٱلْإِنسَـٰنُ إِذَا مَا ٱبْتَلَىٰهُ رَبُّهُۥ فَأَكْرَمَهُۥ وَنَعَّمَهُۥ فَيَقُولُ رَبِّىٓ أَكْرَمَنِ",
+   "reading": "Fa ammal insaanu izaa mab talaahu Robbuhuu fa akramahuu va na' 'amahuu fa yaquulu Robbiy akraman.",
+   "uz": "Bas, qachon insonni Robbi sinash uchun ikrom qilsa va neʼmat bersa, «Meni Robbim ikrom qildi», deydir."
+  },
+  {
+   "n": 16,
+   "ar": "وَأَمَّآ إِذَا مَا ٱبْتَلَىٰهُ فَقَدَرَ عَلَيْهِ رِزْقَهُۥ فَيَقُولُ رَبِّىٓ أَهَـٰنَنِ",
+   "reading": "Va ammaaa izaa mabtalaahu faqadara 'alaihi rizqahuu fa yaquulu Robbiy ahaanan.",
+   "uz": "Bas, qachon Robbi sinash uchun rizqini tor qilib qoʻysa, u: «Robbim meni xorladi», deydir."
+  },
+  {
+   "n": 17,
+   "ar": "كَلَّا ۖ بَل لَّا تُكْرِمُونَ ٱلْيَتِيمَ",
+   "reading": "Kalla bal laa tukrimuu nal yatiym.",
+   "uz": "Yoʻq! Balki sizlar yetimlarni ikrom qilmaysizlar."
+  },
+  {
+   "n": 18,
+   "ar": "وَلَا تَحَـٰٓضُّونَ عَلَىٰ طَعَامِ ٱلْمِسْكِينِ",
+   "reading": "Va laa tahaaadduuna 'alaata'aamil miskiyn.",
+   "uz": "Bir-biringizni miskinlarga taom berishga undamaysizlar."
+  },
+  {
+   "n": 19,
+   "ar": "وَتَأْكُلُونَ ٱلتُّرَاثَ أَكْلًا لَّمًّا",
+   "reading": "Va taakuluunat turaasa aklal lammaa.",
+   "uz": "Va merosni shiddat-la yeysizlar."
+  },
+  {
+   "n": 20,
+   "ar": "وَتُحِبُّونَ ٱلْمَالَ حُبًّا جَمًّا",
+   "reading": "Va tuhibbuunal maala hubban jammaa.",
+   "uz": "Va molni koʻp yaxshi koʻrasizlar."
+  },
+  {
+   "n": 21,
+   "ar": "كَلَّآ إِذَا دُكَّتِ ٱلْأَرْضُ دَكًّا دَكًّا",
+   "reading": "Kallaaa izaaa dukkatil ardu dakkan dakka.",
+   "uz": "Yoʻq! Vaqtiki, yer zilzilaga tushib, parcha-parcha boʻlib ketsa."
+  },
+  {
+   "n": 22,
+   "ar": "وَجَآءَ رَبُّكَ وَٱلْمَلَكُ صَفًّا صَفًّا",
+   "reading": "Va jaaa'a Robbuka val malaku saffan saffaa.",
+   "uz": "Va Robbing va farishtalar saf-saf boʻlib kelsalar."
+  },
+  {
+   "n": 23,
+   "ar": "وَجِا۟ىٓءَ يَوْمَئِذٍۭ بِجَهَنَّمَ ۚ يَوْمَئِذٍ يَتَذَكَّرُ ٱلْإِنسَـٰنُ وَأَنَّىٰ لَهُ ٱلذِّكْرَىٰ",
+   "reading": "Va jiy'a yavma'izim bi jahannnam; Yavma 'iziny yatazakkarul insaanu va annaa lahuz zikraa.",
+   "uz": "Va oʻsha kunda jahannamni keltirsa, oʻsha kunda inson eslaydir. Lekin bu eslashdan endi ne foyda."
+  },
+  {
+   "n": 24,
+   "ar": "يَقُولُ يَـٰلَيْتَنِى قَدَّمْتُ لِحَيَاتِى",
+   "reading": "Yaquulu yaa laitaniy qaddamtu lihayaatiy.",
+   "uz": "U: «Afsuski, oxirat hayotimga ham biror narsa taqdim qilsam boʻlar ekan», deydir."
+  },
+  {
+   "n": 25,
+   "ar": "فَيَوْمَئِذٍ لَّا يُعَذِّبُ عَذَابَهُۥٓ أَحَدٌ",
+   "reading": "Fa Yavma izil laa yu'azzibu 'azaabahuu ahad.",
+   "uz": "Bas, oʻsha kunda Allohning azobiga oʻxshash azob-la hech kim azoblamaydir."
+  },
+  {
+   "n": 26,
+   "ar": "وَلَا يُوثِقُ وَثَاقَهُۥٓ أَحَدٌ",
+   "reading": "Va laa yuusiqu vasaaqa huu ahad.",
+   "uz": "Va Uning bogʻlashiga oʻxshash hech kim bogʻlamaydir."
+  },
+  {
+   "n": 27,
+   "ar": "يَـٰٓأَيَّتُهَا ٱلنَّفْسُ ٱلْمُطْمَئِنَّةُ",
+   "reading": "Yaaa ayyatuhan nafsul mutma 'innah.",
+   "uz": "Ey, xotirjam nafs!"
+  },
+  {
+   "n": 28,
+   "ar": "ٱرْجِعِىٓ إِلَىٰ رَبِّكِ رَاضِيَةً مَّرْضِيَّةً",
+   "reading": "Irji'iy ilaa Robbiki raadiyatam mardiyyah.",
+   "uz": "Robbingga sen Undan, U sendan rozi boʻlgan holda qayt!"
+  },
+  {
+   "n": 29,
+   "ar": "فَٱدْخُلِى فِى عِبَـٰدِى",
+   "reading": "Fadxuliy fiy 'ibaadiy.",
+   "uz": "Bas, bandalarim ichiga kirgin!"
+  },
+  {
+   "n": 30,
+   "ar": "وَٱدْخُلِى جَنَّتِى",
+   "reading": "Vadxuliy jannatiy.",
+   "uz": "Va jannatimga kirgin!"
+  }
+ ],
+ "sources": {
+  "arabic": "Quran.com API v4, text_uthmani (Tanzil text)",
+  "translation": "QuranEnc, uzbek_sadiq: Shaykh Muhammad Sodiq Muhammad Yusuf (converted to Latin script)",
+  "reading": "github.com/AbdurazzoqAbdugafforov/uzbek-quran-transliteration, uzbekReading"
+ },
+ "fetchedAt": "2026-11-03"
+}

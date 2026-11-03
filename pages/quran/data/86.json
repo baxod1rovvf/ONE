@@ -1,0 +1,117 @@
+{
+ "n": 86,
+ "nameAr": "الطارق",
+ "nameUz": "At-Tariq",
+ "verses": [
+  {
+   "n": 1,
+   "ar": "وَٱلسَّمَآءِ وَٱلطَّارِقِ",
+   "reading": "Vassamaaa'i vattaariq.",
+   "uz": "Osmon bilan qasam va toriq bilan qasam."
+  },
+  {
+   "n": 2,
+   "ar": "وَمَآ أَدْرَىٰكَ مَا ٱلطَّارِقُ",
+   "reading": "Va maaa adraaka mattaariq.",
+   "uz": "Toriq nimaligini senga ne bildirdi?"
+  },
+  {
+   "n": 3,
+   "ar": "ٱلنَّجْمُ ٱلثَّاقِبُ",
+   "reading": "Annajmus saaqib.",
+   "uz": "U, nur sochib turuvchi yulduzdir."
+  },
+  {
+   "n": 4,
+   "ar": "إِن كُلُّ نَفْسٍ لَّمَّا عَلَيْهَا حَافِظٌ",
+   "reading": "In kullu nafsil lammaa 'alaihaa haafiz.",
+   "uz": "Hech bir jon yoʻqki, uning hifz qilib turuvchisi boʻlmasa."
+  },
+  {
+   "n": 5,
+   "ar": "فَلْيَنظُرِ ٱلْإِنسَـٰنُ مِمَّ خُلِقَ",
+   "reading": "Fal yanzuril insaanu mimma xuliq.",
+   "uz": "Inson nimadan yaralganiga nazar solsin."
+  },
+  {
+   "n": 6,
+   "ar": "خُلِقَ مِن مَّآءٍ دَافِقٍ",
+   "reading": "Xuliqa mim maaa'in daafiq.",
+   "uz": "U otilib chiquvchi suvdan yaralgandir."
+  },
+  {
+   "n": 7,
+   "ar": "يَخْرُجُ مِنۢ بَيْنِ ٱلصُّلْبِ وَٱلتَّرَآئِبِ",
+   "reading": "Yaxruju mim bainissulbi vat taraaa'ib.",
+   "uz": "U (suv) sulb (orqa umurtqa) va taroib (koʻkrak suyagi) orasidan chiqadir."
+  },
+  {
+   "n": 8,
+   "ar": "إِنَّهُۥ عَلَىٰ رَجْعِهِۦ لَقَادِرٌ",
+   "reading": "Innahuu 'alaa raj'ihiy laqaadir.",
+   "uz": "Albatta, U zot uni qayta tiriltirishga qodirdir."
+  },
+  {
+   "n": 9,
+   "ar": "يَوْمَ تُبْلَى ٱلسَّرَآئِرُ",
+   "reading": "Yavma tublas saraaa'ir.",
+   "uz": "Sirlar fosh boʻladigan kundadir."
+  },
+  {
+   "n": 10,
+   "ar": "فَمَا لَهُۥ مِن قُوَّةٍ وَلَا نَاصِرٍ",
+   "reading": "Famaa lahuu min quvvatinv va laa naasir.",
+   "uz": "Bas (oʻshanda) u(inson)da quvvat ham, nusrat beruvchi ham boʻlmaydir."
+  },
+  {
+   "n": 11,
+   "ar": "وَٱلسَّمَآءِ ذَاتِ ٱلرَّجْعِ",
+   "reading": "Vassamaaa'i zaatir raj'.",
+   "uz": "Qaytuvchi sohibi boʻlgan osmon bilan qasam."
+  },
+  {
+   "n": 12,
+   "ar": "وَٱلْأَرْضِ ذَاتِ ٱلصَّدْعِ",
+   "reading": "Val ardi zaatis sad'.",
+   "uz": "Yorib chiquvchi egasi boʻlgan yer bilan qasam."
+  },
+  {
+   "n": 13,
+   "ar": "إِنَّهُۥ لَقَوْلٌ فَصْلٌ",
+   "reading": "Innahuu laqavlun fasl.",
+   "uz": "Albatta, u (Qurʼon) ajratuvchi soʻzdir."
+  },
+  {
+   "n": 14,
+   "ar": "وَمَا هُوَ بِٱلْهَزْلِ",
+   "reading": "Va maa huva bil hazl.",
+   "uz": "Va u hazil emasdir."
+  },
+  {
+   "n": 15,
+   "ar": "إِنَّهُمْ يَكِيدُونَ كَيْدًا",
+   "reading": "Innahum yakiyduuna kaidaa.",
+   "uz": "Albatta, ular hiyla qiladir."
+  },
+  {
+   "n": 16,
+   "ar": "وَأَكِيدُ كَيْدًا",
+   "reading": "Va akiydu kaidaa.",
+   "uz": "Va Men ham «hiyla» qilurman. [1]",
+   "notes": "[1] (Yaʼni, hiylasiga yarasha jazo berurman.)"
+  },
+  {
+   "n": 17,
+   "ar": "فَمَهِّلِ ٱلْكَـٰفِرِينَ أَمْهِلْهُمْ رُوَيْدًۢا",
+   "reading": "Famahhilil kaafiriyna amhilhum ruvaidaa.",
+   "uz": "Bas, kofirlarga muhlat ber. Ha, ularga ozgina muhlat ber. [2]",
+   "notes": "[2] (Yaʼni, ularga azob kelmayotganidan shoshilma, hammasining vaqti, soati bor.)"
+  }
+ ],
+ "sources": {
+  "arabic": "Quran.com API v4, text_uthmani (Tanzil text)",
+  "translation": "QuranEnc, uzbek_sadiq: Shaykh Muhammad Sodiq Muhammad Yusuf (converted to Latin script)",
+  "reading": "github.com/AbdurazzoqAbdugafforov/uzbek-quran-transliteration, uzbekReading"
+ },
+ "fetchedAt": "2026-11-03"
+}

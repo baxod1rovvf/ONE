@@ -1,0 +1,800 @@
+[
+ {
+  "n": 1,
+  "nameAr": "الفاتحة",
+  "nameUz": "Al-Fatihah",
+  "verses": 7,
+  "words": 29
+ },
+ {
+  "n": 2,
+  "nameAr": "البقرة",
+  "nameUz": "Al-Baqarah",
+  "verses": 286,
+  "words": 6117
+ },
+ {
+  "n": 3,
+  "nameAr": "آل عمران",
+  "nameUz": "Ali 'Imran",
+  "verses": 200,
+  "words": 3481
+ },
+ {
+  "n": 4,
+  "nameAr": "النساء",
+  "nameUz": "An-Nisa",
+  "verses": 176,
+  "words": 3747
+ },
+ {
+  "n": 5,
+  "nameAr": "المائدة",
+  "nameUz": "Al-Ma'idah",
+  "verses": 120,
+  "words": 2804
+ },
+ {
+  "n": 6,
+  "nameAr": "الأنعام",
+  "nameUz": "Al-An'am",
+  "verses": 165,
+  "words": 3050
+ },
+ {
+  "n": 7,
+  "nameAr": "الأعراف",
+  "nameUz": "Al-A'raf",
+  "verses": 206,
+  "words": 3320
+ },
+ {
+  "n": 8,
+  "nameAr": "الأنفال",
+  "nameUz": "Al-Anfal",
+  "verses": 75,
+  "words": 1234
+ },
+ {
+  "n": 9,
+  "nameAr": "التوبة",
+  "nameUz": "At-Tawbah",
+  "verses": 129,
+  "words": 2498
+ },
+ {
+  "n": 10,
+  "nameAr": "يونس",
+  "nameUz": "Yunus",
+  "verses": 109,
+  "words": 1833
+ },
+ {
+  "n": 11,
+  "nameAr": "هود",
+  "nameUz": "Hud",
+  "verses": 123,
+  "words": 1917
+ },
+ {
+  "n": 12,
+  "nameAr": "يوسف",
+  "nameUz": "Yusuf",
+  "verses": 111,
+  "words": 1777
+ },
+ {
+  "n": 13,
+  "nameAr": "الرعد",
+  "nameUz": "Ar-Ra'd",
+  "verses": 43,
+  "words": 854
+ },
+ {
+  "n": 14,
+  "nameAr": "ابراهيم",
+  "nameUz": "Ibrahim",
+  "verses": 52,
+  "words": 830
+ },
+ {
+  "n": 15,
+  "nameAr": "الحجر",
+  "nameUz": "Al-Hijr",
+  "verses": 99,
+  "words": 655
+ },
+ {
+  "n": 16,
+  "nameAr": "النحل",
+  "nameUz": "An-Nahl",
+  "verses": 128,
+  "words": 1844
+ },
+ {
+  "n": 17,
+  "nameAr": "الإسراء",
+  "nameUz": "Al-Isra",
+  "verses": 111,
+  "words": 1556
+ },
+ {
+  "n": 18,
+  "nameAr": "الكهف",
+  "nameUz": "Al-Kahf",
+  "verses": 110,
+  "words": 1579
+ },
+ {
+  "n": 19,
+  "nameAr": "مريم",
+  "nameUz": "Maryam",
+  "verses": 98,
+  "words": 961
+ },
+ {
+  "n": 20,
+  "nameAr": "طه",
+  "nameUz": "Taha",
+  "verses": 135,
+  "words": 1335
+ },
+ {
+  "n": 21,
+  "nameAr": "الأنبياء",
+  "nameUz": "Al-Anbya",
+  "verses": 112,
+  "words": 1169
+ },
+ {
+  "n": 22,
+  "nameAr": "الحج",
+  "nameUz": "Al-Hajj",
+  "verses": 78,
+  "words": 1274
+ },
+ {
+  "n": 23,
+  "nameAr": "المؤمنون",
+  "nameUz": "Al-Mu'minun",
+  "verses": 118,
+  "words": 1050
+ },
+ {
+  "n": 24,
+  "nameAr": "النور",
+  "nameUz": "An-Nur",
+  "verses": 64,
+  "words": 1316
+ },
+ {
+  "n": 25,
+  "nameAr": "الفرقان",
+  "nameUz": "Al-Furqan",
+  "verses": 77,
+  "words": 893
+ },
+ {
+  "n": 26,
+  "nameAr": "الشعراء",
+  "nameUz": "Ash-Shu'ara",
+  "verses": 227,
+  "words": 1318
+ },
+ {
+  "n": 27,
+  "nameAr": "النمل",
+  "nameUz": "An-Naml",
+  "verses": 93,
+  "words": 1151
+ },
+ {
+  "n": 28,
+  "nameAr": "القصص",
+  "nameUz": "Al-Qasas",
+  "verses": 88,
+  "words": 1430
+ },
+ {
+  "n": 29,
+  "nameAr": "العنكبوت",
+  "nameUz": "Al-'Ankabut",
+  "verses": 69,
+  "words": 976
+ },
+ {
+  "n": 30,
+  "nameAr": "الروم",
+  "nameUz": "Ar-Rum",
+  "verses": 60,
+  "words": 817
+ },
+ {
+  "n": 31,
+  "nameAr": "لقمان",
+  "nameUz": "Luqman",
+  "verses": 34,
+  "words": 546
+ },
+ {
+  "n": 32,
+  "nameAr": "السجدة",
+  "nameUz": "As-Sajdah",
+  "verses": 30,
+  "words": 372
+ },
+ {
+  "n": 33,
+  "nameAr": "الأحزاب",
+  "nameUz": "Al-Ahzab",
+  "verses": 73,
+  "words": 1287
+ },
+ {
+  "n": 34,
+  "nameAr": "سبإ",
+  "nameUz": "Saba",
+  "verses": 54,
+  "words": 883
+ },
+ {
+  "n": 35,
+  "nameAr": "فاطر",
+  "nameUz": "Fatir",
+  "verses": 45,
+  "words": 775
+ },
+ {
+  "n": 36,
+  "nameAr": "يس",
+  "nameUz": "Ya-Sin",
+  "verses": 83,
+  "words": 725
+ },
+ {
+  "n": 37,
+  "nameAr": "الصافات",
+  "nameUz": "As-Saffat",
+  "verses": 182,
+  "words": 861
+ },
+ {
+  "n": 38,
+  "nameAr": "ص",
+  "nameUz": "Sad",
+  "verses": 88,
+  "words": 733
+ },
+ {
+  "n": 39,
+  "nameAr": "الزمر",
+  "nameUz": "Az-Zumar",
+  "verses": 75,
+  "words": 1172
+ },
+ {
+  "n": 40,
+  "nameAr": "غافر",
+  "nameUz": "Ghafir",
+  "verses": 85,
+  "words": 1219
+ },
+ {
+  "n": 41,
+  "nameAr": "فصلت",
+  "nameUz": "Fussilat",
+  "verses": 54,
+  "words": 794
+ },
+ {
+  "n": 42,
+  "nameAr": "الشورى",
+  "nameUz": "Ash-Shuraa",
+  "verses": 53,
+  "words": 860
+ },
+ {
+  "n": 43,
+  "nameAr": "الزخرف",
+  "nameUz": "Az-Zukhruf",
+  "verses": 89,
+  "words": 830
+ },
+ {
+  "n": 44,
+  "nameAr": "الدخان",
+  "nameUz": "Ad-Dukhan",
+  "verses": 59,
+  "words": 346
+ },
+ {
+  "n": 45,
+  "nameAr": "الجاثية",
+  "nameUz": "Al-Jathiyah",
+  "verses": 37,
+  "words": 488
+ },
+ {
+  "n": 46,
+  "nameAr": "الأحقاف",
+  "nameUz": "Al-Ahqaf",
+  "verses": 35,
+  "words": 643
+ },
+ {
+  "n": 47,
+  "nameAr": "محمد",
+  "nameUz": "Muhammad",
+  "verses": 38,
+  "words": 539
+ },
+ {
+  "n": 48,
+  "nameAr": "الفتح",
+  "nameUz": "Al-Fath",
+  "verses": 29,
+  "words": 560
+ },
+ {
+  "n": 49,
+  "nameAr": "الحجرات",
+  "nameUz": "Al-Hujurat",
+  "verses": 18,
+  "words": 347
+ },
+ {
+  "n": 50,
+  "nameAr": "ق",
+  "nameUz": "Qaf",
+  "verses": 45,
+  "words": 373
+ },
+ {
+  "n": 51,
+  "nameAr": "الذاريات",
+  "nameUz": "Adh-Dhariyat",
+  "verses": 60,
+  "words": 360
+ },
+ {
+  "n": 52,
+  "nameAr": "الطور",
+  "nameUz": "At-Tur",
+  "verses": 49,
+  "words": 312
+ },
+ {
+  "n": 53,
+  "nameAr": "النجم",
+  "nameUz": "An-Najm",
+  "verses": 62,
+  "words": 360
+ },
+ {
+  "n": 54,
+  "nameAr": "القمر",
+  "nameUz": "Al-Qamar",
+  "verses": 55,
+  "words": 342
+ },
+ {
+  "n": 55,
+  "nameAr": "الرحمن",
+  "nameUz": "Ar-Rahman",
+  "verses": 78,
+  "words": 351
+ },
+ {
+  "n": 56,
+  "nameAr": "الواقعة",
+  "nameUz": "Al-Waqi'ah",
+  "verses": 96,
+  "words": 379
+ },
+ {
+  "n": 57,
+  "nameAr": "الحديد",
+  "nameUz": "Al-Hadid",
+  "verses": 29,
+  "words": 574
+ },
+ {
+  "n": 58,
+  "nameAr": "المجادلة",
+  "nameUz": "Al-Mujadila",
+  "verses": 22,
+  "words": 472
+ },
+ {
+  "n": 59,
+  "nameAr": "الحشر",
+  "nameUz": "Al-Hashr",
+  "verses": 24,
+  "words": 445
+ },
+ {
+  "n": 60,
+  "nameAr": "الممتحنة",
+  "nameUz": "Al-Mumtahanah",
+  "verses": 13,
+  "words": 348
+ },
+ {
+  "n": 61,
+  "nameAr": "الصف",
+  "nameUz": "As-Saf",
+  "verses": 14,
+  "words": 221
+ },
+ {
+  "n": 62,
+  "nameAr": "الجمعة",
+  "nameUz": "Al-Jumu'ah",
+  "verses": 11,
+  "words": 175
+ },
+ {
+  "n": 63,
+  "nameAr": "المنافقون",
+  "nameUz": "Al-Munafiqun",
+  "verses": 11,
+  "words": 180
+ },
+ {
+  "n": 64,
+  "nameAr": "التغابن",
+  "nameUz": "At-Taghabun",
+  "verses": 18,
+  "words": 241
+ },
+ {
+  "n": 65,
+  "nameAr": "الطلاق",
+  "nameUz": "At-Talaq",
+  "verses": 12,
+  "words": 287
+ },
+ {
+  "n": 66,
+  "nameAr": "التحريم",
+  "nameUz": "At-Tahrim",
+  "verses": 12,
+  "words": 249
+ },
+ {
+  "n": 67,
+  "nameAr": "الملك",
+  "nameUz": "Al-Mulk",
+  "verses": 30,
+  "words": 333
+ },
+ {
+  "n": 68,
+  "nameAr": "القلم",
+  "nameUz": "Al-Qalam",
+  "verses": 52,
+  "words": 300
+ },
+ {
+  "n": 69,
+  "nameAr": "الحاقة",
+  "nameUz": "Al-Haqqah",
+  "verses": 52,
+  "words": 258
+ },
+ {
+  "n": 70,
+  "nameAr": "المعارج",
+  "nameUz": "Al-Ma'arij",
+  "verses": 44,
+  "words": 217
+ },
+ {
+  "n": 71,
+  "nameAr": "نوح",
+  "nameUz": "Nuh",
+  "verses": 28,
+  "words": 226
+ },
+ {
+  "n": 72,
+  "nameAr": "الجن",
+  "nameUz": "Al-Jinn",
+  "verses": 28,
+  "words": 285
+ },
+ {
+  "n": 73,
+  "nameAr": "المزمل",
+  "nameUz": "Al-Muzzammil",
+  "verses": 20,
+  "words": 199
+ },
+ {
+  "n": 74,
+  "nameAr": "المدثر",
+  "nameUz": "Al-Muddaththir",
+  "verses": 56,
+  "words": 255
+ },
+ {
+  "n": 75,
+  "nameAr": "القيامة",
+  "nameUz": "Al-Qiyamah",
+  "verses": 40,
+  "words": 164
+ },
+ {
+  "n": 76,
+  "nameAr": "الانسان",
+  "nameUz": "Al-Insan",
+  "verses": 31,
+  "words": 243
+ },
+ {
+  "n": 77,
+  "nameAr": "المرسلات",
+  "nameUz": "Al-Mursalat",
+  "verses": 50,
+  "words": 181
+ },
+ {
+  "n": 78,
+  "nameAr": "النبإ",
+  "nameUz": "An-Naba",
+  "verses": 40,
+  "words": 173
+ },
+ {
+  "n": 79,
+  "nameAr": "النازعات",
+  "nameUz": "An-Nazi'at",
+  "verses": 46,
+  "words": 179
+ },
+ {
+  "n": 80,
+  "nameAr": "عبس",
+  "nameUz": "'Abasa",
+  "verses": 42,
+  "words": 133
+ },
+ {
+  "n": 81,
+  "nameAr": "التكوير",
+  "nameUz": "At-Takwir",
+  "verses": 29,
+  "words": 104
+ },
+ {
+  "n": 82,
+  "nameAr": "الإنفطار",
+  "nameUz": "Al-Infitar",
+  "verses": 19,
+  "words": 80
+ },
+ {
+  "n": 83,
+  "nameAr": "المطففين",
+  "nameUz": "Al-Mutaffifin",
+  "verses": 36,
+  "words": 169
+ },
+ {
+  "n": 84,
+  "nameAr": "الإنشقاق",
+  "nameUz": "Al-Inshiqaq",
+  "verses": 25,
+  "words": 107
+ },
+ {
+  "n": 85,
+  "nameAr": "البروج",
+  "nameUz": "Al-Buruj",
+  "verses": 22,
+  "words": 109
+ },
+ {
+  "n": 86,
+  "nameAr": "الطارق",
+  "nameUz": "At-Tariq",
+  "verses": 17,
+  "words": 61
+ },
+ {
+  "n": 87,
+  "nameAr": "الأعلى",
+  "nameUz": "Al-A'la",
+  "verses": 19,
+  "words": 72
+ },
+ {
+  "n": 88,
+  "nameAr": "الغاشية",
+  "nameUz": "Al-Ghashiyah",
+  "verses": 26,
+  "words": 92
+ },
+ {
+  "n": 89,
+  "nameAr": "الفجر",
+  "nameUz": "Al-Fajr",
+  "verses": 30,
+  "words": 137
+ },
+ {
+  "n": 90,
+  "nameAr": "البلد",
+  "nameUz": "Al-Balad",
+  "verses": 20,
+  "words": 82
+ },
+ {
+  "n": 91,
+  "nameAr": "الشمس",
+  "nameUz": "Ash-Shams",
+  "verses": 15,
+  "words": 54
+ },
+ {
+  "n": 92,
+  "nameAr": "الليل",
+  "nameUz": "Al-Layl",
+  "verses": 21,
+  "words": 71
+ },
+ {
+  "n": 93,
+  "nameAr": "الضحى",
+  "nameUz": "Ad-Duhaa",
+  "verses": 11,
+  "words": 40
+ },
+ {
+  "n": 94,
+  "nameAr": "الشرح",
+  "nameUz": "Ash-Sharh",
+  "verses": 8,
+  "words": 27
+ },
+ {
+  "n": 95,
+  "nameAr": "التين",
+  "nameUz": "At-Tin",
+  "verses": 8,
+  "words": 34
+ },
+ {
+  "n": 96,
+  "nameAr": "العلق",
+  "nameUz": "Al-'Alaq",
+  "verses": 19,
+  "words": 72
+ },
+ {
+  "n": 97,
+  "nameAr": "القدر",
+  "nameUz": "Al-Qadr",
+  "verses": 5,
+  "words": 30
+ },
+ {
+  "n": 98,
+  "nameAr": "البينة",
+  "nameUz": "Al-Bayyinah",
+  "verses": 8,
+  "words": 94
+ },
+ {
+  "n": 99,
+  "nameAr": "الزلزلة",
+  "nameUz": "Az-Zalzalah",
+  "verses": 8,
+  "words": 36
+ },
+ {
+  "n": 100,
+  "nameAr": "العاديات",
+  "nameUz": "Al-'Adiyat",
+  "verses": 11,
+  "words": 40
+ },
+ {
+  "n": 101,
+  "nameAr": "القارعة",
+  "nameUz": "Al-Qari'ah",
+  "verses": 11,
+  "words": 36
+ },
+ {
+  "n": 102,
+  "nameAr": "التكاثر",
+  "nameUz": "At-Takathur",
+  "verses": 8,
+  "words": 28
+ },
+ {
+  "n": 103,
+  "nameAr": "العصر",
+  "nameUz": "Al-'Asr",
+  "verses": 3,
+  "words": 14
+ },
+ {
+  "n": 104,
+  "nameAr": "الهمزة",
+  "nameUz": "Al-Humazah",
+  "verses": 9,
+  "words": 33
+ },
+ {
+  "n": 105,
+  "nameAr": "الفيل",
+  "nameUz": "Al-Fil",
+  "verses": 5,
+  "words": 23
+ },
+ {
+  "n": 106,
+  "nameAr": "قريش",
+  "nameUz": "Quraysh",
+  "verses": 4,
+  "words": 17
+ },
+ {
+  "n": 107,
+  "nameAr": "الماعون",
+  "nameUz": "Al-Ma'un",
+  "verses": 7,
+  "words": 25
+ },
+ {
+  "n": 108,
+  "nameAr": "الكوثر",
+  "nameUz": "Al-Kawthar",
+  "verses": 3,
+  "words": 10
+ },
+ {
+  "n": 109,
+  "nameAr": "الكافرون",
+  "nameUz": "Al-Kafirun",
+  "verses": 6,
+  "words": 26
+ },
+ {
+  "n": 110,
+  "nameAr": "النصر",
+  "nameUz": "An-Nasr",
+  "verses": 3,
+  "words": 19
+ },
+ {
+  "n": 111,
+  "nameAr": "المسد",
+  "nameUz": "Al-Masad",
+  "verses": 5,
+  "words": 23
+ },
+ {
+  "n": 112,
+  "nameAr": "الإخلاص",
+  "nameUz": "Al-Ikhlas",
+  "verses": 4,
+  "words": 15
+ },
+ {
+  "n": 113,
+  "nameAr": "الفلق",
+  "nameUz": "Al-Falaq",
+  "verses": 5,
+  "words": 23
+ },
+ {
+  "n": 114,
+  "nameAr": "الناس",
+  "nameUz": "An-Nas",
+  "verses": 6,
+  "words": 20
+ }
+]

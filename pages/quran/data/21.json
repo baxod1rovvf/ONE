@@ -1,0 +1,718 @@
+{
+ "n": 21,
+ "nameAr": "الأنبياء",
+ "nameUz": "Al-Anbya",
+ "verses": [
+  {
+   "n": 1,
+   "ar": "ٱقْتَرَبَ لِلنَّاسِ حِسَابُهُمْ وَهُمْ فِى غَفْلَةٍ مُّعْرِضُونَ",
+   "reading": "Iqtaraba linnaasi hisaa buhum va hum fiy g'aflatim mu'riduun.",
+   "uz": "Odamlarga hisoblari yaqinlashib qoldi. Ular esa, gʻaflatda, yuz oʻgiruvchi boʻlgan hollarida."
+  },
+  {
+   "n": 2,
+   "ar": "مَا يَأْتِيهِم مِّن ذِكْرٍ مِّن رَّبِّهِم مُّحْدَثٍ إِلَّا ٱسْتَمَعُوهُ وَهُمْ يَلْعَبُونَ",
+   "reading": "Maa yaatiyhim min zikrim mir Robbihim muhdasin illas tama'uuhu va hum yal'abuun.",
+   "uz": "Qachon Robbilaridan yangi eslatma kelsa, uni faqat oʻynayotgan hollarida tinglarlar."
+  },
+  {
+   "n": 3,
+   "ar": "لَاهِيَةً قُلُوبُهُمْ ۗ وَأَسَرُّوا۟ ٱلنَّجْوَى ٱلَّذِينَ ظَلَمُوا۟ هَلْ هَـٰذَآ إِلَّا بَشَرٌ مِّثْلُكُمْ ۖ أَفَتَأْتُونَ ٱلسِّحْرَ وَأَنتُمْ تُبْصِرُونَ",
+   "reading": "Laahiyatan quluubuhum; va asarrun najval laziyna zalamuu hal haazaa illaa basharum mislukum afataa tuunas sihra va antum tubsiruun.",
+   "uz": "Qalblari gʻofil boʻlib. Zulm qilganlar oʻzaro: «Bu oʻzimizga oʻxshagan bashardan oʻzga emas-ku. Oʻzingiz koʻrib turib sehrga kelasizmi?» – deb pichirlasharlar."
+  },
+  {
+   "n": 4,
+   "ar": "قَالَ رَبِّى يَعْلَمُ ٱلْقَوْلَ فِى ٱلسَّمَآءِ وَٱلْأَرْضِ ۖ وَهُوَ ٱلسَّمِيعُ ٱلْعَلِيمُ",
+   "reading": "Qaala Robbiy ya'lamul qavla fis samaaa'i val ardi va Huvas Samiy'ul Aliym.",
+   "uz": "U: «Robbim osmonu yerdagi soʻzni bilur. U eshitguvchi va bilguvchi Zotdir», dedi."
+  },
+  {
+   "n": 5,
+   "ar": "بَلْ قَالُوٓا۟ أَضْغَـٰثُ أَحْلَـٰمٍۭ بَلِ ٱفْتَرَىٰهُ بَلْ هُوَ شَاعِرٌ فَلْيَأْتِنَا بِـَٔايَةٍ كَمَآ أُرْسِلَ ٱلْأَوَّلُونَ",
+   "reading": "Bal qaaluu adg'aasu ahlaamim balif taraahu bal huva shaa'irun falyaatinaa bi Aayatin kamaa ursilal avvaluun.",
+   "uz": "Ular: «Balki, algʻov-dalgʻov tushlardir, balki, oʻzi uydirib olgandir, balki, u shoirdir. Bas, bizga avvalgilarga yuborilganidek moʻʼjiza keltirsin», dedilar."
+  },
+  {
+   "n": 6,
+   "ar": "مَآ ءَامَنَتْ قَبْلَهُم مِّن قَرْيَةٍ أَهْلَكْنَـٰهَآ ۖ أَفَهُمْ يُؤْمِنُونَ",
+   "reading": "Maaa aaamanat qablahum min qaryatin ahlaknaahaa a-fahum yu'minuun.",
+   "uz": "Ulardan oldin biror shahar (aholisi) iymon keltirmadi. Biz ularni halok qildik. Endi ular iymon keltirarmidilar?! [1]",
+   "notes": "[1] (Ulardan oldin lol qoldiruvchi moʻʼjiza keltirishni talab qilganlardan birortasi ham iymonga kelmadi. Shuning uchun hammasini halok qildik. Endi ular iymonga kelarmidilar?!)"
+  },
+  {
+   "n": 7,
+   "ar": "وَمَآ أَرْسَلْنَا قَبْلَكَ إِلَّا رِجَالًا نُّوحِىٓ إِلَيْهِمْ ۖ فَسْـَٔلُوٓا۟ أَهْلَ ٱلذِّكْرِ إِن كُنتُمْ لَا تَعْلَمُونَ",
+   "reading": "Va maaa arsalnaa qablaka illaa rijaalan nuuhiy ilaihim fas'aluu ahlaz zikri in kuntum laa ta'lamuun.",
+   "uz": "Biz sendan ilgari ham faqat er kishilarni Paygʻambar qilib yuborib, ularga vahiy qilganmiz, xolos. Agar bilmasangiz, zikr ahllaridan soʻrang. [2]",
+   "notes": "[2] (Bashar paygʻambar boʻlmaydi, deb daʼvo qilayotgan, ey kofir-mushriklar, agar paygʻambarlar bashar ekanini bilmasangiz zikr-ilm egalaridan, ahli kitoblardan soʻrang.)"
+  },
+  {
+   "n": 8,
+   "ar": "وَمَا جَعَلْنَـٰهُمْ جَسَدًا لَّا يَأْكُلُونَ ٱلطَّعَامَ وَمَا كَانُوا۟ خَـٰلِدِينَ",
+   "reading": "Va maa ja'alnaahum jasadal laa yaakuluunat ta'aama va maa kaanuu xaalidiyn.",
+   "uz": "Biz ularni taom yemaydigan jasad qilganimiz yoʻq. Ular abadiy qolguvchi ham boʻlgan emaslar."
+  },
+  {
+   "n": 9,
+   "ar": "ثُمَّ صَدَقْنَـٰهُمُ ٱلْوَعْدَ فَأَنجَيْنَـٰهُمْ وَمَن نَّشَآءُ وَأَهْلَكْنَا ٱلْمُسْرِفِينَ",
+   "reading": "Summa sadaqnaa humul va'da fa-anjainaahum va man nashaaa'u va ahlaknal musrifiyn.",
+   "uz": "Soʻngra, ularga (bergan) vaʼdamiz ustidan chiqdik. Bas, ularga hamda Oʻzimiz xohlaganlarga najot berdik va isrofchilarni halok qildik. [3]",
+   "notes": "[3] (Keyin paygʻambarlarga bergan vaʼdamiz ustidan chiqdik, ularga ergashgan moʻminlarga najot va fathu nusrat berdik. Isrofchilarni, kofir boʻlganlarni halok etdik. Odat shu. Hozirgi kofirlar ibrat olsinlar.)"
+  },
+  {
+   "n": 10,
+   "ar": "لَقَدْ أَنزَلْنَآ إِلَيْكُمْ كِتَـٰبًا فِيهِ ذِكْرُكُمْ ۖ أَفَلَا تَعْقِلُونَ",
+   "reading": "Laqad anzalnaaa ilaikum Kitaaban fiyhi zikrukum afalaa ta'qiluun.",
+   "uz": "Batahqiq, Biz sizga kitob nozil qildik. Unda sizning zikringiz bor. Aql ishlatmaysizlarmi?! [4]",
+   "notes": "[4] (Zikringiz-sharafingiz bor. Odamlar aqlnini ishlatishlari lozim. Yana Qurʼonga qaytib, unga amal qilmoqlari shart.)"
+  },
+  {
+   "n": 11,
+   "ar": "وَكَمْ قَصَمْنَا مِن قَرْيَةٍ كَانَتْ ظَالِمَةً وَأَنشَأْنَا بَعْدَهَا قَوْمًا ءَاخَرِينَ",
+   "reading": "Va kam qasamnaa min qaryatin kannat zaalimatanv va anshadnaa ba'dahaa qavman aaxariyn.",
+   "uz": "Biz zolim boʻlgan shahar-qishloqlardan qanchasini (belini) sindirdik va ulardan keyin boshqa qavmlarni paydo etdik."
+  },
+  {
+   "n": 12,
+   "ar": "فَلَمَّآ أَحَسُّوا۟ بَأْسَنَآ إِذَا هُم مِّنْهَا يَرْكُضُونَ",
+   "reading": "Falammaaa ahassuu baasanaaa izaaa hum minhaa yarkuduun.",
+   "uz": "Bizning azobimizni his qilganlarida esa, birdan u yerdan qochishga boshlarlar."
+  },
+  {
+   "n": 13,
+   "ar": "لَا تَرْكُضُوا۟ وَٱرْجِعُوٓا۟ إِلَىٰ مَآ أُتْرِفْتُمْ فِيهِ وَمَسَـٰكِنِكُمْ لَعَلَّكُمْ تُسْـَٔلُونَ",
+   "reading": "Laa tarkuduu varji'uu ilaa maaa utriftum fiyhe va masaakinikum la'allakum tus'aluun.",
+   "uz": "Qochmanglar! maishatparastlik qilgan narsalaringizga, maskanlaringizga qaytinglar. Hali, ehtimol, soʻralursizlar."
+  },
+  {
+   "n": 14,
+   "ar": "قَالُوا۟ يَـٰوَيْلَنَآ إِنَّا كُنَّا ظَـٰلِمِينَ",
+   "reading": "Qaaluu yaa vailanaaa innaa kunnaa zaalimiyn.",
+   "uz": "Ular: «Holimizga voy! Biz, albatta, zolim boʻlgan ekanmiz», dedilar."
+  },
+  {
+   "n": 15,
+   "ar": "فَمَا زَالَت تِّلْكَ دَعْوَىٰهُمْ حَتَّىٰ جَعَلْنَـٰهُمْ حَصِيدًا خَـٰمِدِينَ",
+   "reading": "Famaa zaalat tilka da'vaahum hattaa ja'alnaahum hasiydan xaamidiyn.",
+   "uz": "Ularning oʻsha dod-voylari biz ularni oʻrilgan oʻtday, sovugan kulday qilgunimizcha bardavom boʻldi."
+  },
+  {
+   "n": 16,
+   "ar": "وَمَا خَلَقْنَا ٱلسَّمَآءَ وَٱلْأَرْضَ وَمَا بَيْنَهُمَا لَـٰعِبِينَ",
+   "reading": "Va maa xalaqnas samaaa'a val arda va maa bainahumaa laa'ibiyn.",
+   "uz": "Biz osmonlaru yerni va ularning orasidagi narsalarni oʻyin uchun yaratganimiz yoʻq. [5]",
+   "notes": "[5] (Bunday ulkan va ajoyib narsalar, albatta, oʻyin uchun yaratilmaydi. Behudaga shunchalik urinishning keragi yoʻq. Maqsad oʻyin boʻlsa, shunga mosroq narsa yaratilar edi.)"
+  },
+  {
+   "n": 17,
+   "ar": "لَوْ أَرَدْنَآ أَن نَّتَّخِذَ لَهْوًا لَّٱتَّخَذْنَـٰهُ مِن لَّدُنَّآ إِن كُنَّا فَـٰعِلِينَ",
+   "reading": "Lav aradnaaa an nattaxiza lahval lat taxaznaahu mil ladunnaaa in kunnaa faa'iliyn.",
+   "uz": "Agar Biz koʻngilxushi tutishni iroda qilsak, uni qiluvchi boʻlganimizda ham, Oʻz tomonimizdan tutar edik."
+  },
+  {
+   "n": 18,
+   "ar": "بَلْ نَقْذِفُ بِٱلْحَقِّ عَلَى ٱلْبَـٰطِلِ فَيَدْمَغُهُۥ فَإِذَا هُوَ زَاهِقٌ ۚ وَلَكُمُ ٱلْوَيْلُ مِمَّا تَصِفُونَ",
+   "reading": "Bal naqzifu bilhaqqi 'alal baatili fa yadmag'uhuu fa izaa huva zaahiq; va lakumul vailu mimmaa tasifuun.",
+   "uz": "Yoʻq, Biz haqni botil ustiga oturmiz. Bas, uni yakson qilur. Koʻribsanki, u (botil) zavolga uchrabdi. Sizlarga esa, qilgan vasflaringizdan halokat kelur."
+  },
+  {
+   "n": 19,
+   "ar": "وَلَهُۥ مَن فِى ٱلسَّمَـٰوَٰتِ وَٱلْأَرْضِ ۚ وَمَنْ عِندَهُۥ لَا يَسْتَكْبِرُونَ عَنْ عِبَادَتِهِۦ وَلَا يَسْتَحْسِرُونَ",
+   "reading": "Va lahuu man fis samaavaati val ard; va man 'indahuu laa yastakbiruuna 'an 'ibaada tihiy va laa yastahsiruun.",
+   "uz": "Osmonlaru yerdagi barcha jonzotlar Unikidir. Uning huzuridagilar ibodatidan takabburlik qilmaslar va malol olmaslar."
+  },
+  {
+   "n": 20,
+   "ar": "يُسَبِّحُونَ ٱلَّيْلَ وَٱلنَّهَارَ لَا يَفْتُرُونَ",
+   "reading": "Yusabbihuuna laila vannahaara laa yafturuun.",
+   "uz": "Ular kechayu kunduz tasbih aytarlar. Charchamaslar."
+  },
+  {
+   "n": 21,
+   "ar": "أَمِ ٱتَّخَذُوٓا۟ ءَالِهَةً مِّنَ ٱلْأَرْضِ هُمْ يُنشِرُونَ",
+   "reading": "Amit taxazuu aalihatam minal ardi hum yunshiruun.",
+   "uz": "Yoki ular yerdan xudolar tutdilar-u, oʻshalar tiriltiradilarmi?"
+  },
+  {
+   "n": 22,
+   "ar": "لَوْ كَانَ فِيهِمَآ ءَالِهَةٌ إِلَّا ٱللَّهُ لَفَسَدَتَا ۚ فَسُبْحَـٰنَ ٱللَّهِ رَبِّ ٱلْعَرْشِ عَمَّا يَصِفُونَ",
+   "reading": "Lav kaana fiyhimaaa aalihatun illal laahu lafasadataa; fa-Subhaanal laahi Robbil 'Arshi 'ammaa yasifuun.",
+   "uz": "Agar u(osmonlaru yer)larda Allohdan oʻzga xudolar boʻlganida, buzilib ketar edilar. Arshning Robbi Alloh ular vasf qilgan narsadan pokdir. [6]",
+   "notes": "[6] (Borliqni bir zot yaratgan, bir zot idora qilib, boshqarib turadi. Borliq shunga boʻysunadi. Shu bois ham hadsiz-hisobsiz boʻlishiga qaramay, borliqda qoyil qolarlik darajada nizom va mutanosiblik hukm suradi. Agar borliqni yaratgan, uni idora qilib turgan zot bittadan koʻp boʻlsa, oʻsha zotlarning irodasi bir-biri bilan, albatta, toʻqnashar edi. Oqibatda borliqda nomutanosiblik kelib chiqar, jipslik yoʻqolar va nizom buzilar edi. Modomiki borliq bir nizomda turibdimi, mutanosibmi, demak, uni yaratgan va tadbirini qilib turgan zot bitta.)"
+  },
+  {
+   "n": 23,
+   "ar": "لَا يُسْـَٔلُ عَمَّا يَفْعَلُ وَهُمْ يُسْـَٔلُونَ",
+   "reading": "Laa yus'alu 'ammaa yaf'alu va hum yus'aluun.",
+   "uz": "U qilgan narsasidan soʻralmas. Holbuki, ular soʻralurlar."
+  },
+  {
+   "n": 24,
+   "ar": "أَمِ ٱتَّخَذُوا۟ مِن دُونِهِۦٓ ءَالِهَةً ۖ قُلْ هَاتُوا۟ بُرْهَـٰنَكُمْ ۖ هَـٰذَا ذِكْرُ مَن مَّعِىَ وَذِكْرُ مَن قَبْلِى ۗ بَلْ أَكْثَرُهُمْ لَا يَعْلَمُونَ ٱلْحَقَّ ۖ فَهُم مُّعْرِضُونَ",
+   "reading": "Amit taxazuu min duunihiy aalihatan qul haatuu burhaanakum haaza zikru mam ma'iya va zikru man qabliy; bal aksaruhum laa ya'lamuunal haqqa fahum mu'riduun.",
+   "uz": "Yoki Undan oʻzga xudolar tutdilarmi? Sen: «Hujjatlaringizni keltiring. Mana bu men bilan birgalarning zikridir va mendan oldingilarning zikridir», degin. Yoʻq, ularning koʻplari haqni bilmaslar. Bas, ular yuz oʻgirguvchilardir. [7]",
+   "notes": "[7] (Borliqqa nazar solib, undagi mavjudotlarni mulohaza qilib koʻrganda, Alloh taoloning sherigi boʻlishi mumkin emasligi isbotlandi. Yana nima uchun mushriklar Alloh taologa ibodat qilmayaptilar?)"
+  },
+  {
+   "n": 25,
+   "ar": "وَمَآ أَرْسَلْنَا مِن قَبْلِكَ مِن رَّسُولٍ إِلَّا نُوحِىٓ إِلَيْهِ أَنَّهُۥ لَآ إِلَـٰهَ إِلَّآ أَنَا۠ فَٱعْبُدُونِ",
+   "reading": "Va maaa arsalnaa min qablika mir Rasuulin illaa nuuhiy ilaihi annahuu laaa ilaaha illaaa Ana fa'buduun.",
+   "uz": "Sendan ilgari yuborgan har bir Paygʻambarga: «Albatta, Mendan oʻzga ibodatga sazovor iloh yoʻq. Bas, Menga ibodat qiling», deb vahiy qilganmiz."
+  },
+  {
+   "n": 26,
+   "ar": "وَقَالُوا۟ ٱتَّخَذَ ٱلرَّحْمَـٰنُ وَلَدًا ۗ سُبْحَـٰنَهُۥ ۚ بَلْ عِبَادٌ مُّكْرَمُونَ",
+   "reading": "Va qaalut taxazar Rohmaanu valadan Subhaanah; bal 'ibaadum mkkramuun.",
+   "uz": "Ular: «Rohman farzand tutdi», dedilar. U pokdir. Yoʻq! Ikrom etilgan bandalardirlar. [8]",
+   "notes": "[8] (Yaʼni, mushriklar, Alloh farishtalarni qiz qilib oldi, dedilar. Alloh bu nuqsondan pokdir. Farishtalar Allohning qizi emas, muhtaram bandalaridir.)"
+  },
+  {
+   "n": 27,
+   "ar": "لَا يَسْبِقُونَهُۥ بِٱلْقَوْلِ وَهُم بِأَمْرِهِۦ يَعْمَلُونَ",
+   "reading": "Laa yasbiquunahuu bil qavli va hum bi amrihiy ya'maluun.",
+   "uz": "Ular Undan oldin soʻz aytmaslar. Ular Uning amri ila amal qilurlar."
+  },
+  {
+   "n": 28,
+   "ar": "يَعْلَمُ مَا بَيْنَ أَيْدِيهِمْ وَمَا خَلْفَهُمْ وَلَا يَشْفَعُونَ إِلَّا لِمَنِ ٱرْتَضَىٰ وَهُم مِّنْ خَشْيَتِهِۦ مُشْفِقُونَ",
+   "reading": "Ya'lamu maa baina aidiyhim va maa xalfahum va laa yashfa'uuna illaa limanir tadaa va hum min xash yatihiy mushfiquun.",
+   "uz": "U zot ularning oldilaridagi narsani ham, ortlaridagi narsani ham bilur. Ular faqat U zot rozi boʻlgan shaxslargagina shafoat qilurlar. Ular U zotning qoʻrqinchidan titragan holda tururlar."
+  },
+  {
+   "n": 29,
+   "ar": "۞ وَمَن يَقُلْ مِنْهُمْ إِنِّىٓ إِلَـٰهٌ مِّن دُونِهِۦ فَذَٰلِكَ نَجْزِيهِ جَهَنَّمَ ۚ كَذَٰلِكَ نَجْزِى ٱلظَّـٰلِمِينَ",
+   "reading": "Va mai yaqul minhum inniy ilaahum min duunihiy fazaalika najziyhi Jahannam; kazaalika najziz zaalimiyn.",
+   "uz": "Ulardan kim: «Men Undan oʻzga ilohman», desa, bas, oʻshani jahannam ila jazolarmiz. Zolimlarni shunday jazolarmiz."
+  },
+  {
+   "n": 30,
+   "ar": "أَوَلَمْ يَرَ ٱلَّذِينَ كَفَرُوٓا۟ أَنَّ ٱلسَّمَـٰوَٰتِ وَٱلْأَرْضَ كَانَتَا رَتْقًا فَفَتَقْنَـٰهُمَا ۖ وَجَعَلْنَا مِنَ ٱلْمَآءِ كُلَّ شَىْءٍ حَىٍّ ۖ أَفَلَا يُؤْمِنُونَ",
+   "reading": "Avalam yaral laziyna kafaruu annas samaavaati val arda kaanataa ratqan faftaqnaahumaa va ja'alnaa minal maaa'i kulla shai'in haiyin afalaa yu'minuun.",
+   "uz": "Kufr keltirganlar osmonlaru yer bitishgan boʻlgan ekanini, bas, Biz ularni ochganimizni va suvdan har bir tirik narsani qilganimizni bilmaslarmi? Iymon keltirmaslarmi? [9]",
+   "notes": "[9] (Oyati karima maʼnosi xususida tafsirchilar bir necha xil maʼnolar aytganlar. Birinchisi, Ibn Umar va Ibn Abbos roziyallohu anhumlardan rivoyat qilingan boʻlib, osmon yopiq edi, Biz uni ochdik va yomgʻir-qor yogʻdirdik, oqibatda oʻsha suv ila hamma tirik narsalar paydo boʻldi, degan maʼno chiqadi. Ikkinchisi, unga koʻra osmonlaru Yer yoʻq edi, ularni Biz yaratdik, soʻngra suvdan tirik narsalarni paydo qildik, maʼnosi boʻladi. Uchinchisi, Hasan, Qatoda roziyallohu anhumlardan rivoyat qilingan boʻlib, osmonlaru Yer bir-biriga bitishgan bir narsa edi, ularning orasini Biz ochdik, soʻngra suvdan tirik narsalarni paydo qildik, maʼnosi bor. Toʻrtinchisi hozirgi zamon baʼzi tafsirchilarning fikrlari boʻlib: osmonu Yer, yulduzlaru quyosh hamma-hammasi bir butun edi, Allohning irodasi ila koʻp aylanish va ichki portlashlar oqibatida parchalanib, alohida-alohida boʻlib ketdi: quyosh alohida, yer alohida, oy alohida, yulduzlar alohida va boshqa narsalar ham; suvdan esa, barcha tirik narsalar, inson, hayvon va nabototlar paydo qilindi. Bular, oyati karimaning maʼnosini tushunishga urinishdir. Oyatning haqiqiy maʼnosini Allohning Oʻzi biladi.)"
+  },
+  {
+   "n": 31,
+   "ar": "وَجَعَلْنَا فِى ٱلْأَرْضِ رَوَٰسِىَ أَن تَمِيدَ بِهِمْ وَجَعَلْنَا فِيهَا فِجَاجًا سُبُلًا لَّعَلَّهُمْ يَهْتَدُونَ",
+   "reading": "Va ja'alnaa fil ardi ravaasiya an tamiyda bihim va ja'alnaa fiyhaa fijaajan subulal la'allahum yahtaduun.",
+   "uz": "Biz yerda ularning tebranmasliklari uchun togʻlar qildik va shoyadki, toʻgʻri yoʻl topsalar, deb unda daralar, yoʻllar qildik."
+  },
+  {
+   "n": 32,
+   "ar": "وَجَعَلْنَا ٱلسَّمَآءَ سَقْفًا مَّحْفُوظًا ۖ وَهُمْ عَنْ ءَايَـٰتِهَا مُعْرِضُونَ",
+   "reading": "Va ja'alnas samaaa'a saqfam mahfuuzanv va hum 'an Aayaatihaa mu'riduun.",
+   "uz": "Va osmonni saqlangan shift qilib qoʻydik. Ular esa, Uning alomatlaridan yuz oʻgirguvchi boʻlmoqdalar."
+  },
+  {
+   "n": 33,
+   "ar": "وَهُوَ ٱلَّذِى خَلَقَ ٱلَّيْلَ وَٱلنَّهَارَ وَٱلشَّمْسَ وَٱلْقَمَرَ ۖ كُلٌّ فِى فَلَكٍ يَسْبَحُونَ",
+   "reading": "Va Huval laziy xalaqal laila vannahaara vashshamsa val qamara kullun fiy falakiny yashbahuun.",
+   "uz": "U kechayu kunduzni, quyoshu oyni yaratgan Zotdir. Hammasi falakda suzmoqdalar."
+  },
+  {
+   "n": 34,
+   "ar": "وَمَا جَعَلْنَا لِبَشَرٍ مِّن قَبْلِكَ ٱلْخُلْدَ ۖ أَفَإِي۟ن مِّتَّ فَهُمُ ٱلْخَـٰلِدُونَ",
+   "reading": "Va maa ja'alnaa libasharim min qablikal xuld; afaimmitta fahumul xaaliduun.",
+   "uz": "Sendan oldin ham biror basharga abadiylikni qilganimiz yoʻq. Agar sen oʻlsang, ular abadiy qolar ekanlarmi?"
+  },
+  {
+   "n": 35,
+   "ar": "كُلُّ نَفْسٍ ذَآئِقَةُ ٱلْمَوْتِ ۗ وَنَبْلُوكُم بِٱلشَّرِّ وَٱلْخَيْرِ فِتْنَةً ۖ وَإِلَيْنَا تُرْجَعُونَ",
+   "reading": "Kullu nafsin zaaa'iqatul mavt; va nabluukum bishsharri valxairi fitnatanv va ilainaa turja'uun.",
+   "uz": "Har bir jon oʻlimni tatib koʻrguvchidir. Biz sizlarni yomonlik va yaxshilik ila imtihon uchun sinaymiz hamda Bizgagina qaytarilursiz."
+  },
+  {
+   "n": 36,
+   "ar": "وَإِذَا رَءَاكَ ٱلَّذِينَ كَفَرُوٓا۟ إِن يَتَّخِذُونَكَ إِلَّا هُزُوًا أَهَـٰذَا ٱلَّذِى يَذْكُرُ ءَالِهَتَكُمْ وَهُم بِذِكْرِ ٱلرَّحْمَـٰنِ هُمْ كَـٰفِرُونَ",
+   "reading": "Va izaa ra aakal laziyna kafaruu iny-yattaxizuunaka illa huzuvaa; ahaazal laziy yazkuru aalihatakum va hum bi zikrir Rohmaani hum kaafiruun.",
+   "uz": "Kufr keltirganlar seni koʻrganlarida, masxara qilib: «Xudolaringizni zikr qilayotgan shumi?!» deyishdan boshqani bilmaslar. Holbuki, ular Rohmanning zikriga oʻzlari kofirdirlar."
+  },
+  {
+   "n": 37,
+   "ar": "خُلِقَ ٱلْإِنسَـٰنُ مِنْ عَجَلٍ ۚ سَأُو۟رِيكُمْ ءَايَـٰتِى فَلَا تَسْتَعْجِلُونِ",
+   "reading": "Xuliqal insaanu min 'ajal; sa uriykum Aayaatiy falaa tasta'jiluun.",
+   "uz": "Inson shoshqaloq oʻlaroq yaratilgandir. Men, albatta, sizlarga Oʻz oyat-alomatlarimni koʻrsaturman. Bas, meni shoshiltirmanglar."
+  },
+  {
+   "n": 38,
+   "ar": "وَيَقُولُونَ مَتَىٰ هَـٰذَا ٱلْوَعْدُ إِن كُنتُمْ صَـٰدِقِينَ",
+   "reading": "Va yaquuluuna mataa haazal va'du in kuntum saadiqiyn.",
+   "uz": "Ular: «Agar sodiq boʻlsangiz, bu vaʼda qachon boʻlur», derlar."
+  },
+  {
+   "n": 39,
+   "ar": "لَوْ يَعْلَمُ ٱلَّذِينَ كَفَرُوا۟ حِينَ لَا يَكُفُّونَ عَن وُجُوهِهِمُ ٱلنَّارَ وَلَا عَن ظُهُورِهِمْ وَلَا هُمْ يُنصَرُونَ",
+   "reading": "Lav ya'lamul laziyna kafaruu hiyna laa yakuffuuna 'anv vujuuhihimun Naara va laa 'an zuhuurihim va laa hum yunsaruun.",
+   "uz": "Kufr keltirganlar yuzlaridan va sirtlaridan olovni toʻsa olmaydigan va oʻzlariga yordam berilmaydigan vaqtni bilsalar edi."
+  },
+  {
+   "n": 40,
+   "ar": "بَلْ تَأْتِيهِم بَغْتَةً فَتَبْهَتُهُمْ فَلَا يَسْتَطِيعُونَ رَدَّهَا وَلَا هُمْ يُنظَرُونَ",
+   "reading": "Bal taatiyhim bag'tatan fatabhatuhum falaa yastatiy'uuna raddahaa va laa hum yunzaruun.",
+   "uz": "Yoʻq! U ularga toʻsatdan kelib, hayratu dahshatga solur. Bas, uni rad qilishga qodir boʻlmaslar va ularga muhlat ham berilmas."
+  },
+  {
+   "n": 41,
+   "ar": "وَلَقَدِ ٱسْتُهْزِئَ بِرُسُلٍ مِّن قَبْلِكَ فَحَاقَ بِٱلَّذِينَ سَخِرُوا۟ مِنْهُم مَّا كَانُوا۟ بِهِۦ يَسْتَهْزِءُونَ",
+   "reading": "Va laqadis tuhzi'a bi-Rusulim min qablika fahaaqa billaziyna saxiruu minhum maa kaanuu bihiy yastahzi'uun.",
+   "uz": "Batahqiq, sendan oldin ham Paygʻambarlar masxara qilingan. Bas, ularni masxara qilganlarga oʻzlari masxara etib yurgan narsa tushdi."
+  },
+  {
+   "n": 42,
+   "ar": "قُلْ مَن يَكْلَؤُكُم بِٱلَّيْلِ وَٱلنَّهَارِ مِنَ ٱلرَّحْمَـٰنِ ۗ بَلْ هُمْ عَن ذِكْرِ رَبِّهِم مُّعْرِضُونَ",
+   "reading": "Qul mai yakla 'ukum billaili vannahaari minar Rohmaan; bal hum 'an zikri Robbihim mu'riduun.",
+   "uz": "Sen: «Kechasi va kunduzi sizni Rohmandan kim qoʻriydi?» – degin. Yoʻq! Ular Robbilari zikridan yuz oʻgirguvchilardir!"
+  },
+  {
+   "n": 43,
+   "ar": "أَمْ لَهُمْ ءَالِهَةٌ تَمْنَعُهُم مِّن دُونِنَا ۚ لَا يَسْتَطِيعُونَ نَصْرَ أَنفُسِهِمْ وَلَا هُم مِّنَّا يُصْحَبُونَ",
+   "reading": "Am lahum aalihatun tamna'ulum min duuninaa; laa yastatiy'uuna nasra anfusihim va laa hum minnna yus-habuun.",
+   "uz": "Yoki ularning Bizdan oʻzga himoya qiladigan «xudo»lari bormi? Ular oʻzlariga ham yordam berishga qodir boʻla olmaslar va Bizdan doʻstlik topmaslar. [10]",
+   "notes": "[10] (Doʻstlik topganlarida himoyamizga oʻtishlari mumkin edi. Lekin zinhor bizdan doʻstlik topmaslar. Chunki ular bunga munosib emaslar. Kofirlar esa, buni oʻylab ham koʻrmaydilar. Qachon va qayerda soxta xudolari ularga homiy boʻlibdi, biror yordam qilibdi, yaxshilik yetkazibdi?)"
+  },
+  {
+   "n": 44,
+   "ar": "بَلْ مَتَّعْنَا هَـٰٓؤُلَآءِ وَءَابَآءَهُمْ حَتَّىٰ طَالَ عَلَيْهِمُ ٱلْعُمُرُ ۗ أَفَلَا يَرَوْنَ أَنَّا نَأْتِى ٱلْأَرْضَ نَنقُصُهَا مِنْ أَطْرَافِهَآ ۚ أَفَهُمُ ٱلْغَـٰلِبُونَ",
+   "reading": "Bal matta'naa haaa'ulaaa'i va aabaaa'ahum hattaa taala 'alaihimul 'umur; afalaa yaravna anna naatil arda nanqusuhaa min atraafihaa; afahumul g'aalibuun.",
+   "uz": "Balki, Biz ularni va ota-bobolarini bahramand qildik, hatto, ularga umr uzun koʻrindi. Ular yerga kelib, uni atrofidan qisqartirayotganimizni koʻrmaydilarmi?! Folib kelguvchi ularmi? [11]",
+   "notes": "[11] (Tafsirchi ulamolarimiz oyati karimadagi ushbu jumla maʼnosi haqida bir necha xil fikr bildirganlar. Qadimgi tafsirchilarimiz, Yerning atrofidan qisqartirilishi — kufr yerlari qisqarib Islom yerlari kengayib borishi, deganlar. Mujohid va Ikrima roziyallohu anhum, yerning atrofidan qisqarishi — xarob boʻlishi, deyishgan. Al-Afviy Ibn Abbos roziyallohu anhudan qilgan rivoyatda esa, barakasining qisqarishi, deyilgan. Ash-Shaʼbiy, agar Yer qisqaradigan boʻlsa, unga sigʻmay qolar eding, lekin jonlar va meva-cheva, hosillar qisqaradi, degan. Ikrima roziyallohu anhu ham, agar Yer qisqarganida, oʻtirgani joy topa olmay qolar eding, qisqarish oʻlimdir, deb aytgan. Keyingi davr tafsirchilari esa, rohat-farogʻatda yashagan, Yerning turli atroflarida gʻolib boʻlib, oʻzining soʻzini oʻtkazib turgan davlatlar va xalqlar bahramandlikdan hovliqib ketib, hadlaridan oshganlarida, nuqsonga duchor qilinishlari — qisqartirilishlaridir, deydilar. Ushbu maʼnolar bir-birini toʻldirib keladi. Har bir tafsirchi olim oʻz zamonasidagi voqelikdan, oʻz tushunchasidan kelib chiqib maʼno aytgan boʻladi.)"
+  },
+  {
+   "n": 45,
+   "ar": "قُلْ إِنَّمَآ أُنذِرُكُم بِٱلْوَحْىِ ۚ وَلَا يَسْمَعُ ٱلصُّمُّ ٱلدُّعَآءَ إِذَا مَا يُنذَرُونَ",
+   "reading": "Qul innamaaa unzirukum bilvahyi; va laa yasma'us summud du'aaa'a izaa maa yunzaruun.",
+   "uz": "Sen: «Men sizlarni faqat vahiy orqaligina ogohlantiraman. Gunglar ogohlantirilganlarida daʼvatni eshitmaslar», degin."
+  },
+  {
+   "n": 46,
+   "ar": "وَلَئِن مَّسَّتْهُمْ نَفْحَةٌ مِّنْ عَذَابِ رَبِّكَ لَيَقُولُنَّ يَـٰوَيْلَنَآ إِنَّا كُنَّا ظَـٰلِمِينَ",
+   "reading": "Va la'im massat hum nafhatum min 'azaabi Robbika la yaquulunna yaavailanaaa innnaa kunnaa zaalimiyn.",
+   "uz": "Qasamki, agar ularga Robbing azobidan salgina yetsa, albatta: «Holimizga voy! Haqiqatan, biz zolimlar boʻlgan ekanmiz», derlar."
+  },
+  {
+   "n": 47,
+   "ar": "وَنَضَعُ ٱلْمَوَٰزِينَ ٱلْقِسْطَ لِيَوْمِ ٱلْقِيَـٰمَةِ فَلَا تُظْلَمُ نَفْسٌ شَيْـًٔا ۖ وَإِن كَانَ مِثْقَالَ حَبَّةٍ مِّنْ خَرْدَلٍ أَتَيْنَا بِهَا ۗ وَكَفَىٰ بِنَا حَـٰسِبِينَ",
+   "reading": "Va nada'ul mavaaziynal qista li Yavmil Qiyaamati falaa tuzlamu nafsun shai'aa; va in kaana misqaala habbatim min xardalin atainaa bihaa; va kafaa binaa haasibiyn.",
+   "uz": "Biz qiyomat kuni uchun adolat tarozularini qoʻyurmiz. Biror jonga hech qanday zulm qilinmas. Agar (amal) achitqi donasi ogʻirligicha boʻlsa ham, keltiramiz. Hisobchilikda Oʻzimiz kifoya qilurmiz."
+  },
+  {
+   "n": 48,
+   "ar": "وَلَقَدْ ءَاتَيْنَا مُوسَىٰ وَهَـٰرُونَ ٱلْفُرْقَانَ وَضِيَآءً وَذِكْرًا لِّلْمُتَّقِينَ",
+   "reading": "Va laqad aatainaa Muusa va haaruunal Furqaana va diyaa'anv va zikral lilmuttaqiyn.",
+   "uz": "Batahqiq, Biz Muso va Horunga Furqonni taqvodorlar uchun ziyo va eslatma qilib berdik. [12]",
+   "notes": "[12] (Alloh taolo oyati karimada shunday kitobni Muso va Horun alayhissalomlarga berganini eslatmoqda. Shu bilan birga, Tavrot ham Furqon sifatiga, ham «taqvodorlar uchun ziyo va eslatma» sifatiga ega ekani bayon qilinmoqda. Ha, ilohiy kitob ziyosidan bahramand boʻlish va undagi eslatmalardan ibrat olish uchun taqvodor boʻlish kerak. Betavfiq va taqvosizlar uning ziyosidan ham, eslatmasidan ham bahramand boʻla olmaydilar.)"
+  },
+  {
+   "n": 49,
+   "ar": "ٱلَّذِينَ يَخْشَوْنَ رَبَّهُم بِٱلْغَيْبِ وَهُم مِّنَ ٱلسَّاعَةِ مُشْفِقُونَ",
+   "reading": "Allaziyna yaxshavna Robbahum bilg'aibi va hum minas Saa'ati mushfiquun.",
+   "uz": "Ular Robbilaridan gʻoyibona qoʻrqurlar va ular (qiyomat) soatidan titrarlar."
+  },
+  {
+   "n": 50,
+   "ar": "وَهَـٰذَا ذِكْرٌ مُّبَارَكٌ أَنزَلْنَـٰهُ ۚ أَفَأَنتُمْ لَهُۥ مُنكِرُونَ",
+   "reading": "Va haazaa Zikrum Mubaarakun anzalnaah; afa antum lahuu munkiruun.",
+   "uz": "Bu Biz nozil qilgan muborak eslatmadir. Sizlar uni inkor qilguvchi boʻlasizlarmi?!"
+  },
+  {
+   "n": 51,
+   "ar": "۞ وَلَقَدْ ءَاتَيْنَآ إِبْرَٰهِيمَ رُشْدَهُۥ مِن قَبْلُ وَكُنَّا بِهِۦ عَـٰلِمِينَ",
+   "reading": "Va laqad aatainaaa Ibraahiyma rushdahuu min qablu va kunnaa bihiy 'aalimiyn.",
+   "uz": "Batahqiq, ilgari Biz Ibrohimga rushdi hidoyatni bergan edik. Biz uning (holini) bilguvchi edik. [13]",
+   "notes": "[13] (Ibrohim Alloh tomonidan rushdi hidoyat berilgan zotlar ichida avvalgilaridan biri edi. Biz unga rushdni bexosdan berganimiz yoʻq. Biz Ibrohimning rushdi hidoyatga, paygʻambar boʻlishga loyiq zotligini yaxshi bilar edik.)"
+  },
+  {
+   "n": 52,
+   "ar": "إِذْ قَالَ لِأَبِيهِ وَقَوْمِهِۦ مَا هَـٰذِهِ ٱلتَّمَاثِيلُ ٱلَّتِىٓ أَنتُمْ لَهَا عَـٰكِفُونَ",
+   "reading": "Iz qaala li abiyhi va qavmihiy maa haazihit tamaasiylul latiy antum lahiy 'aakifuun.",
+   "uz": "Oʻshanda u otasiga va qavmiga: «Manavi siz ibodatiga berilayotgan haykallar nima?» – degan edi."
+  },
+  {
+   "n": 53,
+   "ar": "قَالُوا۟ وَجَدْنَآ ءَابَآءَنَا لَهَا عَـٰبِدِينَ",
+   "reading": "Qaaluu vajadnaaa aabaaa'anaa lahaa 'aabidiyn.",
+   "uz": "Ular: «Ota-bobolarimizni ularga ibodat qilgan hollarida topganmiz», dedilar."
+  },
+  {
+   "n": 54,
+   "ar": "قَالَ لَقَدْ كُنتُمْ أَنتُمْ وَءَابَآؤُكُمْ فِى ضَلَـٰلٍ مُّبِينٍ",
+   "reading": "Qaala laqad kuntum antum va aabaaa'ukum fiy dalaalim mubiyn.",
+   "uz": "U: «Batahqiq, siz ham, ota-bobolaringiz ham ochiq-oydin zalolatdasizlar», dedi."
+  },
+  {
+   "n": 55,
+   "ar": "قَالُوٓا۟ أَجِئْتَنَا بِٱلْحَقِّ أَمْ أَنتَ مِنَ ٱللَّـٰعِبِينَ",
+   "reading": "Qaaluu aji'tanaa bil haqqi am anta minal laa'ibiyn.",
+   "uz": "Ular: «Sen bizga haq ila keldingmi yoki oʻyin qilguvchilardanmisan?» – dedilar."
+  },
+  {
+   "n": 56,
+   "ar": "قَالَ بَل رَّبُّكُمْ رَبُّ ٱلسَّمَـٰوَٰتِ وَٱلْأَرْضِ ٱلَّذِى فَطَرَهُنَّ وَأَنَا۠ عَلَىٰ ذَٰلِكُم مِّنَ ٱلشَّـٰهِدِينَ",
+   "reading": "Qaala bar Robbukum Robbus samaavaati val ardil laziy fatarahunna va ana 'alaa zaalikum minash shaahidiyn.",
+   "uz": "U: «Yoʻq! Robbingiz osmonlaru yerning Robbidir. U zot ularni yaratgandir. Men bunga guvohlik berguvchilardanman."
+  },
+  {
+   "n": 57,
+   "ar": "وَتَٱللَّهِ لَأَكِيدَنَّ أَصْنَـٰمَكُم بَعْدَ أَن تُوَلُّوا۟ مُدْبِرِينَ",
+   "reading": "Va tallaahi la akiydanna asnaamakum ba'da an tuvalluu mudbiriyn.",
+   "uz": "Allohga qasamki, sizlar ortga oʻgirilib ketganingizdan keyin sanamlaringizga bir balo qilaman», dedi. [14]",
+   "notes": "[14] (Yaʼni, Ibrohim alayhissalom oʻzlari bilan tortishayotgan qavmlariga, ularning sanamlariga bir yomonlik yetkazishlari aniqligini qasam ila taʼkidlab aytdilar. Ammo nima qilishlarini ochiq-oydin aytmadilar. Arab tilida «sanam» deb bosh qismi inson shakliga oʻxshatib ishlangan butlarga aytiladi.)"
+  },
+  {
+   "n": 58,
+   "ar": "فَجَعَلَهُمْ جُذَٰذًا إِلَّا كَبِيرًا لَّهُمْ لَعَلَّهُمْ إِلَيْهِ يَرْجِعُونَ",
+   "reading": "Faja'alahum juzaazan illaa kabiyral lahum la'allahum ilaihi yarji'uun.",
+   "uz": "Bas, ularni parcha-parcha qilib tashladi. Magar eng kattasini, shoyadki, unga qaytsalar, deb qoldirdi. [15]",
+   "notes": "[15] (Mushrik qavm yillik bayramlarida shahardan tashqariga chiqar edi. Ular navbatdagi yillik bayramni nishonlash uchun ketganlarida Ibrohim alayhissalom hamma butlarni parcha-parcha qilib tashladilar va eng katta butga tegmasdan qoldirib qoʻydilar.)"
+  },
+  {
+   "n": 59,
+   "ar": "قَالُوا۟ مَن فَعَلَ هَـٰذَا بِـَٔالِهَتِنَآ إِنَّهُۥ لَمِنَ ٱلظَّـٰلِمِينَ",
+   "reading": "Qaaluu man fa'ala haazaa bi aalihatinaaa innahuu laminaz zaalimiyn.",
+   "uz": "Ular: «Bizning xudolarimizga kim bunday qildi?! Albatta, u zolimlardandir!» – dedilar."
+  },
+  {
+   "n": 60,
+   "ar": "قَالُوا۟ سَمِعْنَا فَتًى يَذْكُرُهُمْ يُقَالُ لَهُۥٓ إِبْرَٰهِيمُ",
+   "reading": "Qaaluu sami'naa fatany yazkuruhum yuqaalu lahuu Ibraahiym.",
+   "uz": "Ular: «Ularni eslab yurgan bir yigitni eshitgan edik, uni Ibrohim, deb aytilardi», dedilar."
+  },
+  {
+   "n": 61,
+   "ar": "قَالُوا۟ فَأْتُوا۟ بِهِۦ عَلَىٰٓ أَعْيُنِ ٱلنَّاسِ لَعَلَّهُمْ يَشْهَدُونَ",
+   "reading": "Qaaluu faatuu bihiy 'alaaa a'yunin naasi la'allahum yash haduun.",
+   "uz": "Ular: «Uni odamlar koʻzi oldiga olib kelinglar. Shoyadki, guvoh boʻlsalar», dedilar."
+  },
+  {
+   "n": 62,
+   "ar": "قَالُوٓا۟ ءَأَنتَ فَعَلْتَ هَـٰذَا بِـَٔالِهَتِنَا يَـٰٓإِبْرَٰهِيمُ",
+   "reading": "Qaaluu 'a-anta fa'alta haazaa bi aalihatinaa yaaa Ibraahiym.",
+   "uz": "Ular: «Xudolarimizga buni sen qildingmi, ey Ibrohim?!» – dedilar."
+  },
+  {
+   "n": 63,
+   "ar": "قَالَ بَلْ فَعَلَهُۥ كَبِيرُهُمْ هَـٰذَا فَسْـَٔلُوهُمْ إِن كَانُوا۟ يَنطِقُونَ",
+   "reading": "Qaala bal fa'alahuu kabiyruhum haazaa fas'aluuhum in kaanuu yantiquun.",
+   "uz": "U: «Yoʻq, buni manavi, ularning kattasi qildi. Agar gapiradigan boʻlsalar, ulardan soʻrab koʻringlar», dedi."
+  },
+  {
+   "n": 64,
+   "ar": "فَرَجَعُوٓا۟ إِلَىٰٓ أَنفُسِهِمْ فَقَالُوٓا۟ إِنَّكُمْ أَنتُمُ ٱلظَّـٰلِمُونَ",
+   "reading": "Faraja'uu ilaaa anfusihim faqaaluu innakum antumuz zaalimuun.",
+   "uz": "Bas, ular oʻzlariga keldilar va: «Albatta, sizlar oʻzingiz zolimdirsizlar», dedilar. [16]",
+   "notes": "[16] (Ibrohim alayhissalomning mantiqli savollaridan keyin mushriklar oʻzlariga keldilar.)"
+  },
+  {
+   "n": 65,
+   "ar": "ثُمَّ نُكِسُوا۟ عَلَىٰ رُءُوسِهِمْ لَقَدْ عَلِمْتَ مَا هَـٰٓؤُلَآءِ يَنطِقُونَ",
+   "reading": "Summa nukisuu 'alaa ru'uusihim laqad 'alimta maa haaa'ulaaa'i yantiquun.",
+   "uz": "Soʻngra, yana boshlari aylanib: «Sen, batahqiq, bularning gapirmasligini bilar eding!» – dedilar."
+  },
+  {
+   "n": 66,
+   "ar": "قَالَ أَفَتَعْبُدُونَ مِن دُونِ ٱللَّهِ مَا لَا يَنفَعُكُمْ شَيْـًٔا وَلَا يَضُرُّكُمْ",
+   "reading": "Qaala afata'buduuna min duunil laahi maa laa yanfa'ukum shai'anv va laa yadurrukum.",
+   "uz": "U: «Siz, Allohni qoʻyib, hech manfaat ham, zarar ham bermaydigan narsaga ibodat qilasizmi?!"
+  },
+  {
+   "n": 67,
+   "ar": "أُفٍّ لَّكُمْ وَلِمَا تَعْبُدُونَ مِن دُونِ ٱللَّهِ ۖ أَفَلَا تَعْقِلُونَ",
+   "reading": "Uffil lakum va limaa ta'buduuna min duunil laah; afalaa ta'qiluun.",
+   "uz": "Sizga ham, Allohni qoʻyib, ibodat qilayotgan narsalaringizga ham suf-e! Axir, aql yuritib koʻrmaysizlarmi?!» – dedi."
+  },
+  {
+   "n": 68,
+   "ar": "قَالُوا۟ حَرِّقُوهُ وَٱنصُرُوٓا۟ ءَالِهَتَكُمْ إِن كُنتُمْ فَـٰعِلِينَ",
+   "reading": "Qaaluu harriquuho vansuruu aalihatakum in kuntum faa'iliyn.",
+   "uz": "Ular: «Uni kuydiringlar! Agar (bir ish) qiladigan boʻlsangiz, xudolaringizga yordam bering!» – dedilar. [17]",
+   "notes": "[17] (Yaʼni, Ibrohimni kuydirib yuborishingiz xudolaringizga yordam boʻladi, dedilar. Xullas, mushriklar katta gulxan yoqib, Ibrohim alayhissalomni oʻsha gulxanga otdilar.)"
+  },
+  {
+   "n": 69,
+   "ar": "قُلْنَا يَـٰنَارُ كُونِى بَرْدًا وَسَلَـٰمًا عَلَىٰٓ إِبْرَٰهِيمَ",
+   "reading": "Qulnaa yaa naaru kuuniy bardanv va salaaman 'alaaa Ibraahiym.",
+   "uz": "Biz: «Ey olov, sen Ibrohimga salqin va salomatlik boʻl!» – dedik."
+  },
+  {
+   "n": 70,
+   "ar": "وَأَرَادُوا۟ بِهِۦ كَيْدًا فَجَعَلْنَـٰهُمُ ٱلْأَخْسَرِينَ",
+   "reading": "Va araaduu bihiy kaidan faja'alnaahumul axsariyn.",
+   "uz": "Ular u(Ibrohim)ga yomonlik iroda qilgan edilar. Biz ularni eng ziyonkorlar qilib qoʻydik."
+  },
+  {
+   "n": 71,
+   "ar": "وَنَجَّيْنَـٰهُ وَلُوطًا إِلَى ٱلْأَرْضِ ٱلَّتِى بَـٰرَكْنَا فِيهَا لِلْعَـٰلَمِينَ",
+   "reading": "Va najjainaahu va Luutan ilal ardil latiy baaraknaa fiyhaa lil 'aalamiyn.",
+   "uz": "Unga va Lutga najot berib, olamlar uchun barakali qilgan yerga yubordik. [18]",
+   "notes": "[18] (Alloh taolo Ibrohim alayhissalomga va u kishining jiyanlari Lut alayhissalomga najot berdi. Qavmlariga yetgan balodan ularni sogʻ-salomat olib qolib, «olamlar uchun barakali qilgan yer»ga — Shomga yubordi. Darhaqiqat, Shom yeri eng barakali yerlardan hisoblanadi. Barcha paygʻambarlar oʻsha joydan chiqqan. U yer muqaddas joy. U yurtda Baytul Maqdis joylashgan.)"
+  },
+  {
+   "n": 72,
+   "ar": "وَوَهَبْنَا لَهُۥٓ إِسْحَـٰقَ وَيَعْقُوبَ نَافِلَةً ۖ وَكُلًّا جَعَلْنَا صَـٰلِحِينَ",
+   "reading": "Va vahabnaa lahuu Ishaaq; va Ya'quuba naafilah; va kullan ja'alnaa saalihiyn.",
+   "uz": "Unga Ishoqni hadya etdik va Yaʼqubni ziyoda qilib berdik va hammalarini ahli solihlar qildik."
+  },
+  {
+   "n": 73,
+   "ar": "وَجَعَلْنَـٰهُمْ أَئِمَّةً يَهْدُونَ بِأَمْرِنَا وَأَوْحَيْنَآ إِلَيْهِمْ فِعْلَ ٱلْخَيْرَٰتِ وَإِقَامَ ٱلصَّلَوٰةِ وَإِيتَآءَ ٱلزَّكَوٰةِ ۖ وَكَانُوا۟ لَنَا عَـٰبِدِينَ",
+   "reading": "Va ja'alnaahum a'immatany yahduuna bi amrinaa va avhainaaa ilaihim fi'lal xairaati va iqaamas Salaati va iytaaa'az Zakaati va kaanuu lanaa 'aabidiyn.",
+   "uz": "Va ularni amrimiz ila hidoyatga boshlovchilar qildik. Ularga yaxshiliklar qilishni, namozni tugal ado etishni va zakot berishni vahiy qildik. Ular Bizga ibodat qilguvchilar boʻldilar."
+  },
+  {
+   "n": 74,
+   "ar": "وَلُوطًا ءَاتَيْنَـٰهُ حُكْمًا وَعِلْمًا وَنَجَّيْنَـٰهُ مِنَ ٱلْقَرْيَةِ ٱلَّتِى كَانَت تَّعْمَلُ ٱلْخَبَـٰٓئِثَ ۗ إِنَّهُمْ كَانُوا۟ قَوْمَ سَوْءٍ فَـٰسِقِينَ",
+   "reading": "Va Luutan aatainaahu hukmanv va 'ilmanv va najjainaahu minal qaryatil latiy kaanat ta'malul xabaaa'is; innahum kaanuu qavma sav'in faasiqiyn.",
+   "uz": "Va Lutga hukm va ilm berdik va unga iflosliklar qilayotgan qishloqdan najot berdik. Albatta, ular yomon, buzgʻunchi qavm edilar."
+  },
+  {
+   "n": 75,
+   "ar": "وَأَدْخَلْنَـٰهُ فِى رَحْمَتِنَآ ۖ إِنَّهُۥ مِنَ ٱلصَّـٰلِحِينَ",
+   "reading": "Va adxalnaahu fiy Rohmatinaa innahuu minas saalihiy.",
+   "uz": "Va Biz uni Oʻz rahmatimizga kiritdik. Albatta, u solihlardandir."
+  },
+  {
+   "n": 76,
+   "ar": "وَنُوحًا إِذْ نَادَىٰ مِن قَبْلُ فَٱسْتَجَبْنَا لَهُۥ فَنَجَّيْنَـٰهُ وَأَهْلَهُۥ مِنَ ٱلْكَرْبِ ٱلْعَظِيمِ",
+   "reading": "Va nuuhan iz naadaa min qablu fastajabnaa lahuu fanajjainaahu va ahlahuu minal karbil 'aziym.",
+   "uz": "Va Nuhni (esla). Bundan oldin u nido etganida, Biz uning nidosiga javob qildik va unga hamda uning ahliga ulugʻ gʻamdan najot berdik."
+  },
+  {
+   "n": 77,
+   "ar": "وَنَصَرْنَـٰهُ مِنَ ٱلْقَوْمِ ٱلَّذِينَ كَذَّبُوا۟ بِـَٔايَـٰتِنَآ ۚ إِنَّهُمْ كَانُوا۟ قَوْمَ سَوْءٍ فَأَغْرَقْنَـٰهُمْ أَجْمَعِينَ",
+   "reading": "Va nasarnaahu minal qavmil laziyna kazzabuu bi Aayaatinaa; innahum kkaanuu qavma sav'in fa-ag'raq naahum ajma'iyn.",
+   "uz": "Unga oyatlarimizni yolgʻonga chiqargan qavmga qarshi nusrat berdik. Albatta, ular yomon qavm edilar. Bas, Biz ularning barchasini gʻarq qildik. [19]",
+   "notes": "[19] (Nuh alayhissalomning qissalari boshqa suralarda batafsil kelgan. Bu surada siyoqqa qarab ikki oyatda qisqacha bayon qilinmoqda.)"
+  },
+  {
+   "n": 78,
+   "ar": "وَدَاوُۥدَ وَسُلَيْمَـٰنَ إِذْ يَحْكُمَانِ فِى ٱلْحَرْثِ إِذْ نَفَشَتْ فِيهِ غَنَمُ ٱلْقَوْمِ وَكُنَّا لِحُكْمِهِمْ شَـٰهِدِينَ",
+   "reading": "Va Daavuuda va Sulaimaana iz yahkumaani fil harsi iz nafashat fiyhi g'anamul qavmi va kunnaa lihukmihim shaahidiyn.",
+   "uz": "Va Dovud bilan Sulaymonning ekinzor haqida hukm qilayotganlarini (esla). Oʻshanda u(ekinzor)ga qavmning qoʻyi kechasi tarqalib ketgan edi. Biz ularning hukmiga shohid boʻlgan edik. [20]",
+   "notes": "[20] (Oʻz davrining paygʻambari va podshohi boʻlmish Dovud alayhissalomning huzurlariga ikki kishi oralarida hukm chiqarishni soʻrab kelishibdi. Ulardan biri ekinzor sohibi, ikkinchisi qoʻylar egasi ekan. «Oʻshanda u (ekinzor)ga qavmning qoʻyi kechasi tarqalib ketgan edi». Kechasi bilan ekinzorni payhon qilib, yeb bitirgan edi. Dovud alayhissalom ikki tomonning gapini eshitib boʻlib, qoʻylarni ekinzor egasiga berilishiga hukm chiqardilar. Payhon boʻlib yoʻqolgan ekinzor oʻrniga uni payhon qilgan qoʻylarni olib berish ayni adolat edi. Bu hukmdan keyin qaytib ketayotgan qoʻy egasi Sulaymon alayhissalomni koʻrib qolib, boʻlgan hodisani u kishiga aytib berdi. Shunda Sulaymon alayhissalom otalari Dovud alayhissalom oldilariga kirdilar va «Ey Allohning Nabiyi, hukm siz chiqargan hukmdek boʻlmasligi kerak edi», dedilar. Dovud alayhissalom: «Qanday boʻlishi kerak edi», dedilar. Sulaymon alayhissalom: «Qoʻyni ekinzor egasiga bering, u foydalanib tursin. Ekinzorni esa, qoʻy egasiga bering, uni tuzatib asl holiga keltirsin. Soʻngra har kim oʻz narsasini qaytarib oladi. Ekinzor egasi ekinzorini eski holiga kelgandan soʻngra qaytarib oladi. Qoʻy egasi ham qoʻylarini qaytarib oladi», dedilar. Shunda Dovud alayhissalom: «Hukm sen chiqargan hukmdir», dedilar.)"
+  },
+  {
+   "n": 79,
+   "ar": "فَفَهَّمْنَـٰهَا سُلَيْمَـٰنَ ۚ وَكُلًّا ءَاتَيْنَا حُكْمًا وَعِلْمًا ۚ وَسَخَّرْنَا مَعَ دَاوُۥدَ ٱلْجِبَالَ يُسَبِّحْنَ وَٱلطَّيْرَ ۚ وَكُنَّا فَـٰعِلِينَ",
+   "reading": "Fafahhamnaahaa sulaimaan; va kullan aatainaa hukmanv va'ilmanv va sax xarnaa ma'a Daavuudal jibaala yusabbihna vattayr; va kunnaa faa'iliyn.",
+   "uz": "Bas, Biz uni Sulaymonga fahmlatdik. Ularning har biriga hukmni va ilmni bergan edik. Dovud bilan birga tasbih aytsin deb, togʻlarni va qushlarni boʻyinsundirib qoʻydik. Shularni qilguvchi boʻlgan Bizmiz."
+  },
+  {
+   "n": 80,
+   "ar": "وَعَلَّمْنَـٰهُ صَنْعَةَ لَبُوسٍ لَّكُمْ لِتُحْصِنَكُم مِّنۢ بَأْسِكُمْ ۖ فَهَلْ أَنتُمْ شَـٰكِرُونَ",
+   "reading": "Va 'allamanaahu san'ata labuusil lakum lituhsinakum mim baasikum fahal antum shaakiruun.",
+   "uz": "Biz unga sizlar uchun sizni yomonlikdan saqlaydigan kiyim qilish sanʼatini oʻrgatdik. Endi shukr qilarsizlar?!"
+  },
+  {
+   "n": 81,
+   "ar": "وَلِسُلَيْمَـٰنَ ٱلرِّيحَ عَاصِفَةً تَجْرِى بِأَمْرِهِۦٓ إِلَى ٱلْأَرْضِ ٱلَّتِى بَـٰرَكْنَا فِيهَا ۚ وَكُنَّا بِكُلِّ شَىْءٍ عَـٰلِمِينَ",
+   "reading": "Va li Sulaimaanar riyha 'aasifatan tajriy bi amrihiy ilal ardil latiy baaraknaa fiyhaa; va kunnaa bikulli shai'in 'aalimiyn.",
+   "uz": "Sulaymonga shamolni qattiq esuvchi qilib berdik. U (shamol) ni uning amri ila, Biz barakali qilgan yerga esadigan qilib qoʻydik. Barcha narsani bilguvchi boʻldik."
+  },
+  {
+   "n": 82,
+   "ar": "وَمِنَ ٱلشَّيَـٰطِينِ مَن يَغُوصُونَ لَهُۥ وَيَعْمَلُونَ عَمَلًا دُونَ ذَٰلِكَ ۖ وَكُنَّا لَهُمْ حَـٰفِظِينَ",
+   "reading": "Va minash Shayaatiyni mai yag'uusuuna lahuu va ya'maluuna 'amalan duuna zaalika va kunna lahum baafiziyn.",
+   "uz": "Va shaytonlardan unga gʻavvoslik qiladiganlarni va bundan boshqa amallarni bajaradiganlarni boʻysundirib qoʻydik. Biz ularni muhofaza qilguvchi boʻldik."
+  },
+  {
+   "n": 83,
+   "ar": "۞ وَأَيُّوبَ إِذْ نَادَىٰ رَبَّهُۥٓ أَنِّى مَسَّنِىَ ٱلضُّرُّ وَأَنتَ أَرْحَمُ ٱلرَّٰحِمِينَ",
+   "reading": "Va Ayyuuba iz naadaa Robbahuu anniy massaniyad durru va Anta arhamur raahimiyn.",
+   "uz": "Va Ayyubning Oʻz Robbiga nido qilib: «Albatta, meni zarar tutdi. Sening Oʻzing rahimlilarning rahimligisan!» deganini esla. [21]",
+   "notes": "[21] (Ayyub alayhissalomga juda katta zarar yetgani maʼlum. Lekin oʻsha zararning aynan nomini Qurʼoni Karim aniq aytmaydi. Ushbu oyatda ham Ayyub alayhissalomning Allohga yolborib nido qilayotganlari kelyapti, xolos.)"
+  },
+  {
+   "n": 84,
+   "ar": "فَٱسْتَجَبْنَا لَهُۥ فَكَشَفْنَا مَا بِهِۦ مِن ضُرٍّ ۖ وَءَاتَيْنَـٰهُ أَهْلَهُۥ وَمِثْلَهُم مَّعَهُمْ رَحْمَةً مِّنْ عِندِنَا وَذِكْرَىٰ لِلْعَـٰبِدِينَ",
+   "reading": "Fastajabnaa lahuu fakashaf naa maa bihiy min durrinv va aatainaahu ahlahuu va mislahum ma'ahum Rohmatam min 'indinaa va zikraa lil'aabidiyn.",
+   "uz": "Bas, Biz uni (duosini) istijobat qildik. Unga yetgan zararni ketkazdik. Unga ahlini, ular bilan birga yana shunchani ham berdik. Buni Oʻz rahmatimiz ila va «Obidlarga eslatma boʻlsin», deb qildik."
+  },
+  {
+   "n": 85,
+   "ar": "وَإِسْمَـٰعِيلَ وَإِدْرِيسَ وَذَا ٱلْكِفْلِ ۖ كُلٌّ مِّنَ ٱلصَّـٰبِرِينَ",
+   "reading": "Va Ismaa'iyla va Idriysa va Zal Kifli kullum minas saabiriyn.",
+   "uz": "Va Ismoil, Idris va Zul-kiflni esla. Ularning har biri sabr qilguvchilardandir."
+  },
+  {
+   "n": 86,
+   "ar": "وَأَدْخَلْنَـٰهُمْ فِى رَحْمَتِنَآ ۖ إِنَّهُم مِّنَ ٱلصَّـٰلِحِينَ",
+   "reading": "Va adxalnaahum fiy Rohmatinaa innahum minas saalihiyn.",
+   "uz": "Va ularni Oʻz rahmatimizga kiritdik. Albatta, ular solihlardandir."
+  },
+  {
+   "n": 87,
+   "ar": "وَذَا ٱلنُّونِ إِذ ذَّهَبَ مُغَـٰضِبًا فَظَنَّ أَن لَّن نَّقْدِرَ عَلَيْهِ فَنَادَىٰ فِى ٱلظُّلُمَـٰتِ أَن لَّآ إِلَـٰهَ إِلَّآ أَنتَ سُبْحَـٰنَكَ إِنِّى كُنتُ مِنَ ٱلظَّـٰلِمِينَ",
+   "reading": "Va Zan Nuuni iz zahaba mug'aadiban fazaanna al lan naqdira 'alaihi fanaanna al lan naqdira 'alaihi fanaadaa fiz zulumaati al laaa ilaaha illaaa Anta Subhaanaka inniy kuntu minaz zaalimiyn.",
+   "uz": "Zunnunni esla. Oʻshanda u gʻazablangan holda chiqib ketgan edi. Bas, u Bizni oʻziga (yer yuzini) tor etmas, deb gumon qildi. Zulmatlarda turib: «Sendan oʻzga iloh yoʻq, Sen poksan, albatta, men zolimlardan boʻldim», deb nido qildi. [22]",
+   "notes": "[22] (Zunnundan murod Yunus alayhissalomdir. «Nun» baliq degani, Zunnun esa, baliq egasi degani. Yunus alayhissalomni dengizda baliq yutib yuborgan, keyin qirgʻoqqa kelib, Allohning amri bilan chiqarib tashlangan. Shuning uchun Zunnun — baliq egasi, laqabini olganlar. U zotning qissalari As-Saffot surasida keladi. Ammo bu surada siyoqqa mos ravishda qisqacha bayon qilinmoqda. Yunus alayhissalom qavmlarining qilmishlaridan gʻazablanib, yurtlarini tashlab chiqib ketdilar. Ulamolarimiz aytishlaricha, aslida u kishi boshqa paygʻambarlarga oʻxshab sabr qilishlari, Allohning amrini kutishlari kerak edi. Ammo bunday qilmadilar. Qavmlariga zarda qilib, yurtlaridan chiqib ketdilar. Soʻngra Alloh taolo, u kishini baliqqa yuttirib, sinovga uchratdi. Ana oʻshanda, «zulmatlarda turib», yaʼni kecha zulmati, dengiz osti zulmati va baliq qorni zulmatida turib, Alloh taologa yolborib: «Sendan oʻzga Iloh yoʻq, Sen poksan, men zolimlardan boʻldim, deb nido qildi».)"
+  },
+  {
+   "n": 88,
+   "ar": "فَٱسْتَجَبْنَا لَهُۥ وَنَجَّيْنَـٰهُ مِنَ ٱلْغَمِّ ۚ وَكَذَٰلِكَ نُـۨجِى ٱلْمُؤْمِنِينَ",
+   "reading": "Fastajabnaa lahuu va najjainaahu minal g'amm; va kazaalika nunjil mu'miniyn.",
+   "uz": "Bas, Biz uni (duosini) ijobat qildik. Unga gʻamdan najot berdik. Moʻminlarga shunday najot berurmiz."
+  },
+  {
+   "n": 89,
+   "ar": "وَزَكَرِيَّآ إِذْ نَادَىٰ رَبَّهُۥ رَبِّ لَا تَذَرْنِى فَرْدًا وَأَنتَ خَيْرُ ٱلْوَٰرِثِينَ",
+   "reading": "Va Zakariyyaaa iz naadaa Robbahuu Robbi laa tazarniy fardanv va Anta xairul vaarisiyn.",
+   "uz": "Va Zakariyoni esla. Oʻshanda u Robbiga nido qilib: «Ey Robbim, meni yolgʻiz tashlab qoʻyma, Sen Oʻzing vorislarning eng yaxshisisan», degan edi."
+  },
+  {
+   "n": 90,
+   "ar": "فَٱسْتَجَبْنَا لَهُۥ وَوَهَبْنَا لَهُۥ يَحْيَىٰ وَأَصْلَحْنَا لَهُۥ زَوْجَهُۥٓ ۚ إِنَّهُمْ كَانُوا۟ يُسَـٰرِعُونَ فِى ٱلْخَيْرَٰتِ وَيَدْعُونَنَا رَغَبًا وَرَهَبًا ۖ وَكَانُوا۟ لَنَا خَـٰشِعِينَ",
+   "reading": "Fastajabnaa lahuu va vahabnaa lahuu Yahyaa Va aslahnaa lahuu zavjah; innahum kaanuu yusaari'uuna fil xairaati va yad'uunanaa rag'abanv va rahabaa; va kaanuu lanaa xaashi'iyn.",
+   "uz": "Bas, Biz uni (duosini) ijobat etdik va unga Yahyoni hadya qildik hamda juftini oʻnglab qoʻydik. Albatta, ular yaxshiliklarga shoshilishar edi va Bizga ragʻbat ila va qoʻrqib duo qilishar edi. Ular Bizga taʼzim ila boʻyinsunuvchi edilar."
+  },
+  {
+   "n": 91,
+   "ar": "وَٱلَّتِىٓ أَحْصَنَتْ فَرْجَهَا فَنَفَخْنَا فِيهَا مِن رُّوحِنَا وَجَعَلْنَـٰهَا وَٱبْنَهَآ ءَايَةً لِّلْعَـٰلَمِينَ",
+   "reading": "Vallatiy ahsanat farjahaa fanafaxnaa fiyhaa mir ruuhinaa va ja'alnaahaa vabnahaaa Aayatal lil'aalamiyn.",
+   "uz": "Farjini pok saqlagan ayolni esla. Biz unga Oʻz ruhimizdan pufladik. Uni va uning oʻgʻlini olamlarga oyat-belgi qildik. [23]",
+   "notes": "[23] («Farjini pok saqlagan» ayol deganda, Bibi Maryam nazarda tutilgan.)"
+  },
+  {
+   "n": 92,
+   "ar": "إِنَّ هَـٰذِهِۦٓ أُمَّتُكُمْ أُمَّةً وَٰحِدَةً وَأَنَا۠ رَبُّكُمْ فَٱعْبُدُونِ",
+   "reading": "Inna haazihiy ummatukum ummatanv vaahidatanv va Ana Robbukum fa'buduun.",
+   "uz": "Albatta, sizning ushbu ummatingiz bir ummatdir va Men sizning Robbingizman. Bas, Mengagina ibodat qiling."
+  },
+  {
+   "n": 93,
+   "ar": "وَتَقَطَّعُوٓا۟ أَمْرَهُم بَيْنَهُمْ ۖ كُلٌّ إِلَيْنَا رَٰجِعُونَ",
+   "reading": "Va taqatta'uu amrahum bainahum kullun ilainaaa raaji'uun.",
+   "uz": "Ular esa, ishlarini parchaladilar. Barchalari Bizga qaytuvchidirlar. [24]",
+   "notes": "[24] (Aslida, hamma bir ummat boʻlib, bir dinga ishonib, yagona Allohga ibodat qilishi kerak edi. Ammo odamlar bu yoʻldan yurmay, oʻzlaricha yoʻllarini, dinlari va ishlarini boʻlak-boʻlak qilib oldilar. Ularning hammasi baribir oxir-oqibat bizga qaytadilar. Oʻshanda biz oʻzimiz bilib hisob-kitob qilamiz.)"
+  },
+  {
+   "n": 94,
+   "ar": "فَمَن يَعْمَلْ مِنَ ٱلصَّـٰلِحَـٰتِ وَهُوَ مُؤْمِنٌ فَلَا كُفْرَانَ لِسَعْيِهِۦ وَإِنَّا لَهُۥ كَـٰتِبُونَ",
+   "reading": "Famai ya'mal minas saalihaati va huva mu'minun falaa kufraana lisa'yihiy va innaa lahuu kaatibuun.",
+   "uz": "Kim moʻmin holida solih amallardan qilsa, saʼyi-harakati zoye ketmas. Albatta, Biz uni yozib qoʻyguvchidirmiz."
+  },
+  {
+   "n": 95,
+   "ar": "وَحَرَٰمٌ عَلَىٰ قَرْيَةٍ أَهْلَكْنَـٰهَآ أَنَّهُمْ لَا يَرْجِعُونَ",
+   "reading": "Va haraamun 'alaa qaryatin ahlaknaahaaa annahum laa yarji'uun.",
+   "uz": "Biz halok qilgan qishloq-shaharlarning qaytmasligi haromdir. [25]",
+   "notes": "[25] (Bu dunyodagi gunohlari uchun yoʻqotib yuborilgan shahar-qishloqlarning aholisi qiyomat kuni jazolarini olish uchun qaytariladilar. Ularning qaytmasliklari mumkin emas.)"
+  },
+  {
+   "n": 96,
+   "ar": "حَتَّىٰٓ إِذَا فُتِحَتْ يَأْجُوجُ وَمَأْجُوجُ وَهُم مِّن كُلِّ حَدَبٍ يَنسِلُونَ",
+   "reading": "Hattaaa izaa futihat Yaajuuju va Maajuuju va hum min kulli hadabiny yansiluun.",
+   "uz": "Nihoyat, Yaʼjuj va Maʼjuj ochilib, ular har bir tepaliklardan oqib kelganlarida."
+  },
+  {
+   "n": 97,
+   "ar": "وَٱقْتَرَبَ ٱلْوَعْدُ ٱلْحَقُّ فَإِذَا هِىَ شَـٰخِصَةٌ أَبْصَـٰرُ ٱلَّذِينَ كَفَرُوا۟ يَـٰوَيْلَنَا قَدْ كُنَّا فِى غَفْلَةٍ مِّنْ هَـٰذَا بَلْ كُنَّا ظَـٰلِمِينَ",
+   "reading": "Vaqtarabal va'dul haqqu fa-izaa hiya shaaxisatun absaarul laziyna kafaruu yaavailanaa qad kunna fiy g'aflatim min haaza bal kunnaa zaalimiyn.",
+   "uz": "Va haq vaʼda yaqinlashgandagi holni koʻrsang, kufr keltirganlarning koʻzlari chaqchayib: «Holimizga voy! Bizlar bundan gʻaflatda edik. Yoʻq! Bizlar zulm qilguvchilar edik», derlar. [26]",
+   "notes": "[26] (Kahf surasida aytib oʻtilganidek, qiyomatning alomatlaridan biri — Zulqarnayn qurgan sadd-toʻgʻon ochilib, Yaʼjuj va Maʼjujlar chiqib ketishidir, ular juda koʻp boʻlib, koʻpliklaridan yurganlarida xuddi sel oqqandek oqib kelar ekanlar. Qiyomat qoyim boʻlgandagi holni koʻrsang, unda «... kufr keltirganlarning koʻzlari chaqchayib», yaʼni qotib qoladi. Shunday, gʻaflatda emas. Balki bilib turib tayyorgarlik koʻrmagan edik. Ishonmay, zulm qilgan edik, deydilar.)"
+  },
+  {
+   "n": 98,
+   "ar": "إِنَّكُمْ وَمَا تَعْبُدُونَ مِن دُونِ ٱللَّهِ حَصَبُ جَهَنَّمَ أَنتُمْ لَهَا وَٰرِدُونَ",
+   "reading": "Innakum va maa ta'buduuna min duunil laahi hasabu Jahannama antum lahaa vaariduun.",
+   "uz": "Albatta, sizlar va Allohdan oʻzga ibodat qilgan narsalaringiz jahannam yoqilgʻisidirsiz. Sizlar unga kirguvchilardirsiz."
+  },
+  {
+   "n": 99,
+   "ar": "لَوْ كَانَ هَـٰٓؤُلَآءِ ءَالِهَةً مَّا وَرَدُوهَا ۖ وَكُلٌّ فِيهَا خَـٰلِدُونَ",
+   "reading": "Lav kaana haaa'ulaaa'i aalihatam maa varaduuhaa va kullun fiyhaa xaaliduun.",
+   "uz": "Agar anavilar xudolar boʻlganida unga kirmas edilar. Hammalari unda abadiy qolurlar. [27]",
+   "notes": "[27] (Sizlar Allohdan oʻzga sigʻingan narsalar haqiqatda xudolar boʻlganida, jahannamga kirmas edilar. Ammo ular hech qachon xudo boʻlgan emas, ularni sizlar xudo deb olgansiz, shuning uchun jahannamga tushmoqdalar.)"
+  },
+  {
+   "n": 100,
+   "ar": "لَهُمْ فِيهَا زَفِيرٌ وَهُمْ فِيهَا لَا يَسْمَعُونَ",
+   "reading": "Lahum fiyhaa zafiyrunv va hum fiyhaa laa yasma'uun.",
+   "uz": "U yerda ularga ingrash bordir. Ular u yerda eshitmaslar."
+  },
+  {
+   "n": 101,
+   "ar": "إِنَّ ٱلَّذِينَ سَبَقَتْ لَهُم مِّنَّا ٱلْحُسْنَىٰٓ أُو۟لَـٰٓئِكَ عَنْهَا مُبْعَدُونَ",
+   "reading": "Innal laziyna sabaqat lahum minnal husnaaa ulaaa'ika 'anhaa mub'aduun.",
+   "uz": "Albatta, Bizdan oʻzlari uchun yaxshilik qilinganlar, ana oʻshalar undan(jahannamdan) uzoqlashtirilgandirlar. [28]",
+   "notes": "[28] (Yaʼni, Allohning moʻmin bandalari, Alloh ularga yaxshilikni ravo koʻrgan bandalar jahannamdan uzoqda boʻladilar. Uning yaqiniga ham kelmaydilar.)"
+  },
+  {
+   "n": 102,
+   "ar": "لَا يَسْمَعُونَ حَسِيسَهَا ۖ وَهُمْ فِى مَا ٱشْتَهَتْ أَنفُسُهُمْ خَـٰلِدُونَ",
+   "reading": "Laa yasma'uuna hasiy sahaa va hum fiy mash tahat anfusuhum xaaliduun.",
+   "uz": "Ular uning chisirlashini(ovozini ham) eshitmaslar. Ular oʻz nafslari ishtaha qilgan narsalari ichida abadiy qolguvchilardir."
+  },
+  {
+   "n": 103,
+   "ar": "لَا يَحْزُنُهُمُ ٱلْفَزَعُ ٱلْأَكْبَرُ وَتَتَلَقَّىٰهُمُ ٱلْمَلَـٰٓئِكَةُ هَـٰذَا يَوْمُكُمُ ٱلَّذِى كُنتُمْ تُوعَدُونَ",
+   "reading": "Laa yahzunuhumul faza'ul akbaru va tatalaq qaahumul malaaa'ikatu haazaa Yavmukumul laziy kuntum tuu'aduun.",
+   "uz": "Ularni buyuk dahshat gʻami bosmas. Ularni farishtalar: «Bu sizlarga vaʼda qilingan kuningizdir», deb kutib olurlar."
+  },
+  {
+   "n": 104,
+   "ar": "يَوْمَ نَطْوِى ٱلسَّمَآءَ كَطَىِّ ٱلسِّجِلِّ لِلْكُتُبِ ۚ كَمَا بَدَأْنَآ أَوَّلَ خَلْقٍ نُّعِيدُهُۥ ۚ وَعْدًا عَلَيْنَآ ۚ إِنَّا كُنَّا فَـٰعِلِينَ",
+   "reading": "Yavma natvis samaaa'a kataiyis sijilli lilkutub; kamaa badaanaa avvala xalqin nu'iyduh; va'dan 'alainaa; innaa kunna faa'iliyn.",
+   "uz": "Oʻsha kunda osmonni xuddi maktub yozilgan daftarni yopgandek yopamiz. Avval qanday yaratgan boʻlsak, shunday holga qaytaramiz. Bu zimmamizdagi vaʼdadir. Albatta, Biz buni qilguvchimiz. [29]",
+   "notes": "[29] (Xuddi hisob-kitob yozib boruvchi shaxs ishini tugatib daftarini yopganidek, qiyomat kunida osmon shunday yopiladi. Demak, dunyodagi ishlar hammasi bitgan, oxiriga yetgan boʻladi. Endi ishga, amalga, savob topish yoki tavba qilishga fursat qolmaydi.)"
+  },
+  {
+   "n": 105,
+   "ar": "وَلَقَدْ كَتَبْنَا فِى ٱلزَّبُورِ مِنۢ بَعْدِ ٱلذِّكْرِ أَنَّ ٱلْأَرْضَ يَرِثُهَا عِبَادِىَ ٱلصَّـٰلِحُونَ",
+   "reading": "Va laqad katabnaa fiz Zabuuri mim ba'diz zikri annal arda yarisuhaa 'ibaadi yas saalihuun.",
+   "uz": "Batahqiq, Biz Zikrdan soʻng Zaburda ham: «Albatta, yerga solih bandalarim merosxoʻr boʻlurlar», deb yozgan edik. [30]",
+   "notes": "[30] (Tafsirchilarimiz ushbu oyati karimadagi «zikr» va «yer» soʻzlaridan koʻzlangan maqsad haqida ikki xil fikr bildirganlar. Baʼzilari, «zikr»dan murod — Tavrotdir, shunga koʻra, oyatning maʼnosi: «Batahqiq, Biz Tavrotdan soʻng Zaburda ham: «Albatta, yerga solih bandalarim merosxoʻr boʻlurlar», deb yozgan edik» boʻladi, deydilar. Boshqalari esa, «zikr»dan murod — Lavhul Mahfuz, binobarin, avval oʻsha maʼnoni Lavhul Mahfuzga yozib, keyin Zaburga ham yozgan edik, maʼnosi chiqadi, deganlar. «Yer» haqida esa, baʼzi ulamolarimiz oddiy yer koʻzda tutilgan desalar, boshqalari jannat yeri nazarda tutilgan, deydilar. Ushbu ikki xil maʼnoni qoʻshib, har ikkisi koʻzda tutilgan, desa ham boʻladi.)"
+  },
+  {
+   "n": 106,
+   "ar": "إِنَّ فِى هَـٰذَا لَبَلَـٰغًا لِّقَوْمٍ عَـٰبِدِينَ",
+   "reading": "Inna fiy haaza labalaa g'al liqavmin 'aabidiyn.",
+   "uz": "Albatta, bu(Qurʼon)da ibodat qilguvchi qavm uchun yetarli oʻgit bordir."
+  },
+  {
+   "n": 107,
+   "ar": "وَمَآ أَرْسَلْنَـٰكَ إِلَّا رَحْمَةً لِّلْعَـٰلَمِينَ",
+   "reading": "Va maaa arsalnaaka illaa Rohmatal lil'aalamiyn.",
+   "uz": "Biz seni olamlarga faqat rahmat qilib yubordik."
+  },
+  {
+   "n": 108,
+   "ar": "قُلْ إِنَّمَا يُوحَىٰٓ إِلَىَّ أَنَّمَآ إِلَـٰهُكُمْ إِلَـٰهٌ وَٰحِدٌ ۖ فَهَلْ أَنتُم مُّسْلِمُونَ",
+   "reading": "Qul innamaa yuuhaa ilaiya annamaaa ilaahukum illaahunv Vaahid, fahal antum muslimuun.",
+   "uz": "Sen: «Menga faqat, sizning ilohingiz albatta bitta ilohdir, deb vahiy etilur. Bas, sizlar musulmon boʻlasizlarmi?!» – deb ayt."
+  },
+  {
+   "n": 109,
+   "ar": "فَإِن تَوَلَّوْا۟ فَقُلْ ءَاذَنتُكُمْ عَلَىٰ سَوَآءٍ ۖ وَإِنْ أَدْرِىٓ أَقَرِيبٌ أَم بَعِيدٌ مَّا تُوعَدُونَ",
+   "reading": "Fa in tavallav faqul aazantukum 'alaa savaaa'; va in adriy aqariybun am ba'iydum maa tuu'aduun.",
+   "uz": "Agar ular yuz oʻgirib ketsalar: «Men sizlarga barobarlik boʻlishi uchun eʼlon qildim. Sizga vaʼda qilinayotgan narsa yaqinmi yoki uzoqmi — bilmasman. [31]",
+   "notes": "[31] (Yaʼni, iymon masalasida hamma barobar boʻlishi uchun, menga tushgan vahiyni eʼlon qildim. Keyin bexabar edik, degan daʼvo boʻlmasligi uchun eshittirdim.)"
+  },
+  {
+   "n": 110,
+   "ar": "إِنَّهُۥ يَعْلَمُ ٱلْجَهْرَ مِنَ ٱلْقَوْلِ وَيَعْلَمُ مَا تَكْتُمُونَ",
+   "reading": "Innahuu ya'lamul jahra minal qavli va ya'lamu maa taktumuun.",
+   "uz": "Albatta, U soʻzning oshkorasini ham biladir va nimani berkitayotgan boʻlsangiz ham biladir."
+  },
+  {
+   "n": 111,
+   "ar": "وَإِنْ أَدْرِى لَعَلَّهُۥ فِتْنَةٌ لَّكُمْ وَمَتَـٰعٌ إِلَىٰ حِينٍ",
+   "reading": "Va in adriy la'allahuu fitnatul lakum va mataa'un ilaahiyn.",
+   "uz": "Bilmayman, ehtimol, bu sizlar uchun sinovdir yoki vaqtinchalik halovatdir», deb ayt. [32]",
+   "notes": "[32] (Azobning kelmay turishi ehtimol sinovdir, ehtimol bu dunyoning huzur-halovatidan foydalanib olishingiz uchun muhlatdir.)"
+  },
+  {
+   "n": 112,
+   "ar": "قَـٰلَ رَبِّ ٱحْكُم بِٱلْحَقِّ ۗ وَرَبُّنَا ٱلرَّحْمَـٰنُ ٱلْمُسْتَعَانُ عَلَىٰ مَا تَصِفُونَ",
+   "reading": "Qaala Robbih kum bil haqq; va Robbunar Rohmaa nul musta'aanu 'alaa maa tasifuun.",
+   "uz": "U: «Ey Robbim, Oʻzing haq ila hukm qil. Robbimiz Rohmandir va sizlar qilgan vasflardan madad soʻraladigan Zotdir», dedi. [33]",
+   "notes": "[33] (Yaʼni, Paygʻambar alayhissalom, ey Robbim, men omonatingni ado etdim. Kishilarga taʼlimotlaringni yetkazdim. Endi oʻzing haq ila hukm qilaver, dedilar.)"
+  }
+ ],
+ "sources": {
+  "arabic": "Quran.com API v4, text_uthmani (Tanzil text)",
+  "translation": "QuranEnc, uzbek_sadiq: Shaykh Muhammad Sodiq Muhammad Yusuf (converted to Latin script)",
+  "reading": "github.com/AbdurazzoqAbdugafforov/uzbek-quran-transliteration, uzbekReading"
+ },
+ "fetchedAt": "2026-11-03"
+}

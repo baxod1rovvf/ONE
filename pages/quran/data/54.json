@@ -1,0 +1,346 @@
+{
+ "n": 54,
+ "nameAr": "القمر",
+ "nameUz": "Al-Qamar",
+ "verses": [
+  {
+   "n": 1,
+   "ar": "ٱقْتَرَبَتِ ٱلسَّاعَةُ وَٱنشَقَّ ٱلْقَمَرُ",
+   "reading": "Iqtarabatis Saa'atu vsan shaqqal qamar.",
+   "uz": "Soat(qiyomat) yaqinlashdi va oy boʻlindi."
+  },
+  {
+   "n": 2,
+   "ar": "وَإِن يَرَوْا۟ ءَايَةً يُعْرِضُوا۟ وَيَقُولُوا۟ سِحْرٌ مُّسْتَمِرٌّ",
+   "reading": "Va iny yarav aayatany yu'riduu va yaquuluu sihrum mustamirr.",
+   "uz": "Agar bir oyat(moʻʼjiza)ni koʻrsalar, yuz oʻgirarlar va: «Bu — oʻtkinchi sehr», derlar."
+  },
+  {
+   "n": 3,
+   "ar": "وَكَذَّبُوا۟ وَٱتَّبَعُوٓا۟ أَهْوَآءَهُمْ ۚ وَكُلُّ أَمْرٍ مُّسْتَقِرٌّ",
+   "reading": "Va kazzabuu vattaba'uu ahvaaa'ahum; va kullu amrim mustaqirr.",
+   "uz": "Va yolgʻonga chiqardilar hamda havoyi nafslariga ergashdilar. Holbuki, har bir ish oʻz oʻrnini topuvchidir."
+  },
+  {
+   "n": 4,
+   "ar": "وَلَقَدْ جَآءَهُم مِّنَ ٱلْأَنۢبَآءِ مَا فِيهِ مُزْدَجَرٌ",
+   "reading": "Va laqad jaaa'ahum minal ambaaa'i maa fiyhi muzdajar.",
+   "uz": "Va, darhaqiqat, ularga hayiqtiradigan xabarlardan kelgan edi."
+  },
+  {
+   "n": 5,
+   "ar": "حِكْمَةٌۢ بَـٰلِغَةٌ ۖ فَمَا تُغْنِ ٱلنُّذُرُ",
+   "reading": "Hikmatum baalig'atun famaa tug'nin nuzur.",
+   "uz": "Ularda yetuk hikmat (bor edi). Biroq, ogohlantiruvchilar foyda bermadi."
+  },
+  {
+   "n": 6,
+   "ar": "فَتَوَلَّ عَنْهُمْ ۘ يَوْمَ يَدْعُ ٱلدَّاعِ إِلَىٰ شَىْءٍ نُّكُرٍ",
+   "reading": "Fatavalla 'anhum; yavma yad'ud daa'i ilaa shai 'in nukur.",
+   "uz": "Bas, Ulardan yuz oʻgir! Chaqiruvchi munkar narsaga chaqirgan kunda."
+  },
+  {
+   "n": 7,
+   "ar": "خُشَّعًا أَبْصَـٰرُهُمْ يَخْرُجُونَ مِنَ ٱلْأَجْدَاثِ كَأَنَّهُمْ جَرَادٌ مُّنتَشِرٌ",
+   "reading": "Xushsha'an absaaruhum yakrujuuna minal ajdaasi ka annahum jaraadum muntashir.",
+   "uz": "Qabrlardan, koʻzlari qoʻrqinchga toʻlgan holda, xuddi yoyilgan chigirtkaga oʻxshab chiqib kelurlar."
+  },
+  {
+   "n": 8,
+   "ar": "مُّهْطِعِينَ إِلَى ٱلدَّاعِ ۖ يَقُولُ ٱلْكَـٰفِرُونَ هَـٰذَا يَوْمٌ عَسِرٌ",
+   "reading": "Muhti'iyna ilad daa'i yaquulul kafiruuna haazaa yavmun 'asir.",
+   "uz": "Chaqiruvchiga qarab boʻyinlarini choʻzib, shoshilib borurlar. Kofirlar: «Bu qiyin kun-ku», derlar."
+  },
+  {
+   "n": 9,
+   "ar": "۞ كَذَّبَتْ قَبْلَهُمْ قَوْمُ نُوحٍ فَكَذَّبُوا۟ عَبْدَنَا وَقَالُوا۟ مَجْنُونٌ وَٱزْدُجِرَ",
+   "reading": "Kazzabat qablahum qavmu Nuuhin fakazzabuu 'abdanaa va qaaluu majnuu nunv vazdujir.",
+   "uz": "Bulardan oldin Nuh qavmi ham yolgʻonchi qilgan edi. Bas, bandamizni yolgʻonchiga chiqarishdi va, majnun, deyishdi hamda unga toʻsiqlar qoʻyishdi."
+  },
+  {
+   "n": 10,
+   "ar": "فَدَعَا رَبَّهُۥٓ أَنِّى مَغْلُوبٌ فَٱنتَصِرْ",
+   "reading": "Fada'aa Robbahuu anniy mag'luubun fantasir.",
+   "uz": "Va Robbisiga duo qilib: «Albatta, men magʻlub boʻldim, yordam ber», dedi."
+  },
+  {
+   "n": 11,
+   "ar": "فَفَتَحْنَآ أَبْوَٰبَ ٱلسَّمَآءِ بِمَآءٍ مُّنْهَمِرٍ",
+   "reading": "Fafatahnaaa abvaabas sa maaa'i bimaa'im munhamir.",
+   "uz": "Bas, osmon eshiklarini sharros suv bilan ochib yubordik."
+  },
+  {
+   "n": 12,
+   "ar": "وَفَجَّرْنَا ٱلْأَرْضَ عُيُونًا فَٱلْتَقَى ٱلْمَآءُ عَلَىٰٓ أَمْرٍ قَدْ قُدِرَ",
+   "reading": "Va fajjamal arda 'uyuunan faltaqal maaa'u 'alaaa amrin qad qudir.",
+   "uz": "Va yerdan otiltirib buloqlar chiqardik. Bas, suvlar taqdir qilingan ish uchun birlashdilar."
+  },
+  {
+   "n": 13,
+   "ar": "وَحَمَلْنَـٰهُ عَلَىٰ ذَاتِ أَلْوَٰحٍ وَدُسُرٍ",
+   "reading": "Va hamalnaahu 'alaa zaati alvaahinv va dusur.",
+   "uz": "Va u(Nuh)ni taxtalari va mixlari bor narsa ustiga koʻtardik."
+  },
+  {
+   "n": 14,
+   "ar": "تَجْرِى بِأَعْيُنِنَا جَزَآءً لِّمَن كَانَ كُفِرَ",
+   "reading": "Tajriy bi a'yuninaa jazaaa 'al liman kaana kufir.",
+   "uz": "U(Kema) inkor qilingan shaxs(Nuh)ga mukofot boʻlib, Bizning inoyatimiz ila yuradir."
+  },
+  {
+   "n": 15,
+   "ar": "وَلَقَد تَّرَكْنَـٰهَآ ءَايَةً فَهَلْ مِن مُّدَّكِرٍ",
+   "reading": "Va laqat taraknaahaad aayatan fahal mim muddakir.",
+   "uz": "Va u(hodisa)ni belgi qilib qoldirdik. Qani, ibrat oluvchi bormi?!"
+  },
+  {
+   "n": 16,
+   "ar": "فَكَيْفَ كَانَ عَذَابِى وَنُذُرِ",
+   "reading": "Fakaifa kaana 'azaabiy va nuzur.",
+   "uz": "Bas, Mening azobim va ogohlantirishim qandoq boʻldi?!"
+  },
+  {
+   "n": 17,
+   "ar": "وَلَقَدْ يَسَّرْنَا ٱلْقُرْءَانَ لِلذِّكْرِ فَهَلْ مِن مُّدَّكِرٍ",
+   "reading": "Va laqad yassamal Quraana liz zikri fahal mimmuddakir.",
+   "uz": "Darhaqiqat, Biz Qurʼonni zikr uchun oson qildik. Bas, zikr qiluvchi bormi?!"
+  },
+  {
+   "n": 18,
+   "ar": "كَذَّبَتْ عَادٌ فَكَيْفَ كَانَ عَذَابِى وَنُذُرِ",
+   "reading": "Kazzabat 'Aadun fakaifa kaana 'azaabiy va nuzur.",
+   "uz": "Od (Hudni) yolgʻonchiga chiqardi. Bas, Mening azobim va ogohlantirishim qandoq boʻldi?"
+  },
+  {
+   "n": 19,
+   "ar": "إِنَّآ أَرْسَلْنَا عَلَيْهِمْ رِيحًا صَرْصَرًا فِى يَوْمِ نَحْسٍ مُّسْتَمِرٍّ",
+   "reading": "Innaa arsalnaa 'alaihim riyhan sarsaran fiy Yavmi nahsim mustamirr.",
+   "uz": "Biz davomli mashʼum kunda ular ustiga sorsor shamolini yubordik.  [1]",
+   "notes": "[1] («Sorsor» deb nomlangan shamol oʻzi oʻta sovuq boʻlib, ovozi juda ham kuchli boʻlar ekan.)"
+  },
+  {
+   "n": 20,
+   "ar": "تَنزِعُ ٱلنَّاسَ كَأَنَّهُمْ أَعْجَازُ نَخْلٍ مُّنقَعِرٍ",
+   "reading": "Tanzi;un naasa ka anna huma'jaazu naxlim munqa'ir.",
+   "uz": "U, odamlarni, xuddi xurmo daraxtini tomiri bilan qoʻporib yuborgandek, (yerdan) uzib-uchirib tashlardi."
+  },
+  {
+   "n": 21,
+   "ar": "فَكَيْفَ كَانَ عَذَابِى وَنُذُرِ",
+   "reading": "'Fakaifa kaana 'azaabiy va nuzur.",
+   "uz": "Bas, Mening azobim va ogohlantirishim qandoq boʻldi?!"
+  },
+  {
+   "n": 22,
+   "ar": "وَلَقَدْ يَسَّرْنَا ٱلْقُرْءَانَ لِلذِّكْرِ فَهَلْ مِن مُّدَّكِرٍ",
+   "reading": "Va laqad yassamal Quraana liz zikri fahal mim muddakir.",
+   "uz": "Darhaqiqat, Biz Qurʼonni zikr uchun oson qildik. Bas, zikr qiluvchi bormi?!"
+  },
+  {
+   "n": 23,
+   "ar": "كَذَّبَتْ ثَمُودُ بِٱلنُّذُرِ",
+   "reading": "Kazzabat Samuudu binnuzur.",
+   "uz": "Samud ogohlantiruvchilarni yolgʻonga chiqardi."
+  },
+  {
+   "n": 24,
+   "ar": "فَقَالُوٓا۟ أَبَشَرًا مِّنَّا وَٰحِدًا نَّتَّبِعُهُۥٓ إِنَّآ إِذًا لَّفِى ضَلَـٰلٍ وَسُعُرٍ",
+   "reading": "Faqaaluu a-basharam minnaa vaahidan nattabi'uhuu innaa izal lafiy dalaalinv va su'ur.",
+   "uz": "Ular: «Biz oʻzimizdan boʻlgan bir odamga ergashamizmi? Agar shunday boʻlsa, albatta, adashuvda va jinnilikda boʻlamiz."
+  },
+  {
+   "n": 25,
+   "ar": "أَءُلْقِىَ ٱلذِّكْرُ عَلَيْهِ مِنۢ بَيْنِنَا بَلْ هُوَ كَذَّابٌ أَشِرٌ",
+   "reading": "'A-ulqiyaz zikru 'alaihi mim baininaa bal huva kazzaabun ashir.",
+   "uz": "Bizlarning oramizdan unga zikr (vahiy) tushirilibdimi?! Yoʻq, u yolgʻonchi va kekkaygandir», dedilar."
+  },
+  {
+   "n": 26,
+   "ar": "سَيَعْلَمُونَ غَدًا مَّنِ ٱلْكَذَّابُ ٱلْأَشِرُ",
+   "reading": "Sa-ya'lamuuna g'adam manil kazzaabul ashir.",
+   "uz": "Ertaga kim yolgʻonchi va kekkaygan ekanini bilurlar."
+  },
+  {
+   "n": 27,
+   "ar": "إِنَّا مُرْسِلُوا۟ ٱلنَّاقَةِ فِتْنَةً لَّهُمْ فَٱرْتَقِبْهُمْ وَٱصْطَبِرْ",
+   "reading": "Innaa mursilun naaqati fitnatal lahum fartaqibhum vastabir.",
+   "uz": "Biz ularni sinash uchun tuyani yuboruvchimiz. Ularni kuzatib tur va sabr qil."
+  },
+  {
+   "n": 28,
+   "ar": "وَنَبِّئْهُمْ أَنَّ ٱلْمَآءَ قِسْمَةٌۢ بَيْنَهُمْ ۖ كُلُّ شِرْبٍ مُّحْتَضَرٌ",
+   "reading": "Va nabbi'hum annal maaa'a qismatum bainahum kullu shirbim muhtadar.",
+   "uz": "Va ularga, albatta, suv oralarida taqsimlanganining xabarini ber. Har bir ichishga (oʻz vaqtida) hozir boʻlinar.  [2]",
+   "notes": "[2] (Tuya bilan Samud qavmi suvning kunma-kun taqsimlangani toʻgʻrisida gap borayotibdi.)"
+  },
+  {
+   "n": 29,
+   "ar": "فَنَادَوْا۟ صَاحِبَهُمْ فَتَعَاطَىٰ فَعَقَرَ",
+   "reading": "Fanaadav saahibahum fata'aataa fa'aqar.",
+   "uz": "Bas, ular oʻz sheriklarini chaqirdilar. U (tuyani) tutdi va soʻyib yubordi."
+  },
+  {
+   "n": 30,
+   "ar": "فَكَيْفَ كَانَ عَذَابِى وَنُذُرِ",
+   "reading": "Fakaifa kaana 'azaabiy va nuzur.",
+   "uz": "Bas, Mening azobim va ogohlantirishim qandoq boʻldi?!"
+  },
+  {
+   "n": 31,
+   "ar": "إِنَّآ أَرْسَلْنَا عَلَيْهِمْ صَيْحَةً وَٰحِدَةً فَكَانُوا۟ كَهَشِيمِ ٱلْمُحْتَظِرِ",
+   "reading": "Innaaa arsalnaa 'alaihim saihatanv vaahidatan fakaano kahashiymil muhtazir.",
+   "uz": "Albatta, Biz ularga bir ovoz yubordik. Va ular qoʻra quruvchi (yiqqan) quruq shox-shabbalarga oʻxshab qoldilar."
+  },
+  {
+   "n": 32,
+   "ar": "وَلَقَدْ يَسَّرْنَا ٱلْقُرْءَانَ لِلذِّكْرِ فَهَلْ مِن مُّدَّكِرٍ",
+   "reading": "Va laqad yassarnal quraana liz zikri fahal mim muddakir.",
+   "uz": "Darhaqiqat, Biz Qurʼonni zikr uchun oson qildik. Bas, zikr qiluvchi bormi?!"
+  },
+  {
+   "n": 33,
+   "ar": "كَذَّبَتْ قَوْمُ لُوطٍۭ بِٱلنُّذُرِ",
+   "reading": "Kazzabat qavmu luutim binnuzur.",
+   "uz": "Lut qavmi ogohlantiruvchilarni yolgʻonchiga chiqardi."
+  },
+  {
+   "n": 34,
+   "ar": "إِنَّآ أَرْسَلْنَا عَلَيْهِمْ حَاصِبًا إِلَّآ ءَالَ لُوطٍ ۖ نَّجَّيْنَـٰهُم بِسَحَرٍ",
+   "reading": "Innaa arsalnaa 'alaihim haasiban illaaa aala Luut najjainaahum bisahar.",
+   "uz": "Albatta, Biz ularning ustiga (tosh) boʻron yubordik. Faqat Lut xonadoniga sahar chogʻi najot berdik."
+  },
+  {
+   "n": 35,
+   "ar": "نِّعْمَةً مِّنْ عِندِنَا ۚ كَذَٰلِكَ نَجْزِى مَن شَكَرَ",
+   "reading": "Ni'matam min 'indinaa; kazaalika najziy man shakar.",
+   "uz": "Bu, Biz tarafimizdan neʼmat boʻldi. Kimki shukr qilsa, xuddi shunday mukofotlarmiz."
+  },
+  {
+   "n": 36,
+   "ar": "وَلَقَدْ أَنذَرَهُم بَطْشَتَنَا فَتَمَارَوْا۟ بِٱلنُّذُرِ",
+   "reading": "Va laqad anzarahum batshatanaa fatamaarav binnuzur.",
+   "uz": "Darhaqiqat, u(Lut) ularni Bizning tutishimizdan ogohlantirgan edi. Bas, ular ogohlantirishlarga ishonmadilar."
+  },
+  {
+   "n": 37,
+   "ar": "وَلَقَدْ رَٰوَدُوهُ عَن ضَيْفِهِۦ فَطَمَسْنَآ أَعْيُنَهُمْ فَذُوقُوا۟ عَذَابِى وَنُذُرِ",
+   "reading": "Va laqad raavaduuhu 'andaifiy fatamasnaaa a'yunahum fazuuquu 'azaabiy va nuzur.",
+   "uz": "Ular undan mehmonlarini topshirishni soʻradilar. Bas, koʻzlarini koʻr qildik. Mening azobim va ogohlantirishlarimni totib koʻrsinlar."
+  },
+  {
+   "n": 38,
+   "ar": "وَلَقَدْ صَبَّحَهُم بُكْرَةً عَذَابٌ مُّسْتَقِرٌّ",
+   "reading": "Va laqad sabbahahum bukratan 'azaabum mustaqirr.",
+   "uz": "Batahqiq, erta tongda ularni sobit, davomli azob tutdi."
+  },
+  {
+   "n": 39,
+   "ar": "فَذُوقُوا۟ عَذَابِى وَنُذُرِ",
+   "reading": "Fazuuquu 'azaabiy va nuzur.",
+   "uz": "Bas, Mening azoblarimni va ogohlantirishlarimni totib koʻringlar!"
+  },
+  {
+   "n": 40,
+   "ar": "وَلَقَدْ يَسَّرْنَا ٱلْقُرْءَانَ لِلذِّكْرِ فَهَلْ مِن مُّدَّكِرٍ",
+   "reading": "Va laqad yassarnal Quraana liz zikri fahal mim muddakir.",
+   "uz": "Darhaqiqat, Biz Qurʼonni zikr uchun oson qildik. Bas, zikr qiluvchi bormi?!"
+  },
+  {
+   "n": 41,
+   "ar": "وَلَقَدْ جَآءَ ءَالَ فِرْعَوْنَ ٱلنُّذُرُ",
+   "reading": "Va laqad jaaa'a Aala Fir'avnan nuzur.",
+   "uz": "Darhaqiqat, Firʼavn ahliga ogohlantirishlar keldi."
+  },
+  {
+   "n": 42,
+   "ar": "كَذَّبُوا۟ بِـَٔايَـٰتِنَا كُلِّهَا فَأَخَذْنَـٰهُمْ أَخْذَ عَزِيزٍ مُّقْتَدِرٍ",
+   "reading": "Kazzabuu bi Aayaatinaa kullihaa fa axaznaahum axza 'aziyzim muqtadir.",
+   "uz": "Bizning oyatlarimizning barchasini yolgʻonga chiqarishdi. Bas, Biz ularni gʻolib, qudratli oluvchining olishi bilan oldik."
+  },
+  {
+   "n": 43,
+   "ar": "أَكُفَّارُكُمْ خَيْرٌ مِّنْ أُو۟لَـٰٓئِكُمْ أَمْ لَكُم بَرَآءَةٌ فِى ٱلزُّبُرِ",
+   "reading": "Akuffaarukum xairum min ulaaa'ikum am lakum baraaa'atun fiz Zubur.",
+   "uz": "Sizning kofirlaringiz avvalgilaringizdan yaxshiroqmi?! Yoki kitoblarda sizlarga oqlov bormi?!"
+  },
+  {
+   "n": 44,
+   "ar": "أَمْ يَقُولُونَ نَحْنُ جَمِيعٌ مُّنتَصِرٌ",
+   "reading": "Am yaquuluuna nahnu jamiy'um muntasir.",
+   "uz": "Yoki, Biz nusratga erishuvchi jamoatmiz, deyishar?!"
+  },
+  {
+   "n": 45,
+   "ar": "سَيُهْزَمُ ٱلْجَمْعُ وَيُوَلُّونَ ٱلدُّبُرَ",
+   "reading": "Sa yuhzamul jam'u va yuvalluunad dubur.",
+   "uz": "U jamoa tezda yengilar va orqalariga qarab qocharlar."
+  },
+  {
+   "n": 46,
+   "ar": "بَلِ ٱلسَّاعَةُ مَوْعِدُهُمْ وَٱلسَّاعَةُ أَدْهَىٰ وَأَمَرُّ",
+   "reading": "Balis Saa'atu mav'iduhum vas Saa'atu azaa va amarr.",
+   "uz": "Ha, ularga vaʼda qilingan vaqt, soat(qiyomat)dir. Va u soat (azobi) ulkanroq va achchiqroqdir."
+  },
+  {
+   "n": 47,
+   "ar": "إِنَّ ٱلْمُجْرِمِينَ فِى ضَلَـٰلٍ وَسُعُرٍ",
+   "reading": "Innal mujrimiyna fiy dalaalinv va su'ur.",
+   "uz": "Albatta, jinoyatkorlar adashuvda va olov-otashdadirlar."
+  },
+  {
+   "n": 48,
+   "ar": "يَوْمَ يُسْحَبُونَ فِى ٱلنَّارِ عَلَىٰ وُجُوهِهِمْ ذُوقُوا۟ مَسَّ سَقَرَ",
+   "reading": "Yavma yushabuuna fin Naari'alaa vujuuhimim zuuquu massa saqar.",
+   "uz": "Yuztuban doʻzaxga sudraladigan kunda, jahannam azobini tatib koʻring, (deyilur)."
+  },
+  {
+   "n": 49,
+   "ar": "إِنَّا كُلَّ شَىْءٍ خَلَقْنَـٰهُ بِقَدَرٍ",
+   "reading": "Innaa kulla shai'in xalaqnaahu biqadar.",
+   "uz": "Albatta, Biz har narsani oʻlchov bilan yaratdik."
+  },
+  {
+   "n": 50,
+   "ar": "وَمَآ أَمْرُنَآ إِلَّا وَٰحِدَةٌ كَلَمْحٍۭ بِٱلْبَصَرِ",
+   "reading": "Va maaa amrunaaa illaa vaahidatun kalamhim bilbasar.",
+   "uz": "Bizning farmonimiz bir soʻzdan oʻzga emas. Koʻz yumib ochguncha boʻlur."
+  },
+  {
+   "n": 51,
+   "ar": "وَلَقَدْ أَهْلَكْنَآ أَشْيَاعَكُمْ فَهَلْ مِن مُّدَّكِرٍ",
+   "reading": "Va laqad ahlaknaaa ashyaa'akum fahal mim muddakir.",
+   "uz": "Darhaqiqat, Biz sizga oʻxshaganlarni halok qildik. Bas, buni eslovchilardan bormi, oʻzi?!"
+  },
+  {
+   "n": 52,
+   "ar": "وَكُلُّ شَىْءٍ فَعَلُوهُ فِى ٱلزُّبُرِ",
+   "reading": "Va kullu shai'in fa'aluuhu fiz Zubur.",
+   "uz": "Va ularning har bir ishlari kitoblardadir."
+  },
+  {
+   "n": 53,
+   "ar": "وَكُلُّ صَغِيرٍ وَكَبِيرٍ مُّسْتَطَرٌ",
+   "reading": "Va kullu sag'iyrinv va kabiyrim mustatar.",
+   "uz": "Har bir kichigu katta (ishlar) satrlangandir. [3]",
+   "notes": "[3] (Makka mushriklari, qanday qilib insonning ishlarini satrlarga yozib, hujjat toʻplab borish mumkin, deb oʻsha vaqtda ajablangan boʻlishlari mumkin. Ammo biz hozirgi hisob-kitoblarni, yozish asboblarini koʻrib-bilib turib, qandoq qilib bu haqiqatni inkor eta olamiz?)"
+  },
+  {
+   "n": 54,
+   "ar": "إِنَّ ٱلْمُتَّقِينَ فِى جَنَّـٰتٍ وَنَهَرٍ",
+   "reading": "Innal muttaqiyna fiy jannaatinv va nahar.",
+   "uz": "Albatta, taqvodorlar jannatu anhorlardadirlar."
+  },
+  {
+   "n": 55,
+   "ar": "فِى مَقْعَدِ صِدْقٍ عِندَ مَلِيكٍ مُّقْتَدِرٍۭ",
+   "reading": "Fiy maq'adi sidqin 'inda Maliykim Muqtadir.",
+   "uz": "Sidq oʻrindiqda, qudratli Podshoh huzuridadir."
+  }
+ ],
+ "sources": {
+  "arabic": "Quran.com API v4, text_uthmani (Tanzil text)",
+  "translation": "QuranEnc, uzbek_sadiq: Shaykh Muhammad Sodiq Muhammad Yusuf (converted to Latin script)",
+  "reading": "github.com/AbdurazzoqAbdugafforov/uzbek-quran-transliteration, uzbekReading"
+ },
+ "fetchedAt": "2026-11-03"
+}

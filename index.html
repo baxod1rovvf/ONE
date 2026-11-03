@@ -16,7 +16,7 @@
   <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 48 48'%3E%3Cdefs%3E%3ClinearGradient id='c' gradientUnits='userSpaceOnUse' x1='34' y1='11' x2='31' y2='37'%3E%3Cstop offset='0' stop-color='%23ffcf5a'/%3E%3Cstop offset='.28' stop-color='%23ff8a3d'/%3E%3Cstop offset='.5' stop-color='%23ec62c4'/%3E%3Cstop offset='.72' stop-color='%237b4cf0'/%3E%3Cstop offset='1' stop-color='%234fb2ff'/%3E%3C/linearGradient%3E%3ClinearGradient id='i' gradientUnits='userSpaceOnUse' x1='16' y1='18' x2='30' y2='34'%3E%3Cstop offset='0' stop-color='%233b1d8f'/%3E%3Cstop offset='.6' stop-color='%237b4cf0'/%3E%3Cstop offset='1' stop-color='%235aa8ff'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='48' height='48' rx='13' fill='%230b0a14'/%3E%3Cpath d='M32.81 16.61A11.5 11.5 0 1 0 32.81 31.39' fill='none' stroke='url(%23c)' stroke-width='7.5' stroke-linecap='round'/%3E%3Cpath d='M15.9 21A8.6 8.6 0 0 0 31.5 30.2' fill='none' stroke='url(%23i)' stroke-width='2.6' stroke-linecap='round' opacity='.85'/%3E%3Cpath d='M24 18.6Q24.8 23.2 29.4 24Q24.8 24.8 24 29.4Q23.2 24.8 18.6 24Q23.2 23.2 24 18.6Z' fill='%23fbf1de'/%3E%3C/svg%3E">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600;700&family=Geist:wght@400;500;600;700&family=Geist+Mono:wght@400;500&display=swap">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Amiri+Quran&family=Fredoka:wght@500;600;700&family=Geist:wght@400;500;600;700&family=Geist+Mono:wght@400;500&display=swap">
   <style>
 /* Core design tokens.
    Concept: "touch grass". Light is Morning (blue sky, fresh grass), dark is Night
@@ -490,6 +490,7 @@ main[data-section='saved'] {
   --section-text: var(--c-saved-text);
   --on-section: var(--c-saved-on);
 }
+main[data-section='quran'],
 main[data-section='telegram'] {
   --section: var(--c-telegram);
   --section-soft: var(--c-telegram-soft);
@@ -1480,6 +1481,25 @@ main[data-section] {
   .dock__pebble {
     top: 5px;
     bottom: 5px;
+  }
+}
+/* Eight tabs on a small phone: a little less frame, so every tab keeps its
+   44px and its label. */
+@media (max-width: 420px) {
+  .dock {
+    left: 8px;
+    right: 8px;
+    gap: 0;
+    padding: 3px;
+  }
+  .dock__tab {
+    padding: 0 1px;
+    font-size: 9.5px;
+    letter-spacing: -0.01em;
+  }
+  .dock__pebble {
+    top: 3px;
+    bottom: 3px;
   }
 }
 
@@ -3853,6 +3873,14 @@ main[data-section='saved'] .panel::after {
    * This source code is licensed under the ISC license.
    * See the LICENSE file in the root directory of this source tree.
    */
+  const BookOpenText = createLucideIcon("BookOpenText", [
+    ["path", { d: "M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z", key: "1" }],
+    ["path", { d: "M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z", key: "2" }],
+    ["path", { d: "M6 8h2", key: "3" }],
+    ["path", { d: "M6 12h2", key: "4" }],
+    ["path", { d: "M16 8h2", key: "5" }],
+    ["path", { d: "M16 12h2", key: "6" }]
+  ]);
   const Smile = createLucideIcon("Smile", [
     ["circle", { cx: "12", cy: "12", r: "10", key: "1mglay" }],
     ["path", { d: "M8 14s1.5 2 4 2 4-2 4-2", key: "1y1vjs" }],
@@ -4056,7 +4084,7 @@ main[data-section='saved'] .panel::after {
     return d.version === 1 && ["tasks", "goals", "notes", "saved", "shortcuts", "recent"].every((k) => Array.isArray(d[k])) && typeof d.settings === "object" && d.settings !== null;
   }
   const IDEA_COLORS = ["#8fd16a", "#ef7b6f", "#62a6f0", "#b48cf0", "#efb94f", "#4cc7b5"];
-  const EXTRA_COLLECTIONS = ["websiteCategories", "ideaCategories", "ideas", "moods"];
+  const EXTRA_COLLECTIONS = ["websiteCategories", "ideaCategories", "ideas", "moods", "hifz"];
   function withDefaults(d) {
     const out = { ...d };
     EXTRA_COLLECTIONS.forEach((k) => {
@@ -4065,7 +4093,7 @@ main[data-section='saved'] .panel::after {
     if (!out.deleted || typeof out.deleted !== "object" || Array.isArray(out.deleted)) out.deleted = {};
     return out;
   }
-  const SYNCED_COLLECTIONS = ["tasks", "goals", "notes", "saved", "shortcuts", "websiteCategories", "ideaCategories", "ideas", "moods"];
+  const SYNCED_COLLECTIONS = ["tasks", "goals", "notes", "saved", "shortcuts", "websiteCategories", "ideaCategories", "ideas", "moods", "hifz"];
   // Marks what an action changed so devices can merge: edited items get a _m
   // timestamp, removed ids are remembered in `deleted` with the time they went.
   function stampChanges(prev, next) {
@@ -4323,6 +4351,7 @@ main[data-section='saved'] .panel::after {
       ideaCategories: [],
       ideas: [],
       moods: [],
+      hifz: [],
       recent: [],
       settings: settings ?? { name: "", theme: "system", sidebarCollapsed: false, sampleBannerDismissed: true }
     };
@@ -4931,6 +4960,7 @@ main[data-section='saved'] .panel::after {
     { id: "home", label: "Home", icon: House, description: "Touch grass and take a one-minute break" },
     { id: "tasks", label: "Tasks", icon: SquareCheckBig, description: "Everything you need to do, and how far along you are" },
     { id: "mood", label: "Mood", icon: Smile, description: "Mark your days and see how your week went" },
+    { id: "quran", label: "Quran", icon: BookOpenText, description: "Learn surahs by heart, four at a time" },
     { id: "websites", label: "Websites", icon: Globe, description: "Your favourite websites, sorted into categories" },
     { id: "ideas", label: "Ideas", icon: Lightbulb, description: "Ideas grouped by category, shown as a map" },
     { id: "telegram", label: "Telegram", icon: MessageCircle, description: "Your chosen Telegram chats, and whom to answer first" },
@@ -4945,6 +4975,8 @@ main[data-section='saved'] .panel::after {
   function resolveRoute(r) {
     // #telegram/<chat id> is the Telegram page with that chat open.
     if (r.startsWith("telegram/")) return "telegram";
+    // #quran/<surah> and #quran/review are views of the Quran page.
+    if (r.startsWith("quran/")) return "quran";
     return ROUTE_ALIASES[r] ?? r;
   }
   const PREFERENCES_ROUTE = {
@@ -5486,9 +5518,10 @@ main[data-section='saved'] .panel::after {
   const GAME_FILES = ["panel", "snake", "tetris", "breakout", "2048", "minesweeper", "memory"].flatMap((f) => [`./games/${f}.js`, `./games/${f}.css`]);
   // Every page's files, and Telegram's own scripts (also in step with sw.js).
   const PAGE_FILES = [
-    ...["home", "tasks", "mood", "websites", "ideas", "telegram", "saved", "goals", "knowledge", "preferences"].flatMap((p) => [`./pages/${p}/${p}.js`, `./pages/${p}/${p}.css`]),
+    ...["home", "tasks", "mood", "quran", "websites", "ideas", "telegram", "saved", "goals", "knowledge", "preferences"].flatMap((p) => [`./pages/${p}/${p}.js`, `./pages/${p}/${p}.css`]),
     ...["rules", "client", "service", "qr"].map((f) => `./pages/telegram/${f}.js`),
-    "./pages/mood/rules.js"
+    "./pages/mood/rules.js",
+    "./pages/quran/rules.js"
   ];
   const APP_FILES = ["./index.html", ...GAME_FILES, "./manifest.webmanifest", ...PAGE_FILES];
   const UPDATE_KEY = "one.update.v1";
@@ -6663,6 +6696,81 @@ main[data-section='saved'] .panel::after {
     [109, "الكافرون", "Al-Kafirun", "The Disbelievers", 6], [110, "النصر", "An-Nasr", "The Divine Support", 3], [111, "المسد", "Al-Masad", "The Palm Fiber", 5],
     [112, "الإخلاص", "Al-Ikhlas", "The Sincerity", 4], [113, "الفلق", "Al-Falaq", "The Daybreak", 5], [114, "الناس", "An-Nas", "Mankind", 6]
   ];
+  // One short recitation clip for the Quran learning page: a whole surah, or
+  // one verse of it (from..to, in ms), once or on repeat. Starting one pauses
+  // Core's other sounds, and Core's player starting pauses it.
+  const QuranClip = {
+    audio: null,
+    from: 0,
+    to: null,
+    loop: false,
+    key: null,
+    listeners: new Set(),
+    emit() {
+      for (const fn of this.listeners) fn();
+    },
+    subscribe(fn) {
+      this.listeners.add(fn);
+      return () => this.listeners.delete(fn);
+    },
+    ensure() {
+      if (this.audio) return this.audio;
+      const a = new Audio();
+      a.preload = "auto";
+      a.addEventListener("timeupdate", () => {
+        if (this.to == null || a.currentTime * 1e3 < this.to) return;
+        if (this.loop) a.currentTime = this.from / 1e3;
+        else a.pause();
+      });
+      a.addEventListener("ended", () => {
+        if (this.loop) {
+          a.currentTime = this.from / 1e3;
+          a.play().catch(() => {});
+        }
+      });
+      for (const ev of ["play", "pause", "ended"]) a.addEventListener(ev, () => this.emit());
+      if (window.__oneSound) window.__oneSound.onDuck(() => this.stop());
+      this.audio = a;
+      return a;
+    },
+    async play(url, { from = 0, to = null, loop = false, key = null } = {}) {
+      if (window.__oneSound) window.__oneSound.pauseAll();
+      const a = this.ensure();
+      // Shown as playing straight away, while the file loads.
+      Object.assign(this, { from, to, loop, key, loading: true });
+      this.emit();
+      try {
+        if (a.src !== url) {
+          a.src = url;
+          await new Promise((resolve, reject) => {
+            a.addEventListener("loadedmetadata", resolve, { once: true });
+            a.addEventListener("error", reject, { once: true });
+          });
+        }
+        if (this.key !== key) return;
+        a.currentTime = from / 1e3;
+        await a.play();
+      } finally {
+        if (this.key === key) this.loading = false;
+        this.emit();
+      }
+    },
+    stop() {
+      if (this.audio) this.audio.pause();
+      this.key = null;
+      this.loading = false;
+      this.loop = false;
+      this.emit();
+    }
+  };
+  window.__oneQuranClip = QuranClip;
+  // The reciter chosen in the Quran player, or the first one Quran.com lists.
+  async function quranReciterId() {
+    const chosen = window.__oneSound && window.__oneSound.settings.quran.reciterId;
+    if (chosen) return chosen;
+    const list = await QuranSource.reciters();
+    return list[0] ? list[0].id : null;
+  }
   const surahTitle = (n) => `${n}. ${SURAHS[n - 1][2]}`;
   // Letters and digits only, lower case: "Ya-Sin" and "Yasin" both become "yasin".
   const searchKey = (s) => s.toLowerCase().replace(/[^\p{L}\p{N}]+/gu, "");
@@ -6704,6 +6812,27 @@ main[data-section='saved'] .panel::after {
       if (!url) throw new Error(QURAN_ERROR);
       this.urls.set(key, url);
       return url;
+    },
+    // The recording's per-verse timings, for playing one verse:
+    // { url, verses: [{ verse, from, to }] } in milliseconds, or null when the
+    // reciter has none (or Quran.com can't be reached).
+    timings: new Map(),
+    async verseTimings(reciterId, n) {
+      const key = `${reciterId}/${n}`;
+      if (this.timings.has(key)) return this.timings.get(key);
+      let out = null;
+      try {
+        const res = await fetch(`${QURAN_API}/chapter_recitations/${reciterId}/${n}?segments=true`);
+        const file = res.ok ? (await res.json()).audio_file : null;
+        const stamps = file && Array.isArray(file.timestamps) ? file.timestamps : [];
+        if (file && file.audio_url && stamps.length) {
+          out = { url: file.audio_url, verses: stamps.map((t) => ({ verse: Number(String(t.verse_key).split(":")[1]), from: t.timestamp_from, to: t.timestamp_to })) };
+        }
+      } catch {
+        out = null;
+      }
+      this.timings.set(key, out);
+      return out;
     },
     async keepOffline(reciterId, n) {
       const url = await this.surahUrl(reciterId, n);
@@ -8708,12 +8837,12 @@ main[data-section='saved'] .panel::after {
   // Every page lives in pages/<id>/<id>.js and pages/<id>/<id>.css. The open
   // page loads first (<head> already asked for its files); the others load in
   // the background right after, so switching pages never waits.
-  const PAGE_IDS = ["home", "tasks", "mood", "websites", "ideas", "telegram", "saved", "goals", "knowledge", "preferences"];
+  const PAGE_IDS = ["home", "tasks", "mood", "quran", "websites", "ideas", "telegram", "saved", "goals", "knowledge", "preferences"];
   const pagePromises = {};
   function loadedPage(id) {
     return (window.__onePages || {})[id] || null;
   }
-  const PAGE_DEPS = { mood: ["pages/mood/rules.js"] };
+  const PAGE_DEPS = { mood: ["pages/mood/rules.js"], quran: ["pages/quran/rules.js"] };
   function loadPage(id) {
     if (loadedPage(id)) return Promise.resolve(loadedPage(id));
     if (pagePromises[id]) return pagePromises[id];
@@ -9435,7 +9564,7 @@ main[data-section='saved'] .panel::after {
     return /* @__PURE__ */ React2.createElement(StoreProvider, null, /* @__PURE__ */ React2.createElement(ToastProvider, null, /* @__PURE__ */ React2.createElement(ConfirmProvider, null, React2.createElement(SyncProvider, null, React2.createElement(SoundProvider, null, React2.createElement(LockProvider, null, /* @__PURE__ */ React2.createElement(UIProvider, null, /* @__PURE__ */ React2.createElement(Shell, null))))))));
   }
   // What the pages (pages/<id>/<id>.js) borrow from the app.
-  window.__oneApp = { MOODS, MOOD_NOTE_MAX, MoodFace, useMoodDay, useToday, REPEATS, nextRepeatDate, React2, reactDom, loadScript, ensureTelegram, useTelegram, telegramDevice, MessageCircle, ArrowLeft, ArrowRight, BookOpen, Button, Check, CircleCheck, EmptyState, Field, FolderPlus, IDEA_COLORS, IconButton, Kbd, Lightbulb, Lock, Menu, Minus, Modal, Monogram, Moon, Pencil, Plus, RefreshCw, STARS, SampleBadge, Search, Segmented, SoundsButton, StickyNote, Sun, Target, Trash2, Trophy, X, addDays, createLucideIcon, createSampleData, hostOf, isAppData, isMac, isTypingTarget, loadGames, modKey, newId, parseISODate, relativeDay, takeInstallPrompt, timeAgo, toISODate, todayISO, useConfirm, useDeleteCategory, useDeleteGoal, useDeleteIdea, useDeleteSaved, useDeleteShortcut, useDeleteTask, useLock, useMediaQuery, useSound, useStore, useSync, useTheme, useToast, useUI };
+  window.__oneApp = { QuranClip, QuranSource, quranReciterId, MOODS, MOOD_NOTE_MAX, MoodFace, useMoodDay, useToday, REPEATS, nextRepeatDate, React2, reactDom, loadScript, ensureTelegram, useTelegram, telegramDevice, MessageCircle, ArrowLeft, ArrowRight, BookOpen, Button, Check, CircleCheck, EmptyState, Field, FolderPlus, IDEA_COLORS, IconButton, Kbd, Lightbulb, Lock, Menu, Minus, Modal, Monogram, Moon, Pencil, Plus, RefreshCw, STARS, SampleBadge, Search, Segmented, SoundsButton, StickyNote, Sun, Target, Trash2, Trophy, X, addDays, createLucideIcon, createSampleData, hostOf, isAppData, isMac, isTypingTarget, loadGames, modKey, newId, parseISODate, relativeDay, takeInstallPrompt, timeAgo, toISODate, todayISO, useConfirm, useDeleteCategory, useDeleteGoal, useDeleteIdea, useDeleteSaved, useDeleteShortcut, useDeleteTask, useLock, useMediaQuery, useSound, useStore, useSync, useTheme, useToast, useUI };
   // What the games (games/*.js) borrow from the app.
   window.__oneKit = { React: React2, ReactDOM: reactDom, IconButton, icons: { Trophy, X, ArrowLeft, Volume2, VolumeX }, FOCUSABLE };
   client.createRoot(document.getElementById("root")).render(/* @__PURE__ */ React2.createElement(App, null));

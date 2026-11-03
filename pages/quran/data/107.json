@@ -1,0 +1,55 @@
+{
+ "n": 107,
+ "nameAr": "الماعون",
+ "nameUz": "Al-Ma'un",
+ "verses": [
+  {
+   "n": 1,
+   "ar": "أَرَءَيْتَ ٱلَّذِى يُكَذِّبُ بِٱلدِّينِ",
+   "reading": "Ara-aital laziy yukazzibu bid diyn.",
+   "uz": "Oxirat(jazosi)ni yolgʻonga chiqaruvchini koʻrdingmi?"
+  },
+  {
+   "n": 2,
+   "ar": "فَذَٰلِكَ ٱلَّذِى يَدُعُّ ٱلْيَتِيمَ",
+   "reading": "Fa zaalikal lazi yadu'ul-yatiym.",
+   "uz": "U, yetimni qoʻpollik bilan haydaydir."
+  },
+  {
+   "n": 3,
+   "ar": "وَلَا يَحُضُّ عَلَىٰ طَعَامِ ٱلْمِسْكِينِ",
+   "reading": "Va la ya huddu 'alaa ta'amil miskiyn.",
+   "uz": "Va miskinlarga taom berishga qiziqtirmaydir."
+  },
+  {
+   "n": 4,
+   "ar": "فَوَيْلٌ لِّلْمُصَلِّينَ",
+   "reading": "Fa vai lul-lil mu salliyn.",
+   "uz": "Bir «namozxonlar»ga vayl boʻlsinki."
+  },
+  {
+   "n": 5,
+   "ar": "ٱلَّذِينَ هُمْ عَن صَلَاتِهِمْ سَاهُونَ",
+   "reading": "Allaziyna hum 'an salaatihim sahuun.",
+   "uz": "Ular namozlarini unutuvchilardir."
+  },
+  {
+   "n": 6,
+   "ar": "ٱلَّذِينَ هُمْ يُرَآءُونَ",
+   "reading": "Allaziyna hum yuraa-uun.",
+   "uz": "Undoq kishilar riyo qiladiganlardir."
+  },
+  {
+   "n": 7,
+   "ar": "وَيَمْنَعُونَ ٱلْمَاعُونَ",
+   "reading": "Va yamna'uunal ma'uun.",
+   "uz": "Va maaʼuunni man qiladiganlardir."
+  }
+ ],
+ "sources": {
+  "arabic": "Quran.com API v4, text_uthmani (Tanzil text)",
+  "translation": "QuranEnc, uzbek_sadiq: Shaykh Muhammad Sodiq Muhammad Yusuf (converted to Latin script)",
+  "reading": "github.com/AbdurazzoqAbdugafforov/uzbek-quran-transliteration, uzbekReading"
+ },
+ "fetchedAt": "2026-11-03"
+}

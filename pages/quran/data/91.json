@@ -1,0 +1,104 @@
+{
+ "n": 91,
+ "nameAr": "الشمس",
+ "nameUz": "Ash-Shams",
+ "verses": [
+  {
+   "n": 1,
+   "ar": "وَٱلشَّمْسِ وَضُحَىٰهَا",
+   "reading": "Vash shamsi va duhaa haa.",
+   "uz": "Quyosh bilan va uning ziyosi bilan qasam."
+  },
+  {
+   "n": 2,
+   "ar": "وَٱلْقَمَرِ إِذَا تَلَىٰهَا",
+   "reading": "Val qamari izaa talaa haa.",
+   "uz": "Uning ortidan kelgan oy bilan qasam."
+  },
+  {
+   "n": 3,
+   "ar": "وَٱلنَّهَارِ إِذَا جَلَّىٰهَا",
+   "reading": "Vannahaari izaa jallaa haa.",
+   "uz": "Va u(quyosh)ni ravshan koʻrsatgan nahor bilan qasam."
+  },
+  {
+   "n": 4,
+   "ar": "وَٱلَّيْلِ إِذَا يَغْشَىٰهَا",
+   "reading": "Vallaili izaa yag'shaa haa.",
+   "uz": "Va u(quyosh)ni qoplagan tun bilan qasam."
+  },
+  {
+   "n": 5,
+   "ar": "وَٱلسَّمَآءِ وَمَا بَنَىٰهَا",
+   "reading": "Vassamaaa'i va maa banaahaa.",
+   "uz": "Va osmon bilan va uning bino qilinishi bilan qasam."
+  },
+  {
+   "n": 6,
+   "ar": "وَٱلْأَرْضِ وَمَا طَحَىٰهَا",
+   "reading": "Val ardi va maa tahaahaa.",
+   "uz": "Va yer bilan va uning toʻshalishi bilan qasam."
+  },
+  {
+   "n": 7,
+   "ar": "وَنَفْسٍ وَمَا سَوَّىٰهَا",
+   "reading": "Va nafsinv va maa savvaahaa.",
+   "uz": "Va nafs bilan va uning mukammal qilinishi bilan qasam."
+  },
+  {
+   "n": 8,
+   "ar": "فَأَلْهَمَهَا فُجُورَهَا وَتَقْوَىٰهَا",
+   "reading": "Fa-alhamahaa fujuurahaa va taqvaahaa.",
+   "uz": "Bas, unga fujurini va taqvosini bildirdi."
+  },
+  {
+   "n": 9,
+   "ar": "قَدْ أَفْلَحَ مَن زَكَّىٰهَا",
+   "reading": "Qad aflaha man zakkaahaa.",
+   "uz": "Batahqiq, kim u(nafs)ni poklasa, yutuqqa erishdi."
+  },
+  {
+   "n": 10,
+   "ar": "وَقَدْ خَابَ مَن دَسَّىٰهَا",
+   "reading": "Va qad xaaba man dassaahaa.",
+   "uz": "Va batahqiq, kim u(nafs)ni kirlasa, noumid boʻldi."
+  },
+  {
+   "n": 11,
+   "ar": "كَذَّبَتْ ثَمُودُ بِطَغْوَىٰهَآ",
+   "reading": "Kazzabat Samuudu bi tag'vaahaaa.",
+   "uz": "Samud qavmi oʻz tugʻyoni ila yolgʻonga chiqardi."
+  },
+  {
+   "n": 12,
+   "ar": "إِذِ ٱنۢبَعَثَ أَشْقَىٰهَا",
+   "reading": "Izim ba'asa ashqaahaa.",
+   "uz": "Vaqtiki, uning eng badbaxti shoshilib turdi."
+  },
+  {
+   "n": 13,
+   "ar": "فَقَالَ لَهُمْ رَسُولُ ٱللَّهِ نَاقَةَ ٱللَّهِ وَسُقْيَـٰهَا",
+   "reading": "Faqaala lahum Rasuulul laahi naaqatal laahi va suqiyaahaa.",
+   "uz": "Bas, ularga Allohning Rasuli: «Allohning tuyasiga va uning suviga tegmanglar», dedi."
+  },
+  {
+   "n": 14,
+   "ar": "فَكَذَّبُوهُ فَعَقَرُوهَا فَدَمْدَمَ عَلَيْهِمْ رَبُّهُم بِذَنۢبِهِمْ فَسَوَّىٰهَا",
+   "reading": "Fakazzabuuhu fa'aqaruuhaa fadamdama 'alaihim Robbuhum bizambihim fasav vaahaa.",
+   "uz": "Bas, (uni) yolgʻonchiga chiqarishdi va (tuyani) soʻyishdi. Bas, Robblari ularni gunohlari sababli yoʻq qilib yubordi va bunda barchani barobar qildi."
+  },
+  {
+   "n": 15,
+   "ar": "وَلَا يَخَافُ عُقْبَـٰهَا",
+   "reading": "Va laa yaxaafu'uqbaahaa.",
+   "uz": "Va U zot bu(ish)ning oqibatidan qoʻrqmas. [1]",
+   "notes": "[1] (Bu dunyoning podshohlari oʻzlarining qilgan ishlaridan, oqibati nima boʻlarkin, deb hadiksirab turadilar. Alloh subhanahu va taolo esa bunday xavfdan mustasnodir.)"
+  }
+ ],
+ "sources": {
+  "arabic": "Quran.com API v4, text_uthmani (Tanzil text)",
+  "translation": "QuranEnc, uzbek_sadiq: Shaykh Muhammad Sodiq Muhammad Yusuf (converted to Latin script)",
+  "reading": "github.com/AbdurazzoqAbdugafforov/uzbek-quran-transliteration, uzbekReading"
+ },
+ "fetchedAt": "2026-11-03"
+}

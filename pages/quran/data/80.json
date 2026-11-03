@@ -1,0 +1,265 @@
+{
+ "n": 80,
+ "nameAr": "عبس",
+ "nameUz": "'Abasa",
+ "verses": [
+  {
+   "n": 1,
+   "ar": "عَبَسَ وَتَوَلَّىٰٓ",
+   "reading": "'Abasa va tavallaa.",
+   "uz": "Aftini burishtirdi va yuz oʻgirdi."
+  },
+  {
+   "n": 2,
+   "ar": "أَن جَآءَهُ ٱلْأَعْمَىٰ",
+   "reading": "An jaa-ahul 'a-maa.",
+   "uz": "Koʻzi koʻr kishi huzuriga kelganda."
+  },
+  {
+   "n": 3,
+   "ar": "وَمَا يُدْرِيكَ لَعَلَّهُۥ يَزَّكَّىٰٓ",
+   "reading": "Va maa yudriyka la'allahu yaz zakkaa.",
+   "uz": "Qayerdan bilasan, ehtimol, u poklanar."
+  },
+  {
+   "n": 4,
+   "ar": "أَوْ يَذَّكَّرُ فَتَنفَعَهُ ٱلذِّكْرَىٰٓ",
+   "reading": "Au yaz zak karu fatanfa 'ahuz zikraa.",
+   "uz": "Yoki nasihat olar va mavʼiza unga manfaat berar."
+  },
+  {
+   "n": 5,
+   "ar": "أَمَّا مَنِ ٱسْتَغْنَىٰ",
+   "reading": "Amma manis tag'naa.",
+   "uz": "Ammo istigʻno qilganga boʻlsa..."
+  },
+  {
+   "n": 6,
+   "ar": "فَأَنتَ لَهُۥ تَصَدَّىٰ",
+   "reading": "Fa-anta lahu tasaddaa.",
+   "uz": "Sen u tomonga intilasan."
+  },
+  {
+   "n": 7,
+   "ar": "وَمَا عَلَيْكَ أَلَّا يَزَّكَّىٰ",
+   "reading": "Va ma 'alaika allaa yaz zakka.",
+   "uz": "U poklanmasa, seni hech kim malomat qilmas."
+  },
+  {
+   "n": 8,
+   "ar": "وَأَمَّا مَن جَآءَكَ يَسْعَىٰ",
+   "reading": "Va amma man jaa-aka yas'a.",
+   "uz": "Ammo huzuringga shoshilib kelgan."
+  },
+  {
+   "n": 9,
+   "ar": "وَهُوَ يَخْشَىٰ",
+   "reading": "Vahuva yaxshaa,.",
+   "uz": "Va U zotdan qoʻrqqan holda boʻlgandan esa..."
+  },
+  {
+   "n": 10,
+   "ar": "فَأَنتَ عَنْهُ تَلَهَّىٰ",
+   "reading": "Fa-anta 'anhu talah haa.",
+   "uz": "Bas, Sen undan mashgʻul boʻlasan."
+  },
+  {
+   "n": 11,
+   "ar": "كَلَّآ إِنَّهَا تَذْكِرَةٌ",
+   "reading": "Kalla innaha tazkirah.",
+   "uz": "Yoʻq! Albatta ular (Qurʼon oyatlari) eslatmadir."
+  },
+  {
+   "n": 12,
+   "ar": "فَمَن شَآءَ ذَكَرَهُۥ",
+   "reading": "Faman shaa a zakarah.",
+   "uz": "Kim xohlasa, uni eslaydir."
+  },
+  {
+   "n": 13,
+   "ar": "فِى صُحُفٍ مُّكَرَّمَةٍ",
+   "reading": "Fi suhufim mukar rama,.",
+   "uz": "Hurmatlangan sahifalardadir."
+  },
+  {
+   "n": 14,
+   "ar": "مَّرْفُوعَةٍ مُّطَهَّرَةٍۭ",
+   "reading": "Marfuu'atim mutah hara,.",
+   "uz": "Oliy qadardirlar, poklangandirlar."
+  },
+  {
+   "n": 15,
+   "ar": "بِأَيْدِى سَفَرَةٍ",
+   "reading": "Bi'aidiy safara.",
+   "uz": "Elchi(farishta)lar qoʻllaridadir."
+  },
+  {
+   "n": 16,
+   "ar": "كِرَامٍۭ بَرَرَةٍ",
+   "reading": "Kiraamim bararah.",
+   "uz": "Ular hurmatlangan va oʻta yaxshidirlar."
+  },
+  {
+   "n": 17,
+   "ar": "قُتِلَ ٱلْإِنسَـٰنُ مَآ أَكْفَرَهُۥ",
+   "reading": "Qutilal-insanu maa akfarah.",
+   "uz": "Insonga laʼnat boʻlsin, uning kofirligi qandoq shiddatli boʻldi."
+  },
+  {
+   "n": 18,
+   "ar": "مِنْ أَىِّ شَىْءٍ خَلَقَهُۥ",
+   "reading": "Min aiyyi shai-in Xalaq.",
+   "uz": "Uni qaysi narsadan yaratdi?"
+  },
+  {
+   "n": 19,
+   "ar": "مِن نُّطْفَةٍ خَلَقَهُۥ فَقَدَّرَهُۥ",
+   "reading": "Min nutfatin xalaqahuu faqaddarah.",
+   "uz": "Nutfadan uni yaratdi va uni oʻlchovli qildi."
+  },
+  {
+   "n": 20,
+   "ar": "ثُمَّ ٱلسَّبِيلَ يَسَّرَهُۥ",
+   "reading": "Summas sabiyla yas-sarah.",
+   "uz": "Soʻngra, chiqish yoʻlini oson qildi."
+  },
+  {
+   "n": 21,
+   "ar": "ثُمَّ أَمَاتَهُۥ فَأَقْبَرَهُۥ",
+   "reading": "Summa amatahu fa-aqbarah.",
+   "uz": "Soʻngra oʻldirdi va qabrga kirgazdi."
+  },
+  {
+   "n": 22,
+   "ar": "ثُمَّ إِذَا شَآءَ أَنشَرَهُۥ",
+   "reading": "Summa iza shaa-a ansharah.",
+   "uz": "Soʻngra (qachon) xohlasa, uni qayta tiriltiradi."
+  },
+  {
+   "n": 23,
+   "ar": "كَلَّا لَمَّا يَقْضِ مَآ أَمَرَهُۥ",
+   "reading": "Kalla lamma yaqdi maa amarah.",
+   "uz": "Yoʻq, undoq emas! U oʻziga U zot qilgan amrni bajarmadi."
+  },
+  {
+   "n": 24,
+   "ar": "فَلْيَنظُرِ ٱلْإِنسَـٰنُ إِلَىٰ طَعَامِهِۦٓ",
+   "reading": "Falyanzuril insanu ilaa ta-amih.",
+   "uz": "Inson oʻz taomiga nazar solsin."
+  },
+  {
+   "n": 25,
+   "ar": "أَنَّا صَبَبْنَا ٱلْمَآءَ صَبًّا",
+   "reading": "Anna sabab nalmaa-a sabba.",
+   "uz": "Albatta, Biz suvni rosa quyib qoʻyibmiz."
+  },
+  {
+   "n": 26,
+   "ar": "ثُمَّ شَقَقْنَا ٱلْأَرْضَ شَقًّا",
+   "reading": "Summa sha qaqnal-arda shaqqa.",
+   "uz": "Soʻngra yerni oʻziga xos yordik."
+  },
+  {
+   "n": 27,
+   "ar": "فَأَنۢبَتْنَا فِيهَا حَبًّا",
+   "reading": "Fa ambatna fiyha habba.",
+   "uz": "Biz unda donni."
+  },
+  {
+   "n": 28,
+   "ar": "وَعِنَبًا وَقَضْبًا",
+   "reading": "Va 'inabav-va qadba.",
+   "uz": "Va uzum va koʻklarni."
+  },
+  {
+   "n": 29,
+   "ar": "وَزَيْتُونًا وَنَخْلًا",
+   "reading": "Va zaituunav vanax la'.",
+   "uz": "Va zaytun va xurmolarni."
+  },
+  {
+   "n": 30,
+   "ar": "وَحَدَآئِقَ غُلْبًا",
+   "reading": "Va hadaa-iqa g'ulba.",
+   "uz": "Va tigʻiz bogʻlarni."
+  },
+  {
+   "n": 31,
+   "ar": "وَفَـٰكِهَةً وَأَبًّا",
+   "reading": "Va faki hatav-va abba.",
+   "uz": "Va mevalaru oʻt-oʻlanlarni oʻstirib qoʻydik."
+  },
+  {
+   "n": 32,
+   "ar": "مَّتَـٰعًا لَّكُمْ وَلِأَنْعَـٰمِكُمْ",
+   "reading": "Mata'al-lakum va li-an'amikum.",
+   "uz": "Sizlarga va chorvalaringizga manfaat va lazzat boʻlsin, deb."
+  },
+  {
+   "n": 33,
+   "ar": "فَإِذَا جَآءَتِ ٱلصَّآخَّةُ",
+   "reading": "Faiza jaa-atis saaxah.",
+   "uz": "Vaqtiki kar qiluvchi ovoz kelsa."
+  },
+  {
+   "n": 34,
+   "ar": "يَوْمَ يَفِرُّ ٱلْمَرْءُ مِنْ أَخِيهِ",
+   "reading": "Yauma yafir-rul mar-u min axiyh.",
+   "uz": "U kunda kishi oʻz aka-ukasidan."
+  },
+  {
+   "n": 35,
+   "ar": "وَأُمِّهِۦ وَأَبِيهِ",
+   "reading": "Va ummihiy va abiyh.",
+   "uz": "Va onasi va otasidan."
+  },
+  {
+   "n": 36,
+   "ar": "وَصَـٰحِبَتِهِۦ وَبَنِيهِ",
+   "reading": "Va sahi batihiy va baniyh.",
+   "uz": "Va xotini va bola-chaqasidan qochadi."
+  },
+  {
+   "n": 37,
+   "ar": "لِكُلِّ ٱمْرِئٍ مِّنْهُمْ يَوْمَئِذٍ شَأْنٌ يُغْنِيهِ",
+   "reading": "Likul limri-im-minuhm yaumaa-izin shaa nuy-yug'niyh.",
+   "uz": "U kunda ulardan har bir shaxsni ovora qiluvchi oʻz ishi bor."
+  },
+  {
+   "n": 38,
+   "ar": "وُجُوهٌ يَوْمَئِذٍ مُّسْفِرَةٌ",
+   "reading": "Vujuu huny-yauma-izim-musfira;.",
+   "uz": "U kunda porloq chehralar bor."
+  },
+  {
+   "n": 39,
+   "ar": "ضَاحِكَةٌ مُّسْتَبْشِرَةٌ",
+   "reading": "Dahi katum mustab shirah.",
+   "uz": "Ular kulgu bilan toʻla, yetgan xushxabardan xursand."
+  },
+  {
+   "n": 40,
+   "ar": "وَوُجُوهٌ يَوْمَئِذٍ عَلَيْهَا غَبَرَةٌ",
+   "reading": "Va vujuuhuy yauma-izin 'alaiha g'abar a.",
+   "uz": "U kunda bir chehralar borki, ularni gʻubor bosgan."
+  },
+  {
+   "n": 41,
+   "ar": "تَرْهَقُهَا قَتَرَةٌ",
+   "reading": "Tarhaquha qatarah.",
+   "uz": "Ustini zulmat qoplagan."
+  },
+  {
+   "n": 42,
+   "ar": "أُو۟لَـٰٓئِكَ هُمُ ٱلْكَفَرَةُ ٱلْفَجَرَةُ",
+   "reading": "Ulaa-ika humul-kafa ratul-fajarah.",
+   "uz": "Ular, ana oʻshalar, kofirlar va fojirlardir."
+  }
+ ],
+ "sources": {
+  "arabic": "Quran.com API v4, text_uthmani (Tanzil text)",
+  "translation": "QuranEnc, uzbek_sadiq: Shaykh Muhammad Sodiq Muhammad Yusuf (converted to Latin script)",
+  "reading": "github.com/AbdurazzoqAbdugafforov/uzbek-quran-transliteration, uzbekReading"
+ },
+ "fetchedAt": "2026-11-03"
+}

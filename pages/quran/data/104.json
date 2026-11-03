@@ -1,0 +1,67 @@
+{
+ "n": 104,
+ "nameAr": "الهمزة",
+ "nameUz": "Al-Humazah",
+ "verses": [
+  {
+   "n": 1,
+   "ar": "وَيْلٌ لِّكُلِّ هُمَزَةٍ لُّمَزَةٍ",
+   "reading": "Vai lul-li kulli hu mazatil-lumaza.",
+   "uz": "Har bir obroʻ toʻkuvchi va ayblovchiga «vayl» boʻlsin."
+  },
+  {
+   "n": 2,
+   "ar": "ٱلَّذِى جَمَعَ مَالًا وَعَدَّدَهُۥ",
+   "reading": "Al-lazi jama'a maalav va'addadah.",
+   "uz": "U mol jamladi va uni sanab turur."
+  },
+  {
+   "n": 3,
+   "ar": "يَحْسَبُ أَنَّ مَالَهُۥٓ أَخْلَدَهُۥ",
+   "reading": "Yahsabu anna maalahu axladah.",
+   "uz": "U, albatta, moli uni abadiy qoldirur deb hisob qilur."
+  },
+  {
+   "n": 4,
+   "ar": "كَلَّا ۖ لَيُنۢبَذَنَّ فِى ٱلْحُطَمَةِ",
+   "reading": "Kalla layum ba zanna fil hutamah.",
+   "uz": "Yoʻq! Albatta, u «hutoma»ga xor-zor etib tashlanur."
+  },
+  {
+   "n": 5,
+   "ar": "وَمَآ أَدْرَىٰكَ مَا ٱلْحُطَمَةُ",
+   "reading": "Va maa adraaka mal-hutamah.",
+   "uz": "«Hutoma» qandoq narsa ekanini senga nima bildirur?"
+  },
+  {
+   "n": 6,
+   "ar": "نَارُ ٱللَّهِ ٱلْمُوقَدَةُ",
+   "reading": "Narul laahil-muuqada.",
+   "uz": "U, Allohning shiddatli, oʻchmas olovidir."
+  },
+  {
+   "n": 7,
+   "ar": "ٱلَّتِى تَطَّلِعُ عَلَى ٱلْأَفْـِٔدَةِ",
+   "reading": "Allatiy tat tali'u 'alalafidah.",
+   "uz": "Qalblargacha yetib boradigandur."
+  },
+  {
+   "n": 8,
+   "ar": "إِنَّهَا عَلَيْهِم مُّؤْصَدَةٌ",
+   "reading": "Innaha 'alaihim muusada.",
+   "uz": "Albatta, u ularning ustidan qoplangandir."
+  },
+  {
+   "n": 9,
+   "ar": "فِى عَمَدٍ مُّمَدَّدَةٍۭ",
+   "reading": "Fiy 'amadim-mumaddadah.",
+   "uz": "Uzun-uzun ustunlarga bogʻlangandir."
+  }
+ ],
+ "sources": {
+  "arabic": "Quran.com API v4, text_uthmani (Tanzil text)",
+  "translation": "QuranEnc, uzbek_sadiq: Shaykh Muhammad Sodiq Muhammad Yusuf (converted to Latin script)",
+  "reading": "github.com/AbdurazzoqAbdugafforov/uzbek-quran-transliteration, uzbekReading"
+ },
+ "fetchedAt": "2026-11-03"
+}

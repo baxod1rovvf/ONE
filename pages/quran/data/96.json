@@ -1,0 +1,130 @@
+{
+ "n": 96,
+ "nameAr": "العلق",
+ "nameUz": "Al-'Alaq",
+ "verses": [
+  {
+   "n": 1,
+   "ar": "ٱقْرَأْ بِٱسْمِ رَبِّكَ ٱلَّذِى خَلَقَ",
+   "reading": "Iqra bismi rab bikal laziy xalaq.",
+   "uz": "Yaratgan Robbing nomi bilan oʻqi."
+  },
+  {
+   "n": 2,
+   "ar": "خَلَقَ ٱلْإِنسَـٰنَ مِنْ عَلَقٍ",
+   "reading": "Xalaqal insaana min 'alaq.",
+   "uz": "U insonni alaqdan yaratdi."
+  },
+  {
+   "n": 3,
+   "ar": "ٱقْرَأْ وَرَبُّكَ ٱلْأَكْرَمُ",
+   "reading": "Iqra va rab bukal akram.",
+   "uz": "Oʻqi! Robbing Karamlilarning karamlisidir."
+  },
+  {
+   "n": 4,
+   "ar": "ٱلَّذِى عَلَّمَ بِٱلْقَلَمِ",
+   "reading": "Allaziy 'allama bil qalam.",
+   "uz": "U, qalam bilan ilm oʻrgatgandir."
+  },
+  {
+   "n": 5,
+   "ar": "عَلَّمَ ٱلْإِنسَـٰنَ مَا لَمْ يَعْلَمْ",
+   "reading": "'Al lamal insaana ma lam y'alam.",
+   "uz": "U, insonga bilmagan narsasini oʻrgatdi."
+  },
+  {
+   "n": 6,
+   "ar": "كَلَّآ إِنَّ ٱلْإِنسَـٰنَ لَيَطْغَىٰٓ",
+   "reading": "Kallaa innal insaana layatg'aa.",
+   "uz": "Yoʻq! Inson, albatta, tugʻyonga ketur."
+  },
+  {
+   "n": 7,
+   "ar": "أَن رَّءَاهُ ٱسْتَغْنَىٰٓ",
+   "reading": "Ar-ra aahus tag'naa.",
+   "uz": "Gar oʻzini boy koʻrsa."
+  },
+  {
+   "n": 8,
+   "ar": "إِنَّ إِلَىٰ رَبِّكَ ٱلرُّجْعَىٰٓ",
+   "reading": "Innna ilaa Robbikar ruj'aa.",
+   "uz": "Albatta, qaytib borish Robbinggadir."
+  },
+  {
+   "n": 9,
+   "ar": "أَرَءَيْتَ ٱلَّذِى يَنْهَىٰ",
+   "reading": "Ara-aital laziy yanhaa.",
+   "uz": "Qaytarganni koʻrdingmi?!"
+  },
+  {
+   "n": 10,
+   "ar": "عَبْدًا إِذَا صَلَّىٰٓ",
+   "reading": "'Abdan iza sallaa.",
+   "uz": "Bandani namoz oʻqiyotganida?! [1]",
+   "notes": "[1] (Makka mushriklari rahbari Abu Jahl, Muhammadni Kaʼba yonida namoz oʻqiyotganini koʻrsam, boʻynidan oyogʻim bilan bosaman, degan ekan. Shunga binoan, bu oyatlardagi namoz oʻquvchidan murod Muhammad sollallohu alayhi va sallam, namozdan qaytaruvchi esa Abu Jahldir.)"
+  },
+  {
+   "n": 11,
+   "ar": "أَرَءَيْتَ إِن كَانَ عَلَى ٱلْهُدَىٰٓ",
+   "reading": "Ara-aita in kana 'alal hudaa.",
+   "uz": "Ayting-chi, agar oʻsha hidoyatda boʻlsa."
+  },
+  {
+   "n": 12,
+   "ar": "أَوْ أَمَرَ بِٱلتَّقْوَىٰٓ",
+   "reading": "Au amara bit taqvaa.",
+   "uz": "Yoki taqvoga chaqirsa."
+  },
+  {
+   "n": 13,
+   "ar": "أَرَءَيْتَ إِن كَذَّبَ وَتَوَلَّىٰٓ",
+   "reading": "Ara-aita in kaz zaba va ta valla.",
+   "uz": "Ayting-chi, agar u yolgʻonga chiqarsa va yuz oʻgirsa."
+  },
+  {
+   "n": 14,
+   "ar": "أَلَمْ يَعْلَم بِأَنَّ ٱللَّهَ يَرَىٰ",
+   "reading": "Alam y'alam bi-an nal lahaa yaraa.",
+   "uz": "Alloh uni koʻrib turishini bilmasmi?"
+  },
+  {
+   "n": 15,
+   "ar": "كَلَّا لَئِن لَّمْ يَنتَهِ لَنَسْفَعًۢا بِٱلنَّاصِيَةِ",
+   "reading": "Kalla la illam yantahi la nasfa'am bin nasiyah.",
+   "uz": "Yoʻq! Agar qaytmasa, peshonasidan shiddat-la tutamiz!"
+  },
+  {
+   "n": 16,
+   "ar": "نَاصِيَةٍ كَـٰذِبَةٍ خَاطِئَةٍ",
+   "reading": "Nasiyatin kazi batin xaatiyah.",
+   "uz": "Yolgʻonchi, xatokor peshonasidan!"
+  },
+  {
+   "n": 17,
+   "ar": "فَلْيَدْعُ نَادِيَهُۥ",
+   "reading": "Fal yad'u naadiyah.",
+   "uz": "Bas, u oʻz toʻpini chaqirsin."
+  },
+  {
+   "n": 18,
+   "ar": "سَنَدْعُ ٱلزَّبَانِيَةَ",
+   "reading": "Sanad 'uz zabaaniyah.",
+   "uz": "Biz ham zaboniyalarni chaqirurmiz. [2]",
+   "notes": "[2] (Yaʼni, doʻzaxiylarni azoblovchi farishtalarni.)"
+  },
+  {
+   "n": 19,
+   "ar": "كَلَّا لَا تُطِعْهُ وَٱسْجُدْ وَٱقْتَرِب ۩",
+   "reading": "Kalla; la tuti'hu vasjud vaqtarib.",
+   "uz": "Yoʻq! Sen unga itoat qilma! Sajda qil va qurbat hosil qil. [3]",
+   "notes": "[3] (Ushbu oyat sajda oyatlaridandir. Imom Muslim ulkan sahobiy Abu Hurayra roziyollohu anhudan rivoyat qilgan hadisi sharifda Paygʻambarimiz sollallohu alayhi va sallam: «Banda Allohga eng yaqin boʻlgan payti — sajda paytidir, u paytda duoni koʻp qilinglar», deganlar.)"
+  }
+ ],
+ "sources": {
+  "arabic": "Quran.com API v4, text_uthmani (Tanzil text)",
+  "translation": "QuranEnc, uzbek_sadiq: Shaykh Muhammad Sodiq Muhammad Yusuf (converted to Latin script)",
+  "reading": "github.com/AbdurazzoqAbdugafforov/uzbek-quran-transliteration, uzbekReading"
+ },
+ "fetchedAt": "2026-11-03"
+}

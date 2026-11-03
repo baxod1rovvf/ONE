@@ -1,0 +1,62 @@
+{
+ "n": 98,
+ "nameAr": "البينة",
+ "nameUz": "Al-Bayyinah",
+ "verses": [
+  {
+   "n": 1,
+   "ar": "لَمْ يَكُنِ ٱلَّذِينَ كَفَرُوا۟ مِنْ أَهْلِ ٱلْكِتَـٰبِ وَٱلْمُشْرِكِينَ مُنفَكِّينَ حَتَّىٰ تَأْتِيَهُمُ ٱلْبَيِّنَةُ",
+   "reading": "Lam ya kunil laziyna kafaru min ahlil kitaabi val mushri kiyna mun fak kiyna hattaa ta-tiya humul bayyinah.",
+   "uz": "Ahli kitob va mushriklardan boʻlgan kufr keltirganlar «bayyina» kelmaguncha ajralmasdilar."
+  },
+  {
+   "n": 2,
+   "ar": "رَسُولٌ مِّنَ ٱللَّهِ يَتْلُوا۟ صُحُفًا مُّطَهَّرَةً",
+   "reading": "Rasuulum minal laahi yatlu suhufam mutahharah.",
+   "uz": "U (bayyina), Alloh tarafidan yuborilgan Rasul boʻlib, poklangan sahifalarni tilovat qiladur."
+  },
+  {
+   "n": 3,
+   "ar": "فِيهَا كُتُبٌ قَيِّمَةٌ",
+   "reading": "Fiyha kutubun qaiyimah.",
+   "uz": "Ularda ajoyib bitiklar bor."
+  },
+  {
+   "n": 4,
+   "ar": "وَمَا تَفَرَّقَ ٱلَّذِينَ أُوتُوا۟ ٱلْكِتَـٰبَ إِلَّا مِنۢ بَعْدِ مَا جَآءَتْهُمُ ٱلْبَيِّنَةُ",
+   "reading": "Va maa tafarraqal laziyna uutul kitaaba il-la mim b'adi ma jaa-at humul baiyyinah.",
+   "uz": "Kitob berilganlar ularga «bayyina» kelganidan soʻnggina boʻlinib ketishdi."
+  },
+  {
+   "n": 5,
+   "ar": "وَمَآ أُمِرُوٓا۟ إِلَّا لِيَعْبُدُوا۟ ٱللَّهَ مُخْلِصِينَ لَهُ ٱلدِّينَ حُنَفَآءَ وَيُقِيمُوا۟ ٱلصَّلَوٰةَ وَيُؤْتُوا۟ ٱلزَّكَوٰةَ ۚ وَذَٰلِكَ دِينُ ٱلْقَيِّمَةِ",
+   "reading": "Va maa umiruu il-la liy'abu dul laaha muxlisiyna lahud-diyna huna faa-a va yuqiymus salaahta va yu-tuz zakaata; va zaalika diynul qaiyimah.",
+   "uz": "Holbuki, ular faqat Allohgagina ibodat qilishga, Uning dinigagina ixlos qilishga, boshqa dinlarga moyil boʻlmaslikka, namozni toʻliq oʻqishga, zakot berishga buyurilgan edilar. Ana shu, toʻgʻri(millat)ning dinidir. [1]",
+   "notes": "[1] (Yahudiy va nasorolar Tavrot va Injilda faqat Alloh taoloning Oʻzigagina ibodat qilishga amr etilgan edilar.)"
+  },
+  {
+   "n": 6,
+   "ar": "إِنَّ ٱلَّذِينَ كَفَرُوا۟ مِنْ أَهْلِ ٱلْكِتَـٰبِ وَٱلْمُشْرِكِينَ فِى نَارِ جَهَنَّمَ خَـٰلِدِينَ فِيهَآ ۚ أُو۟لَـٰٓئِكَ هُمْ شَرُّ ٱلْبَرِيَّةِ",
+   "reading": "Innal laziyna kafaru min ahlil kitaabi val mushri kiyna fiy nari jahan nama xaali diyna fiyha; ulaa-ika hum shar rul ba riyyah.",
+   "uz": "Albatta, ahli kitob va mushriklardan boʻlgan kufr keltirganlar jahannam oʻtidadurlar, u yerda abadiy qolurlar. Undaylar xaloyiqning eng yomonidirlar."
+  },
+  {
+   "n": 7,
+   "ar": "إِنَّ ٱلَّذِينَ ءَامَنُوا۟ وَعَمِلُوا۟ ٱلصَّـٰلِحَـٰتِ أُو۟لَـٰٓئِكَ هُمْ خَيْرُ ٱلْبَرِيَّةِ",
+   "reading": "Innal laziyna aamanu va 'amilus saalihaati ula-ika hum xairul bariyy yah.",
+   "uz": "Albatta, iymon keltirganlar va solih amallarni qilganlar, ana oʻshalar, xaloyiqning eng yaxshisidir."
+  },
+  {
+   "n": 8,
+   "ar": "جَزَآؤُهُمْ عِندَ رَبِّهِمْ جَنَّـٰتُ عَدْنٍ تَجْرِى مِن تَحْتِهَا ٱلْأَنْهَـٰرُ خَـٰلِدِينَ فِيهَآ أَبَدًا ۖ رَّضِىَ ٱللَّهُ عَنْهُمْ وَرَضُوا۟ عَنْهُ ۚ ذَٰلِكَ لِمَنْ خَشِىَ رَبَّهُۥ",
+   "reading": "Jazaa-uhum inda Robbihim jan naatu 'adnin tajriy min tahtihal an haaru xalidiyna fiyha abada; radiy-yallaahu 'anhum va ra du 'an zaalika liman xashiya Robbah.",
+   "uz": "Ularning mukofotlari Robbilari huzuridagi (daraxtlari) ostidan anhorlar oqib turgan «adn» jannatlaridir. U yerda abadul-abad qolurlar. Alloh ulardan rozi boʻldi, ular ham Undan rozi boʻldilar. Bu, Robbidan qoʻrqqanlar uchundir."
+  }
+ ],
+ "sources": {
+  "arabic": "Quran.com API v4, text_uthmani (Tanzil text)",
+  "translation": "QuranEnc, uzbek_sadiq: Shaykh Muhammad Sodiq Muhammad Yusuf (converted to Latin script)",
+  "reading": "github.com/AbdurazzoqAbdugafforov/uzbek-quran-transliteration, uzbekReading"
+ },
+ "fetchedAt": "2026-11-03"
+}

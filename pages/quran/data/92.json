@@ -1,0 +1,139 @@
+{
+ "n": 92,
+ "nameAr": "الليل",
+ "nameUz": "Al-Layl",
+ "verses": [
+  {
+   "n": 1,
+   "ar": "وَٱلَّيْلِ إِذَا يَغْشَىٰ",
+   "reading": "Vallaili izaa yag'shaa.",
+   "uz": "Tunning qoplab kelayotgan payti bilan qasam."
+  },
+  {
+   "n": 2,
+   "ar": "وَٱلنَّهَارِ إِذَا تَجَلَّىٰ",
+   "reading": "Vannahaari izaa tajalla.",
+   "uz": "Nahorning tajalli payti bilan qasam."
+  },
+  {
+   "n": 3,
+   "ar": "وَمَا خَلَقَ ٱلذَّكَرَ وَٱلْأُنثَىٰٓ",
+   "reading": "Va maa xalaqaz zakara val unsaa.",
+   "uz": "Erkak va urgʻochining yaratilishi bilan qasam."
+  },
+  {
+   "n": 4,
+   "ar": "إِنَّ سَعْيَكُمْ لَشَتَّىٰ",
+   "reading": "Inna sa'yakum lashattaa.",
+   "uz": "Albatta, sizlarning ishlaringiz turlichadur."
+  },
+  {
+   "n": 5,
+   "ar": "فَأَمَّا مَنْ أَعْطَىٰ وَٱتَّقَىٰ",
+   "reading": "Fa ammaa man a'taa vattaqaa.",
+   "uz": "Ammo kimki (ato) bersa va taqvo qilsa..."
+  },
+  {
+   "n": 6,
+   "ar": "وَصَدَّقَ بِٱلْحُسْنَىٰ",
+   "reading": "Va saddaqa bil husnaa.",
+   "uz": "Va goʻzalni tasdiq qilsa..."
+  },
+  {
+   "n": 7,
+   "ar": "فَسَنُيَسِّرُهُۥ لِلْيُسْرَىٰ",
+   "reading": "Fasanu yassiruhuu lilyusraa.",
+   "uz": "Bas, Biz uni osonga muyassar qilamiz."
+  },
+  {
+   "n": 8,
+   "ar": "وَأَمَّا مَنۢ بَخِلَ وَٱسْتَغْنَىٰ",
+   "reading": "Va ammaa man baxila vastag'naa.",
+   "uz": "Va ammo, kimki baxillik va istigʻno qilsa..."
+  },
+  {
+   "n": 9,
+   "ar": "وَكَذَّبَ بِٱلْحُسْنَىٰ",
+   "reading": "Va kazzaba bil husnaa.",
+   "uz": "Va goʻzalni yolgʻonga chiqarsa..."
+  },
+  {
+   "n": 10,
+   "ar": "فَسَنُيَسِّرُهُۥ لِلْعُسْرَىٰ",
+   "reading": "Fasanu yassiruhuu lil'usraa.",
+   "uz": "Bas, Biz uni qiyinga muyassar qilamiz."
+  },
+  {
+   "n": 11,
+   "ar": "وَمَا يُغْنِى عَنْهُ مَالُهُۥٓ إِذَا تَرَدَّىٰٓ",
+   "reading": "Va maa yug'niy 'anhu maaluhuu izaa taraddaa.",
+   "uz": "U qulagan vaqtda unga mol-mulki foyda bermas."
+  },
+  {
+   "n": 12,
+   "ar": "إِنَّ عَلَيْنَا لَلْهُدَىٰ",
+   "reading": "Inna 'alainaa lal hudaa.",
+   "uz": "Albatta, hidoyatga boshlash Bizning zimmamizdadir."
+  },
+  {
+   "n": 13,
+   "ar": "وَإِنَّ لَنَا لَلْـَٔاخِرَةَ وَٱلْأُولَىٰ",
+   "reading": "Va inna lanaa lal Aaxirata val uulaa.",
+   "uz": "Albatta, ham oxirat va ham bu dunyo Biznikidir."
+  },
+  {
+   "n": 14,
+   "ar": "فَأَنذَرْتُكُمْ نَارًا تَلَظَّىٰ",
+   "reading": "Fa anzartukum naaran talazzaa.",
+   "uz": "Bas, Men sizlarni lovullagan oʻtdan ogohlantirdim."
+  },
+  {
+   "n": 15,
+   "ar": "لَا يَصْلَىٰهَآ إِلَّا ٱلْأَشْقَى",
+   "reading": "Laa yaslaahaaa illal ashqaa.",
+   "uz": "Unga badbaxtdan boshqa kirmas."
+  },
+  {
+   "n": 16,
+   "ar": "ٱلَّذِى كَذَّبَ وَتَوَلَّىٰ",
+   "reading": "Allaziy kazzaba va tavallaa.",
+   "uz": "Oʻsha yolgʻonga chiqargan va yuz oʻgirgan edi."
+  },
+  {
+   "n": 17,
+   "ar": "وَسَيُجَنَّبُهَا ٱلْأَتْقَى",
+   "reading": "Va sa yujannnabuhal atqaa.",
+   "uz": "Va albatta, undan taqvodor banda chetda qoladir."
+  },
+  {
+   "n": 18,
+   "ar": "ٱلَّذِى يُؤْتِى مَالَهُۥ يَتَزَكَّىٰ",
+   "reading": "Allaziy yu'tiy maalahuu yatazakkaa.",
+   "uz": "U, boyligini sarflaydir va oʻzini poklaydir."
+  },
+  {
+   "n": 19,
+   "ar": "وَمَا لِأَحَدٍ عِندَهُۥ مِن نِّعْمَةٍ تُجْزَىٰٓ",
+   "reading": "Va maa li ahadin 'indahuu min ni'matin tujzaaa.",
+   "uz": "Biror kishining unda qaytarilishi lozim yaxshiligi yoʻq edi."
+  },
+  {
+   "n": 20,
+   "ar": "إِلَّا ٱبْتِغَآءَ وَجْهِ رَبِّهِ ٱلْأَعْلَىٰ",
+   "reading": "Illab tig'aaa'a vajhi Robbihil a 'laa.",
+   "uz": "Faqat, oʻzining oliy maqom Robbining roziligini soʻrab qiladir."
+  },
+  {
+   "n": 21,
+   "ar": "وَلَسَوْفَ يَرْضَىٰ",
+   "reading": "Va lasavfa yardaa.",
+   "uz": "Va albatta, tezda rozi boʻladir."
+  }
+ ],
+ "sources": {
+  "arabic": "Quran.com API v4, text_uthmani (Tanzil text)",
+  "translation": "QuranEnc, uzbek_sadiq: Shaykh Muhammad Sodiq Muhammad Yusuf (converted to Latin script)",
+  "reading": "github.com/AbdurazzoqAbdugafforov/uzbek-quran-transliteration, uzbekReading"
+ },
+ "fetchedAt": "2026-11-03"
+}

@@ -1,0 +1,43 @@
+{
+ "n": 111,
+ "nameAr": "المسد",
+ "nameUz": "Al-Masad",
+ "verses": [
+  {
+   "n": 1,
+   "ar": "تَبَّتْ يَدَآ أَبِى لَهَبٍ وَتَبَّ",
+   "reading": "Tabbat yadaa abiy Lahabinv-va tabb.",
+   "uz": "Abu Lahabning ikki qoʻli halok boʻlsin, halok!"
+  },
+  {
+   "n": 2,
+   "ar": "مَآ أَغْنَىٰ عَنْهُ مَالُهُۥ وَمَا كَسَبَ",
+   "reading": "Maa ag'na 'anhu maaluhu va ma kasab.",
+   "uz": "Unga moli va kasb qilgan narsalari foyda bermadi."
+  },
+  {
+   "n": 3,
+   "ar": "سَيَصْلَىٰ نَارًا ذَاتَ لَهَبٍ",
+   "reading": "Sayaslaa naran zaata lahab.",
+   "uz": "U tezda choʻgʻi qizib turgan oʻtga kiradir."
+  },
+  {
+   "n": 4,
+   "ar": "وَٱمْرَأَتُهُۥ حَمَّالَةَ ٱلْحَطَبِ",
+   "reading": "Vam ra-atuhu hamma latal-hatab.",
+   "uz": "Va uning oʻtin koʻtargan xotini ham."
+  },
+  {
+   "n": 5,
+   "ar": "فِى جِيدِهَا حَبْلٌ مِّن مَّسَدٍۭ",
+   "reading": "Fiy jiydiha hablum mim-masad.",
+   "uz": "Uning boʻynida eshilgan arqon."
+  }
+ ],
+ "sources": {
+  "arabic": "Quran.com API v4, text_uthmani (Tanzil text)",
+  "translation": "QuranEnc, uzbek_sadiq: Shaykh Muhammad Sodiq Muhammad Yusuf (converted to Latin script)",
+  "reading": "github.com/AbdurazzoqAbdugafforov/uzbek-quran-transliteration, uzbekReading"
+ },
+ "fetchedAt": "2026-11-03"
+}

@@ -23,9 +23,11 @@ const SHELL = [
   // Every game's files (keep in step with GAME_FILES in index.html).
   ...["panel", "snake", "tetris", "breakout", "2048", "minesweeper", "memory"].flatMap((f) => [`./games/${f}.js`, `./games/${f}.css`]),
   // Every page's files and Telegram's own scripts (PAGE_FILES in index.html).
-  ...["home", "tasks", "mood", "websites", "ideas", "telegram", "saved", "goals", "knowledge", "preferences"].flatMap((p) => [`./pages/${p}/${p}.js`, `./pages/${p}/${p}.css`]),
+  ...["home", "tasks", "mood", "quran", "websites", "ideas", "telegram", "saved", "goals", "knowledge", "preferences"].flatMap((p) => [`./pages/${p}/${p}.js`, `./pages/${p}/${p}.css`]),
   ...["rules", "client", "service", "qr"].map((f) => `./pages/telegram/${f}.js`),
   "./pages/mood/rules.js",
+  "./pages/quran/rules.js",
+  "./pages/quran/data/index.json",
   "https://cdnjs.cloudflare.com/ajax/libs/react/18.3.1/umd/react.production.min.js",
   "https://cdnjs.cloudflare.com/ajax/libs/react-dom/18.3.1/umd/react-dom.production.min.js"
 ];

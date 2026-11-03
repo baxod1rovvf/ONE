@@ -1,0 +1,185 @@
+{
+ "n": 71,
+ "nameAr": "نوح",
+ "nameUz": "Nuh",
+ "verses": [
+  {
+   "n": 1,
+   "ar": "إِنَّآ أَرْسَلْنَا نُوحًا إِلَىٰ قَوْمِهِۦٓ أَنْ أَنذِرْ قَوْمَكَ مِن قَبْلِ أَن يَأْتِيَهُمْ عَذَابٌ أَلِيمٌ",
+   "reading": "Innaaa arsalnaa Nuuhan ilaa qavmihiy an anzir qavmaka min qabli any yaatiyahum 'azaabun aliym.",
+   "uz": "Biz Nuhni oʻz qavmiga, qavmingni ularga alamli azob kelishidan avval ogohlantirgin, deb Paygʻambar qilib yubordik."
+  },
+  {
+   "n": 2,
+   "ar": "قَالَ يَـٰقَوْمِ إِنِّى لَكُمْ نَذِيرٌ مُّبِينٌ",
+   "reading": "Qaala yaa qavmi inniy lakum naziyrum mubiyn.",
+   "uz": "U: «Ey qavmim, albatta, men siz uchun ochiq-oydin ogohlantiruvchiman."
+  },
+  {
+   "n": 3,
+   "ar": "أَنِ ٱعْبُدُوا۟ ٱللَّهَ وَٱتَّقُوهُ وَأَطِيعُونِ",
+   "reading": "Ani'udul laaha vatta quuhu va atiy'uun.",
+   "uz": "Allohga ibodat qilinglar, Unga taqvo qilinglar va menga itoat qilinglar."
+  },
+  {
+   "n": 4,
+   "ar": "يَغْفِرْ لَكُم مِّن ذُنُوبِكُمْ وَيُؤَخِّرْكُمْ إِلَىٰٓ أَجَلٍ مُّسَمًّى ۚ إِنَّ أَجَلَ ٱللَّهِ إِذَا جَآءَ لَا يُؤَخَّرُ ۖ لَوْ كُنتُمْ تَعْلَمُونَ",
+   "reading": "Yag'fir lakum min zunuubikum va yu'axxirkum ilaaa ajalim musammaa; innaa ajalal laahi izaa jaaa'a laa yu'axxar; lav kuntum ta'lamuun.",
+   "uz": "U sizlarning gunohlaringizdan magʻfirat qiladir va sizni belgilangan ajalgacha qoʻyib qoʻyadir. Agar bilsangiz, albatta, Allohning ajali orqaga surilmaydir», – dedi.  [1]",
+   "notes": "[1] (Bu oyatda zikr qilingan, gunohlarning kechirilishi va belgilangan muddatgacha yashab qolish, avvalgi oyatda shart qilingan Allohga ibodat qilish, unga taqvo qilish va Paygʻambarga itoat qilish ishlari boʻlsagina vujudga keladi.)"
+  },
+  {
+   "n": 5,
+   "ar": "قَالَ رَبِّ إِنِّى دَعَوْتُ قَوْمِى لَيْلًا وَنَهَارًا",
+   "reading": "Qaala Robbi inniy da'avtu qavmiy lailanv va naharaa.",
+   "uz": "U: «Robbim, men oʻz qavmimni kechayu kunduz daʼvat qildim."
+  },
+  {
+   "n": 6,
+   "ar": "فَلَمْ يَزِدْهُمْ دُعَآءِىٓ إِلَّا فِرَارًا",
+   "reading": "Falam yazid hum du'aaa 'iy illaa firaaraa.",
+   "uz": "Mening chaqirigʻim ularda qochishdan boshqa narsani ziyoda qilmadi."
+  },
+  {
+   "n": 7,
+   "ar": "وَإِنِّى كُلَّمَا دَعَوْتُهُمْ لِتَغْفِرَ لَهُمْ جَعَلُوٓا۟ أَصَـٰبِعَهُمْ فِىٓ ءَاذَانِهِمْ وَٱسْتَغْشَوْا۟ ثِيَابَهُمْ وَأَصَرُّوا۟ وَٱسْتَكْبَرُوا۟ ٱسْتِكْبَارًا",
+   "reading": "Va iniy kullamaa da'avtuhum litag'fira lahum ja'aluu asaabi'ahum fiy aazaanihim vastag'shav siyaabahum va asaarruu vastakbarus tikbaaraa.",
+   "uz": "Va albatta, qachonki men ularni Sening magʻfirat qilishing uchun chaqirsam, ular barmoqlarini quloqlariga tiqdilar va kiyimlariga burkanib oldilar, hamda (kofirlikda) sobit boʻldilar va nihoyatda ulkan takabburlik qildilar."
+  },
+  {
+   "n": 8,
+   "ar": "ثُمَّ إِنِّى دَعَوْتُهُمْ جِهَارًا",
+   "reading": "Summa inniy da'av tuhum jihaara.",
+   "uz": "Soʻngra, albatta, men ularni jahriy daʼvat qildim."
+  },
+  {
+   "n": 9,
+   "ar": "ثُمَّ إِنِّىٓ أَعْلَنتُ لَهُمْ وَأَسْرَرْتُ لَهُمْ إِسْرَارًا",
+   "reading": "Summaa inniy a'lantu lahum va asrartu lahum israaraa.",
+   "uz": "Soʻngra, albatta, men ularga oshkora va yashirin (daʼvat) qildim."
+  },
+  {
+   "n": 10,
+   "ar": "فَقُلْتُ ٱسْتَغْفِرُوا۟ رَبَّكُمْ إِنَّهُۥ كَانَ غَفَّارًا",
+   "reading": "Faqultus tag'firuu Rabakam innahuu kaana G'affaaraa.",
+   "uz": "Bas, oʻz Robbingizga istigʻfor ayting, albatta, U gunohlarni koʻplab magʻfirat qiluvchidir», dedim."
+  },
+  {
+   "n": 11,
+   "ar": "يُرْسِلِ ٱلسَّمَآءَ عَلَيْكُم مِّدْرَارًا",
+   "reading": "Yursilis samaaa'a 'alaikum midraaraa.",
+   "uz": "«U zot osmondan ustingizga ketma-ket baraka yomgʻirini yuboradir."
+  },
+  {
+   "n": 12,
+   "ar": "وَيُمْدِدْكُم بِأَمْوَٰلٍ وَبَنِينَ وَيَجْعَل لَّكُمْ جَنَّـٰتٍ وَيَجْعَل لَّكُمْ أَنْهَـٰرًا",
+   "reading": "Va yumdidkum bi am vaalinv va baniyna va yaj'al lakum Jannaatinv va yaj'al lakum anhaaraa.",
+   "uz": "Va sizga molu mulk va bola-chaqa ila madad beradir va sizlarga bogʻu rogʻlar hamda anhorlarni beradir."
+  },
+  {
+   "n": 13,
+   "ar": "مَّا لَكُمْ لَا تَرْجُونَ لِلَّهِ وَقَارًا",
+   "reading": "Maa lakum laa tarjuuna lillaahi vaqaaraa.",
+   "uz": "Sizlarga nima boʻldiki, Allohning azamatini oʻylab koʻrmaysizlar?"
+  },
+  {
+   "n": 14,
+   "ar": "وَقَدْ خَلَقَكُمْ أَطْوَارًا",
+   "reading": "Va qad xalaqakum at vaaraa.",
+   "uz": "Holbuki, U sizlarni holatma-holat yaratdi."
+  },
+  {
+   "n": 15,
+   "ar": "أَلَمْ تَرَوْا۟ كَيْفَ خَلَقَ ٱللَّهُ سَبْعَ سَمَـٰوَٰتٍ طِبَاقًا",
+   "reading": "Alam tarav kaifa xalaqal laahu sab'a samaavaatin tibaaqaa.",
+   "uz": "Alloh yetti osmonni qandoq qilib tabaqama-tabaqa yaratib qoʻyganini koʻrmadingizmi?"
+  },
+  {
+   "n": 16,
+   "ar": "وَجَعَلَ ٱلْقَمَرَ فِيهِنَّ نُورًا وَجَعَلَ ٱلشَّمْسَ سِرَاجًا",
+   "reading": "Va ja'alal qamara fiyhinna nuuranv va ja'alash shamsa siraajaa.",
+   "uz": "Va ular ichida oyni nur va quyoshni chiroq qilib qoʻyganini koʻrmadingizmi?"
+  },
+  {
+   "n": 17,
+   "ar": "وَٱللَّهُ أَنۢبَتَكُم مِّنَ ٱلْأَرْضِ نَبَاتًا",
+   "reading": "Vallaahu ambatakum minal ardi nabaataa.",
+   "uz": "Va Alloh sizlarni yerdan oʻstirib chiqaradir."
+  },
+  {
+   "n": 18,
+   "ar": "ثُمَّ يُعِيدُكُمْ فِيهَا وَيُخْرِجُكُمْ إِخْرَاجًا",
+   "reading": "Summa yu'iydukum fiyhaa va uxrijukum ixraajaa.",
+   "uz": "Soʻngra sizlarni unga qaytaradir va yana chiqaradir."
+  },
+  {
+   "n": 19,
+   "ar": "وَٱللَّهُ جَعَلَ لَكُمُ ٱلْأَرْضَ بِسَاطًا",
+   "reading": "Vallaahu ja'ala lakumul arda bisaataa.",
+   "uz": "Va Alloh sizlarga yerni gilamdek toʻshab qoʻydi."
+  },
+  {
+   "n": 20,
+   "ar": "لِّتَسْلُكُوا۟ مِنْهَا سُبُلًا فِجَاجًا",
+   "reading": "Litaslukuu minhaa subulan fijaajaa.",
+   "uz": "Unda siz keng yoʻllardan yurishingiz uchun», dedi."
+  },
+  {
+   "n": 21,
+   "ar": "قَالَ نُوحٌ رَّبِّ إِنَّهُمْ عَصَوْنِى وَٱتَّبَعُوا۟ مَن لَّمْ يَزِدْهُ مَالُهُۥ وَوَلَدُهُۥٓ إِلَّا خَسَارًا",
+   "reading": "Qaala Nuuhur Robbi innahum 'asavniy vattaba'uu mal lam yazid hu maaluhuu va valaduhuu illaa xasaara.",
+   "uz": "Nuh: «Ey Robbim, albatta, ular menga isyon qildilar va moli, bola-chaqasi xusrondan boshqani ziyoda qilmaganga ergashdilar."
+  },
+  {
+   "n": 22,
+   "ar": "وَمَكَرُوا۟ مَكْرًا كُبَّارًا",
+   "reading": "Va makaruu makran kubbaaraa.",
+   "uz": "Va nihoyatda ulkan makr qildilar."
+  },
+  {
+   "n": 23,
+   "ar": "وَقَالُوا۟ لَا تَذَرُنَّ ءَالِهَتَكُمْ وَلَا تَذَرُنَّ وَدًّا وَلَا سُوَاعًا وَلَا يَغُوثَ وَيَعُوقَ وَنَسْرًا",
+   "reading": "Va qaaluu laa tazarunna aalihatakum va laa tazarunna Vaddanv va laa Suvaa'anv va laa Yag'uusa va Ya'uuqa va Nasraa.",
+   "uz": "Va ular: «Olihalaringizni hech tark qilmanglar, va, albatta, Vaddni ham, Suvaʼni ham, Yagʻusni ham, Yaʼuqni ham va Nasrni ham tark qilmang», dedilar.  [2]",
+   "notes": "[2] (Shayton vasvasasi tufayli kishilar haykallarga sigʻinishining bayoni ushbu oyatda nozil qilingandir.)"
+  },
+  {
+   "n": 24,
+   "ar": "وَقَدْ أَضَلُّوا۟ كَثِيرًا ۖ وَلَا تَزِدِ ٱلظَّـٰلِمِينَ إِلَّا ضَلَـٰلًا",
+   "reading": "Va qad adalluu kasiy ranv va laa tazidiz zaalimiyna illaa dalaalaa.",
+   "uz": "Darhaqiqat, ular koʻplarini adashtirdi. Va Sen zolimlarga zalolatdan boshqani ziyoda qilma», dedi.  [3]",
+   "notes": "[3] (Koʻrinib turibdiki, Nuh alayhissalomning bu duolari nihoyatda alamli duo. Nuh alayhissalom oʻz qavmlariga qilgan ushbu duoibaʼdni Alloh subhanahu va taolo u zotga sening qavmingdan hozir iymonga kelganlaridan oʻzgasi zinhor iymonga kelmas, deb xabar berganidan soʻng, ularning iymonlaridan noumid boʻlib turib qilganlar.)"
+  },
+  {
+   "n": 25,
+   "ar": "مِّمَّا خَطِيٓـَٔـٰتِهِمْ أُغْرِقُوا۟ فَأُدْخِلُوا۟ نَارًا فَلَمْ يَجِدُوا۟ لَهُم مِّن دُونِ ٱللَّهِ أَنصَارًا",
+   "reading": "Mimmaa xatiy' aatihim ug'riquu fa udxiluu Naaran falam yajiduu lahum min duunil laahi ansaaraa.",
+   "uz": "Ular xatolari tufayli gʻarq qilindilar, bas, olovga kiritildilar. Bas, oʻzlariga Allohdan oʻzga yordamchi topa olmadilar."
+  },
+  {
+   "n": 26,
+   "ar": "وَقَالَ نُوحٌ رَّبِّ لَا تَذَرْ عَلَى ٱلْأَرْضِ مِنَ ٱلْكَـٰفِرِينَ دَيَّارًا",
+   "reading": "Va qaala Nuuhur Robbi laa tazar 'alal ardi minal kaafiriyna daiyaaraa.",
+   "uz": "Va Nuh: «Ey Robbim, yer yuzida kofirlardan birorta ham harakatlanuvchini qoʻymagin."
+  },
+  {
+   "n": 27,
+   "ar": "إِنَّكَ إِن تَذَرْهُمْ يُضِلُّوا۟ عِبَادَكَ وَلَا يَلِدُوٓا۟ إِلَّا فَاجِرًا كَفَّارًا",
+   "reading": "Innaka in tazarhum yudil luu 'ibaadaka va laa yaliduu illaa faajiran kaffaaraa.",
+   "uz": "Albatta, sen ularni tek qoʻysang, bandalaringni adashtiradilar va fojiru kofirdan boshqa tugʻmaslar."
+  },
+  {
+   "n": 28,
+   "ar": "رَّبِّ ٱغْفِرْ لِى وَلِوَٰلِدَىَّ وَلِمَن دَخَلَ بَيْتِىَ مُؤْمِنًا وَلِلْمُؤْمِنِينَ وَٱلْمُؤْمِنَـٰتِ وَلَا تَزِدِ ٱلظَّـٰلِمِينَ إِلَّا تَبَارًۢا",
+   "reading": "Robbig' fir liy va livaa lidaiya va liman daxala baitiya mu'minanv va lil mu'miniyna val mu'minaati va laa tazidiz zaalimiyna illaa tabaaraa.",
+   "uz": "Robbim, meni magʻfirat qilgin, mening ota-onamni ham va uyimga moʻmin boʻlib kirganlarni va moʻminlaru moʻminalarni ham. Va zolimlarga halokatdan oʻzga narsani ziyoda qilma», dedi. [4]",
+   "notes": "[4] (Nuh alayhissalomning duolari qabul boʻldi. Alloh taolo kofirlarni bitta ham qoʻymay halok qildi. Chunki ular insoniyat badaniga tushgan qorason kasalidek edilar. Ularni kesib tashlamasa boʻlmas edi.)"
+  }
+ ],
+ "sources": {
+  "arabic": "Quran.com API v4, text_uthmani (Tanzil text)",
+  "translation": "QuranEnc, uzbek_sadiq: Shaykh Muhammad Sodiq Muhammad Yusuf (converted to Latin script)",
+  "reading": "github.com/AbdurazzoqAbdugafforov/uzbek-quran-transliteration, uzbekReading"
+ },
+ "fetchedAt": "2026-11-03"
+}

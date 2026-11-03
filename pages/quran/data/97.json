@@ -1,0 +1,43 @@
+{
+ "n": 97,
+ "nameAr": "القدر",
+ "nameUz": "Al-Qadr",
+ "verses": [
+  {
+   "n": 1,
+   "ar": "إِنَّآ أَنزَلْنَـٰهُ فِى لَيْلَةِ ٱلْقَدْرِ",
+   "reading": "Innaa anzalnaahu fiy lailatil qadr.",
+   "uz": "Albatta, Biz U(Qurʼon)ni Qadr kechasida tushirdik."
+  },
+  {
+   "n": 2,
+   "ar": "وَمَآ أَدْرَىٰكَ مَا لَيْلَةُ ٱلْقَدْرِ",
+   "reading": "Va maa adraaka ma lailatul qadr.",
+   "uz": "Laylatul Qadr qandoq narsa ekanini senga nima bildirdi?"
+  },
+  {
+   "n": 3,
+   "ar": "لَيْلَةُ ٱلْقَدْرِ خَيْرٌ مِّنْ أَلْفِ شَهْرٍ",
+   "reading": "Lailatul qadri xairum min alfiy shahr.",
+   "uz": "Laylatul Qadr ming oydin yaxshiroqdir."
+  },
+  {
+   "n": 4,
+   "ar": "تَنَزَّلُ ٱلْمَلَـٰٓئِكَةُ وَٱلرُّوحُ فِيهَا بِإِذْنِ رَبِّهِم مِّن كُلِّ أَمْرٍ",
+   "reading": "Tanaz zalul malaa-ikatu var ruuhu fiyha bi izni-rab bihim min kulli amr.",
+   "uz": "Unda farishtalar va Ruh Robbilari izni bilan barcha ishlar uchun tushadir."
+  },
+  {
+   "n": 5,
+   "ar": "سَلَـٰمٌ هِىَ حَتَّىٰ مَطْلَعِ ٱلْفَجْرِ",
+   "reading": "Salaamun hiya hattaa mat la'il fajr.",
+   "uz": "U to tong otguncha salom boʻlib turadir."
+  }
+ ],
+ "sources": {
+  "arabic": "Quran.com API v4, text_uthmani (Tanzil text)",
+  "translation": "QuranEnc, uzbek_sadiq: Shaykh Muhammad Sodiq Muhammad Yusuf (converted to Latin script)",
+  "reading": "github.com/AbdurazzoqAbdugafforov/uzbek-quran-transliteration, uzbekReading"
+ },
+ "fetchedAt": "2026-11-03"
+}

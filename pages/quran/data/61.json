@@ -1,0 +1,103 @@
+{
+ "n": 61,
+ "nameAr": "الصف",
+ "nameUz": "As-Saf",
+ "verses": [
+  {
+   "n": 1,
+   "ar": "سَبَّحَ لِلَّهِ مَا فِى ٱلسَّمَـٰوَٰتِ وَمَا فِى ٱلْأَرْضِ ۖ وَهُوَ ٱلْعَزِيزُ ٱلْحَكِيمُ",
+   "reading": "Sabbaha lillaahi maa fisamaavaati va maa fil ardi va huval 'Aziyzul Hakiym.",
+   "uz": "Osmonlaru yerdagi barcha narsalar Allohga tasbih aytadi. U zot gʻolib va hikmat egasidir."
+  },
+  {
+   "n": 2,
+   "ar": "يَـٰٓأَيُّهَا ٱلَّذِينَ ءَامَنُوا۟ لِمَ تَقُولُونَ مَا لَا تَفْعَلُونَ",
+   "reading": "Yaa ayyuhal laziyna aamanuu lima taquuluuna maa laa taf'aluun.",
+   "uz": "Ey, iymon keltirganlar! Nima uchun qilmagan narsalaringizni gapirasiz?!"
+  },
+  {
+   "n": 3,
+   "ar": "كَبُرَ مَقْتًا عِندَ ٱللَّهِ أَن تَقُولُوا۟ مَا لَا تَفْعَلُونَ",
+   "reading": "Kabura maqtan 'indal laahi an taquuluu maa laa taf'aluun.",
+   "uz": "Qilmaydigan narsangizni gapirishingiz Allohning nazdida qattiq yomon koʻrilgandir.  [1]",
+   "notes": "[1] (Jihod farz qilinishidan avval bir guruh moʻminlar, agar Alloh taolo bizni Oʻzi eng suyadigan amalga buyurganda edi, uni bajarib ulkan savoblarga erishardik, deb orzu qilib yurishardi. Shunda Alloh Paygʻambar alayhissalomga vahiy yuborib, jihodni farz qildi, ammo avval gapirib yurganlarga bu amr mashaqqatli tuyuldi, ogʻir botdi. Shundan soʻng, Alloh taolo yuqoridagi oyatlarni tushirib, ularni ogohlantirdi. Bundan kamida ikkita ibrat chiqadi: birinchisi — jihod Alloh naqadar suygan amallardan ekanini hamda ikkinchisi — aytganiga amal qilish eng oliy darajadagi martaba ekanini bilamiz. Bu gaplar har bir islom ummatiga tegishlidir. Qaysi ummat — millat shunga amal qilsa, Alloh oldida ulkan savobga, hayotda esa ulkan taraqqiyotga erishadi.)"
+  },
+  {
+   "n": 4,
+   "ar": "إِنَّ ٱللَّهَ يُحِبُّ ٱلَّذِينَ يُقَـٰتِلُونَ فِى سَبِيلِهِۦ صَفًّا كَأَنَّهُم بُنْيَـٰنٌ مَّرْصُوصٌ",
+   "reading": "Innal laaha yuhibbul laziyna yuqaatiluuna fiy sabiylihiy saffan kaannahum bunyaanum marsuus.",
+   "uz": "Albatta, Alloh Oʻz yoʻlida xuddi jips binodek boʻlib, safda turib urush qiladiganlarni yaxshi koʻradir. [2]",
+   "notes": "[2] (Alloh taolo moʻminlar jamiyatini doimo birdam, hamfikr va jipslashgan boʻlishini xohlaydi. Bu oyatda esa urushda ham birdam boʻlishga, jipslashib, dushmanni bir jabha boʻlib qarshi olishga buyurmoqda.)"
+  },
+  {
+   "n": 5,
+   "ar": "وَإِذْ قَالَ مُوسَىٰ لِقَوْمِهِۦ يَـٰقَوْمِ لِمَ تُؤْذُونَنِى وَقَد تَّعْلَمُونَ أَنِّى رَسُولُ ٱللَّهِ إِلَيْكُمْ ۖ فَلَمَّا زَاغُوٓا۟ أَزَاغَ ٱللَّهُ قُلُوبَهُمْ ۚ وَٱللَّهُ لَا يَهْدِى ٱلْقَوْمَ ٱلْفَـٰسِقِينَ",
+   "reading": "Va iz qaala Muusa liqavmihiy yaa qavmi lima tu'zuunaniy va qat ta'lamuuna anniy Rasuulul laahi ilaikum falammaa zaag'uu azaag'al laahu quluubahum; vallaahu laa yahdil qavmal faasiqiyn.",
+   "uz": "Muso oʻz qavmiga: «Ey qavmim, Allohning Rasuli ekanimni bilib turib yana nima uchun menga ozor berasiz», deganini esla. Ular (haqdan) burilgan edilar, Alloh ularning qalbini burib qoʻydi. Alloh fosiq qavmlarni hidoyat qilmas."
+  },
+  {
+   "n": 6,
+   "ar": "وَإِذْ قَالَ عِيسَى ٱبْنُ مَرْيَمَ يَـٰبَنِىٓ إِسْرَٰٓءِيلَ إِنِّى رَسُولُ ٱللَّهِ إِلَيْكُم مُّصَدِّقًا لِّمَا بَيْنَ يَدَىَّ مِنَ ٱلتَّوْرَىٰةِ وَمُبَشِّرًۢا بِرَسُولٍ يَأْتِى مِنۢ بَعْدِى ٱسْمُهُۥٓ أَحْمَدُ ۖ فَلَمَّا جَآءَهُم بِٱلْبَيِّنَـٰتِ قَالُوا۟ هَـٰذَا سِحْرٌ مُّبِينٌ",
+   "reading": "Va iz qaala 'Iysab-nu-Mayama yaa Baniy Israaa'iyla inniy Rasuulul laahi ilaikum musaddiqal limaa baina yadayya minat Tavraati va mubashshiram bi Rasuuliny yaatiy mim ba'dis muhuu Ahmad; falammaa jaaa'ahum bil baiyinaati qaaluu haazaa sihrum mubiyn.",
+   "uz": "Iyso ibn Maryam: «Ey, Bani Isroil, albatta, men oʻzimdan oldin kelgan Tavrotni tasdiqlash va mendan keyin keluvchi Ahmad ismli Rasulning bashoratini berish uchun Alloh sizlarga yuborgan Paygʻambarman», deganini esla. Qachonki u(Ahmad) ularga haq bilan kelgan vaqtda esa, bu ochiq-oydin sehrdir, dedilar."
+  },
+  {
+   "n": 7,
+   "ar": "وَمَنْ أَظْلَمُ مِمَّنِ ٱفْتَرَىٰ عَلَى ٱللَّهِ ٱلْكَذِبَ وَهُوَ يُدْعَىٰٓ إِلَى ٱلْإِسْلَـٰمِ ۚ وَٱللَّهُ لَا يَهْدِى ٱلْقَوْمَ ٱلظَّـٰلِمِينَ",
+   "reading": "Va man azlamu mimma nif taraa 'alal laahil kaziba va huva yad'aaa ilal Islaam; vallaahu laa yahdil qavmaz zaalimiyn.",
+   "uz": "Islomga daʼvat qilinib turganida Allohga nisbatan yolgʻon toʻqigan kimsadan ham zolimroq kishi bormi? Holbuki, Alloh zolimlarni hidoyatga solmas.  [3]",
+   "notes": "[3] (Yaʼni, inson Islomga daʼvat qilinsa, ikki dunyoning saodatiga erishtiruvchi dinga chaqirilsa, uni xursandlik bilan qabul qilishning oʻrniga, Allohga nisbatan yolgʻon toʻqisa, haqiqatdan u dunyodagi eng ashaddiy zolim hisoblanadi. Undaylarning Alloh taologa nisbatan toʻqigan yolgʻonlari turlicha boʻladi.)"
+  },
+  {
+   "n": 8,
+   "ar": "يُرِيدُونَ لِيُطْفِـُٔوا۟ نُورَ ٱللَّهِ بِأَفْوَٰهِهِمْ وَٱللَّهُ مُتِمُّ نُورِهِۦ وَلَوْ كَرِهَ ٱلْكَـٰفِرُونَ",
+   "reading": "Yuriyduuna liyutfi'uu nuural laahi bi afvaahimim vallaahu mutimmu nuurihiy va lav karihal kaafiruun.",
+   "uz": "Ogʻizlari bilan Allohning nurini oʻchirmoqchi boʻladilar. Holbuki, Alloh, kofirlar yoqtirmasa ham, oʻz nurini tugal etguvchidir.  [4]",
+   "notes": "[4] (Islom dinini yoʻq qilish uchun urinuvchilarning harakati quyoshning shuʼlasini ogʻiz bilan puflab oʻchirishga harakat qilishga oʻxshaydi.)"
+  },
+  {
+   "n": 9,
+   "ar": "هُوَ ٱلَّذِىٓ أَرْسَلَ رَسُولَهُۥ بِٱلْهُدَىٰ وَدِينِ ٱلْحَقِّ لِيُظْهِرَهُۥ عَلَى ٱلدِّينِ كُلِّهِۦ وَلَوْ كَرِهَ ٱلْمُشْرِكُونَ",
+   "reading": "Huval laziy arsala Rasuulahuu bilhudaa va diynil haqqi liyuzhirahuu 'alad diyni kullihiy va lav karihal mushrikuun.",
+   "uz": "U zot Oʻz Rasulini hidoyat va haq din bilan barcha dinlardan ustun qilish uchun yuborgan Zotdir. Garchi mushriklar yoqtirmasalar ham."
+  },
+  {
+   "n": 10,
+   "ar": "يَـٰٓأَيُّهَا ٱلَّذِينَ ءَامَنُوا۟ هَلْ أَدُلُّكُمْ عَلَىٰ تِجَـٰرَةٍ تُنجِيكُم مِّنْ عَذَابٍ أَلِيمٍ",
+   "reading": "Yaaa ayyuhal laziyna aammano hal adullukum 'alaa tijaaratin tunjiykum min 'azaabin aliym.",
+   "uz": "Ey, iymon keltirganlar! Sizlarni alamli azobdan najot toptiruvchi tijoratga dalolat qilaymi?"
+  },
+  {
+   "n": 11,
+   "ar": "تُؤْمِنُونَ بِٱللَّهِ وَرَسُولِهِۦ وَتُجَـٰهِدُونَ فِى سَبِيلِ ٱللَّهِ بِأَمْوَٰلِكُمْ وَأَنفُسِكُمْ ۚ ذَٰلِكُمْ خَيْرٌ لَّكُمْ إِن كُنتُمْ تَعْلَمُونَ",
+   "reading": "Tu'minuuna billaahi va Rasuulihiy va tujaahiduuna fiy sabiylil laahi bi amvaalikum va anfusikum; zaalikum xairul lakum in kuntum ta'lamuun.",
+   "uz": "Allohga va Uning Rasuliga iymon keltirasizlar hamda Uning yoʻlida molingiz va joningiz bilan jihod qilasizlar. Shundoq qilmoqlaringiz, agar bilsangizlar, oʻzlaringiz uchun yaxshidir."
+  },
+  {
+   "n": 12,
+   "ar": "يَغْفِرْ لَكُمْ ذُنُوبَكُمْ وَيُدْخِلْكُمْ جَنَّـٰتٍ تَجْرِى مِن تَحْتِهَا ٱلْأَنْهَـٰرُ وَمَسَـٰكِنَ طَيِّبَةً فِى جَنَّـٰتِ عَدْنٍ ۚ ذَٰلِكَ ٱلْفَوْزُ ٱلْعَظِيمُ",
+   "reading": "Yag'fir lakum zunuubakum va yudxilkum Jannaatin tajriy min tahtihal anhaaru va masaakina taiyibatan fiy Jannaati 'Ad; zaalikal favzul 'Aziym.",
+   "uz": "Gunohlaringizni kechirur va sizlarni adn jannatidagi (daraxtlari) ostidan anhorlar oqib turgan bogʻlarga va yaxshi maskanlarga kiritur. Bu narsa siz uchun ulugʻ yutuqdir."
+  },
+  {
+   "n": 13,
+   "ar": "وَأُخْرَىٰ تُحِبُّونَهَا ۖ نَصْرٌ مِّنَ ٱللَّهِ وَفَتْحٌ قَرِيبٌ ۗ وَبَشِّرِ ٱلْمُؤْمِنِينَ",
+   "reading": "Va uxraa tuhibbuunahaa nasrum minal laahi va fat hun qariy; va bashshiril mu 'miniyn.",
+   "uz": "Va sizlar yaxshi koʻradigan boshqasi ham bor. Allohdan yordam va yaqin zafar. Va moʻminlarga bashorat ber.  [5]",
+   "notes": "[5] (Ushbu oyat Qurʼoni Karimning gʻoyibdan bergan xabarlaridan boʻlib, ulkan moʻʼjiza hamdir. Chunki u Makkai Mukarrama fath etilishidan avval tushgan. Bundan bir oz vaqtdan keyin Alloh taolo ushbu oyatda bergan vaʼdasi ustidan chiqdi. Allohning yordami boʻlib, Makka musulmonlar qoʻliga oʻtdi. Soʻng tezda butun Arabiston yarim roliga Islom dini tarqaldi.)"
+  },
+  {
+   "n": 14,
+   "ar": "يَـٰٓأَيُّهَا ٱلَّذِينَ ءَامَنُوا۟ كُونُوٓا۟ أَنصَارَ ٱللَّهِ كَمَا قَالَ عِيسَى ٱبْنُ مَرْيَمَ لِلْحَوَارِيِّـۧنَ مَنْ أَنصَارِىٓ إِلَى ٱللَّهِ ۖ قَالَ ٱلْحَوَارِيُّونَ نَحْنُ أَنصَارُ ٱللَّهِ ۖ فَـَٔامَنَت طَّآئِفَةٌ مِّنۢ بَنِىٓ إِسْرَٰٓءِيلَ وَكَفَرَت طَّآئِفَةٌ ۖ فَأَيَّدْنَا ٱلَّذِينَ ءَامَنُوا۟ عَلَىٰ عَدُوِّهِمْ فَأَصْبَحُوا۟ ظَـٰهِرِينَ",
+   "reading": "Yaaa ayyuhal laziyna aamaanuu kuunuu ansaaral laahi kamaa qaala 'Iysab-nu-Maryama lil Havaariyyiyna man ansaariy ilal laah; qaalal Havaariyyuuna nahnu ansaa rul laahi fa aamanat taaa'ifatum mim Banniy Israaa'iyla va kafarat taaa'ifatun fa ayyadnal laziyna aammanuu 'alaa 'aduvvihim fa asbahuu zaahiriyn.",
+   "uz": "Ey, iymon keltirganlar! Allohning yordamchilari boʻling! Iyso ibn Maryam havoriylarga: «Kim Alloh uchun mening yordamchim(boʻladi)?» deganida, havoriylar: «Biz Allohning yordamchilarimiz», dedilar. Bas, Bani Isroildan bir toifa iymon keltirdi va bir toifa kofir boʻldi. Bas, Biz iymon keltirganlarni dushmanlari ustidan qoʻllab-quvvatladik. Va ular gʻolib boʻldilar. [6]",
+   "notes": "[6] (Havoriylar Iyso alayhissalomning shogirdlari, u kishiga yaqin odamlardir. Alloh taolo bu oyati karimada musulmonlarni Islom diniga xizmat qilishga chaqirmoqda va bu xizmatni Allohga yordamchi boʻlish, deb atamoqda.)"
+  }
+ ],
+ "sources": {
+  "arabic": "Quran.com API v4, text_uthmani (Tanzil text)",
+  "translation": "QuranEnc, uzbek_sadiq: Shaykh Muhammad Sodiq Muhammad Yusuf (converted to Latin script)",
+  "reading": "github.com/AbdurazzoqAbdugafforov/uzbek-quran-transliteration, uzbekReading"
+ },
+ "fetchedAt": "2026-11-03"
+}

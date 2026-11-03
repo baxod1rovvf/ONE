@@ -1,0 +1,31 @@
+{
+ "n": 108,
+ "nameAr": "الكوثر",
+ "nameUz": "Al-Kawthar",
+ "verses": [
+  {
+   "n": 1,
+   "ar": "إِنَّآ أَعْطَيْنَـٰكَ ٱلْكَوْثَرَ",
+   "reading": "Innaa a'taina kal kausar.",
+   "uz": "Albatta, Biz senga Kavsarni berdik."
+  },
+  {
+   "n": 2,
+   "ar": "فَصَلِّ لِرَبِّكَ وَٱنْحَرْ",
+   "reading": "Fa salli li Robbika vanhar.",
+   "uz": "Bas, Robbingga namoz oʻqi va jonliq soʻy."
+  },
+  {
+   "n": 3,
+   "ar": "إِنَّ شَانِئَكَ هُوَ ٱلْأَبْتَرُ",
+   "reading": "Inna shani-aka huval abtar.",
+   "uz": "Albatta, seni yomon koʻrib ayblovchining oʻzining orqasi kesik."
+  }
+ ],
+ "sources": {
+  "arabic": "Quran.com API v4, text_uthmani (Tanzil text)",
+  "translation": "QuranEnc, uzbek_sadiq: Shaykh Muhammad Sodiq Muhammad Yusuf (converted to Latin script)",
+  "reading": "github.com/AbdurazzoqAbdugafforov/uzbek-quran-transliteration, uzbekReading"
+ },
+ "fetchedAt": "2026-11-03"
+}

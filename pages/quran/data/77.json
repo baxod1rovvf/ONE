@@ -1,0 +1,314 @@
+{
+ "n": 77,
+ "nameAr": "المرسلات",
+ "nameUz": "Al-Mursalat",
+ "verses": [
+  {
+   "n": 1,
+   "ar": "وَٱلْمُرْسَلَـٰتِ عُرْفًا",
+   "reading": "Val mursalaati'urfaa.",
+   "uz": "Ket-ket yuborilganlar bilan qasam."
+  },
+  {
+   "n": 2,
+   "ar": "فَٱلْعَـٰصِفَـٰتِ عَصْفًا",
+   "reading": "Fal'aasifaati 'asfaa.",
+   "uz": "Qattiq esgan shamollar bilan qasam."
+  },
+  {
+   "n": 3,
+   "ar": "وَٱلنَّـٰشِرَٰتِ نَشْرًا",
+   "reading": "Vannaashiraati nashraa.",
+   "uz": "Va (shariatni) nashr qiluvchilar bilan qasam."
+  },
+  {
+   "n": 4,
+   "ar": "فَٱلْفَـٰرِقَـٰتِ فَرْقًا",
+   "reading": "Falfaariqaati farqaa.",
+   "uz": "Farqlovchilar bilan qasam."
+  },
+  {
+   "n": 5,
+   "ar": "فَٱلْمُلْقِيَـٰتِ ذِكْرًا",
+   "reading": "Falmulqiyaati zikra.",
+   "uz": "Vahiyni tashuvchilar bilan qasam."
+  },
+  {
+   "n": 6,
+   "ar": "عُذْرًا أَوْ نُذْرًا",
+   "reading": "'Uzran av nuzraa.",
+   "uz": "Uzrlarni yoki ogohlantirishlarni ham."
+  },
+  {
+   "n": 7,
+   "ar": "إِنَّمَا تُوعَدُونَ لَوَٰقِعٌ",
+   "reading": "Innamaa tuu'aduuna lavaaqi'.",
+   "uz": "Albatta, sizga vaʼda qilinayotgan narsa voqeʼ boʻlguvchidir."
+  },
+  {
+   "n": 8,
+   "ar": "فَإِذَا ٱلنُّجُومُ طُمِسَتْ",
+   "reading": "Fa izam nujuumu tumisat.",
+   "uz": "Bas, vaqtiki yulduzlar oʻchirilsa."
+  },
+  {
+   "n": 9,
+   "ar": "وَإِذَا ٱلسَّمَآءُ فُرِجَتْ",
+   "reading": "Va izas samaaa'u furijat.",
+   "uz": "Va vaqtiki, osmon yorilsa."
+  },
+  {
+   "n": 10,
+   "ar": "وَإِذَا ٱلْجِبَالُ نُسِفَتْ",
+   "reading": "Va izal jibaalu nusifat.",
+   "uz": "Va vaqtiki, togʻlar koʻchirilsa."
+  },
+  {
+   "n": 11,
+   "ar": "وَإِذَا ٱلرُّسُلُ أُقِّتَتْ",
+   "reading": "Va izar Rusulu uqqitat.",
+   "uz": "Va vaqtiki, Paygʻambarlarga vaqt belgilansa."
+  },
+  {
+   "n": 12,
+   "ar": "لِأَىِّ يَوْمٍ أُجِّلَتْ",
+   "reading": "Li ayyi yavmin ujjilat.",
+   "uz": "Qandoq kunga surilgan-a?"
+  },
+  {
+   "n": 13,
+   "ar": "لِيَوْمِ ٱلْفَصْلِ",
+   "reading": "Li yavmil Fasl.",
+   "uz": "Ajratish kuniga."
+  },
+  {
+   "n": 14,
+   "ar": "وَمَآ أَدْرَىٰكَ مَا يَوْمُ ٱلْفَصْلِ",
+   "reading": "Va maaa adraaka maa yavmul fasl.",
+   "uz": "Ajratish kunini senga nima bildirdi?"
+  },
+  {
+   "n": 15,
+   "ar": "وَيْلٌ يَوْمَئِذٍ لِّلْمُكَذِّبِينَ",
+   "reading": "Vailuny yavma 'izillilmukazzibiyn.",
+   "uz": "Oʻshal kunda yolgʻonga chiqaruvchilarga vayl boʻlsin!"
+  },
+  {
+   "n": 16,
+   "ar": "أَلَمْ نُهْلِكِ ٱلْأَوَّلِينَ",
+   "reading": "Alam nuhlikil avvaliyn.",
+   "uz": "Avvalgilarni halok qilmadikmi?"
+  },
+  {
+   "n": 17,
+   "ar": "ثُمَّ نُتْبِعُهُمُ ٱلْـَٔاخِرِينَ",
+   "reading": "Summa nutbi'uhumul aaxiriyn.",
+   "uz": "Soʻngra keyingilarini ularga ergashtirmadikmi?"
+  },
+  {
+   "n": 18,
+   "ar": "كَذَٰلِكَ نَفْعَلُ بِٱلْمُجْرِمِينَ",
+   "reading": "Kazzlika naf'alu bilmujrimiyn.",
+   "uz": "Gunohkorlarni shundoq qilamiz."
+  },
+  {
+   "n": 19,
+   "ar": "وَيْلٌ يَوْمَئِذٍ لِّلْمُكَذِّبِينَ",
+   "reading": "Vailunv yavma 'izil lil mukazzibiyn.",
+   "uz": "Oʻshal kunda yolgʻonga chiqaruvchilarga vayl boʻlsin!"
+  },
+  {
+   "n": 20,
+   "ar": "أَلَمْ نَخْلُقكُّم مِّن مَّآءٍ مَّهِينٍ",
+   "reading": "Alam naxlukkum mimmaaa'im mahiyn.",
+   "uz": "Sizlarni haqir suvdan yaratmadikmi?"
+  },
+  {
+   "n": 21,
+   "ar": "فَجَعَلْنَـٰهُ فِى قَرَارٍ مَّكِينٍ",
+   "reading": "Faja'alnaahu fiy qaraarim makiyn.",
+   "uz": "Bas, uni mustahkam qarorgohga joylamadikmi?!"
+  },
+  {
+   "n": 22,
+   "ar": "إِلَىٰ قَدَرٍ مَّعْلُومٍ",
+   "reading": "Illaa qadrim ma'luum.",
+   "uz": "Maʼlum vaqtgacha."
+  },
+  {
+   "n": 23,
+   "ar": "فَقَدَرْنَا فَنِعْمَ ٱلْقَـٰدِرُونَ",
+   "reading": "Faqadarnaa fani'mal qaadiruun.",
+   "uz": "Bas, Biz qodir boʻldik va qandoq ham yaxshi qodir boʻluvchimiz.  [1]",
+   "notes": "[1] (Yuqorida aytilgan ishlarga qodir boʻldik, nihoyatda ajoyib, insoniyat tafakkuridan ustun bir holatda, qodir boʻldik, deyapti Parvardigor.)"
+  },
+  {
+   "n": 24,
+   "ar": "وَيْلٌ يَوْمَئِذٍ لِّلْمُكَذِّبِينَ",
+   "reading": "Vailuny yavma 'izil lilmukazzibiyn.",
+   "uz": "Oʻshal kunda yolgʻonga chiqaruvchilarga vayl boʻlsin!"
+  },
+  {
+   "n": 25,
+   "ar": "أَلَمْ نَجْعَلِ ٱلْأَرْضَ كِفَاتًا",
+   "reading": "Alam naj'alil arda kifaataa.",
+   "uz": "Yerni oʻziga tortuvchi qilib qoʻymadikmi?!"
+  },
+  {
+   "n": 26,
+   "ar": "أَحْيَآءً وَأَمْوَٰتًا",
+   "reading": "Ahyaaa'anv va amvaataa.",
+   "uz": "Tiriklarni va oʻliklarni."
+  },
+  {
+   "n": 27,
+   "ar": "وَجَعَلْنَا فِيهَا رَوَٰسِىَ شَـٰمِخَـٰتٍ وَأَسْقَيْنَـٰكُم مَّآءً فُرَاتًا",
+   "reading": "Va ja'alnaa fiyhaa ravaasiya shaamixaatinv va asqainaakum maaa'an furaataa.",
+   "uz": "Va Biz unda yuksak togʻlar qildik va sizlarni zilol suv bilan sugʻordik."
+  },
+  {
+   "n": 28,
+   "ar": "وَيْلٌ يَوْمَئِذٍ لِّلْمُكَذِّبِينَ",
+   "reading": "Vailuny yavma 'izil lilmukazzibiyn.",
+   "uz": "Oʻshal kunda yolgʻonga chiqaruvchilarga vayl boʻlsin!"
+  },
+  {
+   "n": 29,
+   "ar": "ٱنطَلِقُوٓا۟ إِلَىٰ مَا كُنتُم بِهِۦ تُكَذِّبُونَ",
+   "reading": "Intaliquu ilaa maa kuntum bihiy tukazzibuun.",
+   "uz": "Yuringiz! Oʻzingiz yolgʻonga chiqargan narsaga qarab."
+  },
+  {
+   "n": 30,
+   "ar": "ٱنطَلِقُوٓا۟ إِلَىٰ ظِلٍّ ذِى ثَلَـٰثِ شُعَبٍ",
+   "reading": "Intaliquu ilaa zillin ziy salaasi shu'ab.",
+   "uz": "Yuringiz! Uch shoʻʼbasi bor «soya»ga qarab."
+  },
+  {
+   "n": 31,
+   "ar": "لَّا ظَلِيلٍ وَلَا يُغْنِى مِنَ ٱللَّهَبِ",
+   "reading": "Laa zaliylinv va laa yug'niy minal lahab.",
+   "uz": "U, salqin qiluvchimas va olovni ham qaytarmas."
+  },
+  {
+   "n": 32,
+   "ar": "إِنَّهَا تَرْمِى بِشَرَرٍ كَٱلْقَصْرِ",
+   "reading": "Innahaa tarmiy bishararin kalqasr.",
+   "uz": "Albatta, u (jahannam) qasrdek uchqunlarni otadir."
+  },
+  {
+   "n": 33,
+   "ar": "كَأَنَّهُۥ جِمَـٰلَتٌ صُفْرٌ",
+   "reading": "Ka annahuu jimaalatun sufr.",
+   "uz": "U (uchqun) xuddi qoramtir-sargʻish tuyalarga oʻxshaydir."
+  },
+  {
+   "n": 34,
+   "ar": "وَيْلٌ يَوْمَئِذٍ لِّلْمُكَذِّبِينَ",
+   "reading": "Vailuny yavma 'izil lilmukazibiyn.",
+   "uz": "Oʻshal kunda yolgʻonga chiqaruvchilarga vayl boʻlsin!"
+  },
+  {
+   "n": 35,
+   "ar": "هَـٰذَا يَوْمُ لَا يَنطِقُونَ",
+   "reading": "Haazaa yavmu laa uantiquun.",
+   "uz": "Bu, ular gapira olmaydigan kundir."
+  },
+  {
+   "n": 36,
+   "ar": "وَلَا يُؤْذَنُ لَهُمْ فَيَعْتَذِرُونَ",
+   "reading": "Va laa yu'zanu lahum fa ya'taziruun.",
+   "uz": "Va ularga uzr aytishga izn berilmaydir."
+  },
+  {
+   "n": 37,
+   "ar": "وَيْلٌ يَوْمَئِذٍ لِّلْمُكَذِّبِينَ",
+   "reading": "Vailunv yavma 'izil lilmukazzibiyn.",
+   "uz": "Oʻshal kunda yolgʻonga chiqaruvchilarga vayl boʻlsin!"
+  },
+  {
+   "n": 38,
+   "ar": "هَـٰذَا يَوْمُ ٱلْفَصْلِ ۖ جَمَعْنَـٰكُمْ وَٱلْأَوَّلِينَ",
+   "reading": "Haaza yavmul fasli jama 'naakum val avvaliyn.",
+   "uz": "Bu ajratish kuni sizlarni va avvalgilarni jamladik."
+  },
+  {
+   "n": 39,
+   "ar": "فَإِن كَانَ لَكُمْ كَيْدٌ فَكِيدُونِ",
+   "reading": "Fa in kaana lakum kaidun fakiyduun.",
+   "uz": "Bas, sizlarning hiylangiz boʻlsa, Menga ishlatib koʻring-chi?"
+  },
+  {
+   "n": 40,
+   "ar": "وَيْلٌ يَوْمَئِذٍ لِّلْمُكَذِّبِينَ",
+   "reading": "Vailuny yavma'izil lilmukazzibiyn.",
+   "uz": "Oʻshal kunda yolgʻonga chiqaruvchilarga vayl boʻlsin!"
+  },
+  {
+   "n": 41,
+   "ar": "إِنَّ ٱلْمُتَّقِينَ فِى ظِلَـٰلٍ وَعُيُونٍ",
+   "reading": "Innal muttaqiyna fiy zilaalinv va 'uyuun.",
+   "uz": "Albatta, taqvodorlar soyalar va buloqlardadir."
+  },
+  {
+   "n": 42,
+   "ar": "وَفَوَٰكِهَ مِمَّا يَشْتَهُونَ",
+   "reading": "Va favaakiha mimmaa yashtahuun.",
+   "uz": "Va oʻzlari xohlagan mevalardadir."
+  },
+  {
+   "n": 43,
+   "ar": "كُلُوا۟ وَٱشْرَبُوا۟ هَنِيٓـًٔۢا بِمَا كُنتُمْ تَعْمَلُونَ",
+   "reading": "Kuluu vashrabuu haniy 'am bimaa kuntum ta'maluun.",
+   "uz": "Yenglar va ichinglar, osh boʻlsin. Qilgan amallaringiz sababidandir."
+  },
+  {
+   "n": 44,
+   "ar": "إِنَّا كَذَٰلِكَ نَجْزِى ٱلْمُحْسِنِينَ",
+   "reading": "Innaa kazaalika najzil muhsiniyn.",
+   "uz": "Albatta, Biz muhsinlarni shunday mukofotlarmiz."
+  },
+  {
+   "n": 45,
+   "ar": "وَيْلٌ يَوْمَئِذٍ لِّلْمُكَذِّبِينَ",
+   "reading": "Vailuny yavma 'izil lilmuzkazzibiyn.",
+   "uz": "Oʻshal kunda yolgʻonga chiqaruvchilarga vayl boʻlsin!"
+  },
+  {
+   "n": 46,
+   "ar": "كُلُوا۟ وَتَمَتَّعُوا۟ قَلِيلًا إِنَّكُم مُّجْرِمُونَ",
+   "reading": "Kuluu va tamatta'uu qaliylan innakum mujrimuun.",
+   "uz": "Yenglar va mazza qilinglar, ozginagina. Albatta, sizlar gunohkorsizlar."
+  },
+  {
+   "n": 47,
+   "ar": "وَيْلٌ يَوْمَئِذٍ لِّلْمُكَذِّبِينَ",
+   "reading": "Vailunny yavma 'izil lilmukazzibiyn.",
+   "uz": "Oʻshal kunda yolgʻonga chiqaruvchilarga vayl boʻlsin!"
+  },
+  {
+   "n": 48,
+   "ar": "وَإِذَا قِيلَ لَهُمُ ٱرْكَعُوا۟ لَا يَرْكَعُونَ",
+   "reading": "Va izaa qiyla lahumur ka'uu aa yarka'uun.",
+   "uz": "Va agar ularga rukuʼ qilinglar deyilsa, rukuʼ qilmaslar."
+  },
+  {
+   "n": 49,
+   "ar": "وَيْلٌ يَوْمَئِذٍ لِّلْمُكَذِّبِينَ",
+   "reading": "Vailunny yavma 'izil lilmukazzibiyn.",
+   "uz": "Oʻshal kunda yolgʻonga chiqaruvchilarga vayl boʻlsin!"
+  },
+  {
+   "n": 50,
+   "ar": "فَبِأَىِّ حَدِيثٍۭ بَعْدَهُۥ يُؤْمِنُونَ",
+   "reading": "Fabi ayyi hadiysim ba'dahuu yu'minuun.",
+   "uz": "Bas, undan keyin qaysi soʻzga ishonadilar?!"
+  }
+ ],
+ "sources": {
+  "arabic": "Quran.com API v4, text_uthmani (Tanzil text)",
+  "translation": "QuranEnc, uzbek_sadiq: Shaykh Muhammad Sodiq Muhammad Yusuf (converted to Latin script)",
+  "reading": "github.com/AbdurazzoqAbdugafforov/uzbek-quran-transliteration, uzbekReading"
+ },
+ "fetchedAt": "2026-11-03"
+}

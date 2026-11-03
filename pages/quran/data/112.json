@@ -1,0 +1,39 @@
+{
+ "n": 112,
+ "nameAr": "الإخلاص",
+ "nameUz": "Al-Ikhlas",
+ "verses": [
+  {
+   "n": 1,
+   "ar": "قُلْ هُوَ ٱللَّهُ أَحَدٌ",
+   "reading": "Qul huval laahu ahad.",
+   "uz": "Ayt: «U Alloh yagonadir."
+  },
+  {
+   "n": 2,
+   "ar": "ٱللَّهُ ٱلصَّمَدُ",
+   "reading": "Allohus-somad.",
+   "uz": "Alloh — Comaddir. [1]",
+   "notes": "[1] (Hojatlarni va ragʻbatlarni qondiruvchidir.)"
+  },
+  {
+   "n": 3,
+   "ar": "لَمْ يَلِدْ وَلَمْ يُولَدْ",
+   "reading": "Lam yalid va lam yuulad.",
+   "uz": "U tugʻmagan va tugʻilmagan."
+  },
+  {
+   "n": 4,
+   "ar": "وَلَمْ يَكُن لَّهُۥ كُفُوًا أَحَدٌۢ",
+   "reading": "Va lam yakul-lahu kufuvan ahad.",
+   "uz": "Va Unga hech kim teng boʻlmagan». [2]",
+   "notes": "[2] (Alloh taologa biror zot na zotida, na sifatida va na amalida teng boʻlgan emas, boʻlolmaydi ham.)"
+  }
+ ],
+ "sources": {
+  "arabic": "Quran.com API v4, text_uthmani (Tanzil text)",
+  "translation": "QuranEnc, uzbek_sadiq: Shaykh Muhammad Sodiq Muhammad Yusuf (converted to Latin script)",
+  "reading": "github.com/AbdurazzoqAbdugafforov/uzbek-quran-transliteration, uzbekReading"
+ },
+ "fetchedAt": "2026-11-03"
+}

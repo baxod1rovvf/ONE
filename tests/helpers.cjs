@@ -66,7 +66,11 @@ function audioRoute(route, url) {
     }
     const m = /\/chapter_recitations\/(\d+)\/(\d+)/.exec(u.pathname);
     if (m) {
-      const body = JSON.stringify({ audio_file: { audio_url: `https://audio.test-quran.example/${m[1]}/${m[2]}.mp3` } });
+      const audio_file = { audio_url: `https://audio.test-quran.example/${m[1]}/${m[2]}.mp3` };
+      // Verse timings (made-up times, no text) when a fixture exists for the surah.
+      const timings = path.join(FIXTURES, "quran", `timings-${m[2]}.json`);
+      if (u.searchParams.get("segments") === "true" && fs.existsSync(timings)) Object.assign(audio_file, JSON.parse(fs.readFileSync(timings, "utf8")));
+      const body = JSON.stringify({ audio_file });
       return route.fulfill({ body, contentType: "application/json", headers: CORS });
     }
     return route.fulfill({ status: 404, body: "{}", headers: CORS });

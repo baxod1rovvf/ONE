@@ -1,0 +1,44 @@
+{
+ "n": 105,
+ "nameAr": "الفيل",
+ "nameUz": "Al-Fil",
+ "verses": [
+  {
+   "n": 1,
+   "ar": "أَلَمْ تَرَ كَيْفَ فَعَلَ رَبُّكَ بِأَصْحَـٰبِ ٱلْفِيلِ",
+   "reading": "Alam tara kaifa fa'ala Robbuka bi ashaabil fiyl.",
+   "uz": "Robbing fiyl sohiblarini nima qilganini bilmadingmi?"
+  },
+  {
+   "n": 2,
+   "ar": "أَلَمْ يَجْعَلْ كَيْدَهُمْ فِى تَضْلِيلٍ",
+   "reading": "Alam yaj'al kaydahum fiy tad liyl.",
+   "uz": "Ularning makru hiylasini zoye ketkazmadimi?"
+  },
+  {
+   "n": 3,
+   "ar": "وَأَرْسَلَ عَلَيْهِمْ طَيْرًا أَبَابِيلَ",
+   "reading": "Va arsala 'alaihim tairan abaabiyl.",
+   "uz": "Va ularning ustiga toʻp-toʻp qushlarni yubormadimi?"
+  },
+  {
+   "n": 4,
+   "ar": "تَرْمِيهِم بِحِجَارَةٍ مِّن سِجِّيلٍ",
+   "reading": "Tar miyhim bihijaaratim min sij jiyl.",
+   "uz": "Loydan pishirilgan toshlarni otadigan."
+  },
+  {
+   "n": 5,
+   "ar": "فَجَعَلَهُمْ كَعَصْفٍ مَّأْكُولٍۭ",
+   "reading": "Faja'alahum ka'asfim m'akuul.",
+   "uz": "Bas, ularni qurt yeb tashlagan oʻsimlikka oʻxshatib yubormadimi? [1]",
+   "notes": "[1] (Muhammad alayhissalom «Fil yili»da tugʻilganlar deyilishining sababi ham shu.)"
+  }
+ ],
+ "sources": {
+  "arabic": "Quran.com API v4, text_uthmani (Tanzil text)",
+  "translation": "QuranEnc, uzbek_sadiq: Shaykh Muhammad Sodiq Muhammad Yusuf (converted to Latin script)",
+  "reading": "github.com/AbdurazzoqAbdugafforov/uzbek-quran-transliteration, uzbekReading"
+ },
+ "fetchedAt": "2026-11-03"
+}
