@@ -199,3 +199,47 @@ test("Quran: a surah marked Needs work can be studied and learned again", async 
   await page.waitForFunction(() => location.hash === "#quran/review");
   await page.close();
 });
+
+// --- Audio ---
+const audioState = (page) => page.evaluate(() => {
+  const a = window.__oneQuranClip && window.__oneQuranClip.audio;
+  return a ? { t: a.currentTime, paused: a.paused, src: a.src } : null;
+});
+
+test("Quran: Play verse seeks to that verse and stops at its end", async () => {
+  const n = order[0];
+  const { page, errors } = await openApp(browser, server.url, { route: `quran/${n}`, data: withHifz([]) });
+  await page.getByRole("button", { name: "Play verse 2" }).click();
+  await page.waitForFunction(() => { const a = window.__oneQuranClip && window.__oneQuranClip.audio; return a && !a.paused && a.currentTime >= 4; });
+  await page.waitForFunction(() => { const a = window.__oneQuranClip.audio; return a.paused && a.currentTime >= 6.5; }, null, { timeout: 8000 });
+  assert.ok((await audioState(page)).t < 7.6);
+  assert.deepEqual(errors, []);
+  await page.close();
+});
+
+test("Quran: Repeat verse plays it again from its start", async () => {
+  const n = order[0];
+  const { page } = await openApp(browser, server.url, { route: `quran/${n}`, data: withHifz([]) });
+  const rep = page.getByRole("button", { name: "Repeat verse 1" });
+  await rep.click();
+  assert.equal(await rep.getAttribute("aria-pressed"), "true");
+  await page.waitForFunction(() => { const a = window.__oneQuranClip && window.__oneQuranClip.audio; return a && a.currentTime >= 2.5; }, null, { timeout: 8000 });
+  await page.waitForFunction(() => { const a = window.__oneQuranClip.audio; return !a.paused && a.currentTime < 1; }, null, { timeout: 8000 });
+  await rep.click();
+  await page.waitForFunction(() => window.__oneQuranClip.audio.paused);
+  await page.close();
+});
+
+test("Quran: without timings the verse buttons are hidden and the surah still plays", async () => {
+  const n = order[1];
+  const { page, errors } = await openApp(browser, server.url, {
+    route: `quran/${n}`, data: withHifz([]),
+    init: (p) => p.route(/api\.quran\.com\/.*segments=true/, (r) => r.fulfill({ status: 404, body: "{}", headers: { "access-control-allow-origin": "*" } }))
+  });
+  await page.locator("article.ayah").first().waitFor();
+  await page.getByRole("button", { name: "Play whole surah" }).click();
+  await page.waitForFunction(() => { const a = window.__oneQuranClip && window.__oneQuranClip.audio; return a && !a.paused; });
+  assert.equal(await page.getByRole("button", { name: "Play verse 1" }).count(), 0);
+  assert.deepEqual(errors, []);
+  await page.close();
+});

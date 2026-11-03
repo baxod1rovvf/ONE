@@ -5,7 +5,7 @@
 // #quran (the path), #quran/<n> (a surah), #quran/review (the block review).
 (function () {
   "use strict";
-  const { Button, React2, newId, useStore, useToday } = window.__oneApp;
+  const { Button, QuranClip, QuranSource, React2, newId, quranReciterId, useStore, useToday } = window.__oneApp;
   const R = window.__oneQuranRules;
   const h = React2.createElement;
 
@@ -262,6 +262,38 @@
     );
   }
 
+  // ---------- Audio ----------
+  // The surah's recording and, when the reciter has them, its verse timings.
+  function useRecitation(n) {
+    const [rec, setRec] = React2.useState({ url: null, verses: null, error: false });
+    React2.useEffect(() => {
+      let live = true;
+      (async () => {
+        try {
+          const id = await quranReciterId();
+          const t = id ? await QuranSource.verseTimings(id, n) : null;
+          const url = t ? t.url : id ? await QuranSource.surahUrl(id, n) : null;
+          if (live) setRec({ url, verses: t ? new Map(t.verses.map((v) => [v.verse, v])) : null, error: !url });
+        } catch {
+          if (live) setRec({ url: null, verses: null, error: true });
+        }
+      })();
+      return () => {
+        live = false;
+        QuranClip.stop();
+      };
+    }, [n]);
+    return rec;
+  }
+  // Which clip is playing, kept in step with the shared player.
+  function useClip() {
+    const [, setTick] = React2.useState(0);
+    React2.useEffect(() => QuranClip.subscribe(() => setTick((t) => t + 1)), []);
+    const a = QuranClip.audio;
+    return { key: QuranClip.loading || (a && !a.paused) ? QuranClip.key : null, loop: QuranClip.loop };
+  }
+  const playKey = (rec, key, opts) => QuranClip.play(rec.url, { key, ...opts }).catch(() => {});
+
   function SurahView({ n, index }) {
     const { file, error, retry } = useSurah(n);
     const { progress, set } = useHifz();
@@ -285,6 +317,21 @@
       go(bs.status === "studying" ? `#quran/${bs.current}` : bs.status === "review" ? "#quran/review" : "#quran");
     };
     const meta = index.find((s) => s.n === n);
+    const rec = useRecitation(n);
+    const clip = useClip();
+    const toggle = (key, opts) => (clip.key === key ? QuranClip.stop() : playKey(rec, key, opts));
+    const verseTools = (v) => {
+      const t = rec.verses && rec.verses.get(v.n);
+      if (!t) return null;
+      const playing = clip.key === `v${v.n}`;
+      const looping = clip.key === `r${v.n}`;
+      return h(
+        React2.Fragment,
+        null,
+        h("button", { type: "button", className: `q-icon${playing ? " is-on" : ""}`, "aria-label": `Play verse ${v.n}`, "aria-pressed": playing, onClick: (e) => (e.stopPropagation(), toggle(`v${v.n}`, { from: t.from, to: t.to })) }, playing ? "❚❚" : "▶"),
+        h("button", { type: "button", className: `q-icon${looping ? " is-on" : ""}`, "aria-label": `Repeat verse ${v.n}`, "aria-pressed": looping, onClick: (e) => (e.stopPropagation(), toggle(`r${v.n}`, { from: t.from, to: t.to, loop: true })) }, "🔁")
+      );
+    };
     return h(
       React2.Fragment,
       null,
@@ -297,7 +344,9 @@
           h("a", { className: "q-back", href: "#quran" }, "‹ All surahs"),
           h("h1", { className: "page-title" }, meta.nameUz),
           h("p", { className: "q-surah-head__ar", lang: "ar", dir: "rtl" }, meta.nameAr),
-          h("p", { className: "page-desc" }, `Surah ${n} · ${meta.verses} verses`)
+          h("p", { className: "page-desc" }, `Surah ${n} · ${meta.verses} verses`),
+          rec.url && h(Button, { variant: clip.key === "all" ? "primary" : "secondary", onClick: () => toggle("all", {}) }, clip.key === "all" ? "Pause" : "Play whole surah"),
+          rec.error && h("p", { className: "q-msg muted" }, "Couldn't reach the recitation. Check your connection or try another reciter.")
         )
       ),
       entry.readingChecked
@@ -312,7 +361,7 @@
         ? h("div", { className: "panel q-msg" }, h("p", null, "Couldn't open this surah. Check your connection and try again."), h(Button, { onClick: retry }, "Try again"))
         : !file
           ? h("p", { className: "q-msg muted" }, "Loading surah…")
-          : h(Verses, { file, test, setTest }),
+          : h(Verses, { file, test, setTest, renderTools: verseTools }),
       file && (st === "current" || st === "needs-work") && h("div", { className: "q-done-bar" }, h(Button, { variant: "primary", onClick: learned }, "I've learned it")),
       h("p", { className: "q-credits" }, CREDITS)
     );

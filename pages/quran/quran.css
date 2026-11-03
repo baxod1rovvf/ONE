@@ -355,3 +355,23 @@
 .q-review__left {
   text-align: center;
 }
+
+/* Audio */
+.q-icon {
+  display: grid;
+  place-items: center;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: var(--surface-2);
+  color: var(--text-2);
+  font-size: 13px;
+}
+.q-icon.is-on {
+  background: var(--accent);
+  color: var(--on-accent);
+}
+.q-surah-head .btn {
+  justify-self: start;
+  margin-top: 6px;
+}
