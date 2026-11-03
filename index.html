@@ -1483,6 +1483,25 @@ main[data-section] {
     bottom: 5px;
   }
 }
+/* Eight tabs on a small phone: a little less frame, so every tab keeps its
+   44px and its label. */
+@media (max-width: 420px) {
+  .dock {
+    left: 8px;
+    right: 8px;
+    gap: 0;
+    padding: 3px;
+  }
+  .dock__tab {
+    padding: 0 1px;
+    font-size: 9.5px;
+    letter-spacing: -0.01em;
+  }
+  .dock__pebble {
+    top: 3px;
+    bottom: 3px;
+  }
+}
 
 /* ---------- Page frame ---------- */
 .page {

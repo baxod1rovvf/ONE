@@ -85,7 +85,7 @@
   const STEP_WORD = { done: "Done", current: "Now", locked: "Later", "needs-work": "Needs work" };
 
   function SurahName({ s }) {
-    return h(React2.Fragment, null, h("span", { className: "q-name" }, s.nameUz), " · ", h("span", { className: "q-name-ar", lang: "ar", dir: "rtl" }, s.nameAr));
+    return h("span", { className: "q-sname" }, h("span", { className: "q-name" }, s.nameUz), h("span", { className: "q-name-ar", lang: "ar", dir: "rtl" }, s.nameAr));
   }
 
   function CurrentBlock({ k, block, byN, progress, set, today }) {
@@ -207,6 +207,117 @@
     );
   }
 
+  // ---------- A surah ----------
+  const CREDITS = "Arabic: Quran.com (Tanzil). Translation: Shaykh Muhammad Sodiq Muhammad Yusuf, via QuranEnc, converted to Latin script. Uzbek reading: uzbek-quran-transliteration (github.com/AbdurazzoqAbdugafforov).";
+  function useSurah(n) {
+    const [state, setState] = React2.useState({ file: null, error: false });
+    const load = React2.useCallback(() => {
+      setState({ file: null, error: false });
+      loadSurah(n).then((file) => setState({ file, error: false }), () => setState({ file: null, error: true }));
+    }, [n]);
+    React2.useEffect(load, [load]);
+    return { ...state, retry: load };
+  }
+  const firstWord = (ar) => ar.split(/\s+/)[0];
+
+  // One verse. In test mode it shows only its first word until it's tapped.
+  function Ayah({ v, test, showUz, revealed, onReveal, children }) {
+    const hide = test && !revealed;
+    return h(
+      "article",
+      { className: `ayah${test ? " is-test" : ""}${revealed ? " is-revealed" : ""}`, "aria-label": `Verse ${v.n}`, onClick: hide ? onReveal : void 0 },
+      h("div", { className: "ayah__top" }, h("span", { className: "ayah__num" }, v.n), children),
+      h("p", { className: `ayah__ar${hide ? " is-cut" : ""}`, lang: "ar", dir: "rtl" }, hide ? firstWord(v.ar) : v.ar),
+      h("p", { className: "ayah__reading", hidden: hide }, v.reading),
+      h("p", { className: "ayah__uz", hidden: hide && !showUz }, v.uz),
+      v.notes && !hide && h("details", { className: "ayah__notes" }, h("summary", null, "Notes"), h("p", null, v.notes)),
+      hide && h("span", { className: "ayah__hint" }, "Tap to show")
+    );
+  }
+
+  // The verses of a surah, with the Test me switches. Used by the surah page
+  // and the review.
+  function Verses({ file, test, setTest, renderTools }) {
+    const { data, setSettings } = useStore();
+    const showUz = (data.settings || {}).quranTestTranslation !== false;
+    const [revealed, setRevealed] = React2.useState(() => new Set());
+    React2.useEffect(() => setRevealed(new Set()), [file.n, test]);
+    return h(
+      React2.Fragment,
+      null,
+      h(
+        "div",
+        { className: "q-test" },
+        setTest && h("button", { type: "button", role: "switch", "aria-checked": test, className: "q-switch", onClick: () => setTest(!test) }, h("span", { className: "q-switch__dot", "aria-hidden": true }), "Test me"),
+        test && h("button", { type: "button", role: "switch", "aria-checked": showUz, className: "q-switch", onClick: () => setSettings({ quranTestTranslation: !showUz }) }, h("span", { className: "q-switch__dot", "aria-hidden": true }), "Show translation"),
+        test && revealed.size > 0 && h("button", { type: "button", className: "q-link", onClick: () => setRevealed(new Set()) }, "Hide all again")
+      ),
+      h(
+        "div",
+        { className: "ayahs" },
+        file.verses.map((v) =>
+          h(Ayah, { key: v.n, v, test, showUz, revealed: revealed.has(v.n), onReveal: () => setRevealed((s) => new Set(s).add(v.n)) }, renderTools ? renderTools(v) : null)
+        )
+      )
+    );
+  }
+
+  function SurahView({ n, index }) {
+    const { file, error, retry } = useSurah(n);
+    const { progress, set } = useHifz();
+    const today = useToday();
+    const [test, setTest] = React2.useState(false);
+    const path = React2.useMemo(() => R.buildPath(index, progress), [index, progress]);
+    const block = path[R.currentBlock(path, progress)] || [];
+    const inBlock = block.includes(n);
+    const st = inBlock ? R.stepState(n, block, progress) : null;
+    const entry = progress.get(n) || {};
+    // Opening the surah you're on starts its clock, as the path does.
+    React2.useEffect(() => {
+      if (st === "current" && !progress.get(n)) set(n, { state: "learning", startedAt: today });
+    }, [st, n]);
+    React2.useEffect(() => window.scrollTo(0, 0), [n]);
+    const learned = () => {
+      set(n, { state: "learned", startedAt: entry.startedAt || today });
+      const after = new Map(progress);
+      after.set(n, { ...entry, surah: n, state: "learned" });
+      const bs = R.blockState(block, after);
+      go(bs.status === "studying" ? `#quran/${bs.current}` : bs.status === "review" ? "#quran/review" : "#quran");
+    };
+    const meta = index.find((s) => s.n === n);
+    return h(
+      React2.Fragment,
+      null,
+      h(
+        "div",
+        { className: "page-head q-surah-head" },
+        h(
+          "div",
+          { className: "page-head__text" },
+          h("a", { className: "q-back", href: "#quran" }, "‹ All surahs"),
+          h("h1", { className: "page-title" }, meta.nameUz),
+          h("p", { className: "q-surah-head__ar", lang: "ar", dir: "rtl" }, meta.nameAr),
+          h("p", { className: "page-desc" }, `Surah ${n} · ${meta.verses} verses`)
+        )
+      ),
+      entry.readingChecked
+        ? h("p", { className: "q-checked" }, "✓ Reading checked")
+        : h(
+            "div",
+            { className: "q-check panel", role: "note" },
+            h("p", null, "Uzbek reading not checked yet. Compare it with your mushaf or app, then mark it checked."),
+            h(Button, { size: "sm", onClick: () => set(n, { readingChecked: true }) }, "Mark reading as checked")
+          ),
+      error
+        ? h("div", { className: "panel q-msg" }, h("p", null, "Couldn't open this surah. Check your connection and try again."), h(Button, { onClick: retry }, "Try again"))
+        : !file
+          ? h("p", { className: "q-msg muted" }, "Loading surah…")
+          : h(Verses, { file, test, setTest }),
+      file && (st === "current" || st === "needs-work") && h("div", { className: "q-done-bar" }, h(Button, { variant: "primary", onClick: learned }, "I've learned it")),
+      h("p", { className: "q-credits" }, CREDITS)
+    );
+  }
+
   // ---------- The page ----------
   function QuranPage() {
     const view = useHashView();
@@ -214,6 +325,7 @@
     let body;
     if (error) body = h("div", { className: "panel q-msg" }, h("p", null, "Couldn't open the surah list. Check your connection and try again."), h(Button, { onClick: retry }, "Try again"));
     else if (!index) body = h("p", { className: "q-msg muted" }, "Loading surahs…");
+    else if (view.kind === "surah") body = h(SurahView, { key: view.n, n: view.n, index });
     else body = h(PathView, { index });
     return h(
       React2.Fragment,

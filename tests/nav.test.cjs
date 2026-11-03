@@ -39,6 +39,9 @@ test("dock tabs are at least 44px and the page never scrolls sideways at 375px",
     const boxes = await page.locator(".dock__tab").evaluateAll((els) => els.map((e) => e.getBoundingClientRect().toJSON()));
     assert.equal(boxes.length, 8);
     for (const b of boxes) assert.ok(b.width >= 44 && b.height >= 44, `tab ${b.width}x${b.height} on ${route}`);
+    for (const b of boxes) assert.ok(b.x >= 0 && b.x + b.width <= 375, `tab at ${b.x}..${b.x + b.width} is off screen on ${route}`);
+    const clipped = await page.locator(".dock__tab").evaluateAll((els) => els.filter((e) => e.scrollWidth > e.clientWidth + 1).map((e) => e.textContent));
+    assert.deepEqual(clipped, [], `labels cut off on ${route}`);
     assert.equal(await page.evaluate(() => document.documentElement.scrollWidth), 375, `no sideways scroll on ${route}`);
     await page.close();
   }

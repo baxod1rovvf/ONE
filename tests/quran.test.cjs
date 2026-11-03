@@ -82,3 +82,84 @@ test("Quran: 8 dock tabs fit a phone, no sideways scroll, dark theme", async () 
   await page.close();
 });
 
+
+// --- A surah ---
+const openSurah = (n, opts = {}) => openApp(browser, server.url, { route: `quran/${n}`, data: withHifz([]), init: TUE, ...opts });
+const ayahs = (page) => page.locator("article.ayah");
+
+test("Quran: a surah shows Arabic, reading and translation for every verse", async () => {
+  const n = order[0];
+  const file = surahFile(n);
+  const { page, errors } = await openSurah(n);
+  await ayahs(page).first().waitFor();
+  assert.equal(await ayahs(page).count(), file.verses.length);
+  const first = ayahs(page).first();
+  assert.equal((await first.locator(".ayah__ar").textContent()).trim(), file.verses[0].ar);
+  assert.equal((await first.locator(".ayah__reading").textContent()).trim(), file.verses[0].reading);
+  assert.equal((await first.locator(".ayah__uz").textContent()).trim(), file.verses[0].uz);
+  assert.equal(await first.locator(".ayah__ar").getAttribute("dir"), "rtl");
+  await page.getByText("Uzbek reading not checked yet.", { exact: false }).waitFor();
+  await page.getByRole("button", { name: "Mark reading as checked" }).click();
+  await page.getByText("Reading checked").waitFor();
+  await page.reload();
+  await page.getByText("Reading checked").waitFor();
+  assert.equal((await stored(page)).hifz.find((e) => e.surah === n).readingChecked, true);
+  await page.getByText("Translation: Shaykh Muhammad Sodiq Muhammad Yusuf, via QuranEnc, converted to Latin script.", { exact: false }).waitFor();
+  assert.deepEqual(errors, []);
+  await page.close();
+});
+
+test("Quran: Test me hides, a tap reveals, Hide all again hides", async () => {
+  const n = order[0];
+  const file = surahFile(n);
+  const { page } = await openSurah(n);
+  await ayahs(page).first().waitFor();
+  await page.getByRole("switch", { name: "Test me" }).click();
+  const first = ayahs(page).first();
+  assert.equal((await first.locator(".ayah__ar").textContent()).trim(), file.verses[0].ar.split(/\s+/)[0]);
+  assert.equal(await first.locator(".ayah__reading").isVisible(), false);
+  assert.equal(await first.locator(".ayah__uz").isVisible(), true);
+  await first.click();
+  assert.equal((await first.locator(".ayah__ar").textContent()).trim(), file.verses[0].ar);
+  await page.getByRole("button", { name: "Hide all again" }).click();
+  assert.equal((await first.locator(".ayah__ar").textContent()).trim(), file.verses[0].ar.split(/\s+/)[0]);
+  await page.getByRole("switch", { name: "Show translation" }).click();
+  assert.equal(await first.locator(".ayah__uz").isVisible(), false);
+  await page.close();
+});
+
+test("Quran: I've learned it moves to the next step, and after four to the review", async () => {
+  let { page } = await openSurah(order[0]);
+  await page.getByRole("button", { name: "I've learned it" }).click();
+  await page.waitForFunction((n) => location.hash === `#quran/${n}`, order[1]);
+  assert.equal((await stored(page)).hifz.find((e) => e.surah === order[0]).state, "learned");
+  await page.close();
+  ({ page } = await openSurah(order[3], { data: withHifz([h(order[0], "learned"), h(order[1], "learned"), h(order[2], "learned")]) }));
+  await page.getByRole("button", { name: "I've learned it" }).click();
+  await page.waitForFunction(() => location.hash === "#quran/review");
+  await page.close();
+});
+
+test("Quran: I've learned it only shows on the step you're on", async () => {
+  const { page } = await openSurah(order[2]);
+  await ayahs(page).first().waitFor();
+  assert.equal(await page.getByRole("button", { name: "I've learned it" }).count(), 0);
+  await page.close();
+});
+
+test("Quran: footnotes fold under their verse", async () => {
+  const { page } = await openSurah(1);
+  await ayahs(page).first().waitFor();
+  const notes = ayahs(page).first().locator("details.ayah__notes");
+  assert.equal(await notes.count(), 1);
+  assert.match(await notes.locator("summary").textContent(), /Notes/);
+  await page.close();
+});
+
+test("Quran: the longest verse wraps on a phone", async () => {
+  const { page, errors } = await openSurah(2, { viewport: { width: 375, height: 812 } });
+  await page.getByRole("article", { name: "Verse 282" }).waitFor({ timeout: 15000 });
+  assert.equal(await page.evaluate(() => document.documentElement.scrollWidth), 375);
+  assert.deepEqual(errors, []);
+  await page.close();
+});
