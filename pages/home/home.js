@@ -5,8 +5,8 @@
 (function () {
   "use strict";
   const {
-    IconButton, Moon, React2, STARS, SoundsButton, Sun, createLucideIcon, isTypingTarget,
-    loadGames, useSound, useStore, useTelegram, useTheme, useToast, useUI
+    IconButton, MOODS, MOOD_NOTE_MAX, Moon, MoodFace, React2, STARS, SoundsButton, Sun, createLucideIcon, isTypingTarget,
+    loadGames, useMoodDay, useToday, useSound, useStore, useTelegram, useTheme, useToast, useUI
   } = window.__oneApp;
   /**
    * @license lucide-react v0.454.0 - ISC
@@ -1101,6 +1101,35 @@
     });
     return out;
   }
+  // "How was today?": one tap marks the day, "Why?" opens its note. From
+  // 21:00 an unmarked day stands out a little; nothing ever notifies.
+  function MoodCard() {
+    const h = React2.createElement;
+    const ui = useUI();
+    const today = useToday();
+    const { entry, setMood, setNote } = useMoodDay(today);
+    const [noteOpen, setNoteOpen] = React2.useState(false);
+    React2.useEffect(() => setNoteOpen(false), [today]);
+    const mood = entry ? entry.mood : null;
+    const evening = !mood && new Date().getHours() >= 21;
+    const chosen = MOODS.find((m) => m.value === mood);
+    return h(
+      "section",
+      { className: `mood-home glass${evening ? " is-evening" : ""}`, "aria-label": "How was today?" },
+      h("div", { className: "mood-home__top" },
+        h("p", { className: "mood-home__q" }, chosen ? `Today: ${chosen.word}` : "How was today?"),
+        h("button", { type: "button", className: "mood-home__link", onClick: () => ui.navigate("mood") }, "See the week")
+      ),
+      h("div", { className: "mood-home__faces", role: "group", "aria-label": "Mood" },
+        MOODS.map((m) => h("button", { key: m.value, type: "button", className: "mood-home__face", "aria-label": m.word, title: m.word, "aria-pressed": mood === m.value, onClick: () => setMood(m.value) }, h(MoodFace, { mood: m.value, size: 30 })))
+      ),
+      entry && !noteOpen && h("button", { type: "button", className: "mood-home__link", onClick: () => setNoteOpen(true) }, entry.note && entry.note.trim() ? "Why? (edit note)" : "Why?"),
+      noteOpen && h("label", { className: "mood-home__note" },
+        h("span", { className: "sr-only" }, "Why was it like that?"),
+        h("textarea", { className: "input", rows: 2, maxLength: MOOD_NOTE_MAX, placeholder: "What made it that way?", value: entry ? entry.note || "" : "", autoFocus: true, onChange: (e) => setNote(e.target.value) })
+      )
+    );
+  }
   function TelegramCard() {
     const tg = useTelegram();
     const ui = useUI();
@@ -1334,7 +1363,7 @@
       ),
       pause.active && React2.createElement(BreakPill, { ref: endButtonRef, remainingMs: pause.remainingMs, onEnd: () => pause.end("user") }),
       welcome && React2.createElement("div", { className: "meadow-welcome glass", role: "status" }, "welcome back 🌱"),
-      !pause.active && React2.createElement(TelegramCard, null),
+      !pause.active && React2.createElement("div", { className: "home-cards" }, React2.createElement(MoodCard, null), React2.createElement(TelegramCard, null)),
       React2.createElement(
         "div",
         { className: "meadow-controls glass", role: "group", "aria-label": "Meadow controls", inert: pause.active ? "" : void 0 },
