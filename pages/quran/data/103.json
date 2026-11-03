@@ -1,0 +1,33 @@
+{
+ "n": 103,
+ "nameAr": "العصر",
+ "nameUz": "Al-'Asr",
+ "verses": [
+  {
+   "n": 1,
+   "ar": "وَٱلْعَصْرِ",
+   "reading": "Val' asr.",
+   "uz": "Asr bilan qasam."
+  },
+  {
+   "n": 2,
+   "ar": "إِنَّ ٱلْإِنسَـٰنَ لَفِى خُسْرٍ",
+   "reading": "Innal insaana lafiy xusr.",
+   "uz": "Albatta, inson xusrondadir. [1]",
+   "notes": "[1] (Xusron-magʻlubiyat, yutqiziq va nuqson maʼnolarini anglatadi.)"
+  },
+  {
+   "n": 3,
+   "ar": "إِلَّا ٱلَّذِينَ ءَامَنُوا۟ وَعَمِلُوا۟ ٱلصَّـٰلِحَـٰتِ وَتَوَاصَوْا۟ بِٱلْحَقِّ وَتَوَاصَوْا۟ بِٱلصَّبْرِ",
+   "reading": "Il lal laziyna aamanu va 'amilus saalihaati va tava sav bil haqqi va tava sav bis sabr.",
+   "uz": "Illo, iymon keltirganlar va solih amallar qilganlar, bir-birlarini haq yoʻlga chaqirganlar va bir-birlarini sabrga chaqirganlar (undoq emasdir). [2]",
+   "notes": "[2] (Maʼlum boʻldiki, inson ikki dunyoda badbaxt boʻlib qolmaslik uchun toʻrtta sifatga ega boʻlishi kerak ekan: Allohga iymon keltirishi. Solih amallar qilishi. Haq amallar qilishi. Sabrga chaqirishi.)"
+  }
+ ],
+ "sources": {
+  "arabic": "Quran.com API v4, text_uthmani (Tanzil text)",
+  "translation": "QuranEnc, uzbek_sadiq: Shaykh Muhammad Sodiq Muhammad Yusuf (converted to Latin script)",
+  "reading": "github.com/AbdurazzoqAbdugafforov/uzbek-quran-transliteration, uzbekReading"
+ },
+ "fetchedAt": "2026-11-03"
+}

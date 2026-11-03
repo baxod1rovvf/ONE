@@ -1,0 +1,50 @@
+{
+ "n": 114,
+ "nameAr": "الناس",
+ "nameUz": "An-Nas",
+ "verses": [
+  {
+   "n": 1,
+   "ar": "قُلْ أَعُوذُ بِرَبِّ ٱلنَّاسِ",
+   "reading": "Qul a'uzu birabbin naas.",
+   "uz": "«Odamlar Robbisidan..."
+  },
+  {
+   "n": 2,
+   "ar": "مَلِكِ ٱلنَّاسِ",
+   "reading": "Malikin naas.",
+   "uz": "Odamlar podshohidan..."
+  },
+  {
+   "n": 3,
+   "ar": "إِلَـٰهِ ٱلنَّاسِ",
+   "reading": "Ilaahin naas.",
+   "uz": "Odamlar Ilohidan panoh soʻrayman..."
+  },
+  {
+   "n": 4,
+   "ar": "مِن شَرِّ ٱلْوَسْوَاسِ ٱلْخَنَّاسِ",
+   "reading": "Min sharril vasvaasil xannaas.",
+   "uz": "Berkinib, koʻrinib turuvchi vasvasachining..."
+  },
+  {
+   "n": 5,
+   "ar": "ٱلَّذِى يُوَسْوِسُ فِى صُدُورِ ٱلنَّاسِ",
+   "reading": "Allaziy yuvasvisu fiy suduurin naas.",
+   "uz": "Odamlar qalblariga vasvasa soladiganning..."
+  },
+  {
+   "n": 6,
+   "ar": "مِنَ ٱلْجِنَّةِ وَٱلنَّاسِ",
+   "reading": "Minal jinnati van naas.",
+   "uz": "Jinlar va odamlardan boʻlganning yomonligidan», deb ayt. [1]",
+   "notes": "[1] (Oyatda zikr qilingan «berkinib, koʻrib turuvchi»dan murod shaytondir.)"
+  }
+ ],
+ "sources": {
+  "arabic": "Quran.com API v4, text_uthmani (Tanzil text)",
+  "translation": "QuranEnc, uzbek_sadiq: Shaykh Muhammad Sodiq Muhammad Yusuf (converted to Latin script)",
+  "reading": "github.com/AbdurazzoqAbdugafforov/uzbek-quran-transliteration, uzbekReading"
+ },
+ "fetchedAt": "2026-11-03"
+}

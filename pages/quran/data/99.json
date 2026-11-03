@@ -1,0 +1,62 @@
+{
+ "n": 99,
+ "nameAr": "الزلزلة",
+ "nameUz": "Az-Zalzalah",
+ "verses": [
+  {
+   "n": 1,
+   "ar": "إِذَا زُلْزِلَتِ ٱلْأَرْضُ زِلْزَالَهَا",
+   "reading": "Izaa zul zilatil ardu zil zaalaha.",
+   "uz": "Vaqtiki, yer oʻziga xos zilzilaga tushsa..."
+  },
+  {
+   "n": 2,
+   "ar": "وَأَخْرَجَتِ ٱلْأَرْضُ أَثْقَالَهَا",
+   "reading": "Va ax rajatil ardu asqaalaha.",
+   "uz": "Va yer oʻz yuklarini otib chiqarsa..."
+  },
+  {
+   "n": 3,
+   "ar": "وَقَالَ ٱلْإِنسَـٰنُ مَا لَهَا",
+   "reading": "Va qaalal insaanu ma laha.",
+   "uz": "Va inson: «Unga nima boʻldi?!» – desa..."
+  },
+  {
+   "n": 4,
+   "ar": "يَوْمَئِذٍ تُحَدِّثُ أَخْبَارَهَا",
+   "reading": "Yavmaa izin tuhad disu axbaaraha.",
+   "uz": "Oʻsha kunda u (yer) oʻz xabarini aytadir."
+  },
+  {
+   "n": 5,
+   "ar": "بِأَنَّ رَبَّكَ أَوْحَىٰ لَهَا",
+   "reading": "Bi-anna Robbaka avhaa laha.",
+   "uz": "Sening Robbing unga vahiy yuborgani uchundir."
+  },
+  {
+   "n": 6,
+   "ar": "يَوْمَئِذٍ يَصْدُرُ ٱلنَّاسُ أَشْتَاتًا لِّيُرَوْا۟ أَعْمَـٰلَهُمْ",
+   "reading": "Yavma iziy yas durun naasu ash tatal liyurav a'maalahum.",
+   "uz": "Oʻsha kunda odamlar amallarini koʻrish uchun joylaridan guruh-guruh boʻlib qoʻzgʻalurlar."
+  },
+  {
+   "n": 7,
+   "ar": "فَمَن يَعْمَلْ مِثْقَالَ ذَرَّةٍ خَيْرًا يَرَهُۥ",
+   "reading": "Famaiy ya'mal misqala zarratin xai raiy-yarah.",
+   "uz": "Bas, kim zarra ogʻirligida yaxshilik qilsa ham koʻradir."
+  },
+  {
+   "n": 8,
+   "ar": "وَمَن يَعْمَلْ مِثْقَالَ ذَرَّةٍ شَرًّا يَرَهُۥ",
+   "reading": "Va maiy-y'amal misqala zarratin sharraiy-yarah.",
+   "uz": "Va kim zarra ogʻirligida yomonlik qilsa ham koʻradir. [1]",
+   "notes": "[1] (Yaxshilikning ham, yomonlikning ham katta-kichigi boʻlmaydi. Hammasining hisob-kitobi boʻladi, qiyomatda javob berish kerak. Har doim yaxshilikni qilib, agar u koʻzga koʻrinmas zarra miqdorida boʻlsa ham yomonlikdan qochish kerak.)"
+  }
+ ],
+ "sources": {
+  "arabic": "Quran.com API v4, text_uthmani (Tanzil text)",
+  "translation": "QuranEnc, uzbek_sadiq: Shaykh Muhammad Sodiq Muhammad Yusuf (converted to Latin script)",
+  "reading": "github.com/AbdurazzoqAbdugafforov/uzbek-quran-transliteration, uzbekReading"
+ },
+ "fetchedAt": "2026-11-03"
+}

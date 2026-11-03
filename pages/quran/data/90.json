@@ -1,0 +1,134 @@
+{
+ "n": 90,
+ "nameAr": "البلد",
+ "nameUz": "Al-Balad",
+ "verses": [
+  {
+   "n": 1,
+   "ar": "لَآ أُقْسِمُ بِهَـٰذَا ٱلْبَلَدِ",
+   "reading": "Laaa uqsimu bihaazal balad.",
+   "uz": "Mana shu shahar bilan qasam."
+  },
+  {
+   "n": 2,
+   "ar": "وَأَنتَ حِلٌّۢ بِهَـٰذَا ٱلْبَلَدِ",
+   "reading": "Va anta hillum bihaazal balad.",
+   "uz": "Sen muqim turgan bu shahar-la."
+  },
+  {
+   "n": 3,
+   "ar": "وَوَالِدٍ وَمَا وَلَدَ",
+   "reading": "Va vaalidinv va maa valad.",
+   "uz": "Va Volid va undan tarqagan valadlar bilan qasam."
+  },
+  {
+   "n": 4,
+   "ar": "لَقَدْ خَلَقْنَا ٱلْإِنسَـٰنَ فِى كَبَدٍ",
+   "reading": "Laqad xalaqnal insaana fiy kabad.",
+   "uz": "Batahqiq, Biz insonni mashaqqatda yaratdik."
+  },
+  {
+   "n": 5,
+   "ar": "أَيَحْسَبُ أَن لَّن يَقْدِرَ عَلَيْهِ أَحَدٌ",
+   "reading": "Ayahsabu al-lai yaqdira 'alaihi ahad.",
+   "uz": "U inson unga hech kimning kuchi yetmas, deb hisoblarmi?"
+  },
+  {
+   "n": 6,
+   "ar": "يَقُولُ أَهْلَكْتُ مَالًا لُّبَدًا",
+   "reading": "Yaquulu ahlaktu maalal lubadaa.",
+   "uz": "U: «Koʻplab mol-dunyo nafaqa qildim», deydir. [1]",
+   "notes": "[1] (Mol-dunyo bilan gʻururga ketganlarga yaxshilik yoʻlida ehson qil, deb aytilsa, yuqoridagi gapni aytishadi. Vaholanki, yaxshilik yoʻlida hech narsa sarflamagan boʻladi.)"
+  },
+  {
+   "n": 7,
+   "ar": "أَيَحْسَبُ أَن لَّمْ يَرَهُۥٓ أَحَدٌ",
+   "reading": "Ayahsabu al lam yarahuu ahad.",
+   "uz": "U oʻzini birov koʻrmadi, deb hisoblaydirmi?"
+  },
+  {
+   "n": 8,
+   "ar": "أَلَمْ نَجْعَل لَّهُۥ عَيْنَيْنِ",
+   "reading": "Alam naj'al lahuu 'aynayn.",
+   "uz": "Biz unga ikki koʻzni."
+  },
+  {
+   "n": 9,
+   "ar": "وَلِسَانًا وَشَفَتَيْنِ",
+   "reading": "Va lisaananv va shafatayn.",
+   "uz": "Va tilni va ikki labni bermadikmi?"
+  },
+  {
+   "n": 10,
+   "ar": "وَهَدَيْنَـٰهُ ٱلنَّجْدَيْنِ",
+   "reading": "Va hadaynaahun najdayn.",
+   "uz": "Va Biz uni ikki yoʻlga yoʻllab qoʻymadikmi?"
+  },
+  {
+   "n": 11,
+   "ar": "فَلَا ٱقْتَحَمَ ٱلْعَقَبَةَ",
+   "reading": "Falaq tahamal-'aqabah.",
+   "uz": "Bas, u dovon oshib oʻtmadi."
+  },
+  {
+   "n": 12,
+   "ar": "وَمَآ أَدْرَىٰكَ مَا ٱلْعَقَبَةُ",
+   "reading": "Va maaa adraaka mal'aqabah.",
+   "uz": "Dovon qandoq narsa ekanini senga nima bildirdi?"
+  },
+  {
+   "n": 13,
+   "ar": "فَكُّ رَقَبَةٍ",
+   "reading": "Fakku raqabah.",
+   "uz": "U qul ozod qilishdir."
+  },
+  {
+   "n": 14,
+   "ar": "أَوْ إِطْعَـٰمٌ فِى يَوْمٍ ذِى مَسْغَبَةٍ",
+   "reading": "Av it'aamun fiy yavmin ziy masg'abah.",
+   "uz": "Yoki ocharchilik kunida taom berishdir."
+  },
+  {
+   "n": 15,
+   "ar": "يَتِيمًا ذَا مَقْرَبَةٍ",
+   "reading": "Yatiyman zaa maqrabah.",
+   "uz": "Qarindosh yetimga."
+  },
+  {
+   "n": 16,
+   "ar": "أَوْ مِسْكِينًا ذَا مَتْرَبَةٍ",
+   "reading": "Av miskiynan zaa matrabah.",
+   "uz": "Yoki tuproqqa qorilgan miskinga."
+  },
+  {
+   "n": 17,
+   "ar": "ثُمَّ كَانَ مِنَ ٱلَّذِينَ ءَامَنُوا۟ وَتَوَاصَوْا۟ بِٱلصَّبْرِ وَتَوَاصَوْا۟ بِٱلْمَرْحَمَةِ",
+   "reading": "Summa kaana minal laziyna aamanuu va tavaasav bissabri va tavaasav bilmarhamah.",
+   "uz": "Soʻngra, iymon keltirganlar va bir-birini sabrga, mehr-shafqatga chaqirganlar boʻlsa..."
+  },
+  {
+   "n": 18,
+   "ar": "أُو۟لَـٰٓئِكَ أَصْحَـٰبُ ٱلْمَيْمَنَةِ",
+   "reading": "Ulaaa'ika As-haabul maimanah.",
+   "uz": "Ana oʻshalar oʻng tomon egalaridir."
+  },
+  {
+   "n": 19,
+   "ar": "وَٱلَّذِينَ كَفَرُوا۟ بِـَٔايَـٰتِنَا هُمْ أَصْحَـٰبُ ٱلْمَشْـَٔمَةِ",
+   "reading": "Vallaziyna kafaruu bi aayaatinaa hum as-haabul Mash'amah.",
+   "uz": "Oyatlarimizga kufr keltirganlar chap tomon egalaridir."
+  },
+  {
+   "n": 20,
+   "ar": "عَلَيْهِمْ نَارٌ مُّؤْصَدَةٌۢ",
+   "reading": "Alaihim naarum mu'sadah.",
+   "uz": "Ularni chiqib boʻlmaydigan oʻt-olov oʻrab olgandir."
+  }
+ ],
+ "sources": {
+  "arabic": "Quran.com API v4, text_uthmani (Tanzil text)",
+  "translation": "QuranEnc, uzbek_sadiq: Shaykh Muhammad Sodiq Muhammad Yusuf (converted to Latin script)",
+  "reading": "github.com/AbdurazzoqAbdugafforov/uzbek-quran-transliteration, uzbekReading"
+ },
+ "fetchedAt": "2026-11-03"
+}

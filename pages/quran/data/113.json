@@ -1,0 +1,44 @@
+{
+ "n": 113,
+ "nameAr": "الفلق",
+ "nameUz": "Al-Falaq",
+ "verses": [
+  {
+   "n": 1,
+   "ar": "قُلْ أَعُوذُ بِرَبِّ ٱلْفَلَقِ",
+   "reading": "Qul a'uzuu bi Robbil-falaq.",
+   "uz": "«Tong Robbisidan panoh soʻrayman."
+  },
+  {
+   "n": 2,
+   "ar": "مِن شَرِّ مَا خَلَقَ",
+   "reading": "Min sharri ma xalaq.",
+   "uz": "U yaratgan narsalar yomonligidan."
+  },
+  {
+   "n": 3,
+   "ar": "وَمِن شَرِّ غَاسِقٍ إِذَا وَقَبَ",
+   "reading": "Va min sharri g'asiqin iza vaqab.",
+   "uz": "Va kirib kelgan qorongʻu kechaning yomonligidan."
+  },
+  {
+   "n": 4,
+   "ar": "وَمِن شَرِّ ٱلنَّفَّـٰثَـٰتِ فِى ٱلْعُقَدِ",
+   "reading": "Va min sharrin-naffaasaati fil 'uqad.",
+   "uz": "Va tugunlarga dam soluvchilar yomonligidan. [1]",
+   "notes": "[1] (Sehrgarlar birovni sehrlab zarar yetkazmoqchi boʻlsa, ip olib, oʻqiydigan narsasini oʻqib, dam solib, ipni bir tugib, yana bir dam solib, yana tugib, oxiriga yetkazar ekan.)"
+  },
+  {
+   "n": 5,
+   "ar": "وَمِن شَرِّ حَاسِدٍ إِذَا حَسَدَ",
+   "reading": "Va min sharri haasidin iza hasad.",
+   "uz": "Va hasad qilgan hasadchining yomonligidan», deb ayt."
+  }
+ ],
+ "sources": {
+  "arabic": "Quran.com API v4, text_uthmani (Tanzil text)",
+  "translation": "QuranEnc, uzbek_sadiq: Shaykh Muhammad Sodiq Muhammad Yusuf (converted to Latin script)",
+  "reading": "github.com/AbdurazzoqAbdugafforov/uzbek-quran-transliteration, uzbekReading"
+ },
+ "fetchedAt": "2026-11-03"
+}

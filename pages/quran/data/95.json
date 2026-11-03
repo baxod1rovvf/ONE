@@ -1,0 +1,62 @@
+{
+ "n": 95,
+ "nameAr": "التين",
+ "nameUz": "At-Tin",
+ "verses": [
+  {
+   "n": 1,
+   "ar": "وَٱلتِّينِ وَٱلزَّيْتُونِ",
+   "reading": "Vat tiyni vaz zaituun.",
+   "uz": "Anjir bilan qasam va zaytun bilan qasam."
+  },
+  {
+   "n": 2,
+   "ar": "وَطُورِ سِينِينَ",
+   "reading": "Va tuuri siniyn.",
+   "uz": "Va Turi Siyno bilan qasam."
+  },
+  {
+   "n": 3,
+   "ar": "وَهَـٰذَا ٱلْبَلَدِ ٱلْأَمِينِ",
+   "reading": "Va haazal balad-il amiyn.",
+   "uz": "Va mana bu eminlik yurti (Makka) bilan qasam."
+  },
+  {
+   "n": 4,
+   "ar": "لَقَدْ خَلَقْنَا ٱلْإِنسَـٰنَ فِىٓ أَحْسَنِ تَقْوِيمٍ",
+   "reading": "Laqad xalaqnal insaana fiy ahsani taqviym.",
+   "uz": "Batahqiq, Biz insonni eng yaxshi suvratda yaratdik."
+  },
+  {
+   "n": 5,
+   "ar": "ثُمَّ رَدَدْنَـٰهُ أَسْفَلَ سَـٰفِلِينَ",
+   "reading": "Summa ra dad naahu asfala saafiliyn.",
+   "uz": "Soʻngra uni asfala saafiliynga qaytardik. [1]",
+   "notes": "[1] (Inson Yaratganiga ibodatda boʻlsa, farishtadan ham afzalroq martabaga erishdi. Ammo havoi nafsi, hayvoniy hirslari aqlidan ustun kelib nafsning aytganidan yuradigan boʻlsa, hayvondan ham battar holatga tushadi. Ana oʻshanda asfala safilinni koʻraveradi.)"
+  },
+  {
+   "n": 6,
+   "ar": "إِلَّا ٱلَّذِينَ ءَامَنُوا۟ وَعَمِلُوا۟ ٱلصَّـٰلِحَـٰتِ فَلَهُمْ أَجْرٌ غَيْرُ مَمْنُونٍ",
+   "reading": "Ill-lal laziyna aamanuu va 'amilus saalihaati; falahum ajrun g'airu mamnuun.",
+   "uz": "Illo, iymon keltirganlar va yaxshi amallar qilganlarga minnatsiz va uzluksiz ajrlar bordir."
+  },
+  {
+   "n": 7,
+   "ar": "فَمَا يُكَذِّبُكَ بَعْدُ بِٱلدِّينِ",
+   "reading": "Fama yu kaz zibuka b'adu bid diyn.",
+   "uz": "Bas, seni oxiratni yolgʻonga chiqarishga nima olib kelur?!"
+  },
+  {
+   "n": 8,
+   "ar": "أَلَيْسَ ٱللَّهُ بِأَحْكَمِ ٱلْحَـٰكِمِينَ",
+   "reading": "Alai sal laahu bi-ahkamil haakimiyn.",
+   "uz": "Alloh hukm qilguvchilarning eng hikmatlisi emasmi?!"
+  }
+ ],
+ "sources": {
+  "arabic": "Quran.com API v4, text_uthmani (Tanzil text)",
+  "translation": "QuranEnc, uzbek_sadiq: Shaykh Muhammad Sodiq Muhammad Yusuf (converted to Latin script)",
+  "reading": "github.com/AbdurazzoqAbdugafforov/uzbek-quran-transliteration, uzbekReading"
+ },
+ "fetchedAt": "2026-11-03"
+}

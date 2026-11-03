@@ -1,0 +1,169 @@
+{
+ "n": 88,
+ "nameAr": "الغاشية",
+ "nameUz": "Al-Ghashiyah",
+ "verses": [
+  {
+   "n": 1,
+   "ar": "هَلْ أَتَىٰكَ حَدِيثُ ٱلْغَـٰشِيَةِ",
+   "reading": "Hal ataaka hadiysul g'aashiyah.",
+   "uz": "Batahqiq, senga gʻoshiya xabari keldi."
+  },
+  {
+   "n": 2,
+   "ar": "وُجُوهٌ يَوْمَئِذٍ خَـٰشِعَةٌ",
+   "reading": "Vujuuhuny yavma 'izin xaashi'ah.",
+   "uz": "Oʻshal kunda bir chehralar qoʻrqinch bilan toʻladir."
+  },
+  {
+   "n": 3,
+   "ar": "عَامِلَةٌ نَّاصِبَةٌ",
+   "reading": "'Aamilatun naasibah.",
+   "uz": "Ular ish bajaruvchidir va nihoyatda charchagandir."
+  },
+  {
+   "n": 4,
+   "ar": "تَصْلَىٰ نَارًا حَامِيَةً",
+   "reading": "Taslaa naaran haamiyah.",
+   "uz": "Oʻta qizib turgan olovga kiradir."
+  },
+  {
+   "n": 5,
+   "ar": "تُسْقَىٰ مِنْ عَيْنٍ ءَانِيَةٍ",
+   "reading": "Tusqaa min 'aynin aaniyah.",
+   "uz": "Ular qaynab turgan buloqdan sugʻoriladir."
+  },
+  {
+   "n": 6,
+   "ar": "لَّيْسَ لَهُمْ طَعَامٌ إِلَّا مِن ضَرِيعٍ",
+   "reading": "Laisa lahum ta'aamun illaa min dariy'.",
+   "uz": "Ularga tikandan boshqa taom yoʻqdir."
+  },
+  {
+   "n": 7,
+   "ar": "لَّا يُسْمِنُ وَلَا يُغْنِى مِن جُوعٍ",
+   "reading": "Laa yusminu va laa yug'niy min juu'.",
+   "uz": "U na semirtirmas va na ochlikni ketkazmasdir."
+  },
+  {
+   "n": 8,
+   "ar": "وُجُوهٌ يَوْمَئِذٍ نَّاعِمَةٌ",
+   "reading": "Vujuuhuny yavma 'izin naa'imah.",
+   "uz": "Oʻshal kunda bir chehralar neʼmat xursandligi bilan toʻladir."
+  },
+  {
+   "n": 9,
+   "ar": "لِّسَعْيِهَا رَاضِيَةٌ",
+   "reading": "Lisa'yihaa raadiyah.",
+   "uz": "Ular oʻz ishlaridan rozidir."
+  },
+  {
+   "n": 10,
+   "ar": "فِى جَنَّةٍ عَالِيَةٍ",
+   "reading": "Fiy jannatin 'aaliyah.",
+   "uz": "Ular oliy darajali jannatdadir."
+  },
+  {
+   "n": 11,
+   "ar": "لَّا تَسْمَعُ فِيهَا لَـٰغِيَةً",
+   "reading": "Laa tasma'u fiyhaa laag'iyah.",
+   "uz": "Unda bekorchi gaplarni eshitmaslar."
+  },
+  {
+   "n": 12,
+   "ar": "فِيهَا عَيْنٌ جَارِيَةٌ",
+   "reading": "Fiyhaa 'aynun jaariyah.",
+   "uz": "Unda oqib turgan buloqlar bordir."
+  },
+  {
+   "n": 13,
+   "ar": "فِيهَا سُرُرٌ مَّرْفُوعَةٌ",
+   "reading": "Fiyhaa sururum marfuu'ah.",
+   "uz": "Unda baland-baland soʻrilar bordir."
+  },
+  {
+   "n": 14,
+   "ar": "وَأَكْوَابٌ مَّوْضُوعَةٌ",
+   "reading": "Va akvaabum mavduu 'ah.",
+   "uz": "Va tayyorlab qoʻyilgan qadahlar bordir."
+  },
+  {
+   "n": 15,
+   "ar": "وَنَمَارِقُ مَصْفُوفَةٌ",
+   "reading": "Va namaariqu masfuufah.",
+   "uz": "Va saf-saf qilib tizilgan yostiqlar bordir."
+  },
+  {
+   "n": 16,
+   "ar": "وَزَرَابِىُّ مَبْثُوثَةٌ",
+   "reading": "Va zaraabiyyu mabsuusah.",
+   "uz": "Hamma yoqqa toʻshalgan gilamlar bordir."
+  },
+  {
+   "n": 17,
+   "ar": "أَفَلَا يَنظُرُونَ إِلَى ٱلْإِبِلِ كَيْفَ خُلِقَتْ",
+   "reading": "Afalaa yanzuruuna ilalibili kaifa xuliqat.",
+   "uz": "Ular nazar solmasmi: Tuyaning qanday yaratilganiga?"
+  },
+  {
+   "n": 18,
+   "ar": "وَإِلَى ٱلسَّمَآءِ كَيْفَ رُفِعَتْ",
+   "reading": "Va ilas samaaa'i kaifa rufi'at.",
+   "uz": "Va osmonning qandoq koʻtarilganiga?"
+  },
+  {
+   "n": 19,
+   "ar": "وَإِلَى ٱلْجِبَالِ كَيْفَ نُصِبَتْ",
+   "reading": "Va ilal jibaali kaifa nusibat.",
+   "uz": "Va togʻlarning qandoq oʻrnashtirilganiga?"
+  },
+  {
+   "n": 20,
+   "ar": "وَإِلَى ٱلْأَرْضِ كَيْفَ سُطِحَتْ",
+   "reading": "Va ilal ardi kaifa sutihat.",
+   "uz": "Va yerning qandoq tekislab qoʻyilganiga?"
+  },
+  {
+   "n": 21,
+   "ar": "فَذَكِّرْ إِنَّمَآ أَنتَ مُذَكِّرٌ",
+   "reading": "Fazakkir innama anta Muzakkir.",
+   "uz": "Bas, eslatgin, sen, albatta, eslatuvchidirsan."
+  },
+  {
+   "n": 22,
+   "ar": "لَّسْتَ عَلَيْهِم بِمُصَيْطِرٍ",
+   "reading": "Lasta 'alaihim bimusaitir.",
+   "uz": "Sen ularning ustidan hukmingni oʻtkazuvchi emassan."
+  },
+  {
+   "n": 23,
+   "ar": "إِلَّا مَن تَوَلَّىٰ وَكَفَرَ",
+   "reading": "Illaa man tavallaa va kafar.",
+   "uz": "Illo, kim yuz oʻgirsa va kofir boʻlsa..."
+  },
+  {
+   "n": 24,
+   "ar": "فَيُعَذِّبُهُ ٱللَّهُ ٱلْعَذَابَ ٱلْأَكْبَرَ",
+   "reading": "Fa yu'azzibuhul laahul 'azaabal akbar.",
+   "uz": "Bas, uni Alloh katta azob bilan azoblaydir."
+  },
+  {
+   "n": 25,
+   "ar": "إِنَّ إِلَيْنَآ إِيَابَهُمْ",
+   "reading": "Innaa ilainaaa iyaabahum.",
+   "uz": "Albatta, ularning qaytishi Bizgadir."
+  },
+  {
+   "n": 26,
+   "ar": "ثُمَّ إِنَّ عَلَيْنَا حِسَابَهُم",
+   "reading": "Summa inna 'alainaa hisaabahum.",
+   "uz": "Soʻngra, albatta, ularning hisob-kitobi ham Bizda boʻladir."
+  }
+ ],
+ "sources": {
+  "arabic": "Quran.com API v4, text_uthmani (Tanzil text)",
+  "translation": "QuranEnc, uzbek_sadiq: Shaykh Muhammad Sodiq Muhammad Yusuf (converted to Latin script)",
+  "reading": "github.com/AbdurazzoqAbdugafforov/uzbek-quran-transliteration, uzbekReading"
+ },
+ "fetchedAt": "2026-11-03"
+}

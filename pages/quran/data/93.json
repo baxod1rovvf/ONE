@@ -1,0 +1,81 @@
+{
+ "n": 93,
+ "nameAr": "الضحى",
+ "nameUz": "Ad-Duhaa",
+ "verses": [
+  {
+   "n": 1,
+   "ar": "وَٱلضُّحَىٰ",
+   "reading": "Vad duhaa.",
+   "uz": "Choshtgoh bilan qasam."
+  },
+  {
+   "n": 2,
+   "ar": "وَٱلَّيْلِ إِذَا سَجَىٰ",
+   "reading": "Val laili iza sajaa.",
+   "uz": "Sukunatga choʻmgan tun bilan qasam."
+  },
+  {
+   "n": 3,
+   "ar": "مَا وَدَّعَكَ رَبُّكَ وَمَا قَلَىٰ",
+   "reading": "Ma vad da'aka Robbuka va ma qalaa.",
+   "uz": "Robbing seni tark qilgani yoʻq, senga gʻazab ham qilgani yoʻq.  [1]",
+   "notes": "[1] (Ushbu oyati karima mushriklar, Muhammadning Robbisi unga gʻazab qildi, uni tark etdi, deb gap tarqatganlarida raddiya sifatida tushgandir.)"
+  },
+  {
+   "n": 4,
+   "ar": "وَلَلْـَٔاخِرَةُ خَيْرٌ لَّكَ مِنَ ٱلْأُولَىٰ",
+   "reading": "Valal-aaxiratu xairul laka minal-uula.",
+   "uz": "Va albatta, oxirat sen uchun bu dunyodan yaxshidir."
+  },
+  {
+   "n": 5,
+   "ar": "وَلَسَوْفَ يُعْطِيكَ رَبُّكَ فَتَرْضَىٰٓ",
+   "reading": "Va la savfa y'utiyka Robbuka fatarda.",
+   "uz": "Va tezda Robbing senga ato qilur va sen rozi boʻlursan."
+  },
+  {
+   "n": 6,
+   "ar": "أَلَمْ يَجِدْكَ يَتِيمًا فَـَٔاوَىٰ",
+   "reading": "Alam ya jidka yatiyman fa aavaa.",
+   "uz": "U seni yetim topib, joylab qoʻymadimi?"
+  },
+  {
+   "n": 7,
+   "ar": "وَوَجَدَكَ ضَآلًّا فَهَدَىٰ",
+   "reading": "Va va jadaka daal lan fahada.",
+   "uz": "Va U seni hayron holda topib, hidoyatga boshlamadimi?"
+  },
+  {
+   "n": 8,
+   "ar": "وَوَجَدَكَ عَآئِلًا فَأَغْنَىٰ",
+   "reading": "Va va jadaka 'aa-ilan fa ag'naa.",
+   "uz": "Va U seni kambagʻal holda topib, boy qilmadimi?"
+  },
+  {
+   "n": 9,
+   "ar": "فَأَمَّا ٱلْيَتِيمَ فَلَا تَقْهَرْ",
+   "reading": "Fa am mal yatiyma fala taqhar.",
+   "uz": "Ammo yetimga qahr qilmagin."
+  },
+  {
+   "n": 10,
+   "ar": "وَأَمَّا ٱلسَّآئِلَ فَلَا تَنْهَرْ",
+   "reading": "Va am mas saa-ila fala tanhar.",
+   "uz": "Va ammo, «soil»ga zajr qilma.  [2]",
+   "notes": "[2] («Soil» kelganda — biror narsasi boʻlsa berishi, boʻlmasa yaxshi muomala qilishi kerak.)"
+  },
+  {
+   "n": 11,
+   "ar": "وَأَمَّا بِنِعْمَةِ رَبِّكَ فَحَدِّثْ",
+   "reading": "Va amma bi ni'mati Robbika fahad dis.",
+   "uz": "Va ammo Robbingning bergan neʼmati haqida soʻzla."
+  }
+ ],
+ "sources": {
+  "arabic": "Quran.com API v4, text_uthmani (Tanzil text)",
+  "translation": "QuranEnc, uzbek_sadiq: Shaykh Muhammad Sodiq Muhammad Yusuf (converted to Latin script)",
+  "reading": "github.com/AbdurazzoqAbdugafforov/uzbek-quran-transliteration, uzbekReading"
+ },
+ "fetchedAt": "2026-11-03"
+}

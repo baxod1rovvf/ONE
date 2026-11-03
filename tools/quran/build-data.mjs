@@ -55,6 +55,6 @@ for (const f of files) {
   const { counts, ...file } = f;
   await writeFile(path.join(OUT, `${f.n}.json`), JSON.stringify({ ...file, fetchedAt }, null, 1) + "\n");
 }
-const index = files.map((f) => ({ n: f.n, nameAr: f.nameAr, nameUz: f.nameUz, meaningUz: f.meaningUz, verses: f.verses.length, words: f.verses.reduce((s, v) => s + countWords(v.ar), 0) }));
+const index = files.map((f) => ({ n: f.n, nameAr: f.nameAr, nameUz: f.nameUz, verses: f.verses.length, words: f.verses.reduce((s, v) => s + countWords(v.ar), 0) }));
 await writeFile(path.join(OUT, "index.json"), JSON.stringify(index, null, 1) + "\n");
 console.log(`wrote ${files.length} surahs`);

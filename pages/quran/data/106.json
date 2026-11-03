@@ -1,0 +1,37 @@
+{
+ "n": 106,
+ "nameAr": "قريش",
+ "nameUz": "Quraysh",
+ "verses": [
+  {
+   "n": 1,
+   "ar": "لِإِيلَـٰفِ قُرَيْشٍ",
+   "reading": "Li-ilaafi quraish.",
+   "uz": "Qurayshning lozim tutishi uchun!"
+  },
+  {
+   "n": 2,
+   "ar": "إِۦلَـٰفِهِمْ رِحْلَةَ ٱلشِّتَآءِ وَٱلصَّيْفِ",
+   "reading": "Iylaafihim rihlatash shitaa-i vass saif.",
+   "uz": "Ularning qish va yoz safarlarini lozim tutishi uchun!"
+  },
+  {
+   "n": 3,
+   "ar": "فَلْيَعْبُدُوا۟ رَبَّ هَـٰذَا ٱلْبَيْتِ",
+   "reading": "Falyabudu Robba haazal-bait.",
+   "uz": "Bas, ular mana shu Baytning Robbiga ibodat qilsinlar."
+  },
+  {
+   "n": 4,
+   "ar": "ٱلَّذِىٓ أَطْعَمَهُم مِّن جُوعٍ وَءَامَنَهُم مِّنْ خَوْفٍۭ",
+   "reading": "Allazi at'amahum min ju'inv-va-aamana hum min xavf.",
+   "uz": "U ularni ochlikdan toʻq qilgan, xavfdan omon qilgandir."
+  }
+ ],
+ "sources": {
+  "arabic": "Quran.com API v4, text_uthmani (Tanzil text)",
+  "translation": "QuranEnc, uzbek_sadiq: Shaykh Muhammad Sodiq Muhammad Yusuf (converted to Latin script)",
+  "reading": "github.com/AbdurazzoqAbdugafforov/uzbek-quran-transliteration, uzbekReading"
+ },
+ "fetchedAt": "2026-11-03"
+}

@@ -1,0 +1,62 @@
+{
+ "n": 102,
+ "nameAr": "التكاثر",
+ "nameUz": "At-Takathur",
+ "verses": [
+  {
+   "n": 1,
+   "ar": "أَلْهَىٰكُمُ ٱلتَّكَاثُرُ",
+   "reading": "Al haaku mut takasur.",
+   "uz": "«Kimniki koʻp» sizni mashgʻul qildi."
+  },
+  {
+   "n": 2,
+   "ar": "حَتَّىٰ زُرْتُمُ ٱلْمَقَابِرَ",
+   "reading": "Hatta zurtumul-maqaabir.",
+   "uz": "To qabrlarni ziyorat qilguningizcha."
+  },
+  {
+   "n": 3,
+   "ar": "كَلَّا سَوْفَ تَعْلَمُونَ",
+   "reading": "Kalla savfa ta'lamuun.",
+   "uz": "Yoʻq! Sizlar tezda bilasiz."
+  },
+  {
+   "n": 4,
+   "ar": "ثُمَّ كَلَّا سَوْفَ تَعْلَمُونَ",
+   "reading": "Summa kalla savfa ta'lamuun.",
+   "uz": "Yana yoʻq! Sizlar tezda bilasiz."
+  },
+  {
+   "n": 5,
+   "ar": "كَلَّا لَوْ تَعْلَمُونَ عِلْمَ ٱلْيَقِينِ",
+   "reading": "Kalla lav ta'lamuuna 'ilmal yaqiyn.",
+   "uz": "Yoʻq! Agar Siz aniq ilm ila bilganingizda edi."
+  },
+  {
+   "n": 6,
+   "ar": "لَتَرَوُنَّ ٱلْجَحِيمَ",
+   "reading": "Latara-vun nal jahiym.",
+   "uz": "Albatta, jahannamni koʻrasiz."
+  },
+  {
+   "n": 7,
+   "ar": "ثُمَّ لَتَرَوُنَّهَا عَيْنَ ٱلْيَقِينِ",
+   "reading": "Summa latara vunnaha 'ainal yaqiyn.",
+   "uz": "Va yana, albatta, uni ishonch koʻzi bilan koʻrasiz."
+  },
+  {
+   "n": 8,
+   "ar": "ثُمَّ لَتُسْـَٔلُنَّ يَوْمَئِذٍ عَنِ ٱلنَّعِيمِ",
+   "reading": "Summa latus alunna yauma-izin 'anin na'iym.",
+   "uz": "Soʻngra, oʻsha kunda, albatta, berilgan neʼmatlardan soʻralasiz. [1]",
+   "notes": "[1] (Yaʼni, qiyomatda har bir neʼmatni nimaga, qandoq sarf qilganingiz haqida soʻraladi. Ha, kattayu kichik har bir neʼmat haqida soʻralasiz. Har bir neʼmatga shukr qildingizmi, yoʻqmi — soʻralasiz. Alloh taolo sizga bergan molu dunyo neʼmatini nimaga sarfladingiz, halolgami haromga, Allohni rozi qiladigan yoʻlgami, gʻazabini qoʻzgʻatadigan yoʻlgami hamma-hammasi haqida soʻralasiz.)"
+  }
+ ],
+ "sources": {
+  "arabic": "Quran.com API v4, text_uthmani (Tanzil text)",
+  "translation": "QuranEnc, uzbek_sadiq: Shaykh Muhammad Sodiq Muhammad Yusuf (converted to Latin script)",
+  "reading": "github.com/AbdurazzoqAbdugafforov/uzbek-quran-transliteration, uzbekReading"
+ },
+ "fetchedAt": "2026-11-03"
+}

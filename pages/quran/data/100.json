@@ -1,0 +1,79 @@
+{
+ "n": 100,
+ "nameAr": "العاديات",
+ "nameUz": "Al-'Adiyat",
+ "verses": [
+  {
+   "n": 1,
+   "ar": "وَٱلْعَـٰدِيَـٰتِ ضَبْحًا",
+   "reading": "Val'aadiyaati dabha.",
+   "uz": "Harsillab chopuvchi otlar bilan qasam."
+  },
+  {
+   "n": 2,
+   "ar": "فَٱلْمُورِيَـٰتِ قَدْحًا",
+   "reading": "Fal muuriyaati qadha.",
+   "uz": "Oʻt chaqnatib chopuvchi otlar bilan qasam."
+  },
+  {
+   "n": 3,
+   "ar": "فَٱلْمُغِيرَٰتِ صُبْحًا",
+   "reading": "Fal mug'iyraati subha.",
+   "uz": "Tong chogʻida gʻorat qiluvchi otlar bilan qasam."
+  },
+  {
+   "n": 4,
+   "ar": "فَأَثَرْنَ بِهِۦ نَقْعًا",
+   "reading": "Fa asarna bihiy naq'a.",
+   "uz": "Oʻsha ila chang qoʻzgʻatdilar."
+  },
+  {
+   "n": 5,
+   "ar": "فَوَسَطْنَ بِهِۦ جَمْعًا",
+   "reading": "Fava satna bihiy jam'a.",
+   "uz": "Va u ila jamoa oʻrtasiga (yorib) kirdilar."
+  },
+  {
+   "n": 6,
+   "ar": "إِنَّ ٱلْإِنسَـٰنَ لِرَبِّهِۦ لَكَنُودٌ",
+   "reading": "Innal-insana lirabbihiy lakanuud.",
+   "uz": "Albatta, inson oʻz Robbiga noshukrdir."
+  },
+  {
+   "n": 7,
+   "ar": "وَإِنَّهُۥ عَلَىٰ ذَٰلِكَ لَشَهِيدٌ",
+   "reading": "Va innahu 'alaa zaalika la shahiyd.",
+   "uz": "Va albatta, u ana shunga oʻzi guvohdir."
+  },
+  {
+   "n": 8,
+   "ar": "وَإِنَّهُۥ لِحُبِّ ٱلْخَيْرِ لَشَدِيدٌ",
+   "reading": "Va innahu lihubbil xairi la shadiyd.",
+   "uz": "Albatta, u mol-dunyoga haddan tashqari oʻchdir."
+  },
+  {
+   "n": 9,
+   "ar": "۞ أَفَلَا يَعْلَمُ إِذَا بُعْثِرَ مَا فِى ٱلْقُبُورِ",
+   "reading": "Afala ya'lamu iza b'usira ma filqubuur.",
+   "uz": "U bilmasmi?! Qabrdagilar qoʻzgʻatilganda."
+  },
+  {
+   "n": 10,
+   "ar": "وَحُصِّلَ مَا فِى ٱلصُّدُورِ",
+   "reading": "Va hussila maa fis suduur.",
+   "uz": "Va koʻkraklaridagi oshkor boʻlganda."
+  },
+  {
+   "n": 11,
+   "ar": "إِنَّ رَبَّهُم بِهِمْ يَوْمَئِذٍ لَّخَبِيرٌۢ",
+   "reading": "Inna Robbahum bihim yauma 'izil la xabiyr.",
+   "uz": "Oʻsha kunda Robbilari ulardan xabardor ekanini?!"
+  }
+ ],
+ "sources": {
+  "arabic": "Quran.com API v4, text_uthmani (Tanzil text)",
+  "translation": "QuranEnc, uzbek_sadiq: Shaykh Muhammad Sodiq Muhammad Yusuf (converted to Latin script)",
+  "reading": "github.com/AbdurazzoqAbdugafforov/uzbek-quran-transliteration, uzbekReading"
+ },
+ "fetchedAt": "2026-11-03"
+}

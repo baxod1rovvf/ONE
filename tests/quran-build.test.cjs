@@ -45,3 +45,32 @@ test("validateSurah names count mismatches and empty fields", async () => {
   assert.ok(problems.includes("surah 112: 4 Arabic verses, 3 readings"), problems.join("\n"));
   assert.ok(problems.includes("surah 112 verse 2: empty translation"), problems.join("\n"));
 });
+
+test("cyrToLatin follows the Uzbek alphabet rules (ordinary words, not Quran text)", async () => {
+  const { cyrToLatin } = await import("../tools/quran/lib.mjs");
+  const cases = {
+    "Ёзув": "Yozuv", "ўғил": "o\u02BBg\u02BBil", "шеър": "she\u02BCr", "Ер": "Yer", "поезд": "poyezd",
+    "цирк": "sirk", "лицей": "litsey", "Ғалаба": "G\u02BBalaba", "Ҳа": "Ha", "чой": "choy", "Қалъа": "Qal\u02BCa",
+    "юрак": "yurak", "Яхши": "Yaxshi", "Шаҳар": "Shahar", "ШАҲАР": "SHAHAR", "Ўзбек": "O\u02BBzbek",
+    "«Салом, дўст!» (2)": "«Salom, do\u02BBst!» (2)"
+  };
+  for (const [cyr, lat] of Object.entries(cases)) assert.equal(cyrToLatin(cyr), lat, cyr);
+});
+
+test("buildSurah shows the translation in Latin letters", async () => {
+  const { buildSurah } = await import("../tools/quran/lib.mjs");
+  const file = buildSurah(sources({ translation: [{ aya: "1", translation: "Шаҳар" }, ...g.slice(1).map((a) => ({ aya: String(a.ayahNumber), translation: "Ҳа" }))] }));
+  assert.equal(file.verses[0].uz, "Shahar");
+  assert.match(file.sources.translation, /converted to Latin script/);
+  assert.equal("meaningUz" in file, false);
+});
+
+test("footnotes stay with their verse, in Latin letters", async () => {
+  const { buildSurah } = await import("../tools/quran/lib.mjs");
+  const tr = g.map((a) => ({ aya: String(a.ayahNumber), translation: "Ҳа", footnotes: "" }));
+  tr[0] = { aya: "1", translation: "Ҳа. [1]", footnotes: "[1] (Шаҳар)" };
+  const file = buildSurah(sources({ translation: tr }));
+  assert.equal(file.verses[0].uz, "Ha. [1]");
+  assert.equal(file.verses[0].notes, "[1] (Shahar)");
+  assert.equal(file.verses[1].notes, undefined);
+});

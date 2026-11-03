@@ -1,0 +1,50 @@
+{
+ "n": 109,
+ "nameAr": "الكافرون",
+ "nameUz": "Al-Kafirun",
+ "verses": [
+  {
+   "n": 1,
+   "ar": "قُلْ يَـٰٓأَيُّهَا ٱلْكَـٰفِرُونَ",
+   "reading": "Qul yaa ayyuhal kaafiruun.",
+   "uz": "Ayt: «Ey, kofirlar..."
+  },
+  {
+   "n": 2,
+   "ar": "لَآ أَعْبُدُ مَا تَعْبُدُونَ",
+   "reading": "Laa a'budu ma t'abuduun.",
+   "uz": "Men siz ibodat qilgan narsalarga ibodat qilmasman."
+  },
+  {
+   "n": 3,
+   "ar": "وَلَآ أَنتُمْ عَـٰبِدُونَ مَآ أَعْبُدُ",
+   "reading": "Va laa antum 'aabiduuna maa a'bud.",
+   "uz": "Va sizlar ham men ibodat qiladigan narsaga ibodat qiluvchimassiz."
+  },
+  {
+   "n": 4,
+   "ar": "وَلَآ أَنَا۠ عَابِدٌ مَّا عَبَدتُّمْ",
+   "reading": "Va laa ana 'abidum maa 'abattum.",
+   "uz": "Va men siz ibodat qilgan narsaga ibodat qiluvchimasman."
+  },
+  {
+   "n": 5,
+   "ar": "وَلَآ أَنتُمْ عَـٰبِدُونَ مَآ أَعْبُدُ",
+   "reading": "Va laa antum 'aabiduuna ma a'bud.",
+   "uz": "Va siz ham men ibodat qiladigan narsaga ibodat qiluvchimassiz."
+  },
+  {
+   "n": 6,
+   "ar": "لَكُمْ دِينُكُمْ وَلِىَ دِينِ",
+   "reading": "Lakum diynukum va liya diyn.",
+   "uz": "Sizga oʻz diningiz, Menga oʻz dinim. [1]",
+   "notes": "[1] (Bu surada Islom eʼlon qilgan aqida erkinligi oʻz aksini topgan. Yil avval eʼlon qilingan bu hurriyat oyoq osti qilinganda, insoniyat ulkan zararlar tortdi.)"
+  }
+ ],
+ "sources": {
+  "arabic": "Quran.com API v4, text_uthmani (Tanzil text)",
+  "translation": "QuranEnc, uzbek_sadiq: Shaykh Muhammad Sodiq Muhammad Yusuf (converted to Latin script)",
+  "reading": "github.com/AbdurazzoqAbdugafforov/uzbek-quran-transliteration, uzbekReading"
+ },
+ "fetchedAt": "2026-11-03"
+}

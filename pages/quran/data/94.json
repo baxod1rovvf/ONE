@@ -1,0 +1,61 @@
+{
+ "n": 94,
+ "nameAr": "الشرح",
+ "nameUz": "Ash-Sharh",
+ "verses": [
+  {
+   "n": 1,
+   "ar": "أَلَمْ نَشْرَحْ لَكَ صَدْرَكَ",
+   "reading": "Alam nashrah laka sadrak.",
+   "uz": "Sening koʻksingni keng qilib qoʻymadikmi?"
+  },
+  {
+   "n": 2,
+   "ar": "وَوَضَعْنَا عَنكَ وِزْرَكَ",
+   "reading": "Va va d'ana 'anka vizrak.",
+   "uz": "Va sening yukingni yengillatmadikmi?"
+  },
+  {
+   "n": 3,
+   "ar": "ٱلَّذِىٓ أَنقَضَ ظَهْرَكَ",
+   "reading": "Allaziy anqada zahrak.",
+   "uz": "Yelkangni bosib turganni?"
+  },
+  {
+   "n": 4,
+   "ar": "وَرَفَعْنَا لَكَ ذِكْرَكَ",
+   "reading": "Va raf 'ana laka zikrak.",
+   "uz": "Va sening zikringni yuqori koʻtarmadikmi?"
+  },
+  {
+   "n": 5,
+   "ar": "فَإِنَّ مَعَ ٱلْعُسْرِ يُسْرًا",
+   "reading": "Fa inna ma'al usri yusra.",
+   "uz": "Bas, albatta, qiyinchilik bilan osonchilik bordir."
+  },
+  {
+   "n": 6,
+   "ar": "إِنَّ مَعَ ٱلْعُسْرِ يُسْرًا",
+   "reading": "Inna ma'al 'usri yusra.",
+   "uz": "Albatta, qiyinchilik bilan osonchilik bordir."
+  },
+  {
+   "n": 7,
+   "ar": "فَإِذَا فَرَغْتَ فَٱنصَبْ",
+   "reading": "Fa iza farag' ta fansab.",
+   "uz": "Forigʻ boʻlsang, (ibodatga) uringin."
+  },
+  {
+   "n": 8,
+   "ar": "وَإِلَىٰ رَبِّكَ فَٱرْغَب",
+   "reading": "Va ilaa Robbika far g'ab.",
+   "uz": "Va faqat Robbingga ragʻbat qilgin."
+  }
+ ],
+ "sources": {
+  "arabic": "Quran.com API v4, text_uthmani (Tanzil text)",
+  "translation": "QuranEnc, uzbek_sadiq: Shaykh Muhammad Sodiq Muhammad Yusuf (converted to Latin script)",
+  "reading": "github.com/AbdurazzoqAbdugafforov/uzbek-quran-transliteration, uzbekReading"
+ },
+ "fetchedAt": "2026-11-03"
+}
