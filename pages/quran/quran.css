@@ -1,0 +1,146 @@
+/* Core — Quran learning page styles. Loaded with pages/quran/quran.js. */
+.q-name-ar {
+  font-family: "Amiri Quran", "Amiri", serif;
+  font-size: 1.15em;
+}
+.q-link {
+  min-height: 32px;
+  padding: 0 4px;
+  color: var(--accent-text);
+  font-size: var(--fs-sm, 14px);
+  font-weight: 600;
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 3px;
+  white-space: nowrap;
+}
+.q-msg {
+  display: grid;
+  gap: 10px;
+  justify-items: start;
+}
+
+/* Blocks */
+.q-block {
+  display: grid;
+  gap: 12px;
+  margin-bottom: 16px;
+}
+.q-block__head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 12px;
+}
+.q-block__title {
+  font-size: var(--fs-lg, 18px);
+  font-weight: 600;
+}
+.q-block__title--small {
+  font-size: var(--fs-md, 16px);
+}
+.q-block__day {
+  color: var(--text-2);
+  font-size: var(--fs-sm, 14px);
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+}
+.q-block--current > .button,
+.q-block--current > button:last-child {
+  justify-self: start;
+}
+
+/* Steps of the current block */
+.q-steps {
+  display: grid;
+  gap: 4px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.q-step {
+  display: grid;
+  grid-template-columns: 32px minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 10px;
+  min-height: 52px;
+  padding: 6px 8px;
+  border-radius: 12px;
+}
+.q-step__num {
+  display: grid;
+  place-items: center;
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  background: var(--surface-2);
+  color: var(--text-2);
+  font-size: var(--fs-sm, 14px);
+  font-weight: 700;
+}
+.q-step.is-current {
+  background: var(--accent-soft);
+}
+.q-step.is-current .q-step__num {
+  background: var(--accent);
+  color: var(--on-accent);
+}
+.q-step.is-done .q-step__num {
+  background: var(--success-soft, var(--accent-soft));
+  color: var(--success, var(--accent));
+}
+.q-step.is-needs-work .q-step__num {
+  background: var(--warn, #e0a24a);
+  color: #2a1a00;
+}
+.q-step.is-locked {
+  color: var(--text-3);
+}
+.q-step__name {
+  display: grid;
+  gap: 2px;
+  min-width: 0;
+  color: inherit;
+  font-weight: 600;
+  text-decoration: none;
+}
+.q-step__name[href]:hover .q-name {
+  text-decoration: underline;
+}
+.q-step__meta {
+  color: var(--text-2);
+  font-size: var(--fs-xs, 12px);
+  font-weight: 500;
+}
+.q-step.is-locked .q-step__meta {
+  color: var(--text-3);
+}
+
+/* Later blocks, known surahs */
+.q-section {
+  display: grid;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+.q-later {
+  display: grid;
+  gap: 2px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.q-later__item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  min-height: 40px;
+  padding: 2px 4px;
+  border-bottom: 1px solid var(--border);
+}
+.q-done summary {
+  cursor: pointer;
+}
+.q-done__row {
+  color: var(--text-2);
+}
