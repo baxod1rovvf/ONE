@@ -312,3 +312,46 @@
     transition: none;
   }
 }
+
+/* The review */
+.q-review__part {
+  display: grid;
+  gap: 12px;
+  margin-bottom: 16px;
+}
+.q-review__title {
+  font-size: var(--fs-lg, 18px);
+  font-weight: 600;
+}
+.q-review__marks {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px 12px;
+}
+.q-mark {
+  min-height: 44px;
+  padding: 0 18px;
+  border-radius: 999px;
+  background: var(--surface);
+  box-shadow: inset 0 0 0 1px var(--border-strong);
+  font-weight: 600;
+}
+.q-mark--solid[aria-pressed="true"] {
+  background: var(--success, var(--accent));
+  box-shadow: none;
+  color: #fff;
+}
+.q-mark--work[aria-pressed="true"] {
+  background: var(--warn, #e0a24a);
+  box-shadow: none;
+  color: #2a1a00;
+}
+.q-review__done {
+  display: grid;
+  gap: 8px;
+  justify-items: start;
+}
+.q-review__left {
+  text-align: center;
+}

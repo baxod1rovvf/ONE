@@ -163,3 +163,39 @@ test("Quran: the longest verse wraps on a phone", async () => {
   assert.deepEqual(errors, []);
   await page.close();
 });
+
+// --- The review ---
+test("Quran: the review needs all four Solid", async () => {
+  const four = order.slice(0, 4);
+  const { page, errors } = await openApp(browser, server.url, { route: "quran/review", data: withHifz(four.map((n) => h(n, "learned"))), init: TUE });
+  const part = (n) => page.getByRole("region", { name: name(n) });
+  await part(four[0]).waitFor();
+  for (const n of four.slice(0, 3)) await part(n).getByRole("button", { name: "Solid" }).click();
+  await part(four[3]).getByRole("button", { name: "Needs work" }).click();
+  assert.equal(await page.getByText("Block done").count(), 0);
+  assert.equal(await part(four[3]).getByRole("link", { name: "Study again" }).getAttribute("href"), `#quran/${four[3]}`);
+  assert.equal(await part(four[0]).getByRole("button", { name: "Solid" }).getAttribute("aria-pressed"), "true");
+  await part(four[3]).getByRole("button", { name: "Solid" }).click();
+  await page.getByText("Block done").waitFor();
+  await page.getByRole("button", { name: "Continue" }).click();
+  await page.waitForFunction((n) => location.hash === `#quran/${n}`, order[4]);
+  const states = (await stored(page)).hifz.filter((e) => four.includes(e.surah)).map((e) => e.state);
+  assert.deepEqual(states, ["solid", "solid", "solid", "solid"]);
+  assert.deepEqual(errors, []);
+  await page.close();
+});
+
+test("Quran: the review waits until the four are learned", async () => {
+  const { page } = await openApp(browser, server.url, { route: "quran/review", data: withHifz([]), init: TUE });
+  await page.getByText("Finish the four surahs first.").waitFor();
+  await page.close();
+});
+
+test("Quran: a surah marked Needs work can be studied and learned again", async () => {
+  const four = order.slice(0, 4);
+  const data = withHifz([h(four[0], "solid"), h(four[1], "needs-work"), h(four[2], "solid"), h(four[3], "solid")]);
+  const { page } = await openApp(browser, server.url, { route: `quran/${four[1]}`, data, init: TUE });
+  await page.getByRole("button", { name: "I've learned it" }).click();
+  await page.waitForFunction(() => location.hash === "#quran/review");
+  await page.close();
+});

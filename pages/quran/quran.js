@@ -318,6 +318,70 @@
     );
   }
 
+  // ---------- The review ----------
+  function ReviewPart({ n, meta, state, set }) {
+    const { file, error, retry } = useSurah(n);
+    return h(
+      "section",
+      { className: "panel q-review__part", "aria-label": meta.nameUz },
+      h("h2", { className: "q-review__title" }, h(SurahName, { s: meta })),
+      error
+        ? h("div", { className: "q-msg" }, h("p", null, "Couldn't open this surah. Check your connection and try again."), h(Button, { onClick: retry }, "Try again"))
+        : !file
+          ? h("p", { className: "q-msg muted" }, "Loading surah…")
+          : h(Verses, { file, test: true }),
+      h(
+        "div",
+        { className: "q-review__marks" },
+        h("button", { type: "button", className: "q-mark q-mark--solid", "aria-pressed": state === "solid", onClick: () => set(n, { state: "solid" }) }, "Solid"),
+        h("button", { type: "button", className: "q-mark q-mark--work", "aria-pressed": state === "needs-work", onClick: () => set(n, { state: "needs-work" }) }, "Needs work"),
+        state === "needs-work" && h("a", { className: "q-link", href: `#quran/${n}` }, "Study again")
+      )
+    );
+  }
+
+  function ReviewView({ index }) {
+    const { progress, set } = useHifz();
+    const byN = React2.useMemo(() => new Map(index.map((s) => [s.n, s])), [index]);
+    // The block under review, fixed when the review opens, so finishing it
+    // doesn't swap the view to the next block.
+    const [block] = React2.useState(() => {
+      const path = R.buildPath(index, progress);
+      return path[R.currentBlock(path, progress)] || null;
+    });
+    const stateOf = (n) => (progress.get(n) || {}).state;
+    const ready = block && block.every((n) => ["learned", "solid", "needs-work"].includes(stateOf(n)));
+    if (!ready) {
+      return h("div", { className: "panel q-msg" }, h("p", null, "Finish the four surahs first."), h(Button, { onClick: () => go("#quran") }, "Continue"));
+    }
+    const done = block.every((n) => stateOf(n) === "solid");
+    const next = () => {
+      const path = R.buildPath(index, progress);
+      const b = path[R.currentBlock(path, progress)];
+      const bs = b ? R.blockState(b, progress) : null;
+      go(bs && bs.current ? `#quran/${bs.current}` : "#quran");
+    };
+    return h(
+      React2.Fragment,
+      null,
+      h(
+        "div",
+        { className: "page-head" },
+        h(
+          "div",
+          { className: "page-head__text" },
+          h("a", { className: "q-back", href: "#quran" }, "‹ All surahs"),
+          h("h1", { className: "page-title" }, "Review"),
+          h("p", { className: "page-desc" }, "Recite each surah from memory. Tap a verse to check it, then mark the surah.")
+        )
+      ),
+      block.map((n) => h(ReviewPart, { key: n, n, meta: byN.get(n), state: stateOf(n), set })),
+      done
+        ? h("div", { className: "panel q-review__done", role: "status" }, h("h2", { className: "q-block__title" }, "Block done"), h("p", null, "All four are solid. On to the next block."), h(Button, { variant: "primary", onClick: next }, "Continue"))
+        : h("p", { className: "q-review__left muted" }, `${block.filter((n) => stateOf(n) === "solid").length} of ${block.length} solid`)
+    );
+  }
+
   // ---------- The page ----------
   function QuranPage() {
     const view = useHashView();
@@ -326,6 +390,7 @@
     if (error) body = h("div", { className: "panel q-msg" }, h("p", null, "Couldn't open the surah list. Check your connection and try again."), h(Button, { onClick: retry }, "Try again"));
     else if (!index) body = h("p", { className: "q-msg muted" }, "Loading surahs…");
     else if (view.kind === "surah") body = h(SurahView, { key: view.n, n: view.n, index });
+    else if (view.kind === "review") body = h(ReviewView, { index });
     else body = h(PathView, { index });
     return h(
       React2.Fragment,
