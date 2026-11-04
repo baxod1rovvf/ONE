@@ -243,3 +243,69 @@ test("Quran: without timings the verse buttons are hidden and the surah still pl
   assert.deepEqual(errors, []);
   await page.close();
 });
+
+// --- Fixes from the final review ---
+test("Quran: a surah that already has an entry still starts its clock when it becomes current", async () => {
+  const { page } = await openApp(browser, server.url, { route: "quran", data: withHifz([{ id: "x", surah: order[0], state: null, readingChecked: true, startedAt: null, updatedAt: "2026-11-01T10:00:00Z" }]), init: TUE });
+  await block(page, 1).getByText("Day 1 of 14").waitFor();
+  const e = (await stored(page)).hifz.find((x) => x.surah === order[0]);
+  assert.equal(e.state, "learning");
+  assert.equal(e.startedAt, "2026-11-03");
+  assert.equal(e.readingChecked, true);
+  await page.close();
+});
+
+test("Quran: Test me works from the keyboard", async () => {
+  const n = order[0];
+  const file = surahFile(n);
+  const { page } = await openApp(browser, server.url, { route: `quran/${n}`, data: withHifz([]) });
+  await page.locator("article.ayah").first().waitFor();
+  await page.getByRole("switch", { name: "Test me" }).click();
+  const show = page.getByRole("button", { name: "Show verse 1" });
+  await show.focus();
+  await page.keyboard.press("Enter");
+  assert.equal((await page.locator("article.ayah").first().locator(".ayah__ar").textContent()).trim(), file.verses[0].ar);
+  await page.close();
+});
+
+test("Quran: in Test me a verse opening with a section mark still shows its first word", async () => {
+  const marked = (() => {
+    for (const s of index) {
+      const f = surahFile(s.n);
+      const v = f.verses.find((x) => !/[ء-يٱ]/.test(x.ar.split(/\s+/)[0]));
+      if (v) return { n: s.n, v };
+    }
+  })();
+  const { page } = await openApp(browser, server.url, { route: `quran/${marked.n}`, data: withHifz([]) });
+  await page.locator("article.ayah").first().waitFor({ timeout: 15000 });
+  await page.getByRole("switch", { name: "Test me" }).click();
+  const tokens = marked.v.ar.split(/\s+/);
+  const upTo = tokens.findIndex((t) => /[ء-يٱ]/.test(t));
+  const cue = (await page.getByRole("article", { name: `Verse ${marked.v.n}`, exact: true }).locator(".ayah__ar").textContent()).trim();
+  assert.equal(cue, tokens.slice(0, upTo + 1).join(" "));
+  await page.close();
+});
+
+test("Quran: surah text is asked for by its version, so corrections reach every device", async () => {
+  const n = order[0];
+  const urls = [];
+  const { page } = await openApp(browser, server.url, { route: "quran", data: withHifz([]), init: (p) => p.on("request", (r) => urls.push(r.url())) });
+  await page.goto(`${server.url}/index.html#quran/${n}`);
+  await page.locator("article.ayah").first().waitFor();
+  const v = surahFile(n).fetchedAt;
+  assert.ok(urls.some((u) => u.endsWith(`/pages/quran/data/${n}.json?v=${v}`)), urls.filter((u) => /quran\/data/.test(u)).join("\n"));
+  const appFiles = await page.evaluate(() => window.__oneAppFiles || null);
+  assert.ok(appFiles && appFiles.includes("./pages/quran/data/index.json"), "index.json is refreshed by updates");
+  await page.close();
+});
+
+test("Quran: a verse clip gives the other sounds back when it ends", async () => {
+  const n = order[0];
+  const { page } = await openApp(browser, server.url, { route: `quran/${n}`, data: withHifz([]) });
+  await page.getByRole("button", { name: "Play verse 1" }).click();
+  await page.waitForFunction(() => { const a = window.__oneQuranClip.audio; return a && !a.paused; });
+  assert.equal(await page.evaluate(() => window.__oneSound.ducked), true);
+  await page.waitForFunction(() => window.__oneQuranClip.audio.paused, null, { timeout: 8000 });
+  await page.waitForFunction(() => !window.__oneSound.ducked && !window.__oneSound.paused);
+  await page.close();
+});

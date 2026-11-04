@@ -5523,7 +5523,10 @@ main[data-section='saved'] .panel::after {
     "./pages/mood/rules.js",
     "./pages/quran/rules.js"
   ];
-  const APP_FILES = ["./index.html", ...GAME_FILES, "./manifest.webmanifest", ...PAGE_FILES];
+  // The Quran surah list carries each surah file's version, so it is fetched
+  // fresh with every update; the surah files then follow their versions.
+  const APP_FILES = ["./index.html", ...GAME_FILES, "./manifest.webmanifest", ...PAGE_FILES, "./pages/quran/data/index.json"];
+  window.__oneAppFiles = APP_FILES;
   const UPDATE_KEY = "one.update.v1";
   function lastUpdate() {
     try {
@@ -6729,13 +6732,32 @@ main[data-section='saved'] .panel::after {
         }
       });
       for (const ev of ["play", "pause", "ended"]) a.addEventListener(ev, () => this.emit());
-      if (window.__oneSound) window.__oneSound.onDuck(() => this.stop());
+      // Another recitation or music taking over stops the clip; what it had
+      // quietened is theirs to bring back now.
+      if (window.__oneSound) window.__oneSound.onDuck(() => !this.ducking && this.stop({ handedOver: true }));
+      a.addEventListener("pause", () => !this.loading && this.release());
       this.audio = a;
       return a;
     },
+    // Quieten Core's other sounds the way a recitation does (duck), and bring
+    // exactly them back when the clip stops or ends (restore).
+    quieten() {
+      const e = window.__oneSound;
+      if (!e || e.ducked) return;
+      this.ducking = true;
+      e.duck();
+      this.ducking = false;
+      this.ownDuck = true;
+    },
+    release() {
+      const e = window.__oneSound;
+      if (!this.ownDuck) return;
+      this.ownDuck = false;
+      if (e) e.restore();
+    },
     async play(url, { from = 0, to = null, loop = false, key = null } = {}) {
-      if (window.__oneSound) window.__oneSound.pauseAll();
       const a = this.ensure();
+      this.quieten();
       // Shown as playing straight away, while the file loads.
       Object.assign(this, { from, to, loop, key, loading: true });
       this.emit();
@@ -6755,10 +6777,12 @@ main[data-section='saved'] .panel::after {
         this.emit();
       }
     },
-    stop() {
-      if (this.audio) this.audio.pause();
-      this.key = null;
+    stop({ handedOver = false } = {}) {
+      if (handedOver) this.ownDuck = false;
       this.loading = false;
+      if (this.audio) this.audio.pause();
+      this.release();
+      this.key = null;
       this.loop = false;
       this.emit();
     }

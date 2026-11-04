@@ -91,3 +91,14 @@ test("last list item is not covered by the dock", async () => {
   assert.ok(last.y + last.height <= dock.y, `last item bottom ${last.y + last.height} vs dock top ${dock.y}`);
   await page.close();
 });
+
+test("eight dock tabs keep their labels on larger phones too", async () => {
+  for (const width of [390, 414, 430, 480]) {
+    const { page } = await openApp(browser, server.url, { route: "quran", viewport: { width, height: 900 } });
+    const boxes = await page.locator(".dock__tab").evaluateAll((els) => els.map((e) => e.getBoundingClientRect().toJSON()));
+    for (const b of boxes) assert.ok(b.x >= 0 && b.x + b.width <= width && b.width >= 44, `tab ${b.x}..${b.x + b.width} at ${width}px`);
+    const clipped = await page.locator(".dock__tab").evaluateAll((els) => els.filter((e) => e.scrollWidth > e.clientWidth + 1).map((e) => e.textContent));
+    assert.deepEqual(clipped, [], `labels cut off at ${width}px`);
+    await page.close();
+  }
+});

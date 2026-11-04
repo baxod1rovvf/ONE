@@ -46,3 +46,7 @@ test("every footnote marker in a translation has its note", () => {
     }
   }
 });
+
+test("the index carries each surah file's version", () => {
+  for (const entry of index) assert.equal(entry.fetchedAt, surah(entry.n).fetchedAt, `surah ${entry.n}`);
+});

@@ -292,9 +292,13 @@
   white-space: pre-wrap;
   overflow-wrap: anywhere;
 }
-.ayah__hint {
+.ayah__show {
+  justify-self: start;
+  min-height: 32px;
+  padding: 0 4px;
   color: var(--text-3);
   font-size: var(--fs-xs, 12px);
+  font-weight: 600;
 }
 .q-done-bar {
   display: flex;
