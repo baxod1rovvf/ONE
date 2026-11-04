@@ -24,7 +24,14 @@
   const surahPromises = new Map();
   function loadSurah(n) {
     if (!surahPromises.has(n)) {
-      const p = fetch(`pages/quran/data/${n}.json`).then((res) => {
+      // Asked for by its version (the date it was downloaded), so a corrected
+      // file reaches devices that kept the old one.
+      const p = loadIndex()
+        .then((index) => {
+          const entry = index.find((s) => s.n === n);
+          return fetch(`pages/quran/data/${n}.json${entry && entry.fetchedAt ? `?v=${entry.fetchedAt}` : ""}`);
+        })
+        .then((res) => {
         if (!res.ok) throw new Error("surah");
         return res.json();
       });
@@ -163,7 +170,8 @@
     const bs = block ? R.blockState(block, progress) : null;
     // The surah you're on starts its clock the first time it's current.
     React2.useEffect(() => {
-      if (bs && bs.status === "studying" && !progress.get(bs.current)) set(bs.current, { state: "learning", startedAt: today });
+      const e = bs && bs.status === "studying" ? progress.get(bs.current) || {} : null;
+      if (e && !e.startedAt) set(bs.current, { state: e.state || "learning", startedAt: today });
     }, [bs && bs.current, bs && bs.status]);
     // The current block's surahs are fetched once, so they open offline later.
     React2.useEffect(() => {
@@ -218,7 +226,13 @@
     React2.useEffect(load, [load]);
     return { ...state, retry: load };
   }
-  const firstWord = (ar) => ar.split(/\s+/)[0];
+  // The cue in Test me: the verse up to its first real word, so a verse that
+  // opens with a mark (such as ۞) still shows a word to start from.
+  const firstWord = (ar) => {
+    const tokens = ar.split(/\s+/);
+    const i = tokens.findIndex((t) => /[\u0621-\u064A\u0671]/.test(t));
+    return tokens.slice(0, i === -1 ? 1 : i + 1).join(" ");
+  };
 
   // One verse. In test mode it shows only its first word until it's tapped.
   function Ayah({ v, test, showUz, revealed, onReveal, children }) {
@@ -231,7 +245,7 @@
       h("p", { className: "ayah__reading", hidden: hide }, v.reading),
       h("p", { className: "ayah__uz", hidden: hide && !showUz }, v.uz),
       v.notes && !hide && h("details", { className: "ayah__notes" }, h("summary", null, "Notes"), h("p", null, v.notes)),
-      hide && h("span", { className: "ayah__hint" }, "Tap to show")
+      hide && h("button", { type: "button", className: "ayah__show", "aria-label": `Show verse ${v.n}`, onClick: (e) => (e.stopPropagation(), onReveal()) }, "Tap to show")
     );
   }
 
@@ -306,7 +320,8 @@
     const entry = progress.get(n) || {};
     // Opening the surah you're on starts its clock, as the path does.
     React2.useEffect(() => {
-      if (st === "current" && !progress.get(n)) set(n, { state: "learning", startedAt: today });
+      const e = progress.get(n) || {};
+      if (st === "current" && !e.startedAt) set(n, { state: e.state || "learning", startedAt: today });
     }, [st, n]);
     React2.useEffect(() => window.scrollTo(0, 0), [n]);
     const learned = () => {
