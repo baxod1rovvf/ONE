@@ -16,7 +16,7 @@ after(async () => {
 
 const EMPTY_DATA = {
   version: 1, tasks: [], goals: [], notes: [], saved: [], shortcuts: [], websiteCategories: [],
-  ideas: [], ideaCategories: [], recent: [], moods: [],
+  ideas: [], ideaCategories: [], recent: [],
   settings: { name: "", theme: "light", sidebarCollapsed: false, sampleBannerDismissed: true }
 };
 const withHifz = (hifz) => ({ ...EMPTY_DATA, hifz });
