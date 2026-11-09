@@ -26,7 +26,7 @@ test("no sidebar or top bar; one glass dock at the bottom", async () => {
 
 test("dock tabs navigate and mark the current page", async () => {
   const { page } = await openApp(browser, server.url, { route: "tasks" });
-  for (const name of ["Websites", "Ideas", "Saved", "Home", "Tasks", "Mood", "Quran"]) {
+  for (const name of ["Websites", "Ideas", "Saved", "Home", "Tasks", "Quran"]) {
     await dockOf(page).getByRole("link", { name }).click();
     assert.equal(await dockOf(page).getByRole("link", { name }).getAttribute("aria-current"), "page", name);
   }
@@ -34,10 +34,10 @@ test("dock tabs navigate and mark the current page", async () => {
 });
 
 test("dock tabs are at least 44px and the page never scrolls sideways at 375px", async () => {
-  for (const route of ["home", "tasks", "mood", "quran", "websites", "ideas", "telegram", "saved", "preferences"]) {
+  for (const route of ["home", "tasks", "quran", "websites", "ideas", "telegram", "saved", "preferences"]) {
     const { page } = await openApp(browser, server.url, { route, viewport: { width: 375, height: 812 } });
     const boxes = await page.locator(".dock__tab").evaluateAll((els) => els.map((e) => e.getBoundingClientRect().toJSON()));
-    assert.equal(boxes.length, 8);
+    assert.equal(boxes.length, 7);
     for (const b of boxes) assert.ok(b.width >= 44 && b.height >= 44, `tab ${b.width}x${b.height} on ${route}`);
     for (const b of boxes) assert.ok(b.x >= 0 && b.x + b.width <= 375, `tab at ${b.x}..${b.x + b.width} is off screen on ${route}`);
     const clipped = await page.locator(".dock__tab").evaluateAll((els) => els.filter((e) => e.scrollWidth > e.clientWidth + 1).map((e) => e.textContent));
@@ -101,4 +101,13 @@ test("eight dock tabs keep their labels on larger phones too", async () => {
     assert.deepEqual(clipped, [], `labels cut off at ${width}px`);
     await page.close();
   }
+});
+
+test("Mood is gone: no dock tab, no Home card, no page", async () => {
+  const { page, errors } = await openApp(browser, server.url, { route: "home" });
+  assert.equal(await page.getByRole("navigation", { name: "Pages" }).getByRole("link", { name: "Mood" }).count(), 0);
+  assert.equal(await page.getByRole("region", { name: "How was today?" }).count(), 0);
+  assert.equal(await page.evaluate(() => "MoodFace" in window.__oneApp || "useMoodDay" in window.__oneApp), false);
+  assert.deepEqual(errors, []);
+  await page.close();
 });

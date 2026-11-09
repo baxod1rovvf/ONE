@@ -38,12 +38,6 @@
   --accent-hover: #1f7236;
   --accent-soft: #dcf3e1;
   --accent-text: #1f6e34;
-  /* Mood faces, awful to great. Mid tones that read on both themes. */
-  --mood-1: #e5676b;
-  --mood-2: #ef9a5a;
-  --mood-3: #e9c04f;
-  --mood-4: #8cc96b;
-  --mood-5: #45b97c;
   --on-accent: #ffffff;
   --success: #1f8a4c;
   --success-soft: #ddf5e4;
@@ -509,8 +503,6 @@ main[data-section='goals'] {
   --section-text: var(--c-goals-text);
   --on-section: var(--c-goals-on);
 }
-/* Mood borrows the warm Notes colour: sunrise, like the Core mark. */
-main[data-section='mood'],
 main[data-section='knowledge'] {
   --section: var(--c-knowledge);
   --section-soft: var(--c-knowledge-soft);
@@ -3881,12 +3873,6 @@ main[data-section='saved'] .panel::after {
     ["path", { d: "M16 8h2", key: "5" }],
     ["path", { d: "M16 12h2", key: "6" }]
   ]);
-  const Smile = createLucideIcon("Smile", [
-    ["circle", { cx: "12", cy: "12", r: "10", key: "1mglay" }],
-    ["path", { d: "M8 14s1.5 2 4 2 4-2 4-2", key: "1y1vjs" }],
-    ["line", { x1: "9", x2: "9.01", y1: "9", y2: "9", key: "yxxnd0" }],
-    ["line", { x1: "15", x2: "15.01", y1: "9", y2: "9", key: "1p4y9e" }]
-  ]);
   const SquareCheckBig = createLucideIcon("SquareCheckBig", [
     ["path", { d: "M21 10.5V19a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h12.5", key: "1uzm8b" }],
     ["path", { d: "m9 11 3 3L22 4", key: "1pflzl" }]
@@ -4084,7 +4070,7 @@ main[data-section='saved'] .panel::after {
     return d.version === 1 && ["tasks", "goals", "notes", "saved", "shortcuts", "recent"].every((k) => Array.isArray(d[k])) && typeof d.settings === "object" && d.settings !== null;
   }
   const IDEA_COLORS = ["#8fd16a", "#ef7b6f", "#62a6f0", "#b48cf0", "#efb94f", "#4cc7b5"];
-  const EXTRA_COLLECTIONS = ["websiteCategories", "ideaCategories", "ideas", "moods", "hifz"];
+  const EXTRA_COLLECTIONS = ["websiteCategories", "ideaCategories", "ideas", "hifz"];
   function withDefaults(d) {
     const out = { ...d };
     EXTRA_COLLECTIONS.forEach((k) => {
@@ -4093,7 +4079,7 @@ main[data-section='saved'] .panel::after {
     if (!out.deleted || typeof out.deleted !== "object" || Array.isArray(out.deleted)) out.deleted = {};
     return out;
   }
-  const SYNCED_COLLECTIONS = ["tasks", "goals", "notes", "saved", "shortcuts", "websiteCategories", "ideaCategories", "ideas", "moods", "hifz"];
+  const SYNCED_COLLECTIONS = ["tasks", "goals", "notes", "saved", "shortcuts", "websiteCategories", "ideaCategories", "ideas", "hifz"];
   // Marks what an action changed so devices can merge: edited items get a _m
   // timestamp, removed ids are remembered in `deleted` with the time they went.
   function stampChanges(prev, next) {
@@ -4325,11 +4311,6 @@ main[data-section='saved'] .panel::after {
       websiteCategories,
       ideaCategories,
       ideas,
-      moods: [
-        { id: sid(), date: addDays(today, -1), mood: 4, note: "Long walk after work, felt clear.", createdAt: ago(60 * 20), sample: true },
-        { id: sid(), date: addDays(today, -2), mood: 2, note: "Slept badly, too many meetings.", createdAt: ago(60 * 44), sample: true },
-        { id: sid(), date: addDays(today, -3), mood: 5, note: "Finished the portfolio intro!", createdAt: ago(60 * 68), sample: true }
-      ],
       recent: [
         { kind: "note", id: notes[0].id, at: ago(40) },
         { kind: "saved", id: saved[0].id, at: ago(180) },
@@ -4350,7 +4331,6 @@ main[data-section='saved'] .panel::after {
       websiteCategories: [],
       ideaCategories: [],
       ideas: [],
-      moods: [],
       hifz: [],
       recent: [],
       settings: settings ?? { name: "", theme: "system", sidebarCollapsed: false, sampleBannerDismissed: true }
@@ -4430,7 +4410,6 @@ main[data-section='saved'] .panel::after {
           saved: keep(state.saved),
           shortcuts: keep(state.shortcuts),
           ideas: keep(state.ideas),
-          moods: keep(state.moods || []),
           settings: { ...state.settings, sampleBannerDismissed: true }
         };
         const keepCats = (cats, items) => cats.filter((c) => !c.sample || items.some((it) => it.categoryId === c.id));
@@ -4503,7 +4482,7 @@ main[data-section='saved'] .panel::after {
       []
     );
     const hasSamples = React2.useMemo(
-      () => [data.tasks, data.goals, data.notes, data.saved, data.shortcuts, data.ideas, data.ideaCategories, data.websiteCategories, data.moods || []].some((xs) => xs.some((x) => x.sample)),
+      () => [data.tasks, data.goals, data.notes, data.saved, data.shortcuts, data.ideas, data.ideaCategories, data.websiteCategories].some((xs) => xs.some((x) => x.sample)),
       [data]
     );
     const api = React2.useMemo(
@@ -4863,68 +4842,6 @@ main[data-section='saved'] .panel::after {
     const letter = (name.trim()[0] ?? "?").toUpperCase();
     return /* @__PURE__ */ React2.createElement("span", { className: `mono${size === "md" ? "" : ` mono--${size}`}`, style: { ["--h"]: hueFor(name.toLowerCase()) }, "aria-hidden": true }, letter);
   }
-  // Mood: one entry per day, { id, date, mood: 1..5 | null, note, createdAt }.
-  const MOODS = [
-    { value: 1, word: "Awful" },
-    { value: 2, word: "Bad" },
-    { value: 3, word: "Okay" },
-    { value: 4, word: "Good" },
-    { value: 5, word: "Great" }
-  ];
-  const MOOD_NOTE_MAX = 500;
-  // A face for a mood, from a frown (1) to a smile (5); a dashed ring when
-  // the day isn't marked. The word always goes beside it or in its label.
-  function MoodFace({ mood, size = 24 }) {
-    const h = React2.createElement;
-    if (!mood) {
-      return h("svg", { className: "mood-face mood-face--empty", width: size, height: size, viewBox: "0 0 24 24", "aria-hidden": true },
-        h("circle", { cx: "12", cy: "12", r: "10", fill: "none", stroke: "var(--border-strong)", strokeWidth: "1.6", strokeDasharray: "3 3" }));
-    }
-    // The mouth's middle sits lower as the mood rises: a frown at 1, flat at 3, a smile at 5.
-    const curve = (mood - 3) * 2.6;
-    return h("svg", { className: `mood-face mood-face--${mood}`, width: size, height: size, viewBox: "0 0 24 24", "aria-hidden": true },
-      h("circle", { cx: "12", cy: "12", r: "11", fill: `var(--mood-${mood})` }),
-      h("circle", { cx: "8.4", cy: "9.6", r: "1.35", fill: "#1d2420" }),
-      h("circle", { cx: "15.6", cy: "9.6", r: "1.35", fill: "#1d2420" }),
-      h("path", { d: `M7.6 ${15.4 - curve / 2}Q12 ${15.4 + curve} 16.4 ${15.4 - curve / 2}`, fill: "none", stroke: "#1d2420", strokeWidth: "1.7", strokeLinecap: "round" })
-    );
-  }
-  // One day's mood and note, and the marking rules. Choosing the face the day
-  // already has clears it; a day with neither a face nor a note is removed.
-  // Days after today can't be changed.
-  function useMoodDay(date) {
-    const { data, add, update, remove } = useStore();
-    // Two devices that marked the same day before syncing leave two entries;
-    // the one changed last is the day's, and any change here drops the others.
-    const { entry, others } = React2.useMemo(() => {
-      let best = null;
-      const same = (data.moods || []).filter((e) => e.date === date);
-      for (const e of same) {
-        if (!best || ((e._m || 0) !== (best._m || 0) ? (e._m || 0) > (best._m || 0) : (e.createdAt || "") > (best.createdAt || ""))) best = e;
-      }
-      return { entry: best, others: same.filter((e) => e !== best) };
-    }, [data.moods, date]);
-    const canMark = date <= todayISO();
-    const blank = (t) => !t || !t.trim();
-    const dropOthers = () => others.forEach((e) => remove("moods", e.id));
-    const setMood = (n) => {
-      if (!canMark) return;
-      dropOthers();
-      if (!entry) add("moods", { id: newId(), date, mood: n, note: "", createdAt: (/* @__PURE__ */ new Date()).toISOString() });
-      else if (entry.mood === n) blank(entry.note) ? remove("moods", entry.id) : update("moods", entry.id, { mood: null });
-      else update("moods", entry.id, { mood: n });
-    };
-    const setNote = (text) => {
-      if (!canMark) return;
-      dropOthers();
-      const note = String(text).slice(0, MOOD_NOTE_MAX);
-      if (!entry) {
-        if (!blank(note)) add("moods", { id: newId(), date, mood: null, note, createdAt: (/* @__PURE__ */ new Date()).toISOString() });
-      } else if (!entry.mood && blank(note)) remove("moods", entry.id);
-      else update("moods", entry.id, { note });
-    };
-    return { entry, canMark, setMood, setNote };
-  }
   // Today's date, kept current: it moves on at midnight while a page is open.
   function useToday() {
     const [today, setToday] = React2.useState(todayISO);
@@ -4959,7 +4876,6 @@ main[data-section='saved'] .panel::after {
   const ROUTES = [
     { id: "home", label: "Home", icon: House, description: "Touch grass and take a one-minute break" },
     { id: "tasks", label: "Tasks", icon: SquareCheckBig, description: "Everything you need to do, and how far along you are" },
-    { id: "mood", label: "Mood", icon: Smile, description: "Mark your days and see how your week went" },
     { id: "quran", label: "Quran", icon: BookOpenText, description: "Learn surahs by heart, four at a time" },
     { id: "websites", label: "Websites", icon: Globe, description: "Your favourite websites, sorted into categories" },
     { id: "ideas", label: "Ideas", icon: Lightbulb, description: "Ideas grouped by category, shown as a map" },
@@ -5518,9 +5434,8 @@ main[data-section='saved'] .panel::after {
   const GAME_FILES = ["panel", "snake", "tetris", "breakout", "2048", "minesweeper", "memory"].flatMap((f) => [`./games/${f}.js`, `./games/${f}.css`]);
   // Every page's files, and Telegram's own scripts (also in step with sw.js).
   const PAGE_FILES = [
-    ...["home", "tasks", "mood", "quran", "websites", "ideas", "telegram", "saved", "goals", "knowledge", "preferences"].flatMap((p) => [`./pages/${p}/${p}.js`, `./pages/${p}/${p}.css`]),
+    ...["home", "tasks", "quran", "websites", "ideas", "telegram", "saved", "goals", "knowledge", "preferences"].flatMap((p) => [`./pages/${p}/${p}.js`, `./pages/${p}/${p}.css`]),
     ...["rules", "client", "service", "qr"].map((f) => `./pages/telegram/${f}.js`),
-    "./pages/mood/rules.js",
     "./pages/quran/rules.js"
   ];
   // The Quran surah list carries each surah file's version, so it is fetched
@@ -8861,12 +8776,12 @@ main[data-section='saved'] .panel::after {
   // Every page lives in pages/<id>/<id>.js and pages/<id>/<id>.css. The open
   // page loads first (<head> already asked for its files); the others load in
   // the background right after, so switching pages never waits.
-  const PAGE_IDS = ["home", "tasks", "mood", "quran", "websites", "ideas", "telegram", "saved", "goals", "knowledge", "preferences"];
+  const PAGE_IDS = ["home", "tasks", "quran", "websites", "ideas", "telegram", "saved", "goals", "knowledge", "preferences"];
   const pagePromises = {};
   function loadedPage(id) {
     return (window.__onePages || {})[id] || null;
   }
-  const PAGE_DEPS = { mood: ["pages/mood/rules.js"], quran: ["pages/quran/rules.js"] };
+  const PAGE_DEPS = { quran: ["pages/quran/rules.js"] };
   function loadPage(id) {
     if (loadedPage(id)) return Promise.resolve(loadedPage(id));
     if (pagePromises[id]) return pagePromises[id];
@@ -9588,7 +9503,7 @@ main[data-section='saved'] .panel::after {
     return /* @__PURE__ */ React2.createElement(StoreProvider, null, /* @__PURE__ */ React2.createElement(ToastProvider, null, /* @__PURE__ */ React2.createElement(ConfirmProvider, null, React2.createElement(SyncProvider, null, React2.createElement(SoundProvider, null, React2.createElement(LockProvider, null, /* @__PURE__ */ React2.createElement(UIProvider, null, /* @__PURE__ */ React2.createElement(Shell, null))))))));
   }
   // What the pages (pages/<id>/<id>.js) borrow from the app.
-  window.__oneApp = { QuranClip, QuranSource, quranReciterId, MOODS, MOOD_NOTE_MAX, MoodFace, useMoodDay, useToday, REPEATS, nextRepeatDate, React2, reactDom, loadScript, ensureTelegram, useTelegram, telegramDevice, MessageCircle, ArrowLeft, ArrowRight, BookOpen, Button, Check, CircleCheck, EmptyState, Field, FolderPlus, IDEA_COLORS, IconButton, Kbd, Lightbulb, Lock, Menu, Minus, Modal, Monogram, Moon, Pencil, Plus, RefreshCw, STARS, SampleBadge, Search, Segmented, SoundsButton, StickyNote, Sun, Target, Trash2, Trophy, X, addDays, createLucideIcon, createSampleData, hostOf, isAppData, isMac, isTypingTarget, loadGames, modKey, newId, parseISODate, relativeDay, takeInstallPrompt, timeAgo, toISODate, todayISO, useConfirm, useDeleteCategory, useDeleteGoal, useDeleteIdea, useDeleteSaved, useDeleteShortcut, useDeleteTask, useLock, useMediaQuery, useSound, useStore, useSync, useTheme, useToast, useUI };
+  window.__oneApp = { QuranClip, QuranSource, quranReciterId, useToday, REPEATS, nextRepeatDate, React2, reactDom, loadScript, ensureTelegram, useTelegram, telegramDevice, MessageCircle, ArrowLeft, ArrowRight, BookOpen, Button, Check, CircleCheck, EmptyState, Field, FolderPlus, IDEA_COLORS, IconButton, Kbd, Lightbulb, Lock, Menu, Minus, Modal, Monogram, Moon, Pencil, Plus, RefreshCw, STARS, SampleBadge, Search, Segmented, SoundsButton, StickyNote, Sun, Target, Trash2, Trophy, X, addDays, createLucideIcon, createSampleData, hostOf, isAppData, isMac, isTypingTarget, loadGames, modKey, newId, parseISODate, relativeDay, takeInstallPrompt, timeAgo, toISODate, todayISO, useConfirm, useDeleteCategory, useDeleteGoal, useDeleteIdea, useDeleteSaved, useDeleteShortcut, useDeleteTask, useLock, useMediaQuery, useSound, useStore, useSync, useTheme, useToast, useUI };
   // What the games (games/*.js) borrow from the app.
   window.__oneKit = { React: React2, ReactDOM: reactDom, IconButton, icons: { Trophy, X, ArrowLeft, Volume2, VolumeX }, FOCUSABLE };
   client.createRoot(document.getElementById("root")).render(/* @__PURE__ */ React2.createElement(App, null));

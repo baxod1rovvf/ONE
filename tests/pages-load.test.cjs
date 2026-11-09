@@ -14,7 +14,7 @@ after(async () => {
   await server.close();
 });
 
-const PAGE_IDS = ["home", "tasks", "mood", "quran", "websites", "ideas", "telegram", "saved", "goals", "knowledge", "preferences"];
+const PAGE_IDS = ["home", "tasks", "quran", "websites", "ideas", "telegram", "saved", "goals", "knowledge", "preferences"];
 const dockOf = (page) => page.getByRole("navigation", { name: "Pages" });
 const allPagesLoaded = (page) =>
   page.waitForFunction((ids) => ids.every((id) => window.__onePages && window.__onePages[id]), PAGE_IDS, { timeout: 15000 });
@@ -32,7 +32,7 @@ test("the open page loads first, the others in the background", async () => {
   const { page, errors } = await openApp(browser, server.url, { route: "tasks" });
   await page.locator('main[data-section="tasks"] .panel').first().waitFor();
   await allPagesLoaded(page);
-  // Each page's own script (helpers like pages/mood/rules.js are left out).
+  // Each page's own script (helpers like pages/quran/rules.js are left out).
   const scripts = await page.evaluate(() => [...document.querySelectorAll("script[src*='pages/']")].map((s) => s.getAttribute("src")).filter((src) => /^pages\/(\w+)\/\1\.js$/.test(src)));
   assert.equal(scripts[0], "pages/tasks/tasks.js");
   assert.equal(new Set(scripts).size, PAGE_IDS.length);

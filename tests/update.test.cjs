@@ -13,8 +13,8 @@ after(async () => {
 });
 
 const GAME_FILES = ["panel", "snake", "tetris", "breakout", "2048", "minesweeper", "memory"].flatMap((f) => [`/games/${f}.js`, `/games/${f}.css`]);
-const PAGE_IDS = ["home", "tasks", "mood", "quran", "websites", "ideas", "telegram", "saved", "goals", "knowledge", "preferences"];
-const PAGE_FILES = [...PAGE_IDS.flatMap((id) => [`/pages/${id}/${id}.js`, `/pages/${id}/${id}.css`]), ...["rules", "client", "service", "qr"].map((f) => `/pages/telegram/${f}.js`), "/pages/mood/rules.js", "/pages/quran/rules.js"];
+const PAGE_IDS = ["home", "tasks", "quran", "websites", "ideas", "telegram", "saved", "goals", "knowledge", "preferences"];
+const PAGE_FILES = [...PAGE_IDS.flatMap((id) => [`/pages/${id}/${id}.js`, `/pages/${id}/${id}.css`]), ...["rules", "client", "service", "qr"].map((f) => `/pages/telegram/${f}.js`), "/pages/quran/rules.js"];
 const FILES = ["/index.html", ...GAME_FILES, "/manifest.webmanifest", ...PAGE_FILES, "/pages/quran/data/index.json"];
 const local = (...parts) => new Date(...parts).getTime();
 

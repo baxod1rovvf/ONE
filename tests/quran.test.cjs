@@ -16,7 +16,7 @@ after(async () => {
 
 const EMPTY_DATA = {
   version: 1, tasks: [], goals: [], notes: [], saved: [], shortcuts: [], websiteCategories: [],
-  ideas: [], ideaCategories: [], recent: [], moods: [],
+  ideas: [], ideaCategories: [], recent: [],
   settings: { name: "", theme: "light", sidebarCollapsed: false, sampleBannerDismissed: true }
 };
 const withHifz = (hifz) => ({ ...EMPTY_DATA, hifz });
@@ -71,11 +71,11 @@ test("Quran: the block shows its day", async () => {
   await page.close();
 });
 
-test("Quran: 8 dock tabs fit a phone, no sideways scroll, dark theme", async () => {
+test("Quran: the dock tabs fit a phone, no sideways scroll, dark theme", async () => {
   const { page, errors } = await openApp(browser, server.url, { route: "quran", theme: "dark", viewport: { width: 375, height: 812 }, data: withHifz([]) });
   await block(page, 1).waitFor();
   const boxes = await page.locator(".dock__tab").evaluateAll((els) => els.map((e) => e.getBoundingClientRect().toJSON()));
-  assert.equal(boxes.length, 8);
+  assert.equal(boxes.length, 7);
   for (const b of boxes) assert.ok(b.width >= 44 && b.height >= 44, `tab ${b.width}x${b.height}`);
   assert.equal(await page.evaluate(() => document.documentElement.scrollWidth), 375);
   assert.deepEqual(errors, []);
