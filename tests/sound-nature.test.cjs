@@ -56,7 +56,7 @@ test("sound keeps playing while moving between every page", async () => {
   await openPanel(page);
   await sw(page, "Rain").click();
   await page.keyboard.press("Escape");
-  for (const name of ["Tasks", "Websites", "Ideas", "Saved", "Home"]) {
+  for (const name of ["Tasks", "Websites", "Ideas", "News", "Home"]) {
     await dockLink(page, name).click();
     const s = await stats(page);
     assert.equal(s.voices.rain.running, true, `still playing on ${name}`);

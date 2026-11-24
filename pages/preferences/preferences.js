@@ -96,7 +96,7 @@
     const [restoreOpen, setRestoreOpen] = React2.useState(false);
     const backupRef = React2.useRef(null);
     const sync = useSync();
-    const counts = `${data.tasks.length} tasks, ${data.ideas.length} ideas, ${data.shortcuts.length} websites, ${data.saved.length} saved links, ${data.notes.length} notes and ${data.goals.length} goals`;
+    const counts = `${data.tasks.length} tasks, ${data.ideas.length} ideas, ${data.shortcuts.length} websites, ${data.notes.length} notes and ${data.goals.length} goals`;
     const copyBackup = async () => {
       const json = JSON.stringify(data, null, 2);
       try {
@@ -159,7 +159,7 @@
         onClick: async () => {
           const ok = await confirm({
             title: "Delete everything?",
-            body: `All of your tasks, ideas, websites, saved links, notes and goals will be removed from this browser${sync.connected ? " and from your connected devices" : ""}. This can’t be undone. Copy a backup first if you might want them back.`,
+            body: `All of your tasks, ideas, websites, notes and goals will be removed from this browser${sync.connected ? " and from your connected devices" : ""}. This can’t be undone. Copy a backup first if you might want them back.`,
             confirmLabel: "Delete everything"
           });
           if (ok) {

@@ -104,24 +104,8 @@ test("ideas: add one, it survives reload, delete it", async () => {
   await page.close();
 });
 
-test("saved: add a link, it survives reload, remove it", async () => {
-  const { page, errors } = await openApp(browser, server.url, { route: "saved" });
-  await page.locator("main .btn", { hasText: "Save a link" }).click();
-  const dialog = await openedDialog(page);
-  await dialog.getByLabel("URL").fill("https://grass.example/article");
-  await dialog.getByLabel("Title").fill("Why grass is green");
-  await dialog.getByRole("button", { name: "Save link" }).click();
-  await dialog.waitFor({ state: "detached" });
-  await page.reload();
-  await page.getByText("Why grass is green").first().waitFor();
-  await removeVia(page, 'Actions for "Why grass is green"');
-  assert.equal(await page.getByText("Why grass is green").count(), 0);
-  assert.deepEqual(errors, []);
-  await page.close();
-});
-
 test("cards are frosted and rounded, buttons are pills, on every page", async () => {
-  for (const route of ["tasks", "websites", "ideas", "saved", "preferences", "goals", "knowledge"]) {
+  for (const route of ["tasks", "websites", "ideas", "news", "preferences", "goals", "knowledge"]) {
     const { page } = await openApp(browser, server.url, { route });
     const card = page.locator(".panel, .card, .goal, .launch-tile__inner, .igraph").locator("visible=true").first();
     await card.waitFor();
@@ -134,7 +118,7 @@ test("cards are frosted and rounded, buttons are pills, on every page", async ()
 });
 
 test("empty pages show friendly art and an action", async () => {
-  for (const route of ["tasks", "websites", "ideas", "saved"]) {
+  for (const route of ["tasks", "websites", "ideas"]) {
     const { page } = await openApp(browser, server.url, { route, data: EMPTY_DATA });
     const empty = page.locator(".empty").first();
     await empty.waitFor();

@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:media="http://search.yahoo.com/mrss/" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>Example World</title>
+    <item>
+      <title><![CDATA[Leaders meet for &quot;crucial&quot; climate talks]]></title>
+      <link>https://www.example.com/news/world-1?at_medium=RSS</link>
+      <description><![CDATA[<p>Talks begin in <b>Geneva</b> &amp; run all week.</p>]]></description>
+      <pubDate>Mon, 23 Nov 2026 09:30:00 GMT</pubDate>
+      <media:thumbnail width="240" height="135" url="https://ichef.bbci.co.uk/ace/standard/240/cpsprodpb/abc/live/x.jpg"/>
+    </item>
+    <item>
+      <title>Old story from last month</title>
+      <link>https://www.example.com/news/world-old</link>
+      <description>Too old to show.</description>
+      <pubDate>Sat, 10 Oct 2026 09:30:00 GMT</pubDate>
+    </item>
+    <item>
+      <title>A story with a picture in its content</title>
+      <link>https://www.example.com/news/world-2</link>
+      <content:encoded><![CDATA[<img src="https://img.example.com/a.jpg?w=1&amp;h=2"> Body text here.]]></content:encoded>
+      <pubDate>Sun, 22 Nov 2026 12:00:00 GMT</pubDate>
+      <media:content url="https://img.example.com/small.jpg" width="140" medium="image"/>
+      <media:content url="https://img.example.com/big.jpg" width="1200" medium="image"/>
+    </item>
+  </channel>
+</rss>

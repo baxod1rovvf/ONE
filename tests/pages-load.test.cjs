@@ -14,7 +14,7 @@ after(async () => {
   await server.close();
 });
 
-const PAGE_IDS = ["home", "tasks", "quran", "websites", "ideas", "telegram", "saved", "goals", "knowledge", "preferences"];
+const PAGE_IDS = ["home", "tasks", "news", "websites", "ideas", "telegram", "goals", "knowledge", "preferences"];
 const dockOf = (page) => page.getByRole("navigation", { name: "Pages" });
 const allPagesLoaded = (page) =>
   page.waitForFunction((ids) => ids.every((id) => window.__onePages && window.__onePages[id]), PAGE_IDS, { timeout: 15000 });
@@ -32,7 +32,7 @@ test("the open page loads first, the others in the background", async () => {
   const { page, errors } = await openApp(browser, server.url, { route: "tasks" });
   await page.locator('main[data-section="tasks"] .panel').first().waitFor();
   await allPagesLoaded(page);
-  // Each page's own script (helpers like pages/quran/rules.js are left out).
+  // Each page's own script (helpers like pages/telegram/rules.js are left out).
   const scripts = await page.evaluate(() => [...document.querySelectorAll("script[src*='pages/']")].map((s) => s.getAttribute("src")).filter((src) => /^pages\/(\w+)\/\1\.js$/.test(src)));
   assert.equal(scripts[0], "pages/tasks/tasks.js");
   assert.equal(new Set(scripts).size, PAGE_IDS.length);
@@ -45,7 +45,7 @@ test("switching pages is instant once loaded", async () => {
   await allPagesLoaded(page);
   // Home is left out: its first open draws the meadow, which takes as long
   // as it always has; loading is not part of it.
-  for (const id of ["websites", "ideas", "saved", "goals", "knowledge", "preferences", "tasks"]) {
+  for (const id of ["websites", "ideas", "news", "goals", "knowledge", "preferences", "tasks"]) {
     const ms = await page.evaluate(async (id) => {
       const link = document.querySelector(`.dock__tab[data-route="${id}"]`) || document.querySelector('[aria-label="Settings"]');
       const t = performance.now();
@@ -62,14 +62,14 @@ test("switching pages is instant once loaded", async () => {
 test("a slow page keeps the current one on screen until it arrives", async () => {
   const { page } = await openApp(browser, server.url, {
     route: "tasks",
-    init: (p) => p.route("**/pages/saved/saved.js", (r) => setTimeout(() => r.continue(), 2500))
+    init: (p) => p.route("**/pages/news/news.js", (r) => setTimeout(() => r.continue(), 2500))
   });
   await page.locator('main[data-section="tasks"] .panel').first().waitFor();
-  await dockOf(page).getByRole("link", { name: "Saved" }).click();
-  // Still Tasks, and marked busy, while Saved is on its way.
+  await dockOf(page).getByRole("link", { name: "News" }).click();
+  // Still Tasks, and marked busy, while News is on its way.
   assert.equal(await page.locator("main").getAttribute("data-section"), "tasks");
   assert.equal(await page.locator(".app").getAttribute("aria-busy"), "true");
-  await page.locator('main[data-section="saved"]').waitFor({ timeout: 6000 });
+  await page.locator('main[data-section="news"]').waitFor({ timeout: 6000 });
   assert.equal(await page.locator(".app").getAttribute("aria-busy"), null);
   await page.close();
 });
@@ -90,13 +90,13 @@ test("a page that can't load says so and goes back", async () => {
 test("the first page failing offers Try again", async () => {
   let fail = true;
   const { page } = await openApp(browser, server.url, {
-    route: "saved",
-    init: (p) => p.route("**/pages/saved/saved.js", (r) => (fail ? r.abort() : r.continue()))
+    route: "news",
+    init: (p) => p.route("**/pages/news/news.js", (r) => (fail ? r.abort() : r.continue()))
   });
   await page.getByRole("alert").getByText("Couldn't open this page.").waitFor();
   fail = false;
   await page.getByRole("button", { name: "Try again" }).click();
-  await page.locator('main[data-section="saved"] > :not(.page-load-failed)').first().waitFor({ timeout: 6000 });
+  await page.locator('main[data-section="news"] > :not(.page-load-failed)').first().waitFor({ timeout: 6000 });
   assert.equal(await page.locator(".page-load-failed").count(), 0);
   await page.close();
 });

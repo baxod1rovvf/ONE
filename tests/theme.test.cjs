@@ -23,7 +23,7 @@ test("Morning and Night give the page a sky backdrop", async () => {
 
 test("each page sets its own section colour", async () => {
   const seen = new Set();
-  for (const route of ["tasks", "websites", "ideas", "saved", "preferences"]) {
+  for (const route of ["tasks", "websites", "ideas", "news", "preferences"]) {
     const { page } = await openApp(browser, server.url, { route });
     assert.equal(await page.locator("main").getAttribute("data-section"), route);
     seen.add(await page.evaluate(() => getComputedStyle(document.querySelector("main")).getPropertyValue("--section").trim()));
