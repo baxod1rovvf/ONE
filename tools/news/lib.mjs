@@ -151,8 +151,9 @@ export function parseFeed(xml, source) {
       continue;
     }
     let title = cleanText(item.title);
-    // Google News puts the publisher in <source> and at the end of the title.
-    const publisher = item.source ? cleanText(item.source) : "";
+    // Google News puts the publisher in <source url="…"> and at the end of the
+    // title. (Other feeds use <source> for other things, such as photo credits.)
+    const publisher = item.source && item.source["@_url"] ? cleanText(item.source) : "";
     if (publisher && title.endsWith(` - ${publisher}`)) title = title.slice(0, -publisher.length - 3).trim();
     const url = linkOf(item);
     if (!title || !url) continue;
