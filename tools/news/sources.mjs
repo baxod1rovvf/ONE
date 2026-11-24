@@ -29,6 +29,7 @@ export const LANGS = ["en", "uz", "ru"];
 const ANIMALS = /\b(animal|animals|dog|dogs|puppy|cat|cats|kitten|bird|birds|whale|whales|dolphin|shark|elephant|lion|tiger|bear|bears|wolf|wolves|fox|monkey|ape|gorilla|chimp|panda|penguin|turtle|tortoise|frog|snake|insect|bee|bees|butterfly|spider|octopus|seal|otter|horse|cow|sheep|goat|pig|owl|eagle|parrot|species|wildlife|zoo|fish|beaver|koala|kangaroo|deer|rhino|giraffe|hippo|crocodile|bat|bats|squirrel|hedgehog)\b/i;
 
 // `fallback: true` sources are only used when the others of a topic run short.
+// (The Guardian isn't used: it refuses GitHub's servers with HTTP 403.)
 export const SOURCES = [
   // Trending: what people search for most today, each with a story about it.
   { topic: "trending", name: "Google Trends", url: "https://trends.google.com/trending/rss?geo=US" },
@@ -44,14 +45,15 @@ export const SOURCES = [
 
   // Football
   { topic: "football", name: "BBC Sport", url: "https://feeds.bbci.co.uk/sport/football/rss.xml" },
-  { topic: "football", name: "The Guardian", url: "https://www.theguardian.com/football/rss" },
+  { topic: "football", name: "ESPN", url: "https://www.espn.com/espn/rss/soccer/news" },
   { topic: "football", name: "Sky Sports", url: "https://www.skysports.com/rss/12040" },
   { topic: "football", name: "Premier League", youtube: "UCG5qGWdu8nIRZqJ_GgDwQ-w" },
   { topic: "football", name: "FIFA", youtube: "UCpcTrCXblq78GZrTUTLWeBw" },
 
   // World & politics
   { topic: "world", name: "BBC News", url: "https://feeds.bbci.co.uk/news/world/rss.xml" },
-  { topic: "world", name: "The Guardian", url: "https://www.theguardian.com/world/rss" },
+  { topic: "world", name: "DW", url: "https://rss.dw.com/rdf/rss-en-world" },
+  { topic: "world", name: "France 24", url: "https://www.france24.com/en/rss" },
   { topic: "world", name: "Al Jazeera", url: "https://www.aljazeera.com/xml/rss/all.xml" },
   { topic: "world", name: "NPR Politics", url: "https://feeds.npr.org/1014/rss.xml" },
   { topic: "world", name: "BBC News", youtube: "UC16niRr50-MSBwiO3YDb3RA" },
@@ -72,7 +74,7 @@ export const SOURCES = [
   { topic: "funny", name: "Good News Network", url: "https://www.goodnewsnetwork.org/feed/" },
 
   // Animals
-  { topic: "animals", name: "The Guardian", url: "https://www.theguardian.com/environment/wildlife/rss" },
+  { topic: "animals", name: "Mongabay", url: "https://news.mongabay.com/feed/" },
   { topic: "animals", name: "Good News Network", url: "https://www.goodnewsnetwork.org/category/news/animals/feed/" },
   { topic: "animals", name: "BBC Science", url: "https://feeds.bbci.co.uk/news/science_and_environment/rss.xml", match: ANIMALS },
   { topic: "animals", name: "The Dodo", youtube: "UCINb0wqPz-A0dV9nARjJlOQ" },

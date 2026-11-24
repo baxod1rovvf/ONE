@@ -7,9 +7,10 @@ const fs = require("node:fs");
 const path = require("node:path");
 
 const FIX = path.join(__dirname, "fixtures", "news");
-let lib, PLAN;
+let lib, PLAN, uz;
 before(async () => {
   lib = await import("../tools/news/lib.mjs");
+  uz = await import("../tools/news/uzbek.mjs");
   ({ PLAN } = await import("../tools/news/sources.mjs"));
 });
 
@@ -216,4 +217,25 @@ test("a story's translation keeps its shape; a half-translated article is droppe
   assert.equal(tr.title, "TITLE");
   assert.ok(!("body" in tr), "no body rather than half of one");
   assert.equal(await lib.translateStory(story, async () => [null, null, null, null]), null);
+});
+
+test("Uzbek in the usual Latin spelling, from Cyrillic or the proposed alphabet", () => {
+  const t = uz.toUzbekLatin;
+  assert.equal(t("Тошкент ҳайвонот боғи Цезарь лақабли орангутанда"), "Toshkent hayvonot bogʻi Sezar laqabli orangutanda");
+  assert.equal(t("ЎЗБЕКИСТОН ва Шавкат Мирзиёев"), "OʻZBEKISTON va Shavkat Mirziyoyev");
+  assert.equal(t("Ер юзида елка ва бет, эълон"), "Yer yuzida yelka va bet, eʼlon");
+  assert.equal(t("AQŞ kongressmenlari Putinni kiritmaslikni söradi, uruşi"), "AQSh kongressmenlari Putinni kiritmaslikni soʻradi, urushi");
+  assert.equal(t("O'zbekiston, o‘tadimi, moʼjiza"), "Oʻzbekiston, oʻtadimi, moʼjiza", "apostrophes, but not the tutuq belgisi");
+  assert.equal(t("Concert in Paris"), "Concert in Paris");
+});
+
+test("an RSS 1.0 (RDF) feed, as DW publishes", () => {
+  const xml = `<?xml version="1.0"?><rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns="http://purl.org/rss/1.0/" xmlns:dc="http://purl.org/dc/elements/1.1/">
+    <channel><title>DW</title></channel>
+    <item><title>Summit ends with a deal</title><link>https://www.dw.com/en/a-1</link><description>Leaders agreed.</description><dc:date>2026-11-23T10:00:00Z</dc:date></item>
+  </rdf:RDF>`;
+  const [s] = lib.parseFeed(xml, { topic: "world", name: "DW" });
+  assert.equal(s.title, "Summit ends with a deal");
+  assert.equal(s.url, "https://www.dw.com/en/a-1");
+  assert.equal(s.publishedAt, "2026-11-23T10:00:00.000Z");
 });

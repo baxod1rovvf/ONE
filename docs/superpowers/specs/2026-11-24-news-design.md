@@ -60,7 +60,7 @@ only when the story is opened, and removed when the reader closes.
   order: **Trending now** (3, Google Trends for the US, UK and Uzbekistan, each
   with the top story about the search), **Uzbekistan** (3, Kun.uz, Gazeta.uz,
   Daryo; Google News only when those run short), **Football** (3, one a video:
-  BBC Sport, The Guardian, Sky Sports, Premier League and FIFA on YouTube), then
+  BBC Sport, ESPN, Sky Sports, Premier League and FIFA on YouTube), then
   the light side (4) and the serious side (5).
 - **Languages.** The page switches between English, Oʻzbekcha and Русский
   (remembered per device, `one.news.lang.v1`). The builder translates every
@@ -73,3 +73,9 @@ only when the story is opened, and removed when the reader closes.
   article couldn't be translated, is shown as published with a note.
   `NEWS_NO_TRANSLATE=1` skips translation.
 - Editions from before this change have no `lang`; they are read as English.
+- **Uzbek spelling.** Uzbek stories are written in the usual Latin spelling
+  (`tools/news/uzbek.mjs`): Gazeta.uz's Cyrillic is transliterated, and Kun.uz's
+  proposed-alphabet letters (ş, ç, ö, ğ) become sh, ch, oʻ, gʻ. Translations into
+  Uzbek get the same treatment.
+- The Guardian refuses GitHub's servers (HTTP 403), so it was replaced by ESPN
+  (football), DW and France 24 (world) and Mongabay (animals).
