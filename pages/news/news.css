@@ -64,16 +64,36 @@
   color: var(--section-text);
 }
 
-/* Two sides: next to each other when there's room. */
-.news-sides {
+/* Rows of sections: trending across the whole width, then pairs side by
+   side when there's room. */
+.news-row {
   display: grid;
   gap: 20px;
   align-items: start;
+  margin-bottom: 24px;
 }
 @media (min-width: 960px) {
-  .news-sides {
+  .news-row--pair {
     grid-template-columns: 1fr 1fr;
   }
+  .news-row--wide .news-list {
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  }
+}
+
+/* The language switch. */
+.news-lang {
+  max-width: 100%;
+  overflow-x: auto;
+}
+.news-trend {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  max-width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 .news-side {
   min-width: 0;
@@ -86,6 +106,9 @@
   margin: 0 4px 10px;
 }
 .news-side__title {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
   margin: 0;
   font-size: var(--fs-lg);
   font-weight: 600;
@@ -295,4 +318,15 @@
   .news-card {
     transition: none;
   }
+}
+
+/* Section labels for the new sections. */
+.news-topic[data-topic="trending"] {
+  background: var(--c-ideas-soft);
+  color: var(--c-ideas-text);
+}
+.news-topic[data-topic="uzbekistan"],
+.news-topic[data-topic="football"] {
+  background: var(--c-tasks-soft);
+  color: var(--c-tasks-text);
 }

@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss xmlns:atom="http://www.w3.org/2005/Atom" xmlns:ht="https://trends.google.com/trending/rss" version="2.0">
+  <channel>
+    <title>Daily Search Trends</title>
+    <item>
+      <title>barcelona</title>
+      <ht:approx_traffic>500K+</ht:approx_traffic>
+      <pubDate>Mon, 23 Nov 2026 20:40:00 -0800</pubDate>
+      <ht:picture>https://encrypted-tbn1.gstatic.com/images?q=tbn:abc</ht:picture>
+      <ht:news_item>
+        <ht:news_item_title>Barcelona win the derby &amp; go top of the league</ht:news_item_title>
+        <ht:news_item_url>https://sport.example.com/barcelona-derby</ht:news_item_url>
+        <ht:news_item_picture>https://encrypted-tbn1.gstatic.com/images?q=tbn:news</ht:news_item_picture>
+        <ht:news_item_source>Sport Example</ht:news_item_source>
+      </ht:news_item>
+      <ht:news_item>
+        <ht:news_item_title>Second story</ht:news_item_title>
+        <ht:news_item_url>https://other.example.com/2</ht:news_item_url>
+        <ht:news_item_source>Other</ht:news_item_source>
+      </ht:news_item>
+    </item>
+    <item>
+      <title>weather</title>
+      <ht:approx_traffic>20K+</ht:approx_traffic>
+      <pubDate>Mon, 23 Nov 2026 19:00:00 -0800</pubDate>
+      <ht:news_item>
+        <ht:news_item_title>Snow on the way this weekend</ht:news_item_title>
+        <ht:news_item_url>https://weather.example.com/snow</ht:news_item_url>
+        <ht:news_item_source>Weather Example</ht:news_item_source>
+      </ht:news_item>
+    </item>
+  </channel>
+</rss>

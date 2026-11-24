@@ -7,7 +7,7 @@ export const KEEP_DAYS = 7;
 const DAY = 864e5;
 const SUMMARY_MAX = 320;
 
-const ARRAYS = new Set(["item", "entry", "link", "media:content", "media:thumbnail", "category", "enclosure"]);
+const ARRAYS = new Set(["item", "entry", "link", "media:content", "media:thumbnail", "category", "enclosure", "ht:news_item"]);
 const parser = new XMLParser({
   ignoreAttributes: false,
   attributeNamePrefix: "@_",
@@ -101,6 +101,39 @@ function linkOf(item) {
   return /^https?:\/\//.test(g) ? g : null;
 }
 
+// "200K+" searches → 200000.
+export function trafficOf(text) {
+  const m = /([\d.,]+)\s*([KMB])?/i.exec(String(text || ""));
+  if (!m) return 0;
+  const n = Number(m[1].replace(/,/g, ""));
+  return Math.round(n * ({ K: 1e3, M: 1e6, B: 1e9 }[(m[2] || "").toUpperCase()] || 1));
+}
+
+// A Google Trends item: the search, and the first story written about it.
+function trendStory(item, source) {
+  const news = (item["ht:news_item"] || [])[0];
+  const query = cleanText(item.title);
+  if (!news || !query) return null;
+  const title = cleanText(news["ht:news_item_title"]);
+  const url = textOf(news["ht:news_item_url"]).trim();
+  if (!title || !/^https?:\/\//.test(url)) return null;
+  const traffic = textOf(item["ht:approx_traffic"]).trim();
+  const picture = textOf(news["ht:news_item_picture"]) || textOf(item["ht:picture"]);
+  return {
+    topic: source.topic,
+    source: cleanText(news["ht:news_item_source"]) || source.name,
+    lang: source.lang || "en",
+    title,
+    url,
+    summary: shorten(cleanText(news["ht:news_item_snippet"])),
+    image: /^https:\/\//.test(picture) ? picture : null,
+    publishedAt: isoDate(item.pubDate),
+    video: null,
+    trend: { query, traffic },
+    rank: trafficOf(traffic)
+  };
+}
+
 // One feed (RSS 2.0 or Atom, YouTube channel feeds included) → plain stories.
 export function parseFeed(xml, source) {
   let doc;
@@ -112,7 +145,15 @@ export function parseFeed(xml, source) {
   const items = (doc.rss && doc.rss.channel && doc.rss.channel.item) || (doc.feed && doc.feed.entry) || (doc["rdf:RDF"] && doc["rdf:RDF"].item) || [];
   const out = [];
   for (const item of items) {
-    const title = cleanText(item.title);
+    if (item["ht:news_item"] || item["ht:approx_traffic"]) {
+      const t = trendStory(item, source);
+      if (t) out.push(t);
+      continue;
+    }
+    let title = cleanText(item.title);
+    // Google News puts the publisher in <source> and at the end of the title.
+    const publisher = item.source ? cleanText(item.source) : "";
+    if (publisher && title.endsWith(` - ${publisher}`)) title = title.slice(0, -publisher.length - 3).trim();
     const url = linkOf(item);
     if (!title || !url) continue;
     const videoId = textOf(item["yt:videoId"]) || null;
@@ -122,10 +163,12 @@ export function parseFeed(xml, source) {
     const image = videoId ? `https://i.ytimg.com/vi/${videoId}/hqdefault.jpg` : upgradeImage(imageOf(item, html));
     out.push({
       topic: source.topic,
-      source: source.name,
+      source: publisher || source.name,
+      lang: source.lang || "en",
+      ...(source.fallback ? { fallback: true } : {}),
       title,
       url,
-      summary: summary === title ? "" : summary,
+      summary: summary === title || summary.startsWith(title) ? "" : summary,
       image: image && /^https:\/\//.test(image) ? image : null,
       publishedAt: isoDate(item.pubDate) || isoDate(item.published) || isoDate(item["dc:date"]) || isoDate(item.updated),
       video: videoId ? { provider: "youtube", id: videoId } : null
@@ -162,7 +205,10 @@ export function pickEdition(candidates, { plan, used = new Set(), now = new Date
   const nowMs = now.getTime();
   const seen = new Set(used);
   const fresh = [];
-  const sorted = [...candidates].sort((a, b) => (b.publishedAt || "").localeCompare(a.publishedAt || ""));
+  // Main sources before fallbacks; then the most searched (trends), then the newest.
+  const sorted = [...candidates].sort(
+    (a, b) => (a.fallback ? 1 : 0) - (b.fallback ? 1 : 0) || (b.rank || 0) - (a.rank || 0) || (b.publishedAt || "").localeCompare(a.publishedAt || "")
+  );
   for (const s of sorted) {
     if (!s.publishedAt) continue;
     const age = nowMs - Date.parse(s.publishedAt);
@@ -180,8 +226,13 @@ export function pickEdition(candidates, { plan, used = new Set(), now = new Date
     taken.add(story);
     byTopic.get(topic).push(story);
   };
-  // Newest story of each source in turn (then the second newest of each, …).
+  // Newest story of each source in turn (then the second newest of each, …);
+  // fallback sources only once the main ones have nothing left.
   const roundRobin = (list, n) => {
+    const main = turns(list.filter((s) => !s.fallback), n);
+    return [...main, ...turns(list.filter((s) => s.fallback), n - main.length)];
+  };
+  const turns = (list, n) => {
     const bySource = new Map();
     for (const s of list) {
       if (!bySource.has(s.source)) bySource.set(s.source, []);
@@ -220,7 +271,7 @@ export function pickEdition(candidates, { plan, used = new Set(), now = new Date
   }
   const out = [];
   for (const p of plan) {
-    for (const s of byTopic.get(p.topic)) out.push({ id: idOf(s), side: p.side, ...s });
+    for (const { fallback, rank, ...s } of byTopic.get(p.topic)) out.push({ id: idOf(s), side: p.side, ...s });
   }
   return out;
 }
@@ -263,7 +314,7 @@ export function daysToKeep(days, today, keep = KEEP_DAYS) {
 
 // Paragraphs of an article's readable text (from Readability's HTML), or
 // null when there is too little to be worth reading in Core.
-export function paragraphsFrom(texts, { minChars = 500, maxChars = 12000 } = {}) {
+export function paragraphsFrom(texts, { minChars = 500, maxChars = 8000 } = {}) {
   const out = [];
   let total = 0;
   for (const t of texts) {
@@ -275,4 +326,82 @@ export function paragraphsFrom(texts, { minChars = 500, maxChars = 12000 } = {})
     total += p.length;
   }
   return total >= minChars ? out : null;
+}
+
+// Translating many texts at once: they are sent in batches of up to `max`
+// characters, joined by blank lines, and split again on the way back. When a
+// batch comes back with a different number of parts, its texts are sent one
+// by one. A text that can't be translated is null, never a wrong match.
+// `translateChunk(text)` does one request and returns the translated text.
+const SEP = "\n\n";
+export async function translateTexts(texts, translateChunk, { max = 4000 } = {}) {
+  const out = new Array(texts.length).fill(null);
+  const one = async (i) => {
+    const t = texts[i];
+    if (!t || !t.trim()) return (out[i] = t);
+    try {
+      // A text longer than a batch goes by its sentences' halves.
+      if (t.length > max) {
+        const cut = t.lastIndexOf(". ", Math.floor(t.length / 2)) + 1 || Math.floor(t.length / 2);
+        const [a, b] = await translateTexts([t.slice(0, cut), t.slice(cut)], translateChunk, { max });
+        out[i] = a != null && b != null ? `${a} ${b}`.replace(/\s+/g, " ").trim() : null;
+      } else {
+        const r = await translateChunk(t);
+        out[i] = r && r.trim() ? r.trim() : null;
+      }
+    } catch {
+      out[i] = null;
+    }
+  };
+  let batch = [];
+  let size = 0;
+  const flush = async () => {
+    if (!batch.length) return;
+    const idx = batch;
+    batch = [];
+    size = 0;
+    if (idx.length === 1) return one(idx[0]);
+    let parts = null;
+    try {
+      const r = await translateChunk(idx.map((i) => texts[i].replace(/\s*\n\s*/g, " ")).join(SEP));
+      parts = r ? r.split(/\n\s*\n/).map((p) => p.trim()).filter(Boolean) : null;
+    } catch {
+      parts = null;
+    }
+    if (parts && parts.length === idx.length) idx.forEach((i, k) => (out[i] = parts[k]));
+    else for (const i of idx) await one(i);
+  };
+  for (let i = 0; i < texts.length; i++) {
+    const t = texts[i];
+    if (!t || !t.trim()) {
+      out[i] = t;
+      continue;
+    }
+    if (t.length > max) {
+      await flush();
+      await one(i);
+      continue;
+    }
+    if (size + t.length + SEP.length > max) await flush();
+    batch.push(i);
+    size += t.length + SEP.length;
+  }
+  await flush();
+  return out;
+}
+
+// A story's (or fact's) texts in another language: the same shape, with
+// anything that couldn't be translated left out. Null when nothing could be.
+export async function translateStory(story, translate) {
+  const texts = [story.title || "", story.summary || "", ...(story.body || [])];
+  const got = await translate(texts);
+  const [title, summary, ...body] = got;
+  if (!title) return null;
+  const tr = { title };
+  if (story.summary && summary) tr.summary = summary;
+  if (story.body && story.body.length) {
+    // Only whole bodies: a half-translated article would read badly.
+    if (body.length === story.body.length && body.every((p) => p)) tr.body = body;
+  }
+  return tr;
 }

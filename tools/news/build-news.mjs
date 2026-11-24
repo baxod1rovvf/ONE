@@ -6,15 +6,16 @@
 //   NEWS_TZ     time zone that decides the edition's date (default UTC)
 //   NEWS_FORCE  "1" rebuilds today's edition even if it exists
 //   NEWS_DIR    where editions go (default: news/ at the repo root)
+//   NEWS_NO_TRANSLATE  "1" skips translating (the edition stays in each story's own language)
 import { readFile, writeFile, readdir, unlink, mkdir } from "node:fs/promises";
 import { existsSync } from "node:fs";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 import { JSDOM, VirtualConsole } from "jsdom";
 import { Readability } from "@mozilla/readability";
-import { PLAN, SOURCES, youtubeFeed, FACT_TODAY, FACT_RANDOM } from "./sources.mjs";
+import { PLAN, SOURCES, LANGS, youtubeFeed, FACT_TODAY, FACT_RANDOM } from "./sources.mjs";
 import { FACTS } from "./facts.mjs";
-import { parseFeed, pickEdition, pickFact, editionDate, daysToKeep, keysOf, paragraphsFrom, upgradeImage, cleanText } from "./lib.mjs";
+import { parseFeed, pickEdition, pickFact, editionDate, daysToKeep, keysOf, paragraphsFrom, upgradeImage, cleanText, translateTexts, translateStory } from "./lib.mjs";
 
 const HERE = path.dirname(fileURLToPath(import.meta.url));
 const DIR = process.env.NEWS_DIR ? path.resolve(process.env.NEWS_DIR) : path.join(HERE, "..", "..", "news");
@@ -23,6 +24,47 @@ const FORCE = process.env.NEWS_FORCE === "1";
 const UA = "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0 Safari/537.36";
 
 const log = (...a) => console.log(...a);
+const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
+
+// Google Translate's free web address (the one browser extensions use): no
+// key needed. Requests are spaced out, and after repeated failures the run
+// stops translating, leaving stories in their own language.
+function makeTranslator() {
+  let failures = 0;
+  let requests = 0;
+  const chunk = async (text, from, to) => {
+    if (failures >= 6) throw new Error("translation is unavailable for this run");
+    const url = `https://translate.googleapis.com/translate_a/single?client=gtx&sl=${from}&tl=${to}&dt=t`;
+    for (let attempt = 0; attempt < 3; attempt++) {
+      if (requests++) await sleep(200);
+      try {
+        const res = await fetch(url, {
+          method: "POST",
+          headers: { "content-type": "application/x-www-form-urlencoded;charset=UTF-8", "user-agent": UA },
+          body: new URLSearchParams({ q: text }),
+          signal: AbortSignal.timeout(20e3)
+        });
+        if (res.status === 429 || res.status >= 500) {
+          await sleep(2000 * (attempt + 1));
+          continue;
+        }
+        if (!res.ok) throw new Error(`HTTP ${res.status}`);
+        const data = await res.json();
+        const out = (Array.isArray(data) && Array.isArray(data[0]) ? data[0] : []).map((x) => (Array.isArray(x) && typeof x[0] === "string" ? x[0] : "")).join("");
+        failures = 0;
+        return out;
+      } catch (e) {
+        if (attempt === 2) {
+          failures++;
+          throw e;
+        }
+      }
+    }
+    failures++;
+    throw new Error("translator busy");
+  };
+  return (from, to) => (texts) => translateTexts(texts, (t) => chunk(t, from, to));
+}
 
 async function get(url, { timeout = 15e3, accept = "*/*" } = {}) {
   const res = await fetch(url, { headers: { "user-agent": UA, accept }, redirect: "follow", signal: AbortSignal.timeout(timeout) });
@@ -129,6 +171,38 @@ async function main() {
     }
 
     const fact = pickFact(await offeredFacts(), { usedFacts, fallback: FACTS, date });
+
+    // Every story and the fact in each of LANGS.
+    if (process.env.NEWS_NO_TRANSLATE !== "1") {
+      const translator = makeTranslator();
+      let done = 0;
+      let wanted = 0;
+      for (const story of items) {
+        story.tr = {};
+        const from = story.lang === "auto" ? "auto" : story.lang || "en";
+        for (const to of LANGS.filter((l) => l !== story.lang)) {
+          wanted++;
+          try {
+            const tr = await translateStory(story, translator(from, to));
+            if (tr) {
+              story.tr[to] = tr;
+              done++;
+            }
+          } catch (e) {
+            log(`  (no ${to} translation for "${story.title}": ${e.message})`);
+          }
+        }
+      }
+      if (fact) {
+        fact.lang = "en";
+        fact.tr = {};
+        for (const to of LANGS.filter((l) => l !== "en")) {
+          const [text] = await translator("en", to)([fact.text]).catch(() => [null]);
+          if (text) fact.tr[to] = { text };
+        }
+      }
+      log(`Translated ${done} of ${wanted} story versions.`);
+    }
     const edition = {
       date,
       generatedAt: now.toISOString(),
@@ -144,13 +218,16 @@ async function main() {
         url: s.url,
         source: s.source,
         publishedAt: s.publishedAt,
-        video: s.video || null
+        video: s.video || null,
+        lang: s.lang || "en",
+        ...(s.trend ? { trend: s.trend } : {}),
+        tr: s.tr || {}
       }))
     };
     await writeFile(file, JSON.stringify(edition, null, 1) + "\n");
     wrote = true;
     log(`Wrote ${path.relative(process.cwd(), file)}:`);
-    for (const s of edition.items) log(`  [${s.side}/${s.topic}] ${s.video ? "▶ " : ""}${s.title} — ${s.source}${s.body ? "" : " (summary only)"}`);
+    for (const s of edition.items) log(`  [${s.side}/${s.topic}] ${s.video ? "▶ " : ""}${s.title} — ${s.source}${s.body ? "" : " (summary only)"} [${[s.lang, ...Object.keys(s.tr)].join(", ")}]`);
     log(`  Fun fact: ${fact ? fact.text : "(none)"}`);
   }
 

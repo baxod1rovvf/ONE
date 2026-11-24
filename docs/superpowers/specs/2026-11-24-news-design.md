@@ -53,3 +53,23 @@ only when the story is opened, and removed when the reader closes.
 - The Saved page, its editor, the Link kind in quick capture and the Saved
   search results. The `saved` list stays in the data format (backups and sync
   still accept it), so links saved earlier aren't destroyed; nothing shows them.
+
+## Update: languages, trending, Uzbekistan, football (2026-11-24)
+
+- An edition is now 18 stories and the fun fact, in five sections shown in this
+  order: **Trending now** (3, Google Trends for the US, UK and Uzbekistan, each
+  with the top story about the search), **Uzbekistan** (3, Kun.uz, Gazeta.uz,
+  Daryo; Google News only when those run short), **Football** (3, one a video:
+  BBC Sport, The Guardian, Sky Sports, Premier League and FIFA on YouTube), then
+  the light side (4) and the serious side (5).
+- **Languages.** The page switches between English, Oʻzbekcha and Русский
+  (remembered per device, `one.news.lang.v1`). The builder translates every
+  story's title, summary and article text, and the fact, into the other two
+  languages (`lang` is the original, `tr.<lang>` the translations), through
+  Google Translate's free web address (no key). Batches of up to 4000
+  characters; a batch that comes back with the wrong number of parts is
+  retried text by text; after repeated failures the run stops translating and
+  stories stay in their own language. A story without a translation, or whose
+  article couldn't be translated, is shown as published with a note.
+  `NEWS_NO_TRANSLATE=1` skips translation.
+- Editions from before this change have no `lang`; they are read as English.
