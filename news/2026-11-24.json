@@ -1,6 +1,6 @@
 {
  "date": "2026-11-24",
- "generatedAt": "2026-11-24T17:27:52.538Z",
+ "generatedAt": "2026-11-24T17:37:29.052Z",
  "fact": {
   "text": "A horse can look forward with one eye and back with the other.",
   "url": "http://www.djtech.net/humor/useless_facts.htm",
@@ -8,7 +8,7 @@
   "lang": "en",
   "tr": {
    "uz": {
-    "text": "Ot bir ko'zi bilan oldinga, ikkinchi ko'zi bilan orqaga qarashi mumkin."
+    "text": "Ot bir koʻzi bilan oldinga, ikkinchi koʻzi bilan orqaga qarashi mumkin."
    },
    "ru": {
     "text": "Лошадь может смотреть вперед одним глазом и назад другим."
@@ -35,7 +35,7 @@
    },
    "tr": {
     "uz": {
-     "title": "Galatasaroy - Aston Villa: UEFA Chempionlar Ligasi statistikasi va o'zaro to'qnashuv"
+     "title": "Galatasaroy - Aston Villa: UEFA Chempionlar Ligasi statistikasi va oʻzaro toʻqnashuv"
     },
     "ru": {
      "title": "Галатасарай – Астон Вилла: статистика Лиги чемпионов УЕФА и личные встречи"
@@ -63,17 +63,17 @@
    "lang": "en",
    "trend": {
     "query": "galatasaray - aston villa",
-    "traffic": "5000+"
+    "traffic": "10000+"
    },
    "tr": {
     "uz": {
-     "title": "Aston Villa'da kritik yo'qlar! Galatasaray machi oldinsi 4 futbolcu Istanbul'a keltirilmadi",
-     "summary": "UEFA Shampiyonlar Ligining 5. haftasida Galatasaray bilan to'qnash keladigan Aston Villa, sakatlik bilan izoh berdi.",
+     "title": "Aston Villa'da kritik yoʻqlar! Galatasaray machi oldinsi 4 futbolcu Istanbul'a keltirilmadi",
+     "summary": "UEFA Shampiyonlar Ligining 5. haftasida Galatasaray bilan toʻqnash keladigan Aston Villa, sakatlik bilan izoh berdi.",
      "body": [
-      "UEFA Shampiyonlar Ligining 5. haftasida Galatasaray bilan to'qnash keladigan Aston Villa, sakatlik bilan izoh berdi.",
-      "Britaniya jamoasi, 29 yaşındaki sağ bek Matty Cash'in bu kurashda o'ynaymasligini e'lon qildi.",
-      "Cash'in yani Aston Villa'da Matteo Ruggeri bilan Amadou Onananing sakatliklari; Brayan Madjo'nun esa statü gereği Istanbul'a keladigan kafilenin ichida bo'lmasligi belgilandi.",
-      "www.sozcu.com.tr internet saytida chop etilgan yozma, xabar va fotosuratlarning har xil telif huquqi Mega Ajans ve Rek. Tic. A.Ş'ye aittir. İzin alınmadan, kaynak gösterilerek dahi iktibas edilemez.",
+      "UEFA Shampiyonlar Ligining 5. haftasida Galatasaray bilan toʻqnash keladigan Aston Villa, sakatlik bilan izoh berdi.",
+      "Britaniya jamoasi, 29 yashındaki sagʻ bek Matty Cash'in bu kurashda oʻynaymasligini e'lon qildi.",
+      "Cash'in yani Aston Villa'da Matteo Ruggeri bilan Amadou Onananing sakatliklari; Brayan Madjoʻnun esa statü geregʻi Istanbul'a keladigan kafilenin ichida boʻlmasligi belgilandi.",
+      "www.sozcu.com.tr internet saytida chop etilgan yozma, xabar va fotosuratlarning har xil telif huquqi Mega Ajans ve Rek. Tic. A.Sh'ye aittir. İzin alınmadan, kaynak goʻsterilerek dahi iktibas edilemez.",
       "Bu habere emoji bilan tepki ver"
      ]
     },
@@ -91,74 +91,144 @@
    }
   },
   {
-   "id": "opvjc7",
+   "id": "1sxi3et",
    "side": "trending",
    "topic": "trending",
-   "title": "2026-27 Week 12 College Football Playoff, bowl projections",
-   "summary": "",
-   "body": null,
-   "image": "https://encrypted-tbn1.gstatic.com/images?q=tbn:ANd9GcQkTEEJWzq1b44K8t2p5VWqLXX4UrPLfqFyPq1XxM2HTjfqHLQZpIbqnZqvS50",
-   "url": "https://www.espn.com/college-football/story/_/id/50564492/2026-week-12-college-football-playoff-bowl-projections",
-   "source": "ESPN",
-   "publishedAt": "2026-11-24T17:10:00.000Z",
+   "title": "Africa's champion returns: Sadio Mane leads Al-Nassr in Asian showdown with Al-Sadd",
+   "summary": "Al-Nassr star Sadio Mane has returned to lead the Saudi side against Qatar's Al-Sadd in the AFC Champions League Elite, after missing the last Clasico against bitter rivals Al-Ahli.",
+   "body": [
+    "Al-Nassr star Sadio Mane has returned to lead the Saudi side against Qatar's Al-Sadd in the AFC Champions League Elite, after missing the last Clasico against bitter rivals Al-Ahli.",
+    "Al-Nassr host Al-Sadd at Al-Awwal Park in the Saudi capital, Riyadh, on Tuesday, on matchday five of the AFC Champions League Elite league stage.",
+    "Angie Postecoglou has gone with his strongest line-up. The Australian needs a big win to boost Al-Nassr's hopes of reaching the round of 16 of the Asian competition.",
+    "Sadio Mane is the standout name in the starting XI. The Senegalese star returns after missing last Friday's 3-1 defeat to Al-Ahli, a rearranged ninth-round fixture in the Roshn League.",
+    "He sat out that Clasico following the birth of his new child, but he comes back today as a 2025 Africa Cup of Nations champion after a ruling by the Court of Arbitration for Sport.",
+    "On Tuesday, CAS upheld Senegal's appeal against a decision by the Confederation of African Football's Appeal Board. That decision had deemed the \"Lions of Teranga\" to have lost the 2025 Africa Cup of Nations final by withdrawal, despite their 1-0 win on the pitch, and handed Morocco a 3-0 victory.",
+    "Mane leads the Al-Nassr attack alongside another returning player, French winger Kingsley Coman, who started on the bench against Al-Ahli. Portuguese stars Cristiano Ronaldo and Joao Felix join them.",
+    "Samu Costa makes it three Portuguese players in the side, lining up in midfield alongside Brazilian Angelo.",
+    "At the back, Nawaf Boushal and Awad Aman start at full-back, with Abdulelah Al-Amri and Frenchman Mohamed Simakan in the middle, in front of Brazilian goalkeeper Bento.",
+    "Postecoglou wants his strongest side to get Al-Nassr back to winning ways. Another slip after the Clasico defeat to bitter rivals Al-Ahli would make it two in a row.",
+    "He also wants to climb back into the round-of-16 qualification places in the AFC Champions League Elite, having dropped out of them.",
+    "Al-Nassr go into the match 10th in the West group with six points from two wins and a defeat. They still have a postponed game against the UAE's Al-Wasl to play in December.",
+    "Al-Sadd sit 13th in the West group. They've taken just two points from a possible 12, with two draws and two defeats, and are still waiting for their first win.",
+    "Al-Nassr line-up:",
+    "Goalkeeper: Bento",
+    "Defence: Nawaf Boushal, Abdulelah Al-Amri, Mohamed Simakan, Awad Aman",
+    "Midfield: Angelo, Samu Costa, Joao Felix",
+    "Attack: Kingsley Coman, Cristiano Ronaldo, Sadio Mane",
+    "نُقـدم لكم قائمة الفريق الرسميـة للمباراة دعواتنا لنجومنا بالتوفيق بإذن الله #النصر_السد pic.twitter.com/K949d7gQeE"
+   ],
+   "image": "https://encrypted-tbn3.gstatic.com/images?q=tbn:ANd9GcR7ahRvnl7dqc1FUkRn5M8hsZ5-O35oPLAm7qJMSuw3k_3V9hTfkqjXkffixZ4",
+   "url": "https://www.yardbarker.com/soccer/articles/africas_champion_returns_sadio_mane_leads_al_nassr_in_asian_showdown_with_al_sadd/s1_17790_44612232",
+   "source": "Yardbarker",
+   "publishedAt": "2026-11-24T17:20:00.000Z",
    "video": null,
    "lang": "en",
    "trend": {
-    "query": "college football playoff",
+    "query": "al-nassr vs al sadd",
     "traffic": "2000+"
    },
    "tr": {
     "uz": {
-     "title": "2026-27 12-hafta Kollej futboli pley-offi, piyola prognozlari"
+     "title": "Afrika chempioni qaytdi: Sadio Mane “Al-Nassr”ni Osiyoda Al-Sadd bilan qarama-qarshilikda boshqaradi",
+     "summary": "“Al-Nassr” yulduzi Sadio Mane OChL elitasida Qatarning “As-Sadd” klubiga qarshi oʻyindagi soʻnggi Klasikoni oʻtkazib yuborib, Saudiya Arabistoni terma jamoasini boshqarib qaytdi.",
+     "body": [
+      "“Al-Nassr” yulduzi Sadio Mane OChL elitasida Qatarning “As-Sadd” klubiga qarshi oʻyindagi soʻnggi Klasikoni oʻtkazib yuborib, Saudiya Arabistoni terma jamoasini boshqarib qaytdi.",
+      "Seshanba kuni Saudiya Arabistoni poytaxti Ar-Riyoddagi Al-Avval bogʻida Osiyo Chempionlar Ligasi Elit ligasi 5-turida “Al-Nassr” “As-Sadd”ni qabul qiladi.",
+      "Anji Postekoglou oʻzining eng kuchli tarkibi bilan ketdi. “Al-Nassr”ning Osiyo musobaqasida 1/8 finalga chiqish umidini kuchaytirish uchun avstraliyalik futbolchi yirik gʻalabaga muhtoj.",
+      "Sadio Mane - asosiy tarkibdagi ajoyib nom. Senegallik yulduz oʻtgan juma kuni Roshn ligasining toʻqqizinchi tur oʻyinida \"Al-Ahli\"ga qarshi oʻyinda (3:1) oʻtkazib yuborilganidan keyin safga qaytdi.",
+      "U oʻzining yangi farzandi tugʻilgandan keyin oʻsha Klasikoni oʻtkazdi, lekin u bugun Sport arbitraj sudi qaroridan keyin 2025 Afrika Millatlar Kubogi chempioni sifatida qaytib keldi.",
+      "Seshanba kuni CAS Senegalning Afrika futbol konfederatsiyasining apellyatsiya kengashi qaroriga qarshi shikoyatini qanoatlantirdi. Bu qaror “Teranga sherlari”ni maydonda 1:0 hisobida gʻalaba qozonganiga qaramay, 2025 yilgi Afrika Millatlar Kubogi finalida magʻlub boʻldi va Marokashga 3:0 hisobida gʻalaba keltirdi.",
+      "Mane \"Al-Nassr\" hujumini boshqa qaytgan futbolchi, \"Al-Ahli\"ga qarshi oʻyinda zaxira oʻrindigʻida boshlagan frantsiyalik vinger Kingsli Koman bilan birga boshqaradi. Ularga portugaliyalik yulduzlar Krishtianu Ronaldu va Joau Feliks qoʻshilishdi.",
+      "Samu Kosta uni uchta portugaliyalik oʻyinchiga aylantiradi, ular yarim himoyada braziliyalik Anjelo bilan bir qatorda.",
+      "Orqada Navaf Boushal va Avad Aman qanot himoyasida, Abdulela Al-Amri va fransiyalik Mohamed Simakan oʻrtada, braziliyalik darvozabon Bento oldida.",
+      "Postekoglou oʻzining eng kuchli tomoni \"Al-Nassr\"ni gʻalaba qozonish yoʻliga qaytarishini xohlaydi. Ashaddiy raqib “Al-Ahli”ga “Klassiko”dan soʻng yana bir yutuq ketma-ket ikkitaga yetdi.",
+      "U, shuningdek, Osiyo Chempionlar Ligasi elitasining 1/8 final bosqichidan chiqib ketgan holda, saralash bosqichiga qaytishni istaydi.",
+      "“Al-Nassr” ikki gʻalaba va magʻlubiyatdan keyin olti ochko bilan Gʻarb guruhida 10-oʻrinda bormoqda. Ularda hali dekabr oyida BAAning “Al-Vasl” jamoasiga qarshi qoldirilgan oʻyin bor.",
+      "\"As-Sadd\" Gʻarbiy guruhda 13-oʻrinni egallab turibdi. Ular ikkita durang va ikkita magʻlubiyat bilan boʻlishi mumkin boʻlgan 12 ochkodan atigi ikkita ochko oldi va hali ham birinchi gʻalabasini kutishmoqda.",
+      "Al-Nassr tarkibi:",
+      "Darvozabon: Bento",
+      "Himoya: Navaf Boushal, Abdulelah Al-Amri, Muhammad Simakan, Avad Aman",
+      "Yarim himoya: Anjelo, Samu Kosta, Joau Feliks",
+      "Hujum: Kingsli Koman, Krishtianu Ronaldu, Sadio Mane",
+      "nuqqadm lqm qạạmẗ ạlfryq ạlrsmyـẗ lmbạrẗ dʿwạtnạ lnjwmnạ bạltwfyq bḥdẖn ạllh #sạlnạl.com.74d"
+     ]
     },
     "ru": {
-     "title": "Плей-офф студенческого футбола, 12-я неделя 2026–27, прогнозы на чашу"
+     "title": "Чемпион Африки возвращается: Садио Мане возглавляет Аль-Насра в азиатском поединке с Аль-Саддом",
+     "summary": "Звезда «Аль-Насра» Садио Мане вернулся, чтобы возглавить саудовскую команду против катарского «Аль-Садда» в элитной Лиге чемпионов АФК после того, как пропустил последнее «Класико» против непримиримого соперника «Аль-Ахли».",
+     "body": [
+      "Звезда «Аль-Насра» Садио Мане вернулся, чтобы возглавить саудовскую команду против катарского «Аль-Садда» в элитной Лиге чемпионов АФК после того, как пропустил последнее «Класико» против непримиримого соперника «Аль-Ахли».",
+      "«Аль-Наср» примет «Аль-Садд» на стадионе «Аль-Авваль Парк» в столице Саудовской Аравии Эр-Рияде во вторник, в пятом туре этапа элитной лиги Лиги чемпионов АФК.",
+      "Энджи Постекоглу ушла со своим сильнейшим составом. Австралийцу нужна крупная победа, чтобы укрепить надежды Аль-Насра на выход в 1/8 финала азиатского турнира.",
+      "Садио Мане – выдающееся имя в стартовом составе. Сенегальская звезда возвращается после поражения от «Аль-Ахли» со счетом 3:1 в прошлую пятницу, перенесенного матча девятого раунда Лиги Рошн.",
+      "Он пропустил Класико из-за рождения своего нового ребенка, но возвращается сегодня в качестве чемпиона Кубка африканских наций 2025 года после решения Спортивного арбитражного суда.",
+      "Во вторник CAS поддержал апелляцию Сенегала на решение Апелляционного совета Конфедерации африканского футбола. Это решение посчитало, что «Львы Теранги» проиграли финал Кубка африканских наций 2025 года из-за отказа, несмотря на их победу на поле со счетом 1:0, и принесло Марокко победу со счетом 3:0.",
+      "Мане возглавляет атаку «Аль-Насра» вместе с другим вернувшимся игроком, французским нападающим Кингсли Команом, который вышел на скамейку запасных против «Аль-Ахли». К ним присоединятся португальские звезды Криштиану Роналду и Жоау Фелиш.",
+      "Саму Коста формирует тройку португальских игроков в команде, выстраиваясь в полузащите рядом с бразильцем Анджело.",
+      "Сзади Наваф Бушал и Авад Аман начинают игру на позиции крайнего защитника, а Абдулала Аль-Амри и француз Мохамед Симакан - в центре, перед бразильским голкипером Бенто.",
+      "Постекоглу хочет, чтобы его сильнейшая сторона вернула Аль-Насра на победный путь. Еще один промах после поражения в Класико от заклятого соперника Аль-Ахли сделает это два раза подряд.",
+      "Он также хочет вернуться в 1/8 финала квалификации элиты Лиги чемпионов AFC, вылетев из них.",
+      "Аль-Наср выйдет на матч 10-м в группе Запада с шестью очками при двух победах и поражении. У них все еще есть отложенная игра против Аль-Васла из ОАЭ, которая состоится в декабре.",
+      "Аль-Садд занимает 13-е место в группе Запада. Они набрали всего два очка из 12 возможных при двух ничьих и двух поражениях и все еще ждут своей первой победы.",
+      "Состав Аль-Насра:",
+      "Вратарь: Бенто",
+      "Защита: Наваф Бушал, Абдулала Аль-Амри, Мохамед Симакан, Авад Аман.",
+      "Полузащитники: Анджело, Саму Кошта, Жоау Феликс.",
+      "Атака: Кингсли Коман, Криштиану Роналду, Садио Мане.",
+      "В 1990 году он был назначен на должность президента США в Лос-Анджелесе, штат Калифорния. بإذن الله #النصر_السد pic.twitter.com/K949d7gQeE"
+     ]
     }
    }
   },
   {
-   "id": "1scsp9w",
+   "id": "1oroopm",
    "side": "uzbekistan",
    "topic": "uzbekistan",
-   "title": "Vinisius “PSJ”ga o‘tadimi?",
-   "summary": "Fransiyaning “Pari Sen-Jermen” klubi hujum chizig‘idagi muammolarga qaramay, “Real Madrid” vingeri Vinisius Juniorni o‘z safiga qo‘shib olishni rejalashtirmayapti. Taniqli insayder Fabritsio Romano Fabrizio Responde dasturida braziliyalik futbolchining Parij klubiga o‘tishi haqidagi mish-mishlarga oydinlik kiritdi…",
+   "title": "Yevrokomissiya ortiqcha byudjet xarajatlari uchun Bolgariyani jarimaga tortmoqchi",
+   "summary": "Yevrokomissiya davlat xarajatlarini jilovlay olmagani uchun Bolgariyani 23 million yevrogacha jarimaga tortmoqchi. Bu haqda Yevropa Ittifoqining iqtisodiyot boʻyicha komissari Valdis Dombrovskisga tayanib, Politico xabar berdi . Uning aytishicha, jarima boʻyicha qaror joriy yil oxiri yoki kelasi yil boshida qabul…",
    "body": [
-    "Fransiyaning “Pari Sen-Jermen” klubi hujum chizig‘idagi muammolarga qaramay, “Real Madrid” vingeri Vinisius Juniorni o‘z safiga qo‘shib olishni rejalashtirmayapti. Taniqli insayder Fabritsio Romano Fabrizio Responde dasturida braziliyalik futbolchining Parij klubiga o‘tishi haqidagi mish-mishlarga oydinlik kiritdi.",
-    "Romanoning aytishicha, “PSJ” hozircha bunday darajadagi yulduz futbolchini o‘z safiga qo‘shishni rejalashtirmayapti:",
-    "“Yo‘q. Tarkibga bu darajada mashhur futbolchi olib kelinmaydi”, dedi insayder Vinisius transferi haqidagi savolga javoban.",
-    "“PSJ”ning hujum chizig‘ini kuchaytirish haqidagi xabarlari jamoada yuzaga kelgan jarohatlar bilan bog‘liq. Parij klubi futbolchilari Dezire Due va Xvicha Kvaratsxeliya xochsimon bog‘lamlari uzilgani sababli uzoq muddatga safdan chiqqan. Shu bois jamoa qishki transfer oynasida yangi hujumchi bilan shartnoma imzolashi mumkin.",
-    "Ayni paytda “Real” vingeri Vinisiusning ham jamoani tark etishi mumkinligi haqida xabarlar tarqalmoqda. Biroq jurnalist Fabritsio Romanoning ma’lum qilishicha, “PSJ” braziliyalik futbolchini sotib olishni rejalashtirmayapti.",
-    "Eslatib o‘tamiz, Vinisius 2018-yilda “Flamengo”dan 45 million yevro evaziga “Real”ga o‘tgan. Transfermarkt portali futbolchining bozor qiymatini 130 million yevroga baholagan."
+    "Yevrokomissiya davlat xarajatlarini jilovlay olmagani uchun Bolgariyani 23 million yevrogacha jarimaga tortmoqchi. Bu haqda Yevropa Ittifoqining iqtisodiyot boʻyicha komissari Valdis Dombrovskisga tayanib, Politico xabar berdi. Uning aytishicha, jarima boʻyicha qaror joriy yil oxiri yoki kelasi yil boshida qabul qilinadi. Bu Yevropa Ittifoqi tarixida byudjet qoidalarini buzganlik uchun qoʻllanadigan ilk jarima boʻladi.",
+    "Yevropa Ittifoqi qoidalariga koʻra, byudjet taqchilligi yalpi ichki mahsulotning (YAIM) 3 foizidan, davlat qarzi esa 60 foizidan oshmasligi kerak. Bolgariyaning davlat qarzi belgilangan 60 foizlik chegaradan past. Biroq prognozlarga koʻra, mamlakat byudjeti taqchilligi YAIMning 5 foiziga yetadi. Bryussel Bolgariya hukumati xarajatlarni qisqartirish uchun yetarli choralar koʻrmagan deb hisoblaydi.",
+    "“Jarima boʻyicha qaror shu yil oxirida yoki kelasi yilning boshida qabul qilinishini kutyapmiz”, dedi Dombrovskis.",
+    "Politico yozishicha, Bolgariya “Yevropa semestri” deb ataladigan navbatdagi iqtisodiy tekshiruv doirasida ogohlantirilgan. Ushbu tekshiruv orqali Yevrokomissiya a’zo davlatlarning byudjet xarajatlari va davlat qarzini nazorat qilib boradi.",
+    "Oʻn yil avval Ispaniya va Portugaliya ham byudjet qoidalarini buzganlik uchun jarimaga tortilishi aytilgandi. Biroq yakunda Yevrokomissiya bu mamlakatlarni jazolamaslikka qaror qilgan.",
+    "Bryussel Vengriyaning davlat moliyasi holatidan ham noroziligini bildirib, mamlakatni ehtimoliy oqibatlardan ogohlantirdi. Biroq Vengriya yevro hududiga kirmagani sababli unga nisbatan faqat Yevropa Ittifoqi fondlaridan ajratiladigan mablagʻlarni muzlatib qoʻyish chorasi qoʻllanishi mumkin.",
+    "Bolgariya esa 2026-yil yanvarida yevro hududiga qoʻshilgan. Shu sababli amaldagi qoidalar mamlakatga ajratiladigan mablagʻlarni muzlatish bilan birga, uni YAIMning 0,02 foizigacha boʻlgan miqdorda jarimaga tortish imkonini ham beradi.",
+    "Avvalroq Yevrokomissiya rahbari Ursula fon der Lyayen Rossiyaga qarshi 22-sanksiyalar paketi loyihasini taqdim etgani haqida xabar berilgandi. Yangi paketda Rossiya harbiylariga viza berishni taqiqlash, rossiyalik sportchilarning Yevropadagi musobaqalarda ishtirokini cheklash va Yevropa Ittifoqi fuqarolarining Rossiya kompaniyalarida rahbarlik lavozimlarini egallashiga yoʻl qoʻymaslik taklif etilgan."
    ],
-   "image": "https://gocdn.daryo.uz/large/2026/11/24/6b04f10278a68f67c0298b04891f2cfa2a87912bf7d5d27ba7c8423b3a842891.webp",
-   "url": "https://daryo.uz/2026/11/24/vinisius-psjga-otadimi/",
+   "image": "https://gocdn.daryo.uz/large/2026/11/24/4d24c43a8d3d1118bfdbdfee118f84f7319ca8d5e5d7649114f306ed3c055dcc.webp",
+   "url": "https://daryo.uz/2026/11/24/yevrokomissiya-ortiqcha-byudjet-xarajatlari-uchun-bolgariyani-jarimaga-tortmoqchi/",
    "source": "Daryo",
-   "publishedAt": "2026-11-24T17:22:36.000Z",
+   "publishedAt": "2026-11-24T17:34:00.000Z",
    "video": null,
    "lang": "uz",
    "tr": {
     "en": {
-     "title": "Will Vinicius move to PSG?",
-     "summary": "The French club \"Paris Saint-Germain\" does not plan to join the winger of \"Real Madrid\" Vinicius Junior, despite the problems in the offensive line. The well-known insider Fabrizio Romano clarified the rumors about the transfer of the Brazilian player to the Paris club in the Fabrizio Responde program...",
+     "title": "The European Commission wants to fine Bulgaria for excessive budget spending",
+     "summary": "The European Commission wants to fine Bulgaria up to 23 million euros for failing to control public spending. This was reported by Politico, referring to Valdis Dombrovskis, the Commissioner for Economy of the European Union. He said that the decision on the fine will be made at the end of this year or at the beginning of next year...",
      "body": [
-      "The French club \"Paris Saint-Germain\" does not plan to join the winger of \"Real Madrid\" Vinicius Junior, despite the problems in the offensive line. The well-known insider Fabrizio Romano clarified the rumors about the transfer of the Brazilian player to the Paris club in the Fabrizio Responde program.",
-      "Romano said that \"PSG\" is not planning to add a star player of this level to their ranks at the moment:",
-      "\"No. Such a famous player will not be brought to the team,\" said the insider in response to the question about the transfer of Vinicius.",
-      "\"PSG\" news about strengthening the offensive line is related to the injuries that occurred in the team. Players of the Paris club Desiree Due and Hvicha Kvaratzhelia were sidelined for a long time due to rupture of the cruciate ligament. Therefore, the team can sign a contract with a new striker in the winter transfer window.",
-      "At the moment, there are reports that \"Real\" winger Vinicius may also leave the team. However, according to journalist Fabrizio Romano, \"PSG\" does not plan to buy the Brazilian player.",
-      "Let's remember that Vinicius moved to Real from Flamengo for 45 million euros in 2018. The Transfermarkt portal estimated the player's market value at 130 million euros."
+      "The European Commission wants to fine Bulgaria up to 23 million euros for failing to control public spending. This was reported by Politico, referring to Valdis Dombrovskis, the Commissioner for the Economy of the European Union. He said that the decision on the fine will be made at the end of this year or at the beginning of next year. This will be the first fine in the history of the European Union for breaching the budget rules.",
+      "According to the rules of the European Union, the budget deficit should not exceed 3% of the gross domestic product (GDP), and the public debt should not exceed 60%. Bulgaria's public debt is below the 60 percent threshold. However, according to forecasts, the country's budget deficit will reach 5% of GDP. Brussels believes that the Bulgarian government has not taken enough measures to reduce costs.",
+      "\"We expect a decision on the fine at the end of this year or early next year,\" Dombrovskis said.",
+      "According to Politico, Bulgaria was warned as part of the next economic review called the European Semester. Through this inspection, the European Commission monitors the budget expenditures and public debt of the member states.",
+      "Ten years ago, Spain and Portugal were also said to be fined for violating budget rules. However, in the end, the European Commission decided not to punish these countries.",
+      "Brussels expressed dissatisfaction with the state of Hungary's public finances and warned the country of possible consequences. However, since Hungary is not part of the euro area, it can only freeze funds allocated from the EU funds.",
+      "Bulgaria joined the euro zone in January 2026. Therefore, the current rules allow to freeze funds allocated to the country, as well as fine it up to 0.02% of GDP.",
+      "Earlier it was reported that the head of the European Commission, Ursula von der Leyen, presented the 22nd package of sanctions against Russia. The new package proposes a ban on visas for the Russian military, restrictions on the participation of Russian athletes in European competitions, and a ban on EU citizens from holding executive positions in Russian companies."
      ]
     },
     "ru": {
-     "title": "Перейдет ли Винисиус в «ПСЖ»?",
-     "summary": "Французский клуб «Пари Сен-Жермен» не планирует переходить вингера «Реала» Винисиуса Жуниора, несмотря на проблемы в линии нападения. Известный инсайдер Фабрицио Романо прояснил слухи о переходе бразильского игрока в парижский клуб в программе Фабрицио Респонде...",
+     "title": "Еврокомиссия хочет оштрафовать Болгарию за чрезмерные расходы бюджета",
+     "summary": "Европейская комиссия хочет оштрафовать Болгарию на сумму до 23 миллионов евро за неспособность контролировать государственные расходы. Об этом сообщает Politico со ссылкой на комиссара по экономике Евросоюза Валдиса Домбровскиса. Он сообщил, что решение о штрафе будет принято в конце этого года или в начале следующего...",
      "body": [
-      "Французский клуб «Пари Сен-Жермен» не планирует переходить вингера «Реала» Винисиуса Жуниора, несмотря на проблемы в линии нападения. Известный инсайдер Фабрицио Романо прояснил слухи о переходе бразильского игрока в парижский клуб в программе Фабрицио Респонде.",
-      "Романо заявил, что «ПСЖ» на данный момент не планирует добавлять в свои ряды звездного игрока такого уровня:",
-      "«Нет. Такого известного игрока в команду не возьмут», — сказал инсайдер в ответ на вопрос о трансфере Винисиуса.",
-      "Новость «ПСЖ» об усилении линии нападения связана с травмами, произошедшими в команде. Игроки парижского клуба Дезире Дуэ и Хвича Кваратжелия на длительное время выбыли из игры из-за разрыва крестообразной связки. Поэтому команда может подписать контракт с новым нападающим уже в зимнее трансферное окно.",
-      "На данный момент есть сообщения, что команду может покинуть и вингер «Реала» Винисиус. Однако, по словам журналиста Фабрицио Романо, \"ПСЖ\" не планирует покупать бразильца.",
-      "Напомним, Винисиус перешел в «Реал» из «Фламенго» за 45 миллионов евро в 2018 году. Портал Transfermarkt оценил рыночную стоимость игрока в 130 миллионов евро."
+      "Европейская комиссия хочет оштрафовать Болгарию на сумму до 23 миллионов евро за неспособность контролировать государственные расходы. Об этом сообщает Politico со ссылкой на комиссара по экономике Евросоюза Валдиса Домбровскиса. По его словам, решение о штрафе будет принято в конце этого или в начале следующего года. Это будет первый штраф в истории Евросоюза за нарушение бюджетных правил.",
+      "По правилам Евросоюза дефицит бюджета не должен превышать 3% валового внутреннего продукта (ВВП), а государственный долг не должен превышать 60%. Государственный долг Болгарии находится ниже 60-процентного порога. Однако, по прогнозам, дефицит бюджета страны достигнет 5% ВВП. Брюссель считает, что болгарское правительство не приняло достаточных мер по сокращению расходов.",
+      "\"Мы ожидаем решения по штрафу в конце этого или начале следующего года\", - сказал Домбровскис.",
+      "По данным Politico, Болгарию предупредили в рамках очередного экономического обзора под названием «Европейский семестр». Посредством этой проверки Европейская комиссия контролирует бюджетные расходы и государственный долг государств-членов.",
+      "Десять лет назад Испания и Португалия также были оштрафованы за нарушение бюджетных правил. Однако в итоге Еврокомиссия решила не наказывать эти страны.",
+      "Брюссель выразил недовольство состоянием государственных финансов Венгрии и предупредил страну о возможных последствиях. Однако, поскольку Венгрия не входит в зону евро, она может лишь заморозить средства, выделенные из фондов ЕС.",
+      "Болгария присоединилась к еврозоне в январе 2026 года. Поэтому действующие правила позволяют замораживать выделяемые стране средства, а также штрафовать их до 0,02% ВВП.",
+      "Ранее сообщалось, что глава Еврокомиссии Урсула фон дер Ляйен представила 22-й пакет санкций против России. Новый пакет предполагает запрет виз для российских военных, ограничения на участие российских спортсменов в европейских соревнованиях, а также запрет гражданам ЕС занимать руководящие должности в российских компаниях."
      ]
     }
    }
@@ -167,8 +237,8 @@
    "id": "1w3b5la",
    "side": "uzbekistan",
    "topic": "uzbekistan",
-   "title": "AQŞ kongressmenlaridan bir guruhi Putinni mamlakatga kiritmaslikni söradi",
-   "summary": "Kongressmenlar bunga Rossiyaning Ukrainadagi uruşi va Eronga körsatayotgan yordamini sabab qilib körsatmoqda.",
+   "title": "AQSh kongressmenlaridan bir guruhi Putinni mamlakatga kiritmaslikni soʻradi",
+   "summary": "Kongressmenlar bunga Rossiyaning Ukrainadagi urushi va Eronga koʻrsatayotgan yordamini sabab qilib koʻrsatmoqda.",
    "body": null,
    "image": "https://storage.kun.uz/source/1/g1nAtXKmhRJEq-vxvPaTz3lyRoQO3sDs.jpg",
    "url": "https://kun.uz/news/2026/11/24/aqsh-kongressmenlaridan-bir-guruhi-putinni-mamlakatga-kiritmaslikni-soradi-62114",
@@ -178,12 +248,12 @@
    "lang": "uz",
    "tr": {
     "en": {
-     "title": "A group of US congressmen asked Putin not to enter the country",
-     "summary": "Congressmen cite Russia's war in Ukraine and its support for Iran as the reason for this."
+     "title": "A group of US congressmen asked not to let Putin into the country",
+     "summary": "Congressmen point to Russia's war in Ukraine and its support to Iran."
     },
     "ru": {
-     "title": "Группа конгрессменов США попросила Путина не въезжать в страну",
-     "summary": "Причиной этого конгрессмены называют войну России на Украине и ее поддержку Ирана."
+     "title": "Группа конгрессменов США попросила не пускать Путина в страну",
+     "summary": "Конгрессмены указывают на войну России на Украине и ее поддержку Ирана."
     }
    }
   },
@@ -191,20 +261,20 @@
    "id": "dnidl0",
    "side": "uzbekistan",
    "topic": "uzbekistan",
-   "title": "Тошкент ҳайвонот боғи Цезарь лақабли орангутанда онкологик касаллик аниқланганини очиқлади",
-   "summary": "Тошкент ҳайвонот боғидаги ягона орангутан — Цезарда суяк тўқимасининг хавфли ўсмаси — остеосаркома аниқланди. Ташхис хорижлик мутахассислар томонидан тасдиқланган. Цезарь 2019 йилда уни мамлакатдан ноқонуний олиб чиқиб кетишга уринишганида ҳайвонот боғига олиб келинганди.",
+   "title": "Toshkent hayvonot bogʻi Sezar laqabli orangutanda onkologik kasallik aniqlanganini ochiqladi",
+   "summary": "Toshkent hayvonot bogʻidagi yagona orangutan — Sezarda suyak toʻqimasining xavfli oʻsmasi — osteosarkoma aniqlandi. Tashxis xorijlik mutaxassislar tomonidan tasdiqlangan. Sezar 2019 yilda uni mamlakatdan noqonuniy olib chiqib ketishga urinishganida hayvonot bogʻiga olib kelingandi.",
    "body": [
-    "Фото: Тошкент ҳайвонот боғи",
-    "Тошкент ҳайвонот боғи Цезарь лақабли орангутанда онкологик касаллик аниқланганини очиқлади",
-    "Тошкент ҳайвонот боғида яшовчи Цезарь лақабли орангутанга остеосаркома — суяк тўқимасининг хавфли ўсмаси ташхиси қўйилди, деб хабар берди ҳайвонот боғи. Ташхис ҳайвонот боғи ходимлари маслаҳат сўраб мурожаат қилган хорижлик мутахассислар томонидан тасдиқланди.",
-    "«Ҳозир Цезарь меҳр ва эътиборга, шунингдек, зарур ёрдамга ҳар қачонгидан ҳам кўпроқ муҳтож. Биз унинг ўзини яхши ҳис қилиши, керакли ёрдамни олиши ва ўзи ўрганган муҳитда қолиши учун қўлимиздан келган барча ишни қиламиз. Унинг ёнида ўзига таниш инсонлар бўлиши, одатдаги шароити ва хотиржамлиги сақланиши биз учун жуда муҳим», — дейилади хабарда.",
-    "Ҳайвонот боғида қайд этилишича, Цезарь аллақачон ходимлар ва ташриф буюрувчилар тарихининг бир қисмига айланган. Уни ҳайвонот боғи ходими, унинг учун «ҳақиқий она»га айланган Машкура опа парваришлаб, вояга етказган. Шунингдек, кўп йиллардан буён ҳайвонот боғининг бош ветеринария шифокори Маҳмуд Қўзибоев ҳам орангутаннинг ёнида бўлиб келмоқда.",
-    "Ҳайвонот боғи вакиллари Цезарни кўриш учун кўплаб меҳмонлар келиши ва унинг ҳаёти билан қизиқиши сабабли ташхис ҳақида хабар беришга қарор қилишганини билдирди.",
-    "«Цезарь ёлғиз эмаслигини билишингизни хоҳлардик. Биз доим унинг ёнидамиз. У сизларнинг ҳар бирингиз учун қанчалик қадрли эканини яхши тушунамиз», — дейилади хабарда.",
-    "«Биз тегишли муолажаларни олиб боряпмиз, бироқ бундай касалликлар давосиз», — деди Маҳмуд Қўзибоев. Унинг сўзларига кўра, Цезарга остеосаркома ташхиси бир йилдан сал кўпроқ вақт олдин қўйилган. Ҳайвонот боғи жониворни даволаш масалалари бўйича Орангутанларни ҳимоя қилиш халқаро жамғармаси, шунингдек, дунёнинг бир нечта ҳайвонот боғлари, жумладан, Москва ва Лондон ҳайвонот боғлари билан алоқада бўлиб турибди.",
-    "«Айни пайтда унинг аҳволи қониқарсиз. Шунга қарамай, биз тушкунликка тушмаймиз ва қўлимиздан келган барча ишни қиламиз», — дея қўшимча қилди ветеринар.",
-    "Цезарь 2019 йилда, ҳали болалик пайтида Ўзбекистондан Қозоғистонга ноқонуний олиб чиқиб кетишга уринишганидан сўнг Тошкент ҳайвонот боғига келиб қолган. Божхона ходимлари жониворни Зангиота туманида ўтказилган рейд давомида аниқлаб, ҳайвонот боғига топширганди. У Тошкент ҳайвонот боғида сақланаётган маймунлар орасидаги ягона орангутан ҳисобланади.",
-    "Telegram каналга аъзо бўлинг"
+    "Foto: Toshkent hayvonot bogʻi",
+    "Toshkent hayvonot bogʻi Sezar laqabli orangutanda onkologik kasallik aniqlanganini ochiqladi",
+    "Toshkent hayvonot bogʻida yashovchi Sezar laqabli orangutanga osteosarkoma — suyak toʻqimasining xavfli oʻsmasi tashxisi qoʻyildi, deb xabar berdi hayvonot bogʻi. Tashxis hayvonot bogʻi xodimlari maslahat soʻrab murojaat qilgan xorijlik mutaxassislar tomonidan tasdiqlandi.",
+    "«Hozir Sezar mehr va eʼtiborga, shuningdek, zarur yordamga har qachongidan ham koʻproq muhtoj. Biz uning oʻzini yaxshi his qilishi, kerakli yordamni olishi va oʻzi oʻrgangan muhitda qolishi uchun qoʻlimizdan kelgan barcha ishni qilamiz. Uning yonida oʻziga tanish insonlar boʻlishi, odatdagi sharoiti va xotirjamligi saqlanishi biz uchun juda muhim», — deyiladi xabarda.",
+    "Hayvonot bogʻida qayd etilishicha, Sezar allaqachon xodimlar va tashrif buyuruvchilar tarixining bir qismiga aylangan. Uni hayvonot bogʻi xodimi, uning uchun «haqiqiy ona»ga aylangan Mashkura opa parvarishlab, voyaga yetkazgan. Shuningdek, koʻp yillardan buyon hayvonot bogʻining bosh veterinariya shifokori Mahmud Qoʻziboyev ham orangutanning yonida boʻlib kelmoqda.",
+    "Hayvonot bogʻi vakillari Sezarni koʻrish uchun koʻplab mehmonlar kelishi va uning hayoti bilan qiziqishi sababli tashxis haqida xabar berishga qaror qilishganini bildirdi.",
+    "«Sezar yolgʻiz emasligini bilishingizni xohlardik. Biz doim uning yonidamiz. U sizlarning har biringiz uchun qanchalik qadrli ekanini yaxshi tushunamiz», — deyiladi xabarda.",
+    "«Biz tegishli muolajalarni olib boryapmiz, biroq bunday kasalliklar davosiz», — dedi Mahmud Qoʻziboyev. Uning soʻzlariga koʻra, Sezarga osteosarkoma tashxisi bir yildan sal koʻproq vaqt oldin qoʻyilgan. Hayvonot bogʻi jonivorni davolash masalalari boʻyicha Orangutanlarni himoya qilish xalqaro jamgʻarmasi, shuningdek, dunyoning bir nechta hayvonot bogʻlari, jumladan, Moskva va London hayvonot bogʻlari bilan aloqada boʻlib turibdi.",
+    "«Ayni paytda uning ahvoli qoniqarsiz. Shunga qaramay, biz tushkunlikka tushmaymiz va qoʻlimizdan kelgan barcha ishni qilamiz», — deya qoʻshimcha qildi veterinar.",
+    "Sezar 2019 yilda, hali bolalik paytida Oʻzbekistondan Qozogʻistonga noqonuniy olib chiqib ketishga urinishganidan soʻng Toshkent hayvonot bogʻiga kelib qolgan. Bojxona xodimlari jonivorni Zangiota tumanida oʻtkazilgan reyd davomida aniqlab, hayvonot bogʻiga topshirgandi. U Toshkent hayvonot bogʻida saqlanayotgan maymunlar orasidagi yagona orangutan hisoblanadi.",
+    "Telegram kanalga aʼzo boʻling"
    ],
    "image": "https://www.gazeta.uz/media/img/2026/11/epbd9ksefpafaz7HzRp17955318600031_211590_og.webp?r=1795533997",
    "url": "https://www.gazeta.uz/uz/2026/11/24/caesar-the-orangutan/",
@@ -215,35 +285,35 @@
    "tr": {
     "en": {
      "title": "Tashkent Zoo announced that an oncological disease was diagnosed in an orangutan named Caesar",
-     "summary": "A dangerous bone tumor - osteosarcoma - was detected in Caesar, the only orangutan in the Tashkent Zoo. The diagnosis was confirmed by foreign experts. Caesar was brought to the zoo in 2019 when an attempt was made to smuggle him out of the country.",
+     "summary": "Cesar, the only orangutan in the Tashkent Zoo, was diagnosed with osteosarcoma. The diagnosis was confirmed by foreign experts. Caesar was brought to the zoo in 2019 when an attempt was made to smuggle him out of the country.",
      "body": [
       "Photo: Tashkent Zoo",
       "Tashkent Zoo announced that an oncological disease was diagnosed in an orangutan named Caesar",
-      "An orangutan nicknamed Caesar living in the Tashkent zoo was diagnosed with osteosarcoma - a dangerous tumor of bone tissue, the zoo reported. The diagnosis was confirmed by foreign experts, whom the zoo staff turned to for advice.",
-      "\"Now more than ever, Caesar needs love and attention, as well as the necessary support. We do everything we can to make sure he feels comfortable, gets the support he needs, and stays in the environment he's used to. \"It is very important for us that he has familiar people with him, that he maintains his usual conditions and calmness,\" the report says.",
-      "The zoo notes that Caesar has already become a part of staff and visitor history. She was raised by a zoo employee, sister Mashkura, who became a \"real mother\" for her. Mahmud Koziboev, the chief veterinarian of the zoo, has been with the orangutan for many years.",
-      "Representatives of the zoo said that they decided to announce the diagnosis because of the many visitors who come to see Caesar and are interested in his life.",
+      "An orangutan nicknamed Caesar living in the Tashkent Zoo was diagnosed with osteosarcoma - a dangerous tumor of bone tissue, the zoo reported. The diagnosis was confirmed by foreign experts, whom the zoo staff turned to for advice.",
+      "\"Now more than ever, Caesar needs love and attention, as well as the necessary support. We do everything we can to make him feel comfortable, get the support he needs, and stay in the environment he's used to. \"It is very important for us that he has familiar people with him, that he maintains his usual conditions and calmness,\" the report said.",
+      "The zoo notes that Caesar has already become a part of staff and visitor history. She was raised by a zoo employee, sister Mashkura, who became a \"real mother\" for her. Mahmud Kozibayev, the chief veterinarian of the zoo, has been with the orangutan for many years.",
+      "Zoo officials said they decided to report Caesar's diagnosis because of the many visitors who came to see him and were interested in his life.",
       "\"We want you to know that Caesar is not alone. We are always with him. We understand how valuable he is to each of you,\" the message reads.",
-      "\"We are carrying out appropriate treatments, but such diseases are incurable,\" said Mahmud Koziboev. According to him, Caesar was diagnosed with osteosarcoma a little more than a year ago. The zoo is in contact with the International Fund for the Protection of Orangutans, as well as several zoos around the world, including the Moscow and London zoos, regarding the treatment of the animal.",
+      "\"We are carrying out appropriate treatments, but such diseases are incurable,\" said Mahmud Koziboyev. According to him, Cesar was diagnosed with osteosarcoma a little more than a year ago. The zoo is in contact with the International Fund for the Protection of Orangutans, as well as several zoos around the world, including the Moscow and London zoos, regarding the treatment of the animal.",
       "\"At the moment, his condition is unsatisfactory. Nevertheless, we will not be discouraged and will do everything we can,\" the veterinarian added.",
-      "Caesar came to the Tashkent Zoo in 2019 after being illegally smuggled from Uzbekistan to Kazakhstan as a child. Customs officials identified the animal during a raid in Zangiota district and handed it over to the zoo. He is the only orangutan among the monkeys kept in the Tashkent Zoo.",
+      "Caesar came to the Tashkent Zoo in 2019 after trying to smuggle him from Uzbekistan to Kazakhstan as a child. Customs officials identified the animal during a raid in Zangiota district and handed it over to the zoo. He is the only orangutan among the monkeys kept in the Tashkent Zoo.",
       "Subscribe to the Telegram channel"
      ]
     },
     "ru": {
      "title": "Ташкентский зоопарк сообщил, что у орангутанга по кличке Цезарь диагностировано онкологическое заболевание",
-     "summary": "У Цезаря, единственного орангутанга в Ташкентском зоопарке, обнаружена опасная опухоль кости - остеосаркома. Диагноз подтвердили зарубежные специалисты. Цезаря привезли в зоопарк в 2019 году, когда его попытались тайно вывезти из страны.",
+     "summary": "У Цезаря, единственного орангутанга в Ташкентском зоопарке, диагностировали остеосаркому. Диагноз подтвердили зарубежные специалисты. Цезаря привезли в зоопарк в 2019 году, когда его попытались тайно вывезти из страны.",
      "body": [
       "Фото: Ташкентский зоопарк",
       "Ташкентский зоопарк сообщил, что у орангутанга по кличке Цезарь диагностировано онкологическое заболевание",
       "У орангутанга по кличке Цезарь, живущего в Ташкентском зоопарке, диагностирована остеосаркома - опасная опухоль костной ткани, сообщили в зоопарке. Диагноз подтвердили зарубежные специалисты, к которым обратились за консультацией сотрудники зоопарка.",
-      "\"Сейчас, как никогда, Цезарь нуждается в любви и внимании, а также в необходимой поддержке. Мы делаем все возможное, чтобы он чувствовал себя комфортно, получал необходимую поддержку и оставался в той среде, к которой привык. \"Для нас очень важно, чтобы с ним были знакомые люди, чтобы он сохранял привычные условия и спокойствие\", - говорится в сообщении.",
-      "В зоопарке отмечают, что Цезарь уже стал частью истории персонала и посетителей. Ее воспитала сотрудница зоопарка, сестра Машкура, которая стала для нее «настоящей матерью». Махмуд Козыбоев, главный ветеринар зоопарка, много лет занимается с орангутанами.",
-      "Представители зоопарка рассказали, что решили сообщить о диагнозе из-за большого количества посетителей, которые приходят посмотреть на Цезаря и интересуются его жизнью.",
+      "\"Сейчас, как никогда, Цезарь нуждается в любви и внимании, а также в необходимой поддержке. Мы делаем все возможное, чтобы он чувствовал себя комфортно, получал необходимую поддержку и оставался в той среде, к которой он привык. \"Для нас очень важно, чтобы с ним были знакомые люди, чтобы он сохранял привычные условия и спокойствие\", - говорится в сообщении.",
+      "В зоопарке отмечают, что Цезарь уже стал частью истории персонала и посетителей. Ее воспитала сотрудница зоопарка, сестра Машкура, которая стала для нее «настоящей матерью». Махмуд Козибаев, главный ветеринар зоопарка, много лет занимается с орангутанами.",
+      "Представители зоопарка заявили, что решили сообщить о диагнозе Цезаря из-за множества посетителей, которые приходили навестить его и интересовались его жизнью.",
       "«Мы хотим, чтобы вы знали, что Цезарь не одинок. Мы всегда с ним. Мы понимаем, насколько он ценен для каждого из вас\", - говорится в сообщении.",
-      "\"Мы проводим соответствующее лечение, но такие заболевания неизлечимы\", - сказал Махмуд Козыбоев. По его словам, чуть больше года назад у Цезаря диагностировали остеосаркому. По вопросам лечения животного зоопарк находится в контакте с Международным фондом защиты орангутанов, а также с несколькими зоопарками мира, в том числе с Московским и Лондонским зоопарками.",
+      "\"Мы проводим соответствующее лечение, но такие заболевания неизлечимы\", - сказал Махмуд Козибоев. По его словам, чуть больше года назад у Сезара диагностировали остеосаркому. По вопросам лечения животного зоопарк находится в контакте с Международным фондом защиты орангутанов, а также с несколькими зоопарками мира, в том числе с Московским и Лондонским зоопарками.",
       "\"На данный момент его состояние неудовлетворительное. Тем не менее, мы не будем унывать и сделаем все возможное\", - добавил ветеринар.",
-      "Цезарь попал в Ташкентский зоопарк в 2019 году после того, как в детстве его незаконно переправили из Узбекистана в Казахстан. Сотрудники таможни опознали животное во время рейда в Зангиатинском районе и передали его в зоопарк. Он единственный орангутан среди обезьян, содержащихся в Ташкентском зоопарке.",
+      "Цезарь попал в Ташкентский зоопарк в 2019 году после того, как в детстве его пытались переправить из Узбекистана в Казахстан. Сотрудники таможни опознали животное во время рейда в Зангиатинском районе и передали его в зоопарк. Он единственный орангутан среди обезьян, содержащихся в Ташкентском зоопарке.",
       "Подписывайтесь на Telegram-канал"
      ]
     }
@@ -268,7 +338,7 @@
    "tr": {
     "uz": {
      "title": "PRIME Arsenal Futbol 😮‍💨",
-     "summary": "Bu video yoqdimi? Bizda premer-liga iOS ilovasida bahramand bo'lishingiz uchun yana ko'p imkoniyatlar mavjud: https://preml.ge/PLAppYT Android: https://preml.ge/PLAppAYT Darvozabondan darvozaga 20 soniyada. Bu Mikel Arteta shogirdlari eng yaxshi ish. https://www.instagram.com/premierleague/ https://x.com/premierleague…"
+     "summary": "Bu video yoqdimi? Bizda premer-liga iOS ilovasida bahramand boʻlishingiz uchun yana koʻp imkoniyatlar mavjud: https://preml.ge/PLAppYT Android: https://preml.ge/PLAppAYT Darvozabondan darvozaga 20 soniyada. Bu Mikel Arteta shogirdlari eng yaxshi ish. https://www.instagram.com/premierleague/ https://x.com/premierleague…"
     },
     "ru": {
      "title": "ПРАЙМ Арсенал Футбол 😮‍💨",
@@ -302,17 +372,17 @@
    "tr": {
     "uz": {
      "title": "Klopp maslahati va Iraolaning ishonchi Wirtzni kuchaytiradi",
-     "summary": "Florian Wirtz \"Liverpul\"ga qo'shilganidan keyin nima uchun eng yaxshisini his qilgani haqida gapirdi.",
+     "summary": "Florian Wirtz \"Liverpul\"ga qoʻshilganidan keyin nima uchun eng yaxshisini his qilgani haqida gapirdi.",
      "body": [
-      "Florian Wirtzning aytishicha, u \"Liverpul\"dagi eng yaxshi o'yinidan bahramand bo'lib, Andoni Iraolaning ishonchi va Yurgen Kloppning maslahatlaridan foydalanmoqda.",
-      "23 yoshli Wirtz yakshanba kuni \"Liverpul\"ning \"Manchester Yunayted\"ga qarshi o'yinida (4:0) gol urdi va joriy mavsumda 3ta gol va 6ta golli uzatmani amalga oshirdi.",
-      "Germaniyalik yarim himoyachi 2025 yilning yozida \"Bayer\"dan 116 million funt sterlingga ko'chib o'tdi va Angliyadagi birinchi kampaniyasida o'zini ko'rsata olmaganidan so'ng, Iraola jamoasi uchun o'z sifatini namoyish qila boshladi.",
-      "Belgiyada \"Liverpul\"ning \"Bryugge\"ga qarshi Chempionlar ligasi o'yini oldidan so'zlagan nutqida Wirtz shunday dedi: \"Men u qadar o'zgarganman deb ayta olmayman.",
-      "\"Men jismoniy darajada biroz yaxshiroq bo'ldim va bu buni tushuntirishi mumkin bo'lgan yagona sababdir.\"",
+      "Florian Wirtzning aytishicha, u \"Liverpul\"dagi eng yaxshi oʻyinidan bahramand boʻlib, Andoni Iraolaning ishonchi va Yurgen Kloppning maslahatlaridan foydalanmoqda.",
+      "23 yoshli Wirtz yakshanba kuni \"Liverpul\"ning \"Manchester Yunayted\"ga qarshi oʻyinida (4:0) gol urdi va joriy mavsumda 3ta gol va 6ta golli uzatmani amalga oshirdi.",
+      "Germaniyalik yarim himoyachi 2025 yilning yozida \"Bayer\"dan 116 million funt sterlingga koʻchib oʻtdi va Angliyadagi birinchi kampaniyasida oʻzini koʻrsata olmaganidan soʻng, Iraola jamoasi uchun oʻz sifatini namoyish qila boshladi.",
+      "Belgiyada \"Liverpul\"ning \"Bryugge\"ga qarshi Chempionlar ligasi oʻyini oldidan soʻzlagan nutqida Wirtz shunday dedi: \"Men u qadar oʻzgarganman deb ayta olmayman.",
+      "\"Men jismoniy darajada biroz yaxshiroq boʻldim va bu buni tushuntirishi mumkin boʻlgan yagona sababdir.\"",
       "U shuningdek, Germaniya terma jamoasi bosh murabbiyi, \"Liverpul\"ning sobiq bosh murabbiyi Kloppning xalqaro miqyosdagi faoliyati davomida miyasini tanlaganini aytdi.",
-      "\"U menga har doim bu erda o'tkazgan vaqtini yaxshi ko'rishini aytadi, odamlar uni bu erda yaxshi ko'rishadi va bu erda muvaffaqiyatga erishish uchun menga maslahat berishga harakat qiladi, chunki u bu qanday amalga oshirilganligini ko'rsatdi\", dedi Wirtz.",
-      "“U menga yaxshi maslahat berishi mumkin. Bu har doim kichik narsalar. Ko'proq shaxsiy narsalar.",
-      "\"Ammo u klub, mintaqa, odamlar haqida yaxshi gapiradi va bu uzoq vaqt davomida tajribaga ega bo'lgan odamni eshitishga yordam beradi.\""
+      "\"U menga har doim bu erda oʻtkazgan vaqtini yaxshi koʻrishini aytadi, odamlar uni bu erda yaxshi koʻrishadi va bu erda muvaffaqiyatga erishish uchun menga maslahat berishga harakat qiladi, chunki u bu qanday amalga oshirilganligini koʻrsatdi\", dedi Wirtz.",
+      "“U menga yaxshi maslahat berishi mumkin. Bu har doim kichik narsalar. Koʻproq shaxsiy narsalar.",
+      "\"Ammo u klub, mintaqa, odamlar haqida yaxshi gapiradi va bu uzoq vaqt davomida tajribaga ega boʻlgan odamni eshitishga yordam beradi.\""
      ]
     },
     "ru": {
@@ -333,26 +403,26 @@
    }
   },
   {
-   "id": "1wu52i2",
+   "id": "c6ovad",
    "side": "football",
    "topic": "football",
-   "title": "Ref chief Webb backs process around Yoro sending off despite successful appeal",
-   "summary": "Referees' chief Howard Webb has backed the process of the officials who sent off Manchester United defender Leny Yoro at Liverpool - despite the red card being overturned on appeal.",
+   "title": "How 'quick check' and unseen angle saw Timber's Isak shirt-pull go unpunished",
+   "summary": "Referees’ chief Howard Webb admitted it was a “quick check” by VAR for Arsenal defender Jurrien Timber’s unpunished shirt-pull on Liverpool striker Alexander Isak in the Gunners’ win at Anfield.",
    "body": null,
-   "image": "https://e0.365dm.com/26/11/1920x1080/skysports-leny-yoro-alexander-isak_7413691.jpg?20261122165102",
-   "url": "https://www.skysports.com/football/news/12040/13616033/leny-yoro-red-card-ref-chief-howard-webb-backs-process-that-saw-man-utd-defender-sent-off-at-liverpool",
+   "image": "https://e0.365dm.com/26/11/1920x1080/skysports-alexander-isak-jurrien-timber_7403744.jpg?20261111105128",
+   "url": "https://www.skysports.com/football/news/12040/13616058/jurrien-timbers-shirt-pull-on-alexander-isak-ref-chief-howard-webb-admits-quick-check-in-arsenals-win-at-liverpool",
    "source": "Sky Sports",
-   "publishedAt": "2026-11-24T17:00:00.000Z",
+   "publishedAt": "2026-11-24T17:13:00.000Z",
    "video": null,
    "lang": "en",
    "tr": {
     "uz": {
-     "title": "Ref boshlig'i Uebb muvaffaqiyatli murojaatiga qaramay, Yoro atrofidagi jarayonni qo'llab-quvvatladi",
-     "summary": "Hakamlar bo'limi boshlig'i Xovard Uebb qizil kartochka apellyatsiya shikoyati bekor qilinganiga qaramay, \"Manchester Yunayted\" himoyachisi Leni Yoroni \"Liverpul\"da qizil kartochkadan chetlatgan rasmiylar jarayonini qo'llab-quvvatladi."
+     "title": "\"Tezkor tekshirish\" va koʻrinmas burchak yogʻochning Isak koʻylagini qanday qilib jazosiz qoldirganini koʻrdi.",
+     "summary": "Hakamlar boshligʻi Xovard Uebb \"Arsenal\" himoyachisi Yurrien Timberning \"Kanonirlar\"ning \"Enfild\"dagi gʻalabasida \"Liverpul\" hujumchisi Aleksandr Isakni jazosiz tortib olgani uchun VAR tomonidan \"tezkor tekshiruv\" boʻlganini tan oldi."
     },
     "ru": {
-     "title": "Главный судья Уэбб поддержал процесс удаления Йоро, несмотря на успешную апелляцию",
-     "summary": "Главный судья Говард Уэбб поддержал решение судей удалить защитника «Манчестер Юнайтед» Лени Йоро из «Ливерпуля», несмотря на то, что красная карточка была отменена по апелляции."
+     "title": "Как «быстрая проверка» и невидимый ракурс позволили Тимберу, стягивающему рубашку с Исака, остаться безнаказанным",
+     "summary": "Главный судья Говард Уэбб признал, что это была «быстрая проверка» VAR на безнаказанное стягивание футболки защитником «Арсенала» Джурриеном Тимбером с нападающим «Ливерпуля» Александром Исаком в победе «канониров» на «Энфилде»."
     }
    }
   },
@@ -374,8 +444,8 @@
    "lang": "en",
    "tr": {
     "uz": {
-     "title": "O'lik, yalang'och va ko'kargan holda topilgan: Janubiy Afrikadagi ayol o'limi inqirozi | BBC News",
-     "summary": "Ogohlantirish: Bu videoda genderga asoslangan zo'ravonlik va jinsiy zo'ravonlik muhokama qilinadi. Janubiy Afrikada gender asosidagi zo'ravonlik va ayol o'limining eng yuqori ko'rsatkichlaridan biri - ayol yoki qizni qasddan o'ldirish - dunyoda. Joriy yilning iyul-sentyabr oylari orasida Janubiy Afrikada 600 ga yaqin ayol o‘ldirilgan..."
+     "title": "Oʻlik, yalangʻoch va koʻkargan holda topilgan: Janubiy Afrikadagi ayol oʻlimi inqirozi | BBC News",
+     "summary": "Ogohlantirish: Bu videoda genderga asoslangan zoʻravonlik va jinsiy zoʻravonlik muhokama qilinadi. Janubiy Afrikada gender asosidagi zoʻravonlik va ayol oʻlimining eng yuqori koʻrsatkichlaridan biri - ayol yoki qizni qasddan oʻldirish - dunyoda. Joriy yilning iyul-sentyabr oylari orasida Janubiy Afrikada 600 ga yaqin ayol oʻldirilgan..."
     },
     "ru": {
      "title": "Найдены мертвыми, обнаженными и в синяках: кризис фемицида в Южной Африке | Новости Би-би-си",
@@ -384,112 +454,50 @@
    }
   },
   {
-   "id": "r95q51",
+   "id": "1sv9vuk",
    "side": "serious",
    "topic": "world",
-   "title": "Zimbabwean convicted in South Africa of trying to fight in Ukraine",
-   "summary": "Hundreds of people from different African countries have been recruited to fight for Russia, according to Ukraine.",
-   "body": [
-    "A Zimbabwean national has been convicted by a court in South Africa of planning to go to fight in Ukraine.",
-    "The country has strict laws which restrict unauthorised involvement in overseas wars.",
-    "Twenty-four-year-old Wesley Sothole, who pleaded guilty, was handed a five-year suspended prison sentence and was ordered to be deported from South Africa.",
-    "He is one of five Zimbabweans who were arrested at OR Tambo Airport in Johannesburg on 8 November. South African prosecutors have not confirmed which side the Zimbabweans allegedly intended to fight for.",
-    "Sothole's four co-accused have yet to enter pleas and are due to return to the Kempton Park Magistrates' Court on 1 December for further plea and sentencing proceedings.",
-    "Another four Zimbabweans were arrested at a hotel in Johannesburg at the same time in a joint operation and are facing a different court process.",
-    "The investigation has involved South African police, Interpol and other international law enforcement agencies.",
-    "South Africa's Foreign Military Assistance Act was passed in 1998 at a time when the government was concerned about members of the former apartheid security services going to fight elsewhere in Africa.",
-    "There has been growing concern across Africa over the recruitment of its citizens to fight in the war in Ukraine, with some reportedly being lured to Russia by promises of lucrative civilian employment.",
-    "A Ukrainian intelligence assessment estimated earlier this year that more than 1,700 people from 36 countries in Africa have been recruited to fight for Russia.",
-    "Some have been captured and are being held as prisoners of war.",
-    "In March, Kenya estimated that 252 of its citizens had been illegally conscripted in Russia.",
-    "Kenyan Foreign Minister Musalia Mudavadi visited Moscow to address the issue. He said an agreement had been reached for Russia to stop recruiting Kenyan nationals.",
-    "In the same month, Zimbabwe said that 15 of its nationals had been killed after being recruited to fight for Russia in Ukraine, with more than 60 still trapped on the frontlines.",
-    "The previous month, South Africa secured the return of 17 of its nationals who were allegedly tricked into joining the war.",
-    "In December last year, South African authorities arrested five people, including a journalist, for allegedly recruiting people to join the war.",
-    "South Africa's government said it condemned \"the exploitation of young vulnerable people by individuals working with foreign military entities\".",
-    "Ukraine has also been recruiting foreign nationals, including from Africa.",
-    "Additional reporting by Khanyisile Ngcobo in Johannesburg."
-   ],
-   "image": "https://ichef.bbci.co.uk/ace/standard/800/cpsprodpb/e688/live/d1155630-e820-11f1-99a1-253766e7ad8b.jpg",
-   "url": "https://www.bbc.co.uk/news/articles/cmqj5qlj5yz9o?at_medium=RSS&at_campaign=rss",
-   "source": "BBC News",
-   "publishedAt": "2026-11-24T17:04:00.000Z",
+   "title": "Supermarket hostage situation in Colombia's Cartagena disrupts incoming flights",
+   "summary": "Armed robbers took several people hostage at a supermarket in Colombia’s tourist city of Cartagena on Tuesday, prompting a major police operation and the temporary suspension of incoming flights, authorities said. Landings at Rafael Nunez airport resumed about 45 minutes later, after the military used a runway during…",
+   "body": null,
+   "image": "https://s.france24.com/media/display/7b92d850-e829-11f1-8b63-81da3ab2acbb/w:1024/p:16x9/AP22209577839347.jpg",
+   "url": "https://www.france24.com/en/americas/20261124-hostages-supermarket-colombia-cartagena-flights",
+   "source": "© Fernando Vergara, AP (illustration)",
+   "publishedAt": "2026-11-24T17:35:48.000Z",
    "video": null,
    "lang": "en",
    "tr": {
     "uz": {
-     "title": "Zimbabvelik Janubiy Afrikada Ukrainada jang qilishga uringanlikda ayblangan",
-     "summary": "Ukrainaga ko‘ra, turli Afrika davlatlaridan yuzlab odamlar Rossiya safida jang qilish uchun yollangan.",
-     "body": [
-      "Janubiy Afrika Respublikasi sudi Zimbabve fuqarosini Ukrainaga jangga borishni rejalashtirganlikda aybladi.",
-      "Mamlakatda chet eldagi urushlarda ruxsatsiz ishtirok etishni cheklovchi qat'iy qonunlar mavjud.",
-      "Aybiga iqror bo'lgan yigirma to'rt yoshli Uesli Sotole besh yillik shartli qamoq jazosiga hukm qilindi va Janubiy Afrikadan deportatsiya qilinishiga buyruq berildi.",
-      "U 8 noyabr kuni Yoxannesburgdagi OR Tambo aeroportida hibsga olingan besh zimbabvelikdan biri. Janubiy Afrika prokurorlari zimbabveliklar qaysi tomon uchun kurashmoqchi bo‘lganini tasdiqlamadi.",
-      "Sothole'ning to'rt nafar ayblanuvchisi hali sudga murojaat qilmagan va keyingi da'vo va hukm chiqarish uchun 1 dekabr kuni Kempton Park Magistrates sudiga qaytishi kerak.",
-      "Yana to‘rt nafar zimbabvelik qo‘shma operatsiya natijasida bir vaqtning o‘zida Yoxannesburgdagi mehmonxonada hibsga olindi va ular boshqa sud jarayoniga duch kelishmoqda.",
-      "Tergovga Janubiy Afrika politsiyasi, Interpol va boshqa xalqaro huquq-tartibot idoralari jalb qilingan.",
-      "Janubiy Afrikaning Tashqi harbiy yordam to'g'risidagi qonuni 1998 yilda hukumat sobiq aparteid xavfsizlik xizmatlari a'zolarining Afrikaning boshqa joylarida jang qilishidan xavotirda bo'lgan bir paytda qabul qilingan.",
-      "Afrika bo'ylab o'z fuqarolarini Ukrainadagi urushda qatnashish uchun yollashdan xavotir kuchaymoqda, xabarlarga ko'ra, ba'zilari daromadli fuqarolik ish va'dalari bilan Rossiyaga jalb qilingan.",
-      "Ukraina razvedkasi joriy yil boshida Afrikaning 36 davlatidan 1700 dan ortiq odam Rossiya safida jang qilish uchun yollanganini taxmin qildi.",
-      "Ayrimlari asirga olingan va harbiy asir sifatida saqlanmoqda.",
-      "Mart oyida Keniya 252 nafar fuqarosi Rossiyada noqonuniy ravishda harbiy xizmatga chaqirilganini taxmin qildi.",
-      "Keniya Tashqi ishlar vaziri Musalia Mudavadiy muammoni hal qilish uchun Moskvaga tashrif buyurdi. Uning so‘zlariga ko‘ra, Rossiya tomonidan Keniya fuqarolarini ishga olishni to‘xtatish bo‘yicha kelishuvga erishilgan.",
-      "O'sha oyda Zimbabve 15 nafar fuqarosi Ukrainada Rossiya uchun jang qilish uchun yollanganidan so'ng halok bo'lganini, 60 dan ortig'i hamon frontda qolayotganini aytdi.",
-      "O'tgan oyda Janubiy Afrika urushga qo'shilish uchun aldanib qolgan 17 nafar fuqarosining qaytishini ta'minladi.",
-      "O‘tgan yilning dekabr oyida Janubiy Afrika hukumati besh kishini, jumladan bir jurnalistni urushga odamlarni jalb qilganlikda ayblab hibsga oldi.",
-      "Janubiy Afrika hukumati \"xorijiy harbiy tuzilmalar bilan ishlaydigan shaxslar tomonidan zaif qatlamli yoshlarning ekspluatatsiyasini\" qoralaganini aytdi.",
-      "Ukraina, shuningdek, chet el fuqarolarini, shu jumladan Afrikadan ham yollab kelmoqda.",
-      "Yoxannesburgda Khanyisile Ngcobo tomonidan qo'shimcha hisobot."
-     ]
+     "title": "Kolumbiyaning Kartaxena shahridagi supermarketni garovga olish holati kiruvchi reyslarni toʻxtatib qoʻydi",
+     "summary": "Seshanba kuni Kolumbiyaning sayyohlik shahri Kartaxena shahridagi supermarketda qurolli qaroqchilar bir necha kishini garovga oldi, buning natijasida politsiya katta operatsiya oʻtkazdi va kiruvchi reyslarni vaqtincha toʻxtatdi. Rafael Nunes aeroportiga qoʻnishlar taxminan 45 daqiqadan soʻng, harbiylar uchish-qoʻnish yoʻlagidan foydalangandan soʻng qayta tiklandi."
     },
     "ru": {
-     "title": "Зимбабвийца осудили в ЮАР за попытку воевать на Украине",
-     "summary": "По данным Украины, сотни людей из разных африканских стран были завербованы для борьбы за Россию.",
-     "body": [
-      "Гражданин Зимбабве был признан судом ЮАР виновным в планировании поехать воевать на Украину.",
-      "В стране действуют строгие законы, которые ограничивают несанкционированное участие в зарубежных войнах.",
-      "Двадцатичетырехлетний Уэсли Сотул, признавший себя виновным, был приговорен к пяти годам условного тюремного заключения и депортирован из Южной Африки.",
-      "Он один из пяти зимбабвийцев, арестованных в аэропорту О.Р. Тамбо в Йоханнесбурге 8 ноября. Прокуроры ЮАР не подтвердили, на чьей стороне предположительно намеревались воевать зимбабвийцы.",
-      "Четверо сообвиняемых Сотоула еще не заявили о признании вины и должны вернуться в магистратский суд Кемптон-Парка 1 декабря для дальнейшего разбирательства по делу о признании вины и вынесения приговора.",
-      "Еще четверо зимбабвийцев были арестованы в отеле в Йоханнесбурге в то же время в ходе совместной операции, и им предстоит другой судебный процесс.",
-      "В расследовании приняли участие полиция ЮАР, Интерпол и другие международные правоохранительные органы.",
-      "Закон об иностранной военной помощи Южной Африке был принят в 1998 году, когда правительство было обеспокоено тем, что члены бывших служб безопасности апартеида собираются воевать в других частях Африки.",
-      "В Африке растет беспокойство по поводу вербовки ее граждан для участия в войне на Украине, причем, как сообщается, некоторых из них заманили в Россию обещаниями прибыльной работы в гражданском секторе.",
-      "По оценкам украинской разведки, проведенным ранее в этом году, более 1700 человек из 36 стран Африки были завербованы для борьбы на стороне России.",
-      "Некоторые из них были взяты в плен и содержатся в качестве военнопленных.",
-      "По оценкам Кении, в марте 252 ее гражданина были незаконно призваны в Россию.",
-      "Министр иностранных дел Кении Мусалия Мудавади посетил Москву для решения этого вопроса. Он сказал, что было достигнуто соглашение о прекращении вербовки граждан Кении.",
-      "В том же месяце Зимбабве заявила, что 15 ее граждан были убиты после того, как их завербовали для участия в боевых действиях на стороне России в Украине, а более 60 человек все еще находятся в ловушке на передовой.",
-      "В прошлом месяце Южная Африка добилась возвращения 17 своих граждан, которых предположительно обманом заставили присоединиться к войне.",
-      "В декабре прошлого года власти Южной Африки арестовали пять человек, в том числе журналиста, по подозрению в вербовке людей для участия в войне.",
-      "Правительство Южной Африки заявило, что осуждает «эксплуатацию уязвимых молодых людей лицами, работающими с иностранными военными организациями».",
-      "Украина также вербует иностранных граждан, в том числе из Африки.",
-      "Дополнительный репортаж Ханьисиле Нгкобо из Йоханнесбурга."
-     ]
+     "title": "Ситуация с заложниками в супермаркете в Картахене в Колумбии мешает прилету рейсов",
+     "summary": "Во вторник вооруженные грабители взяли в заложники несколько человек в супермаркете в туристическом городе Картахена в Колумбии, что спровоцировало крупную полицейскую операцию и временную приостановку прибывающих рейсов, сообщили власти. Посадки в аэропорту Рафаэля Нуньеса возобновились примерно через 45 минут после того, как военные воспользовались взлетно-посадочной полосой во время..."
     }
    }
   },
   {
-   "id": "1hs27jy",
+   "id": "1gdsebu",
    "side": "serious",
    "topic": "world",
-   "title": "How Senegal got their AFCON trophy back",
-   "summary": "Al Jazeera’s Samantha Johnson examines how Senegal’s AFCON title controversy reached sport’s highest court.",
+   "title": "Five tonnes of explosives set to blow up in Iowa",
+   "summary": "The US Army is preparing to detonate nearly five tonnes of unstable explosives in Iowa on Wednesday.",
    "body": null,
-   "image": "https://www.aljazeera.com/wp-content/uploads/2026/11/image-1795538474.jpg?resize=1920%2C1080&quality=80",
-   "url": "https://www.aljazeera.com/video/newsfeed/2026/11/24/aje-onl-nf_how-senegal-got-their-afcon-trophy-back-241126?traffic_source=rss",
+   "image": "https://www.aljazeera.com/wp-content/uploads/2026/11/image-1795541553.jpg?resize=1920%2C1080&quality=80",
+   "url": "https://www.aljazeera.com/video/newsfeed/2026/11/24/five-tonnes-of-explosives-set-to-blow-up-in-iowa?traffic_source=rss",
    "source": "Al Jazeera",
-   "publishedAt": "2026-11-24T16:41:22.000Z",
+   "publishedAt": "2026-11-24T17:33:41.000Z",
    "video": null,
    "lang": "en",
    "tr": {
     "uz": {
-     "title": "Senegal qanday qilib AFCON kubogini qaytarib oldi",
-     "summary": "\"Al-Jazira\" muxbiri Samanta Jonson Senegalning AFCON chempionlik bahslari sportning eng yuqori sudiga qanday etib kelganini o'rganmoqda."
+     "title": "Ayova shtatida besh tonna portlovchi modda portlatib yuborildi",
+     "summary": "AQSh armiyasi chorshanba kuni Ayova shtatida besh tonnaga yaqin beqaror portlovchi moddani portlatishga tayyorlanmoqda."
     },
     "ru": {
-     "title": "Как Сенегал вернул себе трофей AFCON",
-     "summary": "Саманта Джонсон из «Аль-Джазиры» исследует, как спор о титуле AFCON в Сенегале дошел до высшей спортивной инстанции."
+     "title": "Пять тонн взрывчатки могут взорваться в Айове",
+     "summary": "Армия США готовится взорвать почти пять тонн нестабильной взрывчатки в Айове в среду."
     }
    }
   },
@@ -512,7 +520,7 @@
    "tr": {
     "uz": {
      "title": "Tramp Huangning Nvidia qaytishiga qanday ta'sir qilgan",
-     "summary": "Tramp Nvidia boshqaruvida Jensen Xuangni qayta tiklash istagini oldi, ammo tergov hali ham davom etmoqda. Bio-dagi havolada Hayden Fild va Loren Faynerning hisobotini o'qing Obuna bo'ling: http://goo.gl/G5RXGs Facebook-da The Verge-ga Like bosing: https://goo.gl/2P1aGc Twitterda kuzatib boring: https://goo.gl/XTWX61 Instagramda kuzatib boring…"
+     "summary": "Tramp Nvidia boshqaruvida Jensen Xuangni qayta tiklash istagini oldi, ammo tergov hali ham davom etmoqda. Bio-dagi havolada Hayden Fild va Loren Faynerning hisobotini oʻqing Obuna boʻling: http://goo.gl/G5RXGs Facebook-da The Verge-ga Like bosing: https://goo.gl/2P1aGc Twitterda kuzatib boring: https://goo.gl/XTWX61 Instagramda kuzatib boring…"
     },
     "ru": {
      "title": "Как Трамп повлиял на возвращение Хуана в Nvidia",
@@ -521,57 +529,45 @@
    }
   },
   {
-   "id": "1xvz200",
+   "id": "vadu4d",
    "side": "serious",
    "topic": "tech",
-   "title": "Tidal will start banning AI-generated music next month",
-   "summary": "Tidal is officially banning AI-generated music on December 9th. As a result of this change, Tidal will delete around 29 million AI-generated songs and reject an estimated 80,000 to 85,000 tracks per day, according to Tidal music lead Robert Andersen . The move comes just months after Tidal began labeling and…",
+   "title": "Tidal will ban fully AI-generated music on December 9",
+   "summary": "Most streaming music providers have opted to label AI-generated content on their platforms, and until now, Tidal was one of them. However, the company is about to take a harder stance. Tidal announced that in the coming weeks, it will fully ban AI music because of the harm it does to human artists. Tidal debuted its…",
    "body": [
-    "Emma Roth",
-    "is a news writer who covers the streaming wars, consumer tech, crypto, social media, and much more. Previously, she was a writer and editor at MUO.",
-    "Tidal is officially banning AI-generated music on December 9th. As a result of this change, Tidal will delete around 29 million AI-generated songs and reject an estimated 80,000 to 85,000 tracks per day, according to Tidal music lead Robert Andersen.",
-    "The move comes just months after Tidal began labeling and demonetizing tracks identified as 100 percent AI-generated. In a post on X, Andersen says Tidal needed to take a more “drastic” measure, as AI music made up 43 percent of the tracks distributed to the platform in the last 90 days. “We believe this will resonate with both artists and listeners alike, as 96% of all AI-generated songs receive zero plays at all,” Andersen adds.",
-    "Bandcamp similarly banned AI music earlier this year, while other music streaming platforms attempt to address a flood of AI songs by applying new labels or removing them from user algorithms. Spotify recently announced that it removed 50 million AI slop and spam tracks from recommendations over the past year, and also launched new “AI persona” badges for artists that use an AI identity. YouTube has rolled out AI music labels as well, while Apple Music is planning to launch AI labels this year. Meanwhile, Deezer is giving users the option to filter out AI music.",
-    "“Wholly AI-generated music intended to mislead listeners and impersonate artists is another serious problem that has only increased in scale: It diverts streams and royalties away from the artists, and confuses fans,” Tidal says in a separate post on X.",
-    "The platform is also going to ban music distributors from submitting AI songs, using the AI detection tool Ircam Amplify and metadata checks to reject submissions generated solely with AI. Tidal notes that it won’t ban songs made with the assistance of AI tools, as long as AI doesn’t make up the “sole output.”",
-    "Follow topics and authors from this story to see more like this in your personalized homepage feed and to receive email updates.",
-    "Emma Roth"
+    "Most streaming music providers have opted to label AI-generated content on their platforms, and until now, Tidal was one of them. However, the company is about to take a harder stance. Tidal announced that in the coming weeks, it will fully ban AI music because of the harm it does to human artists.",
+    "Tidal debuted its initial AI policy in July 2026, which included labeling and demonetizing all songs created entirely with AI. That wasn’t enough to stem the tide of AI slop, though. Over the past 90 days, Tidal reports that 43 percent of new uploads were completely AI-generated. On November 6, new uploads to Tidal hit a whopping 60 percent AI-generated.",
+    "As things stand, Tidal hosts 27 million tracks labeled as AI, all of which were obviously added in the past couple of years. That accounts for 6.3 percent of Tidal’s total catalog. On December 9, Tidal will delete all those songs. The streamer notes this will have essentially no negative impact because 96 percent of AI-labeled tracks got zero plays in the past 90 days. Throughout its announcement, Tidal is careful to stipulate that it’s only talking about music that has been fully created by AI. Artists can still use AI tools as long as the final product contains human elements.",
+    "Credit: Tidal",
+    "Some people don’t particularly mind AI music, but the team at Tidal has come to believe the harm to artists is too great. AI models can pump out random AI noises faster than humans can create things of real value, which can mislead listeners and siphon royalty payments away from creators. There’s also an issue with AI uploaders actively attempting to steal royalty payments. Tidal says it has already removed about 66,000 tracks from its service for impersonating artists, which was against its AI policy even before this update."
    ],
-   "image": "https://platform.theverge.com/wp-content/uploads/sites/2/chorus/uploads/chorus_asset/file/25319678/STK301_Tidal_01.jpg?quality=90&strip=all&crop=0,0,100,100",
-   "url": "https://www.theverge.com/entertainment/1041362/tidal-ai-music-ban",
-   "source": "The Verge",
-   "publishedAt": "2026-11-24T17:17:09.000Z",
+   "image": "https://cdn.arstechnica.net/wp-content/uploads/2026/11/GettyImages-1083228790-1152x648.jpg",
+   "url": "https://arstechnica.com/ai/2026/11/tidal-will-ban-fully-ai-generated-music-on-december-9/",
+   "source": "Ars Technica",
+   "publishedAt": "2026-11-24T17:34:34.000Z",
    "video": null,
    "lang": "en",
    "tr": {
     "uz": {
-     "title": "Tidal keyingi oydan AI tomonidan yaratilgan musiqani taqiqlashni boshlaydi",
-     "summary": "Tidal 9 dekabrda AI tomonidan yaratilgan musiqani rasman taqiqlaydi. Tidal musiqa rahbari Robert Andersenning so'zlariga ko'ra, ushbu o'zgarish natijasida Tidal AI tomonidan yaratilgan 29 millionga yaqin qo'shiqlarni o'chirib tashlaydi va kuniga taxminan 80 000 dan 85 000 gacha treklarni rad etadi. Ushbu harakat Tidal markalashni boshlaganidan bir necha oy o'tgach sodir bo'ldi va ...",
+     "title": "Tidal 9-dekabr kuni AI tomonidan yaratilgan musiqani toʻliq taqiqlaydi",
+     "summary": "Aksariyat oqimli musiqa provayderlari oʻz platformalarida AI tomonidan yaratilgan kontentni belgilashni tanladilar va hozirgacha Tidal ulardan biri edi. Biroq, kompaniya yanada qattiqroq pozitsiyani egallashga tayyor. Tidal kelgusi haftalarda AI musiqasini inson san'atkorlariga zarar etkazishi sababli butunlay taqiqlashini e'lon qildi. Tidal debyut qildi ...",
      "body": [
-      "Emma Rot",
-      "oqimli urushlar, iste'mol texnologiyalari, kripto, ijtimoiy media va boshqa ko'p narsalarni yorituvchi yangiliklar muallifi. Ilgari u MUOda yozuvchi va muharrir bo'lgan.",
-      "Tidal 9 dekabrda AI tomonidan yaratilgan musiqani rasman taqiqlaydi. Tidal musiqa rahbari Robert Andersenning so'zlariga ko'ra, ushbu o'zgarish natijasida Tidal AI tomonidan yaratilgan 29 millionga yaqin qo'shiqlarni o'chirib tashlaydi va kuniga 80 000 dan 85 000 gacha treklarni rad etadi.",
-      "Ushbu harakat Tidal 100 foiz AI tomonidan yaratilgan treklarni belgilash va demonetizatsiya qilishni boshlaganidan bir necha oy o'tgach sodir bo'ldi. X-dagi postida Andersen Tidal yanada \"qat'iy\" chora ko'rishi kerakligini aytdi, chunki so'nggi 90 kun ichida AI musiqasi platformaga tarqatilgan treklarning 43 foizini tashkil etdi. \"Biz bu ham san'atkorlar, ham tinglovchilar orasida aks-sado berishiga ishonamiz, chunki sun'iy intellekt tomonidan yaratilgan barcha qo'shiqlarning 96 foizi umuman nol ijroni oladi\", - deya qo'shimcha qiladi Andersen.",
-      "Bandcamp xuddi shu tarzda shu yil boshida AI musiqasini taqiqlagan, boshqa musiqiy oqim platformalari esa yangi yorliqlarni qo'llash yoki ularni foydalanuvchi algoritmlaridan olib tashlash orqali AI qo'shiqlari oqimini hal qilishga harakat qilmoqda. Yaqinda Spotify o'tgan yil davomida tavsiyalardan 50 million sun'iy intellekt slop va spam treklarini olib tashlaganini e'lon qildi, shuningdek, AI identifikatoridan foydalanadigan rassomlar uchun yangi \"AI persona\" nishonlarini ishga tushirdi. YouTube AI musiqa teglarini ham chiqardi, Apple Music esa bu yil AI yorliqlarini ishga tushirishni rejalashtirmoqda. Ayni paytda, Deezer foydalanuvchilarga AI musiqasini filtrlash imkoniyatini beradi.",
-      "\"Tinglovchilarni chalg'itishga va san'atkorlarni o'ziga taqlid qilishga mo'ljallangan sun'iy intellekt tomonidan yaratilgan musiqa yana bir jiddiy muammo bo'lib, miqyosi tobora ortib bormoqda: bu oqimlar va royaltilarni san'atkorlardan uzoqlashtiradi va muxlislarni chalg'itadi\", deydi Tidal X-dagi alohida postida.",
-      "Platforma musiqa distribyutorlariga AI qo'shiqlarini yuborishni, Ircam Amplify sun'iy intellektni aniqlash vositasi va metadata tekshiruvlaridan foydalanib, faqat sun'iy intellekt yordamida yaratilgan taqdimotlarni rad etishni taqiqlamoqchi. Tidal ta'kidlashicha, agar sun'iy intellekt \"yagona chiqish\" ni tashkil qilmasa, u AI vositalari yordamida yaratilgan qo'shiqlarni taqiqlamaydi.",
-      "Shaxsiylashtirilgan bosh sahifa tasmangizda shunga o'xshash ko'proq ko'rish va elektron pochta xabarlarini olish uchun ushbu hikoyaning mavzulari va mualliflarini kuzatib boring.",
-      "Emma Rot"
+      "Aksariyat oqimli musiqa provayderlari oʻz platformalarida AI tomonidan yaratilgan kontentni belgilashni tanladilar va hozirgacha Tidal ulardan biri edi. Biroq, kompaniya yanada qattiqroq pozitsiyani egallashga tayyor. Tidal kelgusi haftalarda AI musiqasini inson san'atkorlariga zarar etkazishi sababli butunlay taqiqlashini e'lon qildi.",
+      "Tidal oʻzining dastlabki AI siyosatini 2026 yil iyul oyida debyut qildi, u butunlay AI bilan yaratilgan barcha qoʻshiqlarni etiketlash va demonetizatsiya qilishni oʻz ichiga oladi. Biroq, bu sun'iy intellektning pasayishini toʻxtatish uchun etarli emas edi. Oxirgi 90 kun ichida Tidal xabar berishicha, yangi yuklamalarning 43 foizi butunlay sun'iy intellekt tomonidan yaratilgan. 6-noyabr kuni Tidal-ga yangi yuklamalar AI tomonidan yaratilgan 60 foizni tashkil etdi.",
+      "Vaziyatga koʻra, Tidal AI deb nomlangan 27 million trekka ega, ularning barchasi soʻnggi bir necha yil ichida qoʻshilgan. Bu Tidalning umumiy katalogining 6,3 foizini tashkil qiladi. 9 dekabr kuni Tidal barcha qoʻshiqlarni oʻchirib tashlaydi. Strimerning ta'kidlashicha, bu deyarli hech qanday salbiy ta'sir koʻrsatmaydi, chunki AI-belgilangan treklarning 96 foizi soʻnggi 90 kun ichida nol ijro etilgan. Oʻzining e'lonlari davomida Tidal faqat AI tomonidan toʻliq yaratilgan musiqa haqida gapirayotganini ta'kidlaydi. Yakuniy mahsulot inson elementlarini oʻz ichiga olgan ekan, rassomlar hali ham sun'iy intellekt vositalaridan foydalanishlari mumkin.",
+      "Kredit: Tidal",
+      "Ba'zi odamlar sun'iy intellekt musiqasiga alohida e'tibor berishmaydi, ammo Tidal jamoasi san'atkorlarga zarar juda katta ekanligiga ishonishdi. Sun'iy intellekt modellari tasodifiy sun'iy intellekt shovqinlarini odamlar haqiqiy qiymatga ega narsalarni yaratishiga qaraganda tezroq chiqarib yuborishi mumkin, bu esa tinglovchilarni chalgʻitishi va mualliflardan royalti toʻlovlarini tortib olishi mumkin. Shuningdek, AI yuklovchilar royalti toʻlovlarini oʻgʻirlashga faol urinishlari bilan bogʻliq muammo ham bor. Tidalning soʻzlariga koʻra, u allaqachon 66 000 ga yaqin treklarni san'atkorlarga taqlid qilish uchun oʻz xizmatidan olib tashlagan, bu yangilanishdan oldin ham uning AI siyosatiga zid edi."
      ]
     },
     "ru": {
-     "title": "Tidal начнет запрещать музыку, созданную искусственным интеллектом, в следующем месяце",
-     "summary": "Tidal официально запрещает музыку, созданную искусственным интеллектом, 9 декабря. По словам музыкального руководителя Tidal Роберта Андерсена, в результате этого изменения Tidal удалит около 29 миллионов песен, созданных искусственным интеллектом, и отклонит примерно от 80 000 до 85 000 треков в день. Этот шаг произошел всего через несколько месяцев после того, как Tidal начала маркировку и…",
+     "title": "Tidal полностью запретит музыку, созданную искусственным интеллектом, 9 декабря",
+     "summary": "Большинство поставщиков потоковой музыки предпочли маркировать контент, созданный искусственным интеллектом, на своих платформах, и до сих пор Tidal был одним из них. Однако компания собирается занять более жесткую позицию. Tidal объявила, что в ближайшие недели полностью запретит музыку с искусственным интеллектом из-за вреда, который она наносит артистам-людям. Tidal представила свой…",
      "body": [
-      "Эмма Рот",
-      "— автор новостей, освещающий потоковые войны, потребительские технологии, криптовалюту, социальные сети и многое другое. Раньше она была писателем и редактором МУО.",
-      "Tidal официально запрещает музыку, созданную искусственным интеллектом, 9 декабря. По словам музыкального руководителя Tidal Роберта Андерсена, в результате этого изменения Tidal удалит около 29 миллионов песен, созданных искусственным интеллектом, и отклонит примерно от 80 000 до 85 000 треков в день.",
-      "Этот шаг был предпринят всего через несколько месяцев после того, как Tidal начала маркировать и демонетизировать треки, идентифицированные как на 100 процентов созданные искусственным интеллектом. В сообщении на X Андерсен говорит, что Tidal необходимо принять более «радикальные» меры, поскольку музыка AI составила 43 процента треков, распространяемых на платформе за последние 90 дней. «Мы считаем, что это найдет отклик как у исполнителей, так и у слушателей, поскольку 96% всех песен, созданных искусственным интеллектом, вообще не воспроизводятся», — добавляет Андерсен.",
-      "Bandcamp аналогичным образом запретил музыку ИИ в начале этого года, в то время как другие платформы потоковой передачи музыки пытаются справиться с наплывом песен ИИ, применяя новые ярлыки или удаляя их из пользовательских алгоритмов. Spotify недавно объявил, что за последний год удалил из рекомендаций 50 миллионов треков, посвященных искусственному интеллекту, и спам-треков, а также выпустил новые значки «AI persona» для артистов, использующих ИИ-идентичность. YouTube также запустил музыкальные лейблы с искусственным интеллектом, а Apple Music планирует запустить лейблы с искусственным интеллектом в этом году. Тем временем Deezer дает пользователям возможность фильтровать музыку AI.",
-      "«Музыка, полностью сгенерированная искусственным интеллектом, предназначенная для того, чтобы ввести слушателей в заблуждение и выдать себя за артистов, — это еще одна серьезная проблема, масштабы которой только увеличиваются: она отвлекает потоки и гонорары от артистов и сбивает с толку фанатов», — говорит Tidal в отдельном посте на X.",
-      "Платформа также запретит музыкальным дистрибьюторам отправлять песни с использованием ИИ, используя инструмент обнаружения ИИ Ircam Amplify и проверки метаданных для отклонения заявок, созданных исключительно с помощью ИИ. Tidal отмечает, что не будет запрещать песни, созданные с помощью инструментов ИИ, до тех пор, пока ИИ не станет «единственным результатом».",
-      "Следите за темами и авторами этой статьи, чтобы видеть больше подобных статей в ленте своей персонализированной главной страницы и получать обновления по электронной почте.",
-      "Эмма Рот"
+      "Большинство поставщиков потоковой музыки предпочли маркировать контент, созданный искусственным интеллектом, на своих платформах, и до сих пор Tidal был одним из них. Однако компания собирается занять более жесткую позицию. Tidal объявила, что в ближайшие недели полностью запретит музыку с искусственным интеллектом из-за вреда, который она наносит артистам-людям.",
+      "В июле 2026 года Tidal представила свою первоначальную политику в области искусственного интеллекта, которая включала маркировку и демонетизацию всех песен, полностью созданных с использованием искусственного интеллекта. Однако этого было недостаточно, чтобы остановить волну упадка ИИ. По данным Tidal, за последние 90 дней 43 процента новых загрузок были полностью созданы искусственным интеллектом. 6 ноября новые загрузки в Tidal достигли колоссальных 60 процентов, созданных искусственным интеллектом.",
+      "В настоящее время на Tidal размещено 27 миллионов треков, помеченных как AI, и все они, очевидно, были добавлены за последние пару лет. Это составляет 6,3 процента от общего каталога Tidal. 9 декабря Tidal удалит все эти песни. Стример отмечает, что это практически не окажет негативного влияния, поскольку 96 процентов треков с маркировкой AI не воспроизводились за последние 90 дней. В своем объявлении Tidal старается оговорить, что речь идет только о музыке, полностью созданной ИИ. Художники по-прежнему могут использовать инструменты искусственного интеллекта, если конечный продукт содержит человеческие элементы.",
+      "1 кредит",
+      "Некоторые люди не особенно возражают против музыки ИИ, но команда Tidal пришла к выводу, что вред, наносимый артистам, слишком велик. Модели ИИ могут генерировать случайные шумы ИИ быстрее, чем люди могут создавать вещи, имеющие реальную ценность, что может вводить в заблуждение слушателей и перекачивать гонорары от создателей. Также существует проблема с пользователями, загружающими видео с помощью ИИ, которые активно пытаются украсть роялти. Tidal заявляет, что уже удалила из своего сервиса около 66 000 треков за выдачу себя за исполнителей, что противоречило ее политике в области искусственного интеллекта еще до этого обновления."
      ]
     }
    }
@@ -592,7 +588,7 @@
    "tr": {
     "uz": {
      "title": "Watc: Qochib ketgan mushuk Bostonda Delta parvozini kechiktirdi",
-     "summary": "Delta aviakompaniyasining Bostondan Florida shtatining Tampa shahriga uchayotgan samolyoti yo‘lovchilar kabinasida mushuk o‘z tashuvchisidan qochib ketgani sababli vaqtincha qoldirilgan."
+     "summary": "Delta aviakompaniyasining Bostondan Florida shtatining Tampa shahriga uchayotgan samolyoti yoʻlovchilar kabinasida mushuk oʻz tashuvchisidan qochib ketgani sababli vaqtincha qoldirilgan."
     },
     "ru": {
      "title": "Смотреть: Сбежавший кот задержал рейс Delta в Бостоне",
@@ -626,18 +622,18 @@
    "lang": "en",
    "tr": {
     "uz": {
-     "title": "Nafaqadagi o'qituvchi nafaqadagi musiqa asboblarini qushlarni oziqlantiruvchilarga aylantirdi (QARA)",
-     "summary": "Kanadalik erkak o'zining patli qo'shnilariga bepul tushlik qilish uchun ishlatib, parchalanib ketgan musiqa asboblari hayotiga koda yozmoqda. Shahzoda Eduard orolidan nafaqadagi o'qituvchi Rob Burk boshqaradigan \"Frets and Feathers\" kafesida makkajo'xori yoki urug'ning chayqalishi hech qanday ipsiz keladi. Avvalgi […] Post…",
+     "title": "Nafaqadagi oʻqituvchi nafaqadagi musiqa asboblarini qushlarni oziqlantiruvchilarga aylantirdi (QARA)",
+     "summary": "Kanadalik erkak oʻzining patli qoʻshnilariga bepul tushlik qilish uchun ishlatib, parchalanib ketgan musiqa asboblari hayotiga koda yozmoqda. Shahzoda Eduard orolidan nafaqadagi oʻqituvchi Rob Burk boshqaradigan \"Frets and Feathers\" kafesida makkajoʻxori yoki urugʻning chayqalishi hech qanday ipsiz keladi. Avvalgi […] Post…",
      "body": [
-      "Kanadalik erkak o'zining patli qo'shnilariga bepul tushlik qilish uchun ishlatib, parchalanib ketgan musiqa asboblari hayotiga koda yozmoqda.",
-      "Shahzoda Eduard orolidan nafaqadagi o'qituvchi Rob Burk boshqaradigan \"Frets and Feathers\" kafesida makkajo'xori yoki urug'ning chayqalishi hech qanday ipsiz keladi.",
-      "Sobiq matematika o‘qituvchisi ijtimoiy tarmoqlarda Yevropadan kimdir eski gitarani qush oziqlantiruvchisiga aylantirganini ko‘rdi va u buni yaxshiroq qila oladi, deb hisobladi: uch kursli orkestr.",
-      "Facebookdagi badiiy loyiha uchun buzilgan asboblarni xayriya qilishni so'rab, Burk 6 ta gitara, eski skripka va baraban to'plamining parchalarini olishdan xursand bo'ldi.",
-      "U ichi bo'sh korpusli gitaralarga driftwood perches va metall oziqlantiruvchi idishlarni biriktirish bilan shug'ullana boshladi.",
-      "CBC xabariga ko'ra, uning elim qurolni tanlashi avvaliga yaxshi bo'lgan, ammo og'irroq ko'k jaylar tashrif buyurishni boshlaganda, u o'rindiqlar va idish-tovoqlarni mahkam bog'lashi kerak edi.",
-      "Uning Facebook devorida bir qator oddiy qushlar mavjud bo'lib, Burk nafaqaga chiqqanidan beri ularga ko'proq qiziqish bildirgan. Videolar ko'pincha musiqa bilan bog'lanadi va ajoyib tomosha qilish imkonini beradi.",
-      "O'shandan beri u yog'och o'suvchi, korvidlar va jo'jalarni ko'rgan va fasllar o'zgarishi bilan boshqa turlarni ko'rishni kutmoqda.",
-      "Boshqa har qanday PE Islanders uchun Burke Peck and Play orkestrini kengaytirish uchun qo'shimcha asboblar xayriyalarini mamnuniyat bilan qabul qiladi. U bilan Facebook orqali bog'lanish mumkin.",
+      "Kanadalik erkak oʻzining patli qoʻshnilariga bepul tushlik qilish uchun ishlatib, parchalanib ketgan musiqa asboblari hayotiga koda yozmoqda.",
+      "Shahzoda Eduard orolidan nafaqadagi oʻqituvchi Rob Burk boshqaradigan \"Frets and Feathers\" kafesida makkajoʻxori yoki urugʻning chayqalishi hech qanday ipsiz keladi.",
+      "Sobiq matematika oʻqituvchisi ijtimoiy tarmoqlarda Yevropadan kimdir eski gitarani qush oziqlantiruvchisiga aylantirganini koʻrdi va u buni yaxshiroq qila oladi, deb hisobladi: uch kursli orkestr.",
+      "Facebookdagi badiiy loyiha uchun buzilgan asboblarni xayriya qilishni soʻrab, Burk 6 ta gitara, eski skripka va baraban toʻplamining parchalarini olishdan xursand boʻldi.",
+      "U ichi boʻsh korpusli gitaralarga driftwood perches va metall oziqlantiruvchi idishlarni biriktirish bilan shugʻullana boshladi.",
+      "CBC xabariga koʻra, uning elim qurolni tanlashi avvaliga yaxshi boʻlgan, ammo ogʻirroq koʻk jaylar tashrif buyurishni boshlaganda, u oʻrindiqlar va idish-tovoqlarni mahkam bogʻlashi kerak edi.",
+      "Uning Facebook devorida bir qator oddiy qushlar mavjud boʻlib, Burk nafaqaga chiqqanidan beri ularga koʻproq qiziqish bildirgan. Videolar koʻpincha musiqa bilan bogʻlanadi va ajoyib tomosha qilish imkonini beradi.",
+      "Oʻshandan beri u yogʻoch oʻsuvchi, korvidlar va joʻjalarni koʻrgan va fasllar oʻzgarishi bilan boshqa turlarni koʻrishni kutmoqda.",
+      "Boshqa har qanday PE Islanders uchun Burke Peck and Play orkestrini kengaytirish uchun qoʻshimcha asboblar xayriyalarini mamnuniyat bilan qabul qiladi. U bilan Facebook orqali bogʻlanish mumkin.",
       "Ijtimoiy tarmoqlardagi suruvingiz bilan Frets and Feathers kafesi haqida TWEET..."
      ]
     },
@@ -677,8 +673,8 @@
    "lang": "en",
    "tr": {
     "uz": {
-     "title": "Odam o'zi uchun hamma narsani anglatuvchi joydan tuzoqqa tushgan kal burgutni topdi | Dodo",
-     "summary": "U burgutni marhum otasi kabina qurishni orzu qilgan joyidan topdi 🥹 Adam va Kler Ontariodagi oilasiga qarashli yerdagi ikkita daraxt orasida qolib ketgan kal burgutni topishganda, ular yordam berishlari kerakligini bilishgan. Dodo muharriri Valentina er-xotin bilan bu kutilmagan qutqarish qanday bo'lganligi haqida gapirdi ..."
+     "title": "Odam oʻzi uchun hamma narsani anglatuvchi joydan tuzoqqa tushgan kal burgutni topdi | Dodo",
+     "summary": "U burgutni marhum otasi kabina qurishni orzu qilgan joyidan topdi 🥹 Adam va Kler Ontariodagi oilasiga qarashli yerdagi ikkita daraxt orasida qolib ketgan kal burgutni topishganda, ular yordam berishlari kerakligini bilishgan. Dodo muharriri Valentina er-xotin bilan bu kutilmagan qutqarish qanday boʻlganligi haqida gapirdi ..."
     },
     "ru": {
      "title": "Мужчина нашел пойманного белоголового орлана в месте, которое для него значит все | Додо",
@@ -687,60 +683,114 @@
    }
   },
   {
-   "id": "yqu9au",
+   "id": "8qg4hd",
    "side": "light",
    "topic": "animals",
-   "title": "Birds killed in blaze at one of the largest foie gras farms in the US",
-   "summary": "Hundreds of young birds were also rescued from the fire, which comes as foie gras is under renewed scrutiny over animal welfare concerns.",
+   "title": "Ecuador’s bioeconomy plan vows sustainability, but faces a test of government priorities",
+   "summary": "The government of Ecuador has approved a new 10-year plan to promote economic activities that make use of the country’s biological resources, while also taking steps to conserve the ecosystems that they rely on. It aims to innovate agribusiness, ecotourism, and other industries in rural areas, without threatening the…",
    "body": [
-    "Marcus Henley, manager of Hudson Valley Foie Gras in Ferndale, New York, told local news outlet Radio Catskill that the fire destroyed two buildings housing ducks and geese.",
-    "\"The building isn't there anymore,\" Henley said, adding that he suspected an electrical malfunction may have started the blaze, although this has not been confirmed.",
-    "The company does not disclose how many birds it hosts at one time. Commercial poultry farms can typically house thousands of birds.",
-    "Westchester News 12 reported that the emergency response to the fire in the early hours of Thursday morning involved 37 fire departments and 200 first responders.",
-    "The fire spread rapidly, and the metal-clad, wood-frame structure of the building made it difficult for firefighters to stop the flames from spreading inside the barn.",
-    "Hudson Valley Foie Gras and the local fire department did not respond to a request for comment.",
-    "Foie gras producers have long been criticised by animal rights groups due to the production process, which involves the force feeding of birds through plastic tubes, which allows them to gain over a third of their body weight in a short period of time.",
-    "New York moved to ban the product in 2019, and Hudson Valley farms have been in litigation with the state since.",
-    "At a city council hearing in 2019, Henley argued against the ban, saying that journalists who visited the farm found \"nothing inhumane\" about their practices.",
-    "Animal rights activist group PETA told the BBC that they will erect a billboard nearby in memory of the birds who perished, and encouraged Hudson Valley farms to donate surviving birds to local sanctuaries."
+    "Ecuador’s National Bioeconomy Strategy, approved on Oct. 29 and to be implemented through 2036, is billed as a new development model that will “align the country’s biological wealth with production, innovation, science and technology.”",
+    "Right now, the country’s bioeconomy projects are “scattered” and “isolated” compared to others in the region, the strategy acknowledges.",
+    "The plan is to devote the next decade to identifying financing sources and improving intergovernmental coordination, stressing the importance of transitioning away from fossil fuels while relying on the ancestral knowledge of Indigenous communities.",
+    "However, the plan’s stated ambitions appear to clash with existing government policies that continue to fund fossil fuel expansion and overlook or even undermine Indigenous rights.",
+    "The government of Ecuador has approved a new 10-year plan to promote economic activities that make use of the country’s biological resources, while also taking steps to conserve the ecosystems that they rely on. It aims to innovate agribusiness, ecotourism, and other industries in rural areas, without threatening the environment or Indigenous communities.",
+    "The National Bioeconomy Strategy, approved on Oct. 29 and to be implemented through 2036, is billed as a new development model that will “align the country’s biological wealth with production, innovation, science and technology.”",
+    "“Ecuador faces a historic opportunity to redefine the direction of its development, pursuing a model that reconciles natural wealth, territorial equity and innovation with the well-being of its people,” the strategy says.",
+    "Other parts of the world already have robust bioeconomy strategies. The European Union generates billions of dollars from sustainable farming practices, biomass management, and biotechnology research. In Latin America, the bioeconomy programs in Colombia and Costa Rica have developed ecotourism with Indigenous communities and improved waste management practices in the private sector, among other initiatives.",
+    "By comparison, Ecuador’s bioeconomy projects are more “scattered” and “isolated,” the strategy acknowledges. The next 10 years will be largely devoted to identifying financing sources for future projects and improving coordination between different parts of the government. The plan doesn’t provide an exact financing figure.",
+    "“Ecuador aims to have a robust bioeconomy operating within a regulatory framework that promotes its development, with an emphasis on incentives, administrative approvals, sustainable use of biodiversity and biomass, and green jobs and markets,” the strategy says.",
+    "For agribusiness, it describes projects to increase local food production and create shorter, more efficient supply chains that allow small-scale producers to access export markets. This includes finding innovative solutions to maintaining soil health, such as creating fertilizers from crop residues and livestock waste.",
+    "It also aims to expand protections of coastline and aquatic ecosystems, where food is produced. Some of those policies, which are still in development, will be modeled on the Galápagos Blue Economy Plan set out from 2025. That plan, running through 2040, includes creating new zoning for fishing, improving management plans for marine protected areas, and investing in artisanal fishing projects, in particular ones led by women.",
+    "The country will need coastal infrastructure resilient to climate change, the strategy says. El Niño has caused flooding and raised ocean temperatures, which disrupts fish migrations. However, the plan doesn’t include details about what the infrastructure could be or how much it will cost. Instead, it emphasizes research, financing opportunities, and coordination between government agencies.",
+    "Some financing sources could include the Inter-American Development Bank and the French Development Agency, as well as BanEcuador and the Development Bank of Ecuador. The strategy also proposes using green bonds and debt-for-nature swaps.",
+    "“Access to this financing can accelerate changes in production and sustain the transition toward a comprehensive bioeconomy model,” the strategy says.",
+    "Challenges ahead",
+    "At times, the strategy’s goals contradict the government’s current economic priorities. It says it wants to reduce fossil fuel dependence and greenhouse gas emissions by investing in bioethanol, biodiesel, biogas, and solid biofuels. But the country’s budget this year still devotes $4.83 billion to the oil and gas sector, $623.88 million of it for exploration and production.",
+    "The strategy also says most of the projects will combine scientific research with the participation of Indigenous communities and their traditional knowledge of the environment and local food systems.",
+    "“Their traditional knowledge, ancestral practices and worldviews provide a foundation for innovation in developing sustainable production models, bioproducts rooted in local identity and strategies for integrated ecosystem management,” the strategy says.",
+    "However, the efforts come at a time when the government continues to face scrutiny about its treatment of Indigenous communities. Oil blocks and mining concessions pollute and deforest Indigenous territory, and community leaders face oppression tactics from authorities.",
+    "In the past, observers have said the country’s bioeconomy projects have prioritized economic goals over the needs of local communities.",
+    "One 2024 study described a Kichwa community in the Amazon that started sustainably producing and selling tea, with the goal of creating jobs and incentivizing residents to protect the rainforest. In the past, the community had sold the leaves to international tea producers, but eventually opted to process the leaves itself, creating more direct economic benefit without conflicting with its ancestral way of life.",
+    "The study argues the government hasn’t taken enough of these kinds of community practices into account and that it’s imperative that Ecuador’s bioeconomy policy be guided by those principles and experiences.",
+    "Banner image: Searching for native seeds in the forest near Alto Ila, in Ecuador’s Amazon region. Image by Dolores Ochoa/AP Photo.",
+    "Citation: Cuestas-Caza, J., Toledo, L., & Rodríguez, F. (2024). Transcultural bioeconomy governance in a plurinational state: Sumak Kawsay and bio-based production in two Kichwa territories of Ecuador. Forest Policy and Economics, 163, 103227. doi:10.1016/j.forpol.2024.103227",
+    "See related from this reporter:",
+    "Ecuador copper mine advancing despite opposition from Indigenous communities",
+    "FEEDBACK: Use this form to send a message to the author of this post. If you want to post a public comment, you can do that at the bottom of the page."
    ],
-   "image": "https://ichef.bbci.co.uk/ace/standard/800/cpsprodpb/c49e/live/643c4b60-e530-11f1-a67d-39d55c7178b0.jpg",
-   "url": "https://www.bbc.co.uk/news/articles/cq4gn0dg9194o?at_medium=RSS&at_campaign=rss",
-   "source": "BBC Science",
-   "publishedAt": "2026-11-20T22:57:26.000Z",
+   "image": "https://imgs.mongabay.com/wp-content/uploads/sites/20/2026/11/24165413/AP26037567996653-768x512.jpg",
+   "url": "https://news.mongabay.com/2026/11/ecuadors-bioeconomy-plan-vows-sustainability-but-faces-a-test-of-government-priorities/",
+   "source": "Mongabay",
+   "publishedAt": "2026-11-24T17:03:56.000Z",
    "video": null,
    "lang": "en",
    "tr": {
     "uz": {
-     "title": "AQShdagi eng yirik fua-gras fermalaridan birida qushlar yonib halok bo‘ldi",
-     "summary": "Yuzlab yosh qushlar ham yong'indan qutqarib olindi, bu yong'in fua grasi hayvonlarning farovonligi bilan bog'liq muammolar tufayli yangilangan tekshiruv ostida.",
+     "title": "Ekvadorning bioiqtisodiyot rejasi barqarorlikni va'da qiladi, ammo hukumat ustuvorliklari sinovidan oʻtadi",
+     "summary": "Ekvador hukumati mamlakatning biologik resurslaridan foydalanadigan iqtisodiy faoliyatni ragʻbatlantirish, shu bilan birga ular tayanadigan ekotizimlarni saqlash choralarini koʻrish boʻyicha yangi 10 yillik rejani tasdiqladi. U qishloq joylarida agrobiznes, ekoturizm va boshqa sohalarni innovatsiyalarga xavf solmagan holda joriy etishga qaratilgan...",
      "body": [
-      "Nyu-Yorkning Ferndale shahridagi Hudson Valley Foie Gras kompaniyasi menejeri Markus Xenli mahalliy Radio Catskill nashriga yong'in o'rdak va g'ozlar yashaydigan ikkita binoni vayron qilganini aytdi.",
-      "\"Bino endi yo'q\", dedi Xenli va bu tasdiqlanmagan bo'lsa-da, yong'inni elektr nosozligi boshlagan bo'lishi mumkin deb gumon qilganini aytdi.",
-      "Kompaniya bir vaqtning o'zida nechta qushni qabul qilishini oshkor qilmaydi. Tijorat parrandachilik fermalari odatda minglab qushlarni joylashtirishi mumkin.",
-      "Westchester News 12 xabar berishicha, payshanba kuni ertalab yong'inni bartaraf etishda 37 o't o'chirish bo'limi va 200 nafar birinchi yordam xodimlari ishtirok etgan.",
-      "Yong‘in tez tarqaldi, binoning metall qoplamali, yog‘och karkasli konstruksiyasi o‘t o‘chiruvchilarga olovning ombor ichida tarqalishini to‘xtatishni qiyinlashtirdi.",
-      "Hudson Valley Foie Gras va mahalliy yong'in bo'limi izoh berish so'roviga javob bermadi.",
-      "Foie gras ishlab chiqaruvchilari ishlab chiqarish jarayoni tufayli hayvonlar huquqlarini himoya qiluvchi guruhlar tomonidan uzoq vaqtdan beri tanqid qilinmoqda, bu esa qushlarni plastik naychalar orqali kuch bilan oziqlantirishni o'z ichiga oladi, bu ularga qisqa vaqt ichida tana vaznining uchdan bir qismidan ko'proq narsani olish imkonini beradi.",
-      "Nyu-York 2019 yilda mahsulotni taqiqlash uchun ko'chib o'tdi va Gudzon vodiysi fermalari shundan beri shtat bilan sud muhokamasida.",
-      "2019 yilda shahar kengashida bo'lib o'tgan tinglovda Xenli taqiqga qarshi chiqdi va fermaga tashrif buyurgan jurnalistlar o'zlarining amaliyotlarida \"g'ayriinsoniy narsa\" topmaganliklarini aytdi.",
-      "Hayvonlar huquqlari faoli PETA guruhi BBCga halok bo‘lgan qushlar xotirasiga yaqin joyda reklama taxtasi o‘rnatishlarini aytdi va Gudzon vodiysi fermalarini tirik qolgan qushlarni mahalliy qo‘riqxonalarga xayriya qilishga undadi."
+      "Ekvadorning 29-oktabrda tasdiqlangan va 2036 yilgacha amalga oshirilishi kerak boʻlgan Milliy bioiqtisodiyot strategiyasi “mamlakatning biologik boyligini ishlab chiqarish, innovatsiyalar, fan va texnologiya bilan uygʻunlashtiradigan” yangi rivojlanish modeli sifatida koʻrsatilgan.",
+      "Hozirda mamlakatning bioiqtisodiyot loyihalari mintaqadagi boshqa loyihalarga nisbatan “tarqalgan” va “izolyatsiya qilingan”.",
+      "Reja kelgusi oʻn yillikni moliyalashtirish manbalarini aniqlash va hukumatlararo muvofiqlashtirishni yaxshilashga bagʻishlash, mahalliy jamoalarning ajdodlari bilimiga tayangan holda qazib olinadigan yoqilgʻidan voz kechish muhimligini ta'kidlaydi.",
+      "Biroq, rejaning belgilangan ambitsiyalari qazib olinadigan yoqilgʻining kengayishini moliyalashtirishda davom etayotgan va mahalliy aholi huquqlarini e'tibordan chetda qoldiradigan yoki hatto buzadigan amaldagi hukumat siyosatiga zid koʻrinadi.",
+      "Ekvador hukumati mamlakatning biologik resurslaridan foydalanadigan iqtisodiy faoliyatni ragʻbatlantirish, shu bilan birga ular tayanadigan ekotizimlarni saqlash choralarini koʻrish boʻyicha yangi 10 yillik rejani tasdiqladi. U qishloq joylarida agrobiznes, ekoturizm va boshqa sohalarni atrof-muhitga yoki mahalliy jamoalarga tahdid solmasdan innovatsiya qilishga qaratilgan.",
+      "29-oktabrda tasdiqlangan va 2036-yilgacha amalga oshirilishi kerak boʻlgan Milliy bioiqtisodiyot strategiyasi “mamlakatning biologik boyligini ishlab chiqarish, innovatsiyalar, fan va texnologiyalar bilan uygʻunlashtiradigan” yangi rivojlanish modeli sifatida koʻrsatilgan.",
+      "“Ekvador tabiiy boylik, hududiy tenglik va innovatsiyalarni oʻz xalqi farovonligi bilan uygʻunlashtiradigan modelga intilib, rivojlanish yoʻnalishini qayta belgilash uchun tarixiy imkoniyatga duch kelmoqda”, — deyiladi strategiyada.",
+      "Dunyoning boshqa qismlarida allaqachon mustahkam bioiqtisodiy strategiyalar mavjud. Yevropa Ittifoqi barqaror dehqonchilik amaliyoti, biomassani boshqarish va biotexnologiya tadqiqotlaridan milliardlab dollar ishlab chiqaradi. Lotin Amerikasida Kolumbiya va Kosta-Rikadagi bioiqtisodiyot dasturlari mahalliy jamoalar bilan ekoturizmni rivojlantirdi va boshqa tashabbuslar qatori xususiy sektorda chiqindilarni boshqarish amaliyotini yaxshiladi.",
+      "Taqqoslash uchun, Ekvadorning bioiqtisodiyot loyihalari koʻproq \"tarqalgan\" va \"izolyatsiya qilingan\" strategiyani tan oladi. Kelgusi 10 yil asosan kelajakdagi loyihalarni moliyalashtirish manbalarini aniqlashga va hukumatning turli boʻlimlari oʻrtasidagi muvofiqlashtirishni yaxshilashga bagʻishlanadi. Rejada aniq moliyalashtirish koʻrsatkichi koʻrsatilmagan.",
+      "\"Ekvador ragʻbatlantirish, ma'muriy tasdiqlash, bioxilma-xillik va biomassadan barqaror foydalanish, yashil ish oʻrinlari va bozorlarga e'tibor qaratgan holda, uning rivojlanishiga yordam beradigan tartibga soluvchi asosda ishlaydigan mustahkam bioiqtisodiyotga ega boʻlishni maqsad qiladi\", deyiladi strategiyada.",
+      "Agrobiznes uchun u mahalliy oziq-ovqat mahsulotlarini ishlab chiqarishni koʻpaytirish va kichik ishlab chiqaruvchilarga eksport bozorlariga chiqish imkonini beruvchi qisqaroq, samaraliroq ta'minot zanjirlarini yaratish loyihalarini tavsiflaydi. Bu oʻsimlik qoldiqlari va chorvachilik chiqindilaridan oʻgʻitlar yaratish kabi tuproq salomatligini saqlash boʻyicha innovatsion yechimlarni topishni oʻz ichiga oladi.",
+      "Shuningdek, u oziq-ovqat ishlab chiqariladigan qirgʻoq va suv ekotizimlarini himoya qilishni kengaytirishga qaratilgan. Hali ishlab chiqilayotgan ushbu siyosatlarning ba'zilari 2025 yildan boshlab ishlab chiqilgan Galapagosning Moviy Iqtisodiyot rejasi asosida ishlab chiqiladi. 2040 yilgacha davom etadigan ushbu reja baliq ovlash uchun yangi rayonlashtirishni yaratish, dengizda qoʻriqlanadigan hududlarni boshqarish rejalarini takomillashtirish va hunarmandchilik loyihalariga, xususan, ayollar boshchiligidagi loyihalarga sarmoya kiritishni oʻz ichiga oladi.",
+      "Strategiyada aytilishicha, mamlakatga iqlim oʻzgarishiga chidamli qirgʻoq infratuzilmasi kerak boʻladi. El-Ninyo suv toshqini va okean haroratining oshishiga olib keldi, bu esa baliq migratsiyasini buzdi. Biroq, rejada infratuzilma nima boʻlishi mumkinligi yoki uning narxi qancha boʻlishi haqida tafsilotlar mavjud emas. Buning oʻrniga u tadqiqot, moliyalashtirish imkoniyatlari va davlat idoralari oʻrtasidagi muvofiqlashtirishga urgʻu beradi.",
+      "Ba'zi moliyalashtirish manbalari orasida Amerikalararo taraqqiyot banki va Frantsiya taraqqiyot agentligi, shuningdek BanEcuador va Ekvador taraqqiyot banki boʻlishi mumkin. Strategiya, shuningdek, yashil obligatsiyalar va qarzlarni tabiatga almashtirishdan foydalanishni taklif qiladi.",
+      "\"Ushbu moliyalashtirishga kirish ishlab chiqarishdagi oʻzgarishlarni tezlashtirishi va keng qamrovli bioiqtisodiyot modeliga oʻtishni davom ettirishi mumkin\", deyiladi strategiyada.",
+      "Oldinda qiyinchiliklar",
+      "Ba'zida strategiyaning maqsadlari hukumatning joriy iqtisodiy ustuvorliklariga zid keladi. U bioetanol, biodizel, biogaz va qattiq bioyoqilgʻiga sarmoya kiritish orqali qazib olinadigan yoqilgʻiga qaramlik va issiqxona gazlari emissiyasini kamaytirishni xohlaydi. Ammo bu yilgi mamlakat byudjeti hali ham neft va gaz sektoriga 4,83 milliard dollar, uning 623,88 million dollari qidiruv va qazib olish uchun ajratilgan.",
+      "Strategiyada, shuningdek, loyihalarning aksariyati mahalliy jamoalar ishtirokida ilmiy tadqiqotlar va ularning atrof-muhit va mahalliy oziq-ovqat tizimlari haqidagi an'anaviy bilimlarini birlashtiradi.",
+      "\"Ularning an'anaviy bilimlari, ajdodlari amaliyoti va dunyoqarashi barqaror ishlab chiqarish modellarini, mahalliy oʻziga xoslikka asoslangan biomahsulotlarni va integratsiyalashgan ekotizimlarni boshqarish strategiyalarini ishlab chiqishda innovatsiyalar uchun asos yaratadi\", deyiladi strategiyada.",
+      "Biroq, sa'y-harakatlar hukumat mahalliy jamoalarga nisbatan oʻz munosabatini tekshirishda davom etayotgan bir paytda amalga oshirilmoqda. Neft bloklari va tog'-kon konsessiyalari mahalliy aholi hududini ifloslantiradi va oʻrmonlarni yoʻq qiladi va jamiyat rahbarlari hukumatning zulm taktikasiga duch kelishadi.",
+      "Oʻtmishda kuzatuvchilar mamlakatning bioiqtisodiyot loyihalari mahalliy jamoalar ehtiyojlaridan koʻra iqtisodiy maqsadlarni birinchi oʻringa qoʻyganini aytishgan.",
+      "2024 yilgi tadqiqotlardan biri Amazondagi Kichva jamoasini tasvirlab berdi, u ish oʻrinlarini yaratish va aholini tropik oʻrmonlarni himoya qilishga ragʻbatlantirish maqsadida barqaror ravishda choy ishlab chiqarish va sotishni boshladi. Ilgari jamiyat barglarni xalqaro choy ishlab chiqaruvchilarga sotgan, ammo oxir-oqibat barglarning oʻzini qayta ishlashni tanlagan va bu uning ota-bobolarining turmush tarziga zid boʻlmagan holda koʻproq iqtisodiy foyda keltirgan.",
+      "Tadqiqot shuni koʻrsatadiki, hukumat ushbu turdagi jamoat amaliyotlarini etarlicha hisobga olmadi va Ekvadorning bioiqtisodiy siyosati ushbu tamoyillar va tajribalarga asoslanishi shart.",
+      "Banner tasviri: Ekvadorning Amazon mintaqasidagi Alto Ila yaqinidagi oʻrmonda mahalliy urugʻlarni qidirish. Dolores Ochoa tomonidan surat / AP Foto.",
+      "Iqtibos: Cuestas-Caza, J., Toledo, L., & Rodriguez, F. (2024). Koʻp millatli davlatda transmadaniy bioiqtisodiyotni boshqarish: Sumak Kavsay va Ekvadorning ikkita Kichva hududida bio-asoslangan ishlab chiqarish. Oʻrmon siyosati va iqtisodiyoti, 163, 103227. doi: 10.1016/j.forpol.2024.103227",
+      "Ushbu muxbirning tegishli maqolasiga qarang:",
+      "Ekvador mis koni mahalliy aholining qarshiliklariga qaramay rivojlanmoqda",
+      "MUKARIZA: Ushbu post muallifiga xabar yuborish uchun ushbu shakldan foydalaning. Agar siz ommaviy fikr bildirishni istasangiz, buni sahifaning pastki qismida qilishingiz mumkin."
      ]
     },
     "ru": {
-     "title": "Птицы погибли при пожаре на одной из крупнейших ферм по производству фуа-гра в США",
-     "summary": "Сотни молодых птиц также были спасены из огня, который произошел из-за того, что фуа-гра находится под новым контролем из-за проблем защиты животных.",
+     "title": "План биоэкономики Эквадора обещает устойчивость, но сталкивается с проверкой приоритетов правительства",
+     "summary": "Правительство Эквадора утвердило новый 10-летний план по развитию экономической деятельности, в которой используются биологические ресурсы страны, а также предпринимаются шаги по сохранению экосистем, от которых они зависят. Он направлен на внедрение инноваций в агробизнесе, экотуризме и других отраслях в сельской местности, не ставя под угрозу…",
      "body": [
-      "Маркус Хенли, менеджер фуа-гра Hudson Valley в Ферндейле, штат Нью-Йорк, сообщил местному новостному изданию Radio Catskill, что пожар уничтожил два здания, в которых содержались утки и гуси.",
-      "\"Здания больше нет\", - сказал Хенли, добавив, что он подозревает, что причиной возгорания могла стать неисправность электрооборудования, хотя это не было подтверждено.",
-      "Компания не раскрывает, сколько птиц она принимает одновременно. Коммерческие птицефабрики обычно могут содержать тысячи птиц.",
-      "Вестчестерские новости 12 сообщили, что в экстренном реагировании на пожар рано утром в четверг приняли участие 37 пожарных подразделений и 200 служб быстрого реагирования.",
-      "Огонь быстро распространялся, а металлическая деревянная конструкция здания не позволяла пожарным остановить распространение пламени внутри сарая.",
-      "Фуа-гра в долине Гудзона и местная пожарная служба не ответили на просьбу о комментариях.",
-      "Производители фуа-гра уже давно подвергаются критике со стороны групп по защите прав животных из-за производственного процесса, который предполагает принудительное кормление птиц через пластиковые трубки, что позволяет им набирать более трети веса своего тела за короткий период времени.",
-      "Нью-Йорк принял решение запретить этот продукт в 2019 году, и с тех пор фермы долины Гудзона ведут судебные разбирательства с государством.",
-      "На слушаниях в городском совете в 2019 году Хенли выступил против запрета, заявив, что журналисты, посетившие ферму, не нашли «ничего бесчеловечного» в их действиях.",
-      "Группа активистов по защите прав животных PETA сообщила Би-би-си, что они установят неподалеку рекламный щит в память о погибших птицах, и призвала фермы долины Гудзона пожертвовать выживших птиц местным заповедникам."
+      "Национальная стратегия биоэкономики Эквадора, одобренная 29 октября и реализуемая до 2036 года, рекламируется как новая модель развития, которая «приведет в соответствие биологическое богатство страны с производством, инновациями, наукой и технологиями».",
+      "В настоящее время проекты биоэкономики страны «разбросаны» и «изолированы» по сравнению с другими проектами в регионе, признается в стратегии.",
+      "План состоит в том, чтобы посвятить следующее десятилетие выявлению источников финансирования и улучшению межправительственной координации, подчеркивая важность перехода от ископаемого топлива, опираясь при этом на исконные знания коренных народов.",
+      "Однако заявленные амбиции плана, похоже, противоречат существующей политике правительства, которая продолжает финансировать расширение использования ископаемого топлива и игнорирует или даже подрывает права коренных народов.",
+      "Правительство Эквадора утвердило новый 10-летний план по развитию экономической деятельности, в которой используются биологические ресурсы страны, а также предпринимаются шаги по сохранению экосистем, от которых они зависят. Он направлен на внедрение инноваций в агробизнесе, экотуризме и других отраслях в сельской местности, не угрожая окружающей среде или общинам коренных народов.",
+      "Национальная стратегия биоэкономики, одобренная 29 октября и реализуемая до 2036 года, объявлена ​​новой моделью развития, которая «приведет в соответствие биологическое богатство страны с производством, инновациями, наукой и технологиями».",
+      "«Эквадор сталкивается с исторической возможностью переопределить направление своего развития, следуя модели, которая сочетает в себе природное богатство, территориальное равенство и инновации с благополучием своего народа», — говорится в стратегии.",
+      "В других частях мира уже есть надежные стратегии биоэкономики. Европейский Союз зарабатывает миллиарды долларов за счет устойчивых методов ведения сельского хозяйства, управления биомассой и биотехнологических исследований. В Латинской Америке программы биоэкономики в Колумбии и Коста-Рике, среди других инициатив, способствовали развитию экотуризма с участием коренных народов и улучшению практики управления отходами в частном секторе.",
+      "По сравнению с этим, проекты биоэкономики Эквадора более «разбросаны» и «изолированы», признается в стратегии. Следующие 10 лет будут в основном посвящены определению источников финансирования будущих проектов и улучшению координации между различными частями правительства. В плане не указаны точные цифры финансирования.",
+      "«Эквадор стремится создать надежную биоэкономику, действующую в рамках нормативно-правовой базы, способствующей ее развитию, с упором на стимулы, административные разрешения, устойчивое использование биоразнообразия и биомассы, а также зеленые рабочие места и рынки», — говорится в стратегии.",
+      "Что касается агробизнеса, в нем описываются проекты по увеличению местного производства продуктов питания и созданию более коротких и эффективных цепочек поставок, которые позволяют мелким производителям получить доступ к экспортным рынкам. Это включает в себя поиск инновационных решений для поддержания здоровья почвы, таких как создание удобрений из пожнивных остатков и отходов животноводства.",
+      "Он также направлен на расширение защиты береговой линии и водных экосистем, где производятся продукты питания. Некоторые из этих политик, которые все еще находятся в разработке, будут основаны на Плане голубой экономики Галапагосских островов, разработанном с 2025 года. Этот план, рассчитанный на период до 2040 года, включает в себя создание новых зон для рыболовства, совершенствование планов управления морскими охраняемыми территориями и инвестирование в проекты кустарного рыболовства, в частности те, которые возглавляются женщинами.",
+      "В стратегии говорится, что стране понадобится прибрежная инфраструктура, устойчивая к изменению климата. Эль-Ниньо вызвало наводнения и повышение температуры океана, что нарушает миграцию рыб. Однако план не включает подробностей о том, какой может быть инфраструктура и сколько она будет стоить. Вместо этого он делает упор на исследования, возможности финансирования и координацию между государственными учреждениями.",
+      "Некоторые источники финансирования могут включать Межамериканский банк развития и Французское агентство развития, а также BanEcuador и Банк развития Эквадора. Стратегия также предлагает использовать «зеленые» облигации и обмен долгов на природу.",
+      "«Доступ к этому финансированию может ускорить изменения в производстве и поддержать переход к комплексной модели биоэкономики», — говорится в стратегии.",
+      "Проблемы впереди",
+      "Иногда цели стратегии противоречат текущим экономическим приоритетам правительства. Компания заявляет, что хочет снизить зависимость от ископаемого топлива и выбросы парниковых газов, инвестируя в биоэтанол, биодизель, биогаз и твердое биотопливо. Но бюджет страны в этом году по-прежнему выделяет 4,83 миллиарда долларов на нефтегазовый сектор, из них 623,88 миллиона долларов на разведку и добычу.",
+      "В стратегии также говорится, что большинство проектов будут сочетать научные исследования с участием коренных народов и их традиционными знаниями об окружающей среде и местных продовольственных системах.",
+      "«Их традиционные знания, наследственная практика и мировоззрение обеспечивают основу для инноваций в разработке моделей устойчивого производства, биопродуктов, основанных на местной идентичности, и стратегий комплексного управления экосистемами», — говорится в стратегии.",
+      "Однако эти усилия предпринимаются в то время, когда правительство продолжает подвергаться критике в отношении своего обращения с коренными народами. Нефтяные блоки и горнодобывающие концессии загрязняют и вырубают леса на территории коренных народов, а лидеры общин сталкиваются с тактикой притеснения со стороны властей.",
+      "В прошлом наблюдатели заявляли, что в проектах биоэкономики страны экономические цели отдаются приоритету над потребностями местных сообществ.",
+      "В одном исследовании 2024 года описывалась община кичва в Амазонке, которая начала устойчивое производство и продажу чая с целью создания рабочих мест и стимулирования жителей защищать тропические леса. В прошлом община продавала листья международным производителям чая, но в конечном итоге решила перерабатывать листья самостоятельно, создавая более прямую экономическую выгоду, не вступая в противоречие с образом жизни своих предков.",
+      "В исследовании утверждается, что правительство не приняло во внимание подобные виды общественной практики и что крайне важно, чтобы политика биоэкономики Эквадора основывалась на этих принципах и опыте.",
+      "Изображение на баннере: Поиск местных семян в лесу недалеко от Альто-Ила, в эквадорском регионе Амазонки. Изображение Долорес Очоа/AP Photo.",
+      "Цитирование: Куэстас-Каса, Дж., Толедо, Л., и Родригес, Ф. (2024). Управление транскультурной биоэкономикой в ​​многонациональном государстве: Сумак Каусай и биопроизводство на двух территориях Кичва в Эквадоре. Лесная политика и экономика, 163, 103227. doi:10.1016/j.forpol.2024.103227.",
+      "См. материалы этого репортера:",
+      "Медный рудник в Эквадоре продвигается вперед, несмотря на противодействие со стороны коренных общин",
+      "ОБРАТНАЯ СВЯЗЬ: Используйте эту форму, чтобы отправить сообщение автору этого сообщения. Если вы хотите опубликовать публичный комментарий, вы можете сделать это внизу страницы."
      ]
     }
    }
