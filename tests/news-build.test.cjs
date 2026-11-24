@@ -62,23 +62,28 @@ function make(topic, source, n, { video = false, start = NOW.getTime() - 36e5, p
   }));
 }
 
-test("an edition is nine stories: each topic's share, with videos where planned", () => {
-  const candidates = [
-    ...make("world", "A", 5), ...make("world", "B", 5), ...make("world", "VA", 3, { video: true }),
-    ...make("tech", "C", 5), ...make("tech", "VC", 3, { video: true }),
-    ...make("funny", "D", 5), ...make("funny", "E", 5),
-    ...make("animals", "F", 5), ...make("animals", "VF", 3, { video: true })
-  ];
-  const items = lib.pickEdition(candidates, { plan: PLAN, now: NOW });
-  assert.equal(items.length, 9);
+// Plenty of stories for every topic in the plan: articles from two sources,
+// and videos where the plan wants them.
+function plenty() {
+  return PLAN.flatMap((p) => [
+    ...make(p.topic, `${p.topic}A`, 5),
+    ...make(p.topic, `${p.topic}B`, 5),
+    ...(p.videos ? make(p.topic, `${p.topic}V`, 3, { video: true }) : [])
+  ]);
+}
+
+test("an edition is eighteen stories: each topic's share, with videos where planned", () => {
+  const items = lib.pickEdition(plenty(), { plan: PLAN, now: NOW });
+  assert.equal(items.length, 18);
   const count = (pred) => items.filter(pred).length;
   for (const p of PLAN) assert.equal(count((s) => s.topic === p.topic), p.count, p.topic);
   for (const p of PLAN) assert.equal(count((s) => s.topic === p.topic && s.video), p.videos, `${p.topic} videos`);
   assert.equal(count((s) => s.side === "light"), 4);
   assert.equal(count((s) => s.side === "serious"), 5);
-  // Sources take turns: world's two articles come from A and B.
-  assert.deepEqual(items.filter((s) => s.topic === "world" && !s.video).map((s) => s.source).sort(), ["A", "B"]);
-  assert.equal(new Set(items.map((s) => s.id)).size, 9, "ids are unique");
+  for (const side of ["trending", "uzbekistan", "football"]) assert.equal(count((s) => s.side === side), 3, side);
+  // Sources take turns: world's two articles come from both sources.
+  assert.deepEqual(items.filter((s) => s.topic === "world" && !s.video).map((s) => s.source).sort(), ["worldA", "worldB"]);
+  assert.equal(new Set(items.map((s) => s.id)).size, 18, "ids are unique");
 });
 
 test("stories older than a week, already shown, or live streams are left out", () => {
@@ -99,9 +104,9 @@ test("the same story from two sources appears once", () => {
 });
 
 test("a topic short of stories hands its places to its own side first", () => {
-  const candidates = [...make("world", "A", 10), ...make("tech", "C", 10), ...make("funny", "D", 10), ...make("animals", "F", 1)];
+  const candidates = plenty().filter((s) => s.topic !== "animals" || s.source === "animalsA").filter((s) => s.topic !== "animals" || s.title.endsWith(" 1"));
   const items = lib.pickEdition(candidates, { plan: PLAN, now: NOW });
-  assert.equal(items.length, 9);
+  assert.equal(items.length, 18);
   assert.equal(items.filter((s) => s.side === "light").length, 4, "funny fills the animals gap");
   assert.equal(items.filter((s) => s.topic === "funny").length, 3);
 });
@@ -136,4 +141,79 @@ test("article text: enough paragraphs to read, or nothing", () => {
   const out = lib.paragraphsFrom([...long, "Subscribe to our newsletter"]);
   assert.equal(out.length, 8);
   assert.ok(!out.some((p) => /Subscribe/.test(p)));
+});
+
+test("Google Trends: the most searched first, each with a story about it", () => {
+  const stories = lib.parseFeed(fs.readFileSync(path.join(FIX, "trends.xml"), "utf8"), { topic: "trending", name: "Google Trends" });
+  assert.equal(stories.length, 2);
+  const [top] = stories;
+  assert.equal(top.title, "Barcelona win the derby & go top of the league");
+  assert.equal(top.url, "https://sport.example.com/barcelona-derby");
+  assert.equal(top.source, "Sport Example");
+  assert.deepEqual(top.trend, { query: "barcelona", traffic: "500K+" });
+  assert.equal(top.image, "https://encrypted-tbn1.gstatic.com/images?q=tbn:news");
+  assert.equal(top.publishedAt, "2026-11-24T04:40:00.000Z");
+  assert.equal(lib.trafficOf("500K+"), 500000);
+  assert.equal(lib.trafficOf("2M+"), 2000000);
+  // Picked by searches, not by time: the smaller trend is newer here but comes second.
+  const later = new Date("2026-11-24T06:00:00Z");
+  const picked = lib.pickEdition([{ ...stories[1], publishedAt: "2026-11-24T05:00:00.000Z" }, top], { plan: PLAN, now: later });
+  assert.deepEqual(picked.map((s) => s.trend.query), ["barcelona", "weather"]);
+  assert.ok(!("rank" in picked[0]), "ranking isn't written to the edition");
+});
+
+test("Google News: the publisher, not Google, is the source; fallbacks come last", () => {
+  const [story] = lib.parseFeed(fs.readFileSync(path.join(FIX, "google-news.xml"), "utf8"), { topic: "uzbekistan", name: "Google News", lang: "uz", fallback: true });
+  assert.equal(story.title, "Toshkentda yangi metro bekati ochildi");
+  assert.equal(story.source, "Kun.uz");
+  assert.equal(story.lang, "uz");
+  assert.equal(story.summary, "", "the link list that repeats the title isn't a summary");
+  const own = make("uzbekistan", "Daryo", 3, { start: NOW.getTime() - 5 * 864e5 });
+  const picked = lib.pickEdition([{ ...story, publishedAt: new Date(NOW.getTime() - 36e5).toISOString() }, ...own], { plan: PLAN, now: NOW });
+  assert.deepEqual(picked.slice(0, 3).map((s) => s.source), ["Daryo", "Daryo", "Daryo"], "older stories from a main source win over a newer fallback");
+  assert.ok(!("fallback" in picked[0]));
+  const few = lib.pickEdition([{ ...story, publishedAt: NOW.toISOString() }, ...own.slice(0, 2)], { plan: PLAN, now: NOW });
+  assert.equal(few.filter((s) => s.source === "Kun.uz").length, 1, "used when the main sources run short");
+});
+
+// A pretend translator: upper-cases each text, keeping blank lines between them.
+const upper = async (t) => t.toUpperCase();
+
+test("translations go in batches and come back in the right places", async () => {
+  const calls = [];
+  const texts = ["one", "", "two", "three ".repeat(15).trim(), "four"];
+  const out = await lib.translateTexts(texts, async (t) => (calls.push(t), upper(t)), { max: 120 });
+  assert.deepEqual(out, ["ONE", "", "TWO", "THREE ".repeat(15).trim(), "FOUR"]);
+  assert.equal(calls.length, 1, `${calls.length} requests for 4 texts`);
+  const small = [];
+  await lib.translateTexts(texts, async (t) => (small.push(t), upper(t)), { max: 40 });
+  assert.ok(small.length > 1, "smaller batches take more requests");
+});
+
+test("a batch that comes back merged is retried one text at a time", async () => {
+  const merge = async (t) => t.toUpperCase().replace(/\n\s*\n/g, " ");
+  const out = await lib.translateTexts(["a", "b", "c"], merge);
+  assert.deepEqual(out, ["A", "B", "C"]);
+});
+
+test("a text that can't be translated is left out, never shifted", async () => {
+  const flaky = async (t) => {
+    if (t.includes("bad")) throw new Error("no");
+    return t.toUpperCase();
+  };
+  const out = await lib.translateTexts(["good", "bad", "fine"], flaky);
+  assert.deepEqual(out, ["GOOD", null, "FINE"]);
+  const long = `${"word ".repeat(60)}. ${"more ".repeat(60)}`.trim();
+  const [split] = await lib.translateTexts([long], upper, { max: 200 });
+  assert.equal(split, long.toUpperCase().replace(/\s+/g, " "), "a very long text is cut in two and joined");
+});
+
+test("a story's translation keeps its shape; a half-translated article is dropped", async () => {
+  const story = { title: "Title", summary: "Sum", body: ["P1", "P2"] };
+  assert.deepEqual(await lib.translateStory(story, (texts) => lib.translateTexts(texts, upper)), { title: "TITLE", summary: "SUM", body: ["P1", "P2"].map((p) => p.toUpperCase()) });
+  const partial = (texts) => lib.translateTexts(texts, async (t) => (t === "P2" ? Promise.reject(new Error("x")) : t.includes("P2") ? t.replace("P2", "") : upper(t)));
+  const tr = await lib.translateStory(story, partial);
+  assert.equal(tr.title, "TITLE");
+  assert.ok(!("body" in tr), "no body rather than half of one");
+  assert.equal(await lib.translateStory(story, async () => [null, null, null, null]), null);
 });

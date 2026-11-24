@@ -7,19 +7,48 @@
 // To add one: give it a topic from PLAN below and either a `url` (RSS/Atom)
 // or a `youtube` channel id (the "UC…" part of a channel address).
 
-// What one edition holds: 9 stories, then the fun fact makes 10.
-// `videos` is how many of a topic's stories should be videos when there are any.
+// What one edition holds: 18 stories, then the fun fact. `side` is the page
+// section a topic shows in; `videos` is how many of a topic's stories should
+// be videos when there are any.
 export const PLAN = [
+  { topic: "trending", side: "trending", label: "Trending", count: 3, videos: 0 },
+  { topic: "uzbekistan", side: "uzbekistan", label: "Uzbekistan", count: 3, videos: 0 },
+  { topic: "football", side: "football", label: "Football", count: 3, videos: 1 },
   { topic: "world", side: "serious", label: "World & politics", count: 3, videos: 1 },
   { topic: "tech", side: "serious", label: "Technology", count: 2, videos: 1 },
   { topic: "funny", side: "light", label: "Funny & odd", count: 2, videos: 0 },
   { topic: "animals", side: "light", label: "Animals", count: 2, videos: 1 }
 ];
 
+// Every story and fun fact is also given in these languages (the page can
+// switch between them). A source's `lang` is the language it publishes in;
+// "auto" lets the translator tell.
+export const LANGS = ["en", "uz", "ru"];
+
 // Words that mark a story as being about animals, for general science feeds.
 const ANIMALS = /\b(animal|animals|dog|dogs|puppy|cat|cats|kitten|bird|birds|whale|whales|dolphin|shark|elephant|lion|tiger|bear|bears|wolf|wolves|fox|monkey|ape|gorilla|chimp|panda|penguin|turtle|tortoise|frog|snake|insect|bee|bees|butterfly|spider|octopus|seal|otter|horse|cow|sheep|goat|pig|owl|eagle|parrot|species|wildlife|zoo|fish|beaver|koala|kangaroo|deer|rhino|giraffe|hippo|crocodile|bat|bats|squirrel|hedgehog)\b/i;
 
+// `fallback: true` sources are only used when the others of a topic run short.
 export const SOURCES = [
+  // Trending: what people search for most today, each with a story about it.
+  { topic: "trending", name: "Google Trends", url: "https://trends.google.com/trending/rss?geo=US" },
+  { topic: "trending", name: "Google Trends", url: "https://trends.google.com/trending/rss?geo=GB" },
+  { topic: "trending", name: "Google Trends", url: "https://trends.google.com/trending/rss?geo=UZ", lang: "auto" },
+
+  // Uzbekistan
+  { topic: "uzbekistan", name: "Kun.uz", url: "https://kun.uz/news/rss", lang: "uz" },
+  { topic: "uzbekistan", name: "Gazeta.uz", url: "https://www.gazeta.uz/uz/rss/", lang: "uz" },
+  { topic: "uzbekistan", name: "Daryo", url: "https://daryo.uz/feed/", lang: "uz" },
+  { topic: "uzbekistan", name: "Google News", url: "https://news.google.com/rss?hl=uz&gl=UZ&ceid=UZ:uz", lang: "uz", fallback: true },
+  { topic: "uzbekistan", name: "Google News", url: "https://news.google.com/rss/search?q=Uzbekistan&hl=en-US&gl=US&ceid=US:en", fallback: true },
+
+  // Football
+  { topic: "football", name: "BBC Sport", url: "https://feeds.bbci.co.uk/sport/football/rss.xml" },
+  { topic: "football", name: "The Guardian", url: "https://www.theguardian.com/football/rss" },
+  { topic: "football", name: "Sky Sports", url: "https://www.skysports.com/rss/12040" },
+  { topic: "football", name: "Premier League", youtube: "UCG5qGWdu8nIRZqJ_GgDwQ-w" },
+  { topic: "football", name: "FIFA", youtube: "UCpcTrCXblq78GZrTUTLWeBw" },
+
   // World & politics
   { topic: "world", name: "BBC News", url: "https://feeds.bbci.co.uk/news/world/rss.xml" },
   { topic: "world", name: "The Guardian", url: "https://www.theguardian.com/world/rss" },

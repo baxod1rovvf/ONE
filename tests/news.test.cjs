@@ -76,6 +76,12 @@ function serveNews({ days = [TODAY, YESTERDAY], editions = { [TODAY]: todayEditi
     });
   };
 }
+// Esc closes the reader once focus has moved into it.
+async function closeReader(page) {
+  await page.waitForFunction(() => document.activeElement && document.activeElement.closest("[role=dialog]"));
+  await page.keyboard.press("Escape");
+  await page.getByRole("dialog").waitFor({ state: "detached" });
+}
 const notMissingFiles = (errors) => errors.filter((e) => !/Failed to load resource/.test(e));
 
 test("today's edition: the fun fact, then the light side and the serious side", async () => {
@@ -175,8 +181,8 @@ test("a picture that doesn't load leaves a plain tile, not a broken image", asyn
 });
 
 test("before the first edition, the page says the news is on its way", async () => {
-  // The repo's own news/index.json, which lists no days until the first run.
-  const { page, errors } = await openApp(browser, server.url, { route: "news" });
+  // news/index.json as it was committed, listing no days until the first run.
+  const { page, errors } = await openApp(browser, server.url, { route: "news", init: serveNews({ days: [] }) });
   await page.getByText("The first edition is on its way").waitFor();
   assert.deepEqual(errors, []);
   await page.close();
@@ -195,5 +201,109 @@ test("on a phone the news fits the screen, with no sideways scroll", async () =>
   await page.locator("main").getByRole("button", { name: /^Watch: Story w2/ }).click();
   const frame = await page.locator('[role="dialog"] iframe').boundingBox();
   assert.ok(frame.width > 250 && frame.x >= 0 && frame.x + frame.width <= 375, `player ${frame.x}..${frame.x + frame.width}`);
+  await page.close();
+});
+
+// ---------- Languages and the new sections ----------
+
+const tr = (id, lang) => ({ title: `[${lang}] Story ${id}`, summary: `[${lang}] Summary ${id}.`, body: [`[${lang}] Paragraph one of ${id}.`, `[${lang}] Paragraph two of ${id}.`] });
+const multilingual = {
+  date: TODAY,
+  fact: { text: "Octopuses have three hearts.", lang: "en", url: null, tr: { uz: { text: "Sakkizoyoqlarning uchta yuragi bor." }, ru: { text: "У осьминогов три сердца." } } },
+  items: [
+    { ...story("tr1", "trending", "trending"), lang: "en", trend: { query: "barcelona", traffic: "500K+" }, tr: { uz: tr("tr1", "uz"), ru: tr("tr1", "ru") } },
+    { ...story("uz1", "uzbekistan", "uzbekistan"), title: "Toshkentda yangi metro bekati", summary: "Qisqacha.", body: ["Birinchi xatboshi.", "Ikkinchi xatboshi."], lang: "uz", tr: { en: tr("uz1", "en"), ru: tr("uz1", "ru") } },
+    { ...story("fb1", "football", "football"), lang: "en", tr: { uz: { title: "[uz] Story fb1", summary: "[uz] Summary fb1." }, ru: tr("fb1", "ru") } },
+    { ...story("w1", "serious", "world"), lang: "en", tr: {} },
+    { ...story("a1", "light", "animals"), lang: "en", tr: { uz: tr("a1", "uz"), ru: tr("a1", "ru") } }
+  ]
+};
+const serveMultilingual = (extra) => serveNews({ days: [TODAY], editions: { [TODAY]: multilingual }, ...extra });
+
+test("sections: trending across the top, then Uzbekistan and football, then the two sides", async () => {
+  const { page, errors } = await openApp(browser, server.url, { route: "news", init: serveMultilingual() });
+  const main = page.locator('main[data-section="news"]');
+  await main.getByRole("region", { name: "Trending now" }).waitFor();
+  const titles = await main.locator(".news-side__title").allTextContents();
+  assert.deepEqual(titles, ["Trending now", "Uzbekistan", "Football", "The light side", "The serious side"]);
+  const trending = main.getByRole("region", { name: "Trending now" });
+  assert.ok(await trending.getByText("barcelona · 500K+").isVisible(), "what was searched, and how much");
+  // Next goes through the sections in the order they're shown.
+  await trending.getByRole("button", { name: /^Read: Story tr1/ }).click();
+  for (const title of ["[en] Story uz1", "Story fb1 about football", "Story a1 about animals", "Story w1 about world"]) {
+    await page.getByRole("dialog").getByRole("button", { name: "Next story" }).or(page.getByRole("dialog").getByRole("button", { name: "Done" })).first().click();
+    await page.getByRole("dialog", { name: title }).waitFor();
+  }
+  assert.ok(await page.getByRole("dialog").getByRole("button", { name: "Done" }).isVisible(), "the last story ends with Done");
+  assert.deepEqual(notMissingFiles(errors), []);
+  await page.close();
+});
+
+test("switching the language: stories, the fun fact and the page's own words", async () => {
+  const { page } = await openApp(browser, server.url, { route: "news", init: serveMultilingual() });
+  const main = page.locator('main[data-section="news"]');
+  // The switch is named in the language shown: "News language", "Yangiliklar tili", …
+  const langs = main.locator(".news-lang [role=group]");
+  await main.getByRole("group", { name: "News language" }).waitFor();
+  assert.equal(await langs.getByRole("button", { name: "English" }).getAttribute("aria-pressed"), "true");
+  // In English, the Uzbek story reads in its English translation.
+  assert.ok(await main.getByText("[en] Story uz1").isVisible());
+  assert.ok(await main.getByText("Octopuses have three hearts.").isVisible());
+
+  await langs.getByRole("button", { name: "Oʻzbekcha" }).click();
+  assert.ok(await main.getByText("Sakkizoyoqlarning uchta yuragi bor.").isVisible());
+  assert.ok(await main.getByRole("heading", { name: "Kunning qiziqarli fakti" }).isVisible());
+  assert.ok(await main.getByRole("region", { name: "Hozir trendda" }).isVisible());
+  assert.ok(await main.getByText("Toshkentda yangi metro bekati").isVisible(), "an Uzbek story as it was published");
+  assert.ok(await main.getByText("[uz] Story tr1").isVisible());
+  assert.ok(await main.getByRole("group", { name: "Son" }).getByRole("button", { name: "Bugun" }).isVisible());
+  assert.equal(await main.locator(".news-card__title", { hasText: "[uz] Story tr1" }).getAttribute("lang"), "uz");
+
+  // The reader, in Uzbek.
+  await main.getByRole("button", { name: /^Oʻqish: \[uz\] Story a1/ }).click();
+  const reader = page.getByRole("dialog", { name: "[uz] Story a1" });
+  assert.ok(await reader.getByText("[uz] Paragraph one of a1.").isVisible());
+  assert.ok(await reader.getByRole("button", { name: "Keyingi yangilik" }).isVisible());
+  await closeReader(page);
+
+  // A story with no Uzbek translation is shown as published, and says so.
+  await main.getByRole("button", { name: /^Oʻqish: Story w1/ }).click();
+  assert.ok(await page.getByRole("dialog").getByText(/hali oʻzbekchaga tarjima qilinmagan/).isVisible());
+  await closeReader(page);
+  // One whose summary was translated but not its article: the article as published, with a note.
+  await main.getByRole("button", { name: /^Oʻqish: \[uz\] Story fb1/ }).click();
+  const fb = page.getByRole("dialog", { name: "[uz] Story fb1" });
+  assert.ok(await fb.getByText("First paragraph of story fb1.").isVisible());
+  assert.ok(await fb.getByText(/Toʻliq matnni tarjima qilib boʻlmadi/).isVisible());
+  await closeReader(page);
+
+  await langs.getByRole("button", { name: "Русский" }).click();
+  assert.ok(await main.getByText("У осьминогов три сердца.").isVisible());
+  assert.ok(await main.getByRole("region", { name: "Узбекистан" }).isVisible());
+  assert.ok(await main.getByText("[ru] Story uz1").isVisible());
+
+  // The choice is remembered.
+  await page.reload();
+  await main.getByText("У осьминогов три сердца.").waitFor();
+  assert.equal(await main.getByRole("group", { name: "Язык новостей" }).getByRole("button", { name: "Русский" }).getAttribute("aria-pressed"), "true");
+  await page.close();
+});
+
+test("an edition from before translations reads as it always did in English", async () => {
+  const { page } = await openApp(browser, server.url, { route: "news", init: serveNews() });
+  const main = page.locator('main[data-section="news"]');
+  await main.getByRole("button", { name: /^Read: Story f1/ }).click();
+  assert.equal(await page.getByRole("dialog").locator(".news-reader__note").count(), 0, "no note in English");
+  await page.close();
+});
+
+test("the language switch fits a phone", async () => {
+  const { page } = await openApp(browser, server.url, { route: "news", viewport: { width: 375, height: 812 }, init: serveMultilingual() });
+  const langs = page.getByRole("group", { name: "News language" });
+  await langs.waitFor();
+  const box = await langs.boundingBox();
+  assert.ok(box.x >= 0 && box.x + box.width <= 375, `switch ${box.x}..${box.x + box.width}`);
+  for (const b of await langs.getByRole("button").evaluateAll((els) => els.map((e) => e.getBoundingClientRect().toJSON()))) assert.ok(b.height >= 28 && b.x + b.width <= 375);
+  assert.equal(await page.evaluate(() => document.documentElement.scrollWidth), 375);
   await page.close();
 });
