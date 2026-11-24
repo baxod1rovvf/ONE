@@ -239,3 +239,9 @@ test("an RSS 1.0 (RDF) feed, as DW publishes", () => {
   assert.equal(s.url, "https://www.dw.com/en/a-1");
   assert.equal(s.publishedAt, "2026-11-23T10:00:00.000Z");
 });
+
+test("a <source> without an address (a photo credit, say) isn't taken for the publisher", () => {
+  const xml = `<rss version="2.0"><channel><item><title>Hostages in Cartagena</title><link>https://www.france24.com/en/a</link><pubDate>Mon, 23 Nov 2026 10:00:00 GMT</pubDate><source>© Photographer, AP</source></item></channel></rss>`;
+  const [s] = lib.parseFeed(xml, { topic: "world", name: "France 24" });
+  assert.equal(s.source, "France 24");
+});
