@@ -15,6 +15,7 @@ import { JSDOM, VirtualConsole } from "jsdom";
 import { Readability } from "@mozilla/readability";
 import { PLAN, SOURCES, LANGS, youtubeFeed, FACT_TODAY, FACT_RANDOM } from "./sources.mjs";
 import { FACTS } from "./facts.mjs";
+import { toUzbekLatin } from "./uzbek.mjs";
 import { parseFeed, pickEdition, pickFact, editionDate, daysToKeep, keysOf, paragraphsFrom, upgradeImage, cleanText, translateTexts, translateStory } from "./lib.mjs";
 
 const HERE = path.dirname(fileURLToPath(import.meta.url));
@@ -170,6 +171,10 @@ async function main() {
       if (!story.summary && body) story.summary = cleanText(body[0]).slice(0, 320);
     }
 
+    // Uzbek in the usual Latin spelling, however a source writes it.
+    const uzLatin = (t) => (t ? { ...t, ...(t.title ? { title: toUzbekLatin(t.title) } : {}), ...(t.summary ? { summary: toUzbekLatin(t.summary) } : {}), ...(t.body ? { body: t.body.map(toUzbekLatin) } : {}), ...(t.text ? { text: toUzbekLatin(t.text) } : {}) } : t);
+    for (const story of items) if (story.lang === "uz") Object.assign(story, uzLatin(story));
+
     const fact = pickFact(await offeredFacts(), { usedFacts, fallback: FACTS, date });
 
     // Every story and the fact in each of LANGS.
@@ -185,7 +190,7 @@ async function main() {
           try {
             const tr = await translateStory(story, translator(from, to));
             if (tr) {
-              story.tr[to] = tr;
+              story.tr[to] = to === "uz" ? uzLatin(tr) : tr;
               done++;
             }
           } catch (e) {
@@ -198,7 +203,7 @@ async function main() {
         fact.tr = {};
         for (const to of LANGS.filter((l) => l !== "en")) {
           const [text] = await translator("en", to)([fact.text]).catch(() => [null]);
-          if (text) fact.tr[to] = { text };
+          if (text) fact.tr[to] = { text: to === "uz" ? toUzbekLatin(text) : text };
         }
       }
       log(`Translated ${done} of ${wanted} story versions.`);
