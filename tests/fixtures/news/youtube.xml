@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<feed xmlns:yt="http://www.youtube.com/xml/schemas/2015" xmlns:media="http://search.yahoo.com/mrss/" xmlns="http://www.w3.org/2005/Atom">
+ <title>Example Channel</title>
+ <entry>
+  <id>yt:video:dQw4w9WgXcQ</id>
+  <yt:videoId>dQw4w9WgXcQ</yt:videoId>
+  <title>Puppy meets a duckling for the first time</title>
+  <link rel="alternate" href="https://www.youtube.com/watch?v=dQw4w9WgXcQ"/>
+  <published>2026-11-23T15:00:00+00:00</published>
+  <media:group>
+   <media:title>Puppy meets a duckling for the first time</media:title>
+   <media:thumbnail url="https://i2.ytimg.com/vi/dQw4w9WgXcQ/hqdefault.jpg" width="480" height="360"/>
+   <media:description>They became best friends. Subscribe for more!</media:description>
+  </media:group>
+ </entry>
+ <entry>
+  <id>yt:video:LIVE0000000</id>
+  <yt:videoId>LIVE0000000</yt:videoId>
+  <title>LIVE: watch the puppies all day</title>
+  <link rel="alternate" href="https://www.youtube.com/watch?v=LIVE0000000"/>
+  <published>2026-11-23T16:00:00+00:00</published>
+  <media:group><media:description>Stream</media:description></media:group>
+ </entry>
+</feed>

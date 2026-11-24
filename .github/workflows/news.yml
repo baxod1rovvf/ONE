@@ -1,0 +1,66 @@
+# Core's daily news: builds today's edition (news/<date>.json) from public
+# news feeds and YouTube channel feeds, keeps the past seven days, and commits
+# the result, so the News page has something new every morning.
+# Run it by hand from the Actions tab ("Run workflow") at any time.
+name: Daily news
+
+on:
+  schedule:
+    # Every day at 01:17 UTC.
+    - cron: "17 1 * * *"
+  workflow_dispatch:
+    inputs:
+      force:
+        description: "Rebuild today's edition even if it already exists"
+        type: boolean
+        default: false
+
+permissions:
+  contents: write
+
+concurrency:
+  group: daily-news
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+          cache-dependency-path: tools/news/package-lock.json
+
+      - name: Install the builder
+        working-directory: tools/news
+        run: npm ci --no-audit --no-fund
+
+      - name: Check the builder
+        run: node --test tests/news-build.test.cjs
+
+      - name: Build today's edition
+        env:
+          NEWS_TZ: UTC
+          NEWS_FORCE: ${{ inputs.force && '1' || '' }}
+        run: node tools/news/build-news.mjs
+
+      - name: Commit the edition
+        run: |
+          git add -A news
+          if git diff --cached --quiet; then
+            echo "Nothing new to commit."
+            exit 0
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git commit -m "news: edition for $(date -u +%F)"
+          for attempt in 1 2 3 4; do
+            git pull --rebase --quiet && git push && exit 0
+            sleep $((attempt * 5))
+          done
+          echo "Couldn't push the edition." >&2
+          exit 1

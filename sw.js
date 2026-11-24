@@ -7,6 +7,10 @@
 // Sync requests to Supabase are never cached.
 const CACHE = "one-v8";
 const INDEX = new URL("./index.html", self.location.href).href;
+// The daily news editions (news/*.json) change every day under the same
+// addresses, so they come from the network first; the saved copy is only for
+// reading offline.
+const NEWS = new URL("./news/", self.location.href).href;
 // Surahs saved with "Keep offline"; never cleared by version updates.
 const QURAN_OFFLINE = "one-quran-offline";
 // Whole audio files (nature recordings, calm music) cached once played.
@@ -23,10 +27,8 @@ const SHELL = [
   // Every game's files (keep in step with GAME_FILES in index.html).
   ...["panel", "snake", "tetris", "breakout", "2048", "minesweeper", "memory"].flatMap((f) => [`./games/${f}.js`, `./games/${f}.css`]),
   // Every page's files and Telegram's own scripts (PAGE_FILES in index.html).
-  ...["home", "tasks", "quran", "websites", "ideas", "telegram", "saved", "goals", "knowledge", "preferences"].flatMap((p) => [`./pages/${p}/${p}.js`, `./pages/${p}/${p}.css`]),
+  ...["home", "tasks", "news", "websites", "ideas", "telegram", "goals", "knowledge", "preferences"].flatMap((p) => [`./pages/${p}/${p}.js`, `./pages/${p}/${p}.css`]),
   ...["rules", "client", "service", "qr"].map((f) => `./pages/telegram/${f}.js`),
-  "./pages/quran/rules.js",
-  "./pages/quran/data/index.json",
   "https://cdnjs.cloudflare.com/ajax/libs/react/18.3.1/umd/react.production.min.js",
   "https://cdnjs.cloudflare.com/ajax/libs/react-dom/18.3.1/umd/react-dom.production.min.js"
 ];
@@ -124,6 +126,20 @@ self.addEventListener("fetch", (event) => {
           );
           return fetch(req);
         })
+    );
+    return;
+  }
+
+  if (req.url.startsWith(NEWS)) {
+    event.respondWith(
+      caches.open(CACHE).then((cache) =>
+        fetch(req)
+          .then((res) => {
+            if (res.status === 200) cache.put(req.url, res.clone());
+            return res;
+          })
+          .catch(() => cache.match(req.url).then((hit) => hit || Response.error()))
+      )
     );
     return;
   }

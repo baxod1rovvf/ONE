@@ -13,7 +13,7 @@ after(async () => {
 });
 
 test("app boots on every route with no console errors", async () => {
-  for (const route of ["home", "tasks", "quran", "websites", "ideas", "saved", "preferences"]) {
+  for (const route of ["home", "tasks", "news", "websites", "ideas", "preferences"]) {
     const { page, errors } = await openApp(browser, server.url, { route });
     assert.ok(await page.locator("#main").isVisible(), `#main visible on ${route}`);
     assert.deepEqual(errors, [], `no console errors on ${route}`);

@@ -1,7 +1,7 @@
 {
   "name": "Core",
   "short_name": "Core",
-  "description": "Tasks, websites, ideas and saved links in one place.",
+  "description": "Tasks, websites, ideas and the daily news in one place.",
   "start_url": "./#home",
   "scope": "./",
   "display": "standalone",

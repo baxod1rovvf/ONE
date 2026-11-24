@@ -26,7 +26,7 @@ test("no sidebar or top bar; one glass dock at the bottom", async () => {
 
 test("dock tabs navigate and mark the current page", async () => {
   const { page } = await openApp(browser, server.url, { route: "tasks" });
-  for (const name of ["Websites", "Ideas", "Saved", "Home", "Tasks", "Quran"]) {
+  for (const name of ["Websites", "Ideas", "News", "Home", "Tasks", "Telegram"]) {
     await dockOf(page).getByRole("link", { name }).click();
     assert.equal(await dockOf(page).getByRole("link", { name }).getAttribute("aria-current"), "page", name);
   }
@@ -34,10 +34,10 @@ test("dock tabs navigate and mark the current page", async () => {
 });
 
 test("dock tabs are at least 44px and the page never scrolls sideways at 375px", async () => {
-  for (const route of ["home", "tasks", "quran", "websites", "ideas", "telegram", "saved", "preferences"]) {
+  for (const route of ["home", "tasks", "websites", "ideas", "telegram", "news", "preferences"]) {
     const { page } = await openApp(browser, server.url, { route, viewport: { width: 375, height: 812 } });
     const boxes = await page.locator(".dock__tab").evaluateAll((els) => els.map((e) => e.getBoundingClientRect().toJSON()));
-    assert.equal(boxes.length, 7);
+    assert.equal(boxes.length, 6);
     for (const b of boxes) assert.ok(b.width >= 44 && b.height >= 44, `tab ${b.width}x${b.height} on ${route}`);
     for (const b of boxes) assert.ok(b.x >= 0 && b.x + b.width <= 375, `tab at ${b.x}..${b.x + b.width} is off screen on ${route}`);
     const clipped = await page.locator(".dock__tab").evaluateAll((els) => els.filter((e) => e.scrollWidth > e.clientWidth + 1).map((e) => e.textContent));
@@ -92,9 +92,9 @@ test("last list item is not covered by the dock", async () => {
   await page.close();
 });
 
-test("eight dock tabs keep their labels on larger phones too", async () => {
+test("dock tabs keep their labels on larger phones too", async () => {
   for (const width of [390, 414, 430, 480]) {
-    const { page } = await openApp(browser, server.url, { route: "quran", viewport: { width, height: 900 } });
+    const { page } = await openApp(browser, server.url, { route: "news", viewport: { width, height: 900 } });
     const boxes = await page.locator(".dock__tab").evaluateAll((els) => els.map((e) => e.getBoundingClientRect().toJSON()));
     for (const b of boxes) assert.ok(b.x >= 0 && b.x + b.width <= width && b.width >= 44, `tab ${b.x}..${b.x + b.width} at ${width}px`);
     const clipped = await page.locator(".dock__tab").evaluateAll((els) => els.filter((e) => e.scrollWidth > e.clientWidth + 1).map((e) => e.textContent));
@@ -108,6 +108,17 @@ test("Mood is gone: no dock tab, no Home card, no page", async () => {
   assert.equal(await page.getByRole("navigation", { name: "Pages" }).getByRole("link", { name: "Mood" }).count(), 0);
   assert.equal(await page.getByRole("region", { name: "How was today?" }).count(), 0);
   assert.equal(await page.evaluate(() => "MoodFace" in window.__oneApp || "useMoodDay" in window.__oneApp), false);
+  assert.deepEqual(errors, []);
+  await page.close();
+});
+
+test("Quran and Saved are gone: no dock tabs, no pages; News takes Saved's place", async () => {
+  const { page, errors } = await openApp(browser, server.url, { route: "home" });
+  const dock = page.getByRole("navigation", { name: "Pages" });
+  for (const name of ["Quran", "Saved"]) assert.equal(await dock.getByRole("link", { name }).count(), 0, name);
+  const labels = await dock.locator(".dock__tab").allTextContents();
+  assert.equal(labels[labels.length - 1].trim(), "News");
+  assert.equal(await page.evaluate(() => "QuranClip" in window.__oneApp || "useDeleteSaved" in window.__oneApp), false);
   assert.deepEqual(errors, []);
   await page.close();
 });

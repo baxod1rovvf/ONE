@@ -8,7 +8,7 @@ const vm = require("node:vm");
 
 const BODY = "0123456789";
 
-function makeWorld({ offline = {}, media = {}, app = {} } = {}) {
+function makeWorld({ offline = {}, media = {}, app = {}, down = false } = {}) {
   const stores = { "one-quran-offline": new Map(Object.entries(offline)), "one-media": new Map(Object.entries(media)), "one-v8": new Map(Object.entries(app)) };
   const opened = [];
   const added = [];
@@ -48,6 +48,7 @@ function makeWorld({ offline = {}, media = {}, app = {} } = {}) {
   const fakeFetch = async (input, init = {}) => {
     const req = input instanceof Request ? input : new Request(input, init);
     fetched.push({ url: req.url, range: req.headers.get("range") });
+    if (down) throw new TypeError("Failed to fetch");
     const range = /bytes=(\d+)-(\d*)/.exec(req.headers.get("range") || "");
     if (!range) return new Response(BODY, { status: 200, headers: { "content-type": "audio/mpeg" } });
     const start = Number(range[1]);
@@ -192,4 +193,21 @@ test("index.html and sw.js name the same app cache", () => {
   const inPage = /const APP_CACHE = "([^"]+)"/.exec(html)[1];
   const inWorker = /const CACHE = "([^"]+)"/.exec(sw)[1];
   assert.equal(inPage, inWorker);
+});
+
+// ---------- The daily news ----------
+
+const EDITION = "https://one.example/news/2026-11-24.json";
+
+test("news editions come from the network first, and are saved for offline", async () => {
+  const w = makeWorld({ app: { [EDITION]: saved("yesterday's copy") } });
+  const res = await w.dispatch(EDITION);
+  assert.equal(await res.text(), BODY, "the network's copy, not the saved one");
+  assert.ok(w.puts.some((p) => p.url === EDITION && p.status === 200), "saved for offline");
+});
+
+test("offline, the saved news edition is used", async () => {
+  const w = makeWorld({ app: { [EDITION]: saved("saved edition") }, down: true });
+  const res = await w.dispatch(EDITION);
+  assert.equal(await res.text(), "saved edition");
 });

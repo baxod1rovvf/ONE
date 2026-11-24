@@ -1,0 +1,13 @@
+{
+  "private": true,
+  "description": "Builds Core's daily news edition (news/<date>.json). Run: npm ci && node build-news.mjs",
+  "type": "module",
+  "scripts": {
+    "build": "node build-news.mjs"
+  },
+  "dependencies": {
+    "@mozilla/readability": "0.5.0",
+    "fast-xml-parser": "4.5.0",
+    "jsdom": "25.0.1"
+  }
+}
