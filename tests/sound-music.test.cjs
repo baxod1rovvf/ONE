@@ -32,7 +32,7 @@ test("a calm track plays and the mini player follows you to every page", async (
   await playFromAlbum(page, "Long Song");
   await page.waitForFunction(() => window.__oneSound.stats().track && window.__oneSound.stats().track.playing);
   await page.keyboard.press("Escape");
-  for (const name of ["Websites", "Ideas", "Saved", "Home", "Tasks"]) {
+  for (const name of ["Websites", "Ideas", "News", "Home", "Tasks"]) {
     await dockLink(page, name).click();
     assert.match(await mini(page).textContent(), /Long Song/, name);
     assert.equal((await track(page)).playing, true, `still playing on ${name}`);
