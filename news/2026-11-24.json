@@ -1,26 +1,472 @@
 {
  "date": "2026-11-24",
- "generatedAt": "2026-11-24T17:08:46.956Z",
+ "generatedAt": "2026-11-24T17:27:52.538Z",
  "fact": {
   "text": "A horse can look forward with one eye and back with the other.",
   "url": "http://www.djtech.net/humor/useless_facts.htm",
-  "source": "djtech.net"
+  "source": "djtech.net",
+  "lang": "en",
+  "tr": {
+   "uz": {
+    "text": "Ot bir ko'zi bilan oldinga, ikkinchi ko'zi bilan orqaga qarashi mumkin."
+   },
+   "ru": {
+    "text": "Лошадь может смотреть вперед одним глазом и назад другим."
+   }
+  }
  },
  "items": [
   {
-   "id": "rnjfpd",
-   "side": "serious",
-   "topic": "world",
-   "title": "Eight people were arrested after almost a tonne of cocaine was found in boxes of oranges. #BBCNews",
-   "summary": "Subscribe to our channel here: https://bbc.in/bbcnews For the latest news download the BBC News app or visit BBC.com/news #BBCNews",
+   "id": "19wr0hk",
+   "side": "trending",
+   "topic": "trending",
+   "title": "Galatasaray vs Aston Villa: UEFA Champions League stats & head-to-head",
+   "summary": "",
    "body": null,
-   "image": "https://i.ytimg.com/vi/10YVRXekzxw/hqdefault.jpg",
-   "url": "https://www.youtube.com/shorts/10YVRXekzxw",
-   "source": "BBC News",
-   "publishedAt": "2026-11-24T16:32:51.000Z",
+   "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQJA3u60fG2CPSgCSOOw8h-qKM_hVw8OmiHOcX7mIYhnXANl2EAzRbIy6GgOtc",
+   "url": "https://www.bbc.co.uk/sport/football/live/c8wy5dq7dn3wt",
+   "source": "BBC",
+   "publishedAt": "2026-11-24T16:50:00.000Z",
+   "video": null,
+   "lang": "en",
+   "trend": {
+    "query": "galatasaray vs aston villa",
+    "traffic": "50000+"
+   },
+   "tr": {
+    "uz": {
+     "title": "Galatasaroy - Aston Villa: UEFA Chempionlar Ligasi statistikasi va o'zaro to'qnashuv"
+    },
+    "ru": {
+     "title": "Галатасарай – Астон Вилла: статистика Лиги чемпионов УЕФА и личные встречи"
+    }
+   }
+  },
+  {
+   "id": "q2lp11",
+   "side": "trending",
+   "topic": "trending",
+   "title": "Aston Villa’da kritik eksikler! Galatasaray maçı öncesi 4 futbolcu İstanbul’a getirilmedi",
+   "summary": "UEFA Şampiyonlar Ligi'nin 5. haftasında Galatasaray ile karşılaşacak olan Aston Villa, sakatlık açıklaması yaptı.",
+   "body": [
+    "UEFA Şampiyonlar Ligi'nin 5. haftasında Galatasaray ile karşılaşacak olan Aston Villa, sakatlık açıklaması yaptı.",
+    "İngiliz ekibi, 29 yaşındaki sağ bek Matty Cash'in bu mücadelede oynayamayacağını duyurdu.",
+    "Cash'in yanı sıra Aston Villa'da Matteo Ruggeri ile Amadou Onana'nın sakatlıkları; Brian Madjo'nun ise statü gereği İstanbul'a gelecek kafilenin içinde olmayacağı belirtildi.",
+    "www.sozcu.com.tr internet sitesinde yayınlanan yazı, haber ve fotoğrafların her türlü telif hakkı Mega Ajans ve Rek. Tic. A.Ş'ye aittir. İzin alınmadan, kaynak gösterilerek dahi iktibas edilemez.",
+    "Bu habere emoji ile tepki ver"
+   ],
+   "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRZTPlz1xkLKSyDfKL-KfyKbFVrg6ArOs4mbO364QXkDENdS9DW_sZkj3LnWOQ",
+   "url": "https://www.sozcu.com.tr/aston-villa-da-kritik-eksikler-galatasaray-maci-oncesi-4-futbolcu-istanbul-a-getirilmedi-p383807",
+   "source": "Sözcü Gazetesi",
+   "publishedAt": "2026-11-24T16:50:00.000Z",
+   "video": null,
+   "lang": "en",
+   "trend": {
+    "query": "galatasaray - aston villa",
+    "traffic": "5000+"
+   },
+   "tr": {
+    "uz": {
+     "title": "Aston Villa'da kritik yo'qlar! Galatasaray machi oldinsi 4 futbolcu Istanbul'a keltirilmadi",
+     "summary": "UEFA Shampiyonlar Ligining 5. haftasida Galatasaray bilan to'qnash keladigan Aston Villa, sakatlik bilan izoh berdi.",
+     "body": [
+      "UEFA Shampiyonlar Ligining 5. haftasida Galatasaray bilan to'qnash keladigan Aston Villa, sakatlik bilan izoh berdi.",
+      "Britaniya jamoasi, 29 yaşındaki sağ bek Matty Cash'in bu kurashda o'ynaymasligini e'lon qildi.",
+      "Cash'in yani Aston Villa'da Matteo Ruggeri bilan Amadou Onananing sakatliklari; Brayan Madjo'nun esa statü gereği Istanbul'a keladigan kafilenin ichida bo'lmasligi belgilandi.",
+      "www.sozcu.com.tr internet saytida chop etilgan yozma, xabar va fotosuratlarning har xil telif huquqi Mega Ajans ve Rek. Tic. A.Ş'ye aittir. İzin alınmadan, kaynak gösterilerek dahi iktibas edilemez.",
+      "Bu habere emoji bilan tepki ver"
+     ]
+    },
+    "ru": {
+     "title": "Астон Вилла’да критик эксиклер! «Галатасарай» набрал 4 футбола в Стамбуле",
+     "summary": "Чемпионат УЕФА завершился 5-м матчем за «Галатасарай» и командой «Астон Вилла», после чего он получил награду.",
+     "body": [
+      "Чемпионат УЕФА завершился 5-м матчем за «Галатасарай» и командой «Астон Вилла», после чего он получил награду.",
+      "Ингилизу Экиби, 29 лет назад Мэтти Кэшу, который вернулся домой.",
+      "Деньги были внесены в «Астон Виллу» Маттео Руджери и Амаду Онану снова; Брайан Мэджонун сейчас находится в Стамбуле, где он пользуется большой популярностью.",
+      "На интернет-сайтах www.sozcu.com.tr есть все, что нужно, и фотографии, которые можно использовать для просмотра телепередач Mega Ajans и Rek. Тик. А.Шье айттир. Изин alınmadan, kaynak gösterilerek dahi iktibas edilemez.",
+      "У вас есть смайлы, которые вы можете использовать"
+     ]
+    }
+   }
+  },
+  {
+   "id": "opvjc7",
+   "side": "trending",
+   "topic": "trending",
+   "title": "2026-27 Week 12 College Football Playoff, bowl projections",
+   "summary": "",
+   "body": null,
+   "image": "https://encrypted-tbn1.gstatic.com/images?q=tbn:ANd9GcQkTEEJWzq1b44K8t2p5VWqLXX4UrPLfqFyPq1XxM2HTjfqHLQZpIbqnZqvS50",
+   "url": "https://www.espn.com/college-football/story/_/id/50564492/2026-week-12-college-football-playoff-bowl-projections",
+   "source": "ESPN",
+   "publishedAt": "2026-11-24T17:10:00.000Z",
+   "video": null,
+   "lang": "en",
+   "trend": {
+    "query": "college football playoff",
+    "traffic": "2000+"
+   },
+   "tr": {
+    "uz": {
+     "title": "2026-27 12-hafta Kollej futboli pley-offi, piyola prognozlari"
+    },
+    "ru": {
+     "title": "Плей-офф студенческого футбола, 12-я неделя 2026–27, прогнозы на чашу"
+    }
+   }
+  },
+  {
+   "id": "1scsp9w",
+   "side": "uzbekistan",
+   "topic": "uzbekistan",
+   "title": "Vinisius “PSJ”ga o‘tadimi?",
+   "summary": "Fransiyaning “Pari Sen-Jermen” klubi hujum chizig‘idagi muammolarga qaramay, “Real Madrid” vingeri Vinisius Juniorni o‘z safiga qo‘shib olishni rejalashtirmayapti. Taniqli insayder Fabritsio Romano Fabrizio Responde dasturida braziliyalik futbolchining Parij klubiga o‘tishi haqidagi mish-mishlarga oydinlik kiritdi…",
+   "body": [
+    "Fransiyaning “Pari Sen-Jermen” klubi hujum chizig‘idagi muammolarga qaramay, “Real Madrid” vingeri Vinisius Juniorni o‘z safiga qo‘shib olishni rejalashtirmayapti. Taniqli insayder Fabritsio Romano Fabrizio Responde dasturida braziliyalik futbolchining Parij klubiga o‘tishi haqidagi mish-mishlarga oydinlik kiritdi.",
+    "Romanoning aytishicha, “PSJ” hozircha bunday darajadagi yulduz futbolchini o‘z safiga qo‘shishni rejalashtirmayapti:",
+    "“Yo‘q. Tarkibga bu darajada mashhur futbolchi olib kelinmaydi”, dedi insayder Vinisius transferi haqidagi savolga javoban.",
+    "“PSJ”ning hujum chizig‘ini kuchaytirish haqidagi xabarlari jamoada yuzaga kelgan jarohatlar bilan bog‘liq. Parij klubi futbolchilari Dezire Due va Xvicha Kvaratsxeliya xochsimon bog‘lamlari uzilgani sababli uzoq muddatga safdan chiqqan. Shu bois jamoa qishki transfer oynasida yangi hujumchi bilan shartnoma imzolashi mumkin.",
+    "Ayni paytda “Real” vingeri Vinisiusning ham jamoani tark etishi mumkinligi haqida xabarlar tarqalmoqda. Biroq jurnalist Fabritsio Romanoning ma’lum qilishicha, “PSJ” braziliyalik futbolchini sotib olishni rejalashtirmayapti.",
+    "Eslatib o‘tamiz, Vinisius 2018-yilda “Flamengo”dan 45 million yevro evaziga “Real”ga o‘tgan. Transfermarkt portali futbolchining bozor qiymatini 130 million yevroga baholagan."
+   ],
+   "image": "https://gocdn.daryo.uz/large/2026/11/24/6b04f10278a68f67c0298b04891f2cfa2a87912bf7d5d27ba7c8423b3a842891.webp",
+   "url": "https://daryo.uz/2026/11/24/vinisius-psjga-otadimi/",
+   "source": "Daryo",
+   "publishedAt": "2026-11-24T17:22:36.000Z",
+   "video": null,
+   "lang": "uz",
+   "tr": {
+    "en": {
+     "title": "Will Vinicius move to PSG?",
+     "summary": "The French club \"Paris Saint-Germain\" does not plan to join the winger of \"Real Madrid\" Vinicius Junior, despite the problems in the offensive line. The well-known insider Fabrizio Romano clarified the rumors about the transfer of the Brazilian player to the Paris club in the Fabrizio Responde program...",
+     "body": [
+      "The French club \"Paris Saint-Germain\" does not plan to join the winger of \"Real Madrid\" Vinicius Junior, despite the problems in the offensive line. The well-known insider Fabrizio Romano clarified the rumors about the transfer of the Brazilian player to the Paris club in the Fabrizio Responde program.",
+      "Romano said that \"PSG\" is not planning to add a star player of this level to their ranks at the moment:",
+      "\"No. Such a famous player will not be brought to the team,\" said the insider in response to the question about the transfer of Vinicius.",
+      "\"PSG\" news about strengthening the offensive line is related to the injuries that occurred in the team. Players of the Paris club Desiree Due and Hvicha Kvaratzhelia were sidelined for a long time due to rupture of the cruciate ligament. Therefore, the team can sign a contract with a new striker in the winter transfer window.",
+      "At the moment, there are reports that \"Real\" winger Vinicius may also leave the team. However, according to journalist Fabrizio Romano, \"PSG\" does not plan to buy the Brazilian player.",
+      "Let's remember that Vinicius moved to Real from Flamengo for 45 million euros in 2018. The Transfermarkt portal estimated the player's market value at 130 million euros."
+     ]
+    },
+    "ru": {
+     "title": "Перейдет ли Винисиус в «ПСЖ»?",
+     "summary": "Французский клуб «Пари Сен-Жермен» не планирует переходить вингера «Реала» Винисиуса Жуниора, несмотря на проблемы в линии нападения. Известный инсайдер Фабрицио Романо прояснил слухи о переходе бразильского игрока в парижский клуб в программе Фабрицио Респонде...",
+     "body": [
+      "Французский клуб «Пари Сен-Жермен» не планирует переходить вингера «Реала» Винисиуса Жуниора, несмотря на проблемы в линии нападения. Известный инсайдер Фабрицио Романо прояснил слухи о переходе бразильского игрока в парижский клуб в программе Фабрицио Респонде.",
+      "Романо заявил, что «ПСЖ» на данный момент не планирует добавлять в свои ряды звездного игрока такого уровня:",
+      "«Нет. Такого известного игрока в команду не возьмут», — сказал инсайдер в ответ на вопрос о трансфере Винисиуса.",
+      "Новость «ПСЖ» об усилении линии нападения связана с травмами, произошедшими в команде. Игроки парижского клуба Дезире Дуэ и Хвича Кваратжелия на длительное время выбыли из игры из-за разрыва крестообразной связки. Поэтому команда может подписать контракт с новым нападающим уже в зимнее трансферное окно.",
+      "На данный момент есть сообщения, что команду может покинуть и вингер «Реала» Винисиус. Однако, по словам журналиста Фабрицио Романо, \"ПСЖ\" не планирует покупать бразильца.",
+      "Напомним, Винисиус перешел в «Реал» из «Фламенго» за 45 миллионов евро в 2018 году. Портал Transfermarkt оценил рыночную стоимость игрока в 130 миллионов евро."
+     ]
+    }
+   }
+  },
+  {
+   "id": "1w3b5la",
+   "side": "uzbekistan",
+   "topic": "uzbekistan",
+   "title": "AQŞ kongressmenlaridan bir guruhi Putinni mamlakatga kiritmaslikni söradi",
+   "summary": "Kongressmenlar bunga Rossiyaning Ukrainadagi uruşi va Eronga körsatayotgan yordamini sabab qilib körsatmoqda.",
+   "body": null,
+   "image": "https://storage.kun.uz/source/1/g1nAtXKmhRJEq-vxvPaTz3lyRoQO3sDs.jpg",
+   "url": "https://kun.uz/news/2026/11/24/aqsh-kongressmenlaridan-bir-guruhi-putinni-mamlakatga-kiritmaslikni-soradi-62114",
+   "source": "Kun.uz",
+   "publishedAt": "2026-11-24T17:18:32.000Z",
+   "video": null,
+   "lang": "uz",
+   "tr": {
+    "en": {
+     "title": "A group of US congressmen asked Putin not to enter the country",
+     "summary": "Congressmen cite Russia's war in Ukraine and its support for Iran as the reason for this."
+    },
+    "ru": {
+     "title": "Группа конгрессменов США попросила Путина не въезжать в страну",
+     "summary": "Причиной этого конгрессмены называют войну России на Украине и ее поддержку Ирана."
+    }
+   }
+  },
+  {
+   "id": "dnidl0",
+   "side": "uzbekistan",
+   "topic": "uzbekistan",
+   "title": "Тошкент ҳайвонот боғи Цезарь лақабли орангутанда онкологик касаллик аниқланганини очиқлади",
+   "summary": "Тошкент ҳайвонот боғидаги ягона орангутан — Цезарда суяк тўқимасининг хавфли ўсмаси — остеосаркома аниқланди. Ташхис хорижлик мутахассислар томонидан тасдиқланган. Цезарь 2019 йилда уни мамлакатдан ноқонуний олиб чиқиб кетишга уринишганида ҳайвонот боғига олиб келинганди.",
+   "body": [
+    "Фото: Тошкент ҳайвонот боғи",
+    "Тошкент ҳайвонот боғи Цезарь лақабли орангутанда онкологик касаллик аниқланганини очиқлади",
+    "Тошкент ҳайвонот боғида яшовчи Цезарь лақабли орангутанга остеосаркома — суяк тўқимасининг хавфли ўсмаси ташхиси қўйилди, деб хабар берди ҳайвонот боғи. Ташхис ҳайвонот боғи ходимлари маслаҳат сўраб мурожаат қилган хорижлик мутахассислар томонидан тасдиқланди.",
+    "«Ҳозир Цезарь меҳр ва эътиборга, шунингдек, зарур ёрдамга ҳар қачонгидан ҳам кўпроқ муҳтож. Биз унинг ўзини яхши ҳис қилиши, керакли ёрдамни олиши ва ўзи ўрганган муҳитда қолиши учун қўлимиздан келган барча ишни қиламиз. Унинг ёнида ўзига таниш инсонлар бўлиши, одатдаги шароити ва хотиржамлиги сақланиши биз учун жуда муҳим», — дейилади хабарда.",
+    "Ҳайвонот боғида қайд этилишича, Цезарь аллақачон ходимлар ва ташриф буюрувчилар тарихининг бир қисмига айланган. Уни ҳайвонот боғи ходими, унинг учун «ҳақиқий она»га айланган Машкура опа парваришлаб, вояга етказган. Шунингдек, кўп йиллардан буён ҳайвонот боғининг бош ветеринария шифокори Маҳмуд Қўзибоев ҳам орангутаннинг ёнида бўлиб келмоқда.",
+    "Ҳайвонот боғи вакиллари Цезарни кўриш учун кўплаб меҳмонлар келиши ва унинг ҳаёти билан қизиқиши сабабли ташхис ҳақида хабар беришга қарор қилишганини билдирди.",
+    "«Цезарь ёлғиз эмаслигини билишингизни хоҳлардик. Биз доим унинг ёнидамиз. У сизларнинг ҳар бирингиз учун қанчалик қадрли эканини яхши тушунамиз», — дейилади хабарда.",
+    "«Биз тегишли муолажаларни олиб боряпмиз, бироқ бундай касалликлар давосиз», — деди Маҳмуд Қўзибоев. Унинг сўзларига кўра, Цезарга остеосаркома ташхиси бир йилдан сал кўпроқ вақт олдин қўйилган. Ҳайвонот боғи жониворни даволаш масалалари бўйича Орангутанларни ҳимоя қилиш халқаро жамғармаси, шунингдек, дунёнинг бир нечта ҳайвонот боғлари, жумладан, Москва ва Лондон ҳайвонот боғлари билан алоқада бўлиб турибди.",
+    "«Айни пайтда унинг аҳволи қониқарсиз. Шунга қарамай, биз тушкунликка тушмаймиз ва қўлимиздан келган барча ишни қиламиз», — дея қўшимча қилди ветеринар.",
+    "Цезарь 2019 йилда, ҳали болалик пайтида Ўзбекистондан Қозоғистонга ноқонуний олиб чиқиб кетишга уринишганидан сўнг Тошкент ҳайвонот боғига келиб қолган. Божхона ходимлари жониворни Зангиота туманида ўтказилган рейд давомида аниқлаб, ҳайвонот боғига топширганди. У Тошкент ҳайвонот боғида сақланаётган маймунлар орасидаги ягона орангутан ҳисобланади.",
+    "Telegram каналга аъзо бўлинг"
+   ],
+   "image": "https://www.gazeta.uz/media/img/2026/11/epbd9ksefpafaz7HzRp17955318600031_211590_og.webp?r=1795533997",
+   "url": "https://www.gazeta.uz/uz/2026/11/24/caesar-the-orangutan/",
+   "source": "Gazeta.uz",
+   "publishedAt": "2026-11-24T15:26:00.000Z",
+   "video": null,
+   "lang": "uz",
+   "tr": {
+    "en": {
+     "title": "Tashkent Zoo announced that an oncological disease was diagnosed in an orangutan named Caesar",
+     "summary": "A dangerous bone tumor - osteosarcoma - was detected in Caesar, the only orangutan in the Tashkent Zoo. The diagnosis was confirmed by foreign experts. Caesar was brought to the zoo in 2019 when an attempt was made to smuggle him out of the country.",
+     "body": [
+      "Photo: Tashkent Zoo",
+      "Tashkent Zoo announced that an oncological disease was diagnosed in an orangutan named Caesar",
+      "An orangutan nicknamed Caesar living in the Tashkent zoo was diagnosed with osteosarcoma - a dangerous tumor of bone tissue, the zoo reported. The diagnosis was confirmed by foreign experts, whom the zoo staff turned to for advice.",
+      "\"Now more than ever, Caesar needs love and attention, as well as the necessary support. We do everything we can to make sure he feels comfortable, gets the support he needs, and stays in the environment he's used to. \"It is very important for us that he has familiar people with him, that he maintains his usual conditions and calmness,\" the report says.",
+      "The zoo notes that Caesar has already become a part of staff and visitor history. She was raised by a zoo employee, sister Mashkura, who became a \"real mother\" for her. Mahmud Koziboev, the chief veterinarian of the zoo, has been with the orangutan for many years.",
+      "Representatives of the zoo said that they decided to announce the diagnosis because of the many visitors who come to see Caesar and are interested in his life.",
+      "\"We want you to know that Caesar is not alone. We are always with him. We understand how valuable he is to each of you,\" the message reads.",
+      "\"We are carrying out appropriate treatments, but such diseases are incurable,\" said Mahmud Koziboev. According to him, Caesar was diagnosed with osteosarcoma a little more than a year ago. The zoo is in contact with the International Fund for the Protection of Orangutans, as well as several zoos around the world, including the Moscow and London zoos, regarding the treatment of the animal.",
+      "\"At the moment, his condition is unsatisfactory. Nevertheless, we will not be discouraged and will do everything we can,\" the veterinarian added.",
+      "Caesar came to the Tashkent Zoo in 2019 after being illegally smuggled from Uzbekistan to Kazakhstan as a child. Customs officials identified the animal during a raid in Zangiota district and handed it over to the zoo. He is the only orangutan among the monkeys kept in the Tashkent Zoo.",
+      "Subscribe to the Telegram channel"
+     ]
+    },
+    "ru": {
+     "title": "Ташкентский зоопарк сообщил, что у орангутанга по кличке Цезарь диагностировано онкологическое заболевание",
+     "summary": "У Цезаря, единственного орангутанга в Ташкентском зоопарке, обнаружена опасная опухоль кости - остеосаркома. Диагноз подтвердили зарубежные специалисты. Цезаря привезли в зоопарк в 2019 году, когда его попытались тайно вывезти из страны.",
+     "body": [
+      "Фото: Ташкентский зоопарк",
+      "Ташкентский зоопарк сообщил, что у орангутанга по кличке Цезарь диагностировано онкологическое заболевание",
+      "У орангутанга по кличке Цезарь, живущего в Ташкентском зоопарке, диагностирована остеосаркома - опасная опухоль костной ткани, сообщили в зоопарке. Диагноз подтвердили зарубежные специалисты, к которым обратились за консультацией сотрудники зоопарка.",
+      "\"Сейчас, как никогда, Цезарь нуждается в любви и внимании, а также в необходимой поддержке. Мы делаем все возможное, чтобы он чувствовал себя комфортно, получал необходимую поддержку и оставался в той среде, к которой привык. \"Для нас очень важно, чтобы с ним были знакомые люди, чтобы он сохранял привычные условия и спокойствие\", - говорится в сообщении.",
+      "В зоопарке отмечают, что Цезарь уже стал частью истории персонала и посетителей. Ее воспитала сотрудница зоопарка, сестра Машкура, которая стала для нее «настоящей матерью». Махмуд Козыбоев, главный ветеринар зоопарка, много лет занимается с орангутанами.",
+      "Представители зоопарка рассказали, что решили сообщить о диагнозе из-за большого количества посетителей, которые приходят посмотреть на Цезаря и интересуются его жизнью.",
+      "«Мы хотим, чтобы вы знали, что Цезарь не одинок. Мы всегда с ним. Мы понимаем, насколько он ценен для каждого из вас\", - говорится в сообщении.",
+      "\"Мы проводим соответствующее лечение, но такие заболевания неизлечимы\", - сказал Махмуд Козыбоев. По его словам, чуть больше года назад у Цезаря диагностировали остеосаркому. По вопросам лечения животного зоопарк находится в контакте с Международным фондом защиты орангутанов, а также с несколькими зоопарками мира, в том числе с Московским и Лондонским зоопарками.",
+      "\"На данный момент его состояние неудовлетворительное. Тем не менее, мы не будем унывать и сделаем все возможное\", - добавил ветеринар.",
+      "Цезарь попал в Ташкентский зоопарк в 2019 году после того, как в детстве его незаконно переправили из Узбекистана в Казахстан. Сотрудники таможни опознали животное во время рейда в Зангиатинском районе и передали его в зоопарк. Он единственный орангутан среди обезьян, содержащихся в Ташкентском зоопарке.",
+      "Подписывайтесь на Telegram-канал"
+     ]
+    }
+   }
+  },
+  {
+   "id": "1du0c3c",
+   "side": "football",
+   "topic": "football",
+   "title": "PRIME Arsenal Football 😮‍💨",
+   "summary": "Love this video? We’ve got even more for you to enjoy on the Premier League App iOS: https://preml.ge/PLAppYT Android: https://preml.ge/PLAppAYT From goalkeeper to goal in 20 seconds. It's what Mikel Arteta's side do best. https://www.instagram.com/premierleague/ https://x.com/premierleague…",
+   "body": null,
+   "image": "https://i.ytimg.com/vi/218EoqMM7XM/hqdefault.jpg",
+   "url": "https://www.youtube.com/shorts/218EoqMM7XM",
+   "source": "Premier League",
+   "publishedAt": "2026-11-24T13:56:40.000Z",
    "video": {
     "provider": "youtube",
-    "id": "10YVRXekzxw"
+    "id": "218EoqMM7XM"
+   },
+   "lang": "en",
+   "tr": {
+    "uz": {
+     "title": "PRIME Arsenal Futbol 😮‍💨",
+     "summary": "Bu video yoqdimi? Bizda premer-liga iOS ilovasida bahramand bo'lishingiz uchun yana ko'p imkoniyatlar mavjud: https://preml.ge/PLAppYT Android: https://preml.ge/PLAppAYT Darvozabondan darvozaga 20 soniyada. Bu Mikel Arteta shogirdlari eng yaxshi ish. https://www.instagram.com/premierleague/ https://x.com/premierleague…"
+    },
+    "ru": {
+     "title": "ПРАЙМ Арсенал Футбол 😮‍💨",
+     "summary": "Нравится это видео? У нас есть для вас еще больше удовольствия в приложении Premier League для iOS: https://preml.ge/PLAppYT Android: https://preml.ge/PLAppAYT От вратаря до ворот за 20 секунд. Это то, что команда Микеля Артеты делает лучше всего. https://www.instagram.com/premierleague/ https://x.com/premierleague…"
+    }
+   }
+  },
+  {
+   "id": "14prmxi",
+   "side": "football",
+   "topic": "football",
+   "title": "Klopp advice and Iraola confidence boosts Wirtz",
+   "summary": "Florian Wirtz opens up on why it's the best he has felt since joining Liverpool.",
+   "body": [
+    "Florian Wirtz says he is enjoying his best form yet at Liverpool and benefiting from Andoni Iraola's confidence and Jurgen Klopp's advice.",
+    "Wirtz, 23, scored in Liverpool's 4-0 win over Manchester United on Sunday and has three goals and six assists this season.",
+    "The Germany midfielder made the £116m move from Bayer Leverkusen in the summer of 2025 and after failing to make his mark in his first campaign in England, is beginning to showcase his quality for Iraola's side.",
+    "Speaking in Belgium before Liverpool's Champions League game against Club Brugge, Wirtz said: \"I can't really say that I've changed that much.",
+    "\"I've become a bit better on a physical level and that's the only reason that could explain it.\"",
+    "He also said he has been picking the brains of Germany manager Klopp, the former Liverpool boss, while on international duty.",
+    "\"He tells me all the time that he loved his time here, the people love him here and tries to give me some advice to get successful over here as he has shown how it is done,\" Wirtz said.",
+    "\"He can give me some good advice. It's always small things. More private things.",
+    "\"But he is speaking good about the club, the region, the people, and that helps to hear someone who has experienced it for a long time.\""
+   ],
+   "image": "https://ichef.bbci.co.uk/ace/standard/800/cpsprodpb/d8c1/live/b4c97960-e826-11f1-93d4-6d580946ad80.jpg",
+   "url": "https://www.bbc.co.uk/sport/football/articles/c69w91k0j9zeo?at_medium=RSS&at_campaign=rss",
+   "source": "BBC Sport",
+   "publishedAt": "2026-11-24T17:19:08.000Z",
+   "video": null,
+   "lang": "en",
+   "tr": {
+    "uz": {
+     "title": "Klopp maslahati va Iraolaning ishonchi Wirtzni kuchaytiradi",
+     "summary": "Florian Wirtz \"Liverpul\"ga qo'shilganidan keyin nima uchun eng yaxshisini his qilgani haqida gapirdi.",
+     "body": [
+      "Florian Wirtzning aytishicha, u \"Liverpul\"dagi eng yaxshi o'yinidan bahramand bo'lib, Andoni Iraolaning ishonchi va Yurgen Kloppning maslahatlaridan foydalanmoqda.",
+      "23 yoshli Wirtz yakshanba kuni \"Liverpul\"ning \"Manchester Yunayted\"ga qarshi o'yinida (4:0) gol urdi va joriy mavsumda 3ta gol va 6ta golli uzatmani amalga oshirdi.",
+      "Germaniyalik yarim himoyachi 2025 yilning yozida \"Bayer\"dan 116 million funt sterlingga ko'chib o'tdi va Angliyadagi birinchi kampaniyasida o'zini ko'rsata olmaganidan so'ng, Iraola jamoasi uchun o'z sifatini namoyish qila boshladi.",
+      "Belgiyada \"Liverpul\"ning \"Bryugge\"ga qarshi Chempionlar ligasi o'yini oldidan so'zlagan nutqida Wirtz shunday dedi: \"Men u qadar o'zgarganman deb ayta olmayman.",
+      "\"Men jismoniy darajada biroz yaxshiroq bo'ldim va bu buni tushuntirishi mumkin bo'lgan yagona sababdir.\"",
+      "U shuningdek, Germaniya terma jamoasi bosh murabbiyi, \"Liverpul\"ning sobiq bosh murabbiyi Kloppning xalqaro miqyosdagi faoliyati davomida miyasini tanlaganini aytdi.",
+      "\"U menga har doim bu erda o'tkazgan vaqtini yaxshi ko'rishini aytadi, odamlar uni bu erda yaxshi ko'rishadi va bu erda muvaffaqiyatga erishish uchun menga maslahat berishga harakat qiladi, chunki u bu qanday amalga oshirilganligini ko'rsatdi\", dedi Wirtz.",
+      "“U menga yaxshi maslahat berishi mumkin. Bu har doim kichik narsalar. Ko'proq shaxsiy narsalar.",
+      "\"Ammo u klub, mintaqa, odamlar haqida yaxshi gapiradi va bu uzoq vaqt davomida tajribaga ega bo'lgan odamni eshitishga yordam beradi.\""
+     ]
+    },
+    "ru": {
+     "title": "Советы Клоппа и уверенность Ираолы укрепляют Вирца",
+     "summary": "Флориан Виртц рассказывает, почему это лучшее, что он чувствовал с тех пор, как присоединился к «Ливерпулю».",
+     "body": [
+      "Флориан Виртц говорит, что он наслаждается своей лучшей формой в \"Ливерпуле\" и извлекает выгоду из доверия Андони Ираолы и советов Юргена Клоппа.",
+      "23-летний Виртц забил гол в воскресной победе \"Ливерпуля\" над \"Манчестер Юнайтед\" со счетом 4:0, а в этом сезоне на его счету три гола и шесть результативных передач.",
+      "Немецкий полузащитник перешёл из леверкузенского «Байера» за 116 миллионов фунтов летом 2025 года и, не сумев добиться успеха в своей первой кампании в Англии, начинает демонстрировать свои качества в команде Ираолы.",
+      "Выступая в Бельгии перед игрой «Ливерпуля» в Лиге чемпионов против «Брюгге», Виртц сказал: «Я не могу сказать, что я так сильно изменился.",
+      "«Я стал немного лучше на физическом уровне, и это единственная причина, которая может это объяснить».",
+      "Он также сказал, что ковырял мозги у тренера сборной Германии Клоппа, бывшего тренера \"Ливерпуля\", находясь на международной арене.",
+      "«Он все время говорит мне, что ему нравится проводить время здесь, люди любят его здесь и пытаются дать мне несколько советов, как добиться здесь успеха, поскольку он показал, как это делается», - сказал Виртц.",
+      "«Он может дать мне хороший совет. Это всегда мелочи. Больше личного.",
+      "«Но он хорошо говорит о клубе, регионе, людях, и это помогает услышать человека, который испытал это в течение длительного времени»."
+     ]
+    }
+   }
+  },
+  {
+   "id": "1wu52i2",
+   "side": "football",
+   "topic": "football",
+   "title": "Ref chief Webb backs process around Yoro sending off despite successful appeal",
+   "summary": "Referees' chief Howard Webb has backed the process of the officials who sent off Manchester United defender Leny Yoro at Liverpool - despite the red card being overturned on appeal.",
+   "body": null,
+   "image": "https://e0.365dm.com/26/11/1920x1080/skysports-leny-yoro-alexander-isak_7413691.jpg?20261122165102",
+   "url": "https://www.skysports.com/football/news/12040/13616033/leny-yoro-red-card-ref-chief-howard-webb-backs-process-that-saw-man-utd-defender-sent-off-at-liverpool",
+   "source": "Sky Sports",
+   "publishedAt": "2026-11-24T17:00:00.000Z",
+   "video": null,
+   "lang": "en",
+   "tr": {
+    "uz": {
+     "title": "Ref boshlig'i Uebb muvaffaqiyatli murojaatiga qaramay, Yoro atrofidagi jarayonni qo'llab-quvvatladi",
+     "summary": "Hakamlar bo'limi boshlig'i Xovard Uebb qizil kartochka apellyatsiya shikoyati bekor qilinganiga qaramay, \"Manchester Yunayted\" himoyachisi Leni Yoroni \"Liverpul\"da qizil kartochkadan chetlatgan rasmiylar jarayonini qo'llab-quvvatladi."
+    },
+    "ru": {
+     "title": "Главный судья Уэбб поддержал процесс удаления Йоро, несмотря на успешную апелляцию",
+     "summary": "Главный судья Говард Уэбб поддержал решение судей удалить защитника «Манчестер Юнайтед» Лени Йоро из «Ливерпуля», несмотря на то, что красная карточка была отменена по апелляции."
+    }
+   }
+  },
+  {
+   "id": "1vodkb1",
+   "side": "serious",
+   "topic": "world",
+   "title": "Found dead, naked and bruised: Inside South Africa's femicide crisis | BBC News",
+   "summary": "Warning: This video contains discussion of gender-based violence and sexual violence. South Africa has one of the highest rates of gender-based violence and femicide - the intentional killing of a woman or girl - in the world. Nearly 600 women were killed in South Africa between July and September this year, according…",
+   "body": null,
+   "image": "https://i.ytimg.com/vi/_awaXiReE5E/hqdefault.jpg",
+   "url": "https://www.youtube.com/watch?v=_awaXiReE5E",
+   "source": "BBC News",
+   "publishedAt": "2026-11-24T17:05:33.000Z",
+   "video": {
+    "provider": "youtube",
+    "id": "_awaXiReE5E"
+   },
+   "lang": "en",
+   "tr": {
+    "uz": {
+     "title": "O'lik, yalang'och va ko'kargan holda topilgan: Janubiy Afrikadagi ayol o'limi inqirozi | BBC News",
+     "summary": "Ogohlantirish: Bu videoda genderga asoslangan zo'ravonlik va jinsiy zo'ravonlik muhokama qilinadi. Janubiy Afrikada gender asosidagi zo'ravonlik va ayol o'limining eng yuqori ko'rsatkichlaridan biri - ayol yoki qizni qasddan o'ldirish - dunyoda. Joriy yilning iyul-sentyabr oylari orasida Janubiy Afrikada 600 ga yaqin ayol o‘ldirilgan..."
+    },
+    "ru": {
+     "title": "Найдены мертвыми, обнаженными и в синяках: кризис фемицида в Южной Африке | Новости Би-би-си",
+     "summary": "Предупреждение: это видео содержит обсуждение гендерного насилия и сексуального насилия. В Южной Африке один из самых высоких показателей гендерного насилия и фемицида – преднамеренного убийства женщины или девочки – в мире. По данным…"
+    }
+   }
+  },
+  {
+   "id": "r95q51",
+   "side": "serious",
+   "topic": "world",
+   "title": "Zimbabwean convicted in South Africa of trying to fight in Ukraine",
+   "summary": "Hundreds of people from different African countries have been recruited to fight for Russia, according to Ukraine.",
+   "body": [
+    "A Zimbabwean national has been convicted by a court in South Africa of planning to go to fight in Ukraine.",
+    "The country has strict laws which restrict unauthorised involvement in overseas wars.",
+    "Twenty-four-year-old Wesley Sothole, who pleaded guilty, was handed a five-year suspended prison sentence and was ordered to be deported from South Africa.",
+    "He is one of five Zimbabweans who were arrested at OR Tambo Airport in Johannesburg on 8 November. South African prosecutors have not confirmed which side the Zimbabweans allegedly intended to fight for.",
+    "Sothole's four co-accused have yet to enter pleas and are due to return to the Kempton Park Magistrates' Court on 1 December for further plea and sentencing proceedings.",
+    "Another four Zimbabweans were arrested at a hotel in Johannesburg at the same time in a joint operation and are facing a different court process.",
+    "The investigation has involved South African police, Interpol and other international law enforcement agencies.",
+    "South Africa's Foreign Military Assistance Act was passed in 1998 at a time when the government was concerned about members of the former apartheid security services going to fight elsewhere in Africa.",
+    "There has been growing concern across Africa over the recruitment of its citizens to fight in the war in Ukraine, with some reportedly being lured to Russia by promises of lucrative civilian employment.",
+    "A Ukrainian intelligence assessment estimated earlier this year that more than 1,700 people from 36 countries in Africa have been recruited to fight for Russia.",
+    "Some have been captured and are being held as prisoners of war.",
+    "In March, Kenya estimated that 252 of its citizens had been illegally conscripted in Russia.",
+    "Kenyan Foreign Minister Musalia Mudavadi visited Moscow to address the issue. He said an agreement had been reached for Russia to stop recruiting Kenyan nationals.",
+    "In the same month, Zimbabwe said that 15 of its nationals had been killed after being recruited to fight for Russia in Ukraine, with more than 60 still trapped on the frontlines.",
+    "The previous month, South Africa secured the return of 17 of its nationals who were allegedly tricked into joining the war.",
+    "In December last year, South African authorities arrested five people, including a journalist, for allegedly recruiting people to join the war.",
+    "South Africa's government said it condemned \"the exploitation of young vulnerable people by individuals working with foreign military entities\".",
+    "Ukraine has also been recruiting foreign nationals, including from Africa.",
+    "Additional reporting by Khanyisile Ngcobo in Johannesburg."
+   ],
+   "image": "https://ichef.bbci.co.uk/ace/standard/800/cpsprodpb/e688/live/d1155630-e820-11f1-99a1-253766e7ad8b.jpg",
+   "url": "https://www.bbc.co.uk/news/articles/cmqj5qlj5yz9o?at_medium=RSS&at_campaign=rss",
+   "source": "BBC News",
+   "publishedAt": "2026-11-24T17:04:00.000Z",
+   "video": null,
+   "lang": "en",
+   "tr": {
+    "uz": {
+     "title": "Zimbabvelik Janubiy Afrikada Ukrainada jang qilishga uringanlikda ayblangan",
+     "summary": "Ukrainaga ko‘ra, turli Afrika davlatlaridan yuzlab odamlar Rossiya safida jang qilish uchun yollangan.",
+     "body": [
+      "Janubiy Afrika Respublikasi sudi Zimbabve fuqarosini Ukrainaga jangga borishni rejalashtirganlikda aybladi.",
+      "Mamlakatda chet eldagi urushlarda ruxsatsiz ishtirok etishni cheklovchi qat'iy qonunlar mavjud.",
+      "Aybiga iqror bo'lgan yigirma to'rt yoshli Uesli Sotole besh yillik shartli qamoq jazosiga hukm qilindi va Janubiy Afrikadan deportatsiya qilinishiga buyruq berildi.",
+      "U 8 noyabr kuni Yoxannesburgdagi OR Tambo aeroportida hibsga olingan besh zimbabvelikdan biri. Janubiy Afrika prokurorlari zimbabveliklar qaysi tomon uchun kurashmoqchi bo‘lganini tasdiqlamadi.",
+      "Sothole'ning to'rt nafar ayblanuvchisi hali sudga murojaat qilmagan va keyingi da'vo va hukm chiqarish uchun 1 dekabr kuni Kempton Park Magistrates sudiga qaytishi kerak.",
+      "Yana to‘rt nafar zimbabvelik qo‘shma operatsiya natijasida bir vaqtning o‘zida Yoxannesburgdagi mehmonxonada hibsga olindi va ular boshqa sud jarayoniga duch kelishmoqda.",
+      "Tergovga Janubiy Afrika politsiyasi, Interpol va boshqa xalqaro huquq-tartibot idoralari jalb qilingan.",
+      "Janubiy Afrikaning Tashqi harbiy yordam to'g'risidagi qonuni 1998 yilda hukumat sobiq aparteid xavfsizlik xizmatlari a'zolarining Afrikaning boshqa joylarida jang qilishidan xavotirda bo'lgan bir paytda qabul qilingan.",
+      "Afrika bo'ylab o'z fuqarolarini Ukrainadagi urushda qatnashish uchun yollashdan xavotir kuchaymoqda, xabarlarga ko'ra, ba'zilari daromadli fuqarolik ish va'dalari bilan Rossiyaga jalb qilingan.",
+      "Ukraina razvedkasi joriy yil boshida Afrikaning 36 davlatidan 1700 dan ortiq odam Rossiya safida jang qilish uchun yollanganini taxmin qildi.",
+      "Ayrimlari asirga olingan va harbiy asir sifatida saqlanmoqda.",
+      "Mart oyida Keniya 252 nafar fuqarosi Rossiyada noqonuniy ravishda harbiy xizmatga chaqirilganini taxmin qildi.",
+      "Keniya Tashqi ishlar vaziri Musalia Mudavadiy muammoni hal qilish uchun Moskvaga tashrif buyurdi. Uning so‘zlariga ko‘ra, Rossiya tomonidan Keniya fuqarolarini ishga olishni to‘xtatish bo‘yicha kelishuvga erishilgan.",
+      "O'sha oyda Zimbabve 15 nafar fuqarosi Ukrainada Rossiya uchun jang qilish uchun yollanganidan so'ng halok bo'lganini, 60 dan ortig'i hamon frontda qolayotganini aytdi.",
+      "O'tgan oyda Janubiy Afrika urushga qo'shilish uchun aldanib qolgan 17 nafar fuqarosining qaytishini ta'minladi.",
+      "O‘tgan yilning dekabr oyida Janubiy Afrika hukumati besh kishini, jumladan bir jurnalistni urushga odamlarni jalb qilganlikda ayblab hibsga oldi.",
+      "Janubiy Afrika hukumati \"xorijiy harbiy tuzilmalar bilan ishlaydigan shaxslar tomonidan zaif qatlamli yoshlarning ekspluatatsiyasini\" qoralaganini aytdi.",
+      "Ukraina, shuningdek, chet el fuqarolarini, shu jumladan Afrikadan ham yollab kelmoqda.",
+      "Yoxannesburgda Khanyisile Ngcobo tomonidan qo'shimcha hisobot."
+     ]
+    },
+    "ru": {
+     "title": "Зимбабвийца осудили в ЮАР за попытку воевать на Украине",
+     "summary": "По данным Украины, сотни людей из разных африканских стран были завербованы для борьбы за Россию.",
+     "body": [
+      "Гражданин Зимбабве был признан судом ЮАР виновным в планировании поехать воевать на Украину.",
+      "В стране действуют строгие законы, которые ограничивают несанкционированное участие в зарубежных войнах.",
+      "Двадцатичетырехлетний Уэсли Сотул, признавший себя виновным, был приговорен к пяти годам условного тюремного заключения и депортирован из Южной Африки.",
+      "Он один из пяти зимбабвийцев, арестованных в аэропорту О.Р. Тамбо в Йоханнесбурге 8 ноября. Прокуроры ЮАР не подтвердили, на чьей стороне предположительно намеревались воевать зимбабвийцы.",
+      "Четверо сообвиняемых Сотоула еще не заявили о признании вины и должны вернуться в магистратский суд Кемптон-Парка 1 декабря для дальнейшего разбирательства по делу о признании вины и вынесения приговора.",
+      "Еще четверо зимбабвийцев были арестованы в отеле в Йоханнесбурге в то же время в ходе совместной операции, и им предстоит другой судебный процесс.",
+      "В расследовании приняли участие полиция ЮАР, Интерпол и другие международные правоохранительные органы.",
+      "Закон об иностранной военной помощи Южной Африке был принят в 1998 году, когда правительство было обеспокоено тем, что члены бывших служб безопасности апартеида собираются воевать в других частях Африки.",
+      "В Африке растет беспокойство по поводу вербовки ее граждан для участия в войне на Украине, причем, как сообщается, некоторых из них заманили в Россию обещаниями прибыльной работы в гражданском секторе.",
+      "По оценкам украинской разведки, проведенным ранее в этом году, более 1700 человек из 36 стран Африки были завербованы для борьбы на стороне России.",
+      "Некоторые из них были взяты в плен и содержатся в качестве военнопленных.",
+      "По оценкам Кении, в марте 252 ее гражданина были незаконно призваны в Россию.",
+      "Министр иностранных дел Кении Мусалия Мудавади посетил Москву для решения этого вопроса. Он сказал, что было достигнуто соглашение о прекращении вербовки граждан Кении.",
+      "В том же месяце Зимбабве заявила, что 15 ее граждан были убиты после того, как их завербовали для участия в боевых действиях на стороне России в Украине, а более 60 человек все еще находятся в ловушке на передовой.",
+      "В прошлом месяце Южная Африка добилась возвращения 17 своих граждан, которых предположительно обманом заставили присоединиться к войне.",
+      "В декабре прошлого года власти Южной Африки арестовали пять человек, в том числе журналиста, по подозрению в вербовке людей для участия в войне.",
+      "Правительство Южной Африки заявило, что осуждает «эксплуатацию уязвимых молодых людей лицами, работающими с иностранными военными организациями».",
+      "Украина также вербует иностранных граждан, в том числе из Африки.",
+      "Дополнительный репортаж Ханьисиле Нгкобо из Йоханнесбурга."
+     ]
+    }
    }
   },
   {
@@ -34,44 +480,18 @@
    "url": "https://www.aljazeera.com/video/newsfeed/2026/11/24/aje-onl-nf_how-senegal-got-their-afcon-trophy-back-241126?traffic_source=rss",
    "source": "Al Jazeera",
    "publishedAt": "2026-11-24T16:41:22.000Z",
-   "video": null
-  },
-  {
-   "id": "1x82d4w",
-   "side": "serious",
-   "topic": "world",
-   "title": "Indian government has 'lost the plot', says 'cockroach' leader barred from UK flight",
-   "summary": "Saurav Das says immigration authorities at Delhi airport told him his passport had been flagged.",
-   "body": [
-    "One of the leaders of India's \"cockroach\" movement has said the Delhi government has \"completely lost the plot\" after he was stopped from leaving the country for the UK.",
-    "Saurav Das said he was meant to board a flight on Tuesday morning but was told by immigration officers his passport had been \"flagged\" because of discrepancies involving his date of birth.",
-    "In an interview with the BBC, Das said there were no discrepancies in his documents, accusing the Indian government of using cheap tactics to stop activists from travelling and speaking on issues that matter to young people.",
-    "The BBC has reached out to the federal home ministry, Delhi police and airport officials for comment.",
-    "Saurav told the BBC World Service's Newshour programme the incident showed the government was \"scared\".",
-    "\"They are scared of the cockroach movement. They're scared of young people asking them questions because they have never had to deal with a generation that wants to ask questions so head on. So that jitters them.\"",
-    "By not allowing him to travel, he said the government had lowered India's stature in the world.",
-    "\"It's international news that I am unable to travel to the UK,\" he said. \"And this shows Prime Minister Modi in such poor light.",
-    "\"It's a way to harass, to target activists, young voices in India by the Modi government.\"",
-    "Das said he had been invited by the Oxford Union, as well as universities including Cambridge and Edinburgh, to speak about the movement.",
-    "Ratna Singh, another leader of the Cockroach Janta Party (CJP), wrote: \"The manner in which Saurav was not allowed to board today raises deeply troubling questions about the state of freedom of expression and the space being allowed for young voices in this country.\"",
-    "On Tuesday, the London School of Economics Student Union's Amnesty International Unit, a student-led charity group, shared a post on Instagram saying that an event featuring Das had been \"indefinitely postponed\".",
-    "Das, a former journalist, became one of the faces of the CJP - a Gen Z-led movement that began as satire but has since emerged as a youth-led pressure group.",
-    "In July, protests spearheaded by the CJP over exam paper leaks led to the resignation of India's Education Minister Dharmendra Pradhan .",
-    "In October, CJP leaders including Das were among thousands detained by the police for trying to hold protests demanding the resignation of India's Chief Election Commissioner Gyanesh Kumar over alleged irregularities in electoral rolls. Kumar and the Election Commission have denied wrongdoing.",
-    "The same month, Das and Ashutosh Ranka, another CJP leader, were jailed for seven days after being arrested for trespassing at a banned protest site in Delhi.",
-    "Das insisted the CJP would continue protesting, but it did not want to be a political party \"as of today\".",
-    "\"It's a long haul. We are not here for a short time. We are looking at India in the next 10 to 20 years. How do we develop India into a better country? That is the vision that we want to carry forward.\"",
-    "Abhijeet Dipke, the founder of CJP, wrote on X that if Das \"had looted a bank or committed financial fraud\", he may have been allowed to fly to London, referring to billionaire bank-loan defaulters who have left India.",
-    "There have been other instances in recent years of people being prevented from boarding flights.",
-    "In September 2025, Bhanu Tatak, an environmental and anti-dam activist from India's north-eastern Arunachal Pradesh state, was stopped from boarding a flight to Dublin.",
-    "In March 2022, Rana Ayyub, an investigative journalist and outspoken critic of Prime Minister Narendra Modi's government, was also stopped from boarding a flight to London at the Mumbai airport. She was due to speak at different events on media freedom and the targeting of journalists.",
-    "Additional reporting by Cherylann Mollan."
-   ],
-   "image": "https://ichef.bbci.co.uk/ace/standard/800/cpsprodpb/e165/live/ec246c40-e825-11f1-93d4-6d580946ad80.jpg",
-   "url": "https://www.bbc.co.uk/news/articles/cm5y1ezx2gqyo?at_medium=RSS&at_campaign=rss",
-   "source": "BBC News",
-   "publishedAt": "2026-11-24T16:37:04.000Z",
-   "video": null
+   "video": null,
+   "lang": "en",
+   "tr": {
+    "uz": {
+     "title": "Senegal qanday qilib AFCON kubogini qaytarib oldi",
+     "summary": "\"Al-Jazira\" muxbiri Samanta Jonson Senegalning AFCON chempionlik bahslari sportning eng yuqori sudiga qanday etib kelganini o'rganmoqda."
+    },
+    "ru": {
+     "title": "Как Сенегал вернул себе трофей AFCON",
+     "summary": "Саманта Джонсон из «Аль-Джазиры» исследует, как спор о титуле AFCON в Сенегале дошел до высшей спортивной инстанции."
+    }
+   }
   },
   {
    "id": "3vek2q",
@@ -87,35 +507,74 @@
    "video": {
     "provider": "youtube",
     "id": "ZfvbXOcwuYI"
+   },
+   "lang": "en",
+   "tr": {
+    "uz": {
+     "title": "Tramp Huangning Nvidia qaytishiga qanday ta'sir qilgan",
+     "summary": "Tramp Nvidia boshqaruvida Jensen Xuangni qayta tiklash istagini oldi, ammo tergov hali ham davom etmoqda. Bio-dagi havolada Hayden Fild va Loren Faynerning hisobotini o'qing Obuna bo'ling: http://goo.gl/G5RXGs Facebook-da The Verge-ga Like bosing: https://goo.gl/2P1aGc Twitterda kuzatib boring: https://goo.gl/XTWX61 Instagramda kuzatib boring…"
+    },
+    "ru": {
+     "title": "Как Трамп повлиял на возвращение Хуана в Nvidia",
+     "summary": "Трамп осуществил свое желание восстановить Дженсена Хуанга во главе Nvidia, но расследование все еще продолжается. Прочтите репортаж Хейдена Филда и Лорен Файнер по ссылке в биографии. Подпишитесь: http://goo.gl/G5RXGs. Ставьте лайк The Verge на Facebook: https://goo.gl/2P1aGc. Следуйте в Twitter: https://goo.gl/XTWX61. Следуйте в Instagram…"
+    }
    }
   },
   {
-   "id": "v0h9s3",
+   "id": "1xvz200",
    "side": "serious",
    "topic": "tech",
-   "title": "Nvidia shares slide as Trump's role in Jensen Huang's comeback questioned by US politicians",
-   "summary": "Nvidia's stock market value surged on the annoucement of Huang's reappointment, but some of the gains reversed in Tuesday trading.",
+   "title": "Tidal will start banning AI-generated music next month",
+   "summary": "Tidal is officially banning AI-generated music on December 9th. As a result of this change, Tidal will delete around 29 million AI-generated songs and reject an estimated 80,000 to 85,000 tracks per day, according to Tidal music lead Robert Andersen . The move comes just months after Tidal began labeling and…",
    "body": [
-    "Shares in Nvidia dipped on Tuesday as US politicans questioned President Donald Trump's role in the return of Jensen Huang as chief executive.",
-    "Huang was handed back his job at the AI microchip maker on Monday less than two weeks after he was forced to resign following the revelations of extra marital affairs, one of which was with a suspected Chinese spy.",
-    "Trump has said he played a big role in the 63-year-old's reinstatment, which has led to questions and backlash from US lawmakers.",
-    "While Nvidia's stock market value surged on the annoucement of Huang's reappointment, some of the gains were reversed in volatile Tuesday trading.",
-    "The company's share price was down almost 8% on Tuesday, but remained well above the level it closed at on Friday, before Huang's shock return was revealed.",
-    "However, Nvidia was not the only semiconductor chip company to experience share price declines on Tuesday, with rival AMD down more than 10%.",
-    "Broadcom and Marvell Technology shares were also lower, suggesting that investors were continuing to weigh up concerns over potential regulation by newly-elected Democrats, as well as the central question as to whether the huge amounts being invested in AI will pay off.",
-    "Nvidia's share price for example, is down almost 30% over the past six months and had been on the decline before the scandal involving its co-founder emerged earlier this month.",
-    "The company's board reinstated Huang on Monday in a shock U-turn on its original position. Harvey Jones, chairman of Nvidia's board, said Huang's return was in the \"best interests of our stockholders, employees, partners and customers\".",
-    "The board said it had received input from senior levels of the US government and was confident that Huang's reinstatement posed no national security risk.",
-    "Trump said he had spoken to the company's directors and convinced them to bring back Huang.",
-    "\"They did ask for assurance on the national security threat,\" Trump told CNBC. \"And we gave them assurances at least with everything we know. And we know a lot.\"",
-    "However, Huang is still set to appear before Congress next week, where the Nvidia boss will be questioned over his relationship with Alice Huang, alleged to be a spy for China, due to national security concerns.",
-    "The US Commerce Department announced it was preparing to blacklist Megaspeed, the Singapore-based Nvidia customer where Alice Huang (no relation) was chief executive. China has denied the spying allegations."
+    "Emma Roth",
+    "is a news writer who covers the streaming wars, consumer tech, crypto, social media, and much more. Previously, she was a writer and editor at MUO.",
+    "Tidal is officially banning AI-generated music on December 9th. As a result of this change, Tidal will delete around 29 million AI-generated songs and reject an estimated 80,000 to 85,000 tracks per day, according to Tidal music lead Robert Andersen.",
+    "The move comes just months after Tidal began labeling and demonetizing tracks identified as 100 percent AI-generated. In a post on X, Andersen says Tidal needed to take a more “drastic” measure, as AI music made up 43 percent of the tracks distributed to the platform in the last 90 days. “We believe this will resonate with both artists and listeners alike, as 96% of all AI-generated songs receive zero plays at all,” Andersen adds.",
+    "Bandcamp similarly banned AI music earlier this year, while other music streaming platforms attempt to address a flood of AI songs by applying new labels or removing them from user algorithms. Spotify recently announced that it removed 50 million AI slop and spam tracks from recommendations over the past year, and also launched new “AI persona” badges for artists that use an AI identity. YouTube has rolled out AI music labels as well, while Apple Music is planning to launch AI labels this year. Meanwhile, Deezer is giving users the option to filter out AI music.",
+    "“Wholly AI-generated music intended to mislead listeners and impersonate artists is another serious problem that has only increased in scale: It diverts streams and royalties away from the artists, and confuses fans,” Tidal says in a separate post on X.",
+    "The platform is also going to ban music distributors from submitting AI songs, using the AI detection tool Ircam Amplify and metadata checks to reject submissions generated solely with AI. Tidal notes that it won’t ban songs made with the assistance of AI tools, as long as AI doesn’t make up the “sole output.”",
+    "Follow topics and authors from this story to see more like this in your personalized homepage feed and to receive email updates.",
+    "Emma Roth"
    ],
-   "image": "https://ichef.bbci.co.uk/ace/standard/800/cpsprodpb/5af7/live/929f46c0-e822-11f1-a58d-43263bea41a8.jpg",
-   "url": "https://www.bbc.co.uk/news/articles/crpdw1qx7jgxo?at_medium=RSS&at_campaign=rss",
-   "source": "BBC Technology",
-   "publishedAt": "2026-11-24T17:04:20.000Z",
-   "video": null
+   "image": "https://platform.theverge.com/wp-content/uploads/sites/2/chorus/uploads/chorus_asset/file/25319678/STK301_Tidal_01.jpg?quality=90&strip=all&crop=0,0,100,100",
+   "url": "https://www.theverge.com/entertainment/1041362/tidal-ai-music-ban",
+   "source": "The Verge",
+   "publishedAt": "2026-11-24T17:17:09.000Z",
+   "video": null,
+   "lang": "en",
+   "tr": {
+    "uz": {
+     "title": "Tidal keyingi oydan AI tomonidan yaratilgan musiqani taqiqlashni boshlaydi",
+     "summary": "Tidal 9 dekabrda AI tomonidan yaratilgan musiqani rasman taqiqlaydi. Tidal musiqa rahbari Robert Andersenning so'zlariga ko'ra, ushbu o'zgarish natijasida Tidal AI tomonidan yaratilgan 29 millionga yaqin qo'shiqlarni o'chirib tashlaydi va kuniga taxminan 80 000 dan 85 000 gacha treklarni rad etadi. Ushbu harakat Tidal markalashni boshlaganidan bir necha oy o'tgach sodir bo'ldi va ...",
+     "body": [
+      "Emma Rot",
+      "oqimli urushlar, iste'mol texnologiyalari, kripto, ijtimoiy media va boshqa ko'p narsalarni yorituvchi yangiliklar muallifi. Ilgari u MUOda yozuvchi va muharrir bo'lgan.",
+      "Tidal 9 dekabrda AI tomonidan yaratilgan musiqani rasman taqiqlaydi. Tidal musiqa rahbari Robert Andersenning so'zlariga ko'ra, ushbu o'zgarish natijasida Tidal AI tomonidan yaratilgan 29 millionga yaqin qo'shiqlarni o'chirib tashlaydi va kuniga 80 000 dan 85 000 gacha treklarni rad etadi.",
+      "Ushbu harakat Tidal 100 foiz AI tomonidan yaratilgan treklarni belgilash va demonetizatsiya qilishni boshlaganidan bir necha oy o'tgach sodir bo'ldi. X-dagi postida Andersen Tidal yanada \"qat'iy\" chora ko'rishi kerakligini aytdi, chunki so'nggi 90 kun ichida AI musiqasi platformaga tarqatilgan treklarning 43 foizini tashkil etdi. \"Biz bu ham san'atkorlar, ham tinglovchilar orasida aks-sado berishiga ishonamiz, chunki sun'iy intellekt tomonidan yaratilgan barcha qo'shiqlarning 96 foizi umuman nol ijroni oladi\", - deya qo'shimcha qiladi Andersen.",
+      "Bandcamp xuddi shu tarzda shu yil boshida AI musiqasini taqiqlagan, boshqa musiqiy oqim platformalari esa yangi yorliqlarni qo'llash yoki ularni foydalanuvchi algoritmlaridan olib tashlash orqali AI qo'shiqlari oqimini hal qilishga harakat qilmoqda. Yaqinda Spotify o'tgan yil davomida tavsiyalardan 50 million sun'iy intellekt slop va spam treklarini olib tashlaganini e'lon qildi, shuningdek, AI identifikatoridan foydalanadigan rassomlar uchun yangi \"AI persona\" nishonlarini ishga tushirdi. YouTube AI musiqa teglarini ham chiqardi, Apple Music esa bu yil AI yorliqlarini ishga tushirishni rejalashtirmoqda. Ayni paytda, Deezer foydalanuvchilarga AI musiqasini filtrlash imkoniyatini beradi.",
+      "\"Tinglovchilarni chalg'itishga va san'atkorlarni o'ziga taqlid qilishga mo'ljallangan sun'iy intellekt tomonidan yaratilgan musiqa yana bir jiddiy muammo bo'lib, miqyosi tobora ortib bormoqda: bu oqimlar va royaltilarni san'atkorlardan uzoqlashtiradi va muxlislarni chalg'itadi\", deydi Tidal X-dagi alohida postida.",
+      "Platforma musiqa distribyutorlariga AI qo'shiqlarini yuborishni, Ircam Amplify sun'iy intellektni aniqlash vositasi va metadata tekshiruvlaridan foydalanib, faqat sun'iy intellekt yordamida yaratilgan taqdimotlarni rad etishni taqiqlamoqchi. Tidal ta'kidlashicha, agar sun'iy intellekt \"yagona chiqish\" ni tashkil qilmasa, u AI vositalari yordamida yaratilgan qo'shiqlarni taqiqlamaydi.",
+      "Shaxsiylashtirilgan bosh sahifa tasmangizda shunga o'xshash ko'proq ko'rish va elektron pochta xabarlarini olish uchun ushbu hikoyaning mavzulari va mualliflarini kuzatib boring.",
+      "Emma Rot"
+     ]
+    },
+    "ru": {
+     "title": "Tidal начнет запрещать музыку, созданную искусственным интеллектом, в следующем месяце",
+     "summary": "Tidal официально запрещает музыку, созданную искусственным интеллектом, 9 декабря. По словам музыкального руководителя Tidal Роберта Андерсена, в результате этого изменения Tidal удалит около 29 миллионов песен, созданных искусственным интеллектом, и отклонит примерно от 80 000 до 85 000 треков в день. Этот шаг произошел всего через несколько месяцев после того, как Tidal начала маркировку и…",
+     "body": [
+      "Эмма Рот",
+      "— автор новостей, освещающий потоковые войны, потребительские технологии, криптовалюту, социальные сети и многое другое. Раньше она была писателем и редактором МУО.",
+      "Tidal официально запрещает музыку, созданную искусственным интеллектом, 9 декабря. По словам музыкального руководителя Tidal Роберта Андерсена, в результате этого изменения Tidal удалит около 29 миллионов песен, созданных искусственным интеллектом, и отклонит примерно от 80 000 до 85 000 треков в день.",
+      "Этот шаг был предпринят всего через несколько месяцев после того, как Tidal начала маркировать и демонетизировать треки, идентифицированные как на 100 процентов созданные искусственным интеллектом. В сообщении на X Андерсен говорит, что Tidal необходимо принять более «радикальные» меры, поскольку музыка AI составила 43 процента треков, распространяемых на платформе за последние 90 дней. «Мы считаем, что это найдет отклик как у исполнителей, так и у слушателей, поскольку 96% всех песен, созданных искусственным интеллектом, вообще не воспроизводятся», — добавляет Андерсен.",
+      "Bandcamp аналогичным образом запретил музыку ИИ в начале этого года, в то время как другие платформы потоковой передачи музыки пытаются справиться с наплывом песен ИИ, применяя новые ярлыки или удаляя их из пользовательских алгоритмов. Spotify недавно объявил, что за последний год удалил из рекомендаций 50 миллионов треков, посвященных искусственному интеллекту, и спам-треков, а также выпустил новые значки «AI persona» для артистов, использующих ИИ-идентичность. YouTube также запустил музыкальные лейблы с искусственным интеллектом, а Apple Music планирует запустить лейблы с искусственным интеллектом в этом году. Тем временем Deezer дает пользователям возможность фильтровать музыку AI.",
+      "«Музыка, полностью сгенерированная искусственным интеллектом, предназначенная для того, чтобы ввести слушателей в заблуждение и выдать себя за артистов, — это еще одна серьезная проблема, масштабы которой только увеличиваются: она отвлекает потоки и гонорары от артистов и сбивает с толку фанатов», — говорит Tidal в отдельном посте на X.",
+      "Платформа также запретит музыкальным дистрибьюторам отправлять песни с использованием ИИ, используя инструмент обнаружения ИИ Ircam Amplify и проверки метаданных для отклонения заявок, созданных исключительно с помощью ИИ. Tidal отмечает, что не будет запрещать песни, созданные с помощью инструментов ИИ, до тех пор, пока ИИ не станет «единственным результатом».",
+      "Следите за темами и авторами этой статьи, чтобы видеть больше подобных статей в ленте своей персонализированной главной страницы и получать обновления по электронной почте.",
+      "Эмма Рот"
+     ]
+    }
+   }
   },
   {
    "id": "1ijx1qv",
@@ -128,7 +587,18 @@
    "url": "https://www.upi.com/Odd_News/2026/11/24/delta-air-lines-logan-airport-escaped-cat/8911795538672/",
    "source": "UPI Odd News",
    "publishedAt": "2026-11-24T16:48:48.000Z",
-   "video": null
+   "video": null,
+   "lang": "en",
+   "tr": {
+    "uz": {
+     "title": "Watc: Qochib ketgan mushuk Bostonda Delta parvozini kechiktirdi",
+     "summary": "Delta aviakompaniyasining Bostondan Florida shtatining Tampa shahriga uchayotgan samolyoti yo‘lovchilar kabinasida mushuk o‘z tashuvchisidan qochib ketgani sababli vaqtincha qoldirilgan."
+    },
+    "ru": {
+     "title": "Смотреть: Сбежавший кот задержал рейс Delta в Бостоне",
+     "summary": "Рейс Delta из Бостона в Тампу, штат Флорида, был временно задержан, когда в пассажирском салоне сбежала кошка."
+    }
+   }
   },
   {
    "id": "koznuu",
@@ -152,7 +622,42 @@
    "url": "https://www.goodnewsnetwork.org/retired-teacher-turns-retired-musical-instruments-into-bird-feeders-look/",
    "source": "Good News Network",
    "publishedAt": "2026-11-24T16:30:36.000Z",
-   "video": null
+   "video": null,
+   "lang": "en",
+   "tr": {
+    "uz": {
+     "title": "Nafaqadagi o'qituvchi nafaqadagi musiqa asboblarini qushlarni oziqlantiruvchilarga aylantirdi (QARA)",
+     "summary": "Kanadalik erkak o'zining patli qo'shnilariga bepul tushlik qilish uchun ishlatib, parchalanib ketgan musiqa asboblari hayotiga koda yozmoqda. Shahzoda Eduard orolidan nafaqadagi o'qituvchi Rob Burk boshqaradigan \"Frets and Feathers\" kafesida makkajo'xori yoki urug'ning chayqalishi hech qanday ipsiz keladi. Avvalgi […] Post…",
+     "body": [
+      "Kanadalik erkak o'zining patli qo'shnilariga bepul tushlik qilish uchun ishlatib, parchalanib ketgan musiqa asboblari hayotiga koda yozmoqda.",
+      "Shahzoda Eduard orolidan nafaqadagi o'qituvchi Rob Burk boshqaradigan \"Frets and Feathers\" kafesida makkajo'xori yoki urug'ning chayqalishi hech qanday ipsiz keladi.",
+      "Sobiq matematika o‘qituvchisi ijtimoiy tarmoqlarda Yevropadan kimdir eski gitarani qush oziqlantiruvchisiga aylantirganini ko‘rdi va u buni yaxshiroq qila oladi, deb hisobladi: uch kursli orkestr.",
+      "Facebookdagi badiiy loyiha uchun buzilgan asboblarni xayriya qilishni so'rab, Burk 6 ta gitara, eski skripka va baraban to'plamining parchalarini olishdan xursand bo'ldi.",
+      "U ichi bo'sh korpusli gitaralarga driftwood perches va metall oziqlantiruvchi idishlarni biriktirish bilan shug'ullana boshladi.",
+      "CBC xabariga ko'ra, uning elim qurolni tanlashi avvaliga yaxshi bo'lgan, ammo og'irroq ko'k jaylar tashrif buyurishni boshlaganda, u o'rindiqlar va idish-tovoqlarni mahkam bog'lashi kerak edi.",
+      "Uning Facebook devorida bir qator oddiy qushlar mavjud bo'lib, Burk nafaqaga chiqqanidan beri ularga ko'proq qiziqish bildirgan. Videolar ko'pincha musiqa bilan bog'lanadi va ajoyib tomosha qilish imkonini beradi.",
+      "O'shandan beri u yog'och o'suvchi, korvidlar va jo'jalarni ko'rgan va fasllar o'zgarishi bilan boshqa turlarni ko'rishni kutmoqda.",
+      "Boshqa har qanday PE Islanders uchun Burke Peck and Play orkestrini kengaytirish uchun qo'shimcha asboblar xayriyalarini mamnuniyat bilan qabul qiladi. U bilan Facebook orqali bog'lanish mumkin.",
+      "Ijtimoiy tarmoqlardagi suruvingiz bilan Frets and Feathers kafesi haqida TWEET..."
+     ]
+    },
+    "ru": {
+     "title": "Учительница-пенсионерка превращает старые музыкальные инструменты в кормушки для птиц (СМОТРЕТЬ)",
+     "summary": "Канадец вносит свой вклад в жизнь старых музыкальных инструментов, предлагая им бесплатный обед своим пернатым соседям. Кусочек кукурузы или семян можно получить без каких-либо условий в кафе Frets and Feathers, которым управляет учитель на пенсии Роб Берк с острова Принца Эдуарда. Бывший […] Пост…",
+     "body": [
+      "Канадец вносит свой вклад в жизнь старых музыкальных инструментов, предлагая им бесплатный обед своим пернатым соседям.",
+      "Кусочек кукурузы или семян можно получить без каких-либо условий в кафе Frets and Feathers, которым управляет учитель на пенсии Роб Берк с острова Принца Эдуарда.",
+      "Бывший учитель математики увидел в социальных сетях, как кто-то из Европы превратил старую гитару в кормушку для птиц, и решил, что может сделать это лучше: оркестр из трех курсов.",
+      "Попросив пожертвовать сломанные инструменты для арт-проекта на Facebook, Берк был рад получить 6 гитар, старую скрипку и части ударной установки.",
+      "Он приступил к работе, прикрепляя к гитарам с полым корпусом коряги и металлические кормушки.",
+      "CBC сообщила, что поначалу его выбор клеевого пистолета был вполне приемлемым, но как только к нему начали приходить более тяжелые голубые сойки, ему пришлось более прочно прикрепить насесты и посуду.",
+      "На его стене в Facebook изображено множество обычных птиц, к которым, по словам Берка, он стал проявлять больший интерес после выхода на пенсию. Видео часто сочетаются с музыкой и делают просмотр более приятным.",
+      "С тех пор он видел дятла, врановых и синиц и ожидает увидеть новые виды по мере смены времен года.",
+      "Для всех остальных жителей островов PE Берк приветствует дальнейшие пожертвования инструментов для расширения оркестра Peck and Play. С ним можно связаться через Facebook.",
+      "НАПИШИТЕ Твит о кафе Frets And Feathers со своей паствой в социальных сетях…"
+     ]
+    }
+   }
   },
   {
    "id": "66gdu8",
@@ -168,6 +673,17 @@
    "video": {
     "provider": "youtube",
     "id": "Hl6OF7Mf8Nk"
+   },
+   "lang": "en",
+   "tr": {
+    "uz": {
+     "title": "Odam o'zi uchun hamma narsani anglatuvchi joydan tuzoqqa tushgan kal burgutni topdi | Dodo",
+     "summary": "U burgutni marhum otasi kabina qurishni orzu qilgan joyidan topdi 🥹 Adam va Kler Ontariodagi oilasiga qarashli yerdagi ikkita daraxt orasida qolib ketgan kal burgutni topishganda, ular yordam berishlari kerakligini bilishgan. Dodo muharriri Valentina er-xotin bilan bu kutilmagan qutqarish qanday bo'lganligi haqida gapirdi ..."
+    },
+    "ru": {
+     "title": "Мужчина нашел пойманного белоголового орлана в месте, которое для него значит все | Додо",
+     "summary": "Он нашел орлана именно в том месте, где его покойный отец мечтал построить хижину 🥹 Когда Адам и Клэр обнаружили белоголового орлана, запертого между двумя деревьями на земле его семьи в Онтарио, они поняли, что должны помочь. Редактор «Додо» Валентина поговорила с парой о том, как это неожиданное спасение стало чем-то…"
+    }
    }
   },
   {
@@ -192,7 +708,42 @@
    "url": "https://www.bbc.co.uk/news/articles/cq4gn0dg9194o?at_medium=RSS&at_campaign=rss",
    "source": "BBC Science",
    "publishedAt": "2026-11-20T22:57:26.000Z",
-   "video": null
+   "video": null,
+   "lang": "en",
+   "tr": {
+    "uz": {
+     "title": "AQShdagi eng yirik fua-gras fermalaridan birida qushlar yonib halok bo‘ldi",
+     "summary": "Yuzlab yosh qushlar ham yong'indan qutqarib olindi, bu yong'in fua grasi hayvonlarning farovonligi bilan bog'liq muammolar tufayli yangilangan tekshiruv ostida.",
+     "body": [
+      "Nyu-Yorkning Ferndale shahridagi Hudson Valley Foie Gras kompaniyasi menejeri Markus Xenli mahalliy Radio Catskill nashriga yong'in o'rdak va g'ozlar yashaydigan ikkita binoni vayron qilganini aytdi.",
+      "\"Bino endi yo'q\", dedi Xenli va bu tasdiqlanmagan bo'lsa-da, yong'inni elektr nosozligi boshlagan bo'lishi mumkin deb gumon qilganini aytdi.",
+      "Kompaniya bir vaqtning o'zida nechta qushni qabul qilishini oshkor qilmaydi. Tijorat parrandachilik fermalari odatda minglab qushlarni joylashtirishi mumkin.",
+      "Westchester News 12 xabar berishicha, payshanba kuni ertalab yong'inni bartaraf etishda 37 o't o'chirish bo'limi va 200 nafar birinchi yordam xodimlari ishtirok etgan.",
+      "Yong‘in tez tarqaldi, binoning metall qoplamali, yog‘och karkasli konstruksiyasi o‘t o‘chiruvchilarga olovning ombor ichida tarqalishini to‘xtatishni qiyinlashtirdi.",
+      "Hudson Valley Foie Gras va mahalliy yong'in bo'limi izoh berish so'roviga javob bermadi.",
+      "Foie gras ishlab chiqaruvchilari ishlab chiqarish jarayoni tufayli hayvonlar huquqlarini himoya qiluvchi guruhlar tomonidan uzoq vaqtdan beri tanqid qilinmoqda, bu esa qushlarni plastik naychalar orqali kuch bilan oziqlantirishni o'z ichiga oladi, bu ularga qisqa vaqt ichida tana vaznining uchdan bir qismidan ko'proq narsani olish imkonini beradi.",
+      "Nyu-York 2019 yilda mahsulotni taqiqlash uchun ko'chib o'tdi va Gudzon vodiysi fermalari shundan beri shtat bilan sud muhokamasida.",
+      "2019 yilda shahar kengashida bo'lib o'tgan tinglovda Xenli taqiqga qarshi chiqdi va fermaga tashrif buyurgan jurnalistlar o'zlarining amaliyotlarida \"g'ayriinsoniy narsa\" topmaganliklarini aytdi.",
+      "Hayvonlar huquqlari faoli PETA guruhi BBCga halok bo‘lgan qushlar xotirasiga yaqin joyda reklama taxtasi o‘rnatishlarini aytdi va Gudzon vodiysi fermalarini tirik qolgan qushlarni mahalliy qo‘riqxonalarga xayriya qilishga undadi."
+     ]
+    },
+    "ru": {
+     "title": "Птицы погибли при пожаре на одной из крупнейших ферм по производству фуа-гра в США",
+     "summary": "Сотни молодых птиц также были спасены из огня, который произошел из-за того, что фуа-гра находится под новым контролем из-за проблем защиты животных.",
+     "body": [
+      "Маркус Хенли, менеджер фуа-гра Hudson Valley в Ферндейле, штат Нью-Йорк, сообщил местному новостному изданию Radio Catskill, что пожар уничтожил два здания, в которых содержались утки и гуси.",
+      "\"Здания больше нет\", - сказал Хенли, добавив, что он подозревает, что причиной возгорания могла стать неисправность электрооборудования, хотя это не было подтверждено.",
+      "Компания не раскрывает, сколько птиц она принимает одновременно. Коммерческие птицефабрики обычно могут содержать тысячи птиц.",
+      "Вестчестерские новости 12 сообщили, что в экстренном реагировании на пожар рано утром в четверг приняли участие 37 пожарных подразделений и 200 служб быстрого реагирования.",
+      "Огонь быстро распространялся, а металлическая деревянная конструкция здания не позволяла пожарным остановить распространение пламени внутри сарая.",
+      "Фуа-гра в долине Гудзона и местная пожарная служба не ответили на просьбу о комментариях.",
+      "Производители фуа-гра уже давно подвергаются критике со стороны групп по защите прав животных из-за производственного процесса, который предполагает принудительное кормление птиц через пластиковые трубки, что позволяет им набирать более трети веса своего тела за короткий период времени.",
+      "Нью-Йорк принял решение запретить этот продукт в 2019 году, и с тех пор фермы долины Гудзона ведут судебные разбирательства с государством.",
+      "На слушаниях в городском совете в 2019 году Хенли выступил против запрета, заявив, что журналисты, посетившие ферму, не нашли «ничего бесчеловечного» в их действиях.",
+      "Группа активистов по защите прав животных PETA сообщила Би-би-си, что они установят неподалеку рекламный щит в память о погибших птицах, и призвала фермы долины Гудзона пожертвовать выживших птиц местным заповедникам."
+     ]
+    }
+   }
   }
  ]
 }
