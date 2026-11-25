@@ -185,7 +185,7 @@ export function parseFeed(xml, source) {
       video: videoId ? { provider: "youtube", id: videoId } : null
     });
   }
-  return source.match ? out.filter((s) => source.match.test(`${s.title} ${s.summary}`)) : out;
+  return out.filter((s) => (!source.match || source.match.test(`${s.title} ${s.summary}`)) && (!source.exclude || !source.exclude.test(`${s.title} ${s.summary}`)));
 }
 
 // What makes two stories the same story: the same video, address, or headline.
@@ -304,12 +304,16 @@ export function factOfDay(facts, { used = new Set(), date }) {
 }
 
 // A picture from Wikipedia's page summary: the original when it's a sensible
-// size, otherwise the thumbnail made wider.
+// size, otherwise the thumbnail at 960px, one of Wikimedia's standard widths.
 export function wikiImage(summary) {
   const orig = summary && summary.originalimage;
   if (orig && orig.source && orig.width && orig.width <= 1600) return orig.source;
-  const thumb = summary && summary.thumbnail && summary.thumbnail.source;
-  return thumb ? thumb.replace(/\/(\d+)px-/, "/800px-") : null;
+  const thumb = wikiThumb(summary);
+  return thumb ? thumb.replace(/\/(\d+)px-/, "/960px-") : null;
+}
+// The thumbnail exactly as Wikipedia gave it: the page falls back to it.
+export function wikiThumb(summary) {
+  return (summary && summary.thumbnail && summary.thumbnail.source) || null;
 }
 
 // The edition date (YYYY-MM-DD) for a moment, in a time zone.

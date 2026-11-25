@@ -19,7 +19,7 @@ import { PLAN, SOURCES, LANGS, youtubeFeed, wikiSummary } from "./sources.mjs";
 import { FACTS } from "./facts.mjs";
 import { toUzbekLatin } from "./uzbek.mjs";
 import { cleanVideoTitle, shortTitle, kindOf, interleave } from "./football.mjs";
-import { parseFeed, pickEdition, factOfDay, wikiImage, editionDate, daysToKeep, keysOf, paragraphsFrom, upgradeImage, cleanText, translateTexts, translateStory } from "./lib.mjs";
+import { parseFeed, pickEdition, factOfDay, wikiImage, wikiThumb, editionDate, daysToKeep, keysOf, paragraphsFrom, upgradeImage, cleanText, translateTexts, translateStory } from "./lib.mjs";
 
 const HERE = path.dirname(fileURLToPath(import.meta.url));
 const DIR = process.env.NEWS_DIR ? path.resolve(process.env.NEWS_DIR) : path.join(HERE, "..", "..", "news");
@@ -143,7 +143,9 @@ async function factFromWikipedia(fact) {
   try {
     const summary = await (await get(wikiSummary(fact.wiki), { accept: "application/json" })).json();
     const url = summary && summary.content_urls && summary.content_urls.desktop && summary.content_urls.desktop.page;
-    return { image: wikiImage(summary), url: url || page };
+    const image = wikiImage(summary);
+    const thumb = wikiThumb(summary);
+    return { image, ...(thumb && thumb !== image ? { imageSmall: thumb } : {}), url: url || page };
   } catch (e) {
     log(`  (no Wikipedia photo for "${fact.wiki}": ${e.message})`);
     return { image: null, url: page };
