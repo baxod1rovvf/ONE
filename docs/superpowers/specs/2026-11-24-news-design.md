@@ -79,3 +79,30 @@ only when the story is opened, and removed when the reader closes.
   Uzbek get the same treatment.
 - The Guardian refuses GitHub's servers (HTTP 403), so it was replaced by ESPN
   (football), DW and France 24 (world) and Mongabay (animals).
+
+## Update: football only, in Uzbek (2026-11-25)
+
+Replaces the sections and the language switch above.
+
+- **Content.** Each edition is 10 football blocks: 6 *moments* (great goals,
+  classic goals from old matches, dribbles and skills, as videos from official
+  channels picked by words like goal, skills, classic, best; up to 60 days
+  old) mixed in among 4 *news* stories (transfers, results, injuries, from BBC
+  Sport, Sky Sports, ESPN and the football stories of Kun.uz, Daryo and
+  Gazeta.uz, from the past week). `news/seen.json` remembers what was shown for
+  120 days, so a moment never comes back.
+- **Short titles.** Every block has a short Uzbek title built from the story
+  (`tools/news/football.mjs`): kind (Gol, Dribling, Seyv, Lahza, Transfer,
+  Jarohat, Natija, Yangilik), a year when the title names one, then the
+  player and team it mentions, e.g. "Gol - 2005 - Messi - Manchester United".
+  With no known name, the Uzbek title shortened.
+- **Uzbek only.** Stories are translated into Uzbek only; the page's words are
+  Uzbek; the language switch is gone.
+- **Page.** No sections or category labels. Blocks two to a line (also on a
+  phone), each 40% picture and 60% short title, with rounded corners. A dot in
+  the bottom-right is blue until the block is read, then green; there is no
+  tick and no fading. Everything opens in the reader inside Core.
+- **Fun fact.** A card: light bulb, "Bugungi kashfiyot" tag, headline, one
+  sentence, "Manba: Vikipediya" and a photo. The facts are a list of 60
+  (`tools/news/facts.mjs`), each naming the Wikipedia article it can be checked
+  against; the photo and the link come from that article.

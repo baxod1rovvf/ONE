@@ -7,11 +7,13 @@ const fs = require("node:fs");
 const path = require("node:path");
 
 const FIX = path.join(__dirname, "fixtures", "news");
-let lib, PLAN, uz;
+let lib, PLAN, uz, fb, FACTS;
 before(async () => {
   lib = await import("../tools/news/lib.mjs");
   uz = await import("../tools/news/uzbek.mjs");
   ({ PLAN } = await import("../tools/news/sources.mjs"));
+  fb = await import("../tools/news/football.mjs");
+  ({ FACTS } = await import("../tools/news/facts.mjs"));
 });
 
 const NOW = new Date("2026-11-24T01:17:00Z");
@@ -37,7 +39,7 @@ test("a YouTube channel feed becomes video stories that play from YouTube", () =
   assert.deepEqual(stories[0].video, { provider: "youtube", id: "dQw4w9WgXcQ" });
   assert.equal(stories[0].url, "https://www.youtube.com/watch?v=dQw4w9WgXcQ");
   assert.equal(stories[0].image, "https://i.ytimg.com/vi/dQw4w9WgXcQ/hqdefault.jpg");
-  assert.equal(stories[0].summary, "They became best friends. Subscribe for more!");
+  assert.equal(stories[0].summary, "They became best friends.", "without the \"subscribe\" line");
 });
 
 test("a source's match keeps only the stories it fits", () => {
@@ -59,32 +61,43 @@ function make(topic, source, n, { video = false, start = NOW.getTime() - 36e5, p
     summary: "",
     image: null,
     publishedAt: new Date(start - i * 36e5).toISOString(),
-    video: video ? { provider: "youtube", id: `${prefix}${i}`.replace(/\W/g, "").padEnd(11, "x").slice(0, 11) } : null
+    video: video ? { provider: "youtube", id: ([...prefix].reduce((h, c) => (h * 31 + c.charCodeAt(0)) >>> 0, 7).toString(36).slice(0, 6) + String(i).padStart(5, "0")).slice(0, 11) } : null
   }));
 }
+
+// A plan of several topics, for testing how the picker shares out places
+// (the real plan, football only, is tested further down).
+const TEST_PLAN = [
+  { topic: "trending", side: "trending", count: 3, videos: 0 },
+  { topic: "uzbekistan", side: "uzbekistan", count: 3, videos: 0 },
+  { topic: "world", side: "serious", count: 3, videos: 1 },
+  { topic: "tech", side: "serious", count: 2, videos: 1 },
+  { topic: "funny", side: "light", count: 2, videos: 0 },
+  { topic: "animals", side: "light", count: 2, videos: 1 }
+];
 
 // Plenty of stories for every topic in the plan: articles from two sources,
 // and videos where the plan wants them.
 function plenty() {
-  return PLAN.flatMap((p) => [
+  return TEST_PLAN.flatMap((p) => [
     ...make(p.topic, `${p.topic}A`, 5),
     ...make(p.topic, `${p.topic}B`, 5),
     ...(p.videos ? make(p.topic, `${p.topic}V`, 3, { video: true }) : [])
   ]);
 }
 
-test("an edition is eighteen stories: each topic's share, with videos where planned", () => {
-  const items = lib.pickEdition(plenty(), { plan: PLAN, now: NOW });
-  assert.equal(items.length, 18);
+test("each topic gets its share, with videos where planned", () => {
+  const items = lib.pickEdition(plenty(), { plan: TEST_PLAN, now: NOW });
+  assert.equal(items.length, 15);
   const count = (pred) => items.filter(pred).length;
-  for (const p of PLAN) assert.equal(count((s) => s.topic === p.topic), p.count, p.topic);
-  for (const p of PLAN) assert.equal(count((s) => s.topic === p.topic && s.video), p.videos, `${p.topic} videos`);
+  for (const p of TEST_PLAN) assert.equal(count((s) => s.topic === p.topic), p.count, p.topic);
+  for (const p of TEST_PLAN) assert.equal(count((s) => s.topic === p.topic && s.video), p.videos, `${p.topic} videos`);
   assert.equal(count((s) => s.side === "light"), 4);
   assert.equal(count((s) => s.side === "serious"), 5);
-  for (const side of ["trending", "uzbekistan", "football"]) assert.equal(count((s) => s.side === side), 3, side);
+  for (const side of ["trending", "uzbekistan"]) assert.equal(count((s) => s.side === side), 3, side);
   // Sources take turns: world's two articles come from both sources.
   assert.deepEqual(items.filter((s) => s.topic === "world" && !s.video).map((s) => s.source).sort(), ["worldA", "worldB"]);
-  assert.equal(new Set(items.map((s) => s.id)).size, 18, "ids are unique");
+  assert.equal(new Set(items.map((s) => s.id)).size, 15, "ids are unique");
 });
 
 test("stories older than a week, already shown, or live streams are left out", () => {
@@ -93,34 +106,48 @@ test("stories older than a week, already shown, or live streams are left out", (
   const live = { ...make("world", "V", 1, { video: true, prefix: "live" })[0], title: "LIVE: the summit" };
   const ok = make("world", "B", 1, { start: NOW.getTime() - 6 * 864e5, prefix: "ok" });
   const used = new Set(lib.keysOf(shown[0]));
-  const items = lib.pickEdition([...old, ...shown, live, ...ok], { plan: PLAN, used, now: NOW });
+  const items = lib.pickEdition([...old, ...shown, live, ...ok], { plan: TEST_PLAN, used, now: NOW });
   assert.deepEqual(items.map((s) => s.title), ["ok story 1"]);
 });
 
 test("the same story from two sources appears once", () => {
   const a = make("world", "A", 1, { prefix: "same" })[0];
   const b = { ...a, source: "B", url: "https://b.example/other-address" };
-  const items = lib.pickEdition([a, b], { plan: PLAN, now: NOW });
+  const items = lib.pickEdition([a, b], { plan: TEST_PLAN, now: NOW });
   assert.equal(items.length, 1);
 });
 
 test("a topic short of stories hands its places to its own side first", () => {
   const candidates = plenty().filter((s) => s.topic !== "animals" || s.source === "animalsA").filter((s) => s.topic !== "animals" || s.title.endsWith(" 1"));
-  const items = lib.pickEdition(candidates, { plan: PLAN, now: NOW });
-  assert.equal(items.length, 18);
+  const items = lib.pickEdition(candidates, { plan: TEST_PLAN, now: NOW });
+  assert.equal(items.length, 15);
   assert.equal(items.filter((s) => s.side === "light").length, 4, "funny fills the animals gap");
   assert.equal(items.filter((s) => s.topic === "funny").length, 3);
 });
 
-test("the fun fact is a new one each day, with the built-in list as the fallback", () => {
-  const offered = [{ text: "Repeated fact from yesterday, quite long." }, { text: "A <b>fresh</b> fact that nobody has seen." }];
-  assert.equal(lib.pickFact(offered, { usedFacts: new Set(["Repeated fact from yesterday, quite long."]), fallback: [], date: "2026-11-24" }).text, "A fresh fact that nobody has seen.");
-  const fallback = ["Fact one is here.", "Fact two is here.", "Fact three is here."];
-  const a = lib.pickFact([], { fallback, date: "2026-11-24" });
-  const b = lib.pickFact([], { fallback, date: "2026-11-25" });
-  assert.notEqual(a.text, b.text, "next day, next fact");
-  const c = lib.pickFact([], { fallback, usedFacts: new Set([a.text]), date: "2026-11-24" });
-  assert.notEqual(c.text, a.text, "skips one used this week");
+test("the fun fact is the next one each day, never one from the past week", () => {
+  const facts = [{ title: "One" }, { title: "Two" }, { title: "Three" }];
+  const a = lib.factOfDay(facts, { date: "2026-11-24" });
+  const b = lib.factOfDay(facts, { date: "2026-11-25" });
+  assert.notEqual(a.title, b.title, "next day, next fact");
+  const c = lib.factOfDay(facts, { used: new Set([a.title]), date: "2026-11-24" });
+  assert.notEqual(c.title, a.title, "skips one shown this week");
+});
+
+test("every fun fact has a headline, a sentence and a Wikipedia article", () => {
+  assert.ok(FACTS.length >= 60, `${FACTS.length} facts: two months without a repeat`);
+  for (const f of FACTS) {
+    assert.ok(f.title && f.title.length <= 60, `short headline: ${f.title}`);
+    assert.ok(f.text && f.text.length >= 20 && f.text.length <= 200, `one or two sentences: ${f.title}`);
+    assert.ok(f.wiki && !/^https?:/.test(f.wiki), `an article title: ${f.title}`);
+  }
+  assert.equal(new Set(FACTS.map((f) => f.title)).size, FACTS.length, "no fact twice");
+});
+
+test("the fact's photo: Wikipedia's original when sensible, else a wider thumbnail", () => {
+  assert.equal(lib.wikiImage({ originalimage: { source: "https://upload.wikimedia.org/a.jpg", width: 1200 } }), "https://upload.wikimedia.org/a.jpg");
+  assert.equal(lib.wikiImage({ originalimage: { source: "https://upload.wikimedia.org/huge.jpg", width: 6000 }, thumbnail: { source: "https://upload.wikimedia.org/thumb/x/320px-Horse.jpg" } }), "https://upload.wikimedia.org/thumb/x/800px-Horse.jpg");
+  assert.equal(lib.wikiImage({}), null);
 });
 
 test("seven days are kept, counting today; older editions are deleted", () => {
@@ -158,7 +185,7 @@ test("Google Trends: the most searched first, each with a story about it", () =>
   assert.equal(lib.trafficOf("2M+"), 2000000);
   // Picked by searches, not by time: the smaller trend is newer here but comes second.
   const later = new Date("2026-11-24T06:00:00Z");
-  const picked = lib.pickEdition([{ ...stories[1], publishedAt: "2026-11-24T05:00:00.000Z" }, top], { plan: PLAN, now: later });
+  const picked = lib.pickEdition([{ ...stories[1], publishedAt: "2026-11-24T05:00:00.000Z" }, top], { plan: TEST_PLAN, now: later });
   assert.deepEqual(picked.map((s) => s.trend.query), ["barcelona", "weather"]);
   assert.ok(!("rank" in picked[0]), "ranking isn't written to the edition");
 });
@@ -170,10 +197,10 @@ test("Google News: the publisher, not Google, is the source; fallbacks come last
   assert.equal(story.lang, "uz");
   assert.equal(story.summary, "", "the link list that repeats the title isn't a summary");
   const own = make("uzbekistan", "Daryo", 3, { start: NOW.getTime() - 5 * 864e5 });
-  const picked = lib.pickEdition([{ ...story, publishedAt: new Date(NOW.getTime() - 36e5).toISOString() }, ...own], { plan: PLAN, now: NOW });
+  const picked = lib.pickEdition([{ ...story, publishedAt: new Date(NOW.getTime() - 36e5).toISOString() }, ...own], { plan: TEST_PLAN, now: NOW });
   assert.deepEqual(picked.slice(0, 3).map((s) => s.source), ["Daryo", "Daryo", "Daryo"], "older stories from a main source win over a newer fallback");
   assert.ok(!("fallback" in picked[0]));
-  const few = lib.pickEdition([{ ...story, publishedAt: NOW.toISOString() }, ...own.slice(0, 2)], { plan: PLAN, now: NOW });
+  const few = lib.pickEdition([{ ...story, publishedAt: NOW.toISOString() }, ...own.slice(0, 2)], { plan: TEST_PLAN, now: NOW });
   assert.equal(few.filter((s) => s.source === "Kun.uz").length, 1, "used when the main sources run short");
 });
 
@@ -244,4 +271,74 @@ test("a <source> without an address (a photo credit, say) isn't taken for the pu
   const xml = `<rss version="2.0"><channel><item><title>Hostages in Cartagena</title><link>https://www.france24.com/en/a</link><pubDate>Mon, 23 Nov 2026 10:00:00 GMT</pubDate><source>© Photographer, AP</source></item></channel></rss>`;
   const [s] = lib.parseFeed(xml, { topic: "world", name: "France 24" });
   assert.equal(s.source, "France 24");
+});
+
+// ---------- Football only ----------
+
+test("an edition is 10 blocks: 6 moments (videos) and 4 news stories", () => {
+  const candidates = [
+    ...make("moments", "Premier League", 8, { video: true }),
+    ...make("moments", "FIFA", 8, { video: true }),
+    ...make("news", "BBC Sport", 5),
+    ...make("news", "Kun.uz", 5)
+  ];
+  const items = lib.pickEdition(candidates, { plan: PLAN, now: NOW });
+  assert.equal(items.length, 10);
+  assert.equal(items.filter((s) => s.topic === "moments" && s.video).length, 6, "60% moments, all videos");
+  assert.equal(items.filter((s) => s.topic === "news").length, 4, "40% news");
+});
+
+test("a classic goal can be weeks old; news must be from the past week", () => {
+  const oldGoal = make("moments", "FIFA", 1, { video: true, start: NOW.getTime() - 40 * 864e5, prefix: "classic" });
+  const tooOld = make("moments", "FIFA", 1, { video: true, start: NOW.getTime() - 70 * 864e5, prefix: "ancient" });
+  const oldNews = make("news", "BBC Sport", 1, { start: NOW.getTime() - 10 * 864e5, prefix: "stale" });
+  const items = lib.pickEdition([...oldGoal, ...tooOld, ...oldNews], { plan: PLAN, now: NOW });
+  assert.deepEqual(items.map((s) => s.title), ["classic story 1"]);
+});
+
+test("a moment channel's other videos are only used when moments run short", async () => {
+  const { MOMENT } = await import("../tools/news/sources.mjs");
+  assert.ok(MOMENT.test("Top 10 Premier League goals of the season"));
+  assert.ok(MOMENT.test("Ronaldinho skills that shocked the world"));
+  assert.ok(!MOMENT.test("Pep Guardiola press conference"));
+  const moments = make("moments", "FIFA", 3, { video: true, prefix: "goal" });
+  const other = make("moments", "FIFA", 6, { video: true, prefix: "presser", start: NOW.getTime() }).map((s) => ({ ...s, fallback: true }));
+  const news = make("news", "BBC Sport", 4);
+  const items = lib.pickEdition([...other, ...moments, ...news], { plan: PLAN, now: NOW });
+  const picked = items.filter((s) => s.topic === "moments").map((s) => s.title);
+  assert.deepEqual(picked.slice(0, 3).sort(), ["goal story 1", "goal story 2", "goal story 3"], "real moments first, though older");
+  assert.equal(picked.length, 6, "the rest filled from the other videos");
+});
+
+test("short titles: kind, year, player, team", () => {
+  const t = (topic, title, summary = "") => fb.shortTitle({ topic, title, summary }, title);
+  assert.equal(t("moments", "Messi's incredible solo goal vs Getafe 2007"), "Gol - 2007 - Messi");
+  assert.equal(t("moments", "Every Thierry Henry goal vs Manchester United"), "Gol - Henry - Manchester United");
+  assert.equal(t("moments", "Ronaldinho skills that shocked the world"), "Dribling - Ronaldinho", "Ronaldinho isn't also Ronaldo");
+  assert.equal(t("news", "Wirtz joins Liverpool in £116m deal"), "Transfer - Wirtz - Liverpool");
+  assert.equal(t("news", "Saka ruled out for six weeks with hamstring injury"), "Jarohat - Saka");
+  assert.equal(t("news", "Arsenal 2-0 Tottenham: Gyokeres double"), "Natija - Arsenal - Tottenham", "a result names both teams");
+  assert.equal(t("news", "Paxtakor Navbahorni 3:1 hisobida mag‘lub etdi"), "Natija - Paxtakor - Navbahor", "Uzbek endings");
+  assert.equal(t("news", "Inter Miami sign new striker"), "Transfer - Inter Miami", "Inter Miami isn't also Inter");
+  // No known name: the (Uzbek) title, shortened.
+  const long = fb.shortTitle({ topic: "news", title: "Federation announces a new stadium plan for the capital city next year" }, "Federatsiya poytaxt uchun kelasi yili yangi stadion rejasini eʼlon qildi");
+  assert.match(long, /^Yangilik - Federatsiya poytaxt uchun/);
+  assert.ok(long.length <= 62, long);
+});
+
+test("video titles lose channel names, hashtags and emoji", () => {
+  assert.equal(fb.cleanVideoTitle("WHAT A GOAL 😱 | Premier League #shorts"), "WHAT A GOAL");
+  assert.equal(fb.cleanVideoTitle("Messi vs Getafe | Classic | FC Barcelona"), "Messi vs Getafe - Classic");
+  assert.equal(lib.videoText("Messi scores a beauty.\nSubscribe: https://yt.com\nFollow us on Instagram\n#UCL"), "Messi scores a beauty.");
+});
+
+test("moments are mixed in among the news", () => {
+  assert.deepEqual(fb.interleave([1, 2, 3, 4, 5, 6], ["a", "b", "c", "d"]), [1, "a", 2, "b", 3, 4, "c", 5, "d", 6]);
+  assert.deepEqual(fb.interleave([1, 2], []), [1, 2]);
+});
+
+test("videos from the same site aren't taken for the same story", () => {
+  const a = { topic: "moments", source: "FIFA", title: "Goal one", url: "https://www.youtube.com/watch?v=aaaaaaaaaaa", video: { provider: "youtube", id: "aaaaaaaaaaa" }, publishedAt: NOW.toISOString() };
+  const b = { ...a, title: "Goal two", url: "https://www.youtube.com/watch?v=bbbbbbbbbbb", video: { provider: "youtube", id: "bbbbbbbbbbb" } };
+  assert.equal(lib.pickEdition([a, b], { plan: PLAN, now: NOW }).length, 2);
 });
