@@ -1,12 +1,13 @@
 {
  "date": "2026-11-25",
- "generatedAt": "2026-11-25T06:19:27.082Z",
+ "generatedAt": "2026-11-25T06:24:24.645Z",
  "fact": {
   "key": "Gentoo penguins give pebbles as gifts",
   "title": "Gentoo penguins give pebbles as gifts",
   "text": "Males search for the smoothest pebble to offer a female for their nest.",
   "source": "Wikipedia",
-  "image": "https://thumb.wikimedia.org/wikipedia/commons/thumb/2/2a/Gentoo_Penguin.png/800px-Gentoo_Penguin.png?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
+  "image": "https://thumb.wikimedia.org/wikipedia/commons/thumb/2/2a/Gentoo_Penguin.png/960px-Gentoo_Penguin.png?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
+  "imageSmall": "https://thumb.wikimedia.org/wikipedia/commons/thumb/2/2a/Gentoo_Penguin.png/330px-Gentoo_Penguin.png?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
   "url": "https://en.wikipedia.org/wiki/Gentoo_penguin",
   "lang": "en",
   "tr": {
@@ -22,7 +23,7 @@
    "side": "football",
    "topic": "moments",
    "kind": "Gol",
-   "short": "Gol - 2026 - Austria Start Strong Against Debutants Jordan…",
+   "short": "Gol - 2026 - Austriya - Iordaniya",
    "title": "Austria Start Strong Against Debutants Jordan - 2026 World Cup EXTENDED HIGHLIGHTS",
    "summary": "Watch the match highlights and all goals from Austria vs Jordan in Group J of the FIFA World Cup 2026 at Levi's Stadium in Santa Clara, California. After Romano Schmid fired Austria ahead in the 20th minute, Ali Olwan netted Jordan's first-ever World Cup goal early in the second half to level before Yazan Al-Arab…",
    "body": null,
@@ -37,101 +38,8 @@
    "lang": "en",
    "tr": {
     "uz": {
-     "title": "Austria Start Strong Against Debutants Jordan - 2026 World Cup EXTENDED HIGHLIGHTS",
+     "title": "Avstriya debyutanti Iordaniyaga qarshi oʻyinni kuchli boshladi – JCh-2026 KENGAYTIRILIGAN MA’LUMOTLAR",
      "summary": "Kaliforniyaning Santa-Klara shahridagi Levi's Stadiumda 2026 yilgi Jahon chempionati J guruhidagi Avstriya va Iordaniya oʻrtasidagi uchrashuvning asosiy lavhalari va barcha gollarini tomosha qiling. Romano Shmid 20-daqiqada Avstriyani hisobda oldinga oʻtkazib yuborganidan soʻng, Ali Olvan Iordaniyaning jahon chempionatidagi ilk golini ikkinchi boʻlim boshida urib, Yazan Al-Arabni tenglashtirdi…"
-    }
-   }
-  },
-  {
-   "id": "lspzfr",
-   "side": "football",
-   "topic": "news",
-   "kind": "Natija",
-   "short": "Natija - Hysa WBC chempionligini qoʻlga kiritib…",
-   "title": "Hysa aims to win WBC title then take on 'favourite fighter' Fury",
-   "summary": "Nelson Hysa has a vision. He wants to dethrone Agit Kabayel, win the WBC heavyweight world title and then take on his favourite fighter – Tyson Fury.",
-   "body": [
-    "Hysa, unbeaten in 25 professional fights, challenges Kabayel on Saturday for the WBC heavyweight world championship. The Albanian has taken 23 of those wins inside the distance and is looking to upset the popular German when they fight in Dusseldorf this weekend. A power-puncher, Hysa told Sky Sports : \\\"The knockout was with me from the first day that I started boxing. \\\"In this match [against Kabayel] I am preparing to do more good rounds because I know the opponent is a very good boxer, he's a tough boxer, a serious boxer. \\\"But we are planning, we are trying to do our best. We have our strategy to win the match and I think we will win the match earlier than the 12th round. \\\"I need to move up the ratio of knockouts!\\\" With Oleksandr Usyk vacating his championships, there are now new belt-holders in the division, but Hysa does not consider Kabayel the best of the current heavyweight titlists. \\\"For me No 1 now of the guys that have the belts, No 1 is Filip Hrgovic, [then Daniel] Dubois and for me the special one is Tyson Fury. \\\"Hrgovic will do very good because he's a good boxer,\\\" Hysa added. \\\"Hrgovic beat the best guy in the heavyweight division. He beat Moses [Itauma]. I don't want to do a fight with Moses, he's a good guy! He will be the best heavyweight in the world. He is the best heavyweight in the world but he needs more time.\\\" Fury will fight Anthony Joshua for the WBA 'super' heavyweight title when they meet on December 11. Hysa tips Fury to win and is eager to box him in a unification if he comes through his own fight. \\\"Who doesn't want to fight Tyson Fury? He's a legend,\\\" Hysa said. \\\"The No 1 man at heavyweight. \\\"He's my No 1 favourite boxer, I love him, I love everything he does. His style, everything. \\\"Who doesn't want to fight Tyson Fury?\\\" \",\"mainEntityOfPage\": {\"@type\": \"WebPage\",\"url\": \"/boxing/news/13616101/nelson-hysa-aims-to-beat-agit-kabayel-win-wbc-world-title-and-take-on-tyson-fury-his-favourite-fighter\"},\"wordCount\": \"384\",\"inLanguage\": \"en-GB\",\"genre\": \"boxing\",\"publisher\": {\"@type\": \"Organization\",\"@id\": \"#Publisher\",\"name\": \"Sky Sports\",\"logo\": {\"@type\": \"ImageObject\",\"@id\": \"#Logo\",\"url\": \"https://e0.365dm.com/tvlogos/channels/Sky-Sports-Logo.png\",\"width\": \"172\",\"height\": \"36\"}},\"headline\": \"Nelson Hysa aims to beat Agit Kabayel, win WBC world title and take on Tyson Fury, his 'favourite fighter'\",\"description\": \"Nelson Hysa challenges Agit Kabayel for the WBC title on Saturday in Dusseldorf; Hard-punching Hysa hopes to upset popular German Kabayel and then look to take on his 'favourite fighter' Tyson Fury; Hysa says Moses Itauma is still the best in the division - 'I don't want to fight him!'\",\"dateline\": \"London,UK\",\"copyrightHolder\": {\"@id\":\"#Publisher\"},\"author\": {\"@type\": \"Person\",\"name\": \"John Dennen\",\"sameAs\": \"https://x.com/@johndennen\",\"url\": \"https://www.skysports.com/author/john-dennen-861\" } ,\"datePublished\": \"2026-11-25T06:00:00+0000\",\"dateModified\": \"2026-11-24T19:23:35+0000\",\"dateCreated\": \"2026-11-24T18:56:18+0000\",\"image\": {\"@type\": \"ImageObject\",\"url\": \"https://e0.365dm.com/26/11/2048x1152/skysports-nelson-hysa-agit-kabayel_7415601.jpg?20261124190721\",\"width\": 2048,\"height\": 1152 } ,\"url\":\"/boxing/news/13616101/nelson-hysa-aims-to-beat-agit-kabayel-win-wbc-world-title-and-take-on-tyson-fury-his-favourite-fighter\" } Skip to main content Sky Sports Homepage Open menu Home Sports Football F1 Cricket Rugby Union Rugby League Golf Boxing NFL Tennis NBA Racing Darts Netball MMA More Sports Scores Football F1 Cricket Rugby Union Rugby League Golf NFL Tennis Watch Sky Bet More Podcasts Upcoming on Sky Get Sky Sports Sky Sports App Sky Sports with no contract Kick It Out British South Asians in Football Watch Sky Sports Boxing",
-    "Nelson Hysa challenges Agit Kabayel for the WBC title on Saturday in Dusseldorf; Hard-punching Hysa hopes to upset popular German Kabayel and then look to take on his 'favourite fighter' Tyson Fury; Hysa says Moses Itauma is still the best in the division - 'I don't want to fight him!'",
-    "Sports Journalist @johndennen",
-    "Tuesday 24 November 2026 19:23, UK",
-    "Please use Chrome browser for a more accessible video player",
-    "Nelson Hysa has a vision. He wants to dethrone Agit Kabayel, win the WBC heavyweight world title and then take on his favourite fighter – Tyson Fury.",
-    "Hysa, unbeaten in 25 professional fights, challenges Kabayel on Saturday for the WBC heavyweight world championship.",
-    "The Albanian has taken 23 of those wins inside the distance and is looking to upset the popular German when they fight in Dusseldorf this weekend.",
-    "A power-puncher, Hysa told Sky Sports : \"The knockout was with me from the first day that I started boxing.",
-    "\"In this match [against Kabayel] I am preparing to do more good rounds because I know the opponent is a very good boxer, he's a tough boxer, a serious boxer.",
-    "\"But we are planning, we are trying to do our best. We have our strategy to win the match and I think we will win the match earlier than the 12th round.",
-    "\"I need to move up the ratio of knockouts!\"",
-    "Please use Chrome browser for a more accessible video player",
-    "With Oleksandr Usyk vacating his championships, there are now new belt-holders in the division, but Hysa does not consider Kabayel the best of the current heavyweight titlists.",
-    "\"For me No 1 now of the guys that have the belts, No 1 is Filip Hrgovic, [then Daniel] Dubois and for me the special one is Tyson Fury.",
-    "\"Hrgovic will do very good because he's a good boxer,\" Hysa added. \"Hrgovic beat the best guy in the heavyweight division. He beat Moses [Itauma]. I don't want to do a fight with Moses, he's a good guy! He will be the best heavyweight in the world. He is the best heavyweight in the world but he needs more time.\"",
-    "Please use Chrome browser for a more accessible video player",
-    "Fury will fight Anthony Joshua for the WBA 'super' heavyweight title when they meet on December 11. Hysa tips Fury to win and is eager to box him in a unification if he comes through his own fight.",
-    "\"Who doesn't want to fight Tyson Fury? He's a legend,\" Hysa said. \"The No 1 man at heavyweight.",
-    "\"He's my No 1 favourite boxer, I love him, I love everything he does. His style, everything.",
-    "\"Who doesn't want to fight Tyson Fury?\"",
-    "© 2026 Sky UK"
-   ],
-   "image": "https://e1.365dm.com/26/11/1920x1080/skysports-nelson-hysa-agit-kabayel_7415601.jpg?20261124190721",
-   "url": "https://www.skysports.com/boxing/news/12040/13616101/nelson-hysa-aims-to-beat-agit-kabayel-win-wbc-world-title-and-take-on-tyson-fury-his-favourite-fighter",
-   "source": "Sky Sports",
-   "publishedAt": "2026-11-25T06:00:00.000Z",
-   "video": null,
-   "lang": "en",
-   "tr": {
-    "uz": {
-     "title": "Hysa WBC chempionligini qoʻlga kiritib, \"sevimli jangchi\" Fyuriga qarshi kurashishni maqsad qilgan",
-     "summary": "Nelson Xisa koʻrish qobiliyatiga ega. U Agit Kabayelni taxtdan tushirishni, WBC yoʻnalishi boʻyicha jahon chempionligini qoʻlga kiritishni va keyin oʻzining sevimli jangchisi - Tayson Fyuriga qarshi tura olishni istaydi.",
-     "body": [
-      "Professional boʻyicha 25 ta jangda magʻlub boʻlmagan Xysa shanba kuni WBC yoʻnalishi boʻyicha jahon chempionligi uchun Kabayel bilan kurash olib boradi. The Albanian has taken 23 of those wins inside the distance and is looking to upset the popular German when they fight in Dusseldorf this weekend. A power-puncher, Hysa told Sky Sports : \\\"The knockout was with me from the first day that I started boxing. \\\"In this match [against Kabayel] I am preparing to do more good rounds because I know the opponent is a very good boxer, he's a tough boxer, a serious boxer. \\\"But we are planning, we are trying to do our best. We have our strategy to win the match and I think we will win the match earlier than the 12th round. \\\"I need to move up the ratio of knockouts!\\\" With Oleksandr Usyk vacating his championships, there are now new belt-holders in the division, but Hysa does not consider Kabayel the best of the current heavyweight titlists. \\\"For Men kamarga ega boʻlgan yigitlar orasida 1-oʻrinda Filip Hrgovich, [keyinchalik Daniel] Dyubua va men uchun alohidasi Tayson Fyuri. \"Hrgovich juda yaxshi ishlaydi, chunki u yaxshi bokschi\", - deya qoʻshimcha qildi Xysa. \\\"Hrgovic beat the best guy in the heavyweight division. He beat Moses [Itauma]. I don't want to do a fight with Moses, he's a good guy! He will be the best heavyweight in the world. He is the best heavyweight in the world but he needs more time.\\\" Fury will fight Anthony Joshua for the WBA 'super' heavyweight title when they meet on December 11. Hysa Fyuriga gʻalaba qozonish uchun maslahat beradi va agar u oʻz jangi orqali chiqsa, uni birlashtirishga tayyor. \"Kim Tayson Fyuri bilan jang qilishni istamaydi? U afsona\", - dedi Xysa. \\\"Ogʻir vazndagi 1-raqamli odam. \\\"U mening sevimli bokschim, men uni yaxshi koʻraman, men uning barcha ishlarini yaxshi koʻraman. Uning uslubi, hamma narsa. \\\"Kim Tayson Fyuri bilan jang qilishni xohlamaydi?\\\" \",\"mainEntityOfPage\": {\"@type\": \"WebPage\",\"url\": \"/boxing/news/13616101/nelson-hysa-aims-to-beat-agit-kabayel-win-wbc-world-title-and-take-on-tyson-fury-his-favourite-fighter\"},\"wordCount\": \"384\",\"inLanguage\": \"en-GB\",\"genre\": \"boxing\",\"publisher\": {\"@type\": \"Organization\",\"@id\": \"#Publisher\",\"name\": \"Sky Sports\",\"logo\": {\"@type\": \"ImageObject\",\"@id\": \"#Logo\",\"url\": \"https://e0.365dm.com/tvlogos/channels/Sky-Sports-Logo.png\",\"width\": \"172\",\"height\": \"36\"}},\"headline\": \"Nelson Hysa aims to beat Agit Kabayel, win WBC world title and take on Tyson Fury, his 'favourite fighter'\",\"description\": \"Nelson Hysa challenges Agit Kabayel for the WBC title on Saturday in Dusseldorf; Qattiq zarba beruvchi Xysa mashhur germaniyalik Kabayelni xafa qilishni va keyin oʻzining \"sevimli jangchisi\" Tayson Fyuriga qarshi maydonga tushishni umid qiladi; Hysa says Moses Itauma is still the best in the division - 'I don't want to fight him!'\",\"dateline\": \"London,UK\",\"copyrightHolder\": {\"@id\":\"#Publisher\"},\"author\": {\"@type\": \"Person\",\"name\": \"John Dennen\",\"sameAs\": \"https://x.com/@johndennen\",\"url\": \"https://www.skysports.com/author/john-dennen-861\" } ,\"datePublished\": \"2026-11-25T06:00:00+0000\",\"dateModified\": \"2026-11-24T19:23:35+0000\",\"sanaYaratilgan\": \"2026-11-24T18:56:18+0000\",\"rasm\": {\"@type\": \"ImageObject\",\"url\": \"https://e0.365dm.com/26/11/2048x1152/skysports-nelson-hysa-agit-kabayel_7415601.jpg?20261124190721\",\"kenglik\": 2048,\"balandlik\": 1152} ,\"url\":\"/boxing/news/13616101/nelson-hysa-aims-to-beat-agit-kabayel-win-wbc-world-title-and-take-on-tyson-fury-his-favourite-fighter\" } Skip to main content Sky Sports Homepage Open menu Home Sports Football F1 Cricket Rugby Union Rugby League Golf Boxing NFL Tennis NBA Racing Darts Netball MMA More Sports Scores Football F1 Cricket Rugby Union Rugby League Golf NFL Tennis Watch Sky Bet More Podcasts Upcoming on Sky Get Sky Sports Sky Sports App Sky Sports with no contract Kick It Out British South Asians in Football Watch Sky Sports Boxing",
-      "Nelson Hysa shanba kuni Dyusseldorfda WBC chempionligi uchun Agit Kabayel bilan kurash olib boradi; Qattiq zarba beruvchi Xysa mashhur germaniyalik Kabayelni xafa qilishni va keyin oʻzining \"sevimli jangchisi\" Tayson Fyuriga qarshi maydonga tushishni umid qiladi; Xysaning aytishicha, Moses Itauma hali ham divizionning eng yaxshisi - \"Men u bilan jang qilishni xohlamayman!\"",
-      "Sport jurnalisti @johndennen",
-      "seshanba 24 noyabr 2026 19:23, Buyuk Britaniya",
-      "Iltimos, qulayroq video pleer uchun Chrome brauzeridan foydalaning",
-      "Nelson Xisa koʻrish qobiliyatiga ega. U Agit Kabayelni taxtdan tushirishni, WBC yoʻnalishi boʻyicha jahon chempionligini qoʻlga kiritishni va keyin oʻzining sevimli jangchisi - Tayson Fyuriga qarshi tura olishni istaydi.",
-      "Professional boʻyicha 25 ta jangda magʻlub boʻlmagan Xysa shanba kuni WBC yoʻnalishi boʻyicha jahon chempionligi uchun Kabayel bilan kurash olib boradi.",
-      "Albaniyalik ushbu gʻalabalarning 23 tasini masofada qoʻlga kiritdi va shu hafta oxirida Dyusseldorfdagi jangda mashhur nemisni xafa qilmoqchi.",
-      "Kuchli zarba beruvchi Xaysa Sky Sports nashriga shunday dedi: \"Boksni boshlaganimning birinchi kunidanoq nokaut men bilan boʻlgan.",
-      "“Ushbu uchrashuvda [Kabayelga qarshi] koʻproq yaxshi raundlar oʻtkazishga tayyorlanyapman, chunki raqib juda yaxshi bokschi, u qattiq bokschi, jiddiy bokschi ekanligini bilaman.",
-      "\"Ammo biz rejalashtirmoqdamiz, qoʻlimizdan kelganini qilishga harakat qilyapmiz. Uchrashuvda gʻalaba qozonish uchun oʻz strategiyamiz bor va oʻylaymanki, 12-turdan ham ertaroq oʻyinda gʻalaba qozonamiz.",
-      "\"Men nokautlar nisbatini oshirishim kerak!\"",
-      "Iltimos, qulayroq video pleer uchun Chrome brauzeridan foydalaning",
-      "Oleksandr Usik chempionligini tark etar ekan, endi divizionda yangi kamar sohiblari paydo boʻldi, biroq Xysa Kabayelni hozirgi ogʻir vazn toifasidagi eng yaxshisi deb hisoblamaydi.",
-      "“Men uchun kamar egalari orasida 1-oʻrin, Filip Xrgovich, Daniel Dyubua, men uchun esa Tayson Fyuri.",
-      "\"Hrgovich juda yaxshi ishlaydi, chunki u yaxshi bokschi\", - deya qoʻshimcha qildi Xysa. \"Hrgovich ogʻir vazn toifasida eng yaxshi yigitni magʻlub etdi. U Musoni [Itauma] ni magʻlub etdi. Men Muso bilan jang qilishni xohlamayman, u yaxshi yigit! U dunyodagi eng yaxshi ogʻir vaznli boʻladi. U dunyodagi eng yaxshi ogʻir vaznli, lekin unga koʻproq vaqt kerak \".",
-      "Iltimos, qulayroq video pleer uchun Chrome brauzeridan foydalaning",
-      "Fyuri 11 dekabr kuni boʻlib oʻtadigan WBA \"super ogʻir vazn toifasi\" chempioni Entoni Joshua bilan jang qiladi. Xisa Fyuriga gʻalaba qozonishini maslahat beradi va agar u oʻz jangi orqali chiqsa, uni birlashmada boks qilishni xohlaydi.",
-      "\"Kim Tayson Fyuri bilan jang qilishni istamaydi? U afsona\", - deydi Xysa. \"Ogʻir vazndagi 1-raqamli odam.",
-      "“U mening 1-raqamli sevimli bokschim, men uni yaxshi koʻraman, men uning qilgan barcha ishlarini yaxshi koʻraman. Uning uslubi, hamma narsa.",
-      "\"Kim Tayson Fyuri bilan jang qilishni xohlamaydi?\"",
-      "© 2026 Sky UK"
-     ]
-    }
-   }
-  },
-  {
-   "id": "1n6dmj5",
-   "side": "football",
-   "topic": "moments",
-   "kind": "Lahza",
-   "short": "Lahza - @AlejandroBalde_ tomonidan ajoyib…",
-   "title": "Amazing run by @AlejandroBalde_",
-   "summary": "",
-   "body": null,
-   "image": "https://i.ytimg.com/vi/RJxkiCJYNvI/hqdefault.jpg",
-   "url": "https://www.youtube.com/shorts/RJxkiCJYNvI",
-   "source": "FC Barcelona",
-   "publishedAt": "2026-11-24T19:54:19.000Z",
-   "video": {
-    "provider": "youtube",
-    "id": "RJxkiCJYNvI"
-   },
-   "lang": "en",
-   "tr": {
-    "uz": {
-     "title": "@AlejandroBalde_ tomonidan ajoyib boshqariladigan"
     }
    }
   },
@@ -159,52 +67,26 @@
    "tr": {}
   },
   {
-   "id": "6gh259",
+   "id": "1n6dmj5",
    "side": "football",
    "topic": "moments",
-   "kind": "Lahza",
-   "short": "Lahza - Barcha davrlardagi eng kuchli qarshi hujum?",
-   "title": "Greatest counter-attack of all time?",
-   "summary": "UEFA Champions League: UEFA Europa League: UEFA Conference League: UEFA Women's Champions League:",
+   "kind": "Dribling",
+   "short": "Dribling - Balde",
+   "title": "Amazing run by Alejandro Balde",
+   "summary": "",
    "body": null,
-   "image": "https://i.ytimg.com/vi/H2MiuE87B1s/hqdefault.jpg",
-   "url": "https://www.youtube.com/shorts/H2MiuE87B1s",
-   "source": "UEFA",
-   "publishedAt": "2026-11-24T15:35:30.000Z",
+   "image": "https://i.ytimg.com/vi/RJxkiCJYNvI/hqdefault.jpg",
+   "url": "https://www.youtube.com/shorts/RJxkiCJYNvI",
+   "source": "FC Barcelona",
+   "publishedAt": "2026-11-24T19:54:19.000Z",
    "video": {
     "provider": "youtube",
-    "id": "H2MiuE87B1s"
+    "id": "RJxkiCJYNvI"
    },
    "lang": "en",
    "tr": {
     "uz": {
-     "title": "Barcha davrlardagi eng kuchli qarshi hujum?",
-     "summary": "UEFA Chempionlar Ligasi: UEFA Yevropa Ligasi: UEFA Konferentsiya Ligasi: UEFA Ayollar Chempionlar Ligasi:"
-    }
-   }
-  },
-  {
-   "id": "1lgt4y6",
-   "side": "football",
-   "topic": "moments",
-   "kind": "Lahza",
-   "short": "Lahza - Mayki Mur goʻzallik kiritganida, siz maydonga…",
-   "title": "This looks like you‘re on the pitch when Mikey Moore scores a beauty",
-   "summary": "Incredible scenes at the Allianz Arena!",
-   "body": null,
-   "image": "https://i.ytimg.com/vi/MPnjvgm7OFo/hqdefault.jpg",
-   "url": "https://www.youtube.com/shorts/MPnjvgm7OFo",
-   "source": "Bundesliga",
-   "publishedAt": "2026-11-24T15:00:07.000Z",
-   "video": {
-    "provider": "youtube",
-    "id": "MPnjvgm7OFo"
-   },
-   "lang": "en",
-   "tr": {
-    "uz": {
-     "title": "Mayki Mur goʻzallik kiritganida, siz maydonga tushganga oʻxshaysiz",
-     "summary": "Allianz Arenada ajoyib manzaralar!"
+     "title": "Alejandro Balde tomonidan ajoyib boshqariladigan"
     }
    }
   },
@@ -213,7 +95,7 @@
    "side": "football",
    "topic": "news",
    "kind": "Yangilik",
-   "short": "Yangilik - Reynjers soddalik va xotirjamlikka qaramay, uni…",
+   "short": "Yangilik - Rangers",
    "title": "Rangers 'dug it out' despite naivety & complacency - McInnes",
    "summary": "Rangers manager Derek McInnes says his team's naivety and complacency made their task more difficult in their thrilling 3-2 win over Aberdeen, but hails their ability to get the job done.",
    "body": [
@@ -314,27 +196,52 @@
    }
   },
   {
-   "id": "pqkyay",
+   "id": "6gh259",
    "side": "football",
    "topic": "moments",
-   "kind": "Lahza",
-   "short": "Lahza - Premer-ligani egallab olgan oʻsmirlar",
-   "title": "Teenagers Taking Over The Premier League",
-   "summary": "Love this video? Let's take a look at some iconic moments where teenage players have taken over Premier League matches! We've recently seen young stars like Spurs' Luca Williams-Barnett, Liverpool's Rio Ngumoha and Arsenal's Max Dowman shining on the big stage, and in the league's history we've seen lots of teenagers…",
+   "kind": "Dribling",
+   "short": "Dribling - Barcha davrlardagi eng kuchli qarshi…",
+   "title": "Greatest counter-attack of all time?",
+   "summary": "UEFA Champions League: UEFA Europa League: UEFA Conference League: UEFA Women's Champions League:",
    "body": null,
-   "image": "https://i.ytimg.com/vi/fuCJ51AXQV8/hqdefault.jpg",
-   "url": "https://www.youtube.com/watch?v=fuCJ51AXQV8",
-   "source": "Premier League",
-   "publishedAt": "2026-11-24T12:27:28.000Z",
+   "image": "https://i.ytimg.com/vi/H2MiuE87B1s/hqdefault.jpg",
+   "url": "https://www.youtube.com/shorts/H2MiuE87B1s",
+   "source": "UEFA",
+   "publishedAt": "2026-11-24T15:35:30.000Z",
    "video": {
     "provider": "youtube",
-    "id": "fuCJ51AXQV8"
+    "id": "H2MiuE87B1s"
    },
    "lang": "en",
    "tr": {
     "uz": {
-     "title": "Premer-ligani egallab olgan oʻsmirlar",
-     "summary": "Love this video? Keling, oʻsmir futbolchilar Premer-liga oʻyinlarini qoʻlga kiritgan ba'zi ajoyib lahzalarni koʻrib chiqaylik! Biz yaqinda \"shporlar\" a'zosi Luka Uilyams-Barnett, \"Liverpul\" a'zosi Rio Ngumoxa va \"Arsenal\" a'zosi Maks Douman kabi yosh yulduzlarni katta sahnada porlayotganini koʻrdik va liga tarixida biz koʻplab oʻsmirlarni koʻrganmiz..."
+     "title": "Barcha davrlardagi eng kuchli qarshi hujum?",
+     "summary": "UEFA Chempionlar Ligasi: UEFA Yevropa Ligasi: UEFA Konferentsiya Ligasi: UEFA Ayollar Chempionlar Ligasi:"
+    }
+   }
+  },
+  {
+   "id": "1lgt4y6",
+   "side": "football",
+   "topic": "moments",
+   "kind": "Gol",
+   "short": "Gol - Mikey Moore",
+   "title": "This looks like you‘re on the pitch when Mikey Moore scores a beauty",
+   "summary": "Incredible scenes at the Allianz Arena!",
+   "body": null,
+   "image": "https://i.ytimg.com/vi/MPnjvgm7OFo/hqdefault.jpg",
+   "url": "https://www.youtube.com/shorts/MPnjvgm7OFo",
+   "source": "Bundesliga",
+   "publishedAt": "2026-11-24T15:00:07.000Z",
+   "video": {
+    "provider": "youtube",
+    "id": "MPnjvgm7OFo"
+   },
+   "lang": "en",
+   "tr": {
+    "uz": {
+     "title": "Mayki Mur goʻzallik kiritganida, siz maydonga tushganga oʻxshaysiz",
+     "summary": "Allianz Arenada ajoyib manzaralar!"
     }
    }
   },
@@ -343,7 +250,7 @@
    "side": "football",
    "topic": "news",
    "kind": "Transfer",
-   "short": "Transfer - Chelsea",
+   "short": "Transfer - Chelsea - Bournemouth",
    "title": "Papers: Chelsea will push to sign Bournemouth's Scott in January",
    "summary": "The top stories and transfer rumours from Tuesday's newspapers...",
    "body": [
@@ -396,11 +303,58 @@
    }
   },
   {
+   "id": "pqkyay",
+   "side": "football",
+   "topic": "moments",
+   "kind": "Lahza",
+   "short": "Lahza - Premer-ligani egallab olgan oʻsmirlar",
+   "title": "Teenagers Taking Over The Premier League",
+   "summary": "Love this video? Let's take a look at some iconic moments where teenage players have taken over Premier League matches! We've recently seen young stars like Spurs' Luca Williams-Barnett, Liverpool's Rio Ngumoha and Arsenal's Max Dowman shining on the big stage, and in the league's history we've seen lots of teenagers…",
+   "body": null,
+   "image": "https://i.ytimg.com/vi/fuCJ51AXQV8/hqdefault.jpg",
+   "url": "https://www.youtube.com/watch?v=fuCJ51AXQV8",
+   "source": "Premier League",
+   "publishedAt": "2026-11-24T12:27:28.000Z",
+   "video": {
+    "provider": "youtube",
+    "id": "fuCJ51AXQV8"
+   },
+   "lang": "en",
+   "tr": {
+    "uz": {
+     "title": "Premer-ligani egallab olgan oʻsmirlar",
+     "summary": "Bu video yoqdimi? Keling, oʻsmir futbolchilar Premer-liga oʻyinlarini qoʻlga kiritgan ba'zi ajoyib lahzalarni koʻrib chiqaylik! Biz yaqinda \"shporlar\" a'zosi Luka Uilyams-Barnett, \"Liverpul\" a'zosi Rio Ngumoxa va \"Arsenal\" a'zosi Maks Douman kabi yosh yulduzlarni katta sahnada porlayotganini koʻrdik va liga tarixida biz koʻplab oʻsmirlarni koʻrganmiz..."
+    }
+   }
+  },
+  {
+   "id": "jqhipq",
+   "side": "football",
+   "topic": "news",
+   "kind": "Yangilik",
+   "short": "Yangilik - Cristiano Ronaldo",
+   "title": "Krishtianu Ronaldu faoliyatidagi 987-golini urdi",
+   "summary": "Saudiya Arabistonining “An-Nassr” klubi hujumchisi va sardori Krishtianu Ronaldu Elit Osiyo Chempionlar Ligasidan oʻrin olgan “Al-Sadd” jamoasiga qarshi oʻyinda faoliyatidagi 987-golni urdi. Portugaliyalik futbolchi uchrashuvning 13-daqiqasida oʻzi ishlagan penaltini golga aylantirishga muvaffaq boʻldi. Ronalduning…",
+   "body": [
+    "Saudiya Arabistonining “An-Nassr” klubi hujumchisi va sardori Krishtianu Ronaldu Elit Osiyo Chempionlar Ligasidan oʻrin olgan “Al-Sadd” jamoasiga qarshi oʻyinda faoliyatidagi 987-golni urdi.",
+    "Portugaliyalik futbolchi uchrashuvning 13-daqiqasida oʻzi ishlagan penaltini golga aylantirishga muvaffaq boʻldi. Ronalduning yana bir goli esa ofsayd sababli bekor qilindi.",
+    "Oʻyin “An-Nassr”ning 2:1 hisobidagi gʻalabasi bilan yakunlandi. Ronalduning “An-Nassr” tarkibida urgan gollari soni 139 taga yetdi.",
+    "Umumiy hisobda u milliy jamoa safida 146 ta, klub miqyosida esa 841 ta gol kiritgan."
+   ],
+   "image": "https://gocdn.daryo.uz/large/2026/11/25/334fac7f3081598e68ca17b0508dfe22a65acc400f21e632b2abfda231b3b09f.webp",
+   "url": "https://daryo.uz/2026/11/25/krishtianu-ronaldu-faoliyatidagi-987-golini-urdi/",
+   "source": "Daryo",
+   "publishedAt": "2026-11-25T04:31:55.000Z",
+   "video": null,
+   "lang": "uz",
+   "tr": {}
+  },
+  {
    "id": "uokdke",
    "side": "football",
    "topic": "moments",
-   "kind": "Gol",
-   "short": "Gol - Wirtz - Liverpool",
+   "kind": "Natija",
+   "short": "Natija - Liverpool - Manchester United",
    "title": "Inside Anfield: Liverpool 4-0 Man Utd - Tunnel scenes and incredible atmosphere!",
    "summary": "Relive the BEST view of the Reds' Premier League victory over Manchester United at Anfield thanks to goals from Dominik Szoboszlai, Florian Wirtz, Rio Ngumoha & Victor Munoz. This video is available with subtitles in English, Spanish, French, German, Italian, Portuguese, Hungarian, Russian, Arabic, Thai, Indonesian…",
    "body": null,
@@ -415,8 +369,8 @@
    "lang": "en",
    "tr": {
     "uz": {
-     "title": "\"Enfild\" ichida: \"Liverpul\" 4:0 MYU - Tunnel manzaralari va ajoyib atmosfera!",
-     "summary": "Dominik Szoboslay, Florian Virts, Rio Ngumoxa va Viktor Munos gollari evaziga \"Qizillar\"ning Premer-ligada \"Manchester Yunayted\" ustidan qozonilgan gʻalabasining ENG YAXSHI koʻrinishini qayta jonlantiring. Bu videoni ingliz, ispan, frantsuz, nemis, italyan, portugal, venger, rus, arab, tay, indoneziya tillarida subtitrlar bilan koʻrish mumkin..."
+     "title": "\"Enfild\" ichida: \"Liverpul\" 4:0 MYU - Tunnel manzaralari va ajoyib muhit!",
+     "summary": "Dominik Szoboslai, Florian Wirtz, Rio Ngumoxa va Viktor Munosning gollari evaziga \"Qizillar\"ning Premer-ligada \"Manchester Yunayted\" ustidan qozonilgan gʻalabasining ENG YAXSHI koʻrinishini qaytadan jonlantiring. Bu videoni ingliz, ispan, frantsuz, nemis, italyan, portugal, venger, rus, arab, tay, indonez tillarida subtitrlar bilan koʻrish mumkin..."
     }
    }
   }
