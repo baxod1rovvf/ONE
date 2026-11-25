@@ -1,6 +1,7 @@
-// The News page: the daily edition (fun fact, light and serious sides), the
-// reader, videos played from YouTube only when opened, the week of editions,
-// and what has been read. Editions are served from fixtures built here.
+// The News page: football in Uzbek. Ten blocks two to a line (40% picture,
+// 60% short title), a blue dot that turns green once read, the fun fact card,
+// the reader with videos played from YouTube only when opened, and the week
+// of editions. Editions are served from fixtures built here.
 const { test, before, after } = require("node:test");
 const assert = require("node:assert/strict");
 const { startServer, launch, openApp } = require("./helpers.cjs");
@@ -21,42 +22,55 @@ const YESTERDAY = iso(new Date(Date.now() - 864e5));
 const hoursAgo = (n) => new Date(Date.now() - n * 36e5).toISOString();
 const PNG = Buffer.from("iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mP8z8BQDwAEhQGAhKmMIQAAAABJRU5ErkJggg==", "base64");
 
-function story(id, side, topic, extra = {}) {
+// A block: English by default, with its Uzbek translation.
+function story(id, short, extra = {}) {
   return {
     id,
-    side,
-    topic,
-    title: `Story ${id} about ${topic}`,
-    summary: `A short summary of story ${id}.`,
-    body: [`First paragraph of story ${id}.`, `Second paragraph of story ${id}.`],
+    topic: "news",
+    short,
+    title: `Story ${id}`,
+    summary: `Summary ${id}.`,
+    body: [`Paragraph one of ${id}.`, `Paragraph two of ${id}.`],
     image: `https://img.test-news.example/${id}.png`,
     url: `https://source.test-news.example/${id}`,
-    source: "Test News",
-    publishedAt: hoursAgo(5),
+    source: "BBC Sport",
+    publishedAt: hoursAgo(3),
     video: null,
+    lang: "en",
+    tr: { uz: { title: `Yangilik ${id}`, summary: `Qisqacha ${id}.`, body: [`Birinchi xatboshi ${id}.`, `Ikkinchi xatboshi ${id}.`] } },
     ...extra
   };
 }
+const video = (id, short) => story(id, short, { topic: "moments", video: { provider: "youtube", id: `${id}xxxxxxxxxx`.slice(0, 11) }, url: `https://www.youtube.com/watch?v=${id}`, source: "Premier League", body: null });
 
 const todayEdition = {
   date: TODAY,
-  fact: { text: "Octopuses have three hearts and blue blood.", url: "https://facts.test-news.example/1", source: null },
+  fact: {
+    title: "A horse can sleep standing up!",
+    text: "Horses can doze on their feet.",
+    image: "https://img.test-news.example/horse.png",
+    url: "https://en.wikipedia.org/wiki/Horse",
+    source: "Wikipedia",
+    lang: "en",
+    tr: { uz: { title: "Ot tik turib uxlay oladi!", text: "Otlar oyoqda turib mudray oladi." } }
+  },
   items: [
-    story("w1", "serious", "world"),
-    story("w2", "serious", "world", { video: { provider: "youtube", id: "abcdefghijk" }, image: "https://img.test-news.example/v.png", body: null, url: "https://www.youtube.com/watch?v=abcdefghijk" }),
-    story("w3", "serious", "world", { body: null }),
-    story("t1", "serious", "tech"),
-    story("t2", "serious", "tech", { image: null }),
-    story("f1", "light", "funny"),
-    story("f2", "light", "funny", { image: "https://img.test-news.example/broken.png" }),
-    story("a1", "light", "animals"),
-    story("a2", "light", "animals")
+    video("m1", "Gol - 2005 - Messi - Manchester United"),
+    story("n1", "Transfer - Wirtz - Liverpool"),
+    video("m2", "Dribling - Ronaldinho"),
+    video("m3", "Gol - 2012 - Ronaldo"),
+    story("n2", "Jarohat - Saka", { body: null, tr: { uz: { title: "Yangilik n2", summary: "Qisqacha n2." } } }),
+    video("m4", "Gol - Henry - Arsenal"),
+    story("n3", "Natija - Paxtakor - Navbahor", { lang: "uz", title: "Paxtakor Navbahorni 3:1 hisobida magʻlub etdi", summary: "Superliga oʻyini.", body: ["Uchrashuv Toshkentda boʻldi.", "Paxtakor ikki gol urdi."], tr: {} }),
+    video("m5", "Seyv - Buffon"),
+    story("n4", "Natija - Arsenal - Tottenham", { image: "https://img.test-news.example/broken.png" }),
+    video("m6", "Gol - 1986 - Maradona")
   ]
 };
 const yesterdayEdition = {
   date: YESTERDAY,
-  fact: { text: "Wombats make cube-shaped droppings.", url: null },
-  items: [story("y1", "serious", "world", { title: "Yesterday's big story" }), story("y2", "light", "animals")]
+  fact: { title: "Octopuses have three hearts", text: "And blue blood.", lang: "en", tr: { uz: { title: "Sakkizoyoqning uchta yuragi bor", text: "Va qoni koʻk." } } },
+  items: [story("y1", "Transfer - Mbappé - Real Madrid"), video("y2", "Gol - 2002 - Zidane")]
 };
 
 // Serves news/ from the fixtures above; pictures and YouTube's player are stand-ins.
@@ -76,234 +90,201 @@ function serveNews({ days = [TODAY, YESTERDAY], editions = { [TODAY]: todayEditi
     });
   };
 }
+const notMissingFiles = (errors) => errors.filter((e) => !/Failed to load resource/.test(e));
 // Esc closes the reader once focus has moved into it.
 async function closeReader(page) {
   await page.waitForFunction(() => document.activeElement && document.activeElement.closest("[role=dialog]"));
   await page.keyboard.press("Escape");
   await page.getByRole("dialog").waitFor({ state: "detached" });
 }
-const notMissingFiles = (errors) => errors.filter((e) => !/Failed to load resource/.test(e));
+const grid = (page) => page.locator('main[data-section="news"]').getByRole("list", { name: "Yangiliklar" });
+const block = (page, short) => grid(page).getByRole("button", { name: new RegExp(`^(Oʻqish|Koʻrish): ${short.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")} \\(`) });
 
-test("today's edition: the fun fact, then the light side and the serious side", async () => {
+test("ten blocks, two to a line: picture on the left (40%), short title on the right", async () => {
   const { page, errors } = await openApp(browser, server.url, { route: "news", init: serveNews() });
-  const main = page.locator('main[data-section="news"]');
-  await main.getByRole("heading", { name: "Fun fact of the day" }).waitFor();
-  assert.ok(await main.getByText("Octopuses have three hearts and blue blood.").isVisible());
-  const light = main.getByRole("region", { name: "The light side" });
-  const serious = main.getByRole("region", { name: "The serious side" });
-  assert.equal(await light.locator(".news-card").count(), 4);
-  assert.equal(await serious.locator(".news-card").count(), 5);
-  assert.ok(await light.getByText("Funny & odd").first().isVisible());
-  assert.ok(await serious.getByText("World & politics").first().isVisible());
-  // The video is marked, and nothing of YouTube is loaded until it's opened.
-  assert.ok(await serious.getByRole("button", { name: /^Watch: Story w2/ }).isVisible());
+  await grid(page).waitFor();
+  const blocks = grid(page).locator(".news-block");
+  assert.equal(await blocks.count(), 10);
+  assert.deepEqual(await grid(page).locator(".news-block__title").allTextContents(), todayEdition.items.map((s) => s.short), "short titles, in the edition's order");
+  const boxes = await blocks.evaluateAll((els) => els.map((e) => e.getBoundingClientRect().toJSON()));
+  assert.equal(Math.round(boxes[0].y), Math.round(boxes[1].y), "two to a line");
+  assert.ok(boxes[2].y > boxes[0].y, "then the next line");
+  const first = blocks.first();
+  const media = await first.locator(".news-block__media").boundingBox();
+  const whole = await first.boundingBox();
+  assert.ok(Math.abs(media.width / whole.width - 0.4) < 0.03, `picture is ${Math.round((media.width / whole.width) * 100)}% wide`);
+  assert.ok(parseFloat(await first.evaluate((el) => getComputedStyle(el).borderTopLeftRadius)) >= 12, "rounded corners");
+  // No categories, no ticks.
+  assert.equal(await page.locator(".news-side, .news-topic, .badge, .news-card__read").count(), 0);
+  // Videos are marked, and nothing of YouTube loads until one is opened.
+  assert.equal(await block(page, "Gol - 2005 - Messi - Manchester United").locator(".news-block__play").count(), 1);
   assert.equal(await page.locator("iframe").count(), 0);
-  // The week's editions, newest first.
-  const days = main.getByRole("group", { name: "Edition" });
-  assert.deepEqual((await days.getByRole("button").allTextContents()).map((t) => t.trim()), ["Today", "Yesterday"]);
-  assert.equal(await days.getByRole("button", { name: "Today" }).getAttribute("aria-pressed"), "true");
-  assert.ok(await main.getByText("0 of 9 read").isVisible());
   assert.deepEqual(notMissingFiles(errors), []);
   await page.close();
 });
 
-test("reading a story: its text inside Core, a link to the original, then the next story", async () => {
+test("a blue dot until a block is read, then green, remembered on this device", async () => {
   const { page } = await openApp(browser, server.url, { route: "news", init: serveNews() });
-  const main = page.locator('main[data-section="news"]');
-  await main.getByRole("button", { name: /^Read: Story f1/ }).click();
-  const reader = page.getByRole("dialog", { name: "Story f1 about funny" });
-  await reader.waitFor();
-  assert.ok(await reader.getByText("First paragraph of story f1.").isVisible());
-  assert.ok(await reader.getByText("Second paragraph of story f1.").isVisible());
-  const source = reader.getByRole("link", { name: "Read on Test News" });
-  assert.equal(await source.getAttribute("href"), "https://source.test-news.example/f1");
-  assert.equal(await source.getAttribute("target"), "_blank");
-  // Next goes through the light side, then the serious side.
-  await reader.getByRole("button", { name: "Next story" }).click();
-  await page.getByRole("dialog", { name: "Story f2 about funny" }).waitFor();
-  await page.keyboard.press("Escape");
-  await page.getByRole("dialog").waitFor({ state: "detached" });
-  assert.ok(await main.getByText("2 of 9 read").isVisible());
-  assert.ok(await main.getByRole("button", { name: /^Read: Story f1 about funny \(read\)$/ }).isVisible());
-  // What was read is remembered on this device.
+  const b = block(page, "Transfer - Wirtz - Liverpool");
+  await b.waitFor();
+  const dot = b.locator(".news-block__dot");
+  const color = () => dot.evaluate((el) => getComputedStyle(el).backgroundColor);
+  assert.equal(await color(), "rgb(47, 123, 246)", "blue");
+  const dotBox = await dot.boundingBox();
+  const box = await b.boundingBox();
+  assert.ok(dotBox.x + dotBox.width > box.x + box.width - 20 && dotBox.y + dotBox.height > box.y + box.height - 20, "in the bottom-right corner");
+  assert.match(await b.getAttribute("aria-label"), /\(oʻqilmagan\)$/);
+  await b.click();
+  await closeReader(page);
+  // (The dot fades from blue to green.)
+  await dot.evaluate((el) => new Promise((resolve) => (getComputedStyle(el).backgroundColor === "rgb(34, 165, 91)" ? resolve() : el.addEventListener("transitionend", resolve, { once: true }))));
+  assert.equal(await color(), "rgb(34, 165, 91)", "green once read");
+  assert.match(await b.getAttribute("aria-label"), /\(oʻqilgan\)$/);
+  // Nothing else changes: no tick, no fading.
+  assert.equal(await b.evaluate((el) => getComputedStyle(el).opacity), "1");
+  assert.equal(await b.locator(".news-block__title").evaluate((el) => getComputedStyle(el).color), await block(page, "Jarohat - Saka").locator(".news-block__title").evaluate((el) => getComputedStyle(el).color));
+  assert.ok(await page.getByText("10 tadan 1 tasi oʻqildi").isVisible());
   await page.reload();
-  await main.getByText("2 of 9 read").waitFor();
+  await block(page, "Transfer - Wirtz - Liverpool").waitFor();
+  assert.equal(await block(page, "Transfer - Wirtz - Liverpool").locator(".news-block__dot").evaluate((el) => getComputedStyle(el).backgroundColor), "rgb(34, 165, 91)");
   await page.close();
 });
 
-test("a story that came with only a summary says where the full article is", async () => {
+test("everything reads in Uzbek inside Core, with Next through all ten", async () => {
   const { page } = await openApp(browser, server.url, { route: "news", init: serveNews() });
-  await page.locator("main").getByRole("button", { name: /^Read: Story w3/ }).click();
-  const reader = page.getByRole("dialog", { name: "Story w3 about world" });
-  assert.ok(await reader.getByText("A short summary of story w3.").isVisible());
-  assert.ok(await reader.getByText(/full article is on Test News/).isVisible());
+  await block(page, "Transfer - Wirtz - Liverpool").click();
+  const reader = page.getByRole("dialog", { name: "Yangilik n1" });
+  await reader.waitFor();
+  assert.ok(await reader.getByText("Birinchi xatboshi n1.").isVisible());
+  assert.equal(await reader.locator(".news-reader__p").first().getAttribute("lang"), "uz");
+  const source = reader.getByRole("link", { name: "BBC Sport saytida oʻqish" });
+  assert.equal(await source.getAttribute("href"), "https://source.test-news.example/n1");
+  await reader.getByRole("button", { name: "Keyingi yangilik" }).click();
+  // The next block (a video) plays inside Core.
+  const next = page.getByRole("dialog", { name: "Yangilik m2" });
+  await next.locator("iframe").waitFor();
+  assert.match(await next.locator("iframe").getAttribute("src"), /^https:\/\/www\.youtube-nocookie\.com\/embed\/m2xxxxxxxxx\?autoplay=1/);
+  assert.ok(await next.getByRole("link", { name: "YouTube’da ochish" }).isVisible());
+  await closeReader(page);
+  assert.equal(await page.locator("iframe").count(), 0, "the player is gone with the reader");
+  // A story published in Uzbek reads as it was written.
+  await block(page, "Natija - Paxtakor - Navbahor").click();
+  const uz = page.getByRole("dialog", { name: "Paxtakor Navbahorni 3:1 hisobida magʻlub etdi" });
+  assert.ok(await uz.getByText("Paxtakor ikki gol urdi.").isVisible());
+  await closeReader(page);
+  // One that came with only a summary says where the full article is.
+  await block(page, "Jarohat - Saka").click();
+  assert.ok(await page.getByRole("dialog").getByText(/Toʻliq maqola BBC Sport saytida/).isVisible());
+  await closeReader(page);
+  // The last one ends with Done.
+  await block(page, "Gol - 1986 - Maradona").click();
+  assert.ok(await page.getByRole("dialog").getByRole("button", { name: "Tayyor" }).isVisible());
   await page.close();
 });
 
-test("a video plays inside Core from YouTube, and stops when closed", async () => {
-  const requests = [];
-  const { page, errors } = await openApp(browser, server.url, { route: "news", init: serveNews({ requests }) });
-  await page.locator("main").getByRole("button", { name: /^Watch: Story w2/ }).click();
-  const reader = page.getByRole("dialog", { name: "Story w2 about world" });
-  const frame = reader.locator("iframe");
-  await frame.waitFor();
-  const src = await frame.getAttribute("src");
-  assert.match(src, /^https:\/\/www\.youtube-nocookie\.com\/embed\/abcdefghijk\?autoplay=1/);
-  assert.match(await frame.getAttribute("allow"), /fullscreen/);
-  await page.frameLocator('[role="dialog"] iframe').getByText("YouTube player").waitFor();
-  assert.ok(await reader.getByRole("link", { name: "Open on YouTube" }).isVisible());
-  await reader.getByRole("button", { name: "Close" }).click();
-  await page.getByRole("dialog").waitFor({ state: "detached" });
-  assert.equal(await page.locator("iframe").count(), 0, "the player is gone with the reader");
+test("the fun fact: bulb, Today's Discovery, headline, sentence, source and photo", async () => {
+  const { page, errors } = await openApp(browser, server.url, { route: "news", init: serveNews() });
+  const fact = page.locator("main .news-fact");
+  await fact.waitFor();
+  assert.equal(await fact.locator("svg.news-fact__art").count(), 1, "the bulb");
+  assert.ok(await fact.getByText("Bugungi kashfiyot").isVisible());
+  assert.ok(await fact.getByRole("heading", { name: "Ot tik turib uxlay oladi!" }).isVisible());
+  assert.ok(await fact.getByText("Otlar oyoqda turib mudray oladi.").isVisible());
+  const src = fact.getByRole("link", { name: "Manba: Vikipediya" });
+  assert.equal(await src.getAttribute("href"), "https://en.wikipedia.org/wiki/Horse");
+  const photo = fact.locator("img.news-fact__photo");
+  assert.equal(await photo.getAttribute("src"), "https://img.test-news.example/horse.png");
+  // Bulb on the left, photo on the right.
+  const art = await fact.locator(".news-fact__art").boundingBox();
+  const text = await fact.locator(".news-fact__body").boundingBox();
+  const pic = await photo.boundingBox();
+  assert.ok(art.x < text.x && text.x < pic.x, "bulb, words, photo");
   assert.deepEqual(notMissingFiles(errors), []);
+  await page.close();
+});
+
+test("an edition from before the redesign still shows, with titles in its place", async () => {
+  const old = {
+    date: TODAY,
+    fact: { text: "A horse can look forward with one eye and back with the other.", url: null },
+    items: [{ id: "o1", side: "serious", topic: "world", title: "Old world story with a fairly long title that goes on", summary: "S.", body: null, image: null, url: "https://x.example/1", source: "BBC News", publishedAt: hoursAgo(30), video: null }]
+  };
+  const { page } = await openApp(browser, server.url, { route: "news", init: serveNews({ days: [TODAY], editions: { [TODAY]: old } }) });
+  await grid(page).waitFor();
+  assert.ok(await page.getByRole("heading", { name: "A horse can look forward with one eye and back with the other." }).isVisible());
+  assert.equal(await grid(page).locator(".news-block").count(), 1);
+  assert.match(await grid(page).locator(".news-block__title").textContent(), /^Old world story/);
   await page.close();
 });
 
 test("earlier editions of the week can still be read", async () => {
   const requests = [];
   const { page } = await openApp(browser, server.url, { route: "news", init: serveNews({ requests }) });
-  const main = page.locator('main[data-section="news"]');
-  await main.getByText("Octopuses have three hearts and blue blood.").waitFor();
+  const days = page.locator("main").getByRole("group", { name: "Son" });
+  await days.getByRole("button", { name: "Bugun" }).waitFor();
   assert.ok(!requests.includes(`${YESTERDAY}.json`), "only the open edition is fetched");
-  await main.getByRole("group", { name: "Edition" }).getByRole("button", { name: "Yesterday" }).click();
-  await main.getByText("Wombats make cube-shaped droppings.").waitFor();
-  assert.ok(await main.getByRole("button", { name: /^Read: Yesterday's big story/ }).isVisible());
-  assert.ok(await main.getByText("0 of 2 read").isVisible());
+  await days.getByRole("button", { name: "Kecha" }).click();
+  await page.getByRole("heading", { name: "Sakkizoyoqning uchta yuragi bor" }).waitFor();
+  assert.deepEqual(await grid(page).locator(".news-block__title").allTextContents(), ["Transfer - Mbappé - Real Madrid", "Gol - 2002 - Zidane"]);
   await page.close();
 });
 
 test("a picture that doesn't load leaves a plain tile, not a broken image", async () => {
   const { page } = await openApp(browser, server.url, { route: "news", init: serveNews() });
-  const card = page.locator("main").getByRole("button", { name: /^Read: Story f2/ });
-  await card.locator(".news-thumb__blank").waitFor();
-  assert.equal(await card.locator("img").count(), 0);
+  const b = block(page, "Natija - Arsenal - Tottenham");
+  await b.locator(".news-block__blank").waitFor();
+  assert.equal(await b.locator("img").count(), 0);
   await page.close();
 });
 
 test("before the first edition, the page says the news is on its way", async () => {
-  // news/index.json as it was committed, listing no days until the first run.
   const { page, errors } = await openApp(browser, server.url, { route: "news", init: serveNews({ days: [] }) });
-  await page.getByText("The first edition is on its way").waitFor();
+  await page.getByText("Birinchi son yoʻlda").waitFor();
   assert.deepEqual(errors, []);
   await page.close();
-  // A site without the file at all says the same.
   const missing = await openApp(browser, server.url, { route: "news", init: serveNews({ days: null }) });
-  await missing.page.getByText("The first edition is on its way").waitFor();
+  await missing.page.getByText("Birinchi son yoʻlda").waitFor();
   await missing.page.close();
 });
 
-test("on a phone the news fits the screen, with no sideways scroll", async () => {
+test("on a phone: still two to a line, picture on top, nothing off screen", async () => {
   const { page } = await openApp(browser, server.url, { route: "news", viewport: { width: 375, height: 812 }, init: serveNews() });
-  await page.locator(".news-card").first().waitFor();
+  await grid(page).waitFor();
   assert.equal(await page.evaluate(() => document.documentElement.scrollWidth), 375);
-  const boxes = await page.locator(".news-card").evaluateAll((els) => els.map((e) => e.getBoundingClientRect().toJSON()));
-  for (const b of boxes) assert.ok(b.x >= 0 && b.x + b.width <= 375 && b.height >= 44, `card ${b.x}..${b.x + b.width}`);
-  await page.locator("main").getByRole("button", { name: /^Watch: Story w2/ }).click();
+  const boxes = await grid(page).locator(".news-block").evaluateAll((els) => els.map((e) => e.getBoundingClientRect().toJSON()));
+  assert.equal(Math.round(boxes[0].y), Math.round(boxes[1].y), "two to a line");
+  for (const b of boxes) assert.ok(b.x >= 0 && b.x + b.width <= 375 && b.height >= 44, `block ${b.x}..${b.x + b.width}`);
+  const first = grid(page).locator(".news-block").first();
+  const media = await first.locator(".news-block__media").boundingBox();
+  const title = await first.locator(".news-block__title").boundingBox();
+  assert.ok(media.y + media.height <= title.y + 1, "picture above the title");
+  const fact = page.locator("main .news-fact");
+  const photo = await fact.locator(".news-fact__photo").boundingBox();
+  const heading = await fact.locator(".news-fact__title").boundingBox();
+  assert.ok(photo.y < heading.y, "the fact's photo across the top");
+  assert.ok(photo.x >= 0 && photo.x + photo.width <= 375);
+  await block(page, "Gol - 2005 - Messi - Manchester United").click();
   const frame = await page.locator('[role="dialog"] iframe').boundingBox();
   assert.ok(frame.width > 250 && frame.x >= 0 && frame.x + frame.width <= 375, `player ${frame.x}..${frame.x + frame.width}`);
   await page.close();
 });
 
-// ---------- Languages and the new sections ----------
-
-const tr = (id, lang) => ({ title: `[${lang}] Story ${id}`, summary: `[${lang}] Summary ${id}.`, body: [`[${lang}] Paragraph one of ${id}.`, `[${lang}] Paragraph two of ${id}.`] });
-const multilingual = {
-  date: TODAY,
-  fact: { text: "Octopuses have three hearts.", lang: "en", url: null, tr: { uz: { text: "Sakkizoyoqlarning uchta yuragi bor." }, ru: { text: "У осьминогов три сердца." } } },
-  items: [
-    { ...story("tr1", "trending", "trending"), lang: "en", trend: { query: "barcelona", traffic: "500K+" }, tr: { uz: tr("tr1", "uz"), ru: tr("tr1", "ru") } },
-    { ...story("uz1", "uzbekistan", "uzbekistan"), title: "Toshkentda yangi metro bekati", summary: "Qisqacha.", body: ["Birinchi xatboshi.", "Ikkinchi xatboshi."], lang: "uz", tr: { en: tr("uz1", "en"), ru: tr("uz1", "ru") } },
-    { ...story("fb1", "football", "football"), lang: "en", tr: { uz: { title: "[uz] Story fb1", summary: "[uz] Summary fb1." }, ru: tr("fb1", "ru") } },
-    { ...story("w1", "serious", "world"), lang: "en", tr: {} },
-    { ...story("a1", "light", "animals"), lang: "en", tr: { uz: tr("a1", "uz"), ru: tr("a1", "ru") } }
-  ]
-};
-const serveMultilingual = (extra) => serveNews({ days: [TODAY], editions: { [TODAY]: multilingual }, ...extra });
-
-test("sections: trending across the top, then Uzbekistan and football, then the two sides", async () => {
-  const { page, errors } = await openApp(browser, server.url, { route: "news", init: serveMultilingual() });
-  const main = page.locator('main[data-section="news"]');
-  await main.getByRole("region", { name: "Trending now" }).waitFor();
-  const titles = await main.locator(".news-side__title").allTextContents();
-  assert.deepEqual(titles, ["Trending now", "Uzbekistan", "Football", "The light side", "The serious side"]);
-  const trending = main.getByRole("region", { name: "Trending now" });
-  assert.ok(await trending.getByText("barcelona · 500K+").isVisible(), "what was searched, and how much");
-  // Next goes through the sections in the order they're shown.
-  await trending.getByRole("button", { name: /^Read: Story tr1/ }).click();
-  for (const title of ["[en] Story uz1", "Story fb1 about football", "Story a1 about animals", "Story w1 about world"]) {
-    await page.getByRole("dialog").getByRole("button", { name: "Next story" }).or(page.getByRole("dialog").getByRole("button", { name: "Done" })).first().click();
-    await page.getByRole("dialog", { name: title }).waitFor();
-  }
-  assert.ok(await page.getByRole("dialog").getByRole("button", { name: "Done" }).isVisible(), "the last story ends with Done");
-  assert.deepEqual(notMissingFiles(errors), []);
+test("dark theme: the fact card and the dots keep their contrast", async () => {
+  const { page } = await openApp(browser, server.url, { route: "news", theme: "dark", init: serveNews() });
+  const fact = page.locator("main .news-fact");
+  await fact.waitFor();
+  const bg = await fact.evaluate((el) => getComputedStyle(el).backgroundImage);
+  assert.match(bg, /rgb\(58, 42, 34\)/, "the dark warm card");
+  assert.equal(await grid(page).locator(".news-block__dot").first().evaluate((el) => getComputedStyle(el).backgroundColor), "rgb(91, 155, 255)");
   await page.close();
 });
 
-test("switching the language: stories, the fun fact and the page's own words", async () => {
-  const { page } = await openApp(browser, server.url, { route: "news", init: serveMultilingual() });
-  const main = page.locator('main[data-section="news"]');
-  // The switch is named in the language shown: "News language", "Yangiliklar tili", …
-  const langs = main.locator(".news-lang [role=group]");
-  await main.getByRole("group", { name: "News language" }).waitFor();
-  assert.equal(await langs.getByRole("button", { name: "English" }).getAttribute("aria-pressed"), "true");
-  // In English, the Uzbek story reads in its English translation.
-  assert.ok(await main.getByText("[en] Story uz1").isVisible());
-  assert.ok(await main.getByText("Octopuses have three hearts.").isVisible());
-
-  await langs.getByRole("button", { name: "Oʻzbekcha" }).click();
-  assert.ok(await main.getByText("Sakkizoyoqlarning uchta yuragi bor.").isVisible());
-  assert.ok(await main.getByRole("heading", { name: "Kunning qiziqarli fakti" }).isVisible());
-  assert.ok(await main.getByRole("region", { name: "Hozir trendda" }).isVisible());
-  assert.ok(await main.getByText("Toshkentda yangi metro bekati").isVisible(), "an Uzbek story as it was published");
-  assert.ok(await main.getByText("[uz] Story tr1").isVisible());
-  assert.ok(await main.getByRole("group", { name: "Son" }).getByRole("button", { name: "Bugun" }).isVisible());
-  assert.equal(await main.locator(".news-card__title", { hasText: "[uz] Story tr1" }).getAttribute("lang"), "uz");
-
-  // The reader, in Uzbek.
-  await main.getByRole("button", { name: /^Oʻqish: \[uz\] Story a1/ }).click();
-  const reader = page.getByRole("dialog", { name: "[uz] Story a1" });
-  assert.ok(await reader.getByText("[uz] Paragraph one of a1.").isVisible());
-  assert.ok(await reader.getByRole("button", { name: "Keyingi yangilik" }).isVisible());
-  await closeReader(page);
-
-  // A story with no Uzbek translation is shown as published, and says so.
-  await main.getByRole("button", { name: /^Oʻqish: Story w1/ }).click();
-  assert.ok(await page.getByRole("dialog").getByText(/hali oʻzbekchaga tarjima qilinmagan/).isVisible());
-  await closeReader(page);
-  // One whose summary was translated but not its article: the article as published, with a note.
-  await main.getByRole("button", { name: /^Oʻqish: \[uz\] Story fb1/ }).click();
-  const fb = page.getByRole("dialog", { name: "[uz] Story fb1" });
-  assert.ok(await fb.getByText("First paragraph of story fb1.").isVisible());
-  assert.ok(await fb.getByText(/Toʻliq matnni tarjima qilib boʻlmadi/).isVisible());
-  await closeReader(page);
-
-  await langs.getByRole("button", { name: "Русский" }).click();
-  assert.ok(await main.getByText("У осьминогов три сердца.").isVisible());
-  assert.ok(await main.getByRole("region", { name: "Узбекистан" }).isVisible());
-  assert.ok(await main.getByText("[ru] Story uz1").isVisible());
-
-  // The choice is remembered.
-  await page.reload();
-  await main.getByText("У осьминогов три сердца.").waitFor();
-  assert.equal(await main.getByRole("group", { name: "Язык новостей" }).getByRole("button", { name: "Русский" }).getAttribute("aria-pressed"), "true");
-  await page.close();
-});
-
-test("an edition from before translations reads as it always did in English", async () => {
-  const { page } = await openApp(browser, server.url, { route: "news", init: serveNews() });
-  const main = page.locator('main[data-section="news"]');
-  await main.getByRole("button", { name: /^Read: Story f1/ }).click();
-  assert.equal(await page.getByRole("dialog").locator(".news-reader__note").count(), 0, "no note in English");
-  await page.close();
-});
-
-test("the language switch fits a phone", async () => {
-  const { page } = await openApp(browser, server.url, { route: "news", viewport: { width: 375, height: 812 }, init: serveMultilingual() });
-  const langs = page.getByRole("group", { name: "News language" });
-  await langs.waitFor();
-  const box = await langs.boundingBox();
-  assert.ok(box.x >= 0 && box.x + box.width <= 375, `switch ${box.x}..${box.x + box.width}`);
-  for (const b of await langs.getByRole("button").evaluateAll((els) => els.map((e) => e.getBoundingClientRect().toJSON()))) assert.ok(b.height >= 28 && b.x + b.width <= 375);
-  assert.equal(await page.evaluate(() => document.documentElement.scrollWidth), 375);
+test("older days are named in Uzbek", async () => {
+  const three = iso(new Date(Date.now() - 2 * 864e5));
+  const { page } = await openApp(browser, server.url, { route: "news", init: serveNews({ days: [TODAY, YESTERDAY, three] }) });
+  const days = page.locator("main").getByRole("group", { name: "Son" });
+  await days.getByRole("button", { name: "Bugun" }).waitFor();
+  const label = (await days.getByRole("button").nth(2).textContent()).trim();
+  assert.match(label, /^(Yak|Dush|Sesh|Chor|Pay|Jum|Shan), \d{1,2}-(yanvar|fevral|mart|aprel|may|iyun|iyul|avgust|sentabr|oktabr|noyabr|dekabr)$/, label);
   await page.close();
 });

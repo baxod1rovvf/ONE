@@ -1,4 +1,32 @@
 /* Core — News page styles. Loaded with pages/news/news.js. */
+main[data-section='news'] {
+  --news-unread: #2f7bf6;
+  --news-read: #22a55b;
+  --fact-bg: linear-gradient(100deg, #fff4e8 0%, #fde9da 100%);
+  --fact-border: #f8dcc4;
+  --fact-tag-bg: #fed7b5;
+  --fact-tag-text: #b4410c;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme='light']):not([data-one-theme='light']) main[data-section='news'] {
+    --news-unread: #5b9bff;
+    --news-read: #3ccf7b;
+    --fact-bg: linear-gradient(100deg, #3a2a22 0%, #33232c 100%);
+    --fact-border: #4d362b;
+    --fact-tag-bg: #5c3520;
+    --fact-tag-text: #ffb98a;
+  }
+}
+:root[data-theme='dark'] main[data-section='news'],
+:root[data-one-theme='dark'] main[data-section='news'] {
+  --news-unread: #5b9bff;
+  --news-read: #3ccf7b;
+  --fact-bg: linear-gradient(100deg, #3a2a22 0%, #33232c 100%);
+  --fact-border: #4d362b;
+  --fact-tag-bg: #5c3520;
+  --fact-tag-text: #ffb98a;
+}
+
 .news-bar {
   display: flex;
   align-items: center;
@@ -21,245 +49,229 @@
   place-items: center;
 }
 
-/* The fun fact: the one bright card at the top. */
+/* ---------- The fun fact: bulb, words, photo ---------- */
 .news-fact {
-  display: flex;
-  gap: 14px;
-  align-items: flex-start;
+  display: grid;
+  grid-template-columns: 112px minmax(0, 1fr);
+  align-items: center;
+  gap: 18px;
   margin-bottom: 20px;
-  background: var(--section-soft);
-  border-color: transparent;
+  padding: 16px 18px;
+  background: var(--fact-bg);
+  border: 1px solid var(--fact-border);
+  border-radius: 24px;
+  box-shadow: var(--shadow-sm);
 }
-.news-fact__icon {
-  flex: none;
-  display: grid;
-  place-items: center;
-  width: 40px;
-  height: 40px;
-  border-radius: 12px;
-  background: var(--section);
-  color: var(--on-section);
+.news-fact[data-has-photo='true'] {
+  grid-template-columns: 112px minmax(0, 1fr) minmax(180px, 300px);
 }
-.news-fact__text {
+.news-fact__art {
+  width: 112px;
+  height: 112px;
+}
+.news-fact__body {
   display: grid;
-  gap: 4px;
+  justify-items: start;
+  gap: 8px;
   min-width: 0;
+}
+.news-fact__tag {
+  padding: 4px 12px;
+  border-radius: 999px;
+  background: var(--fact-tag-bg);
+  color: var(--fact-tag-text);
+  font-size: var(--fs-sm);
+  font-weight: 600;
 }
 .news-fact__title {
   margin: 0;
-  font-size: var(--fs-sm);
-  font-weight: 600;
-  color: var(--section-text);
-}
-.news-fact__text p {
-  margin: 0;
-  font-size: var(--fs-lg);
-  line-height: 1.45;
+  font-size: 22px;
+  line-height: 1.25;
+  font-weight: 700;
+  letter-spacing: -0.01em;
   color: var(--text);
   overflow-wrap: anywhere;
 }
+.news-fact__text {
+  margin: 0;
+  font-size: var(--fs-md);
+  line-height: 1.5;
+  color: var(--text-2);
+  overflow-wrap: anywhere;
+}
 .news-fact__source {
-  justify-self: start;
-  font-size: var(--fs-xs);
-  color: var(--section-text);
-}
-
-/* Rows of sections: trending across the whole width, then pairs side by
-   side when there's room. */
-.news-row {
-  display: grid;
-  gap: 20px;
-  align-items: start;
-  margin-bottom: 24px;
-}
-@media (min-width: 960px) {
-  .news-row--pair {
-    grid-template-columns: 1fr 1fr;
-  }
-  .news-row--wide .news-list {
-    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
-  }
-}
-
-/* The language switch. */
-.news-lang {
-  max-width: 100%;
-  overflow-x: auto;
-}
-.news-trend {
-  display: inline-flex;
-  align-items: center;
-  gap: 4px;
-  max-width: 100%;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-}
-.news-side {
-  min-width: 0;
-}
-.news-side__head {
-  display: flex;
-  align-items: baseline;
-  gap: 10px;
-  flex-wrap: wrap;
-  margin: 0 4px 10px;
-}
-.news-side__title {
   display: inline-flex;
   align-items: center;
   gap: 6px;
-  margin: 0;
-  font-size: var(--fs-lg);
-  font-weight: 600;
-  color: var(--text);
-}
-.news-side__desc {
-  margin: 0;
+  margin-top: 2px;
   font-size: var(--fs-sm);
   color: var(--text-2);
+  text-decoration: none;
 }
-.news-list {
+.news-fact__source:hover {
+  color: var(--text);
+  text-decoration: underline;
+}
+.news-fact__photo {
+  display: block;
+  width: 100%;
+  height: 150px;
+  object-fit: cover;
+  border-radius: 18px;
+  background: var(--surface-2);
+}
+/* On a phone: the photo across the top, then the bulb beside the words. */
+@media (max-width: 640px) {
+  .news-fact,
+  .news-fact[data-has-photo='true'] {
+    grid-template-columns: 64px minmax(0, 1fr);
+    gap: 12px;
+    padding: 14px;
+  }
+  .news-fact__art {
+    width: 64px;
+    height: 64px;
+    align-self: start;
+  }
+  .news-fact__photo {
+    grid-row: 1;
+    grid-column: 1 / -1;
+    height: 160px;
+  }
+  .news-fact__title {
+    font-size: 18px;
+  }
+}
+
+/* ---------- Blocks: two to a line, 40% picture, 60% short title ---------- */
+.news-grid {
   display: grid;
-  gap: 10px;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
   margin: 0;
   padding: 0;
   list-style: none;
 }
-
-.news-card {
+.news-grid > li {
+  min-width: 0;
   display: flex;
-  gap: 14px;
+}
+.news-block {
+  position: relative;
+  display: flex;
   width: 100%;
-  min-height: 44px;
-  padding: 12px;
+  min-height: 120px;
+  padding: 0;
+  overflow: hidden;
   text-align: left;
   font: inherit;
   color: inherit;
   background: var(--surface);
   border: 1px solid var(--border);
-  border-radius: var(--r-lg);
+  border-radius: 18px;
   cursor: pointer;
-  transition: border-color var(--t-fast), box-shadow var(--t-fast);
+  transition: border-color var(--t-fast), box-shadow var(--t-fast), transform var(--t-fast);
 }
-.news-card:hover {
+.news-block:hover {
   border-color: var(--border-strong);
   box-shadow: var(--shadow-md);
 }
-.news-card:focus-visible {
+.news-block:active {
+  transform: scale(0.99);
+}
+.news-block:focus-visible {
   outline: 2px solid var(--section);
   outline-offset: 2px;
 }
-.news-card[data-read="true"] .news-card__title,
-.news-card[data-read="true"] .news-card__summary {
-  color: var(--text-3);
-}
-.news-card[data-read="true"] .news-thumb img {
-  opacity: 0.7;
-}
-.news-card__text {
-  display: grid;
-  align-content: start;
-  gap: 5px;
-  min-width: 0;
-}
-.news-card__tags {
-  display: flex;
-  align-items: center;
-  gap: 6px;
-  flex-wrap: wrap;
-}
-.news-card__read {
-  display: inline-flex;
-  align-items: center;
-  gap: 3px;
-  font-size: 11.5px;
-  font-weight: 500;
-  color: var(--success);
-}
-.news-card__title {
-  font-size: var(--fs-md);
-  font-weight: 600;
-  line-height: 1.35;
-  color: var(--text);
-  overflow-wrap: anywhere;
-}
-.news-card__summary {
-  display: -webkit-box;
-  -webkit-line-clamp: 2;
-  -webkit-box-orient: vertical;
-  overflow: hidden;
-  font-size: var(--fs-sm);
-  line-height: 1.45;
-  color: var(--text-2);
-  overflow-wrap: anywhere;
-}
-.news-card__meta {
-  font-size: var(--fs-xs);
-  color: var(--text-3);
-}
-
-.news-thumb {
+.news-block__media {
   position: relative;
-  flex: none;
-  width: 112px;
-  height: 84px;
-  border-radius: var(--r-md);
-  overflow: hidden;
+  flex: 0 0 40%;
   background: var(--surface-2);
 }
-.news-thumb img,
-.news-thumb__blank {
+.news-block__media img,
+.news-block__blank {
+  position: absolute;
+  inset: 0;
   display: block;
   width: 100%;
   height: 100%;
   object-fit: cover;
 }
-.news-thumb__blank {
+.news-block__blank {
   background: linear-gradient(135deg, var(--section-soft), var(--surface-3));
 }
-.news-thumb__play {
+.news-block__play {
   position: absolute;
   left: 50%;
   top: 50%;
   display: grid;
   place-items: center;
-  width: 34px;
-  height: 34px;
-  margin: -17px 0 0 -17px;
+  width: 32px;
+  height: 32px;
+  margin: -16px 0 0 -16px;
   border-radius: 50%;
   background: rgba(10, 12, 20, 0.72);
   color: #fff;
 }
-.news-thumb__play svg {
+.news-block__play svg {
   margin-left: 2px;
 }
-@media (max-width: 480px) {
-  .news-thumb {
-    width: 88px;
-    height: 66px;
+.news-block__title {
+  flex: 1 1 60%;
+  align-self: center;
+  display: -webkit-box;
+  -webkit-line-clamp: 4;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  padding: 14px 28px 14px 14px;
+  font-size: 15px;
+  font-weight: 600;
+  line-height: 1.35;
+  color: var(--text);
+  overflow-wrap: anywhere;
+}
+/* Blue until read, then green. */
+.news-block__dot {
+  position: absolute;
+  right: 10px;
+  bottom: 10px;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: var(--news-unread);
+  box-shadow: 0 0 0 3px var(--surface);
+  transition: background var(--t-med);
+}
+.news-block[data-read='true'] .news-block__dot {
+  background: var(--news-read);
+}
+/* On a phone the two blocks are narrow: picture on top, title below. */
+@media (max-width: 600px) {
+  .news-grid {
+    gap: 10px;
   }
-  .news-card {
-    gap: 12px;
-    padding: 10px;
+  .news-block {
+    flex-direction: column;
+    min-height: 0;
+  }
+  .news-block__media {
+    flex: none;
+    aspect-ratio: 16 / 10;
+  }
+  .news-block__title {
+    align-self: stretch;
+    padding: 10px 22px 12px 10px;
+    font-size: 13.5px;
+  }
+  .news-block__dot {
+    right: 8px;
+    bottom: 8px;
+    width: 9px;
+    height: 9px;
   }
 }
 
-/* Topic labels: warm for the light side, cool for the serious side. */
-.news-topic[data-topic="funny"],
-.news-topic[data-topic="animals"],
-.news-topic[data-topic="good"] {
-  background: var(--c-news-soft);
-  color: var(--c-news-text);
-}
-.news-topic[data-topic="world"],
-.news-topic[data-topic="politics"],
-.news-topic[data-topic="tech"] {
-  background: var(--c-websites-soft);
-  color: var(--c-websites-text);
-}
-
-/* The reader. */
+/* ---------- The reader ---------- */
 .news-reader {
   display: grid;
   gap: 12px;
@@ -297,6 +309,10 @@
   font-size: var(--fs-sm);
   color: var(--text-2);
 }
+.news-reader__short {
+  font-weight: 600;
+  color: var(--text);
+}
 .news-reader__p {
   margin: 0;
   font-size: var(--fs-md);
@@ -315,18 +331,11 @@
   text-decoration: none;
 }
 @media (prefers-reduced-motion: reduce) {
-  .news-card {
+  .news-block,
+  .news-block__dot {
     transition: none;
   }
-}
-
-/* Section labels for the new sections. */
-.news-topic[data-topic="trending"] {
-  background: var(--c-ideas-soft);
-  color: var(--c-ideas-text);
-}
-.news-topic[data-topic="uzbekistan"],
-.news-topic[data-topic="football"] {
-  background: var(--c-tasks-soft);
-  color: var(--c-tasks-text);
+  .news-block:active {
+    transform: none;
+  }
 }
