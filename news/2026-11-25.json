@@ -1,0 +1,424 @@
+{
+ "date": "2026-11-25",
+ "generatedAt": "2026-11-25T06:19:27.082Z",
+ "fact": {
+  "key": "Gentoo penguins give pebbles as gifts",
+  "title": "Gentoo penguins give pebbles as gifts",
+  "text": "Males search for the smoothest pebble to offer a female for their nest.",
+  "source": "Wikipedia",
+  "image": "https://thumb.wikimedia.org/wikipedia/commons/thumb/2/2a/Gentoo_Penguin.png/800px-Gentoo_Penguin.png?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
+  "url": "https://en.wikipedia.org/wiki/Gentoo_penguin",
+  "lang": "en",
+  "tr": {
+   "uz": {
+    "title": "Gentoo pingvinlari sovgʻa sifatida toshlarni berishadi",
+    "text": "Erkaklar oʻz iniga urgʻochi taklif qilish uchun eng silliq toshni qidiradilar."
+   }
+  }
+ },
+ "items": [
+  {
+   "id": "zeypzn",
+   "side": "football",
+   "topic": "moments",
+   "kind": "Gol",
+   "short": "Gol - 2026 - Austria Start Strong Against Debutants Jordan…",
+   "title": "Austria Start Strong Against Debutants Jordan - 2026 World Cup EXTENDED HIGHLIGHTS",
+   "summary": "Watch the match highlights and all goals from Austria vs Jordan in Group J of the FIFA World Cup 2026 at Levi's Stadium in Santa Clara, California. After Romano Schmid fired Austria ahead in the 20th minute, Ali Olwan netted Jordan's first-ever World Cup goal early in the second half to level before Yazan Al-Arab…",
+   "body": null,
+   "image": "https://i.ytimg.com/vi/JUqxG4slgH8/hqdefault.jpg",
+   "url": "https://www.youtube.com/watch?v=JUqxG4slgH8",
+   "source": "FIFA",
+   "publishedAt": "2026-11-25T04:30:36.000Z",
+   "video": {
+    "provider": "youtube",
+    "id": "JUqxG4slgH8"
+   },
+   "lang": "en",
+   "tr": {
+    "uz": {
+     "title": "Austria Start Strong Against Debutants Jordan - 2026 World Cup EXTENDED HIGHLIGHTS",
+     "summary": "Kaliforniyaning Santa-Klara shahridagi Levi's Stadiumda 2026 yilgi Jahon chempionati J guruhidagi Avstriya va Iordaniya oʻrtasidagi uchrashuvning asosiy lavhalari va barcha gollarini tomosha qiling. Romano Shmid 20-daqiqada Avstriyani hisobda oldinga oʻtkazib yuborganidan soʻng, Ali Olvan Iordaniyaning jahon chempionatidagi ilk golini ikkinchi boʻlim boshida urib, Yazan Al-Arabni tenglashtirdi…"
+    }
+   }
+  },
+  {
+   "id": "lspzfr",
+   "side": "football",
+   "topic": "news",
+   "kind": "Natija",
+   "short": "Natija - Hysa WBC chempionligini qoʻlga kiritib…",
+   "title": "Hysa aims to win WBC title then take on 'favourite fighter' Fury",
+   "summary": "Nelson Hysa has a vision. He wants to dethrone Agit Kabayel, win the WBC heavyweight world title and then take on his favourite fighter – Tyson Fury.",
+   "body": [
+    "Hysa, unbeaten in 25 professional fights, challenges Kabayel on Saturday for the WBC heavyweight world championship. The Albanian has taken 23 of those wins inside the distance and is looking to upset the popular German when they fight in Dusseldorf this weekend. A power-puncher, Hysa told Sky Sports : \\\"The knockout was with me from the first day that I started boxing. \\\"In this match [against Kabayel] I am preparing to do more good rounds because I know the opponent is a very good boxer, he's a tough boxer, a serious boxer. \\\"But we are planning, we are trying to do our best. We have our strategy to win the match and I think we will win the match earlier than the 12th round. \\\"I need to move up the ratio of knockouts!\\\" With Oleksandr Usyk vacating his championships, there are now new belt-holders in the division, but Hysa does not consider Kabayel the best of the current heavyweight titlists. \\\"For me No 1 now of the guys that have the belts, No 1 is Filip Hrgovic, [then Daniel] Dubois and for me the special one is Tyson Fury. \\\"Hrgovic will do very good because he's a good boxer,\\\" Hysa added. \\\"Hrgovic beat the best guy in the heavyweight division. He beat Moses [Itauma]. I don't want to do a fight with Moses, he's a good guy! He will be the best heavyweight in the world. He is the best heavyweight in the world but he needs more time.\\\" Fury will fight Anthony Joshua for the WBA 'super' heavyweight title when they meet on December 11. Hysa tips Fury to win and is eager to box him in a unification if he comes through his own fight. \\\"Who doesn't want to fight Tyson Fury? He's a legend,\\\" Hysa said. \\\"The No 1 man at heavyweight. \\\"He's my No 1 favourite boxer, I love him, I love everything he does. His style, everything. \\\"Who doesn't want to fight Tyson Fury?\\\" \",\"mainEntityOfPage\": {\"@type\": \"WebPage\",\"url\": \"/boxing/news/13616101/nelson-hysa-aims-to-beat-agit-kabayel-win-wbc-world-title-and-take-on-tyson-fury-his-favourite-fighter\"},\"wordCount\": \"384\",\"inLanguage\": \"en-GB\",\"genre\": \"boxing\",\"publisher\": {\"@type\": \"Organization\",\"@id\": \"#Publisher\",\"name\": \"Sky Sports\",\"logo\": {\"@type\": \"ImageObject\",\"@id\": \"#Logo\",\"url\": \"https://e0.365dm.com/tvlogos/channels/Sky-Sports-Logo.png\",\"width\": \"172\",\"height\": \"36\"}},\"headline\": \"Nelson Hysa aims to beat Agit Kabayel, win WBC world title and take on Tyson Fury, his 'favourite fighter'\",\"description\": \"Nelson Hysa challenges Agit Kabayel for the WBC title on Saturday in Dusseldorf; Hard-punching Hysa hopes to upset popular German Kabayel and then look to take on his 'favourite fighter' Tyson Fury; Hysa says Moses Itauma is still the best in the division - 'I don't want to fight him!'\",\"dateline\": \"London,UK\",\"copyrightHolder\": {\"@id\":\"#Publisher\"},\"author\": {\"@type\": \"Person\",\"name\": \"John Dennen\",\"sameAs\": \"https://x.com/@johndennen\",\"url\": \"https://www.skysports.com/author/john-dennen-861\" } ,\"datePublished\": \"2026-11-25T06:00:00+0000\",\"dateModified\": \"2026-11-24T19:23:35+0000\",\"dateCreated\": \"2026-11-24T18:56:18+0000\",\"image\": {\"@type\": \"ImageObject\",\"url\": \"https://e0.365dm.com/26/11/2048x1152/skysports-nelson-hysa-agit-kabayel_7415601.jpg?20261124190721\",\"width\": 2048,\"height\": 1152 } ,\"url\":\"/boxing/news/13616101/nelson-hysa-aims-to-beat-agit-kabayel-win-wbc-world-title-and-take-on-tyson-fury-his-favourite-fighter\" } Skip to main content Sky Sports Homepage Open menu Home Sports Football F1 Cricket Rugby Union Rugby League Golf Boxing NFL Tennis NBA Racing Darts Netball MMA More Sports Scores Football F1 Cricket Rugby Union Rugby League Golf NFL Tennis Watch Sky Bet More Podcasts Upcoming on Sky Get Sky Sports Sky Sports App Sky Sports with no contract Kick It Out British South Asians in Football Watch Sky Sports Boxing",
+    "Nelson Hysa challenges Agit Kabayel for the WBC title on Saturday in Dusseldorf; Hard-punching Hysa hopes to upset popular German Kabayel and then look to take on his 'favourite fighter' Tyson Fury; Hysa says Moses Itauma is still the best in the division - 'I don't want to fight him!'",
+    "Sports Journalist @johndennen",
+    "Tuesday 24 November 2026 19:23, UK",
+    "Please use Chrome browser for a more accessible video player",
+    "Nelson Hysa has a vision. He wants to dethrone Agit Kabayel, win the WBC heavyweight world title and then take on his favourite fighter – Tyson Fury.",
+    "Hysa, unbeaten in 25 professional fights, challenges Kabayel on Saturday for the WBC heavyweight world championship.",
+    "The Albanian has taken 23 of those wins inside the distance and is looking to upset the popular German when they fight in Dusseldorf this weekend.",
+    "A power-puncher, Hysa told Sky Sports : \"The knockout was with me from the first day that I started boxing.",
+    "\"In this match [against Kabayel] I am preparing to do more good rounds because I know the opponent is a very good boxer, he's a tough boxer, a serious boxer.",
+    "\"But we are planning, we are trying to do our best. We have our strategy to win the match and I think we will win the match earlier than the 12th round.",
+    "\"I need to move up the ratio of knockouts!\"",
+    "Please use Chrome browser for a more accessible video player",
+    "With Oleksandr Usyk vacating his championships, there are now new belt-holders in the division, but Hysa does not consider Kabayel the best of the current heavyweight titlists.",
+    "\"For me No 1 now of the guys that have the belts, No 1 is Filip Hrgovic, [then Daniel] Dubois and for me the special one is Tyson Fury.",
+    "\"Hrgovic will do very good because he's a good boxer,\" Hysa added. \"Hrgovic beat the best guy in the heavyweight division. He beat Moses [Itauma]. I don't want to do a fight with Moses, he's a good guy! He will be the best heavyweight in the world. He is the best heavyweight in the world but he needs more time.\"",
+    "Please use Chrome browser for a more accessible video player",
+    "Fury will fight Anthony Joshua for the WBA 'super' heavyweight title when they meet on December 11. Hysa tips Fury to win and is eager to box him in a unification if he comes through his own fight.",
+    "\"Who doesn't want to fight Tyson Fury? He's a legend,\" Hysa said. \"The No 1 man at heavyweight.",
+    "\"He's my No 1 favourite boxer, I love him, I love everything he does. His style, everything.",
+    "\"Who doesn't want to fight Tyson Fury?\"",
+    "© 2026 Sky UK"
+   ],
+   "image": "https://e1.365dm.com/26/11/1920x1080/skysports-nelson-hysa-agit-kabayel_7415601.jpg?20261124190721",
+   "url": "https://www.skysports.com/boxing/news/12040/13616101/nelson-hysa-aims-to-beat-agit-kabayel-win-wbc-world-title-and-take-on-tyson-fury-his-favourite-fighter",
+   "source": "Sky Sports",
+   "publishedAt": "2026-11-25T06:00:00.000Z",
+   "video": null,
+   "lang": "en",
+   "tr": {
+    "uz": {
+     "title": "Hysa WBC chempionligini qoʻlga kiritib, \"sevimli jangchi\" Fyuriga qarshi kurashishni maqsad qilgan",
+     "summary": "Nelson Xisa koʻrish qobiliyatiga ega. U Agit Kabayelni taxtdan tushirishni, WBC yoʻnalishi boʻyicha jahon chempionligini qoʻlga kiritishni va keyin oʻzining sevimli jangchisi - Tayson Fyuriga qarshi tura olishni istaydi.",
+     "body": [
+      "Professional boʻyicha 25 ta jangda magʻlub boʻlmagan Xysa shanba kuni WBC yoʻnalishi boʻyicha jahon chempionligi uchun Kabayel bilan kurash olib boradi. The Albanian has taken 23 of those wins inside the distance and is looking to upset the popular German when they fight in Dusseldorf this weekend. A power-puncher, Hysa told Sky Sports : \\\"The knockout was with me from the first day that I started boxing. \\\"In this match [against Kabayel] I am preparing to do more good rounds because I know the opponent is a very good boxer, he's a tough boxer, a serious boxer. \\\"But we are planning, we are trying to do our best. We have our strategy to win the match and I think we will win the match earlier than the 12th round. \\\"I need to move up the ratio of knockouts!\\\" With Oleksandr Usyk vacating his championships, there are now new belt-holders in the division, but Hysa does not consider Kabayel the best of the current heavyweight titlists. \\\"For Men kamarga ega boʻlgan yigitlar orasida 1-oʻrinda Filip Hrgovich, [keyinchalik Daniel] Dyubua va men uchun alohidasi Tayson Fyuri. \"Hrgovich juda yaxshi ishlaydi, chunki u yaxshi bokschi\", - deya qoʻshimcha qildi Xysa. \\\"Hrgovic beat the best guy in the heavyweight division. He beat Moses [Itauma]. I don't want to do a fight with Moses, he's a good guy! He will be the best heavyweight in the world. He is the best heavyweight in the world but he needs more time.\\\" Fury will fight Anthony Joshua for the WBA 'super' heavyweight title when they meet on December 11. Hysa Fyuriga gʻalaba qozonish uchun maslahat beradi va agar u oʻz jangi orqali chiqsa, uni birlashtirishga tayyor. \"Kim Tayson Fyuri bilan jang qilishni istamaydi? U afsona\", - dedi Xysa. \\\"Ogʻir vazndagi 1-raqamli odam. \\\"U mening sevimli bokschim, men uni yaxshi koʻraman, men uning barcha ishlarini yaxshi koʻraman. Uning uslubi, hamma narsa. \\\"Kim Tayson Fyuri bilan jang qilishni xohlamaydi?\\\" \",\"mainEntityOfPage\": {\"@type\": \"WebPage\",\"url\": \"/boxing/news/13616101/nelson-hysa-aims-to-beat-agit-kabayel-win-wbc-world-title-and-take-on-tyson-fury-his-favourite-fighter\"},\"wordCount\": \"384\",\"inLanguage\": \"en-GB\",\"genre\": \"boxing\",\"publisher\": {\"@type\": \"Organization\",\"@id\": \"#Publisher\",\"name\": \"Sky Sports\",\"logo\": {\"@type\": \"ImageObject\",\"@id\": \"#Logo\",\"url\": \"https://e0.365dm.com/tvlogos/channels/Sky-Sports-Logo.png\",\"width\": \"172\",\"height\": \"36\"}},\"headline\": \"Nelson Hysa aims to beat Agit Kabayel, win WBC world title and take on Tyson Fury, his 'favourite fighter'\",\"description\": \"Nelson Hysa challenges Agit Kabayel for the WBC title on Saturday in Dusseldorf; Qattiq zarba beruvchi Xysa mashhur germaniyalik Kabayelni xafa qilishni va keyin oʻzining \"sevimli jangchisi\" Tayson Fyuriga qarshi maydonga tushishni umid qiladi; Hysa says Moses Itauma is still the best in the division - 'I don't want to fight him!'\",\"dateline\": \"London,UK\",\"copyrightHolder\": {\"@id\":\"#Publisher\"},\"author\": {\"@type\": \"Person\",\"name\": \"John Dennen\",\"sameAs\": \"https://x.com/@johndennen\",\"url\": \"https://www.skysports.com/author/john-dennen-861\" } ,\"datePublished\": \"2026-11-25T06:00:00+0000\",\"dateModified\": \"2026-11-24T19:23:35+0000\",\"sanaYaratilgan\": \"2026-11-24T18:56:18+0000\",\"rasm\": {\"@type\": \"ImageObject\",\"url\": \"https://e0.365dm.com/26/11/2048x1152/skysports-nelson-hysa-agit-kabayel_7415601.jpg?20261124190721\",\"kenglik\": 2048,\"balandlik\": 1152} ,\"url\":\"/boxing/news/13616101/nelson-hysa-aims-to-beat-agit-kabayel-win-wbc-world-title-and-take-on-tyson-fury-his-favourite-fighter\" } Skip to main content Sky Sports Homepage Open menu Home Sports Football F1 Cricket Rugby Union Rugby League Golf Boxing NFL Tennis NBA Racing Darts Netball MMA More Sports Scores Football F1 Cricket Rugby Union Rugby League Golf NFL Tennis Watch Sky Bet More Podcasts Upcoming on Sky Get Sky Sports Sky Sports App Sky Sports with no contract Kick It Out British South Asians in Football Watch Sky Sports Boxing",
+      "Nelson Hysa shanba kuni Dyusseldorfda WBC chempionligi uchun Agit Kabayel bilan kurash olib boradi; Qattiq zarba beruvchi Xysa mashhur germaniyalik Kabayelni xafa qilishni va keyin oʻzining \"sevimli jangchisi\" Tayson Fyuriga qarshi maydonga tushishni umid qiladi; Xysaning aytishicha, Moses Itauma hali ham divizionning eng yaxshisi - \"Men u bilan jang qilishni xohlamayman!\"",
+      "Sport jurnalisti @johndennen",
+      "seshanba 24 noyabr 2026 19:23, Buyuk Britaniya",
+      "Iltimos, qulayroq video pleer uchun Chrome brauzeridan foydalaning",
+      "Nelson Xisa koʻrish qobiliyatiga ega. U Agit Kabayelni taxtdan tushirishni, WBC yoʻnalishi boʻyicha jahon chempionligini qoʻlga kiritishni va keyin oʻzining sevimli jangchisi - Tayson Fyuriga qarshi tura olishni istaydi.",
+      "Professional boʻyicha 25 ta jangda magʻlub boʻlmagan Xysa shanba kuni WBC yoʻnalishi boʻyicha jahon chempionligi uchun Kabayel bilan kurash olib boradi.",
+      "Albaniyalik ushbu gʻalabalarning 23 tasini masofada qoʻlga kiritdi va shu hafta oxirida Dyusseldorfdagi jangda mashhur nemisni xafa qilmoqchi.",
+      "Kuchli zarba beruvchi Xaysa Sky Sports nashriga shunday dedi: \"Boksni boshlaganimning birinchi kunidanoq nokaut men bilan boʻlgan.",
+      "“Ushbu uchrashuvda [Kabayelga qarshi] koʻproq yaxshi raundlar oʻtkazishga tayyorlanyapman, chunki raqib juda yaxshi bokschi, u qattiq bokschi, jiddiy bokschi ekanligini bilaman.",
+      "\"Ammo biz rejalashtirmoqdamiz, qoʻlimizdan kelganini qilishga harakat qilyapmiz. Uchrashuvda gʻalaba qozonish uchun oʻz strategiyamiz bor va oʻylaymanki, 12-turdan ham ertaroq oʻyinda gʻalaba qozonamiz.",
+      "\"Men nokautlar nisbatini oshirishim kerak!\"",
+      "Iltimos, qulayroq video pleer uchun Chrome brauzeridan foydalaning",
+      "Oleksandr Usik chempionligini tark etar ekan, endi divizionda yangi kamar sohiblari paydo boʻldi, biroq Xysa Kabayelni hozirgi ogʻir vazn toifasidagi eng yaxshisi deb hisoblamaydi.",
+      "“Men uchun kamar egalari orasida 1-oʻrin, Filip Xrgovich, Daniel Dyubua, men uchun esa Tayson Fyuri.",
+      "\"Hrgovich juda yaxshi ishlaydi, chunki u yaxshi bokschi\", - deya qoʻshimcha qildi Xysa. \"Hrgovich ogʻir vazn toifasida eng yaxshi yigitni magʻlub etdi. U Musoni [Itauma] ni magʻlub etdi. Men Muso bilan jang qilishni xohlamayman, u yaxshi yigit! U dunyodagi eng yaxshi ogʻir vaznli boʻladi. U dunyodagi eng yaxshi ogʻir vaznli, lekin unga koʻproq vaqt kerak \".",
+      "Iltimos, qulayroq video pleer uchun Chrome brauzeridan foydalaning",
+      "Fyuri 11 dekabr kuni boʻlib oʻtadigan WBA \"super ogʻir vazn toifasi\" chempioni Entoni Joshua bilan jang qiladi. Xisa Fyuriga gʻalaba qozonishini maslahat beradi va agar u oʻz jangi orqali chiqsa, uni birlashmada boks qilishni xohlaydi.",
+      "\"Kim Tayson Fyuri bilan jang qilishni istamaydi? U afsona\", - deydi Xysa. \"Ogʻir vazndagi 1-raqamli odam.",
+      "“U mening 1-raqamli sevimli bokschim, men uni yaxshi koʻraman, men uning qilgan barcha ishlarini yaxshi koʻraman. Uning uslubi, hamma narsa.",
+      "\"Kim Tayson Fyuri bilan jang qilishni xohlamaydi?\"",
+      "© 2026 Sky UK"
+     ]
+    }
+   }
+  },
+  {
+   "id": "1n6dmj5",
+   "side": "football",
+   "topic": "moments",
+   "kind": "Lahza",
+   "short": "Lahza - @AlejandroBalde_ tomonidan ajoyib…",
+   "title": "Amazing run by @AlejandroBalde_",
+   "summary": "",
+   "body": null,
+   "image": "https://i.ytimg.com/vi/RJxkiCJYNvI/hqdefault.jpg",
+   "url": "https://www.youtube.com/shorts/RJxkiCJYNvI",
+   "source": "FC Barcelona",
+   "publishedAt": "2026-11-24T19:54:19.000Z",
+   "video": {
+    "provider": "youtube",
+    "id": "RJxkiCJYNvI"
+   },
+   "lang": "en",
+   "tr": {
+    "uz": {
+     "title": "@AlejandroBalde_ tomonidan ajoyib boshqariladigan"
+    }
+   }
+  },
+  {
+   "id": "aivrwa",
+   "side": "football",
+   "topic": "news",
+   "kind": "Yangilik",
+   "short": "Yangilik - Bellingham",
+   "title": "“Bellingem fantastik goli bilan oʻyinning borishini oʻzgartirib yubordi” — Joze Mourinyo",
+   "summary": "“Real Madrid” bosh murabbiyi Joze Mourinyo Chempionlar Ligasidan oʻrin olgan “PSV Eyndxoven” jamoasiga qarshi oʻyindan keyin Jud Bellingemni maqtadi. Uchrashuv 5:1 hisobida madridliklar gʻalabasi bilan yakunlandi. Bellingem birinchi boʻlimdan keyin zaxiradan maydonga tushdi va hisob 1:1 boʻlib turgan paytda…",
+   "body": [
+    "“Real Madrid” bosh murabbiyi Joze Mourinyo Chempionlar Ligasidan oʻrin olgan “PSV Eyndxoven” jamoasiga qarshi oʻyindan keyin Jud Bellingemni maqtadi.",
+    "Uchrashuv 5:1 hisobida madridliklar gʻalabasi bilan yakunlandi. Bellingem birinchi boʻlimdan keyin zaxiradan maydonga tushdi va hisob 1:1 boʻlib turgan paytda 60-daqiqada uzoqdan zarba yoʻllab, gol kiritishga muvaffaq boʻldi.",
+    "“U juda ajoyib oʻyin koʻrsatdi. Fantastik gol kiritib, oʻyinni oʻzgartirib yubordi.",
+    "Ba’zi futbolchilar oʻyinlardan keyin charchoq his qilishadi. Men Bellingemsiz ham gʻalaba qozonishimiz mumkin, deb oʻylagandim, lekin adashibman. Uni iloji boricha ehtiyot qilishga harakat qilgandim.",
+    "Menda ajoyib zaxira futbolchilari bor. Bu juda muhim omil”, dedi Mourinyo."
+   ],
+   "image": "https://gocdn.daryo.uz/large/2026/11/25/c847eb99df44b87338e5c42be48a87ebe12e8a5866057aba626e0e18dc2b5484.webp",
+   "url": "https://daryo.uz/2026/11/25/bellingem-fantastik-goli-bilan-oyinning-borishini-ozgartirib-yubordi-joze-mourinyo/",
+   "source": "Daryo",
+   "publishedAt": "2026-11-25T05:18:14.000Z",
+   "video": null,
+   "lang": "uz",
+   "tr": {}
+  },
+  {
+   "id": "6gh259",
+   "side": "football",
+   "topic": "moments",
+   "kind": "Lahza",
+   "short": "Lahza - Barcha davrlardagi eng kuchli qarshi hujum?",
+   "title": "Greatest counter-attack of all time?",
+   "summary": "UEFA Champions League: UEFA Europa League: UEFA Conference League: UEFA Women's Champions League:",
+   "body": null,
+   "image": "https://i.ytimg.com/vi/H2MiuE87B1s/hqdefault.jpg",
+   "url": "https://www.youtube.com/shorts/H2MiuE87B1s",
+   "source": "UEFA",
+   "publishedAt": "2026-11-24T15:35:30.000Z",
+   "video": {
+    "provider": "youtube",
+    "id": "H2MiuE87B1s"
+   },
+   "lang": "en",
+   "tr": {
+    "uz": {
+     "title": "Barcha davrlardagi eng kuchli qarshi hujum?",
+     "summary": "UEFA Chempionlar Ligasi: UEFA Yevropa Ligasi: UEFA Konferentsiya Ligasi: UEFA Ayollar Chempionlar Ligasi:"
+    }
+   }
+  },
+  {
+   "id": "1lgt4y6",
+   "side": "football",
+   "topic": "moments",
+   "kind": "Lahza",
+   "short": "Lahza - Mayki Mur goʻzallik kiritganida, siz maydonga…",
+   "title": "This looks like you‘re on the pitch when Mikey Moore scores a beauty",
+   "summary": "Incredible scenes at the Allianz Arena!",
+   "body": null,
+   "image": "https://i.ytimg.com/vi/MPnjvgm7OFo/hqdefault.jpg",
+   "url": "https://www.youtube.com/shorts/MPnjvgm7OFo",
+   "source": "Bundesliga",
+   "publishedAt": "2026-11-24T15:00:07.000Z",
+   "video": {
+    "provider": "youtube",
+    "id": "MPnjvgm7OFo"
+   },
+   "lang": "en",
+   "tr": {
+    "uz": {
+     "title": "Mayki Mur goʻzallik kiritganida, siz maydonga tushganga oʻxshaysiz",
+     "summary": "Allianz Arenada ajoyib manzaralar!"
+    }
+   }
+  },
+  {
+   "id": "1ggt145",
+   "side": "football",
+   "topic": "news",
+   "kind": "Yangilik",
+   "short": "Yangilik - Reynjers soddalik va xotirjamlikka qaramay, uni…",
+   "title": "Rangers 'dug it out' despite naivety & complacency - McInnes",
+   "summary": "Rangers manager Derek McInnes says his team's naivety and complacency made their task more difficult in their thrilling 3-2 win over Aberdeen, but hails their ability to get the job done.",
+   "body": [
+    "Image source, SNS",
+    "Rangers scored three goals in 11 minutes at the start of the second half after a triple substitution",
+    "ByJack Herrall",
+    "BBC Sport Scotland",
+    "Watch Rangers v Aberdeen highlights",
+    "24/11/2026",
+    "Rangers manager Derek McInnes says his team's naivety and complacency made their task more difficult in their thrilling 3-2 win over Aberdeen, but hailed their ability to get the job done.",
+    "The Ibrox outfit had to navigate a tense finale as they held off a defiant Aberdeen side, just three days after their dramatic late win at Motherwell, and are now just a point behind Celtic at the Scottish Premiership summit.",
+    "Rangers had roared into a 3-1 lead after a stunning 11-minute burst at the start of the second half overwhelmed the visitors, who led at the break through Brad Lyons' header.",
+    "However, the Dons pulled one back through vibrant youngster Findlay Marshall and both sides had opportunities to add to the scoreline in a gripping closing passage.",
+    "\"We put ourselves in the mire there, we were so naive at times,\" McInnes told Sky Sports.",
+    "\"The biggest part for me is how we lose the initiative by just being too complacent and that has to change because we won't always outscore opponents.",
+    "\"Once we got ourselves in front you think 'just keep the shoulder to the wheel'. We hit them like a train and they were 3-1 down because of the speed, intensity, intelligence and then we started to play backwards.",
+    "\"We played more backwards passes than I can remember in a long time, we need to show more control.\"",
+    "McInnes' displeasure at the first-half display manifested itself in a half-time triple substitution as Findlay Curtis, Tuur Rommens and Kim Min-Su were hurled into the action.",
+    "Rangers were a different team in the 11 minutes that followed, with goals from Ryan Naderi, Djeidi Gassama and Nico Raskin turning the game on its head and flipping the mood of the Ibrox faithful.",
+    "\"For us it was all about winning, we've won the game and we'll dust ourselves down,\" McInnes added after a 14th straight game without defeat.",
+    "\"It was three good goals and I'm delighted by the impact of the subs and we dug it out, but we made it harder for ourselves.\"",
+    "That ability to grind out wins was evident at Fir Park on Saturday and was apparent again at Ibrox. Belief is growing among Rangers supporters, who are longing for a first league title in six years.",
+    "They have won six points from losing positions this season, a tally bettered only by St Johnstone and Celtic, who have seven apiece.",
+    "A win over Falkirk on Saturday, before Celtic travel to face Hearts on Sunday, would put Rangers top of the table for just the second time this season.",
+    "'Where would Rangers be without Naderi?'",
+    "Rangers' dramatic 64-second turnaround",
+    "For the umpteenth time this season, Rangers were indebted to in-form striker Naderi.",
+    "The 23-year-old struggled for a consistent run of games in the early stages of his Ibrox career, but has more shown his worth with Youssef Chermiti and Lawrence Shankland sidelined through injury.",
+    "He has 13 goal contributions in 13 league appearances - eight goals and five assists - and also fired Rangers into the Premier Sports Cup final with his winner against Aberdeen at Hampden earlier this month.",
+    "\"A lot of players have had plaudits recently, but where would Rangers be without Naderi?,\" former Rangers striker Kris Boyd asked on Sky Sports.",
+    "\"He's scored big goals for Rangers this season. His goal return has been outstanding and they're big, big goals for Rangers.\"",
+    "Naderi, who featured twice for the Czech Republic during the international break, has the Scottish Premiership's highest expected goals (xG) and xG per 90 minutes.",
+    "His perfectly weighted assist for Gassama showed the touch of a player full of confidence and playing at the peak of his powers.",
+    "Did Dons deserve more?",
+    "Image source, SNS",
+    "After weathering an early Rangers storm, Aberdeen took the lead and looked well worth their advantage at half-time.",
+    "For all of their endeavour and late surge, they failed to recover from their 11-minute capitulation. Still, Aberdeen legend Willie Miller was heartened by the performance under new head coach Mario Frick.",
+    "\"It's been a long time since I've seen a performance as good as that from an Aberdeen side, albeit it was a defeat,\" Miller said.",
+    "\"They pushed Rangers all the way. It will be a learning process for them, you'd certainly hope that would be the case.\"",
+    "15-year-old Andrew Fasanya's introduction shows Frick has no issues playing young players who merit game time, and 20-year-old Marshall was perhaps the standout performer of the night.",
+    "\"When Aberdeen got their second, they gave as good as they got,\" McCall added.",
+    "\"It's the type of game, and Aberdeen will be gutted to have lost it, but you can see progress, an idea, a bond with the supporters.",
+    "\"A young Scottish player [Marshall], I thought was the best player on the park, too.\""
+   ],
+   "image": "https://ichef.bbci.co.uk/ace/standard/800/cpsprodpb/894a/live/51627690-e86e-11f1-bcda-1d03b8eb883f.jpg",
+   "url": "https://www.bbc.co.uk/sport/football/articles/cw808pyyxgzjo?at_medium=RSS&at_campaign=rss",
+   "source": "BBC Sport",
+   "publishedAt": "2026-11-25T01:20:53.000Z",
+   "video": null,
+   "lang": "en",
+   "tr": {
+    "uz": {
+     "title": "Reynjers soddalik va xotirjamlikka qaramay, uni \"qazib olishdi\" - McInnes",
+     "summary": "\"Reynjers\" menejeri Derek Makinnesning aytishicha, uning jamoasining soddaligi va xotirjamligi Aberdin ustidan 3:2 hisobidagi hayajonli gʻalabada ularning vazifalarini qiyinlashtirgan, ammo ularning ishni uddalash qobiliyatini olqishlaydi.",
+     "body": [
+      "Rasm manbai, SNS",
+      "Reynjers ikkinchi boʻlim boshida uch marta almashtirilgandan soʻng 11 daqiqa ichida uchta gol urishdi",
+      "Muallif: Jek Xerral",
+      "BBC Sport Shotland",
+      "\"Reynjers\" - \"Aberdin\" uchrashuvining asosiy lahzalarini tomosha qiling",
+      "24/11/2026",
+      "\"Reynjers\" menejeri Derek Makinnesning aytishicha, uning jamoasining soddaligi va xotirjamligi Aberdin ustidan 3:2 hisobidagi hayajonli gʻalabada ularning vazifasini qiyinlashtirgan, ammo ularning ishni uddalash qobiliyatini olqishlagan.",
+      "Motherwellda kechgan dramatik gʻalabadan atigi uch kun oʻtib, Shotlandiya Premer-ligasi sammitida \"Seltik\"dan atigi bir ochko ortda qolib ketgan Ibrox libosi shiddatli finalni bosib oʻtishga majbur boʻldi.",
+      "Ikkinchi boʻlim boshida 11 daqiqalik ajoyib zarba mehmonlarni magʻlub etganidan soʻng \"Reynjers\" 3:1 hisobida oldinga chiqib oldi, ular tanaffusda Bred Lionsning boshi bilan darvozani ishgʻol qilishdi.",
+      "Biroq, Dons jonli yosh oʻyinchi Findlay Marshall orqali raqibni qaytarib oldi va ikkala tomon ham yakuniy oʻtishda hisobni qoʻshish imkoniyatiga ega boʻldi.",
+      "\"Biz oʻzimizni u erda botqoqqa tashladik, ba'zida juda sodda edik\", dedi MakInnes Sky Sportsga.",
+      "\"Men uchun eng muhimi shundaki, biz oʻta xotirjamlik tufayli tashabbusni yoʻqotamiz va bu oʻzgarishi kerak, chunki biz har doim ham raqiblardan ustun kela olmaymiz.",
+      "\"Biz oldinga chiqqanimizdan soʻng, siz \"gʻildirakni yelkada ushlab turing\" deb oʻylaysiz. Biz ularni poyezdga oʻxshatib urdik va ular tezlik, shiddatlilik, aql-zakovat tufayli 3:1 hisobida ortda qoldi va keyin biz orqaga oʻynay boshladik.",
+      "\"Biz uzoq vaqtdan beri eslab qolganimdan koʻra koʻproq orqaga toʻp uzatmalarini oʻynadik, biz koʻproq nazorat koʻrsatishimiz kerak.\"",
+      "Makinnesning birinchi boʻlimdagi namoyishidan noroziligi oʻzini yarim taymda uch marta almashtirishda namoyon boʻldi, chunki Findlay Curtis, Tuur Rommens va Kim Min-Su maydonga tushishdi.",
+      "Keyingi 11 daqiqada “Reynjers” ​​boshqacha jamoa boʻldi, Rayan Naderi, Djeidi Gassama va Niko Raskinning gollari oʻyinni oʻzgartirib yubordi va Ibrox sodiqlarining kayfiyatini koʻtardi.",
+      "\"Biz uchun gʻalaba qozonish haqida edi, biz oʻyinda gʻalaba qozondik va biz oʻzimizni changlatamiz\", deb qoʻshib qoʻydi Makinnes ketma-ket 14-magʻlubiyatsiz oʻyindan keyin.",
+      "\"Bu uchta yaxshi gol boʻldi va men subsning ta'siridan xursandman va biz uni qazib oldik, lekin biz buni oʻzimizga qiyinlashtirdik.\"",
+      "Gʻalaba qozonish qobiliyati shanba kuni Fir Parkda yaqqol namoyon boʻldi va Ibroxda yana yaqqol namoyon boʻldi. Olti yil ichida birinchi liga chempionligini qoʻlga kiritmoqchi boʻlgan \"Reynjers\" tarafdorlari orasida ishonch kuchayib bormoqda.",
+      "Ular bu mavsumdagi yoʻqotishlardan olti ochkoga ega boʻlishdi, bu koʻrsatkichdan faqat Sent-Jonston va Seltikdan koʻra koʻproq, ularda yettitadan.",
+      "Shanba kuni Falkirk ustidan qozonilgan gʻalaba, yakshanba kuni \"Seltik\" \"Hearts\"ga qarshi oʻyin oldidan, \"Reynjers\" bu mavsumda ikkinchi marta turnir jadvalida birinchi oʻrinni egallaydi.",
+      "— Naderisiz Reynjers qayerda edi?",
+      "Reynjersning 64 soniyalik dramatik burilishlari",
+      "\"Reynjers\" bu mavsumda oʻn marotaba forvard hujumchisi Naderidan qarzdor boʻlib qoldi.",
+      "23 yoshli futbolchi Ibrox faoliyatining dastlabki bosqichlarida barqaror oʻyinlar uchun kurashdi, ammo Youssef Chermiti va Lourens Shenklend jarohati tufayli oʻzini koʻproq koʻrsatdi.",
+      "U ligada 13 ta oʻyinda 13 ta gol urdi - 8 ta gol va 5 ta golli uzatma, shuningdek, shu oy boshida Xempdenda Aberdinga qarshi oʻyinda gʻolib boʻlgan Reynjersni Premer Sport Kubogi finaliga olib chiqdi.",
+      "\"Soʻnggi paytlarda koʻplab oʻyinchilar maqtovga sazovor boʻlishdi, ammo Naderisiz \"Reynjers\" qayerda boʻlardi?\", - deb soʻradi \"Reynjers\"ning sobiq hujumchisi Kris Boyd Sky Sports telekanalida.",
+      "\"U bu mavsumda \"Reynjers\" uchun katta gollar urdi. Uning gollarini qaytarish ajoyib boʻldi va ular \"Reynjers\" uchun katta, katta gol.\"",
+      "Xalqaro tanaffusda Chexiya terma jamoasi safida ikki marta maydonga tushgan Naderi Shotlandiya Premer-ligasida 90 daqiqada urilgan eng yuqori kutilgan gol (xG) va xGga ega.",
+      "Uning Gassamaga bergan ajoyib uzatmasi oʻz kuchining choʻqqisida oʻynagan va oʻziga ishongan oʻyinchining teginishini koʻrsatdi.",
+      "Dons koʻproq narsaga loyiq edimi?",
+      "Rasm manbai, SNS",
+      "\"Reynjers\"ning erta boʻroniga bardosh berganidan soʻng, Aberdin oldinga chiqdi va tanaffusda oʻz ustunligiga arziydi.",
+      "Barcha urinishlari va kechikishlari uchun ular 11 daqiqalik taslim boʻlishdan oʻzlarini tiklay olmadilar. Shunday boʻlsa-da, \"Aberdin\" afsonasi Villi Miller yangi bosh murabbiy Mario Frik qoʻl ostidagi oʻyindan xursand boʻldi.",
+      "\"Men Aberdin jamoasining magʻlubiyatga uchraganiga qaramay, shunchalik yaxshi oʻyin koʻrmaganimga ancha vaqt boʻldi\", dedi Miller.",
+      "\"Ular Reynjersni oxirigacha itarib yuborishdi. Bu ular uchun oʻquv jarayoni boʻladi, siz albatta shunday boʻlishiga umid qilasiz.\"",
+      "15 yoshli Endryu Fasanyaning muqaddimasi shuni koʻrsatadiki, Frik oʻyin vaqtiga munosib boʻlgan yosh oʻyinchilarni oʻynashda hech qanday muammo yoʻq va 20 yoshli Marshall, ehtimol, kechaning ajoyib ijrochisi boʻlgan.",
+      "\"Aberdin ikkinchi oʻrinni egallaganida, ular qoʻllaridan kelgancha yaxshilik qilishdi\", deya qoʻshimcha qildi MakKall.",
+      "\"Bu oʻyin turi va Aberdin uni yoʻqotib qoʻygani uchun gʻazablanadi, ammo siz taraqqiyotni, gʻoyani, tarafdorlar bilan aloqani koʻrishingiz mumkin.",
+      "\"Yosh shotlandiyalik futbolchi [Marshall], men ham parkdagi eng yaxshi oʻyinchi deb oʻylardim.\""
+     ]
+    }
+   }
+  },
+  {
+   "id": "pqkyay",
+   "side": "football",
+   "topic": "moments",
+   "kind": "Lahza",
+   "short": "Lahza - Premer-ligani egallab olgan oʻsmirlar",
+   "title": "Teenagers Taking Over The Premier League",
+   "summary": "Love this video? Let's take a look at some iconic moments where teenage players have taken over Premier League matches! We've recently seen young stars like Spurs' Luca Williams-Barnett, Liverpool's Rio Ngumoha and Arsenal's Max Dowman shining on the big stage, and in the league's history we've seen lots of teenagers…",
+   "body": null,
+   "image": "https://i.ytimg.com/vi/fuCJ51AXQV8/hqdefault.jpg",
+   "url": "https://www.youtube.com/watch?v=fuCJ51AXQV8",
+   "source": "Premier League",
+   "publishedAt": "2026-11-24T12:27:28.000Z",
+   "video": {
+    "provider": "youtube",
+    "id": "fuCJ51AXQV8"
+   },
+   "lang": "en",
+   "tr": {
+    "uz": {
+     "title": "Premer-ligani egallab olgan oʻsmirlar",
+     "summary": "Love this video? Keling, oʻsmir futbolchilar Premer-liga oʻyinlarini qoʻlga kiritgan ba'zi ajoyib lahzalarni koʻrib chiqaylik! Biz yaqinda \"shporlar\" a'zosi Luka Uilyams-Barnett, \"Liverpul\" a'zosi Rio Ngumoxa va \"Arsenal\" a'zosi Maks Douman kabi yosh yulduzlarni katta sahnada porlayotganini koʻrdik va liga tarixida biz koʻplab oʻsmirlarni koʻrganmiz..."
+    }
+   }
+  },
+  {
+   "id": "1vt73m7",
+   "side": "football",
+   "topic": "news",
+   "kind": "Transfer",
+   "short": "Transfer - Chelsea",
+   "title": "Papers: Chelsea will push to sign Bournemouth's Scott in January",
+   "summary": "The top stories and transfer rumours from Tuesday's newspapers...",
+   "body": [
+    "Chelsea will push to sign Bournemouth and England midfielder Alex Scott in the January transfer window - The Mirror Maxence Lacroix is hoping to give Xabi Alonso a boost by returning from injury before the end of the year as the Chelsea manager attempts to turn back the clock to win over worried supporters - The Telegraph Wesley Fofana has laughed off his penalty miss against Liverpool in an unauthorised interview that risks upsetting Chelsea and sparking a backlash from unhappy supporters - The Times Transfer Centre LIVE! | Latest on YOUR PL club! Got Sky? Watch LIVE football on your phone \\ud83d\\udcf1 Not got Sky? Get Sky Sports or stream with no contract on NOW PREMIER LEAGUE Newcastle United are moving closer to building a new stadium on Leazes Park that would completely transform the surrounding area - The Telegraph FIFA Chris Martin , the Coldplay frontman, gave Gianni Infantino a baby grand piano as a personal gift before curating the first World Cup final half-time show - The Telegraph WOMEN'S FOOTBALL England, Northern Ireland, Scotland and Wales are in the dark about whether they will be granted automatic qualification as hosts for the 2035 Women's World Cup - The Guardian RUGBY UNION Bristol Bears are in advanced talks to sign All Blacks superstar Beauden Barrett , with the double World Player of the Year being offered a two-year contract - Daily Mail CRICKET Australian cricketers hatched plans to tamper with the ball during their first Test after Sandpapergate, according to anonymous sources, but the attempt was stopped by then-captain Tim Paine - News Corp TENNIS Tennis star Ben Shelton and soccer sensation Trinity Rodman have split after almost two years together - Daily Mail \",\"mainEntityOfPage\": {\"@type\": \"WebPage\",\"url\": \"/football/transfer-paper-talk/13616238/chelsea-transfer-news-blues-will-push-to-sign-bournemouth-midfielder-alex-scott-in-january-paper-talk\"},\"wordCount\": \"472\",\"inLanguage\": \"en-GB\",\"genre\": \"soccer\",\"publisher\": {\"@type\": \"Organization\",\"@id\": \"#Publisher\",\"name\": \"Sky Sports\",\"logo\": {\"@type\": \"ImageObject\",\"@id\": \"#Logo\",\"url\": \"https://e0.365dm.com/tvlogos/channels/Sky-Sports-Logo.png\",\"width\": \"172\",\"height\": \"36\"}},\"headline\": \"Chelsea transfer news: Blues will push to sign Bournemouth midfielder Alex Scott in January - Paper Talk\",\"description\": \"Plus: Maxence Lacroix is hoping to give Chelsea a boost by returning from injury before the end of the year; Newcastle are moving closer to building a new stadium on Leazes Park; Rugby Premiership side Bristol Bears are in advanced talks to sign All Blacks star Beauden Barrett\",\"dateline\": \"London,UK\",\"copyrightHolder\": {\"@id\":\"#Publisher\"},\"author\": {\"@id\":\"#Publisher\"},\"datePublished\": \"2026-11-24T23:02:00+0000\",\"dateModified\": \"2026-11-24T23:21:18+0000\",\"dateCreated\": \"2026-11-24T23:02:06+0000\",\"image\": {\"@type\": \"ImageObject\",\"url\": \"https://e0.365dm.com/26/08/2048x1152/skysports-paper-talk-football_7317647.jpg?20260809160824\",\"width\": 2048,\"height\": 1152 } ,\"url\":\"/football/transfer-paper-talk/13616238/chelsea-transfer-news-blues-will-push-to-sign-bournemouth-midfielder-alex-scott-in-january-paper-talk\" } Skip to main content Sky Sports Homepage Open menu Home Sports Football F1 Cricket Rugby Union Rugby League Golf Boxing NFL Tennis NBA Racing Darts Netball MMA More Sports Scores Football F1 Cricket Rugby Union Rugby League Golf NFL Tennis Watch Sky Bet More Podcasts Upcoming on Sky Get Sky Sports Sky Sports App Sky Sports with no contract Kick It Out British South Asians in Football Watch Sky Sports Football",
+    "Plus: Maxence Lacroix is hoping to give Chelsea a boost by returning from injury before the end of the year; Newcastle are moving closer to building a new stadium on Leazes Park; Rugby Premiership side Bristol Bears are in advanced talks to sign All Blacks star Beauden Barrett",
+    "Tuesday 24 November 2026 23:21, UK",
+    "The top stories and transfer rumours from Tuesday's newspapers...",
+    "Chelsea will push to sign Bournemouth and England midfielder Alex Scott in the January transfer window - The Mirror",
+    "Maxence Lacroix is hoping to give Xabi Alonso a boost by returning from injury before the end of the year as the Chelsea manager attempts to turn back the clock to win over worried supporters - The Telegraph",
+    "Wesley Fofana has laughed off his penalty miss against Liverpool in an unauthorised interview that risks upsetting Chelsea and sparking a backlash from unhappy supporters - The Times",
+    "Please use Chrome browser for a more accessible video player",
+    "Newcastle United are moving closer to building a new stadium on Leazes Park that would completely transform the surrounding area - The Telegraph",
+    "Chris Martin , the Coldplay frontman, gave Gianni Infantino a baby grand piano as a personal gift before curating the first World Cup final half-time show - The Telegraph",
+    "England, Northern Ireland, Scotland and Wales are in the dark about whether they will be granted automatic qualification as hosts for the 2035 Women's World Cup - The Guardian",
+    "Bristol Bears are in advanced talks to sign All Blacks superstar Beauden Barrett , with the double World Player of the Year being offered a two-year contract - Daily Mail",
+    "Australian cricketers hatched plans to tamper with the ball during their first Test after Sandpapergate, according to anonymous sources, but the attempt was stopped by then-captain Tim Paine - News Corp",
+    "Tennis star Ben Shelton and soccer sensation Trinity Rodman have split after almost two years together - Daily Mail",
+    "Play Super 6 for a chance to win £1m! Enter for free.",
+    "© 2026 Sky UK"
+   ],
+   "image": "https://e2.365dm.com/26/08/1920x1080/skysports-paper-talk-football_7317647.jpg?20260809160824",
+   "url": "https://www.skysports.com/football/news/12040/13616238/chelsea-transfer-news-blues-will-push-to-sign-bournemouth-midfielder-alex-scott-in-january-paper-talk",
+   "source": "Sky Sports",
+   "publishedAt": "2026-11-24T23:02:00.000Z",
+   "video": null,
+   "lang": "en",
+   "tr": {
+    "uz": {
+     "title": "Maqolalar: \"Chelsi\" yanvar oyida \"Bornmut\"dan Skottni sotib olishga intiladi",
+     "summary": "Seshanba kungi gazetalarning eng sara hikoyalari va transfer mish-mishlari...",
+     "body": [
+      "\"Chelsi\" yanvar oyidagi transfer oynasida \"Bornmut\" va Angliya terma jamoasi yarim himoyachisi Aleks Skottni qoʻlga kiritishga intiladi - The Mirror Maxence Lacroix Xabi Alonsoning yil oxirigacha jarohatidan qaytganiga umid qilmoqda, chunki \"Chelsi\" bosh murabbiyi xavotirlangan muxlislarni magʻlub etish uchun soatni orqaga qaytarishga urinmoqda - The Telegraph Uesli Fofana oʻzining penalti futbolchisi Lipoga bergan intervyusida kulib yubordi. \"Chelsi\"ni xafa qilish va baxtsiz tarafdorlarning noroziligiga sabab boʻlishi mumkin - The Times Transfer Center LIVE! | YOUR PL club haqida eng soʻnggi! Sky bormi? Telefoningizda JONLI futbolni tomosha qiling \\ud83d\\udcf1 Sky yoʻqmi? Sky Sports-ni oling yoki NOW PREMIER LEAGUE-da shartnomasiz translatsiya qiling Nyukasl Yunayted Leazes Parkda atrofni butunlay oʻzgartiradigan yangi stadion qurishga yaqinlashmoqda - The Telegraph FIFAning Coldplay guruhi solisti Kris Martin Jianni Infantinoga birinchi Jahon kubogi finali yarimtalik shousini boshqarishdan oldin shaxsiy sovgʻa sifatida chaqaloq royalini sovgʻa qildi. Irlandiya, Shotlandiya va Uels 2035-yilgi ayollar oʻrtasidagi jahon chempionatiga avtomatik ravishda mezbonlik qilish huquqiga ega boʻlish-boʻlmasligi haqida qorongʻulikda – The Guardian RUGBY UNION Bristol Bears barcha qora tanlilar super yulduzi Boden Barret bilan shartnoma imzolash uchun ilgʻor muzokaralar olib bormoqda, shu bilan birga yilning ikki karra jahon oʻyinchisi Avstraliyaga ikki yillik shartnoma taklif qilishmoqda. Anonim manbalarga koʻra, Sandpapergate'dan keyingi birinchi sinov paytida toʻpni oʻzgartirgan, ammo urinish oʻsha paytdagi kapitan Tim Peyn tomonidan toʻxtatilgan - News Corp TENNIS tennis yulduzi Ben Shelton va futbol sensatsiyasi Triniti Rodman deyarli ikki yildan keyin ajralishdi - Daily Mail \",\"mainEntityOfPage\" {\"@bPage\":\" \"/football/transfer-paper-talk/13616238/chelsea-transfer-news-bluez-will-push-to-sign-bournemouth-midfielder-alex-scott-in-yanuary-paper-talk\"},\"wordCount\": \"472\",\"inLanguage\": \"cerre\": \"en\":\"GBs\" {\"@type\": \"Organization\",\"@id\": \"#Publisher\",\"name\": \"Sky Sports\",\"logo\": {\"@type\": \"ImageObject\",\"@id\": \"#Logo\",\"url\": \"https://e0.365dm.com/tvlogos/channels/Sky-go\":width\":\"p \"172\",\"balandlik\": \"36\"}},\"sarlavha\": \"Chelsi\" transferi yangiliklari: \"Koʻk-anorranglilar\" yanvarda \"Bornmut\" yarim himoyachisi Aleks Skottni qoʻlga kiritishga intilishadi - Paper Talk\",\"tavsif\": \"Plyus: Maksens Lakroix yil oxirigacha jarohatidan qaytish orqali \"Chelsi\"ga kuch berishga umid qilmoqda; \"Nyukasl\" Leazes Parkda yangi stadion qurishga yaqinlashmoqda; Regbi Premer-ligasi vakili Bristol Bears All Blacks yulduzi Boden Barrett bilan shartnoma imzolash boʻyicha muzokaralar olib bormoqda\",\"dateline\": \"London,BK\",\"copyrightHolder\": {\"@id\":\"#Publisher\"},\"author\": {\"@id\":\"#Publisher\"},\"dateP \"2026-11-24T23:02:00+0000\",\"dateModified\": \"2026-11-24T23:21:18+0000\",\"sanaYaratilgan\": \"2026-11-24T23:02:06+0000:\"tasvir\" \"ImageObject\",\"url\": \"https://e0.365dm.com/26/08/2048x1152/skysports-paper-talk-football_7317647.jpg?20260809160824\",\"kenglik\": 2048:},\"15 balandligi ,\"url\":\"/futbol/transfer-paper-talk/13616238/chelsea-transfer-news-bluz-bornmut-yarim himoyachisi-alex-scott-in-yanvarda-paper-talk\" } Asosiy tarkibga oʻtish Sky Sports Homepage Ruball Uniong Bosh sahifa Ochiq menyu NFL Tennis NBA Racing Darts Netbol MMA Koʻproq Sport Skorlari Futbol F1 Kriket Regbi Ittifoqi Regbi Ligasi Golf NFL Tennis Watch Sky Bet Koʻproq podkastlar Osmonda Kelgusi Sky Sports Sky Sports ilovasini oling Sky Sports hech qanday shartnomasiz Kick It Out Britaniya janubiy osiyoliklari Futbolda Sky Sports Futbol tomosha qiling",
+      "Plyus: Maksens Lakroix yil oxirigacha jarohatdan qaytish orqali \"Chelsi\"ga kuch berishga umid qilmoqda; \"Nyukasl\" Leazes Parkda yangi stadion qurishga yaqinlashmoqda; Regbi Premership jamoasi Bristol Bears All Blacks yulduzi Boden Barrett bilan shartnoma imzolash boʻyicha muzokaralar olib bormoqda.",
+      "seshanba 24 noyabr 2026 23:21, Buyuk Britaniya",
+      "Seshanba kungi gazetalarning eng sara hikoyalari va transfer mish-mishlari...",
+      "\"Chelsi\" yanvardagi transfer oynasida \"Bornmut\" va Angliya terma jamoasi yarim himoyachisi Aleks Skottni qoʻlga kiritishga intiladi - The Mirror",
+      "Maksens Lakroix Xabi Alonsoni yil oxirigacha jarohatidan qaytish orqali unga kuch berishga umid qilmoqda, chunki \"Chelsi\" bosh murabbiyi xavotirlangan muxlislarni magʻlub etish uchun vaqtni orqaga qaytarishga harakat qilmoqda - The Telegraph",
+      "Uesli Fofana ruxsat etilmagan intervyusida \"Liverpul\"ga qarshi oʻyinda penaltini oʻtkazib yuborganidan kuldi, bu \"Chelsi\"ni xafa qilish va baxtsiz tarafdorlarning noroziligini keltirib chiqarishi mumkin - The Times",
+      "Iltimos, qulayroq video pleer uchun Chrome brauzeridan foydalaning",
+      "\"Nyukasl Yunayted\" Leazes Parkda atrofni butunlay oʻzgartiradigan yangi stadion qurishga yaqinlashmoqda - The Telegraph",
+      "Coldplay guruhi solisti Kris Martin Jahon kubogi finalidagi birinchi shouni boshqarishdan oldin Janni Infantinoga shaxsiy sovgʻa sifatida chaqaloq royalini sovgʻa qildi - The Telegraph",
+      "Angliya, Shimoliy Irlandiya, Shotlandiya va Uels 2035-yilgi ayollar oʻrtasidagi jahon chempionatiga avtomatik ravishda mezbonlik huquqi berilishi yoki yoʻqligi haqida qorongʻulikda – The Guardian",
+      "Bristol Bears \"Barcha qora tanlilar\" superyulduzi Boden Barret bilan shartnoma imzolash boʻyicha muzokaralar olib bormoqda, ikki karra jahonning eng yaxshi futbolchisi bilan ikki yillik shartnoma taklif qilinmoqda - Daily Mail",
+      "Anonim manbalarga koʻra, avstraliyalik kriketchilar Sandpapergate'dan keyingi birinchi sinov paytida toʻpni buzishni rejalashtirishgan, ammo bu urinish oʻsha paytdagi kapitan Tim Peyn tomonidan toʻxtatilgan - News Corp",
+      "Tennis yulduzi Ben Shelton va futbol sensatsiyasi Triniti Rodman deyarli ikki yil birga boʻlganidan keyin ajralishdi - Daily Mail",
+      "£1 million yutib olish imkoniyati uchun Super 6 oʻynang! Bepul kiring.",
+      "© 2026 Sky UK"
+     ]
+    }
+   }
+  },
+  {
+   "id": "uokdke",
+   "side": "football",
+   "topic": "moments",
+   "kind": "Gol",
+   "short": "Gol - Wirtz - Liverpool",
+   "title": "Inside Anfield: Liverpool 4-0 Man Utd - Tunnel scenes and incredible atmosphere!",
+   "summary": "Relive the BEST view of the Reds' Premier League victory over Manchester United at Anfield thanks to goals from Dominik Szoboszlai, Florian Wirtz, Rio Ngumoha & Victor Munoz. This video is available with subtitles in English, Spanish, French, German, Italian, Portuguese, Hungarian, Russian, Arabic, Thai, Indonesian…",
+   "body": null,
+   "image": "https://i.ytimg.com/vi/9GpxiFdCxAM/hqdefault.jpg",
+   "url": "https://www.youtube.com/watch?v=9GpxiFdCxAM",
+   "source": "Liverpool FC",
+   "publishedAt": "2026-11-24T09:00:10.000Z",
+   "video": {
+    "provider": "youtube",
+    "id": "9GpxiFdCxAM"
+   },
+   "lang": "en",
+   "tr": {
+    "uz": {
+     "title": "\"Enfild\" ichida: \"Liverpul\" 4:0 MYU - Tunnel manzaralari va ajoyib atmosfera!",
+     "summary": "Dominik Szoboslay, Florian Virts, Rio Ngumoxa va Viktor Munos gollari evaziga \"Qizillar\"ning Premer-ligada \"Manchester Yunayted\" ustidan qozonilgan gʻalabasining ENG YAXSHI koʻrinishini qayta jonlantiring. Bu videoni ingliz, ispan, frantsuz, nemis, italyan, portugal, venger, rus, arab, tay, indoneziya tillarida subtitrlar bilan koʻrish mumkin..."
+    }
+   }
+  }
+ ]
+}
