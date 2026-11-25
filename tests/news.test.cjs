@@ -288,3 +288,17 @@ test("older days are named in Uzbek", async () => {
   assert.match(label, /^(Yak|Dush|Sesh|Chor|Pay|Jum|Shan), \d{1,2}-(yanvar|fevral|mart|aprel|may|iyun|iyul|avgust|sentabr|oktabr|noyabr|dekabr)$/, label);
   await page.close();
 });
+
+test("the fact's photo falls back to Wikipedia's own thumbnail, then to none", async () => {
+  const ed = (fact) => ({ [TODAY]: { ...todayEdition, fact: { ...todayEdition.fact, ...fact } } });
+  const { page } = await openApp(browser, server.url, { route: "news", init: serveNews({ days: [TODAY], editions: ed({ image: "https://img.test-news.example/broken.png", imageSmall: "https://img.test-news.example/small.png" }) }) });
+  const photo = page.locator("main .news-fact__photo");
+  await page.waitForFunction(() => /small\.png$/.test((document.querySelector("main .news-fact__photo") || {}).src || ""));
+  assert.equal(await photo.getAttribute("src"), "https://img.test-news.example/small.png");
+  await page.close();
+  const none = await openApp(browser, server.url, { route: "news", init: serveNews({ days: [TODAY], editions: ed({ image: "https://img.test-news.example/broken.png", imageSmall: null }) }) });
+  await none.page.locator("main .news-fact").waitFor();
+  await none.page.waitForFunction(() => !document.querySelector("main .news-fact__photo"));
+  assert.equal(await none.page.locator("main .news-fact").getAttribute("data-has-photo"), null, "the card closes the gap");
+  await none.page.close();
+});

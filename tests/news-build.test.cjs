@@ -146,7 +146,8 @@ test("every fun fact has a headline, a sentence and a Wikipedia article", () => 
 
 test("the fact's photo: Wikipedia's original when sensible, else a wider thumbnail", () => {
   assert.equal(lib.wikiImage({ originalimage: { source: "https://upload.wikimedia.org/a.jpg", width: 1200 } }), "https://upload.wikimedia.org/a.jpg");
-  assert.equal(lib.wikiImage({ originalimage: { source: "https://upload.wikimedia.org/huge.jpg", width: 6000 }, thumbnail: { source: "https://upload.wikimedia.org/thumb/x/320px-Horse.jpg" } }), "https://upload.wikimedia.org/thumb/x/800px-Horse.jpg");
+  assert.equal(lib.wikiImage({ originalimage: { source: "https://upload.wikimedia.org/huge.jpg", width: 6000 }, thumbnail: { source: "https://upload.wikimedia.org/thumb/x/320px-Horse.jpg" } }), "https://upload.wikimedia.org/thumb/x/960px-Horse.jpg");
+  assert.equal(lib.wikiThumb({ thumbnail: { source: "https://upload.wikimedia.org/thumb/x/320px-Horse.jpg" } }), "https://upload.wikimedia.org/thumb/x/320px-Horse.jpg");
   assert.equal(lib.wikiImage({}), null);
 });
 
@@ -341,4 +342,23 @@ test("videos from the same site aren't taken for the same story", () => {
   const a = { topic: "moments", source: "FIFA", title: "Goal one", url: "https://www.youtube.com/watch?v=aaaaaaaaaaa", video: { provider: "youtube", id: "aaaaaaaaaaa" }, publishedAt: NOW.toISOString() };
   const b = { ...a, title: "Goal two", url: "https://www.youtube.com/watch?v=bbbbbbbbbbb", video: { provider: "youtube", id: "bbbbbbbbbbb" } };
   assert.equal(lib.pickEdition([a, b], { plan: PLAN, now: NOW }).length, 2);
+});
+
+test("real titles from the first football edition", () => {
+  const t = (topic, title, summary = "") => fb.shortTitle({ topic, title: fb.cleanVideoTitle(title), summary }, title);
+  assert.equal(t("moments", "Austria Start Strong Against Debutants Jordan - 2026 World Cup EXTENDED HIGHLIGHTS", "All goals from Austria vs Jordan"), "Gol - 2026 - Austriya - Iordaniya");
+  assert.equal(t("moments", "Amazing run by @AlejandroBalde_"), "Dribling - Balde", "a handle becomes a name");
+  assert.equal(t("moments", "This looks like you‘re on the pitch when Mikey Moore scores a beauty"), "Gol - Mikey Moore");
+  assert.equal(t("moments", "Inside Anfield: Liverpool 4-0 Man Utd - Tunnel scenes"), "Natija - Liverpool - Manchester United");
+  assert.equal(t("news", "Papers: Chelsea will push to sign Bournemouth's Scott in January"), "Transfer - Chelsea - Bournemouth");
+});
+
+test("boxing and other sports in a football feed are left out", async () => {
+  const { NOT_FOOTBALL } = await import("../tools/news/sources.mjs");
+  const xml = `<rss version="2.0"><channel>
+    <item><title>Hysa aims to win WBC title then take on Fury</title><link>https://sky.example/1</link><pubDate>Mon, 23 Nov 2026 10:00:00 GMT</pubDate></item>
+    <item><title>Saka back in training</title><link>https://sky.example/2</link><pubDate>Mon, 23 Nov 2026 10:00:00 GMT</pubDate></item>
+  </channel></rss>`;
+  const stories = lib.parseFeed(xml, { topic: "news", name: "Sky Sports", exclude: NOT_FOOTBALL });
+  assert.deepEqual(stories.map((s) => s.title), ["Saka back in training"]);
 });

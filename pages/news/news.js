@@ -160,7 +160,7 @@
     const f = raw && raw.fact;
     const fact =
       f && typeof f.text === "string"
-        ? { title: str(f.title), text: f.text, image: httpsUrl(f.image), url: /^https?:\/\//.test(f.url || "") ? f.url : null, source: str(f.source), lang: str(f.lang) || "en", tr: tidyUz(f.tr) }
+        ? { title: str(f.title), text: f.text, image: httpsUrl(f.image), imageSmall: httpsUrl(f.imageSmall), url: /^https?:\/\//.test(f.url || "") ? f.url : null, source: str(f.source), lang: str(f.lang) || "en", tr: tidyUz(f.tr) }
         : null;
     return { date: (raw && raw.date) || date, fact, items };
   }
@@ -330,9 +330,13 @@
     const text = (uz && tr && tr.text) || fact.text;
     const lang = uz ? "uz" : fact.lang;
     const source = fact.source === "Wikipedia" ? T.wikipedia : fact.source;
+    // The photo, then Wikipedia's own thumbnail if it won't load, then none.
+    const [photo, setPhoto] = React2.useState(0);
+    const photos = [fact.image, fact.imageSmall].filter(Boolean);
+    const src = photos[photo];
     return h(
       "section",
-      { className: "news-fact", "aria-labelledby": "news-fact-title", "data-has-photo": fact.image ? "true" : void 0 },
+      { className: "news-fact", "aria-labelledby": "news-fact-title", "data-has-photo": src ? "true" : void 0 },
       h(BulbArt),
       h(
         "div",
@@ -342,7 +346,7 @@
         title && h("p", { className: "news-fact__text", lang }, text),
         fact.url && h("a", { className: "news-fact__source", href: fact.url, target: "_blank", rel: "noopener noreferrer", lang: "uz" }, h(BookOpen, { size: 15, "aria-hidden": true }), T.source(source || T.wikipedia))
       ),
-      fact.image && h("img", { className: "news-fact__photo", src: fact.image, alt: "", loading: "lazy", decoding: "async", referrerPolicy: "no-referrer" })
+      src && h("img", { key: src, className: "news-fact__photo", src, alt: "", loading: "lazy", decoding: "async", referrerPolicy: "no-referrer", onError: () => setPhoto((n) => n + 1) })
     );
   }
 

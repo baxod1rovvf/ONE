@@ -106,3 +106,9 @@ Replaces the sections and the language switch above.
   sentence, "Manba: Vikipediya" and a photo. The facts are a list of 60
   (`tools/news/facts.mjs`), each naming the Wikipedia article it can be checked
   against; the photo and the link come from that article.
+- After the first real run: Sky Sports' football feed carries boxing, so news
+  sources leave out stories about other sports (`NOT_FOOTBALL`); ESPN's feed
+  was empty and is gone; more players, clubs and national teams are known to
+  the short titles, and @handles become names. The fact's photo is asked for
+  at 960px (a standard Wikimedia width), with Wikipedia's own thumbnail as
+  the fallback the page uses if it doesn't load.

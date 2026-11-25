@@ -30,6 +30,10 @@ export const MOMENT = /\b(goals?|golazo|screamer|worldie|volley|free[- ]?kicks?|
 // general news feeds.
 const FOOTBALL_UZ = /(futbol|terma jamoa|superliga|chempionlar ligasi|premyer-liga|transfer|darvozabon|Real Madrid|Barselona|Manchester|Liverpul|Arsenal|Chelsi|Bavariya|Yuventus|PSJ|Paxtakor|Navbahor|Nasaf|футбол|терма жамоа|суперлига|трансфер|дарвозабон|Пахтакор|Навбаҳор|Насаф)/i;
 
+// Other sports that turn up in football feeds (Sky Sports puts boxing in its
+// football feed). Stories that mention them are left out.
+export const NOT_FOOTBALL = /\b(boxing|boxer|heavyweight|WBC|WBA|WBO|IBF|UFC|MMA|cricket|rugby|Formula 1|F1|Grand Prix|tennis|Wimbledon|golf|snooker|darts|NFL|NBA|NHL|cycling|Tour de France)\b/i;
+
 // The Guardian isn't used: it refuses GitHub's servers with HTTP 403.
 // `fallback: true` sources are only used when the others of a topic run short.
 export const SOURCES = [
@@ -54,9 +58,8 @@ export const SOURCES = [
   { topic: "news", name: "Kun.uz", url: "https://kun.uz/news/rss", lang: "uz", match: FOOTBALL_UZ },
   { topic: "news", name: "Daryo", url: "https://daryo.uz/feed/", lang: "uz", match: FOOTBALL_UZ },
   { topic: "news", name: "Gazeta.uz", url: "https://www.gazeta.uz/uz/rss/", lang: "uz", match: FOOTBALL_UZ },
-  { topic: "news", name: "BBC Sport", url: "https://feeds.bbci.co.uk/sport/football/rss.xml" },
-  { topic: "news", name: "Sky Sports", url: "https://www.skysports.com/rss/12040" },
-  { topic: "news", name: "ESPN", url: "https://www.espn.com/espn/rss/soccer/news" }
+  { topic: "news", name: "BBC Sport", url: "https://feeds.bbci.co.uk/sport/football/rss.xml", exclude: NOT_FOOTBALL },
+  { topic: "news", name: "Sky Sports", url: "https://www.skysports.com/rss/12040", exclude: NOT_FOOTBALL }
 ];
 
 export const youtubeFeed = (channelId) => `https://www.youtube.com/feeds/videos.xml?channel_id=${channelId}`;
