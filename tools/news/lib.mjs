@@ -134,6 +134,14 @@ function trendStory(item, source) {
   };
 }
 
+const PROMO = /https?:|www\.|subscribe|follow us|\bfollow\b|instagram|tiktok|facebook|twitter|\bx\.com|snapchat|whatsapp|download|\bapp\b|\bshop\b|sponsor|official (site|website)|►|▶|👉|#\w/i;
+export function videoText(text) {
+  return String(text || "")
+    .split(/\n+|(?<=[.!?])\s+/)
+    .filter((part) => part.trim() && !PROMO.test(part))
+    .join(" ");
+}
+
 // One feed (RSS 2.0 or Atom, YouTube channel feeds included) → plain stories.
 export function parseFeed(xml, source) {
   let doc;
@@ -159,7 +167,9 @@ export function parseFeed(xml, source) {
     if (!title || !url) continue;
     const videoId = textOf(item["yt:videoId"]) || null;
     const group = item["media:group"] || {};
-    const html = textOf(item["content:encoded"]) || textOf(item.content) || textOf(item.description) || textOf(item.summary) || textOf(group["media:description"]);
+    let html = textOf(item["content:encoded"]) || textOf(item.content) || textOf(item.description) || textOf(item.summary) || textOf(group["media:description"]);
+    // A video's description: without its links, hashtags and "subscribe" lines.
+    if (videoId) html = videoText(html);
     const summary = shorten(cleanText(html));
     const image = videoId ? `https://i.ytimg.com/vi/${videoId}/hqdefault.jpg` : upgradeImage(imageOf(item, html));
     out.push({
@@ -182,7 +192,8 @@ export function parseFeed(xml, source) {
 export function keysOf(story) {
   const keys = [];
   if (story.video) keys.push(`yt:${story.video.id}`);
-  if (story.url) keys.push(`url:${story.url.replace(/^https?:\/\/(www\.)?/, "").replace(/[?#].*$/, "").replace(/\/$/, "").toLowerCase()}`);
+  // (Not for videos: without its "?v=…", every YouTube address is the same.)
+  if (story.url && !story.video) keys.push(`url:${story.url.replace(/^https?:\/\/(www\.)?/, "").replace(/[?#].*$/, "").replace(/\/$/, "").toLowerCase()}`);
   if (story.title) keys.push(`title:${story.title.toLowerCase().replace(/[^\p{L}\p{N}]+/gu, " ").trim()}`);
   return keys;
 }
@@ -210,10 +221,12 @@ export function pickEdition(candidates, { plan, used = new Set(), now = new Date
   const sorted = [...candidates].sort(
     (a, b) => (a.fallback ? 1 : 0) - (b.fallback ? 1 : 0) || (b.rank || 0) - (a.rank || 0) || (b.publishedAt || "").localeCompare(a.publishedAt || "")
   );
+  // How old a story may be, per topic (timeless goals can be older than news).
+  const ageLimit = new Map(plan.map((p) => [p.topic, p.maxAgeDays ?? maxAgeDays]));
   for (const s of sorted) {
     if (!s.publishedAt) continue;
     const age = nowMs - Date.parse(s.publishedAt);
-    if (age > maxAgeDays * DAY || age < -36e5) continue;
+    if (age > (ageLimit.get(s.topic) ?? maxAgeDays) * DAY || age < -36e5) continue;
     if (s.video && NOT_WATCHABLE.test(s.title)) continue;
     const keys = keysOf(s);
     if (keys.some((k) => seen.has(k))) continue;
@@ -277,23 +290,26 @@ export function pickEdition(candidates, { plan, used = new Set(), now = new Date
   return out;
 }
 
-// The fun fact: the first offered fact not used in the past week, otherwise
-// the next fallback fact in turn (by day of the year) that wasn't.
-export function pickFact(offered, { usedFacts = new Set(), fallback = [], date }) {
-  const norm = (t) => t.toLowerCase().replace(/[^\p{L}\p{N}]+/gu, " ").trim();
-  const usedNorm = new Set([...usedFacts].map(norm));
-  for (const f of offered) {
-    const text = f && cleanText(f.text);
-    if (text && text.length >= 20 && text.length <= 400 && !usedNorm.has(norm(text))) return { text, url: f.url || null, source: f.source || null };
-  }
-  if (!fallback.length) return null;
+// The fun fact of the day: the facts in turn by the day of the year,
+// skipping any shown in the past week.
+export function factOfDay(facts, { used = new Set(), date }) {
+  if (!facts.length) return null;
   const d = new Date(`${date}T00:00:00Z`);
   const dayOfYear = Math.floor((d - Date.UTC(d.getUTCFullYear(), 0, 0)) / DAY);
-  for (let i = 0; i < fallback.length; i++) {
-    const text = fallback[(dayOfYear + i) % fallback.length];
-    if (!usedNorm.has(norm(text))) return { text, url: null, source: null };
+  for (let i = 0; i < facts.length; i++) {
+    const f = facts[(dayOfYear + i) % facts.length];
+    if (!used.has(f.title)) return f;
   }
-  return { text: fallback[dayOfYear % fallback.length], url: null, source: null };
+  return facts[dayOfYear % facts.length];
+}
+
+// A picture from Wikipedia's page summary: the original when it's a sensible
+// size, otherwise the thumbnail made wider.
+export function wikiImage(summary) {
+  const orig = summary && summary.originalimage;
+  if (orig && orig.source && orig.width && orig.width <= 1600) return orig.source;
+  const thumb = summary && summary.thumbnail && summary.thumbnail.source;
+  return thumb ? thumb.replace(/\/(\d+)px-/, "/800px-") : null;
 }
 
 // The edition date (YYYY-MM-DD) for a moment, in a time zone.
