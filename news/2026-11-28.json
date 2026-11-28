@@ -1,0 +1,334 @@
+{
+ "date": "2026-11-28",
+ "generatedAt": "2026-11-28T08:56:11.361Z",
+ "fact": {
+  "key": "Polar bears have black skin",
+  "title": "Polar bears have black skin",
+  "text": "Under their thick, see-through fur, their skin is black, which helps soak up the sun's warmth.",
+  "source": "Wikipedia",
+  "image": null,
+  "url": "https://en.wikipedia.org/wiki/Polar_bear",
+  "lang": "en",
+  "tr": {
+   "uz": {
+    "title": "Polar ayiqlar qora teriga ega",
+    "text": "Ularning qalin, ochiq moʻynasi ostida terisi qora rangda boʻlib, quyosh issiqligini soʻrib olishga yordam beradi."
+   }
+  }
+ },
+ "items": [
+  {
+   "id": "19adfvb",
+   "side": "football",
+   "topic": "moments",
+   "kind": "Gol",
+   "short": "Gol - 2025 - Haaland",
+   "title": "NEARLY AN OWN GOAL",
+   "summary": "Nearly an own goal scored after David Raya makes a great save to stop Erling Haaland from scoring! Arsenal vs Man City - Premier League 2025/26 This is the Official YouTube channel for Arsenal Football Club. For more match action, highlights and training videos, make sure you become a digital member and sign up to…",
+   "body": null,
+   "image": "https://i.ytimg.com/vi/ukIDs-3SE0E/hqdefault.jpg",
+   "url": "https://www.youtube.com/shorts/ukIDs-3SE0E",
+   "source": "Arsenal",
+   "publishedAt": "2026-11-28T08:01:37.000Z",
+   "video": {
+    "provider": "youtube",
+    "id": "ukIDs-3SE0E"
+   },
+   "lang": "en",
+   "tr": {
+    "uz": {
+     "title": "DARXIY OʻZ MAQSAD",
+     "summary": "Devid Raya Erling Xolandning gol urishini toʻxtatish uchun ajoyib seyv qilganidan keyin deyarli avtogol urildi! \"Arsenal\" - \"Man Siti\" - Premer-liga 2025/26 Bu \"Arsenal\" futbol klubining rasmiy YouTube kanali. Koʻproq oʻyin harakatlari, asosiy voqealar va mashgʻulot videolari uchun raqamli aʼzo boʻlganingizga ishonch hosil qiling va roʻyxatdan oʻting…"
+    }
+   }
+  },
+  {
+   "id": "ggrjck",
+   "side": "football",
+   "topic": "news",
+   "kind": "Yangilik",
+   "short": "Yangilik - Sheffild Yunayted skauti Heartsning…",
+   "title": "Sheffield United scout Hearts' McPake - gossip",
+   "summary": "Hearts winger linked with Sheffield United as former St Johnstone chairman reveals 49ers approach.",
+   "body": [
+    "Sheffield United have scouted Scotland winger Josh McPake several times this season, but Hearts would require a seven-figure bid to consider selling the 25-year-old. (Record - subscription required, external)",
+    "Defeat by Celtic at Tynecastle on Sunday would end Hearts' Scottish Premiership title hopes, says former Rangers forward Kris Boyd. (Sun - subscription required, external)",
+    "Leeds United-linked Celtic forward Camilo Duran does not meet the criteria required for a Premier League work permit. (Record - subscription required, external)",
+    "Celtic manager Martin O'Neill hopes Canada right-back Alistair Johnston's injury problems are finally behind him after seeing a specialist. (Sun, external)",
+    "Aberdeen winger Hicham Mahou scored against new head coach Mario Frick's former team Luzern in Switzerland but is now eager to find the net for his new boss at Pittodrie. (Record - subscription required, external)",
+    "Former St Johnstone chairman Geoff Brown reveals the Perth club turned down an approach from the 49ers group a year before they took over Rangers. (Sun, external)",
+    "Hibernian midfielder Miguel Chaiwa jokes it's not easy living up to the \"vacuum cleaner\" nickname given him by manager Marink Reedijk. (Edinburgh Evening News - subscription required, external)"
+   ],
+   "image": "https://ichef.bbci.co.uk/ace/standard/800/cpsprodpb/23d7/live/8dc009a0-eb06-11f1-a094-5fdc692f3e33.png",
+   "url": "https://www.bbc.co.uk/sport/football/articles/cq143gn0gd80o?at_medium=RSS&at_campaign=rss",
+   "source": "BBC Sport",
+   "publishedAt": "2026-11-28T08:36:34.000Z",
+   "video": null,
+   "lang": "en",
+   "tr": {
+    "uz": {
+     "title": "Sheffild Yunayted skauti Heartsning MakPake - gʻiybat",
+     "summary": "Sent-Jonstonning sobiq raisi sifatida Sheffild Yunayted bilan bogʻlangan Hearts vingeri 49ersning yondashuvini oshkor qildi.",
+     "body": [
+      "\"Sheffild Yunayted\" bu mavsumda shotlandiyalik vinger Josh MakPeykni bir necha bor skaut qildi, ammo Hearts 25 yoshli futbolchini sotishni koʻrib chiqish uchun yetti raqamli taklif talab qiladi. (Yozuv - obuna kerak, tashqi)",
+      "Yakshanba kuni \"Tynecastle\"da \"Seltik\"dan magʻlub boʻlish Heartsning Shotlandiya Premer-ligasi chempionligiga umidlarini yoʻqotadi, deydi sobiq \"Reynjers\" hujumchisi Kris Boyd. (Sun - obuna kerak, tashqi)",
+      "\"Lids Yunayted\"ga bogʻlangan \"Seltik\" hujumchisi Kamilo Duran Premer-ligada ishlash uchun ruxsat olish uchun talab qilinadigan mezonlarga javob bermaydi. (Yozuv - obuna kerak, tashqi)",
+      "\"Seltik\" bosh murabbiyi Martin OʻNil kanadalik oʻng qanot himoyachisi Alistair Jonstonning jarohati bilan bogʻliq muammolar nihoyat ortda qolganiga umid qilmoqda. (Quyosh, tashqi)",
+      "\"Aberdin\" vingeri Xicham Mahu Shveytsariyada yangi bosh murabbiy Mario Frikning sobiq jamoasi \"Luzern\"ga gol urdi, ammo endi Pittodrida oʻzining yangi xoʻjayini uchun toʻr topishni istamoqda. (Yozuv - obuna kerak, tashqi)",
+      "Sent-Jonstonning sobiq raisi Jyeoff Braunning aytishicha, Pert klubi Reynjersni qabul qilishdan bir yil oldin 49ers guruhining taklifini rad etgan. (Quyosh, tashqi)",
+      "\"Hibernian\" yarim himoyachisi Migel Chayva murabbiy Marink Ridiyk bergan \"changyutgich\" laqabiga mos yashash oson emasligini hazillashmoqda. (Edinburgh Evening News - obuna kerak, tashqi)"
+     ]
+    }
+   }
+  },
+  {
+   "id": "xaspex",
+   "side": "football",
+   "topic": "moments",
+   "kind": "Gol",
+   "short": "Gol - 2026 - AQSh - Belgiya",
+   "title": "10-Minute Match - Round of 16 - USA v Belgium - 2026 World Cup EXTENDED HIGHLIGHTS",
+   "summary": "Belgium book their spot in the quarter-finals and hand co-hosts USA a short trip home, sealed by Romelu Lukaku’s 93rd international goal. FIFA World Cup: FIFA Women’s World Cup: FIFA Club Football:",
+   "body": null,
+   "image": "https://i.ytimg.com/vi/h5HabIjyBBQ/hqdefault.jpg",
+   "url": "https://www.youtube.com/watch?v=h5HabIjyBBQ",
+   "source": "FIFA",
+   "publishedAt": "2026-11-28T06:30:19.000Z",
+   "video": {
+    "provider": "youtube",
+    "id": "h5HabIjyBBQ"
+   },
+   "lang": "en",
+   "tr": {
+    "uz": {
+     "title": "10 daqiqalik oʻyin - 1/8 final - AQSH - Belgiya - 2026 yilgi JCh-2026.",
+     "summary": "Belgiya chorak final yoʻllanmasini qoʻlga kiritdi va AQSh bilan birgalikda Romelu Lukakuning 93-xalqaro goli bilan qisqa muddatli uyga safar qiladi. FIFA Jahon kubogi: FIFA ayollar oʻrtasidagi Jahon chempionati: FIFA klub futboli:"
+    }
+   }
+  },
+  {
+   "id": "1ruk9jk",
+   "side": "football",
+   "topic": "news",
+   "kind": "Yangilik",
+   "short": "Yangilik - Arsenal - Portugaliya",
+   "title": "“Arsenal” yozda Portugaliya milliy jamoasi hujumchisini xarid qilmoqchi",
+   "summary": "Football Insider nashrining xabar berishicha, “Arsenal” 2027-yil yozida Portugaliya va “Bryugge” hujumchisi Karlush Forbs bilan shartnoma imzolash uchun asosiy da’vogarlar qatorida boʻladi. Manbaga koʻra, Belgiya klubi 22 yoshli futbolchi qishda sotuvga qoʻyilmasligini ma’lum qilgan, ammo bu vaziyat yozda oʻzgarishi…",
+   "body": [
+    "Football Insider nashrining xabar berishicha, “Arsenal” 2027-yil yozida Portugaliya va “Bryugge” hujumchisi Karlush Forbs bilan shartnoma imzolash uchun asosiy da’vogarlar qatorida boʻladi.",
+    "Manbaga koʻra, Belgiya klubi 22 yoshli futbolchi qishda sotuvga qoʻyilmasligini ma’lum qilgan, ammo bu vaziyat yozda oʻzgarishi mumkin.",
+    "“Arsenal” oʻtgan yozda “Bryugge”dan boshqa bir hujumchi Xristos Tzolisni sotib olgandi.",
+    "Portugaliyalik futbolchi bu mavsumda barcha musobaqalarda 17 ta oʻyinda maydonga tushib, beshta gol urdi va yettita golli uzatmani amalga oshirdi. Uning klub bilan amaldagi shartnomasi 2029-yil yoziga qadar amal qiladi. Transfermarket ma’lumotlariga koʻra, uning bozor qiymati 23 million yevroni tashkil qiladi."
+   ],
+   "image": "https://gocdn.daryo.uz/large/2026/11/28/ac6eb9b2be49b3d4f222d1484b250064272346cd19d215903bc6341307ba4d4c.webp",
+   "url": "https://daryo.uz/2026/11/28/arsenal-yozda-portugaliya-milliy-jamoasi-hujumchisini-xarid-qilmoqchi/",
+   "source": "Daryo",
+   "publishedAt": "2026-11-28T08:13:48.000Z",
+   "video": null,
+   "lang": "uz",
+   "tr": {}
+  },
+  {
+   "id": "oi6zls",
+   "side": "football",
+   "topic": "moments",
+   "kind": "Gol",
+   "short": "Gol - Igor Jezus ajoyib gol urdi",
+   "title": "Igor Jesus Scores An Amazing Volley",
+   "summary": "Love this video?",
+   "body": null,
+   "image": "https://i.ytimg.com/vi/W02ac-AA6WY/hqdefault.jpg",
+   "url": "https://www.youtube.com/shorts/W02ac-AA6WY",
+   "source": "Premier League",
+   "publishedAt": "2026-11-28T00:01:21.000Z",
+   "video": {
+    "provider": "youtube",
+    "id": "W02ac-AA6WY"
+   },
+   "lang": "en",
+   "tr": {
+    "uz": {
+     "title": "Igor Jezus ajoyib gol urdi",
+     "summary": "Bu video yoqdimi?"
+    }
+   }
+  },
+  {
+   "id": "ogjv87",
+   "side": "football",
+   "topic": "moments",
+   "kind": "Natija",
+   "short": "Natija - 2026 - Füllkrug buni yana qiladi! - WERDER…",
+   "title": "Füllkrug Does It AGAIN! - WERDER BREMEN - BORUSSIA M'GLADBACH - MD 11 – Bundesliga",
+   "summary": "SV Werder Bremen vs. Borussia Mönchengladbach – Highlights from Matchday 11! Watch the Bundesliga highlights of SV Werder Bremen vs. Borussia Mönchengladbach from Matchday 11 of the 2026/27 season! Goals: 0-1 Diks (27'), 1-1 Dinkçi (38'), 1-2 Honorat (46'), 1-3 Honorat (78'), 2-3 Dinkçi (85'), 3-3 Füllkrug (90+2')…",
+   "body": null,
+   "image": "https://i.ytimg.com/vi/hPq2fZNXbuc/hqdefault.jpg",
+   "url": "https://www.youtube.com/watch?v=hPq2fZNXbuc",
+   "source": "Bundesliga",
+   "publishedAt": "2026-11-27T21:43:57.000Z",
+   "video": {
+    "provider": "youtube",
+    "id": "hPq2fZNXbuc"
+   },
+   "lang": "en",
+   "tr": {
+    "uz": {
+     "title": "Füllkrug buni yana qiladi! - WERDER BREMEN - BORUSSIA M'GLADBACH - MD 11 - Bundesliga",
+     "summary": "SV Verder Bremen - Borussiya Myonxengladbax - 11-turdan e'tiborga molik lavhalar! Bundesliganing 2026/27 yilgi mavsumining 11-turidan oʻrin olgan \"Verder\" - \"Borussiya Myonxengladbax\" uchrashuvining eng muhim lavhalarini tomosha qiling! Gollar: 0-1 Diks (27'), 1-1 Dinkchi (38'), 1-2 Honorat (46'), 1-3 Honorat (78'), 2-3 Dinkchi (85'), 3-3 Fyullkrug (90+2')…"
+    }
+   }
+  },
+  {
+   "id": "s8x96k",
+   "side": "football",
+   "topic": "news",
+   "kind": "Yangilik",
+   "short": "Yangilik - Oʻzbekiston - Ispaniya",
+   "title": "Oʻzbekiston U-17 terma jamoasi Jahon chempionatining 1/16 finaliga chiqdi va Ispaniya bilan oʻynaydi",
+   "summary": "Oʻzbekiston U-17 terma jamoasi Qatarda oʻtayotgan jahon chempionatining 1/16 final bosqichiga yoʻl oldi. Jamoa eng yaxshi uchinchi oʻrin egalari qatorida pley-offning soʻnggi yoʻllanmasini qoʻlga kiritdi va 30 noyabr kuni Ispaniyaga qarshi maydonga tushadi.",
+   "body": [
+    "Foto: OʻFA",
+    "Qatarda davom etayotgan 17 yoshgacha boʻlgan futbolchilar oʻrtasidagi jahon chempionatida guruh bosqichi bahslari yakunlandi. 27 noyabr kuni «K» guruhining soʻnggi turida Ruminiya oʻsmirlar jamoasi Kamerun ustidan 3:1 hisobida gʻalaba qozondi va 3 ochko jamgʻardi. Biroq qoʻshimcha koʻrsatkichlar boʻyicha ruminlar eng yaxshi uchinchi oʻrinni egallagan 8 ta jamoa qatoriga kira olmadi, natijada pley-offning soʻnggi yoʻllanmasi Oʻzbekiston terma jamoasiga nasib etdi.",
+    "«E» guruhida ishtirok etgan Oʻzbekiston U-17 terma jamoasi uchta oʻyinda 3 ochko toʻplab, toʻplar nisbati 8:7 (+1) koʻrsatkichi bilan uchinchi pogʻonani egallagan edi. Jamoa 20 noyabr kuni 1-turda Kot-d'Ivuarga 1:2 hisobida imkoniyatni boy berdi. 23 noyabr kuni 2-turda Yamayka ustidan 6:2 hisobida yirik gʻalaba qozonildi — ushbu bahsda Suhrob Sadirjonov xet-trik qayd etgan boʻlsa, Laziz Abdurayimov, Amirxon Erkinov va Ahror Ravshanbekov bittadan gol muallifiga aylandi.",
+    "26 noyabr kuni oʻtkazilgan guruh bosqichining soʻnggi turida Oʻzbekiston Italiyaga 1:3 hisobida magʻlub boʻldi. Guruh yakunlariga koʻra, Italiya 9 ochko bilan birinchi, Kot-d'Ivuar 6 ochko bilan ikkinchi oʻrinni egallab, pley-offga toʻgʻridan-toʻgʻri yoʻl oldi, Yamayka esa ochko jamgʻara olmay soʻnggi pogʻonada qoldi.",
+    "Pley-offning 1/16 final bosqichida Oʻzbekiston U-17 terma jamoasi Ispaniyaga qarshi maydonga tushadi. Ispaniyaliklar guruh bosqichida 100 foizlik natija va 22:0 toʻplar nisbatini qayd etgan, xususan, Fiji darvozasiga javobsiz 15 ta gol urgan. Uchrashuv 30 noyabr kuni Toshkent vaqti bilan soat 20:30 da boshlanadi.",
+    "Telegram kanalga aʼzo boʻling",
+    "Izoh"
+   ],
+   "image": "https://www.gazeta.uz/media/img/2026/11/lcieor81iprb6stdp3V17958492266567_211919_og.webp?r=1795849367",
+   "url": "https://www.gazeta.uz/uz/2026/11/28/u17-world-cup/",
+   "source": "Gazeta.uz",
+   "publishedAt": "2026-11-28T07:02:00.000Z",
+   "video": null,
+   "lang": "uz",
+   "tr": {}
+  },
+  {
+   "id": "tueyph",
+   "side": "football",
+   "topic": "moments",
+   "kind": "Gol",
+   "short": "Gol - Arsenal - Manchester City",
+   "title": "ICONIC MOMENTS - Arsenal v Man City - Premier League era",
+   "summary": "Goals, red cards, controversies, this fixture has had it all through the years. Which iconic moment stands out as your favourite? Go deeper with CITY+. Watch live games, full-match replays and exclusive City Studios documentaries with a subscription: Explore more from Manchester City:",
+   "body": null,
+   "image": "https://i.ytimg.com/vi/b_RsmsIUVJo/hqdefault.jpg",
+   "url": "https://www.youtube.com/watch?v=b_RsmsIUVJo",
+   "source": "Manchester City",
+   "publishedAt": "2026-11-27T19:43:35.000Z",
+   "video": {
+    "provider": "youtube",
+    "id": "b_RsmsIUVJo"
+   },
+   "lang": "en",
+   "tr": {
+    "uz": {
+     "title": "IKONIY LAHZALAR - \"Arsenal\" - \"Man Siti\" - Premer-liga davri",
+     "summary": "Gollar, qizil kartochkalar, mojarolar, bu oʻyin yillar davomida shunday boʻldi. Qaysi ramziy lahza sizning sevimli vaqtingiz sifatida ajralib turadi? CITY+ bilan chuqurroq boring. Obuna bilan jonli oʻyinlar, toʻliq oʻyin takrori va City Studios-ning eksklyuziv hujjatli filmlarini tomosha qiling: Manchester Siti haqida koʻproq maʼlumot oling:"
+    }
+   }
+  },
+  {
+   "id": "5l80xh",
+   "side": "football",
+   "topic": "news",
+   "kind": "Yangilik",
+   "short": "Yangilik - Angliya",
+   "title": "Dawson: Rashid is still England's No 1 white-ball spinner",
+   "summary": "Liam Dawson insists Adil Rashid remains England's No 1 white-ball spinner - even though he has seemingly taken the Yorkshireman's place as first-choice pick in ODIs.",
+   "body": [
+    "Liam Dawson insists Adil Rashid remains England's No 1 white-ball spinner - even though he has seemingly taken the Yorkshireman's place as first-choice pick in ODIs.",
+    "Stalwart Rashid, 38, has been left out of England's last six 50-over encounters - three in Pakistan and then three in Australia - with Dawson the frontline slow bowler for those games.",
+    "The duo form a potent pairing in T20 internationals, though, and bowled economically - and in Dawson's case prolifically, as he took 3-16 from three overs - in Brisbane on Friday as England took a 2-1 lead over Australia in the five-match series.",
+    "Jamie Overton goes 'back to basics' to deliver big England win",
+    "Australia's Sandpapergate probe to include 2017-18 Ashes",
+    "Latest Sky Sports deals or stream contract-free with NOW",
+    "Speaking ahead of Sunday's fourth fixture in Sydney (8.15am UK), Dawson, 36, said: \"I'm not sure I've knocked him out [of the team] because it's all conditions dependent, but he's still England's best white-ball spinner, without doubt,\" he said.",
+    "\"I wouldn't look too far into what's happened on this trip, or in Pakistan before that. He'll certainly come good again because he's a world-class performer.\"",
+    "On his own ascent into a key player for England, Dawson said: \"Having the backing of [captain Harry Brook] for the past 18 months, and to play as much as I have, has been brilliant. I've really enjoyed it and hopefully I can carry on and keep performing.",
+    "\"It's obviously nice but I'm very realistic from a personal point of view. I know how good Rash is, everybody in world cricket knows how good he is.\"",
+    "'Ahmed has a fantastic attitude'",
+    "Dawson also hailed two more England spinners, in Sussex's James Coles, who made his debut against Australia in this T20 series, and Rehan Ahmed, who has been added to the squad for the final two fixtures following Will Jacks' trip ending early due to a broken hand.",
+    "The Hampshire bowler added: \"Colesy has done so well for someone so young, I think people forget that, and he's got a hell of a lot of cricket ahead of him.",
+    "\"Rehan's a great lad, I've known him a couple of years now and he's one of the hardest workers - always wants to bat, always wants to bowl, always wants to field. He's got a fantastic attitude.",
+    "\"I've played a lot of cricket and I'm a lot older than those guys so I'll chat to them in training.",
+    "\"You've always got to find your own way as well, work it out a little bit, but I'm very happy to speak to them both and help, of course.\"",
+    "Results/schedule for England's Australia tour",
+    "All T20 internationals to start at 8.15am UK time",
+    "First ODI: Australia won by seven wickets in Perth",
+    "Second ODI: England won by 135 runs in Adelaide",
+    "Third ODI: England won by 97 runs in Hobart",
+    "First T20I: Australia won by three wickets in Melbourne",
+    "Second T20I: England won by eight wickets in Carrara",
+    "Third T20I: England won by seven wickets (DLS) in Brisbane",
+    "Fourth T20I: Sunday November 29 (Sydney)",
+    "Fifth T20I: Wednesday December 2 (Canberra)"
+   ],
+   "image": "https://e1.365dm.com/26/11/1920x1080/skysports-liam-dawson-adil-rashid_7418346.jpg?20261128070018",
+   "url": "https://www.skysports.com/cricket/news/12040/13617401/england-t20s-in-australia-liam-dawson-says-adil-rashid-still-no-1-spinner-as-tourists-target-series-victory-in-sydney",
+   "source": "Sky Sports",
+   "publishedAt": "2026-11-28T07:00:00.000Z",
+   "video": null,
+   "lang": "en",
+   "tr": {
+    "uz": {
+     "title": "Douson: Rashid hali ham Angliyaning 1-raqamli oq toʻp yigiruvchisi",
+     "summary": "Liam Dousonning ta'kidlashicha, Odil Rashid Angliyaning 1-raqamli oq toʻp yigiruvchisi boʻlib qolmoqda - garchi u ODIda birinchi tanlov sifatida Yorkshiremanning oʻrnini egallagan boʻlsa ham.",
+     "body": [
+      "Liam Dousonning ta'kidlashicha, Odil Rashid Angliyaning 1-raqamli oq toʻp yigiruvchisi boʻlib qolmoqda - garchi u ODIda birinchi tanlov sifatida Yorkshiremanning oʻrnini egallagan boʻlsa ham.",
+      "38 yoshli Stalvart Rashid Angliyaning soʻnggi oltita 50 ta uchrashuvidan chetda qoldi - uchtasi Pokistonda, keyin uchtasi Avstraliyada - Douson oʻsha oʻyinlarda oldingi chiziqdagi sekin boullingchi.",
+      "Bu duet T20 xalqaro musobaqalarida kuchli juftlikni tashkil qiladi va iqtisodiy jihatdan - va Dousonning misolida, u uchta oʻyindan 3:16 olgani uchun - juma kuni Brisbenda Angliya beshta oʻyin seriyasida Avstraliya ustidan 2:1 hisobida oldinga chiqib oldi.",
+      "Jeymi Overton Angliyaning yirik gʻalabasini ta'minlash uchun \"asoslariga qaytdi\"",
+      "Avstraliyaning Sandpapergate probi 2017-18 yilgi kullarni oʻz ichiga oladi",
+      "Oxirgi Sky Sports takliflari yoki NOW bilan shartnomasiz translatsiya",
+      "Yakshanba kuni Sidneyda (Buyuk Britaniyada soat 8:15da) toʻrtinchi uchrashuv oldidan gapirar ekan, 36 yoshli Douson shunday dedi: \"Men uni [jamoadan] nokaut qilganimga ishonchim komil emas, chunki bu barcha shartlarga bogʻliq, lekin u hali ham Angliyaning eng yaxshi oq toʻp yigiruvchisi, shubhasiz\", dedi u.",
+      "\"Men bu safarda yoki undan oldin Pokistonda sodir boʻlgan voqealarga juda uzoqqa qaramagan boʻlardim. U albatta yana yaxshi keladi, chunki u jahon darajasidagi ijrochi.\"",
+      "Oʻzining Angliya terma jamoasining asosiy oʻyinchisiga aylangani haqida, Douson shunday dedi: \"Soʻnggi 18 oy davomida [kapitan Garri Brukni] qoʻllab-quvvatlaganim va men kabi oʻynaganim ajoyib boʻldi. Bu menga juda yoqdi va umid qilamanki, men oʻynashda davom etaman va davom etaman.",
+      "\"Bu juda yoqimli, lekin men shaxsiy nuqtai nazardan juda realistman. Men Rashning qanchalik yaxshi ekanligini bilaman, jahon kriketidagi hamma uning qanchalik yaxshi ekanligini biladi.\"",
+      "\"Ahmed ajoyib kayfiyatda\"",
+      "Douson shuningdek, ushbu T20 seriyasida Avstraliyaga qarshi debyut qilgan Sasseksdagi Jeyms Koulz va qoʻli singanligi sababli Uill Jeksning safari erta tugaganidan soʻng soʻnggi ikki oʻyin uchun tarkibga qoʻshilgan Rehan Ahmad kabi yana ikkita ingliz spinnerini olqishladi.",
+      "Xempshir boulyori qoʻshimcha qildi: \"Kolesi juda yosh odam uchun juda yaxshi ish qildi, menimcha, odamlar buni unutishadi va uni juda koʻp kriket kutmoqda.",
+      "\"Rehan ajoyib yigit, men uni bir necha yildan beri bilaman va u eng mehnatkashlardan biri - har doim toʻp surishni xohlaydi, har doim piyola oʻynashni xohlaydi, maydonga tushishni xohlaydi. U ajoyib munosabatda.",
+      "\"Men koʻp kriket oʻynaganman va men bu bolalardan ancha kattaman, shuning uchun mashgʻulotlarda ular bilan suhbatlashaman.",
+      "\"Siz ham har doim oʻz yoʻlingizni topishingiz kerak, uni biroz ishlab chiqishingiz kerak, lekin men ikkalasi bilan gaplashib, yordam berishdan juda xursandman, albatta.\"",
+      "Angliyaning Avstraliya safari natijalari/taqvimi",
+      "Barcha T20 xalqaro musobaqalari Buyuk Britaniya vaqti bilan 8.15 da boshlanadi",
+      "Birinchi ODI: Avstraliya Pertda yettita darvoza ustuni bilan gʻalaba qozondi",
+      "Ikkinchi ODI: Angliya Adelaidada 135 yugurish bilan gʻalaba qozondi",
+      "Uchinchi ODI: Angliya Xobartda 97 ta yugurish bilan gʻalaba qozondi",
+      "Birinchi T20I: Avstraliya Melburnda uchta darvoza ustuni bilan gʻalaba qozondi",
+      "Ikkinchi T20I: Angliya Karrarada sakkizta darvoza ustuni bilan gʻalaba qozondi",
+      "Uchinchi T20I: Angliya Brisbenda yettita darvoza (DLS) bilan gʻalaba qozondi",
+      "Toʻrtinchi T20I: 29-noyabr yakshanba (Sidney)",
+      "Beshinchi T20I: 2-dekabr chorshanba (Kanberra)"
+     ]
+    }
+   }
+  },
+  {
+   "id": "1fghgwc",
+   "side": "football",
+   "topic": "moments",
+   "kind": "Dribling",
+   "short": "Dribling - Koʻnikmalar, selfi va boshqalar",
+   "title": "Skills, selfies and more",
+   "summary": "UEFA Champions League: UEFA Europa League: UEFA Conference League: UEFA Women's Champions League:",
+   "body": null,
+   "image": "https://i.ytimg.com/vi/mPCwwpQB-oM/hqdefault.jpg",
+   "url": "https://www.youtube.com/shorts/mPCwwpQB-oM",
+   "source": "UEFA",
+   "publishedAt": "2026-11-27T17:18:55.000Z",
+   "video": {
+    "provider": "youtube",
+    "id": "mPCwwpQB-oM"
+   },
+   "lang": "en",
+   "tr": {
+    "uz": {
+     "title": "Koʻnikmalar, selfi va boshqalar",
+     "summary": "UEFA Chempionlar Ligasi: UEFA Yevropa Ligasi: UEFA Konferentsiya Ligasi: UEFA Ayollar Chempionlar Ligasi:"
+    }
+   }
+  }
+ ]
+}
